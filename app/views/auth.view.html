@@ -1,0 +1,32 @@
+<div>
+    <div class="row" style="margin-top:50px; background-color: white;">
+        <div class="col-lg-2">&nbsp;</div>
+        <div class="col-lg-4">
+            <img src="images/ARM_Logo.jpg" style="width:300px;"/>
+        </div>
+        <div class="col-lg-4">
+            <br>
+            <span>
+                <br><br>
+            </span>
+            <span class="label label-danger"
+                  style="font-size: 14px;" ng-if="auth.loginError">
+                Invalid Username/Password.
+            </span>
+            <form>
+                <div class="form-group">
+                    <input type="email" class="form-control"
+                           placeholder="Email"
+                           ng-model="auth.email">
+                </div>
+                <div class="form-group">
+                    <input type="password" class="form-control"
+                           placeholder="Password"
+                           ng-model="auth.password">
+                </div>
+                <button class="btn btn-primary" ng-click="auth.login()">Submit</button>
+            </form>
+        </div>
+        <div class="col-lg-2">&nbsp;</div>
+    </div>
+</div>

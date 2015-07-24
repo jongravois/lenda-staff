@@ -1,0 +1,40 @@
+<div style="margin-top: -40px; z-index: 5;">
+    <!-- APPLICATIONS -->
+    <div class="row button_bar">
+        <div class="col-md-9 form_group text-right">&nbsp;</div>
+        <div class="col-md-3 form_group" style="z-index: 1250;">
+            <form>
+                <select class="form-control" name="landing_view" ng-model="landing_view" ng-change="changeLandingView(landing_view)">
+                    <option value="settings">My Settings</option>
+                    <option value="all">All Loans</option>
+                    <option value="spring">Active Spring Loans</option>
+                    <option value="fall">Active Fall Loans</option>
+                </select>
+            </form>
+        </div>
+    </div> <!-- end .button_bar -->
+
+    <div data-tbl="tblApplications" class="landing_header_bar clr-black" style="display:none;">
+        <h3 class="divider_title inlined" style="padding-left:20px;">LOANS</h3>
+    <span class="filterQueue">
+        Filter List:&nbsp;<input type="text" ng-model="loanFilter" />
+    </span>
+    </div> <!-- end .landing_header_bar -->
+
+    <!--ng-grid-->
+    <div
+        class="gridStyle tblLanding"
+        style="height:480px;"
+        ng-grid="gridOptions">
+    </div>
+
+    <br/>
+    <div class="row" style="display:none;">
+        <div class="col-sm-12">
+            <button class="btn btn-success" ng-click="createLenda()">Make a LENDA</button>
+        </div>
+    </div>
+    <!-- APPLICATIONS -->
+    <!--<pre>{{loans | json}}</pre>-->
+
+</div>

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html ng-app="ARM">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-COMPATIBLE" content="IE=edge, chrome=1" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+        <meta name="description" content="AR Management Operations">
+        <meta name="author" content="Jonathan Gravois">
+        <title>LENDA STAFF</title>
+        <link rel="shortcut icon"
+              href="favicon.ico" />
+
+        <link rel="stylesheet"
+              href="css/glyphicons.css"/>
+        <link rel="stylesheet"
+              href="css/glyphicons-bootstrap.css"/>
+        <link rel="stylesheet"
+              href="css/bootstrap.min.css"/>
+        <link rel="stylesheet"
+              href="js/angular-loading-bar/loading-bar.css"/>
+        <link rel="stylesheet"
+              href="js/angular-toastr/angular-toastr.css"/>
+
+        <link rel="stylesheet"
+              href="css/styles.css"/>
+        <style>
+            .ng-hide{ display: none !important; }
+        </style>
+    </head>
+    
+    <body>
+        <div id="main_container">
+            <div ui-view></div>
+        </div>
+    </body>
+    
+    <!-- Application Dependencies -->
+    <script src="js/lodash/lodash.js"></script>
+    <script src="js/jquery/jquery.js"></script>
+    <script src="js/moment/moment.js"></script>
+    <script src="js/angular/angular.js"></script>
+    <script src="js/angular-ui-router/angular-ui-router.js"></script>
+    <script src="js/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+    <script src="js/angular-toastr/angular-toastr.js"></script>
+    <script src="js/angular-loading-bar/loading-bar.js"></script>
+    <script src="js/satellizer/satellizer.js"></script>
+
+    <!-- Application Scripts -->
+    <!-- inject:js -->
+    <script src="/app/app.module.js"></script>
+    <script src="/app/auth.ctrl.js"></script>
+    <script src="/app/config.js"></script>
+    <script src="/app/constants.js"></script>
+    <script src="/app/home.ctrl.js"></script>
+    <script src="/app/main.ctrl.js"></script>
+    <script src="/app/menu.ctrl.js"></script>
+    <script src="/app/menu.factory.js"></script>
+    <script src="/app/routes.js"></script>
+    <script src="/app/settings.ctrl.js"></script>
+    <script src="/app/user.ctrl.js"></script>
+    <script src="/app/_directives/armlogobar.directive.js"></script>
+    <script src="/app/_directives/menubar.directive.js"></script>
+    <script src="/app/_directives/notificator.directive.js"></script>
+    <script src="/_modules/Admin/_filters/filters.js"></script>
+    <script src="/_modules/Admin/admin.ctrl.js"></script>
+    <script src="/_modules/Admin/admin.routes.js"></script>
+    <script src="/_modules/Library/library.ctrl.js"></script>
+    <script src="/_modules/Library/library.routes.js"></script>
+    <script src="/_modules/Loans/loans.ctrl.js"></script>
+    <script src="/_modules/Loans/loans.routes.js"></script>
+    <script src="/_modules/Loans/management.ctrl.js"></script>
+    <script src="/_modules/Reports/reports.ctrl.js"></script>
+    <script src="/_modules/Reports/reports.routes.js"></script>
+    <!-- endinject -->
+</html>

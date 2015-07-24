@@ -1,0 +1,56 @@
+//Variables
+@arm-green: #006837;
+@black: #000000;
+@white: #ffffff;
+@darkestgray: #333333;
+@darkergray: #555555;
+@darkgray: #aaaaaa;
+@gray: #cccccc;
+@faintgray: #EAEDF1;
+@pending: #dddddd;
+@darkgreen: @arm-green;
+@blue: #000099;
+@medblue: #3366AA;
+@brightred: #ba0000;
+@red: #990000;
+@yellow: #e0a02d;
+@orange: #ff4500;
+
+.clr-black {
+    background: @black;
+    /* Old browsers */
+    background: linear-gradient(@darkgray, @black);
+}
+
+.clr-gray {
+    background: @darkgray;
+    /* Old browsers */
+    background: linear-gradient(@gray, @darkgray);
+}
+
+.clr-darkgreen {
+    background: @arm-green;
+    /* Old browsers */
+    background: linear-gradient(@arm-green, lighten(@arm-green, 20%));
+}
+
+.make-blue { color: @blue; }
+.make-green { color: @arm-green; }
+.make-gray { color: @gray; }
+.make-red { color: @red; }
+.make-yellow { color: @yellow; }
+.cBlack { color: @black; }
+.cBlue { color: @blue; }
+.cGray { color: @gray; }
+.cGreen { color: @arm-green; }
+.cOrange { color: @orange; }
+.cRed { color: @red; }
+.cYellow { color: @yellow; }
+
+.clrOn {color: @darkgray; }
+.clrOff { color: @gray; }
+.clrAlert { color: @brightred; }
+
+.pIcoPen { color: @gray; }
+.pIcoComp { color: @arm-green; }
+.pIcoOver { color: @red; }
