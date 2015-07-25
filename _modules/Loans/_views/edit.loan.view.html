@@ -1,72 +1,60 @@
-<style>
-    .table > tbody > tr > td {
-        padding: 5px !important;
-    }
+<arm-logo-bar></arm-logo-bar>
+<arm-menu-bar></arm-menu-bar>
 
-    .enabled {
-        color: #ffff00;
-    }
+<div class="below-the-bar">
+    <div class="frmFull_Page">
+        <div class="row view-page-header-bar">
+            <div class="col-md-5">
+                <!--<h6>{{loan.loan_type}} <span ng-if="loan.has_distributor">&nbsp;[{{loan.distributor}}]&nbsp;</span>- {{loan.crop_year}} - {{loan.season_full}}: {{loan.applicant.applicant}}
+                    ({{loan.farmer.farmer|displayname}} )</h6>-->
+                <h6>This will be replaced with Data</h6>
+            </div>
 
-    .disabled {
-        color: #999999;
-    }
-</style>
-<div class="frmFull_Page">
-    <div class="row frmBarsm clr-black">
-        <div class="col-md-5">
-            <h6>{{loan.loan_type}} <span ng-if="loan.has_distributor">&nbsp;[{{loan.distributor}}]&nbsp;</span>- {{loan.crop_year}} - {{loan.season_full}}: {{loan.applicant.applicant}}
-                ({{loan.farmer.farmer|displayname}} )</h6>
-        </div>
-        <div class="col-md-3 text-center">&nbsp;</div>
-        <div class="col-md-4 text-right" style="color:white;margin-top:5px;">
-            <!-- TODO: DIRECTIVES LIKE PLUNKER-->
-    <span ng-if="loan.loan_type_id != 7">
-        CF: {{AppFactory.calcCashFlow(loan)|flexCurrency:0}}
-        &nbsp;&nbsp;|&nbsp;&nbsp;
-    </span>
-    <span ng-if="loan.loan_type_id != 3 && loan.loan_type_id != 4">
-        RM: {{AppFactory.calcRiskMargin(loan)|flexCurrency:0}}
-    </span>
-    <span ng-if="loan.loan_type_id == 3 || loan.loan_type_id == 4">
-        &nbsp;&nbsp;|&nbsp;&nbsp;
-        <sub>adj</sub>RM: {{AppFactory.calcAdjustedRiskMargin(loan)|flexCurrency:0}}
-    </span>
-        </div>
-    </div>
+            <div class="col-md-3 text-center">&nbsp;</div>
 
-    <div class="row frmBar clr-darkgreen" style="margin-top: -12px;" ng-show="XColView">
-        <div class="col-md-12">
-            <h5>Cross Collateral View</h5>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="form-group col-md-12" style="margin-bottom: -20px;">
-            <div ng-include="'angular/layout/topbars/loanProgress.html'"></div>
-        </div>
-    </div>
-
-    <hr style="margin-top: 5px;"/>
-
-    <div class="row" style="display:none;">
-        <div class="col-md-12">
-            <pre>{{loan|json}}</pre>
-        </div>
-    </div>
-
-    <div class="row">
-        <div id="colIcon" class="col-xs-1" ng-if="!showSidebar">
-            <div ng-include="'angular/layout/sidebars/edit.loan.icons.html'"></div>
+            <div class="col-md-4 text-right" style="color:white;margin-top:5px;">
+                <!-- TODO: DIRECTIVES LIKE PLUNKER-->
+    		<span ng-if="loan.loan_type_id != 7">
+        		CF: {{AppFactory.calcCashFlow(loan)|flexCurrency:0}}
+        		&nbsp;&nbsp;|&nbsp;&nbsp;
+    		</span>
+    		<span ng-if="loan.loan_type_id != 3 && loan.loan_type_id != 4">
+        		RM: {{AppFactory.calcRiskMargin(loan)|flexCurrency:0}}
+    		</span>
+    		<span ng-if="loan.loan_type_id == 3 || loan.loan_type_id == 4">
+        		&nbsp;&nbsp;|&nbsp;&nbsp;
+        		<sub>adj</sub>RM: {{AppFactory.calcAdjustedRiskMargin(loan)|flexCurrency:0}}
+    		</span>
+            </div>
         </div>
 
-        <div id="colPush" ng-class="showSidebar ? 'col-xs-2' : 'hidden'">
-            <div ng-include="'angular/layout/sidebars/edit.loan.full.html'"></div>
+        <div class="row xcol-view-bar" ng-show="editor.XColView">
+            <div class="col-md-12">
+                <h5>Cross Collateral View</h5>
+            </div>
         </div>
 
-        <div ng-class="showSidebar ? 'col-xs-10' : 'col-xs-11'"  id="colMain" style="margin-left: -44px;" >
-            <div ui-view></div>
+        <div class="row">
+            <div class="form-group col-md-12" style="margin-bottom: -20px;">
+                <div ng-include="'./_modules/Loans/_views/loanProgress.html'"></div>
+            </div>
         </div>
 
+        <hr style="margin-top: 5px;"/>
+
+        <div class="row">
+            <div id="colIcon" class="col-xs-1" ng-if="!editor.showSidebar">
+                <div ng-include="'./_modules/Loans/_views/edit.loan.icons.html'"></div>
+            </div>
+
+            <div id="colPush" ng-class="editor.showSidebar ? 'col-xs-2' : 'hidden'">
+                <div ng-include="'./_modules/Loans/_views/edit.loan.full.html'"></div>
+            </div>
+
+            <div ng-class="editor.showSidebar ? 'col-xs-10' : 'col-xs-11'"  id="colMain" style="margin-left: -44px;" >
+                <div ui-view></div>
+            </div>
+
+        </div>
     </div>
 </div>
-<!--<pre>{{user | json}}</pre>-->

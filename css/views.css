@@ -74,6 +74,21 @@
   height: 38px;
   z-index: 10;
 }
+.below-the-bar {
+  background-color: white;
+  margin-top: 8px;
+  border-top: 2px solid #333;
+}
+.xcol-view-bar {
+  color: #ffffff;
+  background-color: #006837;
+  padding: 5px 20px 5px 42px;
+  height: 32px;
+  z-index: 15;
+}
+.xcol-view-bar h5 {
+  margin-top: 3px;
+}
 .view-full-table {
   width: 98%;
   margin: 10px auto 0 auto;
