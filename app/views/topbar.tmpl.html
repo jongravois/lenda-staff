@@ -22,18 +22,8 @@
         </span>
         &nbsp;&nbsp;|&nbsp;&nbsp;
          <a ui-sref="reports.home">
-             Reports Home
+             Reports
          </a>
-          &nbsp;&nbsp;|&nbsp;&nbsp;
-        <span class="dropdown" dropdown on-toggle="menu.toggled(open)">
-            <a href class="dropdown-toggle" dropdown-toggle>Reports  <span class="menuglyphs glyphicons glyphicons-chevron-down"></span></a>
-            <ul class="dropdown-menu" role="menu">
-                <li ng-repeat="rpt in menu.reports">
-                    <a ui-sref="reports.{{rpt.rptPath}}"><span class="glyphicon glyphicon-star" ng-if="rpt.is_required"></span> {{rpt.report}}</a>
-                </li>
-            </ul>
-            </a>
-        </span>
         &nbsp;&nbsp;|&nbsp;&nbsp;
         <span class="dropdown" dropdown on-toggle="menu.toggled(open)">
             <a href class="dropdown-toggle" dropdown-toggle>Library <span class="menuglyphs glyphicons glyphicons-chevron-down"></span></a>
@@ -63,12 +53,6 @@
         </span>
         <span ng-show="main.user.is_admin">
             &nbsp;&nbsp;|&nbsp;&nbsp;
-             <a ui-sref="admin.home">
-                 Home
-             </a>
-        </span>
-        <span ng-show="main.user.is_admin">
-            &nbsp;&nbsp;|&nbsp;&nbsp;
             <span class="dropdown" dropdown on-toggle="menu.toggled(open)">
                 <a href class="dropdown-toggle" dropdown-toggle>Admin <span class="menuglyphs glyphicons glyphicons-chevron-down"></span></a>
                <ul class="dropdown-menu" role="menu">
@@ -76,52 +60,52 @@
                        <a ui-sref-active="active">Feeders</a>
                        <ul class="dropdown-menu">
                            <li>
-                               <a ui-sref-active="active" ui-sref="admin.agents.list">
+                               <a ui-sref-active="active" ui-sref="admin.agents">
                                    Agents &amp; Agencies
                                </a>
                            </li>
                            <li>
-                               <a ui-sref-active="active" ui-sref="admin.crops.list">
+                               <a ui-sref-active="active" ui-sref="admin.crops">
                                    Crops
                                </a>
                            </li>
                            <li>
-                               <a ui-sref-active="active" ui-sref="admin.distributors.list">
+                               <a ui-sref-active="active" ui-sref="admin.distributors">
                                    Distributors
                                </a>
                            </li>
                            <li>
-                               <a ui-sref-active="active" ui-sref="admin.entitytypes.list">
+                               <a ui-sref-active="active" ui-sref="admin.entitytypes">
                                    Entity Types
                                </a>
                            </li>
                            <li>
-                               <a ui-sref-active="active" ui-sref="admin.instypes.list">
+                               <a ui-sref-active="active" ui-sref="admin.instypes">
                                    Insurance Types
                                </a>
                            </li>
                            <li>
-                               <a ui-sref-active="active" ui-sref="admin.loantypes.list">
+                               <a ui-sref-active="active" ui-sref="admin.loantypes">
                                    Loan Types
                                </a>
                            </li>
                            <li>
-                               <a ui-sref-active="active" ui-sref="admin.locations.list">
+                               <a ui-sref-active="active" ui-sref="admin.locations">
                                    Locations
                                </a>
                            </li>
                            <li>
-                               <a ui-sref-active="active" ui-sref="admin.regions.list">
+                               <a ui-sref-active="active" ui-sref="admin.regions">
                                    Regions
                                </a>
                            </li>
                            <li>
-                               <a ui-sref-active="active" ui-sref="admin.roles.list">
+                               <a ui-sref-active="active" ui-sref="admin.roles">
                                    Roles
                                </a>
                            </li>
                            <li>
-                               <a ui-sref-active="active" ui-sref="admin.units.list">
+                               <a ui-sref-active="active" ui-sref="admin.measures">
                                    UoM
                                </a>
                            </li>
@@ -131,32 +115,32 @@
                        <a ui-sref-active="active">Library</a>
                        <ul class="dropdown-menu">
                            <li>
-                               <a ui-sref-active="active" ui-sref="admin.pdfapps.list">
+                               <a ui-sref-active="active" ui-sref="admin.pdfapps">
                                    Applications
                                </a>
                            </li>
                            <li>
-                               <a ui-sref-active="active" ui-sref="admin.resources.list">
+                               <a ui-sref-active="active" ui-sref="admin.resources">
                                    Employee
                                </a>
                            </li>
                            <li>
-                               <a ui-sref-active="active" ui-sref="admin.legal.docs.list">
+                               <a ui-sref-active="active" ui-sref="admin.legaldocs">
                                    Legal
                                </a>
                            </li>
                            <li>
-                               <a ui-sref-active="active" ui-sref="admin.pols.and.procs.list">
+                               <a ui-sref-active="active" ui-sref="admin.policies">
                                    Policies
                                </a>
                            </li>
                            <li>
-                               <a ui-sref-active="active" ui-sref="admin.loan.products.list">
+                               <a ui-sref-active="active" ui-sref="admin.products">
                                    Products
                                </a>
                            </li>
                            <li>
-                               <a ui-sref-active="active" ui-sref="admin.matrix.list">
+                               <a ui-sref-active="active" ui-sref="admin.matrix">
                                    Resp Matrix
                                </a>
                            </li>
@@ -166,22 +150,22 @@
                        <a ui-sref-active="active">System</a>
                        <ul class="dropdown-menu">
                            <li>
-                               <a ui-sref-active="active" ui-sref="admin.crops.list">
+                               <a ui-sref-active="active" ui-sref="admin.archive">
                                    Archive Loans
                                </a>
                            </li>
                            <li>
-                               <a ui-sref-active="active" ui-sref="admin.quickbooks.list">
+                               <a ui-sref-active="active" ui-sref="admin.quickbooks">
                                    QB Sync
                                </a>
                            </li>
                            <li>
-                               <a ui-sref-active="active" ui-sref="admin.crops.list">
+                               <a ui-sref-active="active" ui-sref="admin.recon_requests">
                                    Req Reconciles
                                </a>
                            </li>
                            <li>
-                               <a ui-sref-active="active" ui-sref="admin.crops.list">
+                               <a ui-sref-active="active" ui-sref="admin.inspect_requests">
                                    Req Inspects
                                </a>
                            </li>
@@ -191,17 +175,17 @@
                        <a ui-sref-active="active">Loans</a>
                        <ul class="dropdown-menu">
                            <li>
-                               <a ui-sref-active="active" ui-sref="admin.grader.specs.list">
+                               <a ui-sref-active="active" ui-sref="admin.graderspecs">
                                    Budgets
                                </a>
                            </li>
                            <li>
-                               <a ui-sref-active="active" ui-sref="admin.closings.list">
+                               <a ui-sref-active="active" ui-sref="admin.closings">
                                    Closing
                                </a>
                            </li>
                            <li>
-                               <a ui-sref-active="active" ui-sref="admin.committeespecs.list">
+                               <a ui-sref-active="active" ui-sref="admin.committeespecs">
                                    Committee
                                </a>
                            </li>
@@ -211,34 +195,34 @@
                                </a>
                            </li>
                            <li>
-                               <a ui-sref-active="active" ui-sref="admin.globals.list">
+                               <a ui-sref-active="active" ui-sref="admin.globals">
                                    Globals
                                </a>
                            </li>
                            <li>
-                               <a ui-sref-active="active" ui-sref="admin.grader.specs.list">
+                               <a ui-sref-active="active" ui-sref="admin.graderspecs">
                                    Grade
                                </a>
                            </li>
                            <li>
-                               <a ui-sref-active="active" ui-sref="admin.grader.specs.list">
+                               <a ui-sref-active="active" ui-sref="admin.insurance">
                                    Insurance
                                </a>
                            </li>
                            <li>
-                               <a ui-sref-active="active" ui-sref="admin.docs.list">
+                               <a ui-sref-active="active" ui-sref="admin.prerequisites">
                                    Prerequisites
                                </a>
                            </li>
                            <li>
-                               <a ui-sref-active="active" ui-sref="admin.crops.list">
+                               <a ui-sref-active="active" ui-sref="admin.measures_converter">
                                    UoM Conversions
                                </a>
                            </li>
                        </ul>
                    </li>
                    <li>
-                       <a ui-sref-active="active" ui-sref="admin.reports.list">
+                       <a ui-sref-active="active" ui-sref="admin.reports">
                            Reports
                        </a>
                    </li>
@@ -246,17 +230,17 @@
                        <a ui-sref-active="active">Users</a>
                        <ul class="dropdown-menu">
                            <li>
-                               <a ui-sref-active="active" ui-sref="admin.applicants.list">
+                               <a ui-sref-active="active" ui-sref="admin.applicants">
                                    Applicants
                                </a>
                            </li>
                            <li>
-                               <a ui-sref-active="active" ui-sref="admin.farmers.list">
+                               <a ui-sref-active="active" ui-sref="admin.farmers">
                                    Farmers
                                </a>
                            </li>
                            <li>
-                               <a ui-sref-active="active" ui-sref="admin.users.list">
+                               <a ui-sref-active="active" ui-sref="admin.users">
                                    Staff
                                </a>
                            </li>
