@@ -20,6 +20,9 @@
         $http.get(API_URL + 'users/' + user.id)
             .success(function(rsp){
                 vm.user = rsp.data;
+                var fulluser = JSON.stringify(rsp.data);
+                localStorage.removeItem('user');
+                localStorage.setItem('user', fulluser);
             });
 
         vm.getUsers = function() {

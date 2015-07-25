@@ -7,6 +7,7 @@
             'ui.bootstrap',
             'satellizer',
             'angular-loading-bar',
-            'toastr'
+            'toastr',
+            'ngGrid',
         ]);
 })();

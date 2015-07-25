@@ -1,0 +1,69 @@
+<span> <!--ng-if="user.viewopts.voIconAddendum">-->
+    <!--<a href="#/edit/{{row.getProperty('loan_type_id')}}/{{row.getProperty('id')}}/addendums">-->
+        <span class="glyphicon glyphicon-plus"
+              tooltip="Addendum"
+              tooltip-append-to-body="true"
+              tooltip-placement="bottom"
+              ng-class="{ clrOn : row.getProperty('has_addendum'), clrOff: !row.getProperty('has_addendum') }"></span>
+    <!--</a>-->
+</span>
+
+<span> <!-- ng-if="user.viewopts.voIconCross">-->
+    <!--<a href="#/edit/{{row.getProperty('loan_type_id')}}/{{row.getProperty('id')}}/collateral">-->
+        <span class="glyphicon glyphicon-random"
+              tooltip="Cross Collateral"
+              tooltip-append-to-body="true"
+              tooltip-placement="bottom"
+              ng-class="{ clrOn : row.getProperty('is_cross_collateralized'), clrOff: !row.getProperty('is_cross_collateralized') }"></span>
+    <!--</a>-->
+</span>
+
+<span> <!-- ng-if="user.viewopts.voIconBankruptcy">-->
+    <!--<a href="#/edit/{{row.getProperty('loan_type_id')}}/{{row.getProperty('id')}}/quests">-->
+        <span class="glyphicon glyphicon-fire"
+              tooltip="Bankruptcy History"
+              tooltip-append-to-body="true"
+              tooltip-placement="bottom"
+              ng-class="{ clrOn : row.getProperty('bankruptcy_history'), clrOff: !row.getProperty('bankruptcy_history') }"></span>
+    <!--</a>-->
+</span>
+
+<span> <!-- ng-if="user.viewopts.voIcon3pcredit">-->
+    <!--<a href="#/edit/{{row.getProperty('loan_type_id')}}/{{row.getProperty('id')}}/collateral">-->
+        <span class="glyphicon glyphicon-stats"
+              tooltip="Third Party Credit Required"
+              tooltip-append-to-body="true"
+              tooltip-placement="bottom"
+              ng-class="{ clrOn : row.getProperty('required_3party'), clrOff: !row.getProperty('required_3party') }"></span>
+    <!--</a>-->
+</span>
+
+<span> <!-- ng-if="user.viewopts.voIconddedland">-->
+    <!--<a href="#/edit/{{row.getProperty('loan_type_id')}}/{{row.getProperty('id')}}/collateral">-->
+        <span class="glyphicon glyphicon-flag"
+              tooltip="Added Land in Database"
+              tooltip-append-to-body="true"
+              tooltip-placement="bottom"
+              ng-class="{ clrOn : row.getProperty('added_land'), clrOff: !row.getProperty('added_land') }"></span>
+    <!--</a>-->
+</span>
+
+<span> <!-- ng-if="user.viewopts.voIconDisbursement">-->
+    <!--<a href="#/edit/{{row.getProperty('loan_type_id')}}/{{row.getProperty('id')}}/disbursement">-->
+        <span class="glyphicon glyphicon-lock"
+              tooltip="Controlled Disbursement"
+              tooltip-append-to-body="true"
+              tooltip-placement="bottom"
+              ng-class="{ clrOn : row.getProperty('controlled_disbursement'), clrOff: !row.getProperty('controlled_disbursement') }"></span>
+    <!--</a>-->
+</span>
+
+<span> <!--ng-if="user.viewopts.voIconAttachments">-->
+    <!--<a href="#/edit/{{row.getProperty('loan_type_id')}}/{{row.getProperty('id')}}/prerequisites">-->
+        <span class="glyphicon glyphicon-paperclip"
+              tooltip="Attachments"
+              tooltip-append-to-body="true"
+              tooltip-placement="bottom"
+              ng-class="{ clrOn : row.getProperty('attachments').length, clrOff: !row.getProperty('attachments').length }"></span>
+    <!--</a>-->
+</span>
