@@ -4,10 +4,10 @@
         .module('ARM')
         .controller('AdminController', AdminController);
     
-        AdminController.$inject = ['$state', 'AppFactory'];
+        AdminController.$inject = ['$state', '$location', 'AppFactory'];
     
         /* @ngInject */
-        function AdminController($state, AppFactory) {
+        function AdminController($state, $location, AppFactory) {
             /* jshint validthis: true */
             var vm = this;
             closeAll();
@@ -18,6 +18,7 @@
                 if(slug === 'reports') {
                     closeAll();
                 }
+                console.log($location);
                 $state.go('admin.' + slug);
             };
 
