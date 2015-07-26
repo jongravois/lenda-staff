@@ -1,0 +1,28 @@
+<style>
+    .list-group .list-group-item .glyphicons, .list-group .list-group-item .halflings, .list-group .list-group-item .filetypes, .list-group .list-group-item .social{
+        margin-right: 0 !important;
+    }
+</style>
+<ul class="list-group">
+    <li class="list-group-item lnk butt" ng-click="admin.toggleSidebar()">
+        <span class="menuicon glyphicons glyphicons-option-horizontal" tooltip="Full Menu" tooltip-append-to-body="true" tooltip-placement="right"></span>
+    </li>
+    <li class="list-group-item lnk">
+        <span class="menuicon glyphicons glyphicons-activity" tooltip="Feeders" tooltip-append-to-body="true" tooltip-placement="right" ng-click="admin.ngcLink('feeders')"></span>
+    </li>
+    <li class="list-group-item lnk">
+        <span class="menuicon glyphicons glyphicons-book" tooltip="Library" tooltip-append-to-body="true" tooltip-placement="right" ng-click="admin.ngcLink('library')"></span>
+    </li>
+    <li class="list-group-item lnk">
+        <span class="menuicon glyphicons glyphicons-cluster" tooltip="System" tooltip-append-to-body="true" tooltip-placement="right" ng-click="admin.ngcLink('system')"></span>
+    </li>
+    <li class="list-group-item lnk">
+        <span class="menuicon glyphicons glyphicons-package" tooltip="Loans" tooltip-append-to-body="true" tooltip-placement="right" ng-click="admin.ngcLink('loans')"></span>
+    </li>
+    <li class="list-group-item lnk">
+        <span class="menuicon glyphicons glyphicons-print" tooltip="Reports" tooltip-append-to-body="true" tooltip-placement="right" ng-click="admin.ngcLink('reports')"></span>
+    </li>
+    <li class="list-group-item lnk">
+        <span class="menuicon glyphicons glyphicons-family" tooltip="Users" tooltip-append-to-body="true" tooltip-placement="right" ng-click="admin.ngcLink('users')"></span>
+    </li>
+</ul>

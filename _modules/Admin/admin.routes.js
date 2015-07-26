@@ -85,6 +85,11 @@
                     templateUrl: '_modules/Admin/_views/roles/roles.html',
                     controller: 'AdminController as admin'
                 })
+                .state('admin.staff', {
+                    url: '/staff',
+                    templateUrl: '_modules/Admin/_views/staff/staff.html',
+                    controller: 'AdminController as admin'
+                })
                 .state('admin.users', {
                     url: '/users',
                     templateUrl: '_modules/Admin/_views/users/users.html',

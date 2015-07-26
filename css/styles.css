@@ -979,35 +979,47 @@ div.editable-click {
   text-align: center !important;
   margin-top: -15px;
 }
-#colIcon .list-group .glyphicon {
+#colIcon .glyphicon {
   line-height: inherit !important;
 }
-#colIcon .list-group-item.active {
-  background-color: #000000;
-  border-color: #ffffff;
-}
-#colIcon .list-group-item.active .glyphicon {
-  line-height: inherit !important;
-}
-#colPush .list-group {
-  width: 160px;
-  margin-top: -15px;
-}
-#colPush .list-group-item {
+#colIcon .list-group-item.lnk {
   padding: 2px 10px !important;
   color: #ffffff;
   background-color: #006837;
   font-weight: normal;
 }
-#colPush .list-group-item .glyphicon {
+#colIcon .list-group-item.lnk2 {
+  padding: 2px 10px !important;
+  color: #006837;
+  background-color: #ffffff;
+  font-weight: normal;
+}
+#colIcon .list-group-item.active {
+  background-color: #000000;
+  border-color: #ffffff;
+}
+#colPush .list-group {
+  width: 160px;
+  margin-top: -15px;
+}
+#colPush .glyphicon {
   line-height: inherit !important;
+}
+#colPush .list-group-item.lnk {
+  padding: 2px 10px !important;
+  color: #ffffff;
+  background-color: #006837;
+  font-weight: normal;
+}
+#colPush .list-group-item.lnk2 {
+  padding: 2px 10px !important;
+  color: #006837;
+  background-color: #ffffff;
+  font-weight: normal;
 }
 #colPush .list-group-item.active {
   background-color: #000000;
   border-color: #ffffff;
-}
-#colPush .list-group-item.active .glyphicon {
-  line-height: inherit !important;
 }
 .view-page-header-bar {
   color: #ffffff;

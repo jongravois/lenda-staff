@@ -4,67 +4,64 @@
     }
 </style>
 <ul class="list-group">
-    <li class="list-group-item butt" ng-click="toggleSidebar()">
+    <li class="list-group-item butt" ng-click="editor.toggleSidebar()">
         <span class="menuicon glyphicons glyphicons-option-horizontal" tooltip="Full Menu" tooltip-append-to-body="true" tooltip-placement="right"></span>
     </li>
-    <!--<li class="list-group-item">
-        <span class="menuicon glyphicons glyphicons-tractor" tooltip="Tester" tooltip-append-to-body="true" tooltip-placement="right" ng-click="ngcLink('tester')"></span>
-    </li>-->
     <li class="list-group-item">
-        <span class="menuicon glyphicons glyphicons-money" tooltip="Summary" tooltip-append-to-body="true" tooltip-placement="right" ng-click="ngcLink('summary')"></span>
+        <span class="menuicon glyphicons glyphicons-money" tooltip="Summary" tooltip-append-to-body="true" tooltip-placement="right" ng-click="editor.ngcLink('summary')"></span>
     </li>
     <li class="list-group-item">
-        <span class="menuicon glyphicons glyphicons-calculator" tooltip="Underwriting" tooltip-append-to-body="true" tooltip-placement="right" ng-click="ngcLink('underwriting')"></span>
+        <span class="menuicon glyphicons glyphicons-calculator" tooltip="Underwriting" tooltip-append-to-body="true" tooltip-placement="right" ng-click="editor.ngcLink('underwriting')"></span>
     </li>
     <li class="list-group-item">
-        <span class="menuicon glyphicons glyphicons-notes-2" tooltip="Terms" tooltip-append-to-body="true" tooltip-placement="right" ng-click="ngcLink('terms')"></span>
+        <span class="menuicon glyphicons glyphicons-notes-2" tooltip="Terms" tooltip-append-to-body="true" tooltip-placement="right" ng-click="editor.ngcLink('terms')"></span>
     </li>
     <li class="list-group-item">
-        <span class="menuicon glyphicons glyphicons-group" tooltip="Committee" tooltip-append-to-body="true" tooltip-placement="right" ng-click="ngcLink('committee')"></span>
+        <span class="menuicon glyphicons glyphicons-group" tooltip="Committee" tooltip-append-to-body="true" tooltip-placement="right" ng-click="editor.ngcLink('committee')"></span>
     </li>
     <li class="list-group-item">
-        <span class="menuicon glyphicons glyphicons-conversation" tooltip="Comments" tooltip-append-to-body="true" tooltip-placement="right" ng-click="ngcLink('comments')"></span>
+        <span class="menuicon glyphicons glyphicons-conversation" tooltip="Comments" tooltip-append-to-body="true" tooltip-placement="right" ng-click="editor.ngcLink('comments')"></span>
     </li>
     <li class="list-group-item">
-        <span class="menuicon glyphicons glyphicons-star" tooltip="Applicant" tooltip-append-to-body="true" tooltip-placement="right" ng-click="ngcLink('farmer')"></span>
+        <span class="menuicon glyphicons glyphicons-star" tooltip="Applicant" tooltip-append-to-body="true" tooltip-placement="right" ng-click="editor.ngcLink('farmer')"></span>
     </li>
     <li class="list-group-item">
-        <span class="menuicon glyphicons glyphicons-circle-question-mark" tooltip="Questions" tooltip-append-to-body="true" tooltip-placement="right" ng-click="ngcLink('quests')"></span>
+        <span class="menuicon glyphicons glyphicons-circle-question-mark" tooltip="Questions" tooltip-append-to-body="true" tooltip-placement="right" ng-click="editor.ngcLink('quests')"></span>
     </li>
     <li class="list-group-item">
-        <span class="menuicon glyphicons glyphicons-global" tooltip="References" tooltip-append-to-body="true" tooltip-placement="right" ng-click="ngcLink('references')"></span>
+        <span class="menuicon glyphicons glyphicons-global" tooltip="References" tooltip-append-to-body="true" tooltip-placement="right" ng-click="editor.ngcLink('references')"></span>
     </li>
     <li class="list-group-item">
-        <span class="menuicon glyphicons glyphicons-yen" tooltip="Financial" tooltip-append-to-body="true" tooltip-placement="right" ng-click="ngcLink('financials')"></span>
+        <span class="menuicon glyphicons glyphicons-yen" tooltip="Financial" tooltip-append-to-body="true" tooltip-placement="right" ng-click="editor.ngcLink('financials')"></span>
     </li>
     <li class="list-group-item">
-        <span class="menuicon glyphicon glyphicon-grain" tooltip="Crop" tooltip-append-to-body="true" tooltip-placement="right" ng-click="ngcLink('crops')"></span>
+        <span class="menuicon glyphicons glyphicons-flower" tooltip="Crop" tooltip-append-to-body="true" tooltip-placement="right" ng-click="editor.ngcLink('crops')"></span>
     </li>
     <li class="list-group-item">
-        <span class="menuicon glyphicon glyphicon-apple" tooltip="Farm" tooltip-append-to-body="true" tooltip-placement="right" ng-click="ngcLink('farms')"></span>
+        <span class="menuicon glyphicons glyphicons-tractor" tooltip="Farm" tooltip-append-to-body="true" tooltip-placement="right" ng-click="editor.ngcLink('farms')"></span>
     </li>
     <li class="list-group-item">
-        <span class="menuicon glyphicons glyphicons-bank" tooltip="Insurance" tooltip-append-to-body="true" tooltip-placement="right" ng-click="ngcLink('insurance')"></span>
+        <span class="menuicon glyphicons glyphicons-bank" tooltip="Insurance" tooltip-append-to-body="true" tooltip-placement="right" ng-click="editor.ngcLink('insurance')"></span>
     </li>
     <li class="list-group-item">
-        <span class="menuicon glyphicons glyphicons-piggy-bank" tooltip="Budget" tooltip-append-to-body="true" tooltip-placement="right" ng-click="ngcLink('budgets')"></span>
+        <span class="menuicon glyphicons glyphicons-piggy-bank" tooltip="Budget" tooltip-append-to-body="true" tooltip-placement="right" ng-click="editor.ngcLink('budgets')"></span>
     </li>
     <li class="list-group-item">
-        <span class="menuicon glyphicons glyphicons-adjust-alt" tooltip="Optimizer" tooltip-append-to-body="true" tooltip-placement="right" ng-click="ngcLink('optimizer')"></span>
+        <span class="menuicon glyphicons glyphicons-adjust-alt" tooltip="Optimizer" tooltip-append-to-body="true" tooltip-placement="right" ng-click="editor.ngcLink('optimizer')"></span>
     </li>
     <li class="list-group-item">
-        <span class="menuicon glyphicons glyphicons-umbrella" tooltip="Collateral" tooltip-append-to-body="true" tooltip-placement="right" ng-click="ngcLink('collateral')"></span>
+        <span class="menuicon glyphicons glyphicons-umbrella" tooltip="Collateral" tooltip-append-to-body="true" tooltip-placement="right" ng-click="editor.ngcLink('collateral')"></span>
     </li>
     <li class="list-group-item">
-        <span class="menuicon glyphicons glyphicons-sort" tooltip="Prerequisite" tooltip-append-to-body="true" tooltip-placement="right" ng-click="ngcLink('prerequisites')"></span>
+        <span class="menuicon glyphicons glyphicons-sort" tooltip="Prerequisite" tooltip-append-to-body="true" tooltip-placement="right" ng-click="editor.ngcLink('prerequisites')"></span>
     </li>
     <li class="list-group-item">
-        <span class="menuicon glyphicons glyphicons-handshake" tooltip="Closing" tooltip-append-to-body="true" tooltip-placement="right" ng-click="ngcLink('closing')"></span>
+        <span class="menuicon glyphicons glyphicons-handshake" tooltip="Closing" tooltip-append-to-body="true" tooltip-placement="right" ng-click="editor.ngcLink('closing')"></span>
     </li>
     <li class="list-group-item">
-        <span class="menuicon glyphicons glyphicons-usd" tooltip="Disbursement" tooltip-append-to-body="true" tooltip-placement="right" ng-click="ngcLink('disbursement')"></span>
+        <span class="menuicon glyphicons glyphicons-usd" tooltip="Disbursement" tooltip-append-to-body="true" tooltip-placement="right" ng-click="editor.ngcLink('disbursement')"></span>
     </li>
     <li class="list-group-item">
-        <span class="menuicon glyphicons glyphicons-shoe-steps" tooltip="Audit" tooltip-append-to-body="true" tooltip-placement="right" ng-click="ngcLink('audit')"></span>
+        <span class="menuicon glyphicons glyphicons-shoe-steps" tooltip="Audit" tooltip-append-to-body="true" tooltip-placement="right" ng-click="editor.ngcLink('audit')"></span>
     </li>
 </ul>

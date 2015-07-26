@@ -6,7 +6,6 @@
             'ui.router',
             'ui.bootstrap',
             'satellizer',
-            'angular-loading-bar',
             'toastr',
             'ngGrid',
         ]);

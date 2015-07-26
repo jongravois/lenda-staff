@@ -1,0 +1,140 @@
+<style>
+    .list-group .list-group-item .glyphicons, .list-group .list-group-item .halflings, .list-group .list-group-item .filetypes, .list-group .list-group-item .social {
+        margin-right: 0 !important;
+    }
+</style>
+<ul class="list-group" style="padding:0;width:160px !important;">
+    <!--<li class="list-group-item lnk butt" ng-click="admin.toggleSidebar()">
+        <span class="menuicon glyphicons glyphicons-option-vertical" tooltip="Collapse" tooltip-append-to-body="true" tooltip-placement="right"></span>
+    </li>-->
+    <li class="list-group-item lnk" ng-click="admin.toggleSection('feeders')">
+        <span class="menuicon glyphicons glyphicons-activity" tooltip="Feeders" tooltip-append-to-body="true" tooltip-placement="right"></span>
+        &nbsp;Feeders
+    </li>
+    <li class="list-group-item lnk2" ng-click="admin.ngcLink('agents')" ng-if="admin.feeders_section">
+        Agents/Agencies
+    </li>
+    <li class="list-group-item lnk2" ng-click="admin.ngcLink('crops')" ng-if="admin.feeders_section">
+        Crops
+    </li>
+    <li class="list-group-item lnk2" ng-click="admin.ngcLink('distributors')" ng-if="admin.feeders_section">
+        Distributors
+    </li>
+    <li class="list-group-item lnk2" ng-click="admin.ngcLink('entitytypes')" ng-if="admin.feeders_section">
+        Entity Types
+    </li>
+    <li class="list-group-item lnk2" ng-click="admin.ngcLink('instypes')" ng-if="admin.feeders_section">
+        Insurance
+    </li>
+    <li class="list-group-item lnk2" ng-click="admin.ngcLink('loantypes')" ng-if="admin.feeders_section">
+        Loan Types
+    </li>
+    <li class="list-group-item lnk2" ng-click="admin.ngcLink('locations')" ng-if="admin.feeders_section">
+        Locations
+    </li>
+    <li class="list-group-item lnk2" ng-click="admin.ngcLink('measures')" ng-if="admin.feeders_section">
+        Measures
+    </li>
+    <li class="list-group-item lnk2" ng-click="admin.ngcLink('regions')" ng-if="admin.feeders_section">
+        Regions
+    </li>
+    <li class="list-group-item lnk2" ng-click="admin.ngcLink('roles')" ng-if="admin.feeders_section">
+        Roles
+    </li>
+
+    <li class="list-group-item lnk" ng-click="admin.toggleSection('library')">
+        <span class="menuicon glyphicons glyphicons-book" tooltip="Library" tooltip-append-to-body="true" tooltip-placement="right"></span>
+        &nbsp;Library
+    </li>
+    <li class="list-group-item lnk2" ng-click="admin.ngcLink('applications')" ng-if="admin.library_section">
+        Applications
+    </li>
+    <li class="list-group-item lnk2" ng-click="admin.ngcLink('employee')" ng-if="admin.library_section">
+        Employee
+    </li>
+    <li class="list-group-item lnk2" ng-click="admin.ngcLink('legal')" ng-if="admin.library_section">
+        Legal
+    </li>
+    <li class="list-group-item lnk2" ng-click="admin.ngcLink('policies')" ng-if="admin.library_section">
+        Policies
+    </li>
+    <li class="list-group-item lnk2" ng-click="admin.ngcLink('products')" ng-if="admin.library_section">
+        Products
+    </li>
+    <li class="list-group-item lnk2" ng-click="admin.ngcLink('matrix')" ng-if="admin.library_section">
+        Resp. Matrix
+    </li>
+
+    <li class="list-group-item lnk" ng-click="admin.toggleSection('loans')">
+        <span class="menuicon glyphicons glyphicons-package" tooltip="Loans" tooltip-append-to-body="true" tooltip-placement="right"></span>
+        &nbsp;Loans
+    </li>
+    <li class="list-group-item lnk2" ng-click="admin.ngcLink('budgets')" ng-if="admin.loans_section">
+        Budgets
+    </li>
+    <li class="list-group-item lnk2" ng-click="admin.ngcLink('closing')" ng-if="admin.loans_section">
+        Closing
+    </li>
+    <li class="list-group-item lnk2" ng-click="admin.ngcLink('committee')" ng-if="admin.loans_section">
+        Committee
+    </li>
+    <li class="list-group-item lnk2" ng-click="admin.ngcLink('data')" ng-if="admin.loans_section">
+        Data
+    </li>
+    <li class="list-group-item lnk2" ng-click="admin.ngcLink('globals')" ng-if="admin.loans_section">
+        Globals
+    </li>
+    <li class="list-group-item lnk2" ng-click="admin.ngcLink('grade')" ng-if="admin.loans_section">
+        Grade
+    </li>
+    <li class="list-group-item lnk2" ng-click="admin.ngcLink('insurance')" ng-if="admin.loans_section">
+        Insurance
+    </li>
+    <li class="list-group-item lnk2" ng-click="admin.ngcLink('prerequisites')" ng-if="admin.loans_section">
+        Prerequisites
+    </li>
+    <li class="list-group-item lnk2" ng-click="admin.ngcLink('conversions')" ng-if="admin.loans_section">
+        UoM Conversions
+    </li>
+
+
+
+    <li class="list-group-item lnk" ng-click="admin.ngcLink('reports')">
+        <span class="menuicon glyphicons glyphicons-print" tooltip="Reports" tooltip-append-to-body="true" tooltip-placement="right"></span>
+        &nbsp;Reports
+    </li>
+
+    <li class="list-group-item lnk" ng-click="admin.toggleSection('system')">
+        <span class="menuicon glyphicons glyphicons-cluster" tooltip="System" tooltip-append-to-body="true" tooltip-placement="right"></span>
+        &nbsp;System
+    </li>
+    <li class="list-group-item lnk2" ng-click="admin.ngcLink('archive')" ng-if="admin.system_section">
+        Archive Loans
+    </li>
+    <li class="list-group-item lnk2" ng-click="admin.ngcLink('qbsync')" ng-if="admin.system_section">
+        Quick Books
+    </li>
+    <li class="list-group-item lnk2" ng-click="admin.ngcLink('reqins')" ng-if="admin.system_section">
+        Req. Inspections
+    </li>
+    <li class="list-group-item lnk2" ng-click="admin.ngcLink('reqrec')" ng-if="admin.system_section">
+        Req. Reconciliations
+    </li>
+    <li class="list-group-item lnk2" ng-click="admin.ngcLink('users')" ng-if="admin.system_section">
+        User Access
+    </li>
+
+    <li class="list-group-item lnk" ng-click="admin.toggleSection('users')">
+        <span class="menuicon glyphicons glyphicons-family" tooltip="Users" tooltip-append-to-body="true" tooltip-placement="right"></span>
+        &nbsp;Users
+    </li>
+    <li class="list-group-item lnk2" ng-click="admin.ngcLink('applicants')" ng-if="admin.users_section">
+        Applicants
+    </li>
+    <li class="list-group-item lnk2" ng-click="admin.ngcLink('farmers')" ng-if="admin.users_section">
+        Farmers
+    </li>
+    <li class="list-group-item lnk2" ng-click="admin.ngcLink('staff')" ng-if="admin.users_section">
+        Staff
+    </li>
+</ul>
