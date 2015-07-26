@@ -987,12 +987,14 @@ div.editable-click {
   color: #ffffff;
   background-color: #006837;
   font-weight: normal;
+  cursor: pointer;
 }
 #colIcon .list-group-item.lnk2 {
   padding: 2px 10px !important;
   color: #006837;
   background-color: #ffffff;
   font-weight: normal;
+  cursor: pointer;
 }
 #colIcon .list-group-item.active {
   background-color: #000000;
@@ -1010,16 +1012,30 @@ div.editable-click {
   color: #ffffff;
   background-color: #006837;
   font-weight: normal;
+  cursor: pointer;
 }
 #colPush .list-group-item.lnk2 {
   padding: 2px 10px !important;
   color: #006837;
   background-color: #ffffff;
   font-weight: normal;
+  cursor: pointer;
 }
 #colPush .list-group-item.active {
   background-color: #000000;
+  color: #ffffff;
   border-color: #ffffff;
+}
+#colPush .list-group-item.lnk.active {
+  background-color: #000000;
+  color: #ffffff;
+  border-color: #ffffff;
+}
+#colPush .list-group-item.lnk2.active {
+  background-color: #000000;
+  color: #ffffff;
+  border-color: #ffffff;
+  font-weight: normal !important;
 }
 .view-page-header-bar {
   color: #ffffff;
