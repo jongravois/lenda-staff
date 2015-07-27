@@ -9,6 +9,8 @@
     /* @ngInject */
     function AppFactory($http, $q, $state, $stateParamas, toastr, API_URL) {
         var publicAPI = {
+            getAll: getAll,
+            getOne: getOne,
             inArray: inArray,
             nullOrNot: nullOrNot,
             patchIt: patchIt,
@@ -20,6 +22,12 @@
         return publicAPI;
 
         //////////
+        function getAll(npoint) {
+            return $http.get(API_URL+npoint);
+        }
+        function getOne(npoint, id) {
+            return $http.get(API_URL+npoint+'/'+id);
+        }
         function inArray(needle, haystack) {
             if (haystack.indexOf(needle) === -1) {
                 return false;

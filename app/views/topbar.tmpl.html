@@ -81,7 +81,7 @@
                            </li>
                            <li>
                                <a ui-sref-active="active" ui-sref="admin.instypes">
-                                   Insurance Types
+                                   Insurance
                                </a>
                            </li>
                            <li>
@@ -95,6 +95,11 @@
                                </a>
                            </li>
                            <li>
+                               <a ui-sref-active="active" ui-sref="admin.measures">
+                                   Measures
+                               </a>
+                           </li>
+                           <li>
                                <a ui-sref-active="active" ui-sref="admin.regions">
                                    Regions
                                </a>
@@ -104,28 +109,28 @@
                                    Roles
                                </a>
                            </li>
-                           <li>
-                               <a ui-sref-active="active" ui-sref="admin.measures">
-                                   UoM
-                               </a>
-                           </li>
                        </ul>
                    </li>
                    <li class="dropdown-submenu">
                        <a ui-sref-active="active">Library</a>
                        <ul class="dropdown-menu">
                            <li>
-                               <a ui-sref-active="active" ui-sref="admin.pdfapps">
+                               <a ui-sref-active="active" ui-sref="admin.applications">
                                    Applications
                                </a>
                            </li>
                            <li>
-                               <a ui-sref-active="active" ui-sref="admin.resources">
+                               <a ui-sref-active="active" ui-sref="admin.classroom">
+                                   Classroom
+                               </a>
+                           </li>
+                           <li>
+                               <a ui-sref-active="active" ui-sref="admin.employees">
                                    Employee
                                </a>
                            </li>
                            <li>
-                               <a ui-sref-active="active" ui-sref="admin.legaldocs">
+                               <a ui-sref-active="active" ui-sref="admin.legal">
                                    Legal
                                </a>
                            </li>
@@ -147,50 +152,25 @@
                        </ul>
                    </li>
                    <li class="dropdown-submenu">
-                       <a ui-sref-active="active">System</a>
-                       <ul class="dropdown-menu">
-                           <li>
-                               <a ui-sref-active="active" ui-sref="admin.archive">
-                                   Archive Loans
-                               </a>
-                           </li>
-                           <li>
-                               <a ui-sref-active="active" ui-sref="admin.quickbooks">
-                                   QB Sync
-                               </a>
-                           </li>
-                           <li>
-                               <a ui-sref-active="active" ui-sref="admin.recon_requests">
-                                   Req Reconciles
-                               </a>
-                           </li>
-                           <li>
-                               <a ui-sref-active="active" ui-sref="admin.inspect_requests">
-                                   Req Inspects
-                               </a>
-                           </li>
-                       </ul>
-                   </li>
-                   <li class="dropdown-submenu">
                        <a ui-sref-active="active">Loans</a>
                        <ul class="dropdown-menu">
                            <li>
-                               <a ui-sref-active="active" ui-sref="admin.graderspecs">
+                               <a ui-sref-active="active" ui-sref="admin.budgets">
                                    Budgets
                                </a>
                            </li>
                            <li>
-                               <a ui-sref-active="active" ui-sref="admin.closings">
+                               <a ui-sref-active="active" ui-sref="admin.closing">
                                    Closing
                                </a>
                            </li>
                            <li>
-                               <a ui-sref-active="active" ui-sref="admin.committeespecs">
+                               <a ui-sref-active="active" ui-sref="admin.committee">
                                    Committee
                                </a>
                            </li>
                            <li>
-                               <a ui-sref-active="active" ui-sref="admin.loans.list">
+                               <a ui-sref-active="active" ui-sref="admin.data">
                                    Data
                                </a>
                            </li>
@@ -200,7 +180,7 @@
                                </a>
                            </li>
                            <li>
-                               <a ui-sref-active="active" ui-sref="admin.graderspecs">
+                               <a ui-sref-active="active" ui-sref="admin.grade">
                                    Grade
                                </a>
                            </li>
@@ -215,7 +195,7 @@
                                </a>
                            </li>
                            <li>
-                               <a ui-sref-active="active" ui-sref="admin.measures_converter">
+                               <a ui-sref-active="active" ui-sref="admin.conversions">
                                    UoM Conversions
                                </a>
                            </li>
@@ -225,6 +205,35 @@
                        <a ui-sref-active="active" ui-sref="admin.reports">
                            Reports
                        </a>
+                   </li>
+                   <li class="dropdown-submenu">
+                       <a ui-sref-active="active">System</a>
+                       <ul class="dropdown-menu">
+                           <li>
+                               <a ui-sref-active="active" ui-sref="admin.archive">
+                                   Archive Loans
+                               </a>
+                           </li>
+                           <li>
+                               <a ui-sref-active="active" ui-sref="admin.qbsync">
+                                   Quick Books
+                               </a>
+                           </li>
+                           <li>
+                               <a ui-sref-active="active" ui-sref="admin.reqins">
+                                   Req Inspects
+                               </a>
+                           </li><li>
+                               <a ui-sref-active="active" ui-sref="admin.reqrec">
+                                   Req Reconciles
+                               </a>
+                           </li>
+                           <li>
+                               <a ui-sref-active="active" ui-sref="admin.users">
+                                   User Access
+                               </a>
+                           </li>
+                       </ul>
                    </li>
                    <li class="dropdown-submenu">
                        <a ui-sref-active="active">Users</a>
@@ -240,7 +249,7 @@
                                </a>
                            </li>
                            <li>
-                               <a ui-sref-active="active" ui-sref="admin.users">
+                               <a ui-sref-active="active" ui-sref="admin.staff">
                                    Staff
                                </a>
                            </li>

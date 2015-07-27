@@ -73,7 +73,7 @@
                 .state('admin.distributors', {
                     url: '/distributors',
                     templateUrl: '_modules/Admin/_views/distributors/distributors.html',
-                    controller: 'AdminController as admin'
+                    controller: 'DistributorsController as dist'
                 })
                 .state('admin.employees', {
                     url: '/employees',

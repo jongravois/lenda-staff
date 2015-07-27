@@ -1,1 +1,28 @@
-<br><br><h3>Distributors</h3><br><br>
+<table class="table table-striped rowed">
+    <tr>
+        <th>Abr</th>
+        <th>Name</th>
+        <th>Address</th>
+        <th>City</th>
+        <th>St</th>
+        <th>Zip</th>
+        <th>Phone</th>
+        <th>Email</th>
+        <th>&nbsp</th>
+    </tr>
+    <tr ng-repeat="dis in dist.distributors">
+        <td>{{dis.distributor}}</td>
+        <td>{{dis.name}}</td>
+        <td>{{dis.address}}</td>
+        <td>{{dis.city}}</td>
+        <td>{{dis.state_abr}}</td>
+        <td>{{dis.zip}}</td>
+        <td>{{dis.phone|phone}}</td>
+        <td>{{dis.email}}</td>
+        <td>{{dis.id}}</td>
+    </tr>
+</table>
+<p>
+    <a ng-click="dist.insertNew()" class="btn btn-xs btn-default">
+        <span class="glyphicon glyphicon-plus-sign" style="color:#006837;"></span> Add New</a>
+</p>

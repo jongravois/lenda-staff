@@ -4,21 +4,19 @@
         .module('ARM')
         .controller('AdminController', AdminController);
     
-        AdminController.$inject = ['$state', '$location', 'AppFactory'];
+        AdminController.$inject = ['$state', 'AppFactory'];
     
         /* @ngInject */
-        function AdminController($state, $location, AppFactory) {
+        function AdminController($state, AppFactory) {
             /* jshint validthis: true */
             var vm = this;
             closeAll();
-            vm.system_section = true;
 
             vm.ngcLink = function (slug) {
                 //alert(slug);
                 if(slug === 'reports') {
                     closeAll();
                 }
-                console.log($location);
                 $state.go('admin.' + slug);
             };
 
