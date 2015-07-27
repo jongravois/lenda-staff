@@ -9,6 +9,7 @@
     /* @ngInject */
     function AppFactory($http, $q, $state, $stateParamas, toastr, API_URL) {
         var publicAPI = {
+            deleteIt: deleteIt,
             getAll: getAll,
             getOne: getOne,
             inArray: inArray,
@@ -22,6 +23,9 @@
         return publicAPI;
 
         //////////
+        function deleteIt(npoint, id) {
+            return $http.delete(API_URL+npoint+'/'+id);
+        }
         function getAll(npoint) {
             return $http.get(API_URL+npoint);
         }
@@ -37,14 +41,14 @@
         function nullOrNot(obj) {
             return !angular.isDefined(obj) || obj===null;
         }
-        function patchIt(end, id, data) {
-            return $http.patch(API_URL + end + id, data);
+        function patchIt(npoint, id, data) {
+            return $http.patch(API_URL+npoint+'/'+id, data);
         }
-        function postIt(end, data) {
-            return $http.post(API_URL + end, data);
+        function postIt(npoint, data) {
+            return $http.post(API_URL+npoint, data);
         }
-        function putIt(end, id, data) {
-            return $http.put(API_URL + end + id, data);
+        function putIt(npoint, id, data) {
+            return $http.put(API_URL+npoint+'/'+id, data);
         }
         function returnColor(val) {
             /* 0-Gray, 1-Green, 2-Yellow, 3-Red, 4-Blue */

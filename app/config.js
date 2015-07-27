@@ -68,6 +68,9 @@
                 document.body.scrollTop = document.documentElement.scrollTop = 0;
             });
         })
+        .run(function(editableOptions) {
+            editableOptions.theme = 'default'; // bootstrap3 theme. Can be 'bs3', 'bs2', 'default'
+        })
         .config(function($stateProvider, $urlRouterProvider, $authProvider, $httpProvider, $provide, API_URL, APP_URL) {
             function redirectWhenLoggedOut($q, $injector) {
                 return {

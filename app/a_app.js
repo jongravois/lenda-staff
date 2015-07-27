@@ -8,5 +8,6 @@
             'satellizer',
             'toastr',
             'ngGrid',
+            'xeditable'
         ]);
 })();
