@@ -3,7 +3,7 @@
           tooltip-append-to-body="true"
           tooltip-placement="bottom"
           class="pendicon glyphicons glyphicons-circle-exclamation-mark"
-          ng-class="{'cBlue': row.getProperty('need_vote'), 'cGray': !row.getProperty('need_vote')}"></span>
+          ng-class="{'cBlue': row.getProperty('vote_pending'), 'cGray': !row.getProperty('vote_pending')}"></span>
 </a>
 
 <a href="#/edit/{{row.getProperty('loan_type_id')}}/{{row.getProperty('id')}}/comments">

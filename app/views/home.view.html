@@ -1,19 +1,21 @@
-<div class="frmFull_Page">
+<div class="frmFull_Page" style="z-index: 10;">
     <!-- APPLICATIONS -->
     <div class="row view-page-header-bar">
         <div class="col-md-12">
             <h5 style="display: inline;
                        font-size: 16px;
-                       line-height: 30px">
+                       line-height: 30px;
+                       z-index: 20;">
                 Loans
             </h5>
             <span class="pull-right"
-                  style="display: inline; margin-top:-3px;">
+                  style="display: inline; margin-top:-3px; z-index: 1000;">
                 <form>
                     <select class="form-control"
                             name="landing_view"
-                            ng-model="home.landing_view"
-                            ng-change="home.changeLandingView(home.landing_view)">
+                            style="z-index: 10000;"
+                            ng-model="loans.landing_view"
+                            ng-change="loans.changeLandingView(loans.landing_view)">
                         <option value="settings">My Settings</option>
                         <option value="all">All Loans</option>
                         <option value="spring">Active Spring Loans</option>
@@ -30,7 +32,7 @@
             <div
                 class="gridStyle tblLanding"
                 style="height:480px; margin-top:10px;"
-                ng-grid="home.gridOptions">
+                ng-grid="loans.gridOptions">
             </div>
             <!--ng-grid-->
         </div>
@@ -38,7 +40,7 @@
 
     <div class="row" style="display: none;">
         <div class="col-sm-12">
-            <pre>{{home.loans|json}}</pre>
+            <pre>{{loans.loans|json}}</pre>
         </div>
     </div>
 

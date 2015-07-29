@@ -2,13 +2,13 @@
      ng-class="{ 'ngSorted': !noSortVisible }"
      style="text-align:center !important;">
 
-  <span ng-show="pending_view"
-        ng-click="pending_view = 0; gridOptions.nextOrder(0)"
+  <span ng-show="loans.pending_view"
+        ng-click="loans.pending_view = 0; loans.filterLoans(0)"
         class="headicon glyphicon glyphicon-exclamation-sign"
         style="color:#000000;;" tooltip="On/Off" tooltip-append-to-body="true"  tooltip-placement="bottom"></span>
 
-  <span ng-show="!pending_view"
-        ng-click="pending_view = 1; gridOptions.nextOrder(1)"
+  <span ng-show="!loans.pending_view"
+        ng-click="loans.pending_view = 1; loans.filterLoans(1)"
         class="headicon glyphicon glyphicon-exclamation-sign"
         style="color:#CCCCCC;;" tooltip="On/Off" tooltip-append-to-body="true"  tooltip-placement="bottom"></span>
 </div>

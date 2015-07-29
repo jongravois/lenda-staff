@@ -4,12 +4,13 @@
         .module('ARM')
         .controller('DistributorsController', DistributorsController);
 
-        DistributorsController.$inject = ['$filter', 'AppFactory'];
+        DistributorsController.$inject = ['$filter', '$location', 'AppFactory'];
 
         /* @ngInject */
-        function DistributorsController($filter, AppFactory) {
+        function DistributorsController($filter, $location, AppFactory) {
             /* jshint validthis: true */
             var vm = this;
+            console.log($location.$$path);
 
             AppFactory.getAll('distributors')
                 .then(function(rsp){

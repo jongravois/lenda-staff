@@ -10,6 +10,7 @@
     function AppFactory($http, $q, $state, $stateParamas, toastr, API_URL) {
         var publicAPI = {
             deleteIt: deleteIt,
+            filterLoans: filterLoans,
             getAll: getAll,
             getOne: getOne,
             inArray: inArray,
@@ -18,6 +19,7 @@
             postIt: postIt,
             putIt: putIt,
             returnColor: returnColor,
+            sortLoans: sortLoans,
             sumThese: sumThese
         };
         return publicAPI;
@@ -25,6 +27,29 @@
         //////////
         function deleteIt(npoint, id) {
             return $http.delete(API_URL+npoint+'/'+id);
+        }
+        function filterLoans(loans, val) {
+            //console.log(loans, val, year);
+            switch (val) {
+                case 'all':
+                    return loans;
+                    break;
+                case 'settings':
+                    return _.filter(loans, function (i) {
+                        return i.status.id === '1';
+                    });
+                    break;
+                case 'fall':
+                    return _.filter(loans, function (i) {
+                        return i.status.id === '1' && i.season === 'F';
+                    });
+                    break;
+                case 'spring':
+                    return _.filter(loans, function (i) {
+                        return i.status.id === '1' && i.season === 'S';
+                    });
+                    break;
+            } // end switch
         }
         function getAll(npoint) {
             return $http.get(API_URL+npoint);
@@ -55,6 +80,14 @@
             /* 5-Orange, 6-Yellow+, 7-Orange+, 8-Red+ */
             var colors = ['gray', 'green', 'yellow', 'red', 'blue', 'orange', 'yellow_inner', 'orange_inner', 'red_inner'];
             return colors[val] || 'gray';
+        }
+        function sortLoans(loans, order) {
+            if(order === 1 || order === '1') {
+                var sorted = _(loans).chain().sortByAll('vote_pending', 'has_comment').reverse().value();
+            } else {
+                var sorted = _(loans).chain().sortByAll('farmer', 'applicant').value();
+            }
+            return sorted;
         }
         function sumThese(a, b) {
             return a + b;

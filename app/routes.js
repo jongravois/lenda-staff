@@ -19,7 +19,7 @@
                 .state('main.home', {
                     url: '/home',
                     templateUrl: 'app/views/home.view.html',
-                    controller: 'HomeController as home'
+                    controller: 'LoansController as loans'
                 })
                 .state('main.prefs', {
                     url: '/prefs',
