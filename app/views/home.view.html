@@ -1,3 +1,6 @@
+<style>
+    .pendicon, .indicon {padding: 1px 0;}
+</style>
 <div class="frmFull_Page" style="z-index: 10;">
     <!-- APPLICATIONS -->
     <div class="row view-page-header-bar">
@@ -28,13 +31,9 @@
 
     <div class="row">
         <div class="col-sm-12">
-            <!--ng-grid-->
-            <div
-                class="gridStyle tblLanding"
-                style="height:480px; margin-top:10px;"
-                ng-grid="loans.gridOptions">
-            </div>
-            <!--ng-grid-->
+            <!-- AG Grid -->
+            <div style="margin-top: 10px; width: 100%; height:420px;" ag-grid="loans.gridOptions" class="ag-arm"></div>
+            <!-- AG Grid -->
         </div>
     </div>
 

@@ -4,20 +4,24 @@
         .module('ARM')
         .controller('LoansController', LoansController);
 
-        LoansController.$inject = ['$scope', '$filter', 'orderByFilter', 'AppFactory', 'LoansFactory'];
+        LoansController.$inject = ['$filter', 'orderByFilter', 'AppFactory', 'LoansFactory'];
 
         /* @ngInject */
-        function LoansController($scope, $filter, orderByFilter, AppFactory, LoansFactory) {
+        function LoansController($filter, orderByFilter, AppFactory, LoansFactory) {
             /* jshint validthis: true */
             var vm = this;
+
+            var data = [];
             var user = JSON.parse(localStorage.getItem('user'));
             vm.user = user;
+            console.log('user', user);
 
+            vm.pendingView = true;
+            vm.sortPending = sortPending;
             var indWid = getIndicatorWidth();
 
             vm.sortLoans = AppFactory.sortLoans;
             vm.landing_view = 'settings';
-            vm.pending_view = 1;
 
             LoansFactory.getLoans()
                 .then(function(rsp){
@@ -54,303 +58,437 @@
 
                     var LoansBySettings = AppFactory.filterLoans(loans, 'settings');
                     var settingsLoans = vm.sortLoans(LoansBySettings, 1);
-                    $scope.sortedLoanList = vm.sortedLoanList = settingsLoans;
+                    vm.sortedLoanList = settingsLoans;
+                    data = getSortedData(vm.pendingView, vm.sortedLoanList);
+                    vm.gridOptions.api.setRows(data);
                 });
 
             vm.changeLandingView = function(val) {
                 var loanset = AppFactory.filterLoans(vm.loans, val);
-                $scope.sortedLoanList = vm.sortedLoanList = loanset;
+                vm.sortedLoanList = loanset;
             };
 
             var columnDefs = [
                 {
-                    field: 'pending',
-                    displayName: ' ',
-                    cellTemplate: './app/views/grid_tmpl/pending.icons.html',
-                    headerCellTemplate: './app/views/grid_tmpl/pending.header.cell.html',
-                    headerClass: 'text-center',
-                    cellClass: 'text-center',
-                    width: '95'
+                    field: '',
+                    headerName: 'Pending',
+                    suppressSorting: true,
+                    templateUrl: './app/views/grid_tmpl/pending.icons.html',
+                    width: 90,
+                    suppressSizeToFit: true,
+                    headerCellRenderer: pendingHdr,
+                    headerTooltip: 'On/Off'
                 },
                 {
                     field: 'notification',
-                    displayName: ' ',
-                    cellTemplate: './app/views/grid_tmpl/indicators.html',
+                    headerName: ' ',
+                    templateUrl: './app/views/grid_tmpl/indicators.html',
                     cellClass: 'text-center',
+                    suppressSizeToFit: true,
                     width: indWid.width,
-                    visible: indWid.visible
+                    hide: indWid.hide
                 },
                 {
                     field: 'farmer',
-                    displayName: 'Farmer',
-                    headerClass: 'text-center',
-                    width: '140'
+                    headerName: 'Farmer',
+                    headerTooltip: 'Farmer',
+                    width: 140
                 },
                 {
                     field: 'applicant',
-                    displayName: 'Applicant',
+                    headerName: 'Applicant',
                     headerClass: 'text-center',
-                    cellTemplate: './app/views/grid_tmpl/applicant.html',
-                    width: '140'
+                    templateUrl: './app/views/grid_tmpl/applicant.html',
+                    headerTooltip: 'Applicant',
+                    width: 140
                 },
                 {
                     field: 'loantype_abr',
-                    displayName: 'Type',
+                    headerName: 'Type',
                     cellClass: 'text-center',
-                    headerClass: 'text-center'
+                    headerClass: 'text-center',
+                    suppressSizeToFit: true,
+                    headerTooltip: 'Loan Type',
+                    width: 60
                 },
                 {
                     field: 'crop_year',
-                    displayName: 'Year',
+                    headerName: 'Year',
                     cellClass: 'text-center',
-                    headerClass: 'text-center'
+                    headerClass: 'text-center',
+                    suppressSizeToFit: true,
+                    headerTooltip: 'Crop Year',
+                    width: 60
                 },
                 {
                     field: 'app_date',
-                    displayName: 'App Date',
-                    headerClass: 'text-center'
+                    headerName: 'App Date',
+                    headerClass: 'text-center',
+                    suppressSizeToFit: true,
+                    headerTooltip: 'App Date',
+                    width: 90
                 },
                 {
-                    field: 'location.loc_abr',
-                    displayName: 'Loc',
+                    field: 'loc_abr',
+                    headerName: 'Loc',
                     cellClass: 'text-center',
-                    headerClass: 'text-center'
+                    headerClass: 'text-center',
+                    suppressSizeToFit: true,
+                    headerTooltip: 'Location',
+                    width: 60
                 },
                 {
                     field: 'status.id',
-                    displayName: 'Status',
+                    headerName: 'Status',
                     cellClass: 'text-center',
                     headerClass: 'text-center',
-                    cellTemplate: './app/views/grid_tmpl/status.html'
+                    templateUrl: './app/views/grid_tmpl/status.html',
+                    suppressSizeToFit: true,
+                    headerTooltip: 'Status',
+                    width: 60
                 },
                 {
                     field: 'due_date',
-                    displayName: 'Due',
+                    headerName: 'Due',
                     headerClass: 'text-center',
-                    //visible: ($scope.user ? $scope.user.viewopts.voDueDate : false)
+                    suppressSizeToFit: true,
+                    width: 90,
+                    headerTooltip: 'Due Date',
+                    hide: !user.viewopts.voDueDate
                 },
                 {
                     field: 'region',
-                    displayName: 'Reg',
+                    headerName: 'Reg',
                     headerClass: 'text-center',
-                    visible: false
-                    //visible: ($scope.user ? $scope.user.viewopts.voRegion : false)
+                    suppressSizeToFit: true,
+                    width: 60,
+                    headerTooltip: 'Region',
+                    hide: !user.viewopts.voRegion
                 },
                 {
                     field: 'full_season',
-                    displayName: 'Season',
+                    headerName: 'Season',
                     headerClass: 'text-center',
-                    visible: false
-                    //visible: ($scope.user ? $scope.user.viewopts.voSeason : false)
+                    suppressSizeToFit: true,
+                    width: 90,
+                    headerTooltip: 'Season',
+                    hide: !user.viewopts.voSeason
                 },
                 {
-                    field: 'distributor.distributor',
-                    displayName: 'Dist',
+                    field: 'distributor',
+                    headerName: 'Dist',
                     headerClass: 'text-center',
-                    visible: false
-                    //visible: ($scope.user ? $scope.user.viewopts.voDistributor : false)
+                    suppressSizeToFit: true,
+                    width: 60,
+                    headerTooltip: 'Distributor',
+                    hide: !user.viewopts.voDistributor
                 },
                 {
                     field: 'agency',
-                    displayName: 'Agency',
+                    headerName: 'Agency',
                     headerClass: 'text-center',
-                    visible: false
-                    //visible: ($scope.user ? $scope.user.viewopts.voAgency : false)
+                    suppressSizeToFit: true,
+                    width: 60,
+                    headerTooltip: 'Agency',
+                    hide: !user.viewopts.voAgency
                 },
                 {
-                    field: 'fins.commit_total',
-                    displayName: 'Total Commit',
+                    valueGetter: 'data.fins.commit_total',
+                    headerName: 'Total Commit',
                     headerClass: 'text-center',
-                    cellFilter: 'flexCurrency:0',
+                    cellRenderer: function(params) {
+                        return $filter('flexCurrency')(params.data.fins.commit_total, 0);
+                    },
                     cellClass: 'text-right',
-                    visible: false
-                    //visible: ($scope.user ? $scope.user.viewopts.voCommitTotal : false)
+                    suppressSizeToFit: true,
+                    width: 90,
+                    headerTooltip: 'Total Commit',
+                    hide: !user.viewopts.voCommitTotal
                 },
                 {
-                    field: 'fins.commit_arm',
-                    displayName: 'ARM Commit',
+                    valueGetter: 'data.fins.commit_arm',
+                    headerName: 'ARM Commit',
                     headerClass: 'text-center',
-                    cellFilter: 'flexCurrency:0',
+                    cellRenderer: function(params) {
+                        return $filter('flexCurrency')(params.data.fins.commit_arm, 0);
+                    },
                     cellClass: 'text-right',
-                    visible: false
-                    //visible: ($scope.user ? $scope.user.viewopts.voCommitArm : false)
+                    suppressSizeToFit: true,
+                    width: 90,
+                    headerTooltip: 'ARM Commit',
+                    hide: !user.viewopts.voCommitArm
                 },
                 {
-                    field: 'fins.commit_dist',
-                    displayName: 'Dist Commit',
+                    valueGetter: 'data.fins.commit_dist',
+                    headerName: 'Dist Commit',
                     headerClass: 'text-center',
-                    cellFilter: 'flexCurrency:0',
+                    cellRenderer: function(params) {
+                        return $filter('flexCurrency')(params.data.fins.commit_dist, 0);
+                    },
                     cellClass: 'text-right',
-                    visible: false
-                    //visible: ($scope.user ? $scope.user.viewopts.voCommitDistributor : false)
+                    suppressSizeToFit: true,
+                    width: 90,
+                    headerTooltip: 'Dist Commit',
+                    hide: !user.viewopts.voCommitDistributor
                 },
                 {
-                    field: 'fins.commit_other',
-                    displayName: 'Other Commit',
+                    valueGetter: 'data.fins.commit_other',
+                    headerName: 'Other Commit',
                     headerClass: 'text-center',
-                    cellFilter: 'flexCurrency:0',
+                    cellRenderer: function(params) {
+                        return $filter('flexCurrency')(params.data.fins.commit_other, 0);
+                    },
                     cellClass: 'text-right',
-                    visible: false
-                    //visible: ($scope.user ? $scope.user.viewopts.voCommitOther : false)
+                    suppressSizeToFit: true,
+                    width: 60,
+                    headerTooltip: '3p Commit',
+                    hide: !user.viewopts.voCommitOther
                 },
                 {
-                    field: 'fins.total_fee_percent',
-                    displayName: 'Fee %',
-                    cellClass: 'text-right',
+                    valueGetter: 'data.fins.total_fee_percent',
+                    headerName: 'Fee %',
                     headerClass: 'text-center',
-                    cellFilter: 'flexPercent:1',
-                    visible: false
-                    //visible: ($scope.user ? $scope.user.viewopts.voFeePercentage : false)
+                    cellRenderer: function(params) {
+                        return $filter('flexPercent')(params.data.fins.total_fee_percent, 1);
+                    },
+                    cellClass: 'text-right',
+                    suppressSizeToFit: true,
+                    width: 60,
+                    headerTooltip: 'Total Fee %',
+                    hide: !user.viewopts.voFeePercentage
                 },
                 {
-                    field: 'fins.fee_total',
-                    displayName: 'Fee Total',
-                    cellClass: 'text-right',
+                    valueGetter: 'data.fins.fee_total',
+                    headerName: 'Fee Total',
                     headerClass: 'text-center',
-                    cellFilter: 'currency',
-                    visible: false
-                    //visible: ($scope.user ? $scope.user.viewopts.voFeeTotal : false)
+                    cellRenderer: function(params) {
+                        return $filter('flexCurrency')(params.data.fins.fee_total, 0);
+                    },
+                    cellClass: 'text-right',
+                    suppressSizeToFit: true,
+                    width: 60,
+                    headerTooltip: 'Total Fee',
+                    hide: !user.viewopts.voFeeTotal
                 },
                 {
-                    field: 'fins.int_percent_arm',
-                    displayName: 'ARM Rate %',
-                    cellClass: 'text-right',
+                    vaueGetter: 'data.fins.int_percent_arm',
+                    headerName: 'ARM Rate %',
                     headerClass: 'text-center',
-                    cellFilter: 'displaypercent',
-                    visible: false
-                    //visible: ($scope.user ? $scope.user.viewopts.voRateArm : false)
+                    cellRenderer: function(params) {
+                        return $filter('flexPercent')(params.data.fins.int_percent_arm, 1);
+                    },
+                    cellClass: 'text-right',
+                    suppressSizeToFit: true,
+                    width: 60,
+                    headerTooltip: 'ARM Rate',
+                    hide: !user.viewopts.voRateArm
                 },
                 {
-                    field: 'fins.int_percent_dist',
-                    displayName: 'Dist Rate %',
-                    cellClass: 'text-right',
+                    valueGetter: 'data.fins.int_percent_dist',
+                    headerName: 'Dist Rate %',
                     headerClass: 'text-center',
-                    cellFilter: 'displaypercent',
-                    visible: false
-                    //visible: ($scope.user ? $scope.user.viewopts.voRateDist : false)
+                    cellRenderer: function(params) {
+                        return $filter('flexPercent')(params.data.fins.int_percent_dist, 1);
+                    },
+                    cellClass: 'text-right',
+                    suppressSizeToFit: true,
+                    width: 60,
+                    headerTooltip: 'Dist Rate',
+                    hide: !user.viewopts.voRateDist
                 },
                 {
-                    field: 'fins.balance_remaining',
-                    displayName: 'Balance',
-                    cellClass: 'text-right',
+                    valueGetter: 'data.fins.balance_remaining',
+                    headerName: 'Balance',
                     headerClass: 'text-center',
-                    cellFilter: 'currency',
-                    visible: false
-                    //visible: ($scope.user ? $scope.user.viewopts.voBalanceDue : false)
+                    cellRenderer: function(params) {
+                        return $filter('flexCurrency')(params.data.fins.balance_remaining, 0);
+                    },
+                    cellClass: 'text-right',
+                    suppressSizeToFit: true,
+                    width: 60,
+                    headerTooltip: 'Balance',
+                    hide: !user.viewopts.voBalanceDue
                 },
                 {
-                    field: 'fins.total_acres',
-                    displayName: 'Acres: Total',
-                    cellClass: 'text-right',
+                    valueGetter: 'data.fins.total_acres',
+                    headerName: 'Acres: Total',
                     headerClass: 'text-center',
-                    cellFilter: 'number:1',
-                    //visible: ($scope.user ? $scope.user.viewopts.voAcresTotal : false)
+                    cellRenderer: function(params) {
+                        return $filter('number')(params.data.fins.total_acres, 1);
+                    },
+                    cellClass: 'text-right',
+                    suppressSizeToFit: true,
+                    width: 60,
+                    headerTooltip: 'Total Acres',
+                    hide: !user.viewopts.voAcresTotal
                 },
                 {
-                    field: 'fins.crop_acres.corn',
-                    displayName: 'Acres: Corn',
-                    cellClass: 'text-right',
+                    valueGetter: 'data.fins.crop_acres.corn',
+                    headerName: 'Acres: Corn',
                     headerClass: 'text-center',
-                    cellFilter: 'number:1',
-                    visible: false
-                    //visible: ($scope.user ? $scope.user.viewopts.voAcresCorn : false)
+                    cellRenderer: function(params) {
+                        return $filter('number')(params.data.fins.crop_acres.corn, 1);
+                    },
+                    cellClass: 'text-right',
+                    suppressSizeToFit: true,
+                    width: 60,
+                    headerTooltip: 'Corn Acres',
+                    hide: !user.viewopts.voAcresCorn
                 },
                 {
-                    field: 'fins.crop_acres.soybeans',
-                    displayName: 'Acres: Soybeans',
-                    cellClass: 'text-right',
+                    valueGetter: 'data.fins.crop_acres.soybeans',
+                    headerName: 'Acres: Soybeans',
                     headerClass: 'text-center',
-                    cellFilter: 'number:1',
-                    visible: false
-                    //visible: ($scope.user ? $scope.user.viewopts.voAcresSoybeans : false)
+                    cellRenderer: function(params) {
+                        return $filter('number')(params.data.fins.crop_acres.soybeans, 1);
+                    },
+                    cellClass: 'text-right',
+                    suppressSizeToFit: true,
+                    width: 60,
+                    headerTooltip: 'Soybean Acres',
+                    hide: !user.viewopts.voAcresSoybeans
                 },
                 {
-                    field: 'fins.crop_acres.beansFAC',
-                    displayName: 'Acres: Soybeans FAC',
-                    cellClass: 'text-right',
+                    valueGetter: 'data.fins.crop_acres.beansFAC',
+                    headerName: 'Acres: Soybeans FAC',
                     headerClass: 'text-center',
-                    cellFilter: 'number:1',
-                    visible: false
-                    //visible: ($scope.user ? $scope.user.viewopts.voAcresBeansFAC : false)
+                    cellRenderer: function(params) {
+                        return $filter('number')(params.data.fins.crop_acres.beansFAC, 1);
+                    },
+                    cellClass: 'text-right',
+                    suppressSizeToFit: true,
+                    width: 60,
+                    headerTooltip: 'Soybean FAC Acres',
+                    hide: !user.viewopts.voAcresBeansFAC
                 },
                 {
-                    field: 'fins.crop_acres.sorghum',
-                    displayName: 'Acres: Sorghum',
-                    cellClass: 'text-right',
+                    valueGetter: 'data.fins.crop_acres.sorghum',
+                    headerName: 'Acres: Sorghum',
                     headerClass: 'text-center',
-                    cellFilter: 'number:1',
-                    visible: false
-                    //visible: ($scope.user ? $scope.user.viewopts.voAcresSorghum : false)
+                    cellRenderer: function(params) {
+                        return $filter('number')(params.data.fins.crop_acres.sorghum, 1);
+                    },
+                    cellClass: 'text-right',
+                    suppressSizeToFit: true,
+                    width: 60,
+                    headerTooltip: 'Sorghum Acres',
+                    hide: !user.viewopts.voAcresSorghum
                 },
                 {
-                    field: 'fins.crop_acres.wheat',
-                    displayName: 'Acres: Wheat',
-                    cellClass: 'text-right',
+                    valueGetter: 'data.fins.crop_acres.wheat',
+                    headerName: 'Acres: Wheat',
                     headerClass: 'text-center',
-                    cellFilter: 'number:1',
-                    visible: false
-                    //visible: ($scope.user ? $scope.user.viewopts.voAcresWheat : false)
+                    cellRenderer: function(params) {
+                        return $filter('number')(params.data.fins.crop_acres.wheat, 1);
+                    },
+                    cellClass: 'text-right',
+                    suppressSizeToFit: true,
+                    width: 60,
+                    headerTooltip: 'Wheat Acres',
+                    hide: !user.viewopts.voAcresWheat
                 },
                 {
-                    field: 'fins.crop_acres.cotton',
-                    displayName: 'Acres: Cotton',
-                    cellClass: 'text-right',
+                    valueGetter: 'data.fins.crop_acres.cotton',
+                    headerName: 'Acres: Cotton',
                     headerClass: 'text-center',
-                    cellFilter: 'number:1',
-                    visible: false
-                    //visible: ($scope.user ? $scope.user.viewopts.voAcresCotton : false)
+                    cellRenderer: function(params) {
+                        return $filter('number')(params.data.fins.crop_acres.cotton, 1);
+                    },
+                    cellClass: 'text-right',
+                    suppressSizeToFit: true,
+                    width: 60,
+                    headerTooltip: 'Cotton Acres',
+                    hide: !user.viewopts.voAcresCotton
                 },
                 {
-                    field: 'fins.crop_acres.rice',
-                    displayName: 'Acres: Rice',
-                    cellClass: 'text-right',
+                    valueGetter: 'data.fins.crop_acres.rice',
+                    headerName: 'Acres: Rice',
                     headerClass: 'text-center',
-                    cellFilter: 'number:1',
-                    visible: false
-                    //visible: ($scope.user ? $scope.user.viewopts.voAcresRice : false)
+                    cellRenderer: function(params) {
+                        return $filter('number')(params.data.fins.crop_acres.rice, 1);
+                    },
+                    cellClass: 'text-right',
+                    suppressSizeToFit: true,
+                    width: 60,
+                    headerTooltip: 'Rice Acres',
+                    hide: !user.viewopts.voAcresRice
                 },
                 {
-                    field: 'fins.crop_acres.peanuts',
-                    displayName: 'Acres: Peanuts',
-                    cellClass: 'text-right',
+                    valueGetter: 'data.fins.crop_acres.peanuts',
+                    headerName: 'Acres: Peanuts',
                     headerClass: 'text-center',
-                    cellFilter: 'number:1',
-                    visible: false
-                    //visible: ($scope.user ? $scope.user.viewopts.voAcresPeanuts : false)
+                    cellRenderer: function(params) {
+                        return $filter('number')(params.data.fins.crop_acres.peanuts, 1);
+                    },
+                    cellClass: 'text-right',
+                    suppressSizeToFit: true,
+                    width: 60,
+                    headerTooltip: 'Peanut Acres',
+                    hide: !user.viewopts.voAcresPeanuts
                 },
                 {
-                    field: 'fins.crop_acres.sugarcane',
-                    displayName: 'Acres: Cane',
-                    cellClass: 'text-right',
+                    valueGetter: 'data.fins.crop_acres.sugarcane',
+                    headerName: 'Acres: Cane',
                     headerClass: 'text-center',
-                    cellFilter: 'number:1',
-                    visible: false
-                    //visible: ($scope.user ? $scope.user.viewopts.voAcresSugarcane : false)
+                    cellRenderer: function(params) {
+                        return $filter('number')(params.data.fins.crop_acres.sugarcane, 1);
+                    },
+                    cellClass: 'text-right',
+                    suppressSizeToFit: true,
+                    width: 60,
+                    headerTooltip: 'Sugar Cane Acres',
+                    hide: !user.viewopts.voAcresSugarcane
                 },
                 {
-                    field: 'fins.crop_acres.sunflowers',
-                    displayName: 'Acres: Sunflowers',
-                    cellClass: 'text-right',
+                    valueGetter: 'data.fins.crop_acres.sunflowers',
+                    headerName: 'Acres: Sunflowers',
                     headerClass: 'text-center',
-                    cellFilter: 'number:1',
-                    visible: false
-                    //visible: ($scope.user ? $scope.user.viewopts.voAcresOther : false)
+                    cellRenderer: function(params) {
+                        return $filter('number')(params.data.fins.crop_acres.sunflowers, 1);
+                    },
+                    cellClass: 'text-right',
+                    suppressSizeToFit: true,
+                    width: 60,
+                    headerTooltip: 'Sunflower Acres',
+                    hide: !user.viewopts.voAcresOther
                 }
             ];
 
+            function pendingHdr(params) {
+                //console.log('before', params);
+                if(params.context.pending_view){
+                    return '<div style="text-align:center !important;"><span class="pendicon glyphicons glyphicons-circle-exclamation-mark" ng-click="loans.sortPending()" style="color:#000000;"></span></div>';
+                } else {
+                    return '<div style="text-align:center !important;"><span class="pendicon glyphicons glyphicons-circle-exclamation-mark" ng-click="loans.sortPending()" style="color:#aaaaaa;"></span></div>';
+                }
+            }
+
             vm.gridOptions = {
-                data: 'sortedLoanList',
-                rowHeight: 40,
-                showFilter: true,
-                enableRowSelection: false,
-                columnDefs: columnDefs
+                angularCompileRows: true,
+                angularCompileHeaders: true,
+                columnDefs: columnDefs,
+                colWidth: 100,
+                rowSelection: 'single',
+                enableSorting: false,
+                sortPending: sortPending,
+                context: {
+                    pending_view: vm.pendingView
+                },
+                ready: function(api) {
+                    api.setRows(data);
+                    api.sizeColumnsToFit();
+                }
+            };
+
+            vm.onHardRefresh = function() {
+                vm.gridOptions.api.refreshView();
             };
 
             //////////
             function getIndicatorWidth() {
                 var cnt = 0;
 
-                /*if(vm.user.viewopts.voIconAddendum) {
+                if(vm.user.viewopts.voIconAddendum) {
                  cnt += 1;
                  }
                  if(vm.user.viewopts.voIconCross) {
@@ -368,18 +506,60 @@
                  if(vm.user.viewopts.voIconDisbursement) {
                  cnt += 1;
                  }
-                 if($scope.user.viewopts.voIconAttachments) {
+                 if(vm.user.viewopts.voIconAttachments) {
                  cnt += 1;
                  }
 
-                 return {
-                 visible: (cnt === 0 ? false : true),
-                 width: cnt * 17
-                 };*/ //140;
-                return {
-                    visible: true,
-                    width: 140
-                };
+                 var retro = {
+                    hide: (cnt === 0 ? true : false),
+                    width: cnt * 19
+                 }; //140;
+                console.log(retro);
+                return retro;
+                /*return {
+                    hide: false,
+                    width: 136
+                };*/
+            }
+            function getSortedData(state, collection) {
+                var ds = [];
+                if(state) {
+                    ds = _.sortByAll(collection, ['vote_pending', 'has_comment', 'is_stale', 'is_watched', 'disbursement_issue']).reverse();
+                    //console.log('true', ds);
+                    return ds;
+                } else {
+                    ds = _.sortByAll(collection, ['farmer']);
+                    //console.log('false', ds);
+                    return ds;
+                }
+            }
+            function sortPending() {
+                vm.pendingView = !vm.pendingView;
+                vm.gridOptions.context.pending_view = !vm.gridOptions.context.pending_view;
+                vm.gridOptions.api.refreshHeader();
+                var newData = getSortedData(vm.pendingView, vm.sortedLoanList);
+                vm.gridOptions.api.setRows(newData);
+            }
+            function numberNewValueHandler(params) {
+                var valueAsNumber = parseInt(params.newValue);
+                if (isNaN(valueAsNumber)) {
+                    window.alert("Invalid value " + params.newValue + ", must be a number");
+                } else {
+                    params.data[params.colDef.field] = valueAsNumber;
+                }
+            }
+            function cellValueChangedFunction() {
+                // after a value changes, get the volatile cells to update
+                vm.gridOptions.api.softRefreshView();
+            }
+            function gtZero(value) {
+                var val = Number(value);
+                if (val <= 0) {
+                    return 'text-center';
+                }
+                else {
+                    return 'text-right';
+                }
             }
         } // end function
 })();

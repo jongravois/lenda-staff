@@ -1,39 +1,9 @@
-<a href="#/edit/{{row.getProperty('loan_type_id')}}/{{row.getProperty('id')}}/committee">
-    <span tooltip="Vote"
-          tooltip-append-to-body="true"
-          tooltip-placement="bottom"
-          class="pendicon glyphicons glyphicons-circle-exclamation-mark"
-          ng-class="{'cBlue': row.getProperty('vote_pending'), 'cGray': !row.getProperty('vote_pending')}"></span>
-</a>
+<span tooltip="Vote Needed" tooltip-append-to-body="true" tooltip-placement="bottom" class="pendicon glyphicons glyphicons-circle-exclamation-mark" ng-class="{cBlue: data.vote_pending, cGray: !data.vote_pending}"></span>
 
-<a href="#/edit/{{row.getProperty('loan_type_id')}}/{{row.getProperty('id')}}/comments">
-    <span tooltip="Comments"
-          tooltip-append-to-body="true"
-          tooltip-placement="bottom"
-          class="pendicon glyphicons glyphicons-circle-exclamation-mark"
-          ng-class="{'cYellow': row.getProperty('has_comment'), 'cGray': !row.getProperty('has_comment')}"></span>
-</a>
+<span tooltip="Comments" tooltip-append-to-body="true" tooltip-placement="bottom" class="pendicon glyphicons glyphicons-circle-exclamation-mark" ng-class="{cYellow: data.has_comment, cGray: !data.has_comment}"></span>
 
-<a href="#/edit/{{row.getProperty('loan_type_id')}}/{{row.getProperty('id')}}/committee">
-    <span tooltip="Stale"
-          tooltip-append-to-body="true"
-          tooltip-placement="bottom"
-          class="pendicon glyphicons glyphicons-circle-exclamation-mark"
-          ng-class="{'cRed': row.getProperty('is_stale'), 'cGray': !row.getProperty('is_stale')}"></span>
-</a>
+<span tooltip="Stale Application" tooltip-append-to-body="true" tooltip-placement="bottom" class="pendicon glyphicons glyphicons-circle-exclamation-mark" ng-class="{cRed: data.is_stale, cGray: !data.is_stale}"></span>
 
-<a href="#/edit/{{row.getProperty('loan_type_id')}}/{{row.getProperty('id')}}/comments">
-    <span tooltip="Watchlist"
-          tooltip-append-to-body="true"
-          tooltip-placement="bottom"
-          class="pendicon glyphicons glyphicons-sunglasses"
-          ng-class="{'cBlack': row.getProperty('is_watched'), 'cGray': !row.getProperty('is_watched')}"></span>
-</a>
+<span tooltip="WatchList" tooltip-append-to-body="true" tooltip-placement="bottom" class="pendicon glyphicons glyphicons-sunglasses" ng-class="{cBlack: data.is_watched, cGray: !data.is_watched}"></span>
 
-<a href="#/edit/{{row.getProperty('loan_type_id')}}/{{row.getProperty('id')}}/disbursement">
-    <span tooltip="Disbursement"
-          tooltip-append-to-body="true"
-          tooltip-placement="bottom"
-          class="pendicon glyphicons glyphicons-usd"
-          ng-class="{'cGreen': row.getProperty('disbursement_issue'), 'cGray': !row.getProperty('disbursement_issue')}"></span>
-</a>
+<span tooltip="Disbursement Issue" tooltip-append-to-body="true" tooltip-placement="bottom" class="pendicon glyphicons glyphicons-usd" ng-class="{cGreen: data.disbursement_issue, cGray: !data.disbursement_issue}"></span>

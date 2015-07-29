@@ -7,7 +7,7 @@
             'ui.bootstrap',
             'satellizer',
             'toastr',
-            'ngGrid',
+            'angularGrid',
             'xeditable'
         ]);
 })();
