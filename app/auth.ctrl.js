@@ -27,7 +27,7 @@
                     vm.loginError = true;
                     vm.loginErrorText = error.data.error;
                 }).then(function (rsp) {
-                    var user = JSON.stringify(rsp.data.user);
+                    var user = JSON.stringify(rsp.data.data[0]);
                     localStorage.setItem('user', user);
                     $rootScope.authenticated = true;
                     $rootScope.currentUser = rsp.data.user;

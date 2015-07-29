@@ -14,7 +14,7 @@
             var data = [];
             var user = JSON.parse(localStorage.getItem('user'));
             vm.user = user;
-            console.log('user', user);
+            //console.log('user', user);
 
             vm.pendingView = true;
             vm.sortPending = sortPending;
@@ -514,7 +514,7 @@
                     hide: (cnt === 0 ? true : false),
                     width: cnt * 19
                  }; //140;
-                console.log(retro);
+                //console.log(retro);
                 return retro;
                 /*return {
                     hide: false,
