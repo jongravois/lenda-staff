@@ -66,6 +66,8 @@
             vm.changeLandingView = function(val) {
                 var loanset = AppFactory.filterLoans(vm.loans, val);
                 vm.sortedLoanList = loanset;
+                data = getSortedData(vm.pendingView, vm.sortedLoanList);
+                vm.gridOptions.api.setRows(data);
             };
 
             var columnDefs = [
@@ -184,7 +186,7 @@
                     hide: !user.viewopts.voDistributor
                 },
                 {
-                    field: 'agency',
+                    field: 'agencies',
                     headerName: 'Agency',
                     headerClass: 'text-center',
                     suppressSizeToFit: true,
