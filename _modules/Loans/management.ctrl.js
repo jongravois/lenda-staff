@@ -233,15 +233,7 @@
                 },
                 {
                     field: 'prior_lien',
-                    headerName: 'PL',
-                    templateUrl: './app/views/grid_tmpl/its.html',
-                    headerClass: 'text-center',
-                    cellClass: 'text-center',
-                    width: 20
-                },
-                {
-                    field: 'prior_lien',
-                    headerName: 'PL',
+                    headerName: 'LP',
                     templateUrl: './app/views/grid_tmpl/its.html',
                     headerClass: 'text-center',
                     headerCellRenderer: managementHdr,
@@ -318,6 +310,15 @@
                     headerClass: 'text-center',
                     headerCellRenderer: managementHdr,
                     cellClass: 'text-center',
+                    width: 20
+                },
+                {
+                    field: 'prior_lien',
+                    headerName: 'PL',
+                    templateUrl: './app/views/grid_tmpl/its.html',
+                    headerClass: 'text-center bleft',
+                    headerCellRenderer: managementHdr,
+                    cellClass: 'text-center bleft',
                     width: 20
                 },
                 {
@@ -350,6 +351,14 @@
             }
             function managementHdr(params) {
                 console.log(params.value);
+                switch(params.value) {
+                    case 'ITS':
+                        return '<div style="text-align:center !important;"><span class="pendicon glyphicons glyphicons-circle-exclamation-mark" tooltip="ITS List Verified" tooltip-append-to-body="true" tooltip-placement="bottom"style="color:#000000;"></span></div>';
+                        break;
+                    default:
+                        return '<div style="text-align:center !important;"><span class="pendicon glyphicons glyphicons-circle-exclamation-mark" tooltip="ITS List" tooltip-append-to-body="true" tooltip-placement="bottom"style="color:#000000;"></span></div>';
+                        break;
+                }
             }
 
             vm.gridOptions = {
