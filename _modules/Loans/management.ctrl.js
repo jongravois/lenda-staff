@@ -4,10 +4,10 @@
         .module('ARM')
         .controller('ManagementController', ManagementController);
 
-        ManagementController.$inject = ['$location', 'AppFactory', 'LoansFactory'];
+        ManagementController.$inject = ['$location', 'AppFactory', 'LoansFactory', 'ManFactory'];
 
         /* @ngInject */
-        function ManagementController($location, AppFactory, LoansFactory) {
+        function ManagementController($location, AppFactory, LoansFactory, ManFactory) {
             /* jshint validthis: true */
             var vm = this;
 
@@ -21,6 +21,8 @@
             var indWid = AppFactory.getIndicatorWidth(vm.user);
 
             vm.sortLoans = AppFactory.sortLoans;
+            vm.returnColor = AppFactory.returnColor;
+            vm.clickManagement = ManFactory.clickManagement;
             vm.landing_view = 'settings';
 
             LoansFactory.getLoans()
@@ -75,7 +77,7 @@
                     field: '',
                     headerName: 'Pending',
                     suppressSorting: true,
-                    templateUrl: './app/views/grid_tmpl/pending.icons.html',
+                    templateUrl: './_modules/Loans/_views/pending.icons.html',
                     width: 90,
                     suppressSizeToFit: true,
                     headerCellRenderer: pendingHdr,
@@ -83,8 +85,8 @@
                 },
                 {
                     field: 'notification',
-                    headerName: ' ',
-                    templateUrl: './app/views/grid_tmpl/management.indicators.html',
+                    headerName: '',
+                    templateUrl: './_modules/Loans/_views/indicators.html',
                     cellClass: 'text-center',
                     suppressSizeToFit: true,
                     width: indWid.width,
@@ -136,207 +138,228 @@
                     headerName: 'Status',
                     cellClass: 'text-center',
                     headerClass: 'text-center',
-                    templateUrl: './app/views/grid_tmpl/status.html',
+                    templateUrl: './_modules/Loans/_views/manstats.html',
                     suppressSizeToFit: true,
-                    headerTooltip: 'Status',
+                    //headerTooltip: 'Status',
                     width: 50
                 },
                 {
                     field: 'its_list',
                     headerName: 'ITS',
-                    templateUrl: './app/views/grid_tmpl/its.html',
+                    templateUrl: './_modules/Loans/_views/its.html',
                     headerClass: 'text-center',
                     headerCellRenderer: managementHdr,
                     cellClass: 'text-center',
+                    headerTooltip: 'ITS List',
                     width: 20
                 },
                 {
-                    field: 'fsa_eligibility',
+                    field: 'fsa_compliant',
                     headerName: 'FSA',
-                    templateUrl: './app/views/grid_tmpl/its.html',
+                    templateUrl: './_modules/Loans/_views/fsa.html',
                     headerClass: 'text-center',
                     headerCellRenderer: managementHdr,
                     cellClass: 'text-center',
+                    headerTooltip: 'FSA eligible',
                     width: 20
                 },
                 {
-                    field: 'prior_lien',
-                    headerName: 'PL',
-                    templateUrl: './app/views/grid_tmpl/its.html',
+                    field: 'prev_lien_verified',
+                    headerName: 'PLV',
+                    templateUrl: './_modules/Loans/_views/plv.html',
                     headerClass: 'text-center',
                     headerCellRenderer: managementHdr,
                     cellClass: 'text-center',
+                    headerTooltip: 'Prior liens verified',
                     width: 20
                 },
-                {
-                    field: 'prior_lien',
-                    headerName: 'PL',
-                    templateUrl: './app/views/grid_tmpl/its.html',
+                 {
+                    field: 'leases_valid',
+                    headerName: 'LSV',
+                    templateUrl: './_modules/Loans/_views/lsv.html',
                     headerClass: 'text-center',
                     headerCellRenderer: managementHdr,
                     cellClass: 'text-center',
+                    headerTooltip: 'Leases valid',
                     width: 20
                 },
                 {
-                    field: 'prior_lien',
-                    headerName: 'PL',
-                    templateUrl: './app/views/grid_tmpl/its.html',
+                    field: 'bankruptcy_order_received',
+                    headerName: 'BOR',
+                    templateUrl: './_modules/Loans/_views/bor.html',
                     headerClass: 'text-center',
                     headerCellRenderer: managementHdr,
                     cellClass: 'text-center',
+                    headerTooltip: 'Bankruptcy order rcvd',
                     width: 20
                 },
                 {
-                    field: 'prior_lien',
-                    headerName: 'PL',
-                    templateUrl: './app/views/grid_tmpl/its.html',
+                    field: 'received_3party',
+                    headerName: 'C3V',
+                    templateUrl: './_modules/Loans/_views/c3v.html',
                     headerClass: 'text-center',
                     headerCellRenderer: managementHdr,
                     cellClass: 'text-center',
+                    headerTooltip: 'Third party credit',
                     width: 20
                 },
                 {
-                    field: 'prior_lien',
-                    headerName: 'PL',
-                    templateUrl: './app/views/grid_tmpl/its.html',
+                    field: 'recommended',
+                    headerName: 'REC',
+                    templateUrl: './_modules/Loans/_views/rec.html',
                     headerClass: 'text-center',
                     headerCellRenderer: managementHdr,
                     cellClass: 'text-center',
+                    headerTooltip: 'Recommended',
                     width: 20
                 },
                 {
-                    field: 'prior_lien',
-                    headerName: 'PL',
-                    templateUrl: './app/views/grid_tmpl/its.html',
+                    field: 'arm_approved',
+                    headerName: 'ARM',
+                    templateUrl: './_modules/Loans/_views/arm.html',
                     headerClass: 'text-center',
                     headerCellRenderer: managementHdr,
                     cellClass: 'text-center',
+                    headerTooltip: 'Approved by ARM',
                     width: 20
                 },
-                {
-                    field: 'prior_lien',
-                    headerName: 'PL',
-                    templateUrl: './app/views/grid_tmpl/its.html',
+                 {
+                    field: 'dist_approved',
+                    headerName: 'DIS',
+                    templateUrl: './_modules/Loans/_views/dis.html',
                     headerClass: 'text-center',
                     headerCellRenderer: managementHdr,
                     cellClass: 'text-center',
+                    headerTooltip: 'Approved by distributor',
                     width: 20
                 },
-                {
-                    field: 'prior_lien',
-                    headerName: 'PL',
-                    templateUrl: './app/views/grid_tmpl/its.html',
+                  {
+                    field: 'loan_closed',
+                    headerName: 'CLO',
+                    templateUrl: './_modules/Loans/_views/clo.html',
                     headerClass: 'text-center',
                     headerCellRenderer: managementHdr,
                     cellClass: 'text-center',
+                    headerTooltip: 'Loan closed',
                     width: 20
                 },
-                {
-                    field: 'prior_lien',
-                    headerName: 'LP',
-                    templateUrl: './app/views/grid_tmpl/its.html',
+                   {
+                    field: 'added_land_verified',
+                    headerName: 'ADD',
+                    templateUrl: './_modules/Loans/_views/add.html',
                     headerClass: 'text-center',
                     headerCellRenderer: managementHdr,
                     cellClass: 'text-center',
+                    headerTooltip: 'Added land verified',
                     width: 20
                 },
-                {
-                    field: 'prior_lien',
-                    headerName: 'PL',
-                    templateUrl: './app/views/grid_tmpl/its.html',
+                    {
+                    field: 'permission_to_insure_verified',
+                    headerName: 'P2I',
+                    templateUrl: './_modules/Loans/_views/p2i.html',
                     headerClass: 'text-center',
                     headerCellRenderer: managementHdr,
                     cellClass: 'text-center',
+                    headerTooltip: 'Perm to ins verified',
                     width: 20
                 },
-                {
-                    field: 'prior_lien',
-                    headerName: 'PL',
-                    templateUrl: './app/views/grid_tmpl/its.html',
+                     {
+                    field: 'arm_ucc_received',
+                    headerName: 'UCC',
+                    templateUrl: './_modules/Loans/_views/ucc.html',
                     headerClass: 'text-center',
                     headerCellRenderer: managementHdr,
                     cellClass: 'text-center',
+                    headerTooltip: 'ARM UCC',
                     width: 20
                 },
-                {
-                    field: 'prior_lien',
-                    headerName: 'PL',
-                    templateUrl: './app/views/grid_tmpl/its.html',
+                    {
+                    field: 'dist_ucc_verified',
+                    headerName: 'DCC',
+                    templateUrl: './_modules/Loans/_views/dcc.html',
                     headerClass: 'text-center',
                     headerCellRenderer: managementHdr,
                     cellClass: 'text-center',
+                    headerTooltip: 'Distributor UCC',
                     width: 20
                 },
                 {
-                    field: 'prior_lien',
-                    headerName: 'PL',
-                    templateUrl: './app/views/grid_tmpl/its.html',
+                    field: 'aoi_received',
+                    headerName: 'AOI',
+                    templateUrl: './_modules/Loans/_views/aoi.html',
                     headerClass: 'text-center',
                     headerCellRenderer: managementHdr,
                     cellClass: 'text-center',
+                    headerTooltip: 'AOI Recvd',
                     width: 20
                 },
-                {
-                    field: 'prior_lien',
-                    headerName: 'PL',
-                    templateUrl: './app/views/grid_tmpl/its.html',
+                 {
+                    field: 'ccc_received',
+                    headerName: 'CCC',
+                    templateUrl: './_modules/Loans/_views/ccc.html',
                     headerClass: 'text-center',
                     headerCellRenderer: managementHdr,
                     cellClass: 'text-center',
+                    headerTooltip: 'CCC Recvd',
                     width: 20
                 },
-                {
-                    field: 'prior_lien',
-                    headerName: 'PL',
-                    templateUrl: './app/views/grid_tmpl/its.html',
+                  {
+                    field: 'rebate_assignment',
+                    headerName: 'REB',
+                    templateUrl: './_modules/Loans/_views/reb.html',
                     headerClass: 'text-center',
                     headerCellRenderer: managementHdr,
                     cellClass: 'text-center',
+                    headerTooltip: 'Rebate assignment',
                     width: 20
                 },
-                {
-                    field: 'prior_lien',
-                    headerName: 'PL',
-                    templateUrl: './app/views/grid_tmpl/its.html',
+                   {
+                    field: 'crop_inspection',
+                    headerName: 'INS',
+                    templateUrl: './_modules/Loans/_views/ins.html',
                     headerClass: 'text-center',
                     headerCellRenderer: managementHdr,
                     cellClass: 'text-center',
+                    headerTooltip: 'Crop inspection',
                     width: 20
                 },
-                {
-                    field: 'prior_lien',
-                    headerName: 'PL',
-                    templateUrl: './app/views/grid_tmpl/its.html',
+                    {
+                    field: 'crop_certified',
+                    headerName: 'CER',
+                    templateUrl: './_modules/Loans/_views/cer.html',
                     headerClass: 'text-center',
                     headerCellRenderer: managementHdr,
                     cellClass: 'text-center',
+                    headerTooltip: 'Crop certification',
                     width: 20
                 },
-                {
-                    field: 'prior_lien',
-                    headerName: 'PL',
-                    templateUrl: './app/views/grid_tmpl/its.html',
+                     {
+                    field: 'limit_warning',
+                    headerName: 'LWN',
+                    templateUrl: './_modules/Loans/_views/lwn.html',
                     headerClass: 'text-center bleft',
                     headerCellRenderer: managementHdr,
                     cellClass: 'text-center bleft',
+                    headerTooltip: 'Limit warning',
                     width: 20
                 },
                 {
-                    field: 'prior_lien',
-                    headerName: 'PL',
-                    templateUrl: './app/views/grid_tmpl/its.html',
+                    field: 'reconciliation',
+                    headerName: 'RCL',
+                    templateUrl: './_modules/Loans/_views/rcl.html',
                     headerClass: 'text-center',
                     headerCellRenderer: managementHdr,
                     cellClass: 'text-center',
+                    headerTooltip: 'Reconciliation',
                     width: 20
                 },
                 {
-                    field: 'prior_lien',
-                    headerName: 'PL',
-                    templateUrl: './app/views/grid_tmpl/its.html',
+                    field: 'account_classification',
+                    headerName: 'CLA',
                     headerClass: 'text-center',
                     headerCellRenderer: managementHdr,
                     cellClass: 'text-center',
+                    headerTooltip: 'Account classification',
                     width: 20
                 }
             ];
@@ -350,13 +373,73 @@
                 }
             }
             function managementHdr(params) {
-                console.log(params.value);
+                //console.log(params.value);
                 switch(params.value) {
                     case 'ITS':
-                        return '<div style="text-align:center !important;"><span class="pendicon glyphicons glyphicons-circle-exclamation-mark" tooltip="ITS List Verified" tooltip-append-to-body="true" tooltip-placement="bottom"style="color:#000000;"></span></div>';
+                        return '<div style="text-align:center !important;"><span class="pendicon glyphicons glyphicons-list-alt"></span></div>';
                         break;
-                    default:
-                        return '<div style="text-align:center !important;"><span class="pendicon glyphicons glyphicons-circle-exclamation-mark" tooltip="ITS List" tooltip-append-to-body="true" tooltip-placement="bottom"style="color:#000000;"></span></div>';
+                    case 'FSA':
+                        return '<div style="text-align:center !important;"><span class="pendicon glyphicons glyphicons-home"></span></div>';
+                        break;
+                    case 'PLV':
+                        return '<div style="text-align:center !important;"><span class="pendicon glyphicons glyphicons-star"></span></div>';
+                        break;
+                    case 'LSV':
+                        return '<div style="text-align:center !important;"><span class="pendicon glyphicons glyphicons-leaf"></span></div>';
+                        break;
+                    case 'BOR':
+                        return '<div style="text-align:center !important;"><span class="pendicon glyphicons glyphicons-fire"></span></div>';
+                        break;
+                    case 'C3V':
+                        return '<div style="text-align:center !important;"><span class="pendicon glyphicons glyphicons-charts"></span></div>';
+                        break;
+                    case 'REC':
+                        return '<div style="text-align:center !important;"><span class="pendicon glyphicons glyphicons-share"></span></div>';
+                        break;
+                    case 'ARM':
+                        return '<div style="text-align:center !important;"><span class="pendicon glyphicons glyphicons-thumbs-up"></span></div>';
+                        break;
+                    case 'DIS':
+                        return '<div style="text-align:center !important;"><span class="pendicon glyphicons glyphicons-hand-up"></span></div>';
+                        break;
+                    case 'CLO':
+                        return '<div style="text-align:center !important;"><span class="pendicon glyphicons glyphicons-folder-closed"></span></div>';
+                        break;
+                    case 'ADD':
+                        return '<div style="text-align:center !important;"><span class="pendicon glyphicons glyphicons-flag"></span></div>';
+                        break;
+                    case 'P2I':
+                        return '<div style="text-align:center !important;"><span class="pendicon glyphicons glyphicons-gift"></span></div>';
+                        break;
+                    case 'UCC':
+                        return '<div style="text-align:center !important;"><span class="pendicon glyphicons glyphicons-log-in"></span></div>';
+                        break;
+                    case 'DCC':
+                        return '<div style="text-align:center !important;"><span class="pendicon glyphicons glyphicons-log-in"></span></div>';
+                        break;
+                    case 'AOI':
+                        return '<div style="text-align:center !important;"><span class="pendicon glyphicons glyphicons-circle-arrow-right"></span></div>';
+                        break;
+                    case 'CCC':
+                        return '<div style="text-align:center !important;"><span class="pendicon glyphicons glyphicons-link"></span></div>';
+                        break;
+                    case 'REB':
+                        return '<div style="text-align:center !important;"><span class="pendicon glyphicons glyphicons-cogwheel"></span></div>';
+                        break;
+                    case 'INS':
+                        return '<div style="text-align:center !important;"><span class="pendicon glyphicons glyphicons-flower"></span></div>';
+                        break;
+                    case 'CER':
+                        return '<div style="text-align:center !important;"><span class="pendicon glyphicons glyphicons-map"></span></div>';
+                        break;
+                    case 'LWN':
+                        return '<div style="text-align:center !important;"><span class="pendicon glyphicons glyphicons-wifi-alt"></span></div>';
+                        break;
+                    case 'RCL':
+                        return '<div style="text-align:center !important;"><span class="pendicon glyphicons glyphicons-retweet-2"></span></div>';
+                        break;
+                    case 'CLA':
+                        return '<div style="text-align:center !important;"><span class="pendicon glyphicons glyphicons-sort-by-alphabet"></span></div>';
                         break;
                 }
             }
@@ -366,7 +449,7 @@
                 angularCompileHeaders: true,
                 columnDefs: columnDefs,
                 colWidth: 100,
-                rowSelection: 'single',
+                rowSelection: false,
                 enableSorting: false,
                 sortPending: sortPending,
                 context: {

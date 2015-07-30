@@ -124,6 +124,7 @@
             return !angular.isDefined(obj) || obj===null;
         }
         function returnColor(val) {
+            //console.log('returnColor', val);
             /* 0-Gray, 1-Green, 2-Yellow, 3-Red, 4-Blue */
             /* 5-Orange, 6-Yellow+, 7-Orange+, 8-Red+ */
             var colors = ['gray', 'green', 'yellow', 'red', 'blue', 'orange', 'yellow_inner', 'orange_inner', 'red_inner'];
