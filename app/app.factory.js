@@ -12,7 +12,9 @@
             deleteIt: deleteIt,
             filterLoans: filterLoans,
             getAll: getAll,
+            getIndicatorWidth: getIndicatorWidth,
             getOne: getOne,
+            getSortedData: getSortedData,
             inArray: inArray,
             nullOrNot: nullOrNot,
             patchIt: patchIt,
@@ -24,10 +26,27 @@
         };
         return publicAPI;
 
-        //////////
+        /* MODEL LAYER */
         function deleteIt(npoint, id) {
             return $http.delete(API_URL+npoint+'/'+id);
         }
+        function getAll(npoint) {
+            return $http.get(API_URL+npoint);
+        }
+        function getOne(npoint, id) {
+            return $http.get(API_URL+npoint+'/'+id);
+        }
+        function patchIt(npoint, id, data) {
+            return $http.patch(API_URL+npoint+'/'+id, data);
+        }
+        function postIt(npoint, data) {
+            return $http.post(API_URL+npoint, data);
+        }
+        function putIt(npoint, id, data) {
+            return $http.put(API_URL+npoint+'/'+id, data);
+        }
+
+        /* METHODS */
         function filterLoans(loans, val) {
             //console.log(loans, val, year);
             switch (val) {
@@ -51,11 +70,49 @@
                     break;
             } // end switch
         }
-        function getAll(npoint) {
-            return $http.get(API_URL+npoint);
+        function getIndicatorWidth(user) {
+            var cnt = 0;
+
+            if(user.viewopts.voIconAddendum) {
+                cnt += 1;
+            }
+            if(user.viewopts.voIconCross) {
+                cnt += 1;
+            }
+            if(user.viewopts.voIconBankruptcy) {
+                cnt += 1;
+            }
+            if(user.viewopts.voIcon3pcredit) {
+                cnt += 1;
+            }
+            if(user.viewopts.voIconAddedland) {
+                cnt += 1;
+            }
+            if(user.viewopts.voIconDisbursement) {
+                cnt += 1;
+            }
+            if(user.viewopts.voIconAttachments) {
+                cnt += 1;
+            }
+
+            var retro = {
+                hide: (cnt === 0 ? true : false),
+                width: cnt * 19
+            }; //140;
+            //console.log(retro);
+            return retro;
         }
-        function getOne(npoint, id) {
-            return $http.get(API_URL+npoint+'/'+id);
+        function getSortedData(state, collection) {
+            var ds = [];
+            if(state) {
+                ds = _.sortByAll(collection, ['vote_pending', 'has_comment', 'is_stale', 'is_watched', 'disbursement_issue']).reverse();
+                //console.log('true', ds);
+                return ds;
+            } else {
+                ds = _.sortByAll(collection, ['farmer']);
+                //console.log('false', ds);
+                return ds;
+            }
         }
         function inArray(needle, haystack) {
             if (haystack.indexOf(needle) === -1) {
@@ -65,15 +122,6 @@
         }
         function nullOrNot(obj) {
             return !angular.isDefined(obj) || obj===null;
-        }
-        function patchIt(npoint, id, data) {
-            return $http.patch(API_URL+npoint+'/'+id, data);
-        }
-        function postIt(npoint, data) {
-            return $http.post(API_URL+npoint, data);
-        }
-        function putIt(npoint, id, data) {
-            return $http.put(API_URL+npoint+'/'+id, data);
         }
         function returnColor(val) {
             /* 0-Gray, 1-Green, 2-Yellow, 3-Red, 4-Blue */

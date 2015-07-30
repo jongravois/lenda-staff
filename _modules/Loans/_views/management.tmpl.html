@@ -1,1 +1,45 @@
-<br><br><h1>Management</h1><br><br>
+<style>
+    .pendicon, .indicon {padding: 1px 0;}
+</style>
+<div class="frmFull_Page" style="z-index: 10;">
+    <div class="row view-page-header-bar">
+        <div class="col-md-12">
+            <h5 style="display: inline;
+                       font-size: 16px;
+                       line-height: 30px;
+                       z-index: 20;">
+                Management
+            </h5>
+            <span class="pull-right"
+                  style="display: inline; margin-top:-3px; z-index: 1000;">
+                <form>
+                    <select class="form-control"
+                            name="landing_view"
+                            style="z-index: 10000;"
+                            ng-model="loanman.landing_view"
+                            ng-change="loanman.changeLandingView(loanman.landing_view)">
+                        <option value="settings">My Settings</option>
+                        <option value="all">All Loans</option>
+                        <option value="spring">Active Spring Loans</option>
+                        <option value="fall">Active Fall Loans</option>
+                    </select>
+                </form>
+            </span>
+        </div>
+    </div>
+
+        <div class="row">
+            <div class="col-sm-12">
+                <!-- AG Grid -->
+                <div style="margin-top: 10px; width: 100%; height:420px;" ag-grid="loanman.gridOptions" class="ag-arm"></div>
+                <!-- AG Grid -->
+            </div>
+        </div>
+
+        <div class="row" style="margin-top: 50px;"> <!-- style="display: none;" -->
+            <div class="col-sm-12">
+                <pre>{{loanman.loans|json}}</pre>
+            </div>
+        </div>
+    </div>
+</div>

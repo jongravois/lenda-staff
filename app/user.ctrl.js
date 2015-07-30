@@ -49,6 +49,7 @@
             $auth.logout()
                 .then(function() {
                     localStorage.removeItem('user');
+                    localStorage.removeItem('currentUserID');
                     $rootScope.authenticated = false;
                     $rootScope.currentUser = null;
                 });

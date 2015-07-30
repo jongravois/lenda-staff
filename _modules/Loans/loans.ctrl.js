@@ -4,21 +4,21 @@
         .module('ARM')
         .controller('LoansController', LoansController);
 
-        LoansController.$inject = ['$filter', 'orderByFilter', 'AppFactory', 'LoansFactory'];
+        LoansController.$inject = ['$filter', '$location', 'orderByFilter', 'AppFactory', 'LoansFactory'];
 
         /* @ngInject */
-        function LoansController($filter, orderByFilter, AppFactory, LoansFactory) {
+        function LoansController($filter, $location, orderByFilter, AppFactory, LoansFactory) {
             /* jshint validthis: true */
             var vm = this;
 
             var data = [];
             var user = JSON.parse(localStorage.getItem('user'));
             vm.user = user;
-            console.log('user', user);
+            //console.log('user', user);
 
             vm.pendingView = true;
             vm.sortPending = sortPending;
-            var indWid = getIndicatorWidth();
+            var indWid = AppFactory.getIndicatorWidth(vm.user);
 
             vm.sortLoans = AppFactory.sortLoans;
             vm.landing_view = 'settings';
@@ -27,7 +27,7 @@
                 .then(function(rsp){
                     var loans = rsp.data.data;
                     vm.loans = loans;
-                    vm.indWid = getIndicatorWidth();
+                    vm.indWid = AppFactory.getIndicatorWidth(vm.user);
 
                     //comments
                     _.each(loans, function(item){
@@ -59,13 +59,18 @@
                     var LoansBySettings = AppFactory.filterLoans(loans, 'settings');
                     var settingsLoans = vm.sortLoans(LoansBySettings, 1);
                     vm.sortedLoanList = settingsLoans;
-                    data = getSortedData(vm.pendingView, vm.sortedLoanList);
-                    vm.gridOptions.api.setRows(data);
+                    data = AppFactory.getSortedData(vm.pendingView, vm.sortedLoanList);
+
+                    if($location.path() === '/main/home') {
+                        vm.gridOptions.api.setRows(data);
+                    }
                 });
 
             vm.changeLandingView = function(val) {
                 var loanset = AppFactory.filterLoans(vm.loans, val);
                 vm.sortedLoanList = loanset;
+                data = getSortedData(vm.pendingView, vm.sortedLoanList);
+                vm.gridOptions.api.setRows(data);
             };
 
             var columnDefs = [
@@ -82,7 +87,7 @@
                 {
                     field: 'notification',
                     headerName: ' ',
-                    templateUrl: './app/views/grid_tmpl/indicators.html',
+                    templateUrl: './app/views/grid_tmpl/listing.indicators.html',
                     cellClass: 'text-center',
                     suppressSizeToFit: true,
                     width: indWid.width,
@@ -184,7 +189,7 @@
                     hide: !user.viewopts.voDistributor
                 },
                 {
-                    field: 'agency',
+                    field: 'agencies',
                     headerName: 'Agency',
                     headerClass: 'text-center',
                     suppressSizeToFit: true,
@@ -485,59 +490,11 @@
             };
 
             //////////
-            function getIndicatorWidth() {
-                var cnt = 0;
-
-                if(vm.user.viewopts.voIconAddendum) {
-                 cnt += 1;
-                 }
-                 if(vm.user.viewopts.voIconCross) {
-                 cnt += 1;
-                 }
-                 if(vm.user.viewopts.voIconBankruptcy) {
-                 cnt += 1;
-                 }
-                 if(vm.user.viewopts.voIcon3pcredit) {
-                 cnt += 1;
-                 }
-                 if(vm.user.viewopts.voIconAddedland) {
-                 cnt += 1;
-                 }
-                 if(vm.user.viewopts.voIconDisbursement) {
-                 cnt += 1;
-                 }
-                 if(vm.user.viewopts.voIconAttachments) {
-                 cnt += 1;
-                 }
-
-                 var retro = {
-                    hide: (cnt === 0 ? true : false),
-                    width: cnt * 19
-                 }; //140;
-                console.log(retro);
-                return retro;
-                /*return {
-                    hide: false,
-                    width: 136
-                };*/
-            }
-            function getSortedData(state, collection) {
-                var ds = [];
-                if(state) {
-                    ds = _.sortByAll(collection, ['vote_pending', 'has_comment', 'is_stale', 'is_watched', 'disbursement_issue']).reverse();
-                    //console.log('true', ds);
-                    return ds;
-                } else {
-                    ds = _.sortByAll(collection, ['farmer']);
-                    //console.log('false', ds);
-                    return ds;
-                }
-            }
             function sortPending() {
                 vm.pendingView = !vm.pendingView;
                 vm.gridOptions.context.pending_view = !vm.gridOptions.context.pending_view;
                 vm.gridOptions.api.refreshHeader();
-                var newData = getSortedData(vm.pendingView, vm.sortedLoanList);
+                var newData = AppFactory.getSortedData(vm.pendingView, vm.sortedLoanList);
                 vm.gridOptions.api.setRows(newData);
             }
             function numberNewValueHandler(params) {
