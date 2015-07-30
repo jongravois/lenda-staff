@@ -1,0 +1,42 @@
+[
+  {
+    "region": "W",
+    "location": "AMR",
+    "user": "McDowell, Malcom",
+    "admin": true,
+    "analyst": "TEJ",
+    "report": "actdet",
+    "updated": "2015-05-22",
+    "viewed": "2015-05-22"
+  },
+  {
+    "region": "N",
+    "location": "CRO",
+    "user": "Magee, Patrick",
+    "admin": false,
+    "analyst": "TEJ",
+    "report": "actdet",
+    "updated": "2015-05-22",
+    "viewed": ""
+  },
+  {
+    "region": "E",
+    "location": "WIL",
+    "user": "Bates, Michael",
+    "admin": false,
+    "analyst": "TEJ",
+    "report": "actdet",
+    "updated": "2015-05-22",
+    "viewed": "2015-05-23"
+  },
+  {
+    "region": "S",
+    "location": "DMR",
+    "user": "Clarke, Warren",
+    "admin": false,
+    "analyst": "TEJ",
+    "report": "actdet",
+    "updated": "2015-05-22",
+    "viewed": ""
+  }
+]

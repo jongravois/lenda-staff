@@ -1,0 +1,36 @@
+[
+  {
+    "recnum": 1,
+    "loan": 1,
+    "report": "actdet",
+    "region": "W",
+    "location": "AMR",
+    "crop_year": "2015",
+    "season": "S",
+    "analyst": "TEJ",
+    "farmer": "Barns, Alex",
+    "applicant": "Brunner Farms",
+    "loan_type": "ALL",
+    "audit_date": "2015-01-15",
+    "audit_time": "13:00:00",
+    "audit_user": "JRM",
+    "audit_activity": "Activity"
+  },
+  {
+    "recnum": 2,
+    "loan": 2,
+    "report": "actdet",
+    "region": "E",
+    "location": "WIL",
+    "crop_year": "2015",
+    "season": "F",
+    "analyst": "AEJ",
+    "farmer": "Ross, James",
+    "applicant": "Alpha Island, Inc.",
+    "loan_type": "ALL",
+    "audit_date": "2015-06-15",
+    "audit_time": "15:30:00",
+    "audit_user": "ARM",
+    "audit_activity": "Addendum"
+  }
+]

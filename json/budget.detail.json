@@ -1,0 +1,362 @@
+[
+  {
+    "key": 1,
+    "category": "Fertilizer",
+    "budget": 72689,
+    "spent": 689
+  },
+  {
+    "key": 1,
+    "category": "Seed",
+    "budget": 74769,
+    "spent": 769
+  },
+  {
+    "key": 1,
+    "category": "Fungicide",
+    "budget": 7254,
+    "spent": 254
+  },
+  {
+    "key": 1,
+    "category": "Herbicide",
+    "budget": 23084,
+    "spent": 84
+  },
+  {
+    "key": 1,
+    "category": "Insecticide",
+    "budget": 6192,
+    "spent": 192
+  },
+  {
+    "key": 1,
+    "category": "Custom",
+    "budget": 19020,
+    "spent": 20
+  },
+  {
+    "key": 1,
+    "category": "Fuel",
+    "budget": 31305,
+    "spent": 305
+  },
+  {
+    "key": 1,
+    "category": "Labor",
+    "budget": 18554,
+    "spent": 554
+  },
+  {
+    "key": 1,
+    "category": "Insurance",
+    "budget": 8327,
+    "spent": 327
+  },
+  {
+    "key": 1,
+    "category": "Harvesting",
+    "budget": 0,
+    "spent": 0
+  },
+  {
+    "key": 1,
+    "category": "Miscellaneous",
+    "budget": 18554,
+    "spent": 554
+  },
+  {
+    "key": 1,
+    "category": "Living Expenses",
+    "budget": 45797,
+    "spent": 797
+  },
+  {
+    "key": 1,
+    "category": "Crop Expenses",
+    "budget": 338295,
+    "spent": 0
+  },
+  {
+    "key": 1,
+    "category": "Fees and Other",
+    "budget": 3265,
+    "spent": 265
+  },
+  {
+    "key": 1,
+    "category": "Total Expenses",
+    "budget": 341560,
+    "spent": 0
+  },
+  {
+    "key": 2,
+    "category": "Fertilizer",
+    "budget": 72689,
+    "spent": 689
+  },
+  {
+    "key": 2,
+    "category": "Seed",
+    "budget": 74769,
+    "spent": 769
+  },
+  {
+    "key": 2,
+    "category": "Fungicide",
+    "budget": 7254,
+    "spent": 254
+  },
+  {
+    "key": 2,
+    "category": "Herbicide",
+    "budget": 23084,
+    "spent": 84
+  },
+  {
+    "key": 2,
+    "category": "Insecticide",
+    "budget": 6192,
+    "spent": 192
+  },
+  {
+    "key": 2,
+    "category": "Custom",
+    "budget": 19020,
+    "spent": 20
+  },
+  {
+    "key": 2,
+    "category": "Fuel",
+    "budget": 31305,
+    "spent": 305
+  },
+  {
+    "key": 2,
+    "category": "Labor",
+    "budget": 18554,
+    "spent": 554
+  },
+  {
+    "key": 2,
+    "category": "Insurance",
+    "budget": 8327,
+    "spent": 327
+  },
+  {
+    "key": 2,
+    "category": "Harvesting",
+    "budget": 0,
+    "spent": 0
+  },
+  {
+    "key": 2,
+    "category": "Miscellaneous",
+    "budget": 18554,
+    "spent": 554
+  },
+  {
+    "key": 2,
+    "category": "Living Expenses",
+    "budget": 45797,
+    "spent": 797
+  },
+  {
+    "key": 2,
+    "category": "Crop Expenses",
+    "budget": 338295,
+    "spent": 0
+  },
+  {
+    "key": 2,
+    "category": "Fees and Other",
+    "budget": 3265,
+    "spent": 265
+  },
+  {
+    "key": 2,
+    "category": "Total Expenses",
+    "budget": 341560,
+    "spent": 0
+  },
+  {
+    "key": 3,
+    "category": "Fertilizer",
+    "budget": 72689,
+    "spent": 689
+  },
+  {
+    "key": 3,
+    "category": "Seed",
+    "budget": 74769,
+    "spent": 769
+  },
+  {
+    "key": 3,
+    "category": "Fungicide",
+    "budget": 7254,
+    "spent": 254
+  },
+  {
+    "key": 3,
+    "category": "Herbicide",
+    "budget": 23084,
+    "spent": 84
+  },
+  {
+    "key": 3,
+    "category": "Insecticide",
+    "budget": 6192,
+    "spent": 192
+  },
+  {
+    "key": 3,
+    "category": "Custom",
+    "budget": 19020,
+    "spent": 20
+  },
+  {
+    "key": 3,
+    "category": "Fuel",
+    "budget": 31305,
+    "spent": 305
+  },
+  {
+    "key": 3,
+    "category": "Labor",
+    "budget": 18554,
+    "spent": 554
+  },
+  {
+    "key": 3,
+    "category": "Insurance",
+    "budget": 8327,
+    "spent": 327
+  },
+  {
+    "key": 3,
+    "category": "Harvesting",
+    "budget": 0,
+    "spent": 0
+  },
+  {
+    "key": 3,
+    "category": "Miscellaneous",
+    "budget": 18554,
+    "spent": 554
+  },
+  {
+    "key": 3,
+    "category": "Living Expenses",
+    "budget": 45797,
+    "spent": 797
+  },
+  {
+    "key": 3,
+    "category": "Crop Expenses",
+    "budget": 338295,
+    "spent": 0
+  },
+  {
+    "key": 3,
+    "category": "Fees and Other",
+    "budget": 3265,
+    "spent": 265
+  },
+  {
+    "key": 3,
+    "category": "Total Expenses",
+    "budget": 341560,
+    "spent": 0
+  },
+  {
+    "key": 4,
+    "category": "Fertilizer",
+    "budget": 72689,
+    "spent": 689
+  },
+  {
+    "key": 4,
+    "category": "Seed",
+    "budget": 74769,
+    "spent": 769
+  },
+  {
+    "key": 4,
+    "category": "Fungicide",
+    "budget": 7254,
+    "spent": 254
+  },
+  {
+    "key": 4,
+    "category": "Herbicide",
+    "budget": 23084,
+    "spent": 84
+  },
+  {
+    "key": 4,
+    "category": "Insecticide",
+    "budget": 6192,
+    "spent": 192
+  },
+  {
+    "key": 4,
+    "category": "Custom",
+    "budget": 19020,
+    "spent": 20
+  },
+  {
+    "key": 4,
+    "category": "Fuel",
+    "budget": 31305,
+    "spent": 305
+  },
+  {
+    "key": 4,
+    "category": "Labor",
+    "budget": 18554,
+    "spent": 554
+  },
+  {
+    "key": 4,
+    "category": "Insurance",
+    "budget": 8327,
+    "spent": 327
+  },
+  {
+    "key": 4,
+    "category": "Harvesting",
+    "budget": 0,
+    "spent": 0
+  },
+  {
+    "key": 4,
+    "category": "Miscellaneous",
+    "budget": 18554,
+    "spent": 554
+  },
+  {
+    "key": 4,
+    "category": "Living Expenses",
+    "budget": 45797,
+    "spent": 797
+  },
+  {
+    "key": 4,
+    "category": "Crop Expenses",
+    "budget": 338295,
+    "spent": 0
+  },
+  {
+    "key": 4,
+    "category": "Fees and Other",
+    "budget": 3265,
+    "spent": 265
+  },
+  {
+    "key": 4,
+    "category": "Total Expenses",
+    "budget": 341560,
+    "spent": 0
+  }
+]
