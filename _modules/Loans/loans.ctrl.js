@@ -180,7 +180,7 @@
                     hide: !user.viewopts.voSeason
                 },
                 {
-                    field: 'distributor',
+                    valueGetter: 'data.distributor.distributor',
                     headerName: 'Dist',
                     headerClass: 'text-center',
                     suppressSizeToFit: true,
