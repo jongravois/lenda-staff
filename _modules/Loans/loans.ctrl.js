@@ -59,7 +59,7 @@
                     var LoansBySettings = AppFactory.filterLoans(loans, 'settings');
                     var settingsLoans = vm.sortLoans(LoansBySettings, 1);
                     vm.sortedLoanList = settingsLoans;
-                    data = getSortedData(vm.pendingView, vm.sortedLoanList);
+                    data = AppFactory.getSortedData(vm.pendingView, vm.sortedLoanList);
 
                     if($location.path() === '/main/home') {
                         vm.gridOptions.api.setRows(data);
@@ -87,7 +87,7 @@
                 {
                     field: 'notification',
                     headerName: ' ',
-                    templateUrl: './app/views/grid_tmpl/indicators.html',
+                    templateUrl: './app/views/grid_tmpl/listing.indicators.html',
                     cellClass: 'text-center',
                     suppressSizeToFit: true,
                     width: indWid.width,
@@ -490,23 +490,11 @@
             };
 
             //////////
-            function getSortedData(state, collection) {
-                var ds = [];
-                if(state) {
-                    ds = _.sortByAll(collection, ['vote_pending', 'has_comment', 'is_stale', 'is_watched', 'disbursement_issue']).reverse();
-                    //console.log('true', ds);
-                    return ds;
-                } else {
-                    ds = _.sortByAll(collection, ['farmer']);
-                    //console.log('false', ds);
-                    return ds;
-                }
-            }
             function sortPending() {
                 vm.pendingView = !vm.pendingView;
                 vm.gridOptions.context.pending_view = !vm.gridOptions.context.pending_view;
                 vm.gridOptions.api.refreshHeader();
-                var newData = getSortedData(vm.pendingView, vm.sortedLoanList);
+                var newData = AppFactory.getSortedData(vm.pendingView, vm.sortedLoanList);
                 vm.gridOptions.api.setRows(newData);
             }
             function numberNewValueHandler(params) {

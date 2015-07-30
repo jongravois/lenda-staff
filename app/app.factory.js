@@ -14,6 +14,7 @@
             getAll: getAll,
             getIndicatorWidth: getIndicatorWidth,
             getOne: getOne,
+            getSortedData: getSortedData,
             inArray: inArray,
             nullOrNot: nullOrNot,
             patchIt: patchIt,
@@ -100,6 +101,18 @@
             }; //140;
             //console.log(retro);
             return retro;
+        }
+        function getSortedData(state, collection) {
+            var ds = [];
+            if(state) {
+                ds = _.sortByAll(collection, ['vote_pending', 'has_comment', 'is_stale', 'is_watched', 'disbursement_issue']).reverse();
+                //console.log('true', ds);
+                return ds;
+            } else {
+                ds = _.sortByAll(collection, ['farmer']);
+                //console.log('false', ds);
+                return ds;
+            }
         }
         function inArray(needle, haystack) {
             if (haystack.indexOf(needle) === -1) {

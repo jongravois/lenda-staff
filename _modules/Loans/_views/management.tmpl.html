@@ -1,13 +1,15 @@
+<style>
+    .pendicon, .indicon {padding: 1px 0;}
+</style>
 <div class="frmFull_Page" style="z-index: 10;">
     <div class="row view-page-header-bar">
         <div class="col-md-12">
-            <div class="col-md-12">
-                <h5 style="display: inline;
+            <h5 style="display: inline;
                        font-size: 16px;
                        line-height: 30px;
                        z-index: 20;">
-                    Management
-                </h5>
+                Management
+            </h5>
             <span class="pull-right"
                   style="display: inline; margin-top:-3px; z-index: 1000;">
                 <form>
@@ -23,18 +25,18 @@
                     </select>
                 </form>
             </span>
-            </div>
         </div>
+    </div>
 
-        <div class="row" style="display: none;">
+        <div class="row">
             <div class="col-sm-12">
                 <!-- AG Grid -->
-                <div style="margin-top: 10px; width: 100%; height:420px;" ag-grid="loans.gridOptions" class="ag-arm"></div>
+                <div style="margin-top: 10px; width: 100%; height:420px;" ag-grid="loanman.gridOptions" class="ag-arm"></div>
                 <!-- AG Grid -->
             </div>
         </div>
 
-        <div class="row" style="margin-top: 50px;">
+        <div class="row" style="margin-top: 50px;"> <!-- style="display: none;" -->
             <div class="col-sm-12">
                 <pre>{{loanman.loans|json}}</pre>
             </div>
