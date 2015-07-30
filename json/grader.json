@@ -1,0 +1,21 @@
+[
+  {
+    "amount_requested": 25000000,
+    "credit_score": 730,
+    "bankruptcy": false,
+    "judgement": false,
+    "cpa_financials": true,
+    "years_farming": 36,
+    "total_liabilities": 2433535,
+    "total_assets": 7977504,
+    "total_assets_adjusted": 5713873,
+    "debt2asset_ratio": 30.50,
+    "debt2asset_ratio_adj": 42.62,
+    "ratio_current": 379.02,
+    "ratio_current_adj": 322.17,
+    "capWork": 155.50,
+    "capWork_adj": 101.2813,
+    "capBorrow": 79.77,
+    "capBorrow_adj": 57.4100
+  }
+]

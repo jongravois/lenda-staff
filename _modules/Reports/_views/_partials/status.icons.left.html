@@ -1,0 +1,56 @@
+<span tooltip="WatchList"
+      tooltip-append-to-body="true"
+      tooltip-placement="bottom"
+      class="progicon glyphicon glyphicon-sunglasses"
+      ng-class="{'cBlack': data.is_watched, 'cGray': !data.is_watched}">
+</span>
+
+<span class="progicon glyphicon glyphicon-plus"
+      tooltip="Addendum"
+      tooltip-append-to-body="true"
+      tooltip-placement="bottom"
+      ng-class="{'cBlack': data.is_addendum, 'cGray': !data.is_addendum}">
+</span>
+
+<span class="progicon glyphicon glyphicon-random"
+      tooltip="Cross Collateral"
+      tooltip-append-to-body="true"
+      tooltip-placement="bottom"
+      ng-click="toggleCrossColateral()"
+      ng-class="{'cBlack': data.is_cross_collateralized, 'cGray': !data.is_cross_collateralized}">
+</span>
+
+<span class="progicon glyphicon glyphicon-fire"
+      tooltip="Bankruptcy History"
+      tooltip-append-to-body="true"
+      tooltip-placement="bottom"
+      ng-class="{'cBlack': data.is_bankruptcy_history, 'cGray': !data.is_bankruptcy_history}">
+</span>
+
+<span class="progicon glyphicon glyphicon-stats"
+      tooltip="Third Party Credit Required"
+      tooltip-append-to-body="true"
+      tooltip-placement="bottom"
+      ng-class="{'cBlack': data.is_required_3party, 'cGray': !data.is_required_3party}">
+</span>
+
+<span class="progicon glyphicon glyphicon-flag"
+      tooltip="Added Land in Database"
+      tooltip-append-to-body="true"
+      tooltip-placement="bottom"
+      ng-class="{'cBlack': data.is_added_land, 'cGray': !data.is_added_land}">
+</span>
+
+<span tooltip="Controlled Disbursement"
+      tooltip-append-to-body="true"
+      tooltip-placement="bottom"
+      class="progicon glyphicon glyphicon-usd"
+      ng-class="{'cBlack': data.is_disbursement_issue, 'cGray': !data.is_disbursement_issue}">
+</span>
+
+<span class="progicon glyphicon glyphicon-paperclip"
+      tooltip="Attachments"
+      tooltip-append-to-body="true"
+      tooltip-placement="bottom"
+      ng-class="{'cBlack' : data.num_attachments, 'cGray': !data.num_attachments}">
+</span>

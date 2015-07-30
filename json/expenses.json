@@ -1,0 +1,114 @@
+[
+    {
+        "cat_id": 1,
+        "expense": "Fertilizer",
+        "arm": 0,
+        "dist": 72689,
+        "other": 0,
+        "total": 72689
+    },
+    {
+        "cat_id": 2,
+        "expense": "Seed",
+        "arm": 0,
+        "dist": 0,
+        "other": 74769,
+        "total": 74769
+    },
+    {
+        "cat_id": 3,
+        "expense": "Fungicide",
+        "arm": 0,
+        "dist": 7154,
+        "other": 0,
+        "total": 7154
+    },
+    {
+        "cat_id": 4,
+        "expense": "Herbicide",
+        "arm": 0,
+        "dist": 23083,
+        "other": 0,
+        "total": 23083
+    },
+    {
+        "cat_id": 5,
+        "expense": "Insecticide",
+        "arm": 0,
+        "dist": 6192,
+        "other": 0,
+        "total": 6192
+    },
+    {
+        "cat_id": 6,
+        "expense": "Custom",
+        "arm": 19020,
+        "dist": 0,
+        "other": 0,
+        "total": 19020
+    },
+    {
+        "cat_id": 7,
+        "expense": "Fuel",
+        "arm": 31305,
+        "dist": 0,
+        "other": 0,
+        "total": 31305
+    },
+    {
+        "cat_id": 8,
+        "expense": "Repairs",
+        "arm": 12751,
+        "dist": 0,
+        "other": 0,
+        "total": 12751
+    },
+    {
+        "cat_id": 9,
+        "expense": "Labor",
+        "arm": 18554,
+        "dist": 0,
+        "other": 0,
+        "total": 18554
+    },
+    {
+        "cat_id": 10,
+        "expense": "Repairs",
+        "arm": 12751,
+        "dist": 0,
+        "other": 0,
+        "total": 12751
+    },
+    {
+        "cat_id": 10,
+        "expense": "Insurance",
+        "arm": 0,
+        "dist": 0,
+        "other": 8327,
+        "total": 8327
+    },
+    {
+        "cat_id": 11,
+        "expense": "Harvesting",
+        "arm": 0,
+        "dist": 0,
+        "other": 0,
+        "total": 0
+    },
+    {
+        "cat_id": 12,
+        "expense": "Misc Acres",
+        "arm": 18554,
+        "dist": 0,
+        "other": 0,
+        "total": 18554
+    },
+    {
+        "cat_id": 13,
+        "expense": "Living Expenses",
+        "arm": 45797,
+        "dist": 0,
+        "other": 0,
+        "total": 45797
+    }
+]

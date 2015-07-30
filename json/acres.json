@@ -1,0 +1,36 @@
+{
+  "acres": [
+    {
+      "crop_id": 1,
+      "acres": 347.4
+    },
+    {
+      "crop_id": 2,
+      "acres": 580.3
+    },
+    {
+      "crop_id": 3,
+      "acres": 0
+    },
+    {
+      "crop_id": 4,
+      "acres": 0
+    },
+    {
+      "crop_id": 5,
+      "acres": 0
+    },
+    {
+      "crop_id": 6,
+      "acres": 0
+    },
+    {
+      "crop_id": 7,
+      "acres": 0
+    },
+    {
+      "crop_id": 8,
+      "acres": 0
+    }
+  ]
+}

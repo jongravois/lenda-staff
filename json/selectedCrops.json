@@ -1,0 +1,12 @@
+[
+  {
+    "corn": true,
+    "beans": true,
+    "sorghum": false,
+    "wheat": false,
+    "cotton": false,
+    "rice": false,
+    "peanuts": false,
+    "cane": false
+  }
+]
