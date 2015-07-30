@@ -4,10 +4,10 @@
         .module('ARM')
         .controller('LoansController', LoansController);
 
-        LoansController.$inject = ['$filter', 'orderByFilter', 'AppFactory', 'LoansFactory'];
+        LoansController.$inject = ['$filter', '$location', 'orderByFilter', 'AppFactory', 'LoansFactory'];
 
         /* @ngInject */
-        function LoansController($filter, orderByFilter, AppFactory, LoansFactory) {
+        function LoansController($filter, $location, orderByFilter, AppFactory, LoansFactory) {
             /* jshint validthis: true */
             var vm = this;
 
@@ -18,7 +18,7 @@
 
             vm.pendingView = true;
             vm.sortPending = sortPending;
-            var indWid = getIndicatorWidth();
+            var indWid = AppFactory.getIndicatorWidth(vm.user);
 
             vm.sortLoans = AppFactory.sortLoans;
             vm.landing_view = 'settings';
@@ -27,7 +27,7 @@
                 .then(function(rsp){
                     var loans = rsp.data.data;
                     vm.loans = loans;
-                    vm.indWid = getIndicatorWidth();
+                    vm.indWid = AppFactory.getIndicatorWidth(vm.user);
 
                     //comments
                     _.each(loans, function(item){
@@ -60,7 +60,10 @@
                     var settingsLoans = vm.sortLoans(LoansBySettings, 1);
                     vm.sortedLoanList = settingsLoans;
                     data = getSortedData(vm.pendingView, vm.sortedLoanList);
-                    vm.gridOptions.api.setRows(data);
+
+                    if($location.path() === '/main/home') {
+                        vm.gridOptions.api.setRows(data);
+                    }
                 });
 
             vm.changeLandingView = function(val) {
@@ -487,42 +490,6 @@
             };
 
             //////////
-            function getIndicatorWidth() {
-                var cnt = 0;
-
-                if(vm.user.viewopts.voIconAddendum) {
-                 cnt += 1;
-                 }
-                 if(vm.user.viewopts.voIconCross) {
-                 cnt += 1;
-                 }
-                 if(vm.user.viewopts.voIconBankruptcy) {
-                 cnt += 1;
-                 }
-                 if(vm.user.viewopts.voIcon3pcredit) {
-                 cnt += 1;
-                 }
-                 if(vm.user.viewopts.voIconAddedland) {
-                 cnt += 1;
-                 }
-                 if(vm.user.viewopts.voIconDisbursement) {
-                 cnt += 1;
-                 }
-                 if(vm.user.viewopts.voIconAttachments) {
-                 cnt += 1;
-                 }
-
-                 var retro = {
-                    hide: (cnt === 0 ? true : false),
-                    width: cnt * 19
-                 }; //140;
-                //console.log(retro);
-                return retro;
-                /*return {
-                    hide: false,
-                    width: 136
-                };*/
-            }
             function getSortedData(state, collection) {
                 var ds = [];
                 if(state) {

@@ -18,12 +18,12 @@
                 })
                 .state('main.home', {
                     url: '/home',
-                    templateUrl: 'app/views/home.view.html',
+                    templateUrl: 'app/views/home.tmpl.html',
                     controller: 'LoansController as loans'
                 })
                 .state('main.prefs', {
                     url: '/prefs',
-                    templateUrl: 'app/views/prefs.view.html',
+                    templateUrl: 'app/views/prefs.tmpl.html',
                     controller: 'SettingsController as prefs'
                 })
                 .state('main.users', {
