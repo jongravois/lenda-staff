@@ -2,11 +2,11 @@
     'use strict';
     angular
         .module('ARM')
-        .controller('CfarmController', CfarmController);
+        .controller('CashflowController', CashflowController);
 
-    CfarmController.$inject = ['$scope', '$http', '$filter', 'AppFactory'];
+    CashflowController.$inject = ['$scope', '$http', '$filter', 'AppFactory'];
 
-    function CfarmController($scope, $http, $filter, AppFactory) {
+    function CashflowController($scope, $http, $filter, AppFactory) {
         $scope.AppFactory = AppFactory;
 
         var columnDefs = [

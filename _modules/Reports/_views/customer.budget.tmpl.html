@@ -1,0 +1,53 @@
+<link rel="stylesheet" type="text/css" href="js/ag-grid/theme-reports.css">
+
+<h3> &nbsp; Customer Budget </h3>
+<div id="cusbud">
+    <!--<pre>{{gridOptions.rowData | json}}</pre>-->
+    <form>
+        <div ng-if="detail">
+            <div ng-repeat="x in gridOptions.selectedRows">
+                <table style="width:auto;;float:right" class="table table-zebra-stripes-blue table-bordered table-condensed table-hover table-responsive">
+                    <thead>
+                    <tr class="tbl-header-container-blue">
+                        <th>Category</th>
+                        <th>Budget</th>
+                        <th>Spent</th>
+                        <th>Available</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="item in x.budget">
+                        <td class="text-left">{{item['category']}}</td>
+                        <td class="text-right">{{item['amount'] | currency}}</td>
+                        <td class="text-right">{{item['spent'] | currency}}</td>
+                        <td class="text-right">{{item['amount'] - item['spent'] | currency}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+                <!--<br><div><pre>{{gridOptions.selectedRows | json}}</pre></div><br>-->
+            </div>
+        </div>
+    </form>
+    <div class="ag-fresh" ag-grid="gridOptions" ng-style="{height: gridHeight}"></div>
+    <form>
+        <br>
+        <span style="display:inline-block;float:left;">
+            <!--<span class="btn glyphicon glyphicon-briefcase" ng-click="showToolPanel()"> Options </span>-->
+            <span class="btn glyphicon glyphicon-eye-open" ng-click="hideIcons()"> Icons </span>
+            <span class="btn glyphicon glyphicon-header" ng-click="toggleDollarsPercent()"> $/% </span>
+            <span class="btn glyphicon glyphicon-expand" ng-click="toggleDetail()"> Detail </span>
+            <span class="btn glyphicon glyphicon-off" ng-click="toggleHorizontal()"> Horizontal </span>
+        </span>
+        <span style="display:inline-block;float:right;">
+            <span class="btn glyphicon glyphicon-print" ng-click=""> Print </span>
+            <span class="btn glyphicon glyphicon-envelope" ng-click=""> Email </span>
+            <span class="btn glyphicon glyphicon-export" ng-click=""> Export </span>
+            <span class="btn glyphicon glyphicon-file" ng-click=""> PDF </span>
+        </span>
+        <br><br>
+        <span style="display:inline-block;float:left;">
+            &nbsp; <input placeholder="Filter..." type="text" ng-model="gridOptions.quickFilterText"/>
+        </span>
+        <br><br>
+    </form>
+</div>
