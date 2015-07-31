@@ -1,253 +1,253 @@
 <table class="table">
     <tr>
         <td>
-        <span tooltip="Vote Needed"
-              tooltip-append-to-body="true"
-              tooltip-placement="bottom"
-              class="progicon glyphicon glyphicon-exclamation-sign"
-              ng-class="{'cBlue': loan.need_vote, 'cGray': !loan.need_vote}"></span>
-        <span tooltip="Comments"
-              tooltip-append-to-body="true"
-              tooltip-placement="bottom"
-              class="progicon glyphicon glyphicon-exclamation-sign"
-              ng-class="{'cYellow': loan.has_comment, 'cGray': !loan.has_comment}"></span>
-        <span tooltip="Stale Application"
-              tooltip-append-to-body="true"
-              tooltip-placement="bottom"
-              class="progicon glyphicon glyphicon-exclamation-sign"
-              ng-class="{'cRed': loan.is_stale, 'cGray': !loan.is_stale}"></span>
-        <span tooltip="WatchList"
-              tooltip-append-to-body="true"
-              tooltip-placement="bottom"
-              class="progicon glyphicon glyphicon-sunglasses"
-              ng-class="{'cBlack': loan.is_watched, 'cGray': !loan.is_watched}"></span>
-        <span tooltip="Disbursement"
-              tooltip-append-to-body="true"
-              tooltip-placement="bottom"
-              class="progicon glyphicon glyphicon-usd"
-              ng-class="{'cGreen': loan.disbursement_issue, 'cGray': !loan.disbursement_issue}"></span>
+            <span tooltip="Vote Needed"
+                  tooltip-append-to-body="true"
+                  tooltip-placement="bottom"
+                  class="progicon glyphicons glyphicons-circle-exclamation-mark"
+                  ng-class="{'cBlue': edt.loan.vote_pending, 'cGray': !edt.loan.vote_pending}"></span>
+            <span tooltip="Comments"
+                  tooltip-append-to-body="true"
+                  tooltip-placement="bottom"
+                  class="progicon glyphicons glyphicons-circle-exclamation-mark"
+                  ng-class="{'cYellow': edt.loan.has_comment, 'cGray': !edt.loan.has_comment}"></span>
+            <span tooltip="Stale Application"
+                  tooltip-append-to-body="true"
+                  tooltip-placement="bottom"
+                  class="progicon glyphicons glyphicons-circle-exclamation-mark"
+                  ng-class="{'cRed': edt.loan.is_stale, 'cGray': !edt.loan.is_stale}"></span>
+            <span tooltip="WatchList"
+                  tooltip-append-to-body="true"
+                  tooltip-placement="bottom"
+                  class="progicon glyphicons glyphicons-sunglasses"
+                  ng-class="{'cBlack': edt.loan.is_watched, 'cGray': !edt.loan.is_watched}"></span>
+            <span tooltip="Disbursement"
+                  tooltip-append-to-body="true"
+                  tooltip-placement="bottom"
+                  class="progicon glyphicons glyphicons-usd"
+                  ng-class="{'cGreen': edt.loan.disbursement_issue, 'cGray': !edt.loan.disbursement_issue}"></span>
         </td>
         <td>
-        <span class="progicon glyphicon glyphicon-plus"
+        <span class="progicon glyphicons glyphicons-plus"
               tooltip="Addendum"
               tooltip-append-to-body="true"
               tooltip-placement="bottom"
-              ng-class="{'clrOn': loan.has_addendum, 'clrOff': !loan.has_addendum}"></span>
-        <span class="progicon glyphicon glyphicon-random"
+              ng-class="{'clrOn': edt.loan.has_addendum, 'clrOff': !edt.loan.has_addendum}"></span>
+        <span class="progicon glyphicons glyphicons-random"
               tooltip="Cross Collateral"
               tooltip-append-to-body="true"
               tooltip-placement="bottom"
-              ng-click="toggleCrossColateral()"
-              ng-class="{'clrOn': loan.is_cross_collateralized, 'clrOff': !loan.is_cross_collateralized }" style="color: #006837;" ng-if="XColView"></span>
-            <span class="progicon glyphicon glyphicon-random"
-                  tooltip="Cross Collateral"
-                  tooltip-append-to-body="true"
-                  tooltip-placement="bottom"
-                  ng-click="toggleCrossColateral()"
-                  ng-class="{'cRed': XColView, 'clrOn': loan.is_cross_collateralized, 'clrOff': !loan.is_cross_collateralized }" style="color: #333333;" ng-if="!XColView"></span>
-        <span class="progicon glyphicon glyphicon-fire"
+              ng-click="edt.toggleCrossColateral()"
+              ng-class="{'clrOn': edt.loan.is_cross_collateralized, 'clrOff': !edt.loan.is_cross_collateralized }" style="color: #006837;" ng-if="edt.XColView"></span>
+        <span class="progicon glyphicons glyphicons-random"
+              tooltip="Cross Collateral"
+              tooltip-append-to-body="true"
+              tooltip-placement="bottom"
+              ng-click="edt.toggleCrossColateral()"
+              ng-class="{'cRed': edt.XColView, 'clrOn': edt.loan.is_cross_collateralized, 'clrOff': !edt.loan.is_cross_collateralized }" style="color: #333333;" ng-if="!edt.XColView"></span>
+        <span class="progicon glyphicons glyphicons-fire"
               tooltip="Bankruptcy History"
               tooltip-append-to-body="true"
               tooltip-placement="bottom"
-              ng-class="{'clrOn': loan.bankruptcy_history, 'clrOff': !loan.bankruptcy_history}"></span>
-        <span class="progicon glyphicon glyphicon-stats"
+              ng-class="{'clrOn': edt.loan.bankruptcy_history, 'clrOff': !edt.loan.bankruptcy_history}"></span>
+        <span class="progicon glyphicons glyphicons-charts"
               tooltip="Third Party Credit Required"
               tooltip-append-to-body="true"
               tooltip-placement="bottom"
-              ng-class="{'clrOn': loan.required_3party, 'clrOff': !loan.required_3party}"></span>
-        <span class="progicon glyphicon glyphicon-flag"
+              ng-class="{'clrOn': edtloan.required_3party, 'clrOff': !edtloan.required_3party}"></span>
+        <span class="progicon glyphicons glyphicons-flag"
               tooltip="Added Land in Database"
               tooltip-append-to-body="true"
               tooltip-placement="bottom"
-              ng-class="{'clrOn': loan.added_land, 'clrOff': !loan.added_land}"></span>
-        <span class="progicon glyphicon glyphicon-lock"
+              ng-class="{'clrOn': edt.loan.added_land, 'clrOff': !edt.loan.added_land}"></span>
+        <span class="progicon glyphicons glyphicons-lock"
               tooltip="Controlled Disbursement"
               tooltip-append-to-body="true"
               tooltip-placement="bottom"
-              ng-class="{'clrOn': loan.controlled_disbursement, 'clrOff': !loan.controlled_disbursement}"></span>
-        <span class="progicon glyphicon glyphicon-paperclip"
+              ng-class="{'clrOn': edt.loan.controlled_disbursement, 'clrOff': !edt.loan.controlled_disbursement}"></span>
+        <span class="progicon glyphicons glyphicons-paperclip"
               tooltip="Attachments"
               tooltip-append-to-body="true"
               tooltip-placement="bottom"
-              ng-class="{'clrOn' : loan.attachments.length, 'clrOff': !loan.attachments.length }"></span>
+              ng-class="{'clrOn' : edt.loan.attachments.length, 'clrOff': !edt.loan.attachments.length }"></span>
         </td>
 
         <td>
-            <span loan-status-icon status="loan.status_id"></span>
+            <span loan-status-icon status="edt.loan.status_id"></span>
         </td>
 
         <td>
-      <span class="progicon glyphicon glyphicon-list-alt"
-            tooltip="ITS List Verfified"
-            tooltip-append-to-body="true"
-            tooltip-placement="bottom"
-            ng-click="AppFactory.clickITS(loan, user.username)"
-            ng-class="{'cGray': loan.its_list == 0, 'cGreen': loan.its_list == 1, 'cRed': loan.its_list == 2}"></span>
+          <span class="progicon glyphicons glyphicons-list-alt"
+                tooltip="ITS List Verfified"
+                tooltip-append-to-body="true"
+                tooltip-placement="bottom"
+                ng-click="edt.AppFactory.clickManagement(data.id, data.its_list, 'ITS')"
+                ng-class="{'cGray': edt.loan.its_list == 0, 'cGreen': edt.loan.its_list == 1, 'cRed': edt.loan.its_list == 2}"></span>
         </td>
         <td>
-        <span class="progicon glyphicon glyphicon-home"
+        <span class="progicon glyphicons glyphicons-home"
               tooltip="FSA Eligibility"
               tooltip-append-to-body="true"
               tooltip-placement="bottom"
-              ng-click="AppFactory.clickFSA(loan, user.username)"
-              ng-class="{'cGray': loan.fsa_compliant == 0, 'cGreen': loan.fsa_compliant == 1, 'cRed': loan.fsa_compliant == 2}"></span>
+              ng-click="edt.AppFactory.clickManagement(data.id, data.its_list, 'FSA')"
+              ng-class="{'cGray': edt.loan.fsa_compliant == 0, 'cGreen': edt.loan.fsa_compliant == 1, 'cRed': edt.loan.fsa_compliant == 2}"></span>
         </td>
         <td>
-        <span class="progicon glyphicon glyphicon-star"
+        <span class="progicon glyphicons glyphicons-star"
               tooltip="Prior Lien Verfied"
               tooltip-append-to-body="true"
               tooltip-placement="bottom"
-              ng-click="AppFactory.clickLIEN(loan, user.username)"
-              ng-class="{'cGray': loan.prev_lien_verified == 0, 'cGreen': loan.prev_lien_verified == 1, 'cRed': loan.prev_lien_verified == 2}"></span>
+              ng-click="edt.AppFactory.clickManagement(data.id, data.its_list, 'PLV')"
+              ng-class="{'cGray': edt.loan.prev_lien_verified == 0, 'cGreen': edt.loan.prev_lien_verified == 1, 'cRed': edt.loan.prev_lien_verified == 2}"></span>
         </td>
         <td>
-        <span class="progicon glyphicon glyphicon-leaf"
+        <span class="progicon glyphicons glyphicons-leaf"
               tooltip="Leases Valid"
               tooltip-append-to-body="true"
               tooltip-placement="bottom"
-              ng-click="AppFactory.clickLEASE(loan, user.username)"
-              ng-class="{'cGray': loan.leases_valid == 0, 'cGreen': loan.leases_valid == 1, 'cRed': loan.leases_valid == 2}"></span>
+              ng-click="edt.AppFactory.clickManagement(data.id, data.its_list, 'LSV')"
+              ng-class="{'cGray': edt.loan.leases_valid == 0, 'cGreen': edt.loan.leases_valid == 1, 'cRed': edt.loan.leases_valid == 2}"></span>
         </td>
         <td>
-        <span class="progicon glyphicon glyphicon-fire"
+        <span class="progicon glyphicons glyphicons-fire"
               tooltip="Bankruptcy Order Received"
               tooltip-append-to-body="true"
               tooltip-placement="bottom"
-              ng-click="AppFactory.clickBORCVD(loan, user.username)"
-              ng-class="{'cGray': loan.bankruptcy_order_received == 0, 'cGreen': loan.bankruptcy_order_received == 1, 'cRed': loan.bankruptcy_order_received == 2}"></span>
+              ng-click="edt.AppFactory.clickManagement(data.id, data.its_list, 'BOR')"
+              ng-class="{'cGray': edt.loan.bankruptcy_order_received == 0, 'cGreen': edt.loan.bankruptcy_order_received == 1, 'cRed': edt.loan.bankruptcy_order_received == 2}"></span>
         </td>
         <td>
-        <span class="progicon glyphicon glyphicon-stats"
+        <span class="progicon glyphicons glyphicons-charts"
               tooltip="Third Party Credit Verified"
               tooltip-append-to-body="true"
               tooltip-placement="bottom"
-              ng-click="AppFactory.click3PC(loan, user.username)"
-              ng-class="{'cGray': loan.received_3party == 0, 'cGreen': loan.received_3party == 1, 'cRed': loan.received_3party == 2}"></span>
+              ng-click="edt.AppFactory.clickManagement(data.id, data.its_list, 'C3V')"
+              ng-class="{'cGray': edt.loan.received_3party == 0, 'cGreen': edt.loan.received_3party == 1, 'cRed': edt.loan.received_3party == 2}"></span>
         </td>
         <td>
-        <span class="progicon glyphicon glyphicon-share-alt"
+        <span class="progicon glyphicons glyphicons-share"
               tooltip="Recommended"
               tooltip-append-to-body="true"
               tooltip-placement="bottom"
-              ng-click="AppFactory.clickREC(loan, user.username)"
-              ng-class="{'cGray': loan.recommended == 0, 'cGreen': loan.recommended == 1, 'cRed': loan.recommended == 2}"></span>
+              ng-click="edt.AppFactory.clickManagement(data.id, data.its_list, 'REC')"
+              ng-class="{'cGray': edt.loan.recommended == 0, 'cGreen': edt.loan.recommended == 1, 'cRed': edt.loan.recommended == 2}"></span>
         </td>
         <td>
-        <span class="progicon glyphicon glyphicon-thumbs-up"
+        <span class="progicon glyphicons glyphicons-thumbs-up"
               tooltip="ARM Approved"
               tooltip-append-to-body="true"
               tooltip-placement="bottom"
-              ng-click="AppFactory.clickARMAPP(loan, user.username)"
-              ng-class="{'cGray': loan.arm_approved == 0, 'cGreen': loan.arm_approved == 1, 'cRed': loan.arm_approved == 2}"></span>
+              ng-click="edt.AppFactory.clickManagement(data.id, data.its_list, 'ARM')"
+              ng-class="{'cGray': edt.loan.arm_approved == 0, 'cGreen': edt.loan.arm_approved == 1, 'cRed': edt.loan.arm_approved == 2}"></span>
         </td>
         <td>
-        <span class="progicon glyphicon glyphicon-hand-up"
+        <span class="progicon glyphicons glyphicons-hand-up"
               tooltip="Distributor Approved"
               tooltip-append-to-body="true"
               tooltip-placement="bottom"
-              ng-click="AppFactory.clickDISTAPP(loan, user.username)"
-              ng-class="{'cGray': loan.dist_approved == 0, 'cGreen': loan.dist_approved == 1, 'cRed': loan.dist_approved == 2}"></span>
+              ng-click="edt.AppFactory.clickManagement(data.id, data.its_list, 'DIS')"
+              ng-class="{'cGray': edt.loan.dist_approved == 0, 'cGreen': edt.loan.dist_approved == 1, 'cRed': edt.loan.dist_approved == 2}"></span>
         </td>
         <td>
-        <span class="progicon glyphicon glyphicon-folder-close"
+        <span class="progicon glyphicons glyphicons-folder-closed"
               tooltip="Loan Closed"
               tooltip-append-to-body="true"
               tooltip-placement="bottom"
-              ng-click="AppFactory.clickCLOSE(loan, user.username)"
-              ng-class="{'cGray': loan.loan_closed == 0, 'cGreen': loan.loan_closed == 1, 'cRed': loan.loan_closed == 2}"></span>
+              ng-click="edt.AppFactory.clickManagement(data.id, data.its_list, 'CLO')"
+              ng-class="{'cGray': edt.loan.loan_closed == 0, 'cGreen': edt.loan.loan_closed == 1, 'cRed': edt.loan.loan_closed == 2}"></span>
         </td>
         <td>
-        <span class="progicon glyphicon glyphicon-flag"
+        <span class="progicon glyphicons glyphicons-flag"
               tooltip="Added Land Verified"
               tooltip-append-to-body="true"
               tooltip-placement="bottom"
-              ng-click="AppFactory.clickADDLAND(loan, user.username)"
-              ng-class="{'cGray': loan.added_land_verified == 0, 'cGreen': loan.added_land_verified == 1, 'cRed': loan.added_land_verified == 2}"></span>
+              ng-click="edt.AppFactory.clickManagement(data.id, data.its_list, 'ADD')"
+              ng-class="{'cGray': edt.loan.added_land_verified == 0, 'cGreen': edt.loan.added_land_verified == 1, 'cRed': edt.loan.added_land_verified == 2}"></span>
         </td>
         <td>
-            <span class="progicon glyphicon glyphicon-gift"
+            <span class="progicon glyphicons glyphicons-gift"
                   tooltip="Permission to Insure Verified" tooltip-append-to-body="true"
                   tooltip-placement="bottom"
-                  ng-click="AppFactory.clickPERINS(loan, user.username)"
-                  ng-class="{'cGray': loan.permission_to_insure_verified == 0, 'cGreen': loan.permission_to_insure == 1, 'cRed': loan.permission_to_insure == 2}"></span>
+                  ng-click="edt.AppFactory.clickManagement(data.id, data.its_list, 'P2I')"
+                  ng-class="{'cGray': edt.loan.permission_to_insure_verified == 0, 'cGreen': edt.loan.permission_to_insure == 1, 'cRed': edt.loan.permission_to_insure == 2}"></span>
         </td>
         <td>
-        <span class="progicon glyphicon glyphicon-log-in"
+        <span class="progicon glyphicons glyphicons-log-in"
               tooltip="ARM UCC Received"
               tooltip-append-to-body="true"
               tooltip-placement="bottom"
-              ng-click="AppFactory.clickARMUCC(loan, user.username)"
-              ng-class="{'cGray': loan.arm_ucc_received == 0, 'cGreen': loan.arm_ucc_received == 1, 'cRed': loan.arm_ucc_received == 2}"></span>
+              ng-click="edt.AppFactory.clickManagement(data.id, data.its_list, 'UCC')"
+              ng-class="{'cGray': edt.loan.arm_ucc_received == 0, 'cGreen': edt.loan.arm_ucc_received == 1, 'cRed': edt.loan.arm_ucc_received == 2}"></span>
         </td>
         <td>
-        <span class="progicon glyphicon glyphicon-log-in"
+        <span class="progicon glyphicons glyphicons-log-in"
               tooltip="Distributor UCC Received"
               tooltip-append-to-body="true"
               tooltip-placement="bottom"
-              ng-click="AppFactory.clickDISTUCC(loan, user.username)"
-              ng-class="{'cGray': loan.dist_ucc_received == 0, 'cGreen': loan.dist_ucc_received == 1, 'cRed': loan.dist_ucc_received == 2}"></span>
+              ng-click="edt.AppFactory.clickManagement(data.id, data.its_list, 'DCC')"
+              ng-class="{'cGray': edt.loan.dist_ucc_received == 0, 'cGreen': edt.loan.dist_ucc_received == 1, 'cRed': edt.loan.dist_ucc_received == 2}"></span>
         </td>
         <td>
-        <span class="progicon glyphicon glyphicon-circle-arrow-right"
+        <span class="progicon glyphicons glyphicons-circle-arrow-right"
               tooltip="AOI Received"
               tooltip-append-to-body="true"
               tooltip-placement="bottom"
-              ng-click="clkAOI(loan, user.username)"
-              ng-class="{'cGray': loan.aoi_received == 0, 'cGreen': loan.aoi_received == 1, 'cRed': loan.aoi_received == 2}"></span>
+              ng-click="edt.AppFactory.clickManagement(data.id, data.its_list, 'AOI')"
+              ng-class="{'cGray': edt.loan.aoi_received == 0, 'cGreen': edt.loan.aoi_received == 1, 'cRed': edt.loan.aoi_received == 2}"></span>
         </td>
         <td>
-        <span class="progicon glyphicon glyphicon-link"
+        <span class="progicon glyphicons glyphicons-link"
               tooltip="CCC Received"
               tooltip-append-to-body="true"
               tooltip-placement="bottom"
-              ng-click="AppFactory.clickCCC(loan, user.username)"
-              ng-class="{'cGray': loan.ccc_received == 0, 'cGreen': loan.ccc_received == 1, 'cRed': loan.ccc_received == 2}"></span>
+              ng-click="edt.AppFactory.clickManagement(data.id, data.its_list, 'CCC')"
+              ng-class="{'cGray': edt.loan.ccc_received == 0, 'cGreen': edt.loan.ccc_received == 1, 'cRed': edt.loan.ccc_received == 2}"></span>
         </td>
         <td>
             <span class="progicon glyphicons glyphicons-map"
                   tooltip="Crop Certification"
                   tooltip_append-to-body="true"
                   tooltip-placement="bottom"
-                  ng-click="clkCCert(loan, user.username)"
-                  ng-class="{'cGray': loan.crop_certified == 0, 'cGreen': loan.crop_certified == 1, 'cRed': loan.crop_certified == 2}"></span>
+                  ng-click="edt.AppFactory.clickManagement(data.id, data.its_list, 'CER')"
+                  ng-class="{'cGray': edt.loan.crop_certified == 0, 'cGreen': edt.loan.crop_certified == 1, 'cRed': edt.loan.crop_certified == 2}"></span>
         </td>
         <td>
-        <span class="progicon glyphicon glyphicon-cog"
+        <span class="progicon glyphicons glyphicons-cogwheel"
               tooltip="Rebate Assignment"
               tooltip-append-to-body="true"
               tooltip-placement="bottom"
-              ng-click="AppFactory.clickREBA(loan, user.username)"
-              ng-class="{'cGray': loan.rebate_assignment == 0, 'cGreen': loan.rebate_assignment == 1, 'cRed': loan.rebate_assignment == 2}"></span>
+              ng-click="edt.AppFactory.clickManagement(data.id, data.its_list, 'REB')"
+              ng-class="{'cGray': edt.loan.rebate_assignment == 0, 'cGreen': edt.loan.rebate_assignment == 1, 'cRed': edt.loan.rebate_assignment == 2}"></span>
         </td>
         <td>
-            <span class="progicon glyphicon glyphicon-grain"
+            <span class="progicon glyphicons glyphicons-flower"
                   tooltip="Crop Inspection"
                   tooltip-append-to-body="true"
                   tooltip-placement="bottom"
-                  ng-click="AppFactory.clickCROPINS(loan, user.username)"
-                  ng-class="{'cGray': loan.crop_inspection == 0, 'cGreen': loan.crop_inspection == 1, 'cRed': loan.crop_inspection == 2}"></span>
+                  ng-click="edt.AppFactory.clickManagement(data.id, data.its_list, 'INS')"
+                  ng-class="{'cGray': edt.loan.crop_inspection == 0, 'cGreen': edt.loan.crop_inspection == 1, 'cRed': edt.loan.crop_inspection == 2}"></span>
         </td>
         <!--<td class="bleft">-->
         <td>
             <!--<a href="#/edit/{{l.loan_type_id}}/{{l.id}}/disbursement">-->
-                <span class="glyphicon glyphicon-warning-sign"
+                <span class="glyphicons glyphicons-wifi-alt"
                       alt=""
-                      tooltip="{{loan.limit_warning_message}}"
+                      tooltip="{{edt.loan.limit_warning_message}}"
                       tooltip-append-to-body="true"
                       tooltip-placement="bottom"
-                      ng-class="{'cGray': loan.limit_warning < 2, 'cYellow': loan.limit_warning == 2, 'cRed': loan.limit_warning == 3, 'cGray': loan.limit_warning > 3}"></span>
+                      ng-class="{'cGray': edt.loan.limit_warning < 2, 'cYellow': edt.loan.limit_warning == 2, 'cRed': edt.loan.limit_warning == 3, 'cGray': edt.loan.limit_warning > 3}"></span>
             <!--</a>-->
         </td>
         <td>
-      <span class="progicon glyphicon glyphicon-retweet"
-            tooltip="RECONCILIATION"
-            tooltip-append-to-body="true"
-            tooltip-placement="bottom"
-            ng-click="AppFactory.clickRECON(loan)"
-            ng-class="{'cGray': loan.crop_inspection == 0, 'cGreen': loan.reconciliation == 1, 'cRed': loan.reconciliation == 3}"></span>
+          <span class="progicon glyphicons glyphicons-retweet-2"
+                tooltip="RECONCILIATION"
+                tooltip-append-to-body="true"
+                tooltip-placement="bottom"
+                ng-click="edt.AppFactory.clickManagement(data.id, data.its_list, 'RCL')"
+                ng-class="{'cGray': edt.loan.crop_inspection == 0, 'cGreen': edt.loan.reconciliation == 1, 'cRed': edt.loan.reconciliation == 3}"></span>
         </td>
         <td>
-            <span style="font-size:18px;">{{loan.account_classification}}</span>
+            <span style="font-size:18px;">{{edt.loan.account_classification}}</span>
         </td>
         <td colspan="5">&nbsp;</td>
 
