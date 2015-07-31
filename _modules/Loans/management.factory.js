@@ -14,8 +14,8 @@
         return publicAPI;
 
         //////////
-        function clickManagement(val, step) {
-            alert(val + ' at step ' + step);
+        function clickManagement(loanID, val, step) {
+            console.log(val+' at step '+step+' for loan '+loanID);
         }
     } // end factory
 })();
