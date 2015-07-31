@@ -6,14 +6,17 @@
                 url: '/reports',
                 abstract: true,
                 templateUrl: '_modules/Reports/_views/reports.view.html',
-                controller: 'ReportsController',
-                controllerAs: 'reports'
+                controller: 'ReportsController as reports',
+                resolve: {
+                    Loans: function(LoansFactory) {
+                        return LoansFactory.getLoans();
+                    }
+                }
             })
             .state('reports.home', {
                 url: '/home',
                 templateUrl: '_modules/Reports/_views/home.tmpl.html',
-                controller: 'ReportsController',
-                controllerAs: 'reports'
+                controller: 'ReportsController as rpts'
             })
             .state('reports.actdet', {
                 url: '/actdet',
