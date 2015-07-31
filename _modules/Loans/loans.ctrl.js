@@ -447,7 +447,7 @@
                 angularCompileHeaders: true,
                 columnDefs: columnDefs,
                 colWidth: 100,
-                rowSelection: 'single',
+                rowSelection: false,
                 enableSorting: false,
                 sortPending: sortPending,
                 context: {
