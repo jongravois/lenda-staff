@@ -24,7 +24,7 @@
                     abstract: true,
                     url: '/edit/{loantypeID:\\d+}/{loanID:\\d+}',
                     templateUrl: './_modules/Loans/_views/edit.loan.view.html',
-                    controller: 'EditLoanController as editor',
+                    controller: 'EditLoanController as edt',
                     resolve: {}
                 })
                 .state('edit.optimizer', {

@@ -9,6 +9,9 @@
     /* @ngInject */
     function AppFactory($http, $q, $state, $stateParamas, toastr, API_URL) {
         var publicAPI = {
+            calcAdjExposure: calcAdjExposure,
+            calcCashFlow: calcCashFlow,
+            calcExposure: calcExposure,
             deleteIt: deleteIt,
             filterLoans: filterLoans,
             getAll: getAll,
@@ -47,6 +50,15 @@
         }
 
         /* METHODS */
+        function calcAdjExposure(loan) {
+            return loan.fins.adjExposure;
+        }
+        function calcExposure(loan) {
+            return loan.fins.exposure;
+        }
+        function calcCashFlow(loan) {
+            return loan.fins.cash_flow;
+        }
         function filterLoans(loans, val) {
             //console.log(loans, val, year);
             switch (val) {

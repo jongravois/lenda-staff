@@ -1044,6 +1044,9 @@ div.editable-click {
   height: 38px;
   z-index: 10;
 }
+..view-page-header-bar h6 {
+  display: block;
+}
 .below-the-bar {
   background-color: white;
   margin-top: 8px;
