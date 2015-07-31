@@ -14,7 +14,7 @@
             vm.calcCashFlow = AppFactory.calcCashFlow;
             vm.calcExposure = AppFactory.calcExposure;
             vm.calcAdjExposure = AppFactory.calcAdjExposure;
-            vm.XColView = false;
+            vm.XColView = false; //true;
             vm.showSidebar = user.full_sidebar;
             //console.log(user);
 
