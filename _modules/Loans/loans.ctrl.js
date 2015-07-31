@@ -29,9 +29,11 @@
                     vm.indWid = AppFactory.getIndicatorWidth(vm.user);
 
                     var LoansBySettings = AppFactory.filterLoans(loans, 'settings');
+                    //console.log('LoansBySettings', LoansBySettings);
                     var settingsLoans = vm.sortLoans(LoansBySettings, 1);
                     vm.sortedLoanList = settingsLoans;
                     data = AppFactory.getSortedData(vm.pendingView, vm.sortedLoanList);
+                    //console.log('data', data);
 
                     if($location.path() === '/main/home') {
                         vm.gridOptions.api.setRows(data);

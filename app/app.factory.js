@@ -60,14 +60,14 @@
             return loan.fins.cash_flow;
         }
         function filterLoans(loans, val) {
-            //console.log(loans, val, year);
+            //console.log(loans, val);
             switch (val) {
                 case 'all':
                     return loans;
                     break;
                 case 'settings':
                     return _.filter(loans, function (i) {
-                        return i.status.id === '1';
+                        return Number(i.status.id) === 1;
                     });
                     break;
                 case 'fall':
