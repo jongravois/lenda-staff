@@ -68,7 +68,7 @@
             vm.changeLandingView = function(val) {
                 var loanset = AppFactory.filterLoans(vm.loans, val);
                 vm.sortedLoanList = loanset;
-                data = getSortedData(vm.pendingView, vm.sortedLoanList);
+                data = AppFactory.getSortedData(vm.pendingView, vm.sortedLoanList);
                 vm.gridOptions.api.setRows(data);
             };
 
@@ -367,9 +367,9 @@
             function pendingHdr(params) {
                 //console.log('before', params);
                 if(params.context.pending_view){
-                    return '<div style="text-align:center !important;"><span class="pendicon glyphicons glyphicons-circle-exclamation-mark" ng-click="loans.sortPending()" style="color:#000000;"></span></div>';
+                    return '<div style="text-align:center !important;"><span class="pendicon glyphicons glyphicons-circle-exclamation-mark" ng-click="loanman.sortPending()" style="color:#000000;"></span></div>';
                 } else {
-                    return '<div style="text-align:center !important;"><span class="pendicon glyphicons glyphicons-circle-exclamation-mark" ng-click="loans.sortPending()" style="color:#aaaaaa;"></span></div>';
+                    return '<div style="text-align:center !important;"><span class="pendicon glyphicons glyphicons-circle-exclamation-mark" ng-click="loanman.sortPending()" style="color:#aaaaaa;"></span></div>';
                 }
             }
             function managementHdr(params) {
