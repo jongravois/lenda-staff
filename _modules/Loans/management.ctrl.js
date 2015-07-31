@@ -26,42 +26,15 @@
         vm.landing_view = 'settings';
 
         LoansFactory.getLoans()
-            .then(function (rsp) {
-                var loans = rsp.data.data;
+            .then(function(loans){
                 vm.loans = loans;
                 vm.indWid = AppFactory.getIndicatorWidth(vm.user);
-
-                //comments
-                _.each(loans, function (item) {
-                    //console.log('loans', item);
-                    item.has_comment = false;
-                    if (item.comments.length !== 0) {
-                        _.each(item.comments, function (it) {
-                            _.each(it.status, function (i) {
-                                if (i.status === 'pending' && Number(i.recipient_id) === Number(user.id)) {
-                                    item.has_comment = true;
-                                }
-                            });
-                        });
-                    }
-                });
-
-                //vote
-                _.each(loans, function (item) {
-                    item.vote_pending = false;
-                    if (item.committee.length !== 0) {
-                        _.each(item.committee, function (i) {
-                            if (i.vote_status === 'pending' && Number(i.user_id) === Number(user.id)) {
-                                item.vote_pending = true;
-                            }
-                        });
-                    }
-                });
 
                 var LoansBySettings = AppFactory.filterLoans(loans, 'settings');
                 var settingsLoans = vm.sortLoans(LoansBySettings, 1);
                 vm.sortedLoanList = settingsLoans;
                 data = AppFactory.getSortedData(vm.pendingView, vm.sortedLoanList);
+
                 vm.gridOptions.api.setRows(data);
             });
 
