@@ -11,9 +11,7 @@
             /* jshint validthis: true */
             var user = JSON.parse(localStorage.getItem('user'));
             var vm = this;
-            vm.calcCashFlow = AppFactory.calcCashFlow;
-            vm.calcExposure = AppFactory.calcExposure;
-            vm.calcAdjExposure = AppFactory.calcAdjExposure;
+            vm.AppFactory = AppFactory;
             vm.XColView = false; //true;
             vm.showSidebar = user.full_sidebar;
             //console.log(user);
@@ -37,6 +35,9 @@
                 AppFactory.patchIt('users/', user.id, {full_sidebar: !vm.showSidebar});
             }
 
+            vm.toggleCrossColateral = function() {
+                vm.XColView = !vm.XColView;
+            }
 
             //////////
 
