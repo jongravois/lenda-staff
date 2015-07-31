@@ -4,9 +4,9 @@
         .module('ARM')
         .controller('ActivitySummaryController', ActivitySummaryController);
 
-    ActivitySummaryController.$inject = ['$scope', '$http', '$filter', 'AppFactory'];
+    ActivitySummaryController.$inject = ['$scope', '$http', '$filter', '$timeout', 'AppFactory'];
 
-    function ActivitySummaryController($scope, $http, $filter, AppFactory) {
+    function ActivitySummaryController($scope, $http, $filter, $timeout, AppFactory) {
         $scope.AppFactory = AppFactory;
 
         var columnDefs = [

@@ -4,9 +4,9 @@
         .module('ARM')
         .controller('CropMixController', CropMixController);
 
-    CropMixController.$inject = ['$scope', '$http', '$filter', 'AppFactory'];
+    CropMixController.$inject = ['$scope', '$http', '$filter', '$timeout', 'AppFactory'];
 
-    function CropMixController($scope, $http, $filter, AppFactory) {
+    function CropMixController($scope, $http, $filter, $timeout, AppFactory) {
         $scope.AppFactory = AppFactory;
 
         var columnDefs = [

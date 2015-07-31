@@ -4,9 +4,9 @@
         .module('ARM')
         .controller('CustomerBudgetController', CustomerBudgetController);
 
-    CustomerBudgetController.$inject = ['$scope', '$http', '$filter', 'AppFactory'];
+    CustomerBudgetController.$inject = ['$scope', '$http', '$filter', '$timeout', 'AppFactory'];
 
-    function CustomerBudgetController($scope, $http, $filter, AppFactory) {
+    function CustomerBudgetController($scope, $http, $filter, $timeout, AppFactory) {
         $scope.AppFactory = AppFactory;
 
         var columnDefs = [

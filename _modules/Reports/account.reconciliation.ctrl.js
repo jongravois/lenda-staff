@@ -4,9 +4,9 @@
         .module('ARM')
         .controller('AccountReconciliationController', AccountReconciliationController);
 
-    AccountReconciliationController.$inject = ['$scope', '$http', '$filter', 'AppFactory'];
+    AccountReconciliationController.$inject = ['$scope', '$http', '$filter', '$timeout', 'AppFactory'];
 
-    function AccountReconciliationController($scope, $http, $filter, AppFactory) {
+    function AccountReconciliationController($scope, $http, $filter, $timeout, AppFactory) {
         $scope.AppFactory = AppFactory;
 
         var columnDefs = [

@@ -4,9 +4,9 @@
         .module('ARM')
         .controller('LoanManagementController', LoanManagementController);
 
-    LoanManagementController.$inject = ['$scope', '$http', '$filter', 'AppFactory'];
+    LoanManagementController.$inject = ['$scope', '$http', '$filter', '$timeout', 'AppFactory'];
 
-    function LoanManagementController($scope, $http, $filter, AppFactory) {
+    function LoanManagementController($scope, $http, $filter, $timeout, AppFactory) {
         $scope.AppFactory = AppFactory;
 
         var columnDefs = [

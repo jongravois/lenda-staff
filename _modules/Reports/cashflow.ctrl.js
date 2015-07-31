@@ -4,9 +4,9 @@
         .module('ARM')
         .controller('CashflowController', CashflowController);
 
-    CashflowController.$inject = ['$scope', '$http', '$filter', 'AppFactory'];
+    CashflowController.$inject = ['$scope', '$http', '$filter', '$timeout', 'AppFactory'];
 
-    function CashflowController($scope, $http, $filter, AppFactory) {
+    function CashflowController($scope, $http, $filter, $timeout, AppFactory) {
         $scope.AppFactory = AppFactory;
 
         var columnDefs = [

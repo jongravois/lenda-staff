@@ -4,9 +4,9 @@
         .module('ARM')
         .controller('UserAuditController', UserAuditController);
 
-    UserAuditController.$inject = ['$scope', '$http', '$filter', 'AppFactory'];
+    UserAuditController.$inject = ['$scope', '$http', '$filter', '$timeout', 'AppFactory'];
 
-    function UserAuditController($scope, $http, $filter, AppFactory) {
+    function UserAuditController($scope, $http, $filter, $timeout, AppFactory) {
         $scope.AppFactory = AppFactory;
 
         var columnDefs = [

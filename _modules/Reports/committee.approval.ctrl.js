@@ -4,9 +4,9 @@
         .module('ARM')
         .controller('CommitteeApprovalController', CommitteeApprovalController);
 
-    CommitteeApprovalController.$inject = ['$scope', '$http', '$filter', 'AppFactory'];
+    CommitteeApprovalController.$inject = ['$scope', '$http', '$filter', '$timeout', 'AppFactory'];
 
-    function CommitteeApprovalController($scope, $http, $filter, AppFactory) {
+    function CommitteeApprovalController($scope, $http, $filter, $timeout, AppFactory) {
         $scope.AppFactory = AppFactory;
 
         var columnDefs = [

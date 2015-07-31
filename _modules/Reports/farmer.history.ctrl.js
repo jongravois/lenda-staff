@@ -4,9 +4,9 @@
         .module('ARM')
         .controller('FarmerHistoryController', FarmerHistoryController);
 
-    FarmerHistoryController.$inject = ['$scope', '$http', '$filter', 'AppFactory'];
+    FarmerHistoryController.$inject = ['$scope', '$http', '$filter', '$timeout', 'AppFactory'];
 
-    function FarmerHistoryController($scope, $http, $filter, AppFactory) {
+    function FarmerHistoryController($scope, $http, $filter, $timeout, AppFactory) {
         $scope.AppFactory = AppFactory;
 
         var columnDefs = [

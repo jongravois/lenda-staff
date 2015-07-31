@@ -4,9 +4,9 @@
         .module('ARM')
         .controller('RequiredController', RequiredController);
 
-    RequiredController.$inject = ['$scope', '$http', '$filter', 'AppFactory'];
+    RequiredController.$inject = ['$scope', '$http', '$filter', '$timeout', 'AppFactory'];
 
-    function RequiredController($scope, $http, $filter, AppFactory) {
+    function RequiredController($scope, $http, $filter, $timeout, AppFactory) {
         $scope.AppFactory = AppFactory;
 
         var columnDefs = [
