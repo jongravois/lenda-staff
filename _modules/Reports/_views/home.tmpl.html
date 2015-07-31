@@ -1,10 +1,11 @@
+<!--@DEPRECATED-->
 <link rel="stylesheet" type="text/css" href="js/ag-grid/theme-reports.css">
 
     <div class="tabbable">
     <tabset justified="false">
 
         <tab heading="Acct Dtl" active="true" title="Account Detail">
-            <div ng-controller="ActivityDetailController">
+            <div ng-controller="ActivityDetailController as report">
                 <!--<pre>{{gridOptions.rowData | json}}</pre>-->
                 <div class="ag-fresh" ag-grid="gridOptions" ng-style="{height: gridHeight}"></div>
                 <form>
@@ -31,7 +32,7 @@
         </tab>
 
         <tab heading="Loan Mgt" title="Loan Management">
-            <div ng-controller="LoanManagementController">
+            <div ng-controller="LoanManagementController as report">
                 <!--<pre>{{gridOptions.rowData | json}}</pre>-->
                 <div class="ag-fresh" ag-grid="gridOptions" ng-style="{height: gridHeight}"></div>
                 <form>
@@ -57,7 +58,7 @@
         </tab>
 
         <tab heading="Acct Rec" title="Account Reconciliation">
-            <div ng-controller="AccountReconciliationController">
+            <div ng-controller="AccountReconciliationController as report">
                 <!--<pre>{{gridOptions.rowData | json}}</pre>-->
                 <div class="ag-fresh" ag-grid="gridOptions" ng-style="{height: gridHeight}"></div>
                 <form>
@@ -83,7 +84,7 @@
         </tab>
 
         <tab heading="CF / Ex" title="Cashflow / Exposure">
-            <div ng-controller="CfarmController">
+            <div ng-controller="CfarmController as report">
                 <!--<pre>{{gridOptions.rowData | json}}</pre>-->
                 <div class="ag-fresh" ag-grid="gridOptions" ng-style="{height: gridHeight}"></div>
                 <form>
@@ -109,7 +110,7 @@
         </tab>
 
         <tab heading="Cust Bdgt" title="Customer Budget">
-            <div ng-controller="CustomerBudgetController">
+            <div ng-controller="CustomerBudgetController as report">
                 <!--<pre>{{gridOptions.rowData | json}}</pre>-->
                 <form>
                     <div ng-if="detail">
@@ -162,7 +163,7 @@
         </tab>
 
         <tab heading="Acct Sum" title="Account Summary">
-            <div ng-controller="ActivitySummaryController">
+            <div ng-controller="ActivitySummaryController as report">
                 <!--<pre>{{gridOptions.rowData | json}}</pre>-->
                 <div class="ag-fresh" ag-grid="gridOptions" ng-style="{height: gridHeight}"></div>
                 <form>
@@ -188,7 +189,7 @@
         </tab>
 
         <tab heading="Loan Hist" title="Farmer Loan History">
-            <div ng-controller="FarmerHistoryController">
+            <div ng-controller="FarmerHistoryController as report">
                 <!--<pre>{{gridOptions.rowData | json}}</pre>-->
                 <div class="ag-fresh" ag-grid="gridOptions" ng-style="{height: gridHeight}"></div>
                 <form>
@@ -214,7 +215,7 @@
         </tab>
 
         <tab heading="Crop Mix" title="Crop Mix">
-            <div ng-controller="CropMixController">
+            <div ng-controller="CropMixController as report">
                 <!--<pre>{{gridOptions.rowData | json}}</pre>-->
                 <div class="ag-fresh" ag-grid="gridOptions" ng-style="{height: gridHeight}"></div>
                 <form>
@@ -240,7 +241,7 @@
         </tab>
 
         <tab heading="Comm Appr" title="Committee Approval">
-            <div ng-controller="CommitteeApprovalController">
+            <div ng-controller="CommitteeApprovalController as report">
                 <!--<pre>{{gridOptions.rowData | json}}</pre>-->
                 <div class="ag-fresh" ag-grid="gridOptions" ng-style="{height: gridHeight}"></div>
                 <form>
@@ -282,7 +283,7 @@
                    </span>
                     <br><br>
                     <span style="display:inline-block;float:left;">
-                        <input placeholder="Filter..." type="text" ng-model="gridOptions.quickFilterText"/>
+                        &nbsp; <input placeholder="Filter..." type="text" ng-model="gridOptions.quickFilterText"/>
                     </span>
                     <br><br>
                 </form>
@@ -290,7 +291,7 @@
         </tab>
 
         <tab heading="Required" title="Required">
-            <div ng-controller="RequiredController">
+            <div ng-controller="RequiredController as report">
                 <!--<pre>{{gridOptions.rowData | json}}</pre>-->
                 <div class="ag-fresh" ag-grid="gridOptions" ng-style="{height: gridHeight}"></div>
                 <form>
@@ -316,7 +317,7 @@
         </tab>
 
         <tab heading="Audit" title="Audit Trail">
-            <div ng-controller="UserAuditController">
+            <div ng-controller="UserAuditController" as report>
                 <!--<pre>{{gridOptions.rowData | json}}</pre>-->
                 <div class="ag-fresh" ag-grid="gridOptions" ng-style="{height: gridHeight}"></div>
                 <form>

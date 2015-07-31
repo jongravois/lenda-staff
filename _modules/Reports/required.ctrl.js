@@ -140,7 +140,7 @@
                 cellClass: 'text-center',
                 suppressSorting: true,
                 suppressSizeToFit: false,
-                templateUrl: 'angular/reports/progress_bar.html',
+                templateUrl: '_modules/Reports/_views/_partials/progress_bar.html',
                 width: 590
             }
         ];
@@ -158,7 +158,7 @@
             enableSorting: true
         };
 
-        $http.get("angular/json/required.json")
+        $http.get("json/required.json")
             .then(function (res) {
                 $scope.pins = 0;
                 $scope.pin = 0;

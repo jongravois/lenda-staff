@@ -51,8 +51,9 @@
                 })
                 .state('library.polsprocs', {
                     url: '/polsprocs',
-                    templateUrl: './_modules/Library/_views/policies/polsprocs.html',
-                    controller: 'LibraryController as library'
+                    templateUrl: './_modules/Library/_views/policies/pols.procs.tmpl.html',
+                    controller: 'PolsProcsController',
+                    controllerAS: 'polsprocs'
                 })
                 .state('library.resources', {
                     url: '/resources',

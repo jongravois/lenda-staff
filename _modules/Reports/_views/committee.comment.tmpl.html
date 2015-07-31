@@ -1,107 +1,25 @@
 <link rel="stylesheet" type="text/css" href="js/ag-grid/theme-reports.css">
 
-    <div class="tabbable">
-    <tabset justified="false">
-
-        <tab heading="Comm Appr" title="Committee Approval">
-            <div ng-controller="CommitteeApprovalController as report">
-                <!--<pre>{{gridOptions.rowData | json}}</pre>-->
-                <div class="ag-fresh" ag-grid="gridOptions" ng-style="{height: gridHeight}"></div>
-                <form>
-                    <br>
-                    <span style="display:inline-block;float:left;">
-                        <!--<span class="btn glyphicon glyphicon-briefcase" ng-click="showToolPanel()"> Options </span>-->
-                        <!--<span class="btn glyphicon glyphicon-eye-open" ng-click="hideIcons()"> Icons </span>-->
-                   </span>
-                    <span style="display:inline-block;float:right;">
-                        <span class="btn glyphicon glyphicon-print" ng-click=""> Print </span>
-                        <span class="btn glyphicon glyphicon-envelope" ng-click=""> Email </span>
-                        <span class="btn glyphicon glyphicon-export" ng-click=""> Export </span>
-                        <span class="btn glyphicon glyphicon-file" ng-click=""> PDF </span>
-                   </span>
-                    <br><br>
-                    <span style="display:inline-block;float:left;">
-                        <input placeholder="Filter..." type="text" ng-model="gridOptions.quickFilterText"/>
-                    </span>
-                    <br><br>
-                </form>
-            </div>
-        </tab>
-
-        <tab heading="Comm Cmnt" title="Committee Comments">
-            <div ng-controller="CommitteeCommentController report">
-                <!--<pre>{{gridOptions.rowData | json}}</pre>-->
-                <div class="ag-fresh" ag-grid="gridOptions" ng-style="{height: gridHeight}"></div>
-                <form>
-                    <br>
-                    <span style="display:inline-block;float:left;">
-                        <!--<span class="btn glyphicon glyphicon-briefcase" ng-click="showToolPanel()"> Options </span>-->
-                        <!--<span class="btn glyphicon glyphicon-eye-open" ng-click="hideIcons()"> Icons </span>-->
-                   </span>
-                    <span style="display:inline-block;float:right;">
-                        <span class="btn glyphicon glyphicon-print" ng-click=""> Print </span>
-                        <span class="btn glyphicon glyphicon-envelope" ng-click=""> Email </span>
-                        <span class="btn glyphicon glyphicon-export" ng-click=""> Export </span>
-                        <span class="btn glyphicon glyphicon-file" ng-click=""> PDF </span>
-                   </span>
-                    <br><br>
-                    <span style="display:inline-block;float:left;">
-                        <input placeholder="Filter..." type="text" ng-model="gridOptions.quickFilterText"/>
-                    </span>
-                    <br><br>
-                </form>
-            </div>
-        </tab>
-
-        <tab heading="Required" title="Required">
-            <div ng-controller="RequiredController as report">
-                <!--<pre>{{gridOptions.rowData | json}}</pre>-->
-                <div class="ag-fresh" ag-grid="gridOptions" ng-style="{height: gridHeight}"></div>
-                <form>
-                    <br>
-                    <span style="display:inline-block;float:left;">
-                        <!--<span class="btn glyphicon glyphicon-briefcase" ng-click="showToolPanel()"> Options </span>-->
-                        <!--<span class="btn glyphicon glyphicon-eye-open" ng-click="hideIcons()"> Icons </span>-->
-                        <span class="btn glyphicon glyphicon-off" ng-click="toggleHorizontal()"> Horizontal </span>
-                   </span>
-                    <span style="display:inline-block;float:right;">
-                        <span class="btn glyphicon glyphicon-print" ng-click=""> Print </span>
-                        <span class="btn glyphicon glyphicon-envelope" ng-click=""> Email </span>
-                        <span class="btn glyphicon glyphicon-export" ng-click=""> Export </span>
-                        <span class="btn glyphicon glyphicon-file" ng-click=""> PDF </span>
-                   </span>
-                    <br><br>
-                    <span style="display:inline-block;float:left;">
-                        <input placeholder="Filter..." type="text" ng-model="gridOptions.quickFilterText"/>
-                    </span>
-                    <br><br>
-                </form>
-            </div>
-        </tab>
-
-        <tab heading="Audit" title="Audit Trail">
-            <div ng-controller="UserAuditController" as report>
-                <!--<pre>{{gridOptions.rowData | json}}</pre>-->
-                <div class="ag-fresh" ag-grid="gridOptions" ng-style="{height: gridHeight}"></div>
-                <form>
-                    <br>
-                    <span style="display:inline-block;float:left;">
-                        <span class="btn glyphicon glyphicon-off" ng-click="toggleHorizontal()"> Horizontal </span>
-                   </span>
-                    <span style="display:inline-block;float:right;">
-                        <span class="btn glyphicon glyphicon-print" ng-click=""> Print</span>
-                        <span class="btn glyphicon glyphicon-envelope" ng-click=""> Email</span>
-                        <span class="btn glyphicon glyphicon-export" ng-click=""> Export</span>
-                        <span class="btn glyphicon glyphicon-file" ng-click=""> PDF</span>
-                    </span>
-                    <br><br>
-                    <span style="display:inline-block;float:left;">
-                        <input placeholder="Filter..." type="text" ng-model="gridOptions.quickFilterText"/>
-                    </span>
-                    <br><br>
-                </form>
-            </div>
-        </tab>
-
-    </tabset>
+<h3> &nbsp; Committee Comment</h3>
+<div id="comcom">
+    <!--<pre>{{gridOptions.rowData | json}}</pre>-->
+    <div class="ag-fresh" ag-grid="gridOptions" ng-style="{height: gridHeight}"></div>
+    <form>
+        <br>
+        <span style="display:inline-block;float:left;">
+            <!--<span class="btn glyphicon glyphicon-briefcase" ng-click="showToolPanel()"> Options </span>-->
+            <!--<span class="btn glyphicon glyphicon-eye-open" ng-click="hideIcons()"> Icons </span>-->
+        </span>
+        <span style="display:inline-block;float:right;">
+            <span class="btn glyphicon glyphicon-print" ng-click=""> Print </span>
+            <span class="btn glyphicon glyphicon-envelope" ng-click=""> Email </span>
+            <span class="btn glyphicon glyphicon-export" ng-click=""> Export </span>
+            <span class="btn glyphicon glyphicon-file" ng-click=""> PDF </span>
+        </span>
+        <br><br>
+        <span style="display:inline-block;float:left;">
+            &nbsp; <input placeholder="Filter..." type="text" ng-model="gridOptions.quickFilterText"/>
+        </span>
+        <br><br>
+    </form>
 </div>
