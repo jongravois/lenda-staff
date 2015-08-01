@@ -4,10 +4,10 @@
         .module('ARM')
         .controller('DistributorsController', DistributorsController);
 
-    DistributorsController.$inject = ['$filter', '$location', 'AppFactory', 'List'];
+    DistributorsController.$inject = ['$filter', '$location', 'SweetAlert', 'AppFactory', 'List'];
 
     /* @ngInject */
-    function DistributorsController($filter, $location, AppFactory, List) {
+    function DistributorsController($filter, $location, SweetAlert, AppFactory, List) {
         /* jshint validthis: true */
         var vm = this;
         vm.distributors = List.data.data;
@@ -130,11 +130,33 @@
             });
         };
         vm.deleteOne = function(id) {
-            //TODO: Warning Modal
-            AppFactory.deleteIt('distributors', id);
-            _.remove(vm.distributors, {id: id});
-            vm.hgt -= 38;
-            vm.gridOptions.api.setRows(vm.distributors);
+            SweetAlert.swal({
+                    title: "Are you sure?",
+                    text: "You will not be able to undo this operation.",
+                    type: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#006837",
+                    confirmButtonText: "Delete",
+                    closeOnConfirm: true},
+                function(){
+                    AppFactory.deleteIt('distributors', id);
+                    _.remove(vm.distributors, {id: id});
+                    vm.hgt -= 38;
+                    vm.gridOptions.api.setRows(vm.distributors);
+                });
+        }
+        vm.sweetie = function() {
+            SweetAlert.swal({
+                    title: "Are you sure?",
+                    text: "Your will not be able to recover this imaginary file!",
+                    type: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#006837",
+                    confirmButtonText: "Yes, delete it!",
+                    closeOnConfirm: false},
+                function(){
+                    SweetAlert.swal("Booyah!");
+                });
         }
         //////////
         function getNewRecord() {

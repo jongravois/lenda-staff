@@ -7,6 +7,7 @@
             'ui.bootstrap',
             'satellizer',
             'toastr',
+            'oitozero.ngSweetAlert',
             'angularGrid',
             'xeditable'
         ]);
