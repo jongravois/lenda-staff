@@ -16,6 +16,7 @@
         function getJons(loans) {
             var retro = _.map(loans, function(item){
                 var data = {};
+
                 data.has_addendum = item.has_addendum;
                 data.is_cross_collateralized = item.is_cross_collateralized;
                 data.bankruptcy_history = item.bankruptcy_history;
@@ -23,6 +24,7 @@
                 data.added_land = item.added_land;
                 data.controlled_disbursement = item.controlled_disbursement;
                 data.attachments = item.attachments.length;
+
                 data.region = item.location.regions.region;
                 data.location = item.location.loc_abr;
                 data.crop_year = item.crop_year;
@@ -39,8 +41,29 @@
                 data.loantype_abr = item.loantype_abr;
                 data.distributor = item.distributor.distributor;
                 data.app_date = item.app_date;
+
                 data.status_id = item.status.id;
                 data.agencies = item.agencies;
+
+                data.its_list = item.its_list;
+                data.fsa_compliant = item.fsa_compliant;
+                data.prev_lien_verified = item.prev_lien_verified;
+                data.leases_valid = item.leases_valid;
+                data.bankruptcy_order_received = item.bankruptcy_order_received;
+                data.received_3party = item.received_3party;
+                data.recommended = item.recommended;
+                data.arm_approved = item.arm_approved;
+                data.dist_approved = item.dist_approved;
+                data.loan_closed = item.loan_closed;
+                data.added_land_verified = item.added_land_verified;
+                data.permission_to_insure_verified = item.permission_to_insure_verified;
+                data.arm_ucc_received = item.arm_ucc_received;
+                data.dist_ucc_received = item.dist_ucc_received;
+                data.aoi_received = item.aoi_received;
+                data.ccc_received = item.ccc_received;
+                data.rebate_assignment = item.rebate_assignment;
+                data.reconciliation = item.reconciliation;
+
                 data.interest = Number(item.fins.commit_arm) * Number(item.fins.int_percent_arm);
                 return data;
             });
