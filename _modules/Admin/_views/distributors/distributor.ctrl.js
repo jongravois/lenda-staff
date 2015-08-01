@@ -10,7 +10,7 @@
         function DistributorsController($filter, $location, AppFactory) {
             /* jshint validthis: true */
             var vm = this;
-            console.log($location.$$path);
+            //console.log($location.$$path);
 
             AppFactory.getAll('distributors')
                 .then(function(rsp){
