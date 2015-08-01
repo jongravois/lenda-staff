@@ -1,6 +1,56 @@
+<style>
+    .voteicon{ cursor: pointer; }
+</style>
 <fieldset>
     <legend>Committee</legend>
     <div class="container-fluid">
-        <div class="row"></div>
+        <div class="row">
+            <table class="table table-striped rowed">
+                <tr>
+                    <th style="width:6%;">&nbsp;</th>
+                    <th style="width:12%;">Role</th>
+                    <th style="width:18%;">User</th>
+                    <th style="width:10%;">Requested</th>
+                    <th style="width:10%;">Received</th>
+                    <th style="width:10%;">Vote</th>
+                    <th style="width:28%;">&nbsp;</th>
+                </tr>
+                <tr ng-repeat="c in edt.loan.committee">
+                    <td>
+                        <span ng-if="c.need_vote" tooltip="Vote Needed" class="glyphicon glyphicon-exclamation-sign" style="color:#000099;font-size:18px;"></span>
+                        <span ng-if="!c.need_vote" tooltip="Vote Needed" class="glyphicon glyphicon-exclamation-sign" style="color:#DDDDDD;font-size:18px;"></span>
+                        <span ng-if="c.has_comment" tooltip="Comments" class="glyphicon glyphicon-exclamation-sign" style="color:#e0a02d;font-size:18px;"></span>
+                        <span ng-if="!c.has_comment" tooltip="Comments" class="glyphicon glyphicon-exclamation-sign" style="color:#DDDDDD;font-size:18px;"></span>
+                    </td>
+                    <td><b>{{c.committee_role}}</b></td>
+                    <td>{{c.username}}</td>
+                    <td class="text-center">{{c.vote_request_date | date:'M/d/yy'}}</td>
+                    <td class="text-center">{{c.vote_received_date | date:'M/d/yy'}}</td>
+                    <td class="text-center">
+            <span ng-if="c.vote">
+                <span class="glyphicons glyphicons-thumbs-up cGreen" style="font-size:16px;" ng-if=c.vote == '1'></span>
+                        <span class="glyphicons glyphicons-thumbs-down cRed" style="font-size:16px;" ng-if="c.vote == '0'"></span>
+                        </span>
+            <span ng-if="!c.vote">
+                <span class="voteicon glyphicons glyphicons-thumbs-up cGreen" style="font-size:16px;" tooltip="Approve" tooltip-append-to-body="true" tooltip-placement="bottom"></span>
+                <span class="voteicon glyphicons glyphicons-thumbs-down cRed" style="font-size:16px;"tooltip="Reject" tooltip-append-to-body="true" tooltip-placement="bottom"></span>
+                <span class="voteicon glyphicons glyphicons-comments cYellow" style="font-size:16px;"tooltip="Comment" tooltip-append-to-body="true" tooltip-placement="bottom"></span>
+            </span>
+                    </td>
+                    <td>
+          <span class="glyphicon glyphicon-comment"
+                style="margin-right:10px;cursor: pointer;"
+                ng-repeat="cc in c.comments"
+                tooltip="{{cc.comment}}"
+                ng-class="{cYellow: cc.status == 'pending', cGreen: cc.status == 'accepted'}"></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="7">
+                        <a ng-click="createCommittee()" class="btn btn-xs btn-default"><span class="glyphicon glyphicon-plus-sign" style="color:#006837;"></span> Add New</a>
+                    </td>
+                </tr>
+            </table>
+        </div>
     </div>
 </fieldset>

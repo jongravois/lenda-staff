@@ -1,6 +1,92 @@
 <fieldset>
     <legend>Terms</legend>
     <div class="container-fluid">
-        <div class="row"></div>
+        <div class="row">
+            <table class="table table-striped rowed" style="width:60%;">
+                <tr>
+                    <td colspan="3">&nbsp;</td>
+                    <td class="text-center">
+                        <span ng-if="edt.loan.loan_type_id == 2">
+                            Fee On Total
+                        </span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <!--TODO: Exception if changed from Global-->
+                    <td style="width:22%;">Loan Due Date</td>
+                    <td colspan="2" class="text-right">
+                        {{edt.loan.due_date}}
+                    </td>
+                    <td>&nbsp;</td>
+                </tr>
+
+                <tr>
+                    <td style="width:22%;">Loan Origination Fee</td>
+                    <td class="text-right" style="width:10%;">
+                        {{edt.loan.fins.fee_processing|flexPercent:1}}
+                    </td>
+                    <td class="text-right" style="width:8%;">
+                        <span ng-if="edt.loan.fins.fee_processing_onTotal">
+                          {{edt.loan.fins.proc_fee | flexCurrency:0}}
+                        </span>
+                        <span ng-if="!edt.loan.fins.fee_processing_onTotal">
+                          {{edt.loan.fins.proc_fee_arm_only | flexCurrency:0}}
+                        </span>
+                    </td>
+                    <td class="text-center" style="width:20%;">
+                        <span ng-if="edt.loan.loan_type_id == 2">
+                          <input type="checkbox" ng-model="edt.loan.fins.fee_processing_onTotal"/>
+                        </span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>Loan Service Fee</td>
+                    <td class="text-right">
+                        {{edt.loan.fins.fee_service|flexPercent:1}}
+                    </td>
+                    <td class="text-right">
+                        <span ng-if="edt.loan.fins.fee_service_onTotal">
+                          {{edt.loan.fins.srvc_fee|flexCurrency:0}}
+                        </span>
+                        <span ng-if="!edt.loan.fins.fee_service_onTotal">
+                          {{edt.loan.fins.srvc_fee_arm_only | flexCurrency:0}}
+                        </span>
+                    </td>
+                    <td class="text-center">
+            <span ng-if="edt.loan.loan_type_id == 2">
+              <input type="checkbox" ng-model="edt.loan.fins.fee_service_onTotal"/>
+            </span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>ARM Interest Rate</td>
+                    <td class="text-right">
+                        {{edt.loan.fins.int_percent_arm|flexPercent:1}}
+                    </td>
+                    <td class="text-right">
+                        {{edt.loan.fins.int_arm|flexCurrency:0}}*
+                    </td>
+                    <td class="text-center">&nbsp;</td>
+                </tr>
+
+                <tr ng-if="edt.loan.has_distributor">
+                    <td>Distributor Interest Rate</td>
+                    <td class="text-right">
+                        {{edt.loan.fins.int_percent_dist|flexPercent:1}}
+                    </td>
+                    <td class="text-right">
+                        {{edt.loan.fins.int_dist|flexCurrency:0}}*
+                    </td>
+                    <td class="text-center">&nbsp;</td>
+                </tr>
+
+                <tr>
+                    <td colspan="4"><span class="small_txt">* Interest amounts are best estimates</span></td>
+                </tr>
+            </table>
+        </div>
     </div>
 </fieldset>

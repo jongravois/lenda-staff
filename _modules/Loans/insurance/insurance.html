@@ -1,6 +1,286 @@
 <fieldset>
     <legend>Insurance</legend>
     <div class="container-fluid">
-        <div class="row"></div>
+        <tabset>
+            <tab heading="AGENT/AGENCY">
+                <br/>
+                <div class="col-md-8 col-md-offset-1">
+                    <accordion close-others="true">
+                        <!--<accordion close-others="false">-->
+                        <accordion-group heading="No Agencies Found" ng-if="loan.insurance.agencies.length == 0">
+                            There are no insurance agencies associated with this loan.
+                        </accordion-group>
+                        <accordion-group ng-repeat="a in loan.insurance.agencies" is-open="a.is_open">
+                            <accordion-heading class="col-md-12">
+                                {{a.agency.agency}} <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': a.isOpen, 'glyphicon-chevron-right': !a.isOpen}"></i>
+                            </accordion-heading>
+                            <div class="col-md-6">
+                                {{a.agency.agency}}
+                                <br/>
+                                {{a.agency.address}}
+                                <br/>
+                                {{a.agency.city}}, {{a.agency.state}}  {{a.agency.zip}}
+                                <br/>
+                                {{a.agency.phone|phone}}
+                                <br/>
+                                {{a.agency.email}}
+                            </div>
+                            <div class="col-md-6">
+                                {{a.agents[0].agent.agent}}
+                                <br/>
+                                {{a.agents[0].agent.agent_phone|phone}}
+                                <br/>
+                                {{a.agents[0].agent.agent_email}}
+                            </div>
+                        </accordion-group>
+                    </accordion>
+                </div>
+                <br/>
+                <div class="row">
+                    <div class="col-md-8 col-md-offset-1" style="margin:0 18px;">
+                        <a ng-click="createNewAgency()" class="btn btn-xs btn-default"><span class="glyphicon glyphicon-plus-sign" style="color:#006837;"></span> Add New</a>
+                        </p>
+                    </div>
+                </div>
+                <br/>
+                <div class="row" ng-if="addNewOne">
+                    <div class="col-md-10 col-md-offset-1">
+                        <form>
+                            <label>Agency</label>
+                            <input type="text" class="form-control" name="agency" ng-model="newAgency.agency"/>
+                        </form>
+                    </div>
+                </div>
+            </tab>
+            <tab heading="POLICIES">
+                <table class="table table-striped rowed" style="width:100% !important;">
+                    <tr>
+                        <th>ST | County</th>
+                        <th>Crop</th>
+                        <th>Practice</th>
+                        <th>Type</th>
+                        <th>Unit</th>
+                        <th>Options</th>
+                        <th>PLC</th>
+                        <th>Level</th>
+                        <th>Price</th>
+                        <th>Premium</th>
+                        <th>Plant Days</th>
+                        <th>Agent</th>
+                    </tr>
+                    <tr ng-repeat-start="p in inspols.proto | orderBy: ['locale', 'crop', 'practice']">
+                        <td class="text-left">
+                            <span ng-if="p.suppins">&blacktriangledown;&nbsp;</span>
+                            <!--<span ng-if="!p.suppins">&blacktriangleright;&nbsp;</span>-->
+                            <span ng-if="!p.suppins">&nbsp;&nbsp;</span>
+                            {{p.locale}}
+                        </td>
+                        <td class="text-left">
+                            {{p.crop}}
+                        </td>
+                        <td class="text-center">
+                            {{p.practice}}
+                        </td>
+                        <td class="text-center">
+                            {{p.type}}
+                        </td>
+                        <td class="text-center">
+                            {{p.unit}}
+                        </td>
+                        <td class="text-center">
+                            {{p.options}}
+                        </td>
+                        <td class="text-center">
+                            <input type="checkbox" name="plc" ng-model="p.plc">
+                        </td>
+                        <td class="text-right">
+                            {{p.level|flexPercent:0}}
+                        </td>
+                        <td class="text-right">
+                            {{p.price|flexCurrency:4}}
+                        </td>
+                        <td class="text-right">
+                            {{p.premium|flexCurrency:2}}
+                        </td>
+                        <td class="text-right cBlue" style="width:80px;">
+                            {{p.plant_days|number:0}}
+                        </td>
+                        <td class="text-left">
+                            {{p.agent}}
+                        </td>
+                    </tr>
+                    <tr ng-repeat-end="" ng-if="p.suppins">
+                        <td colspan="3">&nbsp;</td>
+                        <td colspan="2" class="text-right">
+                            <label style="font-weight: normal;">Loss Trigger:</label>
+                        </td>
+                        <td>
+                            <span class="cBlue">{{90|flexPercent:0}}</span>
+                        </td>
+                        <td colspan="2" class="text-right">
+                            <label style="font-weight: normal;">Desired Range:</label>&nbsp;
+                        </td>
+                        <td>
+                            <span class="cBlue">{{15|flexPercent:0}}</span>
+                        </td>
+                        <td colspan="2" class="text-right">
+                            <label style="font-weight: normal;">Protection Factor:</label>&nbsp;
+                        </td>
+                        <td>
+                            <span class="cBlue">{{120|flexPercent:0}}</span>
+                        </td>
+                    </tr>
+                </table>
+                <p>
+                    <a ng-click="createNewAgency()" class="btn btn-xs btn-default"><span class="glyphicon glyphicon-plus-sign" style="color:#006837;"></span> Add New</a>
+                </p>
+            </tab>
+            <tab heading="DATABASE">
+                <table class="table table-striped rowed" style="width:100% !important;">
+                    <tr>
+                        <th>ST | County</th>
+                        <th>Crop</th>
+                        <th>Practice</th>
+                        <th>FSN</th>
+                        <th>Landlord</th>
+                        <th>Share</th>
+                        <th>APH</th>
+                    </tr>
+                    <tr ng-repeat="d in loan.insurance.database | orderBy: ['state', 'county', 'crop', 'practice']">
+                        <td class="text-left">
+                            {{d.county.locale}}
+                        </td>
+                        <td class="text-left">
+                            {{d.crop.name}}
+                        </td>
+                        <td class="text-left">
+                            {{d.practice}}
+                        </td>
+                        <td class="text-left">
+                            {{d.fsn}}
+                        </td>
+                        <td class="text-left">
+                            {{landlord}}
+                        </td>
+                        <!--TODO: test if > policies::share & show paperclip and force upload of Permission to Insure -->
+                        <td class="text-right">
+                            <percent-edit-in-place value="d.share"></percent-edit-in-place>
+                        </td>
+                        <td class="text-right">
+                            <digit-edit-in-place value="d.yield"></digit-edit-in-place>
+                        </td>
+                    </tr>
+                </table>
+            </tab>
+            <tab heading="STAX/SCO" style="display:none;">
+                <h3>Supplemental Coverage Addendum</h3>
+                <br/>
+                <table class="table table-striped rowed">
+                    <tr>
+                        <th>Crop</th>
+                        <th>County</th>
+                        <th>HPEO</th>
+                        <th>APH</th>
+                        <th>Level</th>
+                        <th class="bright">Base</th>
+                        <th>Type</th>
+                        <th>Trigger</th>
+                        <th>Range</th>
+                        <th>Coverage</th>
+                        <th>Protection</th>
+                        <th>XYld</th>
+                        <th>XRev</th>
+                        <th class="bright">MI</th>
+                        <th>Acres</th>
+                        <th>Share</th>
+                        <th>Estimate</th>
+                    </tr>
+                    <tr ng-repeat="s in loan.supplements.policies">
+                        <td>
+                            {{s.crops.name}}
+                        </td>
+                        <td>
+                            {{s.counties.county}}
+                        </td>
+                        <td class="text-center">
+                            {{(s.harvest_price_exclusion ? 'Yes' : 'No')}}
+                        </td>
+                        <td class="text-right">
+                            {{s.aph|number:1}}
+                        </td>
+                        <td class="text-right">
+                            {{s.level|flexPercent:1}}
+                        </td>
+                        <td class="text-right bright">
+                            {{s.price|flexCurrency:2}}
+                        </td>
+                        <td class="text-center">
+                            <strong>{{s.supplement}}</strong>
+                        </td>
+                        <td class="text-right">
+                            {{s.expected_yield|number:1}}
+                        </td>
+                        <td class="text-right">
+                            {{s.desired_range|flexPercent:1}}
+                        </td>
+                        <td class="text-right">
+                            {{s.range|flexPercent:1}}
+                        </td>
+                        <td class="text-right">
+                            {{s.protection_factor|flexPercent:1}}
+                        </td>
+                        <td class="text-right">
+                            {{s.expected_yield|number:1}}
+                        </td>
+                        <td class="text-right">
+                            {{s.expected_revenue|flexCurrency:2}}
+                        </td>
+                        <td class="text-right bright">
+                            {{s.max_indemnity|flexCurrency:2}}
+                        </td>
+                        <td class="text-right">
+                            {{s.acres|number:1}}
+                        </td>
+                        <td class="text-right">
+                            {{s.share|flexPercent:1}}
+                        </td>
+                        <td class="text-right">
+                            {{s.value|flexCurrency:2}}
+                        </td>
+                    </tr>
+                    <tr class="success">
+                        <td colspan="14" class="bright">
+                            Total
+                        </td>
+                        <td class="text-right">
+                            {{AppFactory.calcSuppInsTotalAcres(loan)|number:1}}
+                        </td>
+                        <td>&nbsp;</td>
+                        <td class="text-right">
+                            {{AppFactory.calcSuppInsTotalValue(loan)|flexCurrency:2}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="17">
+                        <span style="cursor: pointer;" ng-click="createSupplement()">
+                            <span class="glyphicon glyphicon-plus" ng-click="createSupplement()"></span> Add New
+                        </span>
+                        </td>
+                    </tr>
+                </table>
+                <br/><br/>
+                <p class="small_txt">
+                    Note that SCO can only be used with PLC farm program crops.
+                </p>
+            </tab>
+        </tabset>
+        <br><br>
+        <div class="row">
+            <div class="col-md-12 text-right">
+                <button style="margin-right:10px;" class="btn btn-primary"
+                        ng-click="updateDistributor(distributor)">UPDATE
+                </button>
+            </div>
+        </div>
     </div>
 </fieldset>

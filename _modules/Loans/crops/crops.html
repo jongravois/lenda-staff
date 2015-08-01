@@ -1,6 +1,33 @@
 <fieldset>
     <legend>Crops</legend>
     <div class="container-fluid">
-        <div class="row"></div>
+        <div class="row form-group">
+            <div
+                class="gridStyle tblLanding"
+                style="width: 96%; margin: 0 auto;"
+                ng-grid="gridOptions">
+            </div>
+        </div>
+        <div class="row container" style="margin-left: -5px;">
+            <a ng-click="createNewReference()" class="btn btn-xs btn-default"><span class="glyphicon glyphicon-plus-sign" style="color:#006837;"></span> Add New</a>
+            </p>
+        </div>
+        <hr/>
+        <div class="row">
+            <div class="col-sm-12 text-right">
+                <button style="margin-right:10px;"
+                        class="btn btn-primary"
+                        ng-click="createLoanCrop()"
+                        ng-if="newapplication">
+                    NEXT
+                </button>
+                <button style="margin-right:10px;"
+                        class="btn btn-primary"
+                        ng-click="updateLoanCrop()"
+                        ng-if="!newapplication">
+                    UPDATE
+                </button>
+            </div>
+        </div>
     </div>
 </fieldset>

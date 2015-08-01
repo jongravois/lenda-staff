@@ -1,6 +1,39 @@
 <fieldset>
     <legend>Loan Audit</legend>
     <div class="container-fluid">
-        <div class="row"></div>
+        <div class="row">
+            <div class="col-md-12">
+                <table class="table table-striped rowed">
+                    <tr>
+                        <th class="text-center" style="width:60%;">
+                            Action
+                        </th>
+                        <th class="text-center" style="width:20%;">
+                            User
+                        </th>
+                        <th class="text-center" style="width:20%;">
+                            Date
+                        </th>
+                    </tr>
+                    <tr ng-show="loan.systemics.length == 0">
+                        <td colspan="3">
+                            <b>No activity has been logged.</b>
+                        </td>
+                    </tr>
+                    <tr ng-repeat="s in loan.systemics | orderBy: 'created_at':true">
+                        <td>
+                            {{s.action}}
+                        </td>
+                        <td>
+                            {{s.user}}
+                        </td>
+                        <td>
+                            {{s.created_at | asDate | date:'MM/dd/yyyy - HH:mm'}}
+                        </td>
+
+                    </tr>
+                </table>
+            </div>
+        </div>
     </div>
 </fieldset>

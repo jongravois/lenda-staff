@@ -32,6 +32,7 @@
                     //console.log('LoansBySettings', LoansBySettings);
                     var settingsLoans = vm.sortLoans(LoansBySettings, 1);
                     vm.sortedLoanList = settingsLoans;
+                    vm.hgt = vm.sortedLoanList.length * 38;
                     data = AppFactory.getSortedData(vm.pendingView, vm.sortedLoanList);
                     //console.log('data', data);
 
@@ -447,6 +448,7 @@
                 angularCompileHeaders: true,
                 columnDefs: columnDefs,
                 colWidth: 100,
+                rowHeight: 32,
                 rowSelection: false,
                 enableSorting: false,
                 sortPending: sortPending,

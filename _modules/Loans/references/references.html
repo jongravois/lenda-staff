@@ -1,13 +1,98 @@
 <fieldset>
     <legend>Distributor</legend>
     <div class="container-fluid">
-        <div class="row"></div>
+        <div class="row">
+            <div class="form-group col-md-12">
+                <!-- DISTRIBUTOR -->
+                <div class="row">
+                    <div class="form_group col-md-7">
+                        <label>Distributor:</label>
+                        <br/>
+                        <input type="text" class="form-control" ng-model="distributor.distributor"/>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label>Phone:</label>
+                        <br/>
+                        <input type="text" class="form-control" ui-mask="(999) 999.9999" ng-model="distributor.phone"/>
+                    </div>
+                </div>
+                <!-- Distributor -->
+
+                <!-- ADDRESS / PHONE -->
+                <div class="row">
+                    <div class="form-group col-md-4">
+                        <label>Mailing Address:</label>
+                        <br/>
+                        <input type="text" class="form-control" ng-model="distributor.address"/>
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label>City:</label>
+                        <br/>
+                        <input type="text" class="form-control" ng-model="distributor.city"/>
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label>State:</label>
+                        <br/>
+                        <select name="state" ng-model="loan.applicant.state_id" class="form-control"
+                                ng-options="s.id as s.state for s in feeder.states">
+                            <option value="">Please select ...</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label>Zip:</label>
+                        <br/>
+                        <input type="text" class="form-control" ng-model="distributor.zip"/>
+                    </div>
+                </div>
+                <!-- ADDRESS / PHONE -->
+
+                <!-- PHONE / EMAIL / DOB -->
+                <div class="row">
+                    <div class="form-group col-md-4">
+                        <label>Loan Contact:</label>
+                        <br/>
+                        <input type="text" class="form-control" ng-model="distributor.contact"/>
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label>Phone:</label>
+                        <br/>
+                        <input type="text" class="form-control" ui-mask="(999) 999.9999" ng-model="distributor.phone"/>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label>Email Address:</label>
+                        <br/>
+                        <input type="text" class="form-control" ng-model="distributor.email"/>
+                    </div>
+                </div>
+                <!-- PHONE / EMAIL / DOB -->
+
+                <div class="row">
+                    <div class="col-md-12 text-right">
+                        <button style="margin-right:10px;" class="btn btn-primary"
+                                ng-click="updateDistributor(distributor)">UPDATE
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </fieldset>
 
 <fieldset>
     <legend>References</legend>
     <div class="container-fluid">
-        <div class="row"></row>
+        <div class="row">
+            <div class="row form-group">
+                <div
+                    class="gridStyle tblLanding"
+                    style="height:200px; width: 96%; margin: 0 auto;"
+                    ng-grid="gridOptions">
+                </div>
+            </div>
+            <div class="row container" style="margin-left: -5px;">
+                <a ng-click="createNewReference()" class="btn btn-xs btn-default"><span class="glyphicon glyphicon-plus-sign" style="color:#006837;"></span> Add New</a>
+                </p>
+            </div>
+        </div>
     </div>
 </fieldset>
