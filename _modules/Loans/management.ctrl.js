@@ -247,7 +247,7 @@
                 width: 20
             },
             {
-                field: 'dist_ucc_verified',
+                field: 'dist_ucc_received',
                 headerName: 'DCC',
                 templateUrl: './_modules/Loans/_views/dcc.html',
                 headerClass: 'text-center',
