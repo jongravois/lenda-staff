@@ -2,12 +2,12 @@
     'use strict';
     angular
         .module('ARM')
-        .controller('DistributorsController', DistributorsController);
+        .controller('Admin_DistributorsController', Admin_DistributorsController);
 
-        DistributorsController.$inject = ['$filter', '$location', 'SweetAlert', 'AppFactory', 'List', 'States'];
+        Admin_DistributorsController.$inject = ['$filter', '$location', 'SweetAlert', 'AppFactory', 'List', 'States'];
 
         /* @ngInject */
-        function DistributorsController($filter, $location, SweetAlert, AppFactory, List, States ) {
+        function Admin_DistributorsController($filter, $location, SweetAlert, AppFactory, List, States ) {
             /* jshint validthis: true */
             var vm = this;
             init();
@@ -65,7 +65,7 @@
 
             //////////
             function init() {
-                console.log($location.path());
+                //console.log($location.path());
                 var feeders = ['/admin/agents', '/admin/crops', '/admin/distributors', '/admin/entitytypes', '/admin/instypes', '/admin/loantypes', '/admin/locations', '/admin/measures', '/admin/regions', '/admin/roles'];
 
                 if( AppFactory.inArray($location.path(), feeders) ) {

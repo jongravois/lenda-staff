@@ -4,10 +4,10 @@
         .module('ARM')
         .controller('MainController', MainController);
 
-    MainController.$inject = ['$http', '$auth', '$rootScope', 'API_URL'];
+    MainController.$inject = ['$http', '$auth', '$rootScope', 'API_URL', 'FeederFactory'];
 
     /* @ngInject */
-    function MainController($http, $auth, $rootScope, API_URL) {
+    function MainController($http, $auth, $rootScope, API_URL, FeederFactory) {
         /* jshint validthis: true */
         var vm = this;
 
@@ -33,5 +33,9 @@
                     $rootScope.currentUser = null;
                 });
         };
+
+        FeederFactory.init();
+        vm.feeder = FeederFactory.getObject();
+        console.log(vm.feeder);
     } // end function
 })();
