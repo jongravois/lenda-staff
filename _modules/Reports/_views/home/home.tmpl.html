@@ -1,18 +1,34 @@
-<table class="table table-striped rowed">
-    <tr ng-repeat="l in rpts.toy">
-        <td>{{l.applicant}}</td>
-        <td>{{l.farmer}}</td>
-        <td>{{l.interest|flexCurrency:2}}</td>
+<!-- region location year season analyst farmer applicant -->
+<table class="table table-striped table-bordered table-condensed rowed">
+    <tr>
+        <th>Region</th>
+        <th>Loc</th>
+        <th>Year</th>
+        <th>Season</th>
+        <th>Analyst</th>
+        <th>Farmer</th>
+        <th>Applicant</th>
+        <th>Type</th>
+        <th>Dist</th>
+        <th>Orig</th>
+        <th>Interest</th>
+    </tr>
+    <tr ng-repeat="d in home.toy">
+        <td class="text-center">{{d.region}}</td>
+        <td class="text-center">{{d.location}}</td>
+        <td class="text-center">{{d.crop_year}}</td>
+        <td class="text-center">{{d.season}}</td>
+        <td class="text-left">{{d.analyst}}</td>
+        <td class="text-left">{{d.farmer}}</td>
+        <td class="text-left">{{d.applicant}}</td>
+        <td class="text-left">{{d.loan_type}}</td>
+        <td class="text-left">{{d.distributor}}</td>
+        <td class="text-left">{{d.orig_date}}</td>
+        <td class="text-right">{{d.interest|flexCurrency:0}}</td>
     </tr>
 </table>
 
-<div>
-    <pre>{{rpts.reporter|json}}</pre>
-</div>
-
 <hr>
-<hr>
-
 <div>
-    <pre>{{rpts.loans|json}}</pre>
+    <pre>{{home.loans|json}}</pre>
 </div>

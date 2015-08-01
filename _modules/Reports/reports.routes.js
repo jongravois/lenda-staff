@@ -16,7 +16,7 @@
             .state('reports.home', {
                 url: '/home',
                 templateUrl: '_modules/Reports/_views/home/home.tmpl.html',
-                controller: 'ReportsController as rpts'
+                controller: 'HomeController as home'
             })
             .state('reports.actdet', {
                 url: '/actdet',
