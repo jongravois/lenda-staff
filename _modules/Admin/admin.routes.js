@@ -77,6 +77,9 @@
                     resolve: {
                         List: function(AppFactory) {
                             return AppFactory.getAll('distributors');
+                        },
+                        States: function(AppFactory) {
+                            return AppFactory.getAll('states');
                         }
                     }
                 })
