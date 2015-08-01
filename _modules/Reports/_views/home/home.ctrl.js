@@ -13,8 +13,8 @@
             vm.loans = Loans;
             console.log(Loans);
 
-            vm.toy = HomeFactory.getJonsToy(vm.loans);
-            console.log('GJT', vm.toy);
+            vm.arr = HomeFactory.getJons(vm.loans);
+            console.log(vm.arr);
 
             vm.reporter = [];
             //////////

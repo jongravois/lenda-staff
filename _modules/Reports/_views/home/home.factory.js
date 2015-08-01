@@ -9,11 +9,11 @@
     /* @ngInject */
     function HomeFactory() {
         var publicAPI = {
-            getJonsToy: getJonsToy
+            getJons: getJons
         };
         return publicAPI;
 
-        function getJonsToy(loans) {
+        function getJons(loans) {
             var retro = _.map(loans, function(item){
                 var data = {};
                 data.has_addendum = item.has_addendum;
@@ -39,7 +39,7 @@
                 data.loantype_abr = item.loantype_abr;
                 data.distributor = item.distributor.distributor;
                 data.app_date = item.app_date;
-                data.status = item.status;
+                data.status_id = item.status.id;
                 data.agencies = item.agencies;
                 data.interest = Number(item.fins.commit_arm) * Number(item.fins.int_percent_arm);
                 return data;
