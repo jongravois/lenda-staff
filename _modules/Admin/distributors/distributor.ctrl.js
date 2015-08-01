@@ -117,7 +117,7 @@
             AppFactory.postIt('distributors', newb)
                 .then(function(rsp){
                     var id = rsp.data;
-                    newb.id = id;
+                    angular.extend(newb, {id: id});
                     vm.distributors.push(newb);
                     vm.hgt += 38;
                     vm.gridOptions.api.setRows(vm.distributors);
