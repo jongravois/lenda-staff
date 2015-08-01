@@ -103,6 +103,7 @@
             colWidth: 100,
             groupHeaders: false,
             rowSelection: false,
+            rowDeselection: true,
             enableSorting: false,
             context: {},
             ready: function (api) {
@@ -112,15 +113,43 @@
         };
 
         vm.createNew = function () {
-            alert('Creating');
+            var newb = getNewRecord();
+            AppFactory.postIt('distributors', newb)
+                .then(function(rsp){
+                    var id = rsp.data;
+                    newb.id = id;
+                    vm.distributors.push(newb);
+                    vm.hgt += 38;
+                    vm.gridOptions.api.setRows(vm.distributors);
+                    //console.log(vm.distributors);
+                });
         };
         vm.saveAll = function () {
-            alert('Saving');
+            _.each(vm.distributors, function(i){
+                AppFactory.putIt('distributors', i.id, i);
+            });
         };
         vm.deleteOne = function(id) {
-            alert('Deleting '+id);
+            //TODO: Warning Modal
+            AppFactory.deleteIt('distributors', id);
+            _.remove(vm.distributors, {id: id});
+            vm.hgt -= 38;
+            vm.gridOptions.api.setRows(vm.distributors);
         }
         //////////
+        function getNewRecord() {
+            return {
+                //id: id,
+                distributor: '--',
+                name: '--',
+                address: '--',
+                city: '--',
+                state_id: 1,
+                zip: '--',
+                phone: '--',
+                email: '--'
+            };
+        }
         function numberNewValueHandler(params) {
             var valueAsNumber = parseInt(params.newValue);
             if (isNaN(valueAsNumber)) {
