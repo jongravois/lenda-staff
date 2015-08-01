@@ -73,7 +73,12 @@
                 .state('admin.distributors', {
                     url: '/distributors',
                     templateUrl: '_modules/Admin/distributors/distributors.html',
-                    controller: 'DistributorsController as dist'
+                    controller: 'DistributorsController as vm',
+                    resolve: {
+                        List: function(AppFactory) {
+                            return AppFactory.getAll('distributors');
+                        }
+                    }
                 })
                 .state('admin.employees', {
                     url: '/employees',
