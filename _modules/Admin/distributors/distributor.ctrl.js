@@ -65,11 +65,12 @@
 
             //////////
             function init() {
-                var elems = document.querySelectorAll('.btnCancel');
+                console.log($location.path());
+                var feeders = ['/admin/agents', '/admin/crops', '/admin/distributors', '/admin/entitytypes', '/admin/instypes', '/admin/loantypes', '/admin/locations', '/admin/measures', '/admin/regions', '/admin/roles'];
 
-                for (var i = 0; i < elems.length; i++) {
-                    elems[i].click();
-                };
+                if( AppFactory.inArray($location.path(), feeders) ) {
+                    vm.feeders_section = true;
+                }
             }
             function getNewRecord() {
                 return {
