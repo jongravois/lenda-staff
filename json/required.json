@@ -4,7 +4,7 @@
     "location": "AMR",
     "user": "McDowell, Malcom",
     "admin": true,
-    "analyst": "TEJ",
+    "analyst_abr": "TEJ",
     "report": "actdet",
     "updated": "2015-05-22",
     "viewed": "2015-05-22"
@@ -14,7 +14,7 @@
     "location": "CRO",
     "user": "Magee, Patrick",
     "admin": false,
-    "analyst": "TEJ",
+    "analyst_abr": "TEJ",
     "report": "actdet",
     "updated": "2015-05-22",
     "viewed": ""
@@ -24,7 +24,7 @@
     "location": "WIL",
     "user": "Bates, Michael",
     "admin": false,
-    "analyst": "TEJ",
+    "analyst_abr": "TEJ",
     "report": "actdet",
     "updated": "2015-05-22",
     "viewed": "2015-05-23"
@@ -34,7 +34,7 @@
     "location": "DMR",
     "user": "Clarke, Warren",
     "admin": false,
-    "analyst": "TEJ",
+    "analyst_abr": "TEJ",
     "report": "actdet",
     "updated": "2015-05-22",
     "viewed": ""

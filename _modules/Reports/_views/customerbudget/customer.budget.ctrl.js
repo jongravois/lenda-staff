@@ -1,3 +1,34 @@
+/*
+Requires the following in styles.css
+ .tbl-header-container {
+ background: -webkit-linear-gradient(#fff, #d3d3d3);
+ background: -moz-linear-gradient(#fff, #d3d3d3);
+ background: -o-linear-gradient(#fff, #d3d3d3);
+ background: -ms-linear-gradient(#fff, #d3d3d3);
+ background: linear-gradient(#fff, #d3d3d3);
+ border-bottom: 1px solid #808080;
+ }
+ .tbl-header-container-blue {
+ background: -webkit-linear-gradient(#fff, #EC502A);
+ background: -moz-linear-gradient(#fff, #EC502A);
+ background: -o-linear-gradient(#fff, #EC502A);
+ background: -ms-linear-gradient(#fff, #EC502A);
+ background: linear-gradient(#fff, #EC502A);
+ border-bottom: 1px solid #101010;
+ }
+ .table-zebra-stripes > tbody > tr:nth-child(2n+1) > td,
+ .table-striped > tbody > tr:nth-child(2n+1) > th {
+ background-color: #efefef;
+ }
+ .table-zebra-stripes-blue > tbody > tr:nth-child(2n+1) > td,
+ .table-striped > tbody > tr:nth-child(2n+1) > th {
+ background-color: #97c8ff;
+ }
+ .table-zebra-stripes-blue > tbody > tr:nth-child(2n) > td,
+ .table-striped > tbody > tr:nth-child(2n) > th {
+ background-color: #dfdfdf;
+ }
+ */
 (function () {
     'use strict';
     angular
@@ -75,7 +106,7 @@
             },
             {
                 headerName: 'Analyst',
-                field: 'analyst',
+                field: 'analyst_abr',
                 cellClass: 'text-center',
                 suppressSorting: false,
                 suppressSizeToFit: false,
@@ -101,7 +132,7 @@
                 headerGroup: 'Loan',
                 //headerGroupShow: 'closed',
                 headerName: 'Type',
-                field: 'loan_type',
+                field: 'loantype_abr',
                 cellClass: 'text-center',
                 suppressSorting: false,
                 suppressSizeToFit: false,
@@ -140,7 +171,7 @@
             },
             {
                 headerName: 'Status',
-                field: 'status_id',
+                field: 'status',
                 cellClass: 'text-center',
                 suppressSorting: true,
                 suppressSizeToFit: false,
@@ -330,22 +361,24 @@
             .then(function (res) {
                 $scope.pins = 8;
                 $scope.pin = 0;
-                $scope.gridOptions.rowData = res.data;
-                $scope.gridHeight = Number(($scope.gridOptions.rowData.length + 2) * 30).toString();
-                $scope.gridOptions.api.onNewRows();
-                $scope.gridOptions.api.hideColumns(['total_percent_budget', 'total_percent_spent', 'total_percent_remaining'], true);
                 $scope.sortKeys = [
                     {field: 'region', sort: 'asc'},
                     {field: 'location', sort: 'asc'},
                     {field: 'crop_year', sort: 'asc'},
                     {field: 'season', sort: 'asc'},
-                    {field: 'analyst', sort: 'asc'},
+                    {field: 'analyst_abr', sort: 'asc'},
                     {field: 'farmer', sort: 'asc'},
                     {field: 'applicant', sort: 'asc'},
                     {field: 'dist', sort: 'asc'},
-                    {field: 'loan_type', sort: 'asc'},
+                    {field: 'loantype_abr', sort: 'asc'},
                 ];
+                $scope.gridOptions.rowData = res.data;
+                $scope.gridHeight = Number(($scope.gridOptions.rowData.length + 2) * 30).toString();
+
+                $scope.gridOptions.api.hideColumns(['total_percent_budget', 'total_percent_spent', 'total_percent_remaining'], true);
+                $scope.gridOptions.api.onNewRows();
                 $scope.gridOptions.api.setSortModel($scope.sortKeys);
+
                 $scope.icons = false;
                 $scope.dollarsPercent = true;
                 $scope.detail = true;

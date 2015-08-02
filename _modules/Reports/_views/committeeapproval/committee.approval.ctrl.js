@@ -144,14 +144,17 @@
 
         $http.get("json/committee.json")
             .then(function (res) {
-                $scope.gridOptions.rowData = res.data;
-                $scope.gridHeight = Number(($scope.gridOptions.rowData.length + 2) * 30).toString();
-                $scope.gridOptions.api.onNewRows();
                 var sort = [
-                    {field: 'analyst', sort: 'asc'},
+                    {field: 'analyst_abr', sort: 'asc'},
                     {field: 'committee_member', sort: 'asc'},
                 ];
-                $scope.gridOptions.api.setSortModel(sort);
+                $scope.gridOptions.rowData = res.data;
+                $scope.gridHeight = Number(($scope.gridOptions.rowData.length + 2) * 30).toString();
+
+                $scope.gridOptions.api.onNewRows();
+                $scope.gridOptions.api.setSortModel($scope.sortKeys);
+
+                $scope.icons = false;
                 $scope.tools = false;
             });
     }

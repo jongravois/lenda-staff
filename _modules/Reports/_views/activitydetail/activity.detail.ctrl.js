@@ -304,24 +304,27 @@
             .then(function (res) {
                 $scope.pins = 8;
                 $scope.pin = 0;
-                $scope.gridOptions.rowData = res.data;
-                $scope.gridHeight = Number(($scope.gridOptions.rowData.length + 2) * 30).toString();
-                $scope.gridOptions.api.hideColumns(['due_date'], true);
-                $scope.gridOptions.api.onNewRows();
                 $scope.sortKeys = [
                     {field: 'region', sort: 'asc'},
                     {field: 'location', sort: 'asc'},
                     {field: 'crop_year', sort: 'asc'},
                     {field: 'season', sort: 'asc'},
-                    {field: 'analyst', sort: 'asc'},
+                    {field: 'analyst_abr', sort: 'asc'},
                     {field: 'farmer', sort: 'asc'},
                     {field: 'applicant', sort: 'asc'},
                     {field: 'dist', sort: 'asc'},
-                    {field: 'loan_type', sort: 'asc'},
+                    {field: 'loantype_abr', sort: 'asc'},
                     {field: 'qb_date', sort: 'asc'}
                 ];
+                $scope.gridOptions.rowData = res.data;
+                $scope.gridHeight = Number(($scope.gridOptions.rowData.length + 2) * 30).toString();
+
+                $scope.gridOptions.api.hideColumns(['due_date'], true);
+                $scope.gridOptions.api.onNewRows();
                 $scope.gridOptions.api.setSortModel($scope.sortKeys);
+
                 console.log($scope.gridOptions);
+
                 $scope.icons = false;
                 $scope.tools = false;
                 $scope.origDue = false;
