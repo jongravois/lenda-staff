@@ -38,6 +38,11 @@
                 vm.XColView = !vm.XColView;
             }
 
+            vm.updateTerms = function() {
+                alert('Updating');
+                //TODO: Exception if due_date changed from default
+            }
+
             //////////
 
         } // end function

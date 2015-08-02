@@ -37,10 +37,10 @@
         // FEEDER LISTS
         FeederFactory.init();
         vm.feeder = FeederFactory.getObject();
-        console.log(vm.feeder);
+        //console.log(vm.feeder);
 
         DefaultsFactory.init();
         vm.defaults = DefaultsFactory.getObject();
-        console.log(vm.defaults);
+        //console.log(vm.defaults);
     } // end function
 })();
