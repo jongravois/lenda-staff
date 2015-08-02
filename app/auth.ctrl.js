@@ -30,7 +30,7 @@
                     var user = JSON.stringify(rsp.data.data[0]);
                     localStorage.setItem('user', user);
                     $rootScope.authenticated = true;
-                    $rootScope.currentUser = rsp.data.user;
+                    $rootScope.currentUser = rsp.data.data[0];
 
                     //$state.go('locations');
                     $state.go('main.home');
