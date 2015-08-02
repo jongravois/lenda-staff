@@ -4,10 +4,11 @@
         .module('ARM')
         .controller('CropMixController', CropMixController);
 
-    CropMixController.$inject = ['$scope', '$http', '$filter', '$timeout', 'AppFactory'];
+    CropMixController.$inject = ['$scope', '$http', '$filter', '$timeout', 'AppFactory', 'Loans', 'CropMixFactory'];
 
-    function CropMixController($scope, $http, $filter, $timeout, AppFactory) {
+    function CropMixController($scope, $http, $filter, $timeout, AppFactory, Loans, CropMixFactory) {
         $scope.AppFactory = AppFactory;
+        $scope.loans = Loans;
 
         var columnDefs = [
             {
@@ -244,11 +245,19 @@
             showToolPanel: false
         };
 
-        $http.get("json/crop.mix.json")
-            .then(function (res) {
+        //$http.get("json/crop.mix.json")
+        //    .then(function (res) {
+        //        o CropMixFactory.getData($scope.loans);
+        //        console.log($scope.arr);
+
+        //debugger;
+        $scope.arr = CropMixFactory.getData(Loans);
+        console.log('reduced', $scope.arr);
+
                 $scope.pins = 3;
                 $scope.pin = 0;
-                $scope.gridOptions.rowData = res.data;
+                //$scope.gridOptions.rowData = res.data;
+                $scope.gridOptions.rowData = $scope.arr;
                 $scope.gridHeight = Number(($scope.gridOptions.rowData.length + 2) * 30).toString();
                 $scope.gridOptions.api.onNewRows();
                 $scope.sortKeys = [
@@ -258,7 +267,7 @@
                 $scope.gridOptions.api.setSortModel($scope.sortKeys);
                 $scope.icons = false;
                 $scope.tools = false;
-            });
+            //});
     }
 
 })();

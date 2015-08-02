@@ -1,189 +1,223 @@
 <!-- region location year season analyst farmer applicant -->
-<table class="table table-striped table-bordered table-condensed rowed" style="font-size: 12px">
+<table class="table table-striped table-bordered table-condensed table-responsive rowed" style="font-size:12px;overflow: auto;">
     <tr>
-        <th>Indicatros</th>
+        <!--<th>Indicators</th>-->
         <th>Region</th>
         <th>Loc</th>
         <th>Year</th>
         <th>Season</th>
         <th>Analyst</th>
-        <th>Abr</th>
+        <!--<th>Abr</th>-->
         <th>Farmer</th>
         <th>Applicant</th>
         <th>Type</th>
-        <th>Abr</th>
+        <!--<th>Abr</th>-->
         <th>Dist</th>
         <th>Orig</th>
+        <th>Due</th>
         <th>Agency</th>
         <th>Status</th>
-        <th>Status</th>
-        <th>Progress</th>
-        <th>Interest</th>
+        <!--<th>Status</th>-->
+        <!--<th>Progress</th>-->
+        <th>ARM</th>
+        <th>Dist</th>
+        <th>Class</th>
+
+        <!--<th>FAC</th>-->
+        <!--<th>Cotton</th>-->
+        <!--<th>Corn</th>-->
+        <!--<th>Peanuts</th>-->
+        <!--<th>Rice</th>-->
+        <!--<th>Sorghum</th>-->
+        <!--<th>Soybeans</th>-->
+        <!--<th>Sugarcane</th>-->
+        <!--<th>Sunflowers</th>-->
+        <!--<th>Wheat</th>-->
+
+        <!--<th>Interest</th>-->
     </tr>
-    <tr ng-repeat="d in home.arr">
-        <td nowrap>
-            <span class="progicon glyphicons glyphicons-plus"
-                  tooltip="Addendum"
-                  tooltip-append-to-body="true"
-                  tooltip-placement="bottom"
-                  ng-class="{'clrOn': d.has_addendum, 'clrOff': !d.has_addendum}"></span>
-            <span class="progicon glyphicons glyphicons-random"
-                  tooltip="Cross Collateral"
-                  tooltip-append-to-body="true"
-                  tooltip-placement="bottom"
-                  ng-click="edt.toggleCrossColateral()"
-                  ng-class="{'cRed': d.is_cross_collateralized, 'clrOn': d.is_cross_collateralized, 'clrOff': !d.is_cross_collateralized }"
-                  style="color: #333333;"></span>
-            <span class="progicon glyphicons glyphicons-fire"
-                  tooltip="Bankruptcy History"
-                  tooltip-append-to-body="true"
-                  tooltip-placement="bottom"
-                ng-class="{'clrOn': d.bankruptcy_history, 'clrOff': !d.bankruptcy_history}"></span>
-            <span class="progicon glyphicons glyphicons-charts"
-                  tooltip="Third Party Credit Required"
-                  tooltip-append-to-body="true"
-                  tooltip-placement="bottom"
-                ng-class="{'clrOn': d.required_3party, 'clrOff': !d.required_3party}"></span>
-            <span class="progicon glyphicons glyphicons-flag"
-                  tooltip="Added Land in Database"
-                  tooltip-append-to-body="true"
-                  tooltip-placement="bottom"
-                ng-class="{'clrOn': d.added_land, 'clrOff': !d.added_land}"></span>
-            <span class="progicon glyphicons glyphicons-lock"
-                  tooltip="Controlled Disbursement"
-                  tooltip-append-to-body="true"
-                  tooltip-placement="bottom"
-                  ng-class="{'clrOn': d.controlled_disbursement, 'clrOff': !d.controlled_disbursement}"></span>
-            <span class="progicon glyphicons glyphicons-paperclip"
-                  tooltip="Attachments"
-                  tooltip-append-to-body="true"
-                  tooltip-placement="bottom"
-                ng-class="{'clrOn' : d.attachments, 'clrOff': !d.attachments }"></span>
-        </td>
-        
-        <td class="text-center">{{d.region}}</td>
-        <td class="text-center">{{d.location}}</td>
-        <td class="text-center">{{d.crop_year}}</td>
-        <td class="text-center">{{d.season}}</td>
-        <td class="text-left">{{d.analyst}}</td>
-        <td class="text-left">{{d.analyst_abr}}</td>
-        <td class="text-left">{{d.farmer}}</td>
-        <td class="text-left">{{d.applicant}}</td>
-        <td class="text-left">{{d.loan_type}}</td>
-        <td class="text-left">{{d.loantype_abr}}</td>
-        <td class="text-center">{{d.distributor}}</td>
-        <td class="text-center">{{d.app_date | date:'shortDate'}}</td>
-        <td class="text-center">{{d.agencies}}</td>
-        
-        <td class="text-center">{{d.status_id}}</td>
-        <td class="text-center">
-            <span
-                tooltip="Status"
-                tooltip-append-to-body="true"
-                tooltip-placement="bottom"
-                class="pendicon glyphicon glyphicon-wrench"
-                ng-class="{'cBlue': d.status_id, 'cGray': !d.status_id}">
-            </span>
-        </td>
+    <tr ng-repeat="data in home.arr">
+        <!--<td nowrap>-->
+            <!--<span class="progicon glyphicons glyphicons-plus"-->
+                  <!--tooltip="Addendum"-->
+                  <!--tooltip-append-to-body="true"-->
+                  <!--tooltip-placement="bottom"-->
+                  <!--ng-class="{'clrOn': data.is_addendum, 'clrOff': !data.is_addendum}"></span>-->
+            <!--<span class="progicon glyphicons glyphicons-random"-->
+                  <!--tooltip="Cross Collateral"-->
+                  <!--tooltip-append-to-body="true"-->
+                  <!--tooltip-placement="bottom"-->
+                  <!--ng-click="edt.toggleCrossColateral()"-->
+                  <!--ng-class="{'cRed': data.is_cross_collateralized, 'clrOn': data.is_cross_collateralized, 'clrOff': !data.is_cross_collateralized }"-->
+                  <!--style="color: #333333;"></span>-->
+            <!--<span class="progicon glyphicons glyphicons-fire"-->
+                  <!--tooltip="Bankruptcy History"-->
+                  <!--tooltip-append-to-body="true"-->
+                  <!--tooltip-placement="bottom"-->
+                <!--ng-class="{'clrOn': data.is_bankruptcy_history, 'clrOff': !data.is_bankruptcy_history}"></span>-->
+            <!--<span class="progicon glyphicons glyphicons-charts"-->
+                  <!--tooltip="Third Party Credit Required"-->
+                  <!--tooltip-append-to-body="true"-->
+                  <!--tooltip-placement="bottom"-->
+                <!--ng-class="{'clrOn': data.required_3party, 'clrOff': !data.required_3party}"></span>-->
+            <!--<span class="progicon glyphicons glyphicons-flag"-->
+                  <!--tooltip="Added Land in Database"-->
+                  <!--tooltip-append-to-body="true"-->
+                  <!--tooltip-placement="bottom"-->
+                <!--ng-class="{'clrOn': data.added_land, 'clrOff': !data.added_land}"></span>-->
+            <!--<span class="progicon glyphicons glyphicons-lock"-->
+                  <!--tooltip="Controlled Disbursement"-->
+                  <!--tooltip-append-to-body="true"-->
+                  <!--tooltip-placement="bottom"-->
+                  <!--ng-class="{'clrOn': data.controlled_disbursement, 'clrOff': !data.controlled_disbursement}"></span>-->
+            <!--<span class="progicon glyphicons glyphicons-paperclip"-->
+                  <!--tooltip="Attachments"-->
+                  <!--tooltip-append-to-body="true"-->
+                  <!--tooltip-placement="bottom"-->
+                <!--ng-class="{'clrOn' : data.num_attachments, 'clrOff': !data.num_attachments }"></span>-->
+        <!--</td>-->
 
-        <td nowrap>
-            <span class="progicon glyphicon glyphicon-list-alt"
-                tooltip="ITS List Verfified"
-                tooltip-append-to-body="true"
-                tooltip-placement="bottom"
-                ng-class="{'cGray': d.its_list == 0, 'cGreen': d.its_list == 1, 'cRed': d.its_list == 2}"></span>
-            <span class="progicon glyphicon glyphicon-home"
-                  tooltip="FSA Eligibility"
-                  tooltip-append-to-body="true"
-                  tooltip-placement="bottom"
-                ng-class="{'cGray': d.fsa_compliant == 0, 'cGreen': d.fsa_compliant == 1, 'cRed': d.fsa_compliant == 2}"></span>
-            <span class="progicon glyphicon glyphicon-star"
-                  tooltip="Prior Lien Verfied"
-                  tooltip-append-to-body="true"
-                  tooltip-placement="bottom"
-                ng-class="{'cGray': d.prev_lien_verified == 0, 'cGreen': d.prev_lien_verified == 1, 'cRed': d.prev_lien_verified == 2}"></span>
-            <span class="progicon glyphicon glyphicon-leaf"
-                  tooltip="Leases Valid"
-                  tooltip-append-to-body="true"
-                  tooltip-placement="bottom"
-                ng-class="{'cGray': d.leases_valid == 0, 'cGreen': d.leases_valid == 1, 'cRed': d.leases_valid == 2}"></span>
-            <span class="progicon glyphicon glyphicon-fire"
-                  tooltip="Bankruptcy Order Received"
-                  tooltip-append-to-body="true"
-                  tooltip-placement="bottom"
-                ng-class="{'cGray': d.bankruptcy_order_received == 0, 'cGreen': d.bankruptcy_order_received == 1, 'cRed': d.bankruptcy_order_received == 2}"></span>
-            <span class="progicon glyphicon glyphicon-stats"
-                  tooltip="Third Party Credit Verified"
-                  tooltip-append-to-body="true"
-                  tooltip-placement="bottom"
-                  ng-class="{'cGray': d.received_3party == 0, 'cGreen': d.received_3party == 1, 'cRed': d.received_3party == 2}"></span>
-            <span class="progicon glyphicon glyphicon-share-alt"
-                  tooltip="Recommended"
-                  tooltip-append-to-body="true"
-                  tooltip-placement="bottom"
-                ng-class="{'cGray': d.recommended == 0, 'cGreen': d.recommended == 1, 'cRed': d.recommended == 2}"></span>
-            <span class="progicon glyphicon glyphicon-thumbs-up"
-                  tooltip="ARM Approved"
-                  tooltip-append-to-body="true"
-                  tooltip-placement="bottom"
-                ng-class="{'cGray': d.arm_approved == 0, 'cGreen': d.arm_approved == 1, 'cRed': d.arm_approved == 2}"></span>
-            <span class="progicon glyphicon glyphicon-hand-up"
-                  tooltip="Distributor Approved"
-                  tooltip-append-to-body="true"
-                  tooltip-placement="bottom"
-                ng-class="{'cGray': d.dist_approved == 0, 'cGreen': d.dist_approved == 1, 'cRed': d.dist_approved == 2}"></span>
-            <span class="progicon glyphicon glyphicon-folder-close"
-                  tooltip="Loan Closed"
-                  tooltip-append-to-body="true"
-                  tooltip-placement="bottom"
-                ng-class="{'cGray': d.loan_closed == 0, 'cGreen': d.loan_closed == 1, 'cRed': d.loan_closed == 2}"></span>
-            <span class="progicon glyphicon glyphicon-flag"
-                  tooltip="Added Land Verified"
-                  tooltip-append-to-body="true"
-                  tooltip-placement="bottom"
-                ng-class="{'cGray': data.added_land_verified == 0, 'cGreen': data.added_land_verified == 1, 'cRed': data.added_land_verified == 2}"></span>
-            <span class="progicon glyphicon glyphicon-gift"
-                  tooltip="Permission to Insure Verified" tooltip-append-to-body="true"
-                  tooltip-placement="bottom"
-                  ng-class="{'cGray': d.permission_to_insure_verified == 0, 'cGreen': d.permission_to_insure == 1, 'cRed': d.permission_to_insure == 2}"></span>
-            <span class="progicon glyphicon glyphicon-log-in"
-                  tooltip="ARM UCC Received"
-                  tooltip-append-to-body="true"
-                  tooltip-placement="bottom"
-                ng-class="{'cGray': d.arm_ucc_received == 0, 'cGreen': d.arm_ucc_received == 1, 'cRed': d.arm_ucc_received == 2}"></span>
-            <span class="progicon glyphicon glyphicon-log-in"
-                  tooltip="Distributor UCC Received"
-                  tooltip-append-to-body="true"
-                  tooltip-placement="bottom"
-                ng-class="{'cGray': d.dist_ucc_received == 0, 'cGreen': d.dist_ucc_received == 1, 'cRed': d.dist_ucc_received == 2}"></span>
-            <span class="progicon glyphicon glyphicon-circle-arrow-right"
-                  tooltip="AOI Received"
-                  tooltip-append-to-body="true"
-                  tooltip-placement="bottom"
-                ng-class="{'cGray': d.aoi_received == 0, 'cGreen': d.aoi_received == 1, 'cRed': d.aoi_received == 2}"></span>
-            <span class="progicon glyphicon glyphicon-link"
-                  tooltip="CCC Received"
-                  tooltip-append-to-body="true"
-                  tooltip-placement="bottom"
-                ng-class="{'cGray': d.ccc_received == 0, 'cGreen': d.ccc_received == 1, 'cRed': d.ccc_received == 2}"></span>
-            <span class="progicon glyphicon glyphicon-cog"
-                  tooltip="Rebate Assignment"
-                  tooltip-append-to-body="true"
-                  tooltip-placement="bottom"
-                ng-class="{'cGray': d.rebate_assignment == 0, 'cGreen': d.rebate_assignment == 1, 'cRed': d.rebate_assignment == 2}"></span>
-            <span class="pendicon glyphicon glyphicon-retweet"
-                  tooltip="Account Reconciliation"
-                  tooltip-append-to-body="true"
-                  tooltip-placement="bottom"
-                  ng-class="{'cBlack': d.reconciliation, 'clrOff': !d.reconciliation}">
-            </span>
-        </td>
+        <td class="text-center">{{data.region}}</td>
+        <td class="text-center">{{data.location}}</td>
+        <td class="text-center">{{data.crop_year}}</td>
+        <td class="text-center">{{data.season}}</td>
+        <!--<td class="text-left">{{data.analyst}}</td>-->
+        <td class="text-center">{{data.analyst_abr}}</td>
+        <td class="text-left">{{data.farmer}}</td>
+        <td class="text-left">{{data.applicant}}</td>
+        <!--<td class="text-left">{{data.loan_type}}</td>-->
+        <td class="text-center">{{data.loantype_abr}}</td>
+        <td class="text-center">{{data.distributor}}</td>
+        <td class="text-center">{{data.app_date | date:'shortDate'}}</td>
+        <td class="text-center">{{data.due_date | date:'shortDate'}}</td>
+        <td class="text-center">{{data.agencies}}</td>
+        
+        <td class="text-center">{{data.status_id}}</td>
+        <!--<td class="text-center">-->
+            <!--<span-->
+                <!--tooltip="Status"-->
+                <!--tooltip-append-to-body="true"-->
+                <!--tooltip-placement="bottom"-->
+                <!--class="pendicon glyphicon glyphicon-wrench"-->
+                <!--ng-class="{'cGray': data.status_id == 0, 'cBlue': data.status_id == 1, 'cRed': data.status_id > 1}">-->
+            <!--</span>-->
+        <!--</td>-->
 
-        <td class="text-right">{{d.interest|flexCurrency:0}}</td>
+        <!--<td nowrap>-->
+            <!--<span class="progicon glyphicon glyphicon-list-alt"-->
+                <!--tooltip="ITS List Verfified"-->
+                <!--tooltip-append-to-body="true"-->
+                <!--tooltip-placement="bottom"-->
+                <!--ng-class="{'cGray': data.its_list == 0, 'cGreen': data.its_list == 1, 'cRed': data.its_list == 2}"></span>-->
+            <!--<span class="progicon glyphicon glyphicon-home"-->
+                  <!--tooltip="FSA Eligibility"-->
+                  <!--tooltip-append-to-body="true"-->
+                  <!--tooltip-placement="bottom"-->
+                <!--ng-class="{'cGray': data.fsa_compliant == 0, 'cGreen': data.fsa_compliant == 1, 'cRed': data.fsa_compliant == 2}"></span>-->
+            <!--<span class="progicon glyphicon glyphicon-star"-->
+                  <!--tooltip="Prior Lien Verfied"-->
+                  <!--tooltip-append-to-body="true"-->
+                  <!--tooltip-placement="bottom"-->
+                <!--ng-class="{'cGray': data.prev_lien_verified == 0, 'cGreen': data.prev_lien_verified == 1, 'cRed': data.prev_lien_verified == 2}"></span>-->
+            <!--<span class="progicon glyphicon glyphicon-leaf"-->
+                  <!--tooltip="Leases Valid"-->
+                  <!--tooltip-append-to-body="true"-->
+                  <!--tooltip-placement="bottom"-->
+                <!--ng-class="{'cGray': data.leases_valid == 0, 'cGreen': data.leases_valid == 1, 'cRed': data.leases_valid == 2}"></span>-->
+            <!--<span class="progicon glyphicon glyphicon-fire"-->
+                  <!--tooltip="Bankruptcy Order Received"-->
+                  <!--tooltip-append-to-body="true"-->
+                  <!--tooltip-placement="bottom"-->
+                <!--ng-class="{'cGray': data.bankruptcy_order_received == 0, 'cGreen': data.bankruptcy_order_received == 1, 'cRed': data.bankruptcy_order_received == 2}"></span>-->
+            <!--<span class="progicon glyphicon glyphicon-stats"-->
+                  <!--tooltip="Third Party Credit Verified"-->
+                  <!--tooltip-append-to-body="true"-->
+                  <!--tooltip-placement="bottom"-->
+                  <!--ng-class="{'cGray': data.received_3party == 0, 'cGreen': data.received_3party == 1, 'cRed': data.received_3party == 2}"></span>-->
+            <!--<span class="progicon glyphicon glyphicon-share-alt"-->
+                  <!--tooltip="Recommended"-->
+                  <!--tooltip-append-to-body="true"-->
+                  <!--tooltip-placement="bottom"-->
+                <!--ng-class="{'cGray': data.recommended == 0, 'cGreen': data.recommended == 1, 'cRed': data.recommended == 2}"></span>-->
+            <!--<span class="progicon glyphicon glyphicon-thumbs-up"-->
+                  <!--tooltip="ARM Approved"-->
+                  <!--tooltip-append-to-body="true"-->
+                  <!--tooltip-placement="bottom"-->
+                <!--ng-class="{'cGray': data.arm_approved == 0, 'cGreen': data.arm_approved == 1, 'cRed': data.arm_approved == 2}"></span>-->
+            <!--<span class="progicon glyphicon glyphicon-hand-up"-->
+                  <!--tooltip="Distributor Approved"-->
+                  <!--tooltip-append-to-body="true"-->
+                  <!--tooltip-placement="bottom"-->
+                <!--ng-class="{'cGray': data.dist_approved == 0, 'cGreen': data.dist_approved == 1, 'cRed': data.dist_approved == 2}"></span>-->
+            <!--<span class="progicon glyphicon glyphicon-folder-close"-->
+                  <!--tooltip="Loan Closed"-->
+                  <!--tooltip-append-to-body="true"-->
+                  <!--tooltip-placement="bottom"-->
+                <!--ng-class="{'cGray': data.loan_closed == 0, 'cGreen': data.loan_closed == 1, 'cRed': data.loan_closed == 2}"></span>-->
+            <!--<span class="progicon glyphicon glyphicon-flag"-->
+                  <!--tooltip="Added Land Verified"-->
+                  <!--tooltip-append-to-body="true"-->
+                  <!--tooltip-placement="bottom"-->
+                <!--ng-class="{'cGray': data.added_land_verified == 0, 'cGreen': data.added_land_verified == 1, 'cRed': data.added_land_verified == 2}"></span>-->
+            <!--<span class="progicon glyphicon glyphicon-gift"-->
+                  <!--tooltip="Permission to Insure Verified" tooltip-append-to-body="true"-->
+                  <!--tooltip-placement="bottom"-->
+                  <!--ng-class="{'cGray': data.permission_to_insure_verified == 0, 'cGreen': data.permissionpermission_to_insure_verified_to_insure == 1, 'cRed': data.permission_to_insure_verified == 2}"></span>-->
+            <!--<span class="progicon glyphicon glyphicon-log-in"-->
+                  <!--tooltip="ARM UCC Received"-->
+                  <!--tooltip-append-to-body="true"-->
+                  <!--tooltip-placement="bottom"-->
+                <!--ng-class="{'cGray': data.arm_ucc_received == 0, 'cGreen': data.arm_ucc_received == 1, 'cRed': data.arm_ucc_received == 2}"></span>-->
+            <!--<span class="progicon glyphicon glyphicon-log-in"-->
+                  <!--tooltip="Distributor UCC Received"-->
+                  <!--tooltip-append-to-body="true"-->
+                  <!--tooltip-placement="bottom"-->
+                <!--ng-class="{'cGray': data.dist_ucc_received == 0, 'cGreen': data.dist_ucc_received == 1, 'cRed': data.dist_ucc_received == 2}"></span>-->
+            <!--<span class="progicon glyphicon glyphicon-circle-arrow-right"-->
+                  <!--tooltip="AOI Received"-->
+                  <!--tooltip-append-to-body="true"-->
+                  <!--tooltip-placement="bottom"-->
+                <!--ng-class="{'cGray': data.aoi_received == 0, 'cGreen': data.aoi_received == 1, 'cRed': data.aoi_received == 2}"></span>-->
+            <!--<span class="progicon glyphicon glyphicon-link"-->
+                  <!--tooltip="CCC Received"-->
+                  <!--tooltip-append-to-body="true"-->
+                  <!--tooltip-placement="bottom"-->
+                <!--ng-class="{'cGray': data.ccc_received == 0, 'cGreen': data.ccc_received == 1, 'cRed': data.ccc_received == 2}"></span>-->
+            <!--<span class="progicon glyphicon glyphicon-cog"-->
+                  <!--tooltip="Rebate Assignment"-->
+                  <!--tooltip-append-to-body="true"-->
+                  <!--tooltip-placement="bottom"-->
+                <!--ng-class="{'cGray': data.rebate_assignment == 0, 'cGreen': data.rebate_assignment == 1, 'cRed': data.rebate_assignment == 2}"></span>-->
+            <!--<span class="pendicon glyphicon glyphicon-retweet"-->
+                  <!--tooltip="Account Reconciliation"-->
+                  <!--tooltip-append-to-body="true"-->
+                  <!--tooltip-placement="bottom"-->
+                  <!--ng-class="{'cBlack': data.reconciliation, 'clrOff': !data.reconciliation}">-->
+            <!--</span>-->
+        <!--</td>-->
+
+        <td class="text-right">{{data.commit_arm|flexCurrency:0}}</td>
+        <td class="text-right">{{data.commit_dist|flexCurrency:0}}</td>
+
+        <td class="text-center">{{data.account_classification}}</td>
+
+        <!--<td class="text-right">{{data.beansFAC|number:0}}</td>-->
+        <!--<td class="text-right">{{data.cotton|number:0}}</td>-->
+        <!--<td class="text-right">{{data.corn|number:0}}</td>-->
+        <!--<td class="text-right">{{data.peanuts|number:0}}</td>-->
+        <!--<td class="text-right">{{data.rice|number:0}}</td>-->
+        <!--<td class="text-right">{{data.sorghum|number:0}}</td>-->
+        <!--<td class="text-right">{{data.soybeans|number:0}}</td>-->
+        <!--<td class="text-right">{{data.sugarcane|number:0}}</td>-->
+        <!--<td class="text-right">{{data.sunflowers|number:0}}</td>-->
+        <!--<td class="text-right">{{data.wheat|number:0}}</td>-->
+
+
+        <!--<td class="text-right">{{data.interest|flexCurrency:0}}</td>-->
     </tr>
 </table>
 
-<hr>
-<div>
-    <pre>{{home.loans|json}}</pre>
-</div>
+<!--<hr>-->
+<!--<div>-->
+    <!--<pre>{{home.loans|json}}</pre>-->
+<!--</div>-->
