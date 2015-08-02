@@ -4,10 +4,10 @@
         .module('ARM')
         .controller('MainController', MainController);
 
-    MainController.$inject = ['$http', '$auth', '$rootScope', 'API_URL', 'DefaultsFactory', 'FeederFactory'];
+    MainController.$inject = ['$rootScope', '$http', '$auth', 'API_URL', 'DefaultsFactory', 'FeederFactory'];
 
     /* @ngInject */
-    function MainController($http, $auth, $rootScope, API_URL, DefaultsFactory, FeederFactory) {
+    function MainController($rootScope, $http, $auth, API_URL, DefaultsFactory, FeederFactory) {
         /* jshint validthis: true */
         var vm = this;
 
@@ -21,6 +21,7 @@
             $http.get(API_URL + 'authenticate')
                 .success(function (users) {
                     vm.users = users;
+                    $rootScope.allUsers = users;
                 })
                 .error(function (error) {
                     vm.error = error;
@@ -38,9 +39,9 @@
 
         // FEEDER LISTS
         FeederFactory.init();
-        //vm.feeder = FeederFactory.getObject();
+        $rootScope.feeder = FeederFactory.getObject();
 
         DefaultsFactory.init();
-        //vm.defaults = DefaultsFactory.getObject();
+        $rootScope.defaults = DefaultsFactory.getObject();
     } // end function
 })();

@@ -4,15 +4,15 @@
         .module('ARM')
         .controller('LoansController', LoansController);
 
-        LoansController.$inject = ['$filter', '$location', 'orderByFilter', 'AppFactory', 'LoansFactory'];
+        LoansController.$inject = ['$rootScope', '$filter', '$location', 'orderByFilter', 'AppFactory', 'LoansFactory'];
 
         /* @ngInject */
-        function LoansController($filter, $location, orderByFilter, AppFactory, LoansFactory) {
+        function LoansController($rootScope, $filter, $location, orderByFilter, AppFactory, LoansFactory) {
             /* jshint validthis: true */
             var vm = this;
 
             var data = [];
-            var user = JSON.parse(localStorage.getItem('user'));
+            var user = $rootScope.currentUser;
             vm.user = user;
             //console.log('user', user);
 
@@ -32,6 +32,7 @@
                     //console.log('LoansBySettings', LoansBySettings);
                     var settingsLoans = vm.sortLoans(LoansBySettings, 1);
                     vm.sortedLoanList = settingsLoans;
+                    $rootScope.loans = settingsLoans;
                     vm.hgt = vm.sortedLoanList.length * 38;
                     data = AppFactory.getSortedData(vm.pendingView, vm.sortedLoanList);
                     //console.log('data', data);
