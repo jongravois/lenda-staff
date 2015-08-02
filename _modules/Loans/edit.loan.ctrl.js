@@ -4,31 +4,25 @@
         .module('ARM')
         .controller('EditLoanController', EditLoanController);
     
-        EditLoanController.$inject = ['$rootScope', '$state', '$stateParams', 'AppFactory', 'DefaultsFactory', 'FeederFactory', 'Loan'];
+        EditLoanController.$inject = ['$rootScope', '$state', 'AppFactory', 'Loan'];
     
         /* @ngInject */
-        function EditLoanController($rootScope, $state, $stateParams, AppFactory, DefaultsFactory, FeederFactory, Loan) {
+        function EditLoanController($rootScope, $state, AppFactory, Loan) {
             /* jshint validthis: true */
             var vm = this;
-            //FeederFactory.init();
-            //DefaultsFactory.init();
 
             var user = JSON.parse(localStorage.getItem('user'));
             vm.AppFactory = AppFactory;
             vm.feeder = $rootScope.feeder;
-            //vm.feeder = FeederFactory.getObject();
             vm.globals = $rootScope.defaults;
-            //vm.globals = DefaultsFactory.getObject();
 
             vm.loan = Loan;
-            console.log('loan', vm.loan);
             vm.user = user;
             vm.states = vm.feeder.states;
 
             vm.XColView = false; //true;
             vm.showSidebar = user.full_sidebar;
-            //console.log('from resolve', Loan);
-            //console.log(user);
+            console.log('loan', vm.loan);
 
             vm.ngcLink = function (slug) {
                 //alert(slug);

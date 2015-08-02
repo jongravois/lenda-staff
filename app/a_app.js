@@ -9,7 +9,8 @@
             'toastr',
             'oitozero.ngSweetAlert',
             'angularGrid',
-            'xeditable'
+            'xeditable',
+            'angular-loading-bar'
         ])
         .config(function(){
             function groupByMulti(obj, values, context) {
