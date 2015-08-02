@@ -211,9 +211,6 @@
             .then(function (res) {
                 $scope.pins = 8;
                 $scope.pin = 0;
-                $scope.gridOptions.rowData = res.data;
-                $scope.gridHeight = Number(($scope.gridOptions.rowData.length + 2) * 30).toString();
-                $scope.gridOptions.api.onNewRows();
                 $scope.sortKeys = [
                     {field: 'region', sort: 'asc'},
                     {field: 'location', sort: 'asc'},
@@ -225,7 +222,12 @@
                     {field: 'dist', sort: 'asc'},
                     {field: 'loan_type', sort: 'asc'}
                 ];
+                $scope.gridOptions.rowData = res.data;
+                $scope.gridHeight = Number(($scope.gridOptions.rowData.length + 2) * 30).toString();
+
+                $scope.gridOptions.api.onNewRows();
                 $scope.gridOptions.api.setSortModel($scope.sortKeys);
+
                 console.log($scope.gridOptions.rowData);
                 $scope.icons = false;
                 $scope.tools = false;

@@ -105,6 +105,11 @@
                  data.cashflow = item.;
                  data.exposure = item.;
 
+                 customer.budget
+                 data.budget = item.;
+                 data.spent = item.;
+                 data.available = data.budget - data.spent;
+
                  account.summary
                  data.commit_arm = item.financials.commit_arm;
                  data.int_percent_arm = item.fins.int_percent_arm;
