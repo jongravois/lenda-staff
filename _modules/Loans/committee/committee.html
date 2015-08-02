@@ -17,13 +17,13 @@
                 </tr>
                 <tr ng-repeat="c in edt.loan.committee">
                     <td>
-                        <span ng-if="c.need_vote" tooltip="Vote Needed" class="glyphicon glyphicon-exclamation-sign" style="color:#000099;font-size:18px;"></span>
-                        <span ng-if="!c.need_vote" tooltip="Vote Needed" class="glyphicon glyphicon-exclamation-sign" style="color:#DDDDDD;font-size:18px;"></span>
+                        <span ng-if="c.vote_status == 'pending'" tooltip="Vote Needed" class="glyphicon glyphicon-exclamation-sign" style="color:#000099;font-size:18px;"></span>
+                        <span ng-if="c.vote_status != 'pending'" tooltip="Vote Needed" class="glyphicon glyphicon-exclamation-sign" style="color:#DDDDDD;font-size:18px;"></span>
                         <span ng-if="c.has_comment" tooltip="Comments" class="glyphicon glyphicon-exclamation-sign" style="color:#e0a02d;font-size:18px;"></span>
                         <span ng-if="!c.has_comment" tooltip="Comments" class="glyphicon glyphicon-exclamation-sign" style="color:#DDDDDD;font-size:18px;"></span>
                     </td>
                     <td><b>{{c.committee_role}}</b></td>
-                    <td>{{c.username}}</td>
+                    <td>{{c.user.name}}</td>
                     <td class="text-center">{{c.vote_request_date | date:'M/d/yy'}}</td>
                     <td class="text-center">{{c.vote_received_date | date:'M/d/yy'}}</td>
                     <td class="text-center">

@@ -20,23 +20,7 @@
             seasons: [
                 {id: 1, abr: 'F', season: 'Fall'},
                 {id: 2, abr: 'S', season: 'Spring'}
-            ],
-            agencies: [],
-            counties: [],
-            distributors: [],
-            entitytypes: [],
-            insopts: [],
-            instypes: [],
-            insunits: [],
-            loanstatuses: [],
-            loantypes: [],
-            locations: [],
-            measures: [],
-            regions: [],
-            reports: [],
-            roles: [],
-            spendcats: [],
-            state: []
+            ]
         };
 
         function getAgencies() {
@@ -159,7 +143,7 @@
         }
 
         function getObject() {
-            toastr.success('Loaded feeder lists', 'Success!');
+            //toastr.success('Loaded feeder lists', 'Success!');
             return data;
         }
 

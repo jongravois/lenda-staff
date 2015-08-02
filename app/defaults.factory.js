@@ -8,15 +8,10 @@
 
     /* @ngInject */
     function DefaultsFactory($http, toastr, API_URL) {
-        var data = {
-            admingraders: [],
-            defaultexpenses: [],
-            globvars: [],
-            ratioconstraints: []
-        };
+        var data = {};
 
         function getObject() {
-            toastr.success('Loaded defaults lists', 'Success!');
+            //toastr.success('Loaded defaults lists', 'Success!');
             return data;
         }
 

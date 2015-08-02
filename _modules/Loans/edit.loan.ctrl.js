@@ -4,18 +4,24 @@
         .module('ARM')
         .controller('EditLoanController', EditLoanController);
     
-        EditLoanController.$inject = ['$state', '$stateParams', 'AppFactory', 'Loan'];
+        EditLoanController.$inject = ['$state', '$stateParams', 'AppFactory', 'DefaultsFactory', 'FeederFactory', 'Loan'];
     
         /* @ngInject */
-        function EditLoanController($state, $stateParams, AppFactory, Loan) {
+        function EditLoanController($state, $stateParams, AppFactory, DefaultsFactory, FeederFactory, Loan) {
             /* jshint validthis: true */
             var vm = this;
+            FeederFactory.init();
+            DefaultsFactory.init();
 
             var user = JSON.parse(localStorage.getItem('user'));
+            vm.AppFactory = AppFactory;
+            vm.feeder = FeederFactory.getObject();
+            vm.globals = DefaultsFactory.getObject();
 
             vm.loan = Loan;
+            vm.user = user;
+            vm.states = vm.feeder.states;
 
-            vm.AppFactory = AppFactory;
             vm.XColView = false; //true;
             vm.showSidebar = user.full_sidebar;
             //console.log('from resolve', Loan);
@@ -38,11 +44,14 @@
                 vm.XColView = !vm.XColView;
             }
 
+            //////////
             vm.updateTerms = function() {
                 alert('Updating');
                 //TODO: Exception if due_date changed from default
             }
-
+            vm.updateFarmer = function() {
+                alert('updateFarmer');
+            }
             //////////
 
         } // end function

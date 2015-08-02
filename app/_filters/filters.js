@@ -79,6 +79,10 @@
             if (!input) {
                 return '';
             }
+            if (typeof input !== 'string')
+            {
+                return '';
+            }
             if (input.indexOf(',') < 1) {
                 return input;
             }

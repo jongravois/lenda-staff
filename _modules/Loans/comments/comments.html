@@ -41,12 +41,12 @@
         </div>
 
         <!--No Comment Place Holder-->
-        <div ng-if="comments.length == 0">
+        <div ng-if="edt.comments.length == 0">
             <b>No Comments Found!</b>
         </div>
 
         <!--Loan/Addendum Comment-->
-        <div ng-repeat="c in loan.comments.Loan">
+        <div ng-repeat="c in edt.loan.comments.Loan">
             <div class="alert alert-default" role="alert">
                 <h4>
                     <span class="glyphicon glyphicon-pencil" ></span>
@@ -76,7 +76,7 @@
         </div>
 
         <!--WatchList Comment-->
-        <div ng-if="loan.comments.Watch.length > 0">
+        <div ng-if="edt.loan.comments.Watch.length > 0">
             <div ng-repeat="c in loan.comments.Watch">
                 <div class="alert alert-warning" role="alert">
                     <div style="position: relative;">
@@ -110,7 +110,7 @@
         </div>
 
         <!--Committee Comments-->
-        <div ng-if="loan.comments.Committee.length > 0">
+        <div ng-if="edt.loan.comments.Committee.length > 0">
             <div ng-repeat="c in loan.comments.Committee">
                 <div class="alert alert-info" role="alert">
                     <div style="position: relative;">
@@ -146,7 +146,7 @@
         </div>
 
         <!--Analyst Comments-->
-        <div ng-if="loan.comments.Analyst.length > 0">
+        <div ng-if="edt.loan.comments.Analyst.length > 0">
             <div ng-repeat="c in loan.comments.Analyst">
                 <div class="alert alert-warning" role="alert">
                     <div style="position: relative;">
@@ -179,7 +179,7 @@
         </div>
 
         <!--Account Comments-->
-        <div ng-if="loan.comments.Account.length > 0">
+        <div ng-if="edt.loan.comments.Account.length > 0">
             <div ng-repeat="c in loan.comments.Account">
                 <div class="alert alert-success" role="alert">
                     <div style="position: relative;">

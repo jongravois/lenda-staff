@@ -13,6 +13,8 @@
 
         /*jshint -W030 */
         vm.users;
+        vm.feeder;
+        vm.defaults;
         vm.error;
 
         vm.getUsers = function () {
@@ -36,11 +38,9 @@
 
         // FEEDER LISTS
         FeederFactory.init();
-        vm.feeder = FeederFactory.getObject();
-        //console.log(vm.feeder);
+        //vm.feeder = FeederFactory.getObject();
 
         DefaultsFactory.init();
-        vm.defaults = DefaultsFactory.getObject();
-        //console.log(vm.defaults);
+        //vm.defaults = DefaultsFactory.getObject();
     } // end function
 })();

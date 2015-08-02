@@ -67,7 +67,7 @@
                 hide: indWid.hide
             },
             {
-                field: 'farmer',
+                valueGetter: 'data.farmer.farmer',
                 headerName: 'Farmer',
                 headerTooltip: 'Farmer',
                 width: 90
