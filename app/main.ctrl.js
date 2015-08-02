@@ -4,10 +4,10 @@
         .module('ARM')
         .controller('MainController', MainController);
 
-    MainController.$inject = ['$http', '$auth', '$rootScope', 'API_URL', 'FeederFactory'];
+    MainController.$inject = ['$http', '$auth', '$rootScope', 'API_URL', 'DefaultsFactory', 'FeederFactory'];
 
     /* @ngInject */
-    function MainController($http, $auth, $rootScope, API_URL, FeederFactory) {
+    function MainController($http, $auth, $rootScope, API_URL, DefaultsFactory, FeederFactory) {
         /* jshint validthis: true */
         var vm = this;
 
@@ -34,8 +34,13 @@
                 });
         };
 
+        // FEEDER LISTS
         FeederFactory.init();
         vm.feeder = FeederFactory.getObject();
         console.log(vm.feeder);
+
+        DefaultsFactory.init();
+        vm.defaults = DefaultsFactory.getObject();
+        console.log(vm.defaults);
     } // end function
 })();
