@@ -14,8 +14,10 @@
         return publicAPI;
 
         function getData(loans) {
-            console.log('CropMixFactory.loans', loans);
+            //console.log('CropMixFactory.loans', loans);
+
             var groupByCrop = _.partial(_.ary(_.groupBy, 2), _, 'fins.crop_acres');
+
             var retro = _.map(loans, function(item){
                 var data = {};
                 data.region = item.location.regions.region;
@@ -33,51 +35,39 @@
                 data.wheat = item.fins.crop_acres.wheat;
                 return data;
             });
-            console.log('CropMixFactory.retro', retro);
+            //console.log('CropMixFactory.retro', retro);
 
-            function sum(arr, key, val){
-                return _.reduce(arr, function(result, item){
-                    result[item[key]] = result[item[key]] || 0;
-                    result[item[key]] += item[val];
-                    return result;
-                }, {});
-            }
-            var summed = sum(retro, 'location', 'soybeans');
-            console.log('summed', summed);
-
-            var locations = _(retro).chain().pluck('location').unique().value();
-            console.log('CropMixFactory.locations', locations);
-            return retro;
-
-
-
-
-            //var groupByCrop = _.partial(_.ary(_.groupBy, 2), _, 'fins.crop_acres');
-
-            var mapped = _(loans).chain()
-                .groupBy('location.loc_abr')
-                .mapValues(groupByCrop);
-
-            var reduced = _(mapped).chain()
-                .map(function (locationGroup) {
-                    return _.mapValues(locationGroup, function (v) {
-                        var initial = _(v).chain().first().clone().value();
-                        return _.reduce(_.rest(v), function (result, n) {
-                            result.soybeans += n.fins.crop_acres.soybeans;
-                            return result;
-                        }, initial);
-                    });
+            function match(coll, loc) {
+                var val = _.find(retro, function(i){
+                    if(i.location == loc) {
+                        return i;
+                    }
                 });
+                return val.region || '';
+            }
 
-            $scope.mapped = mapped.value();
-            console.log('$scope.mapped', $scope.mapped);
-            var redux = reduced.value();
-            var flattened = redux;
-            $scope.reduced = flattened;
-            console.log('$scope.reduced', $scope.reduced);
-            //return $scope.reduced;
+            var arr = [];
 
-
+            var locations = _(retro).chain().groupBy('location').pairs().value();
+            _.each(locations, function(loc){
+                var rec = {
+                    region: match(retro, loc[0]),
+                    location: loc[0],
+                    beansFAC: _.sumCollection(loc[1], 'beansFAC'),
+                    corn: _.sumCollection(loc[1], 'corn'),
+                    cotton: _.sumCollection(loc[1], 'cotton'),
+                    peanuts: _.sumCollection(loc[1], 'peanuts'),
+                    rice: _.sumCollection(loc[1], 'rice'),
+                    sorghum: _.sumCollection(loc[1], 'sorghum'),
+                    soybeans: _.sumCollection(loc[1], 'soybeans'),
+                    sugarcane: _.sumCollection(loc[1], 'sugarcane'),
+                    sunflowers: _.sumCollection(loc[1], 'sunflowers'),
+                    wheat: _.sumCollection(loc[1], 'wheat')
+                };
+                arr.push(rec);
+            });
+            console.log('CropMixFactory.locations', locations, 'arr', arr);
+            return arr;
         }
     } // end factory
 })();

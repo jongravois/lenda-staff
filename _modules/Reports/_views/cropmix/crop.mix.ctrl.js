@@ -248,7 +248,7 @@
         };
 
         $scope.reduced = CropMixFactory.getData(Loans);
-        console.log('reduced', $scope.reduced);
+        //console.log('reduced', $scope.reduced);
 
         $scope.pins = 3;
         $scope.pin = 0;
