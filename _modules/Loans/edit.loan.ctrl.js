@@ -19,6 +19,7 @@
             vm.globals = DefaultsFactory.getObject();
 
             vm.loan = Loan;
+            console.log('loan', vm.loan);
             vm.user = user;
             vm.states = vm.feeder.states;
 
