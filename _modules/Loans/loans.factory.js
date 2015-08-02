@@ -30,7 +30,6 @@
                     var loans = rsp.data.data;
                     //comments
                     _.each(loans, function(item){
-                        //console.log('loans', item);
                         item.has_comment = false;
                         if(item.comments.length !== 0) {
                             _.each(item.comments, function(it){
