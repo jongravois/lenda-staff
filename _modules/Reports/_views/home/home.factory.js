@@ -9,11 +9,11 @@
     /* @ngInject */
     function HomeFactory() {
         var publicAPI = {
-            getJons: getJons
+            getData: getData
         };
         return publicAPI;
 
-        function getJons(loans) {
+        function getData(loans) {
             var retro = _.map(loans, function(item){
                 var data = {};
 
@@ -23,7 +23,7 @@
                 data.required_3party = item.required_3party;
                 data.added_land = item.added_land;
                 data.controlled_disbursement = item.controlled_disbursement;
-                data.attachments = item.attachments.length;
+                data.num_attachments = item.attachments.length;
 
                 data.region = item.location.regions.region;
                 data.location = item.location.loc_abr;
@@ -41,9 +41,10 @@
                 data.loantype_abr = item.loantype_abr;
                 data.distributor = item.distributor.distributor;
                 data.app_date = item.app_date;
+                data.due_date = item.due_date;
 
-                data.status_id = item.status.id;
                 data.agencies = item.agencies;
+                data.status_id = item.status.id;
 
                 data.its_list = item.its_list;
                 data.fsa_compliant = item.fsa_compliant;
@@ -63,6 +64,99 @@
                 data.ccc_received = item.ccc_received;
                 data.rebate_assignment = item.rebate_assignment;
                 data.reconciliation = item.reconciliation;
+
+                data.commit_arm = item.financials.commit_arm;
+                data.commit_dist = item.financials.commit_dist;
+
+                data.account_classification = item.account_classification;
+
+                data.int_percent_arm = item.fins.int_percent_arm;
+                data.int_percent_dist = item.fins.int_percent_dist;
+
+                data.beansFAC = item.fins.crop_acres.beansFAC;
+                data.cotton = item.fins.crop_acres.cotton;
+                data.corn = item.fins.crop_acres.corn;
+                data.peanuts = item.fins.crop_acres.peanuts;
+                data.rice = item.fins.crop_acres.rice;
+                data.sorghum = item.fins.crop_acres.sorghum;
+                data.soybeans = item.fins.crop_acres.soybeans;
+                data.sugarcane = item.fins.crop_acres.sugarcane;
+                data.sunflowers = item.fins.crop_acres.sunflowers;
+                data.wheat = item.fins.crop_acres.wheat;
+
+                /*
+                 activity.detail
+                 data.qb_date = item.;
+                 data.qb_type = item.;
+                 data.qb_cat = item.;
+                 data.qb_amount = item.;
+
+                 account.reconciliation
+                 data.commit_arm = item.financials.commit_arm;
+                 data.commit_dist = item.financials.commit_dist;
+                 data.qb_balance = item.'
+                 data.account_classification = item.account_classification'
+                 data.is_acct_recon = item.';
+
+                 cashflow
+                 data.commit_arm = item.financials.commit_arm;
+                 data.fee_total = item.;
+                 data.int_percent_arm = item.fins.int_percent_arm;
+                 data.cashflow = item.;
+                 data.exposure = item.;
+
+                 account.summary
+                 data.commit_arm = item.financials.commit_arm;
+                 data.int_percent_arm = item.fins.int_percent_arm;
+                 data.int_percent_dist = item.fins.int_percent_dist;
+
+                 farm.history
+                 data.commit_arm = item.financials.commit_arm;
+                 data.commit_dist = item.financials.commit_dist;
+                 data.fee_total = item.;
+                 data.int_percent_arm = item.fins.int_percent_arm;
+
+                 crop.mix
+                 data.beansFAC = item.crop_acres.beansFAC;
+                 data.cotton = item.crop_acres.cotton;
+                 data.crop_acres.corn = item.crop_acres.corn;
+                 data.peanuts = item.crop_acres.peanuts;
+                 data.rice = item.crop_acres.rice;
+                 data.sorghum = item.crop_acres.sorghum;
+                 data.soybeans = item.crop_acres.soybeans;
+                 data.sugarcane = item.crop_acres.sugarcane;
+                 data.sunflowers = item.crop_acres.sunflowers;
+                 data.wheat = item.crop_acres.wheat;
+
+                 committee.approval
+                 data.committee_member = item.;
+                 data.analyst_abr = item.analyst_abr;
+                 data.applicant = item.applicant;
+                 data.crop_year = item.crop_year;
+                 data.loantype_abr = item.loantype_abr;
+                 data.addendum_date = item.;
+                 data.distributor = item.distributor.distributor;
+                 data.agencies = item.agencies;
+                 data.vote = item.;
+                 data.account_classification = item.account_classification'
+
+                 committee.comment
+                 data.committee_member = item.;
+                 data.analyst_abr = item.analyst_abr;
+                 data.applicant = item.applicant;
+                 data.crop_year = item.crop_year;
+                 data.loantype_abr = item.loantype_abr;
+                 data.addendum_date = item.;
+                 data.distributor = item.distributor.distributor;
+                 data.agencies = item.agencies;
+                 data.vote = item.;
+                 data.account_classification = item.account_classification'
+                 data.log = item.;
+
+                 required
+
+                 audit.user
+                 */
 
                 data.interest = Number(item.fins.commit_arm) * Number(item.fins.int_percent_arm);
                 return data;

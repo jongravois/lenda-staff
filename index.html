@@ -1,112 +1,128 @@
 <!DOCTYPE html>
 <html ng-app="ARM">
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-COMPATIBLE" content="IE=edge, chrome=1" />
-        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-        <meta name="description" content="AR Management Operations">
-        <meta name="author" content="Jonathan Gravois">
-        <title>LENDA STAFF</title>
-        <link rel="shortcut icon"
-              href="favicon.ico" />
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-COMPATIBLE" content="IE=edge, chrome=1"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="description" content="AR Management Operations">
+    <meta name="author" content="Jonathan Gravois">
+    <title>LENDA STAFF</title>
+    <link rel="shortcut icon"
+          href="favicon.ico"/>
 
-        <link rel="stylesheet"
-              href="css/glyphicons.css"/>
-        <link rel="stylesheet"
-              href="css/glyphicons-bootstrap.css"/>
-        <link rel="stylesheet"
-              href="css/bootstrap.min.css"/>
-        <link rel="stylesheet"
-              href="js/angular-toastr/angular-toastr.css"/>
-        <link rel="stylesheet"
-              href="js/sweetalert/sweetalert.css"/>
-        <link rel="stylesheet"
-              href="js/sweetalert/facebook.css"/>
-        <link rel="stylesheet"
-              href="js/ag-grid/angular-grid.css"/>
-        <link rel="stylesheet"
-              href="js/ag-grid/theme-arm.css"/>
-        <link rel="stylesheet"
-              href="js/angular-xeditable/xeditable.css"/>
+    <link rel="stylesheet"
+          href="css/glyphicons.css"/>
+    <link rel="stylesheet"
+          href="css/glyphicons-bootstrap.css"/>
+    <link rel="stylesheet"
+          href="css/bootstrap.min.css"/>
+    <link rel="stylesheet"
+          href="js/angular-toastr/angular-toastr.css"/>
+    <link rel="stylesheet"
+          href="js/sweetalert/sweetalert.css"/>
+    <link rel="stylesheet"
+          href="js/sweetalert/facebook.css"/>
+    <link rel="stylesheet"
+          href="js/ag-grid/angular-grid.css"/>
+    <link rel="stylesheet"
+          href="js/ag-grid/theme-arm.css"/>
+    <link rel="stylesheet"
+          href="js/angular-xeditable/xeditable.css"/>
 
-        <link rel="stylesheet"
-              href="css/styles.css"/>
-        <style>
-            .ng-hide{ display: none !important; }
-        </style>
-    </head>
-    
-    <body>
-        <div id="main_container">
-            <div ui-view></div>
-        </div>
-    </body>
-    
-    <!-- Application Dependencies -->
-    <script src="js/lodash/lodash.js"></script>
-    <script src="js/jquery/jquery.js"></script>
-    <script src="js/moment/moment.js"></script>
-    <script src="js/angular/angular.js"></script>
-    <script src="js/angular-ui-router/angular-ui-router.js"></script>
-    <script src="js/angular-bootstrap/ui-bootstrap-tpls.js"></script>
-    <script src="js/sweetalert/sweetalert.min.js"></script>
-    <script src="js/angular-sweetalert/SweetAlert.js"></script>
-    <script src="js/angular-toastr/angular-toastr.js"></script>
-    <script src="js/satellizer/satellizer.js"></script>
-    <script src="js/angular-ui-grid/ui-grid.js"></script>
-    <script src="js/ag-grid/angular-grid.js"></script>
-    <script src="js/angular-xeditable/xeditable.js"></script>
+    <link rel="stylesheet"
+          href="css/styles.css"/>
+    <style>
+        .ng-hide {
+            display: none !important;
+        }
+    </style>
+</head>
 
-    <!-- Application Scripts -->
-    <!-- inject:js -->
-    <script src="/app/a_app.js"></script>
-    <script src="/app/app.factory.js"></script>
-    <script src="/app/auth.ctrl.js"></script>
-    <script src="/app/config.js"></script>
-    <script src="/app/constants.js"></script>
-    <script src="/app/defaults.factory.js"></script>
-    <script src="/app/feeder.factory.js"></script>
-    <script src="/app/main.ctrl.js"></script>
-    <script src="/app/menu.ctrl.js"></script>
-    <script src="/app/menu.factory.js"></script>
-    <script src="/app/routes.js"></script>
-    <script src="/app/settings.ctrl.js"></script>
-    <script src="/app/user.ctrl.js"></script>
-    <script src="/app/_directives/addnew.directive.js"></script>
-    <script src="/app/_directives/armlogobar.directive.js"></script>
-    <script src="/app/_directives/loanstatus.directive.js"></script>
-    <script src="/app/_directives/menubar.directive.js"></script>
-    <script src="/app/_directives/notificator.directive.js"></script>
-    <script src="/app/_filters/filters.js"></script>
-    <script src="/_modules/Reports/_views/accountreconciliation/account.reconciliation.ctrl.js"></script>
-    <script src="/_modules/Reports/_views/activitydetail/activity.detail.ctrl.js"></script>
-    <script src="/_modules/Reports/_views/activitysummary/activity.summary.ctrl.js"></script>
-    <script src="/_modules/Reports/_views/cashflow/cashflow.ctrl.js"></script>
-    <script src="/_modules/Reports/_views/committeeapproval/committee.approval.ctrl.js"></script>
-    <script src="/_modules/Reports/_views/committeecomment/committee.comment.ctrl.js"></script>
-    <script src="/_modules/Reports/_views/cropmix/crop.mix.ctrl.js"></script>
-    <script src="/_modules/Reports/_views/customerbudget/customer.budget.ctrl.js"></script>
-    <script src="/_modules/Reports/_views/farmerhistory/farmer.history.ctrl.js"></script>
-    <script src="/_modules/Reports/_views/home/home.ctrl.js"></script>
-    <script src="/_modules/Reports/_views/home/home.factory.js"></script>
-    <script src="/_modules/Reports/_views/loanmanagement/loan.management.ctrl.js"></script>
-    <script src="/_modules/Reports/_views/reports/reports.ctrl.js"></script>
-    <script src="/_modules/Reports/_views/reports/reports.factory.js"></script>
-    <script src="/_modules/Reports/_views/required/required.ctrl.js"></script>
-    <script src="/_modules/Reports/_views/useraudit/user.audit.ctrl.js"></script>
-    <script src="/_modules/Admin/admin.ctrl.js"></script>
-    <script src="/_modules/Admin/admin.factory.js"></script>
-    <script src="/_modules/Admin/admin.routes.js"></script>
-    <script src="/_modules/Library/library.ctrl.js"></script>
-    <script src="/_modules/Library/library.routes.js"></script>
-    <script src="/_modules/Library/pols.procs.ctrl.js"></script>
-    <script src="/_modules/Loans/edit.loan.ctrl.js"></script>
-    <script src="/_modules/Loans/loans.ctrl.js"></script>
-    <script src="/_modules/Loans/loans.factory.js"></script>
-    <script src="/_modules/Loans/loans.routes.js"></script>
-    <script src="/_modules/Loans/management.ctrl.js"></script>
-    <script src="/_modules/Loans/management.factory.js"></script>
-    <script src="/_modules/Reports/reports.routes.js"></script>
-    <script src="/_modules/Admin/distributors/distributor.ctrl.js"></script>
-    <!-- endinject -->
+<body>
+<div id="main_container">
+    <div ui-view></div>
+</div>
+</body>
+
+<!-- Application Dependencies -->
+<script src="js/lodash/lodash.js"></script>
+<script src="js/jquery/jquery.js"></script>
+<script src="js/moment/moment.js"></script>
+<script src="js/angular/angular.js"></script>
+<script src="js/angular-ui-router/angular-ui-router.js"></script>
+<script src="js/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+<script src="js/sweetalert/sweetalert.min.js"></script>
+<script src="js/angular-sweetalert/SweetAlert.js"></script>
+<script src="js/angular-toastr/angular-toastr.js"></script>
+<script src="js/satellizer/satellizer.js"></script>
+<script src="js/angular-ui-grid/ui-grid.js"></script>
+<script src="js/ag-grid/angular-grid.js"></script>
+<script src="js/angular-xeditable/xeditable.js"></script>
+
+<!-- Application Scripts -->
+<!-- inject:js -->
+<script src="/app/a_app.js"></script>
+<script src="/app/app.factory.js"></script>
+<script src="/app/auth.ctrl.js"></script>
+<script src="/app/config.js"></script>
+<script src="/app/constants.js"></script>
+<script src="/app/defaults.factory.js"></script>
+<script src="/app/feeder.factory.js"></script>
+<script src="/app/main.ctrl.js"></script>
+<script src="/app/menu.ctrl.js"></script>
+<script src="/app/menu.factory.js"></script>
+<script src="/app/routes.js"></script>
+<script src="/app/settings.ctrl.js"></script>
+<script src="/app/user.ctrl.js"></script>
+<script src="/app/_directives/addnew.directive.js"></script>
+<script src="/app/_directives/armlogobar.directive.js"></script>
+<script src="/app/_directives/loanstatus.directive.js"></script>
+<script src="/app/_directives/menubar.directive.js"></script>
+<script src="/app/_directives/notificator.directive.js"></script>
+<script src="/app/_filters/filters.js"></script>
+<script src="/_modules/Reports/_views/activitydetail/activity.detail.ctrl-backup.js"></script>
+<script src="/_modules/Reports/_views/activitydetail/activity.detail.ctrl.js"></script>
+<script src="/_modules/Reports/_views/accountreconciliation/account.reconciliation.ctrl-backup.js"></script>
+<script src="/_modules/Reports/_views/accountreconciliation/account.reconciliation.ctrl.js"></script>
+<script src="/_modules/Reports/_views/cashflow/cashflow.ctrl-backup.js"></script>
+<script src="/_modules/Reports/_views/cashflow/cashflow.ctrl.js"></script>
+<script src="/_modules/Reports/_views/activitysummary/activity.summary.ctrl-backup.js"></script>
+<script src="/_modules/Reports/_views/activitysummary/activity.summary.ctrl.js"></script>
+<script src="/_modules/Reports/_views/committeeapproval/committee.approval.ctrl-backup.js"></script>
+<script src="/_modules/Reports/_views/committeeapproval/committee.approval.ctrl.js"></script>
+<script src="/_modules/Reports/_views/committeecomment/committee.comment.ctrl-backup.js"></script>
+<script src="/_modules/Reports/_views/committeecomment/committee.comment.ctrl.js"></script>
+<script src="/_modules/Reports/_views/customerbudget/customer.budget.ctrl-backup.js"></script>
+<script src="/_modules/Reports/_views/customerbudget/customer.budget.ctrl.js"></script>
+<script src="/_modules/Reports/_views/cropmix/crop.mix.ctrl-backup.js"></script>
+<script src="/_modules/Reports/_views/cropmix/crop.mix.ctrl-new.js"></script>
+<script src="/_modules/Reports/_views/cropmix/crop.mix.ctrl.js"></script>
+<script src="/_modules/Reports/_views/cropmix/crop.mix.factory.js"></script>
+<script src="/_modules/Reports/_views/farmerhistory/farmer.history.ctrl-backup.js"></script>
+<script src="/_modules/Reports/_views/farmerhistory/farmer.history.ctrl.js"></script>
+<script src="/_modules/Reports/_views/loanmanagement/loan.management.ctrl-backup.js"></script>
+<script src="/_modules/Reports/_views/loanmanagement/loan.management.ctrl.js"></script>
+<script src="/_modules/Reports/_views/required/required.ctrl-backup.js"></script>
+<script src="/_modules/Reports/_views/required/required.ctrl.js"></script>
+<script src="/_modules/Reports/_views/useraudit/user.audit.ctrl-backup.js"></script>
+<script src="/_modules/Reports/_views/useraudit/user.audit.ctrl.js"></script>
+<script src="/_modules/Reports/_views/reports/reports.ctrl.js"></script>
+<script src="/_modules/Reports/_views/reports/reports.factory.js"></script>
+<script src="/_modules/Reports/_views/home/home.ctrl.js"></script>
+<script src="/_modules/Reports/_views/home/home.factory.js"></script>
+<script src="/_modules/Admin/admin.ctrl.js"></script>
+<script src="/_modules/Admin/admin.factory.js"></script>
+<script src="/_modules/Admin/admin.routes.js"></script>
+<script src="/_modules/Library/library.ctrl.js"></script>
+<script src="/_modules/Library/library.routes.js"></script>
+<script src="/_modules/Library/pols.procs.ctrl.js"></script>
+<script src="/_modules/Loans/edit.loan.ctrl.js"></script>
+<script src="/_modules/Loans/loans.ctrl.js"></script>
+<script src="/_modules/Loans/loans.factory.js"></script>
+<script src="/_modules/Loans/loans.routes.js"></script>
+<script src="/_modules/Loans/management.ctrl.js"></script>
+<script src="/_modules/Loans/management.factory.js"></script>
+<script src="/_modules/Reports/reports.routes.js"></script>
+<script src="/_modules/Admin/distributors/distributor.ctrl.js"></script>
+<!-- endinject -->
 </html>

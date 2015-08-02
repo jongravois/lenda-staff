@@ -13,10 +13,11 @@
             vm.loans = Loans;
             console.log(Loans);
 
-            vm.arr = HomeFactory.getJons(vm.loans);
+            vm.arr = HomeFactory.getData(vm.loans);
             console.log(vm.arr);
 
-            vm.reporter = [];
+            //vm.reporter = [];
+
             //////////
 
         } // end function
