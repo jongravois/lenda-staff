@@ -4,73 +4,73 @@
         .module('ARM')
             .config(function($stateProvider, $urlRouterProvider, API_URL) {
             $stateProvider
-                .state('admin', {
+                .state('arm.admin', {
                     url: '/admin',
                     abstract: true,
                     templateUrl: '_modules/Admin/_views/admin.view.html',
                     controller: 'AdminController as admin'
                 })
-                .state('admin.agents', {
+                .state('arm.admin.agents', {
                     url: '/agents',
                     templateUrl: '_modules/Admin/agents/agents.html',
                     controller: 'AdminController as admin'
                 })
-                .state('admin.applicants', {
+                .state('arm.admin.applicants', {
                     url: '/applicants',
                     templateUrl: '_modules/Admin/applicants/applicants.html',
                     controller: 'AdminController as admin'
                 })
-                .state('admin.applications', {
+                .state('arm.admin.applications', {
                     url: '/applications',
                     templateUrl: '_modules/Admin/applications/applications.html',
                     controller: 'AdminController as admin'
                 })
-                .state('admin.archive', {
+                .state('arm.admin.archive', {
                     url: '/archive',
                     templateUrl: '_modules/Admin/archive/archive.html',
                     controller: 'AdminController as admin'
                 })
-                .state('admin.budgets', {
+                .state('arm.admin.budgets', {
                     url: '/budgets',
                     templateUrl: '_modules/Admin/budgets/budgets.html',
                     controller: 'AdminController as admin'
                 })
-                .state('admin.classroom', {
+                .state('arm.admin.classroom', {
                     url: '/classroom',
                     templateUrl: '_modules/Admin/classroom/classroom.html',
                     controller: 'AdminController as admin'
                 })
-                .state('admin.closing', {
+                .state('arm.admin.closing', {
                     url: '/closing',
                     templateUrl: '_modules/Admin/closing/closing.html',
                     controller: 'AdminController as admin'
                 })
-                .state('admin.committee', {
+                .state('arm.admin.committee', {
                     url: '/committee',
                     templateUrl: '_modules/Admin/committee/committee.html',
                     controller: 'AdminController as admin'
                 })
-                .state('admin.committeespecs', {
+                .state('arm.admin.committeespecs', {
                     url: '/committeespecs',
                     templateUrl: '_modules/Admin/committeespecs/committeespecs.html',
                     controller: 'AdminController as admin'
                 })
-                .state('admin.conversions', {
+                .state('arm.admin.conversions', {
                     url: '/conversions',
                     templateUrl: '_modules/Admin/conversions/conversions.html',
                     controller: 'AdminController as admin'
                 })
-                .state('admin.crops', {
+                .state('arm.admin.crops', {
                     url: '/crops',
                     templateUrl: '_modules/Admin/crops/crops.html',
                     controller: 'AdminController as admin'
                 })
-                .state('admin.data', {
+                .state('arm.admin.data', {
                     url: '/data',
                     templateUrl: '_modules/Admin/data/data.html',
                     controller: 'AdminController as admin'
                 })
-                .state('admin.distributors', {
+                .state('arm.admin.distributors', {
                     url: '/distributors',
                     templateUrl: '_modules/Admin/distributors/distributors.html',
                     controller: 'Admin_DistributorsController as vm',
@@ -83,117 +83,117 @@
                         }
                     }
                 })
-                .state('admin.employees', {
+                .state('arm.admin.employees', {
                     url: '/employees',
                     templateUrl: '_modules/Admin/employees/employees.html',
                     controller: 'AdminController as admin'
                 })
-                .state('admin.entitytypes', {
+                .state('arm.admin.entitytypes', {
                     url: '/entitytypes',
                     templateUrl: '_modules/Admin/entitytypes/entitytypes.html',
                     controller: 'AdminController as admin'
                 })
-                .state('admin.farmers', {
+                .state('arm.admin.farmers', {
                     url: '/farmers',
                     templateUrl: '_modules/Admin/farmers/farmers.html',
                     controller: 'AdminController as admin'
                 })
-                .state('admin.globals', {
+                .state('arm.admin.globals', {
                     url: '/globals',
                     templateUrl: '_modules/Admin/globals/globals.html',
                     controller: 'AdminController as admin'
                 })
-                .state('admin.grade', {
+                .state('arm.admin.grade', {
                     url: '/grade',
                     templateUrl: '_modules/Admin/grade/grade.html',
                     controller: 'AdminController as admin'
                 })
-                .state('admin.instypes', {
+                .state('arm.admin.instypes', {
                     url: '/instypes',
                     templateUrl: '_modules/Admin/instypes/instypes.html',
                     controller: 'AdminController as admin'
                 })
-                .state('admin.insurance', {
+                .state('arm.admin.insurance', {
                     url: '/insurance',
                     templateUrl: '_modules/Admin/insurance/insurance.html',
                     controller: 'AdminController as admin'
                 })
-                .state('admin.legal', {
+                .state('arm.admin.legal', {
                     url: '/legal',
                     templateUrl: '_modules/Admin/legal/legal.html',
                     controller: 'AdminController as admin'
                 })
-                .state('admin.loantypes', {
+                .state('arm.admin.loantypes', {
                     url: '/loantypes',
                     templateUrl: '_modules/Admin/loantypes/loantypes.html',
                     controller: 'AdminController as admin'
                 })
-                .state('admin.locations', {
+                .state('arm.admin.locations', {
                     url: '/locations',
                     templateUrl: '_modules/Admin/locations/locations.html',
                     controller: 'AdminController as admin'
                 })
-                .state('admin.matrix', {
+                .state('arm.admin.matrix', {
                     url: '/matrix',
                     templateUrl: '_modules/Admin/matrix/matrix.html',
                     controller: 'AdminController as admin'
                 })
-                .state('admin.measures', {
+                .state('arm.admin.measures', {
                     url: '/measures',
                     templateUrl: '_modules/Admin/measures/measures.html',
                     controller: 'AdminController as admin'
                 })
-                .state('admin.policies', {
+                .state('arm.admin.policies', {
                     url: '/policies',
                     templateUrl: '_modules/Admin/policies/policies.html',
                     controller: 'AdminController as admin'
                 })
-                .state('admin.prerequisites', {
+                .state('arm.admin.prerequisites', {
                     url: '/prerequisites',
                     templateUrl: '_modules/Admin/prerequisites/prerequisites.html',
                     controller: 'AdminController as admin'
                 })
-                .state('admin.products', {
+                .state('arm.admin.products', {
                     url: '/products',
                     templateUrl: '_modules/Admin/products/products.html',
                     controller: 'AdminController as admin'
                 })
-                .state('admin.qbsync', {
+                .state('arm.admin.qbsync', {
                     url: '/qbsync',
                     templateUrl: '_modules/Admin/quickbooks/qbsync.html',
                     controller: 'AdminController as admin'
                 })
-                .state('admin.regions', {
+                .state('arm.admin.regions', {
                     url: '/regions',
                     templateUrl: '_modules/Admin/regions/regions.html',
                     controller: 'AdminController as admin'
                 })
-                .state('admin.reports', {
+                .state('arm.admin.reports', {
                     url: '/reports',
                     templateUrl: '_modules/Admin/reports/reports.html',
                     controller: 'AdminController as admin'
                 })
-                .state('admin.reqins', {
+                .state('arm.admin.reqins', {
                     url: '/reqins',
                     templateUrl: '_modules/Admin/reqins/reqins.html',
                     controller: 'AdminController as admin'
                 })
-                .state('admin.reqrec', {
+                .state('arm.admin.reqrec', {
                     url: '/reqrec',
                     templateUrl: '_modules/Admin/reqrec/reqrec.html',
                     controller: 'AdminController as admin'
                 })
-                .state('admin.roles', {
+                .state('arm.admin.roles', {
                     url: '/roles',
                     templateUrl: '_modules/Admin/roles/roles.html',
                     controller: 'AdminController as admin'
                 })
-                .state('admin.staff', {
+                .state('arm.admin.staff', {
                     url: '/staff',
                     templateUrl: '_modules/Admin/staff/staff.html',
                     controller: 'AdminController as admin'
                 })
-                .state('admin.users', {
+                .state('arm.admin.users', {
                     url: '/users',
                     templateUrl: '_modules/Admin/users/users.html',
                     controller: 'AdminController as admin'
