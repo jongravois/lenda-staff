@@ -8,26 +8,26 @@
     <div class="frmFull_Page">
         <div class="row view-page-header-bar">
             <div class="col-md-6" style="color:white;margin-top:3px;">
-                <h6>{{edt.loan.loan_type}} <span ng-if="edt.loan.has_distributor">&nbsp;[{{edt.loan.distributor.distributor}}]&nbsp;</span>- {{edt.loan.crop_year}} - {{edt.loan.full_season}}: {{edt.loan.applicant|displayname}}
-                    ({{edt.loan.farmer|displayname}} )</h6>
+                <h6>{{loan.loan_type}} <span ng-if="loan.has_distributor">&nbsp;[{{loan.distributor.distributor}}]&nbsp;</span>- {{loan.crop_year}} - {{loan.full_season}}: {{loan.applicant|displayname}}
+                    ({{loan.farmer|displayname}} )</h6>
             </div>
 
             <div class="col-md-6 text-right" style="color:white;margin-top:3px;">
-                <h6 ng-if="edt.loan.loan_type_id !== 7">
-                    CF: {{edt.AppFactory.calcCashFlow(edt.loan)|flexCurrency:0}}
+                <h6 ng-if="loan.loan_type_id !== 7">
+                    CF: {{AppFactory.calcCashFlow(loan)|flexCurrency:0}}
                 </h6>
-                <h6 ng-if="edt.AppFactory.loan.loan_type_id !== 3 && edt.loan.loan_type_id !== 4">
+                <h6 ng-if="AppFactory.loan.loan_type_id !== 3 && loan.loan_type_id !== 4">
                     &nbsp;&nbsp;|&nbsp;&nbsp;
-        		    EX: {{edt.AppFactory.calcExposure(edt.loan)|flexCurrency:0}}
+        		    EX: {{AppFactory.calcExposure(loan)|flexCurrency:0}}
     		    </h6>
-                <h6 ng-if="edt.loan.loan_type_id === 3 || edt.loan.loan_type_id === 4">
+                <h6 ng-if="loan.loan_type_id === 3 || loan.loan_type_id === 4">
         		    &nbsp;&nbsp;|&nbsp;&nbsp;
-        		    <sub>adj</sub>EX: {{edt.calcAdjExposure(edt.loan)|flexCurrency:0}}
+        		    <sub>adj</sub>EX: {{calcAdjExposure(loan)|flexCurrency:0}}
     		    </h6>
             </div>
         </div>
 
-        <div class="row xcol-view-bar" ng-show="edt.XColView">
+        <div class="row xcol-view-bar" ng-show="XColView">
             <div class="col-md-12">
                 <h5>Cross Collateral View</h5>
             </div>
@@ -42,15 +42,15 @@
         <hr style="margin-top: 5px;"/>
 
         <div class="row">
-            <div id="colIcon" class="col-xs-1" ng-if="!edt.showSidebar">
+            <div id="colIcon" class="col-xs-1" ng-if="!showSidebar">
                 <div ng-include="'./_modules/Loans/_views/edit.loan.icons.html'"></div>
             </div>
 
-            <div id="colPush" ng-class="edt.showSidebar ? 'col-xs-2' : 'hidden'">
+            <div id="colPush" ng-class="showSidebar ? 'col-xs-2' : 'hidden'">
                 <div ng-include="'./_modules/Loans/_views/edit.loan.full.html'"></div>
             </div>
 
-            <div ng-class="edt.showSidebar ? 'col-xs-10' : 'col-xs-11'"  id="colMain" style="margin: -18px 0 0 -44px;" >
+            <div ng-class="showSidebar ? 'col-xs-10' : 'col-xs-11'"  id="colMain" style="margin: -18px 0 0 -44px;" >
                 <div style="padding:0 5px;" ui-view></div>
             </div>
 

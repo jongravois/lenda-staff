@@ -4,15 +4,23 @@
         .module('ARM')
         .controller('ManagementController', ManagementController);
 
-    ManagementController.$inject = ['$location', 'AppFactory', 'ManFactory', 'Loans'];
+    ManagementController.$inject = ['$rootScope', '$scope', '$filter', '$location', '$state', 'orderByFilter', 'AppFactory', 'LoansFactory', 'ManFactory'];
 
     /* @ngInject */
-    function ManagementController($location, AppFactory, ManFactory, Loans) {
+    function ManagementController($rootScope, $scope, $filter, $location, $state, orderByFilter, AppFactory, LoansFactory, ManFactory) {
         /* jshint validthis: true */
         var data = [];
-        $scope.loans = Loans;
-        
-        var data = [];
+        $scope.indWid = {
+            hide: false,
+            width: 136
+        };
+
+        $scope.pendingView = true;
+        $scope.sortPending = sortPending;
+        $scope.sortLoans = AppFactory.sortLoans;
+        $scope.landing_view = 'settings';
+        $scope.returnColor = AppFactory.returnColor;
+
         if(!$rootScope.currentUser) {
             try {
                 var user = JSON.parse(localStorage.getItem('user'));
@@ -25,31 +33,23 @@
         $scope.user = user;
         //console.log('user', user);
 
-        $scope.pendingView = true;
-        $scope.sortPending = sortPending;
-        var indWid = AppFactory.getIndicatorWidth($scope.user);
+        LoansFactory.getLoans()
+            .then(function(rsp){
+                //console.log(rsp);
+                $scope.loans = rsp;
+                $scope.indWid = AppFactory.getIndicatorWidth($scope.user);
+                var LoansBySettings = AppFactory.filterLoans($scope.loans, 'settings');
+                var settingsLoans = $scope.sortLoans(LoansBySettings, 1);
+                $scope.sortedLoanList = settingsLoans;
+                $rootScope.loans = settingsLoans;
+                $scope.hgt = $scope.sortedLoanList.length * 38;
+                var data = AppFactory.getSortedData($scope.pendingView, $scope.sortedLoanList);
 
-        $scope.sortLoans = AppFactory.sortLoans;
-        $scope.landing_view = 'settings';
-
-        $scope.indWid = AppFactory.getIndicatorWidth($scope.user);
-        var LoansBySettings = AppFactory.filterLoans($scope.loans, 'settings');
-        var settingsLoans = $scope.sortLoans(LoansBySettings, 1);
-        $scope.sortedLoanList = settingsLoans;
-        $rootScope.loans = settingsLoans;
-        $scope.hgt = $scope.sortedLoanList.length * 38;
-        data = AppFactory.getSortedData($scope.pendingView, $scope.sortedLoanList);
-
-        if($location.path() === '/loans.management') {
-            $scope.gridOptions.api.setRows(data);
-        }
-
-        $scope.changeLandingView = function (val) {
-            var loanset = AppFactory.filterLoans($scope.loans, val);
-            $scope.sortedLoanList = loanset;
-            data = AppFactory.getSortedData($scope.pendingView, $scope.sortedLoanList);
-            $scope.gridOptions.api.setRows(data);
-        };
+                $scope.gridOptions.rowData = data;
+                if ($scope.gridOptions.api) {
+                    $scope.gridOptions.api.onNewRows();
+                }
+            });
 
         var columnDefs = [
             {
@@ -68,8 +68,8 @@
                 templateUrl: './_modules/Loans/_views/indicators.html',
                 cellClass: 'text-center',
                 suppressSizeToFit: true,
-                width: indWid.width,
-                hide: indWid.hide
+                width: $scope.indWid.width,
+                hide: $scope.indWid.hide
             },
             {
                 valueGetter: 'data.farmer.farmer',
@@ -343,15 +343,40 @@
             }
         ];
 
+        $scope.gridOptions = {
+            angularCompileRows: true,
+            angularCompileHeaders: true,
+            columnDefs: columnDefs,
+            colWidth: 100,
+            rowHeight: 32,
+            rowSelection: false,
+            enableSorting: false,
+            sortPending: sortPending,
+            context: {
+                pending_view: $scope.pendingView
+            },
+            ready: function (api) {
+                api.setRows(data);
+                api.sizeColumnsToFit();
+            }
+        };
+
+        $scope.changeLandingView = function (val) {
+            var loanset = AppFactory.filterLoans($scope.loans, val);
+            $scope.sortedLoanList = loanset;
+            data = AppFactory.getSortedData($scope.pendingView, $scope.sortedLoanList);
+            $scope.gridOptions.api.setRows(data);
+        };
+
+        //////////
         function pendingHdr(params) {
             //console.log('before', params);
             if (params.context.pending_view) {
-                return '<div style="text-align:center !important;"><span class="pendicon glyphicons glyphicons-circle-exclamation-mark" ng-click="loanman.sortPending()" style="color:#000000;"></span></div>';
+                return '<div style="text-align:center !important;"><span class="pendicon glyphicons glyphicons-circle-exclamation-mark" ng-click="sortPending()" style="color:#000000;"></span></div>';
             } else {
-                return '<div style="text-align:center !important;"><span class="pendicon glyphicons glyphicons-circle-exclamation-mark" ng-click="loanman.sortPending()" style="color:#aaaaaa;"></span></div>';
+                return '<div style="text-align:center !important;"><span class="pendicon glyphicons glyphicons-circle-exclamation-mark" ng-click="sortPending()" style="color:#aaaaaa;"></span></div>';
             }
         }
-
         function managementHdr(params) {
             //console.log(params.value);
             switch (params.value) {
@@ -423,26 +448,6 @@
                     break;
             }
         }
-
-        $scope.gridOptions = {
-            angularCompileRows: true,
-            angularCompileHeaders: true,
-            columnDefs: columnDefs,
-            colWidth: 100,
-            rowHeight: 32,
-            rowSelection: false,
-            enableSorting: false,
-            sortPending: sortPending,
-            context: {
-                pending_view: $scope.pendingView
-            },
-            ready: function (api) {
-                api.setRows(data);
-                api.sizeColumnsToFit();
-            }
-        };
-
-        //////////
         function sortPending() {
             $scope.pendingView = !$scope.pendingView;
             $scope.gridOptions.context.pending_view = !$scope.gridOptions.context.pending_view;
