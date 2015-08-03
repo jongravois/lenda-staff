@@ -19,7 +19,12 @@
                 .state('main.home', {
                     url: '/home',
                     templateUrl: 'app/views/home.tmpl.html',
-                    controller: 'LoansController'
+                    controller: 'LoansController',
+                    resolve: {
+                        Loans: function($stateParams, LoansFactory) {
+                            return LoansFactory.getLoans();
+                        }
+                    }
                 })
                 .state('main.prefs', {
                     url: '/prefs',

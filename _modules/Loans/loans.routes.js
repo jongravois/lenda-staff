@@ -13,12 +13,12 @@
                 .state('loans.home', {
                     url: '/home',
                     templateUrl: './_modules/Loans/_views/home.tmpl.html',
-                    controller: 'LoansController as loan'
+                    controller: 'LoansController'
                 })
                 .state('loans.management', {
                     url: '/management',
                     templateUrl: './_modules/Loans/_views/management.tmpl.html',
-                    controller: 'ManagementController as loanman'
+                    controller: 'ManagementController'
                 })
                 .state('edit', {
                     abstract: true,

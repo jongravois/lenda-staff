@@ -15,16 +15,6 @@
         $scope.defaults;
         $scope.error;
 
-        $scope.getUsers = function () {
-            $http.get(API_URL + 'authenticate')
-                .success(function (users) {
-                    $scope.users = users;
-                })
-                .error(function (error) {
-                    $scope.error = error;
-                });
-        };
-
         $scope.logout = function () {
             $auth.logout()
                 .then(function () {
