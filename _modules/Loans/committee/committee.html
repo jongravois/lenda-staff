@@ -15,7 +15,7 @@
                     <th style="width:10%;">Vote</th>
                     <th style="width:28%;">&nbsp;</th>
                 </tr>
-                <tr ng-repeat="c in edt.loan.committee">
+                <tr ng-repeat="c in loan.committee">
                     <td>
                         <span ng-if="c.vote_status == 'pending'" tooltip="Vote Needed" class="glyphicon glyphicon-exclamation-sign" style="color:#000099;font-size:18px;"></span>
                         <span ng-if="c.vote_status != 'pending'" tooltip="Vote Needed" class="glyphicon glyphicon-exclamation-sign" style="color:#DDDDDD;font-size:18px;"></span>

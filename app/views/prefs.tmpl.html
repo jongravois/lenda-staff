@@ -7,13 +7,13 @@
                 My Settings
             </h5>
             <span class="btn btn-sm btn-primary pull-right"
-                  style="display: inline;" ng-click="prefs.updateSettings()">
+                  style="display: inline;" ng-click="updateSettings()">
                 Update
             </span>
         </div>
     </div>
 
-    <!--<pre>{{prefs.user.viewopts|json}}</pre>-->
+    <!--<pre>{{user.viewopts|json}}</pre>-->
     <div class="container" style="margin-top:10px;">
         <tabset>
             <!-- VIEW -->
@@ -24,15 +24,15 @@
                         <legend>
                             &nbsp;
                             <span class="pendicon glyphicon glyphicon-chevron-right"
-                                  ng-click="prefs.togShowViewOpts()"
-                                  ng-if="!prefs.showViewOpts"></span>
+                                  ng-click="togShowViewOpts()"
+                                  ng-if="!showViewOpts"></span>
                             <span class="pendicon glyphicon glyphicon-chevron-down"
-                                  ng-click="prefs.togShowViewOpts()"
-                                  ng-if="prefs.showViewOpts"></span>
+                                  ng-click="togShowViewOpts()"
+                                  ng-if="showViewOpts"></span>
                             &nbsp;
                             OPTIONAL DISPLAY FIELDS
                         </legend>
-                        <div ng-if="prefs.showViewOpts">
+                        <div ng-if="showViewOpts">
                             <!--OPTIONAL FIELDS-->
                             <table class="table table-striped">
                                 <tr>
@@ -40,37 +40,37 @@
                                         <label>Loan Indicators: </label>
                                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                         <input type="checkbox" name="iconAddendum"
-                                               ng-model="prefs.user.viewopts.voIconAddendum"> <span
+                                               ng-model="user.viewopts.voIconAddendum"> <span
                                         class="glyphicon glyphicon-plus" tooltip="Addendums"
                                         style="color: #333;"></span>
                                         &nbsp;&nbsp;&nbsp;
                                         <input type="checkbox" name="iconCross"
-                                               ng-model="prefs.user.viewopts.voIconCross">
+                                               ng-model="user.viewopts.voIconCross">
                                         <span class="glyphicon glyphicon-retweet" tooltip="Cross Collateralized Loans"
                                               style="color: #333;"></span>
                                         &nbsp;&nbsp;&nbsp;
                                         <input type="checkbox" name="iconBankruptcy"
-                                               ng-model="prefs.user.viewopts.voIconBankruptcy"> <span
+                                               ng-model="user.viewopts.voIconBankruptcy"> <span
                                         class="glyphicon glyphicon-fire" tooltip="Bankruptcy History"
                                         style="color: #333;"></span>
                                         &nbsp;&nbsp;&nbsp;
                                         <input type="checkbox" name="iconThirdPartyCredit"
-                                               ng-model="prefs.user.viewopts.voIcon3pcredit"> <span
+                                               ng-model="user.viewopts.voIcon3pcredit"> <span
                                         class="glyphicon glyphicon-stats" tooltip="Third Party Credit"
                                         style="color: #333;"></span>
                                         &nbsp;&nbsp;&nbsp;
                                         <input type="checkbox" name="iconAddedLand"
-                                               ng-model="prefs.user.viewopts.voIconAddedland"> <span
+                                               ng-model="user.viewopts.voIconAddedland"> <span
                                         class="glyphicon glyphicon-flag" tooltip="Added Land"
                                         style="color: #333;"></span>
                                         &nbsp;&nbsp;&nbsp;
                                         <input type="checkbox" name="iconDisbursements"
-                                               ng-model="prefs.user.viewopts.voIconDisbursement"> <span
+                                               ng-model="user.viewopts.voIconDisbursement"> <span
                                         class="glyphicon glyphicon-lock" tooltip="Controlled Disbursements"
                                         style="color: #333;"></span>
                                         &nbsp;&nbsp;&nbsp;
                                         <input type="checkbox" name="iconAttachments"
-                                               ng-model="prefs.user.viewopts.voIconAttachments"> <span
+                                               ng-model="user.viewopts.voIconAttachments"> <span
                                         class="glyphicon glyphicon-paperclip" tooltip="Attachments"
                                         style="color: #333;"></span>
                                     </td>
@@ -86,85 +86,85 @@
                                 <tr style="margin-top: -5px;">
                                     <td>
                                         <input type="checkbox" name="view_region"
-                                               ng-model="prefs.user.viewopts.voDueDate"/>
+                                               ng-model="user.viewopts.voDueDate"/>
                                         Due Date
                                     </td>
                                     <td>
                                         <input type="checkbox" name="view_commit_total"
-                                               ng-model="prefs.user.viewopts.voCommitTotal"/>
+                                               ng-model="user.viewopts.voCommitTotal"/>
                                         Commit-Total
                                     </td>
                                     <td>
                                         <input type="checkbox" name="view_acres_total"
-                                               ng-model="prefs.user.viewopts.voAcresTotal"/>
+                                               ng-model="user.viewopts.voAcresTotal"/>
                                         Acres -- Total
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
                                         <input type="checkbox" name="view_region"
-                                               ng-model="prefs.user.viewopts.voRegion"/>
+                                               ng-model="user.viewopts.voRegion"/>
                                         Region
                                     </td>
                                     <td>
                                         <input type="checkbox" name="view_commit_arm"
-                                               ng-model="prefs.user.viewopts.voCommitArm"/>
+                                               ng-model="user.viewopts.voCommitArm"/>
                                         Commit [ARM]
                                     </td>
                                     <td>
                                         <input type="checkbox" name="view_acres_corn"
-                                               ng-model="prefs.user.viewopts.voAcresCorn"/>
+                                               ng-model="user.viewopts.voAcresCorn"/>
                                         Acres -- Corn
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
                                         <input type="checkbox" name="view_season"
-                                               ng-model="prefs.user.viewopts.voSeason"/>
+                                               ng-model="user.viewopts.voSeason"/>
                                         Season
                                     </td>
                                     <td>
                                         <input type="checkbox" name="view_commit_distributor"
-                                               ng-model="prefs.user.viewopts.voCommitDistributor"/>
+                                               ng-model="user.viewopts.voCommitDistributor"/>
                                         Commit [Distributor]
                                     </td>
                                     <td>
                                         <input type="checkbox" name="view_acres_soybeans"
-                                               ng-model="prefs.user.viewopts.voAcresSoybeans"/>
+                                               ng-model="user.viewopts.voAcresSoybeans"/>
                                         Acres -- Soybeans
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
                                         <input type="checkbox" name="view_distributor"
-                                               ng-model="prefs.user.viewopts.voDistributor"/>
+                                               ng-model="user.viewopts.voDistributor"/>
                                         Distributor
                                     </td>
                                     <td>
                                         <input type="checkbox" name="view_commit_other"
-                                               ng-model="prefs.user.viewopts.voCommitOther"/>
+                                               ng-model="user.viewopts.voCommitOther"/>
                                         Commit [3rd Party]
                                     </td>
                                     <td>
                                         <input type="checkbox" name="view_acres_beansFAC"
-                                               ng-model="prefs.user.viewopts.voAcresBeansFAC"/>
+                                               ng-model="user.viewopts.voAcresBeansFAC"/>
                                         Acres -- Soybeans FAC
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
                                         <input type="checkbox" name="view_agency"
-                                               ng-model="prefs.user.viewopts.voAgency"/>
+                                               ng-model="user.viewopts.voAgency"/>
                                         Agency
                                     </td>
                                     <td>
                                         <input type="checkbox" name="view_fee_percentage"
-                                               ng-model="prefs.user.viewopts.voFeePercentage"/>
+                                               ng-model="user.viewopts.voFeePercentage"/>
                                         Fee Percentage
                                     </td>
                                     <td>
                                         <input type="checkbox" name="view_acres_sorghum"
-                                               ng-model="prefs.user.viewopts.voAcresSorghum"/>
+                                               ng-model="user.viewopts.voAcresSorghum"/>
                                         Acres -- Sorghum
                                     </td>
                                 </tr>
@@ -172,12 +172,12 @@
                                     <td>&nbsp;</td>
                                     <td>
                                         <input type="checkbox" name="view_fee_total"
-                                               ng-model="prefs.user.viewopts.voFeeTotal"/>
+                                               ng-model="user.viewopts.voFeeTotal"/>
                                         Fee Total
                                     </td>
                                     <td>
                                         <input type="checkbox" name="view_acres_wheat"
-                                               ng-model="prefs.user.viewopts.voAcresWheat"/>
+                                               ng-model="user.viewopts.voAcresWheat"/>
                                         Acres -- Wheat
                                     </td>
                                 </tr>
@@ -185,12 +185,12 @@
                                     <td>&nbsp;</td>
                                     <td>
                                         <input type="checkbox" name="view_rate_arm"
-                                               ng-model="prefs.user.viewopts.voRateArm"/>
+                                               ng-model="user.viewopts.voRateArm"/>
                                         Rate [ARM]
                                     </td>
                                     <td>
                                         <input type="checkbox" name="view_acres_cotton"
-                                               ng-model="prefs.user.viewopts.voAcresCotton"/>
+                                               ng-model="user.viewopts.voAcresCotton"/>
                                         Acres -- Cotton
                                     </td>
                                 </tr>
@@ -198,12 +198,12 @@
                                     <td>&nbsp;</td>
                                     <td>
                                         <input type="checkbox" name="view_rate_dist"
-                                               ng-model="prefs.user.viewopts.voRateDist"/>
+                                               ng-model="user.viewopts.voRateDist"/>
                                         Rate [Distributor]
                                     </td>
                                     <td>
                                         <input type="checkbox" name="view_acres_rice"
-                                               ng-model="prefs.user.viewopts.voAcresRice"/>
+                                               ng-model="user.viewopts.voAcresRice"/>
                                         Acres -- Rice
                                     </td>
                                 </tr>
@@ -211,12 +211,12 @@
                                     <td>&nbsp;</td>
                                     <td>
                                         <input type="checkbox" name="view_balance_due"
-                                               ng-model="prefs.user.viewopts.voBalanceDue"/>
+                                               ng-model="user.viewopts.voBalanceDue"/>
                                         Balance Due
                                     </td>
                                     <td>
                                         <input type="checkbox" name="view_acres_peanuts"
-                                               ng-model="prefs.user.viewopts.voAcresPeanuts"/>
+                                               ng-model="user.viewopts.voAcresPeanuts"/>
                                         Acres -- Peanuts
                                     </td>
                                 </tr>
@@ -225,7 +225,7 @@
                                     <td>&nbsp;</td>
                                     <td>
                                         <input type="checkbox" name="view_acres_sugar_cane"
-                                               ng-model="prefs.user.viewopts.voAcresSugarcane"/>
+                                               ng-model="user.viewopts.voAcresSugarcane"/>
                                         Acres -- Sugar Cane
                                     </td>
                                 </tr>
@@ -234,7 +234,7 @@
                                     <td>&nbsp;</td>
                                     <td>
                                         <input type="checkbox" name="view_acres_other"
-                                               ng-model="prefs.user.viewopts.voAcresOther"/>
+                                               ng-model="user.viewopts.voAcresOther"/>
                                         Acres -- Other
                                     </td>
                                 </tr>
@@ -249,45 +249,45 @@
                     <fieldset class="col-md-12" style="margin-top:18px;">
                         <legend>
                             &nbsp;
-                            <span class="pendicon glyphicon glyphicon-chevron-right" ng-click="prefs.togShowViewFltrs()"
-                                  ng-if="!prefs.showViewFltrs"></span>
-                            <span class="pendicon glyphicon glyphicon-chevron-down" ng-click="prefs.togShowViewFltrs()"
-                                  ng-if="prefs.showViewFltrs"></span>
+                            <span class="pendicon glyphicon glyphicon-chevron-right" ng-click="togShowViewFltrs()"
+                                  ng-if="!showViewFltrs"></span>
+                            <span class="pendicon glyphicon glyphicon-chevron-down" ng-click="togShowViewFltrs()"
+                                  ng-if="showViewFltrs"></span>
                             &nbsp;
                             FILTERS
                         </legend>
-                        <div ng-if="prefs.showViewFltrs">
+                        <div ng-if="showViewFltrs">
                             <!--FILTERS-->
                             <table class="table table-striped">
                                 <tr>
                                     <td colspan="4">
                                         <label>Status:</label>
                                         <input type="checkbox" name="In-Progress"
-                                               ng-model="prefs.user.viewfilters.vfStatusInProgress"> <span
+                                               ng-model="user.viewfilters.vfStatusInProgress"> <span
                                         class="glyphicon glyphicon-wrench" tooltip="In_Progress"
                                         style="color: #000099;"></span>
                                         &nbsp;&nbsp;&nbsp;
                                         <input type="checkbox" name="Recommended"
-                                               ng-model="prefs.user.viewfilters.vfStatusRecommended"> <span
+                                               ng-model="user.viewfilters.vfStatusRecommended"> <span
                                         class="glyphicon glyphicon-share-alt" tooltip="Recommended"></span>
                                         &nbsp;&nbsp;&nbsp;
                                         <input type="checkbox" name="Withdrawn"
-                                               ng-model="prefs.user.viewfilters.vfStatusWithdrawn"> <span
+                                               ng-model="user.viewfilters.vfStatusWithdrawn"> <span
                                         class="glyphicon glyphicon-remove-sign" tooltip="Withdrawn"
                                         style="color: #E0A02D;"></span>
                                         &nbsp;&nbsp;&nbsp;
                                         <input type="checkbox" name="Approved"
-                                               ng-model="prefs.user.viewfilters.vfStatusApproved"> <span
+                                               ng-model="user.viewfilters.vfStatusApproved"> <span
                                         class="glyphicon glyphicon-thumbs-up" tooltip="Approved"
                                         style="color: #009900;"></span>
                                         &nbsp;&nbsp;&nbsp;
                                         <input type="checkbox" name="Denied"
-                                               ng-model="prefs.user.viewfilters.vfStatusDenied">
+                                               ng-model="user.viewfilters.vfStatusDenied">
                                         <span class="glyphicon glyphicon-thumbs-down" tooltip="Denied"
                                               style="color: #990000;"></span>
                                         &nbsp;&nbsp;&nbsp;
                                         <input type="checkbox" name="Paid"
-                                               ng-model="prefs.user.viewfilters.vfStatusPaid"> <span
+                                               ng-model="user.viewfilters.vfStatusPaid"> <span
                                         class="glyphicon glyphicon-ok" tooltip="Paid" style="color: #009900;"></span>
                                     </td>
                                 </tr>
@@ -295,26 +295,26 @@
                                     <td><label>Region:</label></td>
                                     <td>
                                         <select class="form-control" name="filterRegions"
-                                                ng-model="prefs.user.viewfilters.vfRegions"
+                                                ng-model="user.viewfilters.vfRegions"
                                                 ng-options="r.id as r.region for r in feeder.regions">
                                             <option value="">All</option>
                                         </select>
                                     </td>
                                     <td><label>Application Date:</label></td>
                                     <td>
-                                        <input type="radio" ng-model="prefs.user.viewfilters.vfAppDate" value="all"/>
+                                        <input type="radio" ng-model="user.viewfilters.vfAppDate" value="all"/>
                                         <span style="font:normal 12px sans-serif">All</span>
                                         &nbsp;
-                                        <input type="radio" ng-model="prefs.user.viewfilters.vfAppDate" value="equal"/>
+                                        <input type="radio" ng-model="user.viewfilters.vfAppDate" value="equal"/>
                                         <span style="font:normal 12px sans-serif">=</span>
                                         &nbsp;
-                                        <input type="radio" ng-model="prefs.user.viewfilters.vfAppDate" value="before"/>
+                                        <input type="radio" ng-model="user.viewfilters.vfAppDate" value="before"/>
                                         <span style="font:normal 12px sans-serif"><</span>
                                         &nbsp;
-                                        <input type="radio" ng-model="prefs.user.viewfilters.vfAppDate" value="after"/>
+                                        <input type="radio" ng-model="user.viewfilters.vfAppDate" value="after"/>
                                         <span style="font:normal 12px sans-serif">> </span>
                                         <input class="form-control" type="text" name="user.viewfilters.vfAppDateFilter"
-                                               placeholder="Set Filter" ng-hide="prefs.user.viewfilters.vfAppDate == 'all'"
+                                               placeholder="Set Filter" ng-hide="user.viewfilters.vfAppDate == 'all'"
                                                style="width:100px;"/>
                                     </td>
                                 </tr>
@@ -324,7 +324,7 @@
                                     </td>
                                     <td>
                                         <select class="form-control" name="filterLocations"
-                                                ng-model="prefs.user.viewfilters.vfLocations"
+                                                ng-model="user.viewfilters.vfLocations"
                                                 ng-options="l.id as l.location for l in feeder.locations">
                                             <option value="">All</option>
                                         </select>
@@ -333,24 +333,24 @@
                                         <label>Close Date:</label>
                                     </td>
                                     <td>
-                                        <input type="radio" ng-model="prefs.user.viewfilters.vfCloseDate" value="all"/>
+                                        <input type="radio" ng-model="user.viewfilters.vfCloseDate" value="all"/>
                                         <span style="font:normal 12px sans-serif">All</span>
                                         &nbsp;
-                                        <input type="radio" ng-model="prefs.user.viewfilters.vfCloseDate"
+                                        <input type="radio" ng-model="user.viewfilters.vfCloseDate"
                                                value="equal"/>
                                         <span style="font:normal 12px sans-serif">=</span>
                                         &nbsp;
-                                        <input type="radio" ng-model="prefs.user.viewfilters.voCloseDate"
+                                        <input type="radio" ng-model="user.viewfilters.voCloseDate"
                                                value="before"/>
                                         <span style="font:normal 12px sans-serif"><</span>
                                         &nbsp;
-                                        <input type="radio" ng-model="prefs.user.viewfilters.vfCloseDate"
+                                        <input type="radio" ng-model="user.viewfilters.vfCloseDate"
                                                value="after"/>
                                         <span style="font:normal 12px sans-serif">> </span>
                                         <input class="form-control" type="text"
                                                name="user.viewfilters.vfCloseDateFilter"
                                                placeholder="Set Filter"
-                                               ng-hide="prefs.user.viewfilters.vfCloseDate == 'all'"/>
+                                               ng-hide="user.viewfilters.vfCloseDate == 'all'"/>
                                     </td>
                                 </tr>
                                 <tr>
@@ -359,7 +359,7 @@
                                     </td>
                                     <td>
                                         <select class="form-control" name="vfAnalysts"
-                                                ng-model="prefs.user.viewfilters.vfAnalysts"
+                                                ng-model="user.viewfilters.vfAnalysts"
                                                 ng-options="u.id as u.username for u in users">
                                             <option value="">All</option>
                                         </select>
@@ -368,19 +368,19 @@
                                         <label>Due Date:</label>
                                     </td>
                                     <td>
-                                        <input type="radio" ng-model="prefs.user.viewfilters.vfDueDate" value="all"/>
+                                        <input type="radio" ng-model="user.viewfilters.vfDueDate" value="all"/>
                                         <span style="font:normal 12px sans-serif">All</span>
                                         &nbsp;
-                                        <input type="radio" ng-model="prefs.user.viewfilters.vfDueDate" value="equal"/>
+                                        <input type="radio" ng-model="user.viewfilters.vfDueDate" value="equal"/>
                                         <span style="font:normal 12px sans-serif">=</span>
                                         &nbsp;
-                                        <input type="radio" ng-model="prefs.user.viewfilters.voDueDate" value="before"/>
+                                        <input type="radio" ng-model="user.viewfilters.voDueDate" value="before"/>
                                         <span style="font:normal 12px sans-serif"><</span>
                                         &nbsp;
-                                        <input type="radio" ng-model="prefs.user.viewfilters.vfDueDate" value="after"/>
+                                        <input type="radio" ng-model="user.viewfilters.vfDueDate" value="after"/>
                                         <span style="font:normal 12px sans-serif">> </span>
                                         <input class="form-control" type="text" name="user.viewfilters.vfDueDateFilter"
-                                               placeholder="Set Filter" ng-hide="prefs.user.viewfilters.vfDueDate == 'all'"/>
+                                               placeholder="Set Filter" ng-hide="user.viewfilters.vfDueDate == 'all'"/>
                                     </td>
                                 </tr>
                                 <tr>
@@ -389,7 +389,7 @@
                                     </td>
                                     <td>
                                         <select class="form-control" name="vfFarmers"
-                                                ng-model="prefs.user.viewfilters.vfFarmers"
+                                                ng-model="user.viewfilters.vfFarmers"
                                                 ng-options="f.id as f.farmer for f in farmers">
                                             <option value="">All</option>
                                         </select>
@@ -399,27 +399,27 @@
                                     </td>
                                     <td>
                                         <input type="radio" name="togCommitTotal"
-                                               ng-model="prefs.user.viewfilters.vfCommitTotal"
+                                               ng-model="user.viewfilters.vfCommitTotal"
                                                value="all"/>
                                         <span style="font:normal 12px sans-serif">All</span>
                                         &nbsp;
                                         <input type="radio" name="togCommitTotal"
-                                               ng-model="prefs.user.viewfilters.vfCommitTotal"
+                                               ng-model="user.viewfilters.vfCommitTotal"
                                                value="equal"/>
                                         <span style="font:normal 12px sans-serif">=</span>
                                         &nbsp;
                                         <input type="radio" name="vfCommitTotal"
-                                               ng-model="prefs.user.viewfilters.vfCommitTotal"
+                                               ng-model="user.viewfilters.vfCommitTotal"
                                                value="before"/>
                                         <span style="font:normal 12px sans-serif"><</span>
                                         &nbsp;
                                         <input type="radio" name="vfCommitTotal"
-                                               ng-model="prefs.user.viewfilters.vfCommitTotal"
+                                               ng-model="user.viewfilters.vfCommitTotal"
                                                value="after"/>
                                         <span style="font:normal 12px sans-serif">> </span>
                                         <input class="form-control" type="text" name="vfCommitTotalFilter"
-                                               ng-model="prefs.user.viewfilters.vfCommitTotal" placeholder="Set Filter"
-                                               ng-hide="prefs.user.viewfilters.vfCommitTotal == 'all'"/>
+                                               ng-model="user.viewfilters.vfCommitTotal" placeholder="Set Filter"
+                                               ng-hide="user.viewfilters.vfCommitTotal == 'all'"/>
                                     </td>
                                 </tr>
                                 <tr>
@@ -428,7 +428,7 @@
                                     </td>
                                     <td>
                                         <select class="form-control" name="vfCropYears"
-                                                ng-model="prefs.user.viewfilters.vfCropYears"
+                                                ng-model="user.viewfilters.vfCropYears"
                                                 ng-options="y.id as y.year for y in cropYears">
                                             <option value="">All</option>
                                         </select>
@@ -438,28 +438,28 @@
                                     </td>
                                     <td>
                                         <input type="radio" name="vfCommitArm"
-                                               ng-model="prefs.user.viewfilters.vfCommitArm"
+                                               ng-model="user.viewfilters.vfCommitArm"
                                                value="all"/>
                                         <span style="font:normal 12px sans-serif">All</span>
                                         &nbsp;
                                         <input type="radio" name="vfCommitArm"
-                                               ng-model="prefs.user.viewfilters.vfCommitArm"
+                                               ng-model="user.viewfilters.vfCommitArm"
                                                value="equal"/>
                                         <span style="font:normal 12px sans-serif">=</span>
                                         &nbsp;
                                         <input type="radio" name="vfCommitArm"
-                                               ng-model="prefs.user.viewfilters.vfCommitArm"
+                                               ng-model="user.viewfilters.vfCommitArm"
                                                value="before"/>
                                         <span style="font:normal 12px sans-serif"><</span>
                                         &nbsp;
                                         <input type="radio" name="vfCommitArm"
-                                               ng-model="prefs.user.viewfilters.vfCommitArm"
+                                               ng-model="user.viewfilters.vfCommitArm"
                                                value="after"/>
                                         <span style="font:normal 12px sans-serif">> </span>
                                         <input class="form-control" type="text" name="commitArm"
-                                               ng-model="prefs.user.viewfilters.vfCommitArmFilter"
+                                               ng-model="user.viewfilters.vfCommitArmFilter"
                                                placeholder="Set Filter"
-                                               ng-hide="prefs.user.viewfilters.vfCommitArm == 'all'"/>
+                                               ng-hide="user.viewfilters.vfCommitArm == 'all'"/>
                                     </td>
                                 </tr>
                                 <tr>
@@ -468,7 +468,7 @@
                                     </td>
                                     <td>
                                         <select class="form-control" name="vfSeasons"
-                                                ng-model="prefs.user.viewfilters.vfSeasons"
+                                                ng-model="user.viewfilters.vfSeasons"
                                                 ng-options="s.abr as s.season for s in feeder.seasons">
                                             <option value="">All</option>
                                         </select>
@@ -478,28 +478,28 @@
                                     </td>
                                     <td>
                                         <input type="radio" name="vfCommitDist"
-                                               ng-model="prefs.user.viewfilters.vfCommitDist"
+                                               ng-model="user.viewfilters.vfCommitDist"
                                                value="all"/>
                                         <span style="font:normal 12px sans-serif">All</span>
                                         &nbsp;
                                         <input type="radio" name="vfCommitDist"
-                                               ng-model="prefs.user.viewfilters.vfCommitDist"
+                                               ng-model="user.viewfilters.vfCommitDist"
                                                value="equal"/>
                                         <span style="font:normal 12px sans-serif">=</span>
                                         &nbsp;
                                         <input type="radio" name="vfCommitDist"
-                                               ng-model="prefs.user.viewfilters.vfCommitDist"
+                                               ng-model="user.viewfilters.vfCommitDist"
                                                value="before"/>
                                         <span style="font:normal 12px sans-serif"><</span>
                                         &nbsp;
                                         <input type="radio" name="vfCommitDist"
-                                               ng-model="prefs.user.viewfilters.vfCommitDist"
+                                               ng-model="user.viewfilters.vfCommitDist"
                                                value="after"/>
                                         <span style="font:normal 12px sans-serif">> </span>
                                         <input class="form-control" type="text" name="commitDist"
-                                               ng-model="prefs.user.viewfilters.vfCommitDistFilter"
+                                               ng-model="user.viewfilters.vfCommitDistFilter"
                                                placeholder="Set Filter"
-                                               ng-hide="prefs.user.viewfilters.vfCommitDist == 'all'"/>
+                                               ng-hide="user.viewfilters.vfCommitDist == 'all'"/>
                                     </td>
                                 </tr>
                                 <tr>
@@ -508,7 +508,7 @@
                                     </td>
                                     <td>
                                         <select class="form-control" name="vfLoanTypes"
-                                                ng-model="prefs.user.viewfilters.vfLoanTypes"
+                                                ng-model="user.viewfilters.vfLoanTypes"
                                                 ng-options="l.id as l.loantype for l in feeder.loantypes">
                                             <option value="">All</option>
                                         </select>
@@ -518,28 +518,28 @@
                                     </td>
                                     <td>
                                         <input type="radio" name="vfCommitOther"
-                                               ng-model="prefs.user.viewfilters.vfCommitOther"
+                                               ng-model="user.viewfilters.vfCommitOther"
                                                value="all"/>
                                         <span style="font:normal 12px sans-serif">All</span>
                                         &nbsp;
                                         <input type="radio" name="togCommitOther"
-                                               ng-model="prefs.user.viewfilters.vfCommitOther"
+                                               ng-model="user.viewfilters.vfCommitOther"
                                                value="equal"/>
                                         <span style="font:normal 12px sans-serif">=</span>
                                         &nbsp;
                                         <input type="radio" name="togCommitOther"
-                                               ng-model="prefs.user.viewfilters.vfCommitOther"
+                                               ng-model="user.viewfilters.vfCommitOther"
                                                value="before"/>
                                         <span style="font:normal 12px sans-serif"><</span>
                                         &nbsp;
                                         <input type="radio" name="togCommitOther"
-                                               ng-model="prefs.user.viewfilters.vfCommitOther"
+                                               ng-model="user.viewfilters.vfCommitOther"
                                                value="after"/>
                                         <span style="font:normal 12px sans-serif">> </span>
                                         <input class="form-control" type="text" name="commitOther"
-                                               ng-model="prefs.user.viewfilters.vfCommitOtherFilter"
+                                               ng-model="user.viewfilters.vfCommitOtherFilter"
                                                placeholder="Set Filter"
-                                               ng-hide="prefs.user.viewfilters.vfCommitOther == 'all'"/>
+                                               ng-hide="user.viewfilters.vfCommitOther == 'all'"/>
                                     </td>
                                 </tr>
                                 <tr>
@@ -548,7 +548,7 @@
                                     </td>
                                     <td>
                                         <select class="form-control" name="vfRateDist"
-                                                ng-model="prefs.user.viewfilters.vfRateDist"
+                                                ng-model="user.viewfilters.vfRateDist"
                                                 ng-options="d.id as d.distributor for d in feeder.distributors">
                                             <option value="">All</option>
                                         </select>
@@ -557,19 +557,19 @@
                                         <label>Fee:</label>
                                     </td>
                                     <td>
-                                        <input type="radio" name="vfFee" ng-model="prefs.user.viewfilters.vfFee"
+                                        <input type="radio" name="vfFee" ng-model="user.viewfilters.vfFee"
                                                value="all"/>
                                         <span style="font:normal 12px sans-serif">All</span>
                                         &nbsp;
-                                        <input type="radio" name="vfFee" ng-model="prefs.user.viewfilters.vfFee"
+                                        <input type="radio" name="vfFee" ng-model="user.viewfilters.vfFee"
                                                value="equal"/>
                                         <span style="font:normal 12px sans-serif">=</span>
                                         &nbsp;
-                                        <input type="radio" name="vfFee" ng-model="prefs.user.viewfilters.vfFee"
+                                        <input type="radio" name="vfFee" ng-model="user.viewfilters.vfFee"
                                                value="before"/>
                                         <span style="font:normal 12px sans-serif"><</span>
                                         &nbsp;
-                                        <input type="radio" name="vfFee" ng-model="prefs.user.viewfilters.vfFee"
+                                        <input type="radio" name="vfFee" ng-model="user.viewfilters.vfFee"
                                                value="after"/>
                                         <span style="font:normal 12px sans-serif">> </span>
                                     </td>
@@ -580,7 +580,7 @@
                                     </td>
                                     <td>
                                         <select class="form-control" name="vfAgencies"
-                                                ng-model="prefs.user.view.fltr.vfAgencies"
+                                                ng-model="user.view.fltr.vfAgencies"
                                                 ng-options="a.id as a.name for a in feeder.agencies">
                                             <option value="">All</option>
                                         </select>
@@ -589,25 +589,25 @@
                                         <label>Rate - ARM:</label>
                                     </td>
                                     <td>
-                                        <input type="radio" name="vfRateArm" ng-model="prefs.user.viewfilters.vfRateArm"
+                                        <input type="radio" name="vfRateArm" ng-model="user.viewfilters.vfRateArm"
                                                value="all"/>
                                         <span style="font:normal 12px sans-serif">All</span>
                                         &nbsp;
-                                        <input type="radio" name="vfRateArm" ng-model="prefs.user.viewfilters.vfRateArm"
+                                        <input type="radio" name="vfRateArm" ng-model="user.viewfilters.vfRateArm"
                                                value="equal"/>
                                         <span style="font:normal 12px sans-serif">=</span>
                                         &nbsp;
-                                        <input type="radio" name="vfRateArm" ng-model="prefs.user.viewfilters.vfRateArm"
+                                        <input type="radio" name="vfRateArm" ng-model="user.viewfilters.vfRateArm"
                                                value="before"/>
                                         <span style="font:normal 12px sans-serif"><</span>
                                         &nbsp;
-                                        <input type="radio" name="vfRateArm" ng-model="prefs.user.viewfilters.vfRateArm"
+                                        <input type="radio" name="vfRateArm" ng-model="user.viewfilters.vfRateArm"
                                                value="after"/>
                                         <span style="font:normal 12px sans-serif">> </span>
                                         <input class="form-control" type="text" name="vfRateArmFilter"
-                                               ng-model="prefs.user.viewfilters.vfRateArmFilter"
+                                               ng-model="user.viewfilters.vfRateArmFilter"
                                                placeholder="Set Filter"
-                                               ng-hide="prefs.user.viewfilters.vfRateArm == 'all'"/>
+                                               ng-hide="user.viewfilters.vfRateArm == 'all'"/>
                                     </td>
                                 </tr>
                                 <tr>
@@ -616,11 +616,11 @@
                                     </td>
                                     <td>
                                         <input type="radio" name="vfAddendums"
-                                               ng-model="prefs.user.viewfilters.vfAddendums"
+                                               ng-model="user.viewfilters.vfAddendums"
                                                value="1"> Yes
                                         &nbsp;&nbsp;
                                         <input type="radio" name="vfAddendums"
-                                               ng-model="prefs.user.viewfilters.vfAddendums"
+                                               ng-model="user.viewfilters.vfAddendums"
                                                value="0"> No
                                     </td>
                                     <td>
@@ -628,28 +628,28 @@
                                     </td>
                                     <td>
                                         <input type="radio" name="vfRateDist"
-                                               ng-model="prefs.user.viewfilters.vfRateDist"
+                                               ng-model="user.viewfilters.vfRateDist"
                                                value="all"/>
                                         <span style="font:normal 12px sans-serif">All</span>
                                         &nbsp;
                                         <input type="radio" name="vfRateDist"
-                                               ng-model="prefs.user.viewfilters.vfRateDist"
+                                               ng-model="user.viewfilters.vfRateDist"
                                                value="equal"/>
                                         <span style="font:normal 12px sans-serif">=</span>
                                         &nbsp;
                                         <input type="radio" name="vfRateDist"
-                                               ng-model="prefs.user.viewfilters.vfRateDist"
+                                               ng-model="user.viewfilters.vfRateDist"
                                                value="before"/>
                                         <span style="font:normal 12px sans-serif"><</span>
                                         &nbsp;
                                         <input type="radio" name="vfRateDist"
-                                               ng-model="prefs.user.viewfilters.vfRateDist"
+                                               ng-model="user.viewfilters.vfRateDist"
                                                value="after"/>
                                         <span style="font:normal 12px sans-serif">> </span>
                                         <input class="form-control" type="text" name="vfRateDist"
-                                               ng-model="prefs.user.viewfilters.vfRateDistFilter"
+                                               ng-model="user.viewfilters.vfRateDistFilter"
                                                placeholder="Set Filter"
-                                               ng-hide="prefs.user.viewfilters.vfRateDist == 'all'"/>
+                                               ng-hide="user.viewfilters.vfRateDist == 'all'"/>
                                     </td>
                                 </tr>
                                 <tr>
@@ -658,11 +658,11 @@
                                     </td>
                                     <td>
                                         <input type="radio" name="vfComments"
-                                               ng-model="prefs.user.viewfilters.vfComments"
+                                               ng-model="user.viewfilters.vfComments"
                                                value="1"> Yes
                                         &nbsp;&nbsp;
                                         <input type="radio" name="vfComments"
-                                               ng-model="prefs.user.viewfilters.vfComments"
+                                               ng-model="user.viewfilters.vfComments"
                                                value="0"> No
                                     </td>
                                     <td>
@@ -670,28 +670,28 @@
                                     </td>
                                     <td>
                                         <input type="radio" name="vfAcresTotal"
-                                               ng-model="prefs.user.viewfilters.vfAcresTotal"
+                                               ng-model="user.viewfilters.vfAcresTotal"
                                                value="all"/>
                                         <span style="font:normal 12px sans-serif">All</span>
                                         &nbsp;
                                         <input type="radio" name="vfAcresTotal"
-                                               ng-model="prefs.user.viewfilters.vfAcresTotal"
+                                               ng-model="user.viewfilters.vfAcresTotal"
                                                value="equal"/>
                                         <span style="font:normal 12px sans-serif">=</span>
                                         &nbsp;
                                         <input type="radio" name="vfAcresTotal"
-                                               ng-model="prefs.user.viewfilters.vfAcresTotal"
+                                               ng-model="user.viewfilters.vfAcresTotal"
                                                value="before"/>
                                         <span style="font:normal 12px sans-serif"><</span>
                                         &nbsp;
                                         <input type="radio" name="vfAcresTotal"
-                                               ng-model="prefs.user.viewfilters.vfAcresTotal"
+                                               ng-model="user.viewfilters.vfAcresTotal"
                                                value="after"/>
                                         <span style="font:normal 12px sans-serif">> </span>
                                         <input class="form-control" type="text" name="vfAcresTotalFilter"
-                                               ng-model="prefs.user.viewfilters.vfAcresTotalFilter"
+                                               ng-model="user.viewfilters.vfAcresTotalFilter"
                                                placeholder="Set Filter"
-                                               ng-hide="prefs.user.viewfilters.vfAcresTotal == 'all'"/>
+                                               ng-hide="user.viewfilters.vfAcresTotal == 'all'"/>
                                     </td>
                                 </tr>
                                 <tr>
@@ -700,11 +700,11 @@
                                     </td>
                                     <td>
                                         <input type="radio" name="vfBankruptcy"
-                                               ng-model="prefs.user.viewfilters.vfBankruptcy"
+                                               ng-model="user.viewfilters.vfBankruptcy"
                                                value="1"> Yes
                                         &nbsp;&nbsp;
                                         <input type="radio" name="vfBankruptcy"
-                                               ng-model="prefs.user.viewfilters.vfBankruptcy"
+                                               ng-model="user.viewfilters.vfBankruptcy"
                                                value="0"> No
                                     </td>
                                     <td>
@@ -712,28 +712,28 @@
                                     </td>
                                     <td>
                                         <input type="radio" name="vfAcresCorn"
-                                               ng-model="prefs.user.viewfilters.vfAcresCorn"
+                                               ng-model="user.viewfilters.vfAcresCorn"
                                                value="all"/>
                                         <span style="font:normal 12px sans-serif">All</span>
                                         &nbsp;
                                         <input type="radio" name="vfAcresCorn"
-                                               ng-model="prefs.user.viewfilters.vfAcresCorn"
+                                               ng-model="user.viewfilters.vfAcresCorn"
                                                value="equal"/>
                                         <span style="font:normal 12px sans-serif">=</span>
                                         &nbsp;
                                         <input type="radio" name="vfAcresCorn"
-                                               ng-model="prefs.user.viewfilters.vfAcresCorn"
+                                               ng-model="user.viewfilters.vfAcresCorn"
                                                value="before"/>
                                         <span style="font:normal 12px sans-serif"><</span>
                                         &nbsp;
                                         <input type="radio" name="vfAcresCorn"
-                                               ng-model="prefs.user.viewfilters.vfAcresCorn"
+                                               ng-model="user.viewfilters.vfAcresCorn"
                                                value="after"/>
                                         <span style="font:normal 12px sans-serif">> </span>
                                         <input class="form-control" type="text" name="vfAcresCorn"
-                                               ng-model="prefs.user.viewfilters.vfAcresCornFilter"
+                                               ng-model="user.viewfilters.vfAcresCornFilter"
                                                placeholder="Set Filter"
-                                               ng-hide="prefs.user.viewfilters.vfAcresCorn == 'all'"/>
+                                               ng-hide="user.viewfilters.vfAcresCorn == 'all'"/>
                                     </td>
                                 </tr>
                                 <tr>
@@ -742,11 +742,11 @@
                                     </td>
                                     <td>
                                         <input type="radio" name="vfThirdParty"
-                                               ng-model="prefs.user.viewfilters.vfThirdParty"
+                                               ng-model="user.viewfilters.vfThirdParty"
                                                value="1"> Yes
                                         &nbsp;&nbsp;
                                         <input type="radio" name="vfThirdParty"
-                                               ng-model="prefs.user.viewfilters.vfThirdParty"
+                                               ng-model="user.viewfilters.vfThirdParty"
                                                value="0"> No
                                     </td>
                                     <td>
@@ -754,28 +754,28 @@
                                     </td>
                                     <td>
                                         <input type="radio" name="vfAcresBeans"
-                                               ng-model="prefs.user.viewfilters.vfAcresBeans"
+                                               ng-model="user.viewfilters.vfAcresBeans"
                                                value="all"/>
                                         <span style="font:normal 12px sans-serif">All</span>
                                         &nbsp;
                                         <input type="radio" name="vfAcresBeans"
-                                               ng-model="prefs.user.viewfilters.vfAcresBeans"
+                                               ng-model="user.viewfilters.vfAcresBeans"
                                                value="equal"/>
                                         <span style="font:normal 12px sans-serif">=</span>
                                         &nbsp;
                                         <input type="radio" name="vfAcresBeans"
-                                               ng-model="prefs.user.viewfilters.vfAcresBeans"
+                                               ng-model="user.viewfilters.vfAcresBeans"
                                                value="before"/>
                                         <span style="font:normal 12px sans-serif"><</span>
                                         &nbsp;
                                         <input type="radio" name="vfAcresBeans"
-                                               ng-model="prefs.user.viewfilters.vfAcresBeans"
+                                               ng-model="user.viewfilters.vfAcresBeans"
                                                value="after"/>
                                         <span style="font:normal 12px sans-serif">> </span>
                                         <input class="form-control" type="text" name="vfAcresBeans"
-                                               ng-model="prefs.user.viewfilters.vfAcresBeansFilter"
+                                               ng-model="user.viewfilters.vfAcresBeansFilter"
                                                placeholder="Set Filter"
-                                               ng-hide="prefs.user.viewfilters.vfAcresBeans == 'all'"/>
+                                               ng-hide="user.viewfilters.vfAcresBeans == 'all'"/>
                                     </td>
                                 </tr>
                                 <tr>
@@ -784,11 +784,11 @@
                                     </td>
                                     <td>
                                         <input type="radio" name="vfAddedLand"
-                                               ng-model="prefs.user.viewfilters.vfAddedLand"
+                                               ng-model="user.viewfilters.vfAddedLand"
                                                value="1"> Yes
                                         &nbsp;&nbsp;
                                         <input type="radio" name="vfAddedLand"
-                                               ng-model="prefs.user.viewfilters.vfAddedLand"
+                                               ng-model="user.viewfilters.vfAddedLand"
                                                value="0"> No
                                     </td>
                                     <td>
@@ -796,23 +796,23 @@
                                     </td>
                                     <td>
                                         <input type="radio" name="vfAcresBeansFAC"
-                                               ng-model="prefs.user.viewfilters.vfAcresBeansFAC" value="all"/>
+                                               ng-model="user.viewfilters.vfAcresBeansFAC" value="all"/>
                                         <span style="font:normal 12px sans-serif">All</span>
                                         &nbsp;
                                         <input type="radio" name="vfAcresBeansFAC"
-                                               ng-model="prefs.user.viewfilters.vfAcresBeansFAC" value="equal"/>
+                                               ng-model="user.viewfilters.vfAcresBeansFAC" value="equal"/>
                                         <span style="font:normal 12px sans-serif">=</span>
                                         &nbsp;
                                         <input type="radio" name="vfAcresBeansFAC"
-                                               ng-model="prefs.user.viewfilters.vfAcresBeansFAC" value="before"/>
+                                               ng-model="user.viewfilters.vfAcresBeansFAC" value="before"/>
                                         <span style="font:normal 12px sans-serif"><</span>
                                         &nbsp;
                                         <input type="radio" name="vfAcresBeansFAC"
-                                               ng-model="prefs.user.viewfilters.vfAcresBeansFAC" value="after"/>
+                                               ng-model="user.viewfilters.vfAcresBeansFAC" value="after"/>
                                         <span style="font:normal 12px sans-serif">> </span>
                                         <input class="form-control" type="text" name="vfAcresBeansFACFilter"
                                                ng-model="vfAcresBeansFACFilter" placeholder="Set Filter"
-                                               ng-hide="prefs.user.viewfilters.vfAcresBeansFAC == 'all'"/>
+                                               ng-hide="user.viewfilters.vfAcresBeansFAC == 'all'"/>
                                     </td>
                                 </tr>
                                 <tr>
@@ -821,33 +821,33 @@
                                     </td>
                                     <td>
                                         <input type="radio" name="vfDisbursements"
-                                               ng-model="prefs.user.viewfilters.vfDisbursements" value="1"> Yes
+                                               ng-model="user.viewfilters.vfDisbursements" value="1"> Yes
                                         &nbsp;&nbsp;
                                         <input type="radio" name="vfDisbursements"
-                                               ng-model="prefs.user.viewfilters.vfDisbursements" value="0"> No
+                                               ng-model="user.viewfilters.vfDisbursements" value="0"> No
                                     </td>
                                     <td>
                                         <label>Acres - Sorghum:</label>
                                     </td>
                                     <td>
                                         <input type="radio" name="vfAcresSorghum"
-                                               ng-model="prefs.user.viewfilters.vfAcresSorghum" value="all"/>
+                                               ng-model="user.viewfilters.vfAcresSorghum" value="all"/>
                                         <span style="font:normal 12px sans-serif">All</span>
                                         &nbsp;
                                         <input type="radio" name="vfAcresSorghum"
-                                               ng-model="prefs.user.viewfilters.vfAcresSorghum" value="equal"/>
+                                               ng-model="user.viewfilters.vfAcresSorghum" value="equal"/>
                                         <span style="font:normal 12px sans-serif">=</span>
                                         &nbsp;
                                         <input type="radio" name="vfAcresSorghum"
-                                               ng-model="prefs.user.viewfilters.vfAcresSorghum" value="before"/>
+                                               ng-model="user.viewfilters.vfAcresSorghum" value="before"/>
                                         <span style="font:normal 12px sans-serif"><</span>
                                         &nbsp;
                                         <input type="radio" name="vfAcresSorghum"
-                                               ng-model="prefs.user.viewfilters.vfAcresSorghum" value="after"/>
+                                               ng-model="user.viewfilters.vfAcresSorghum" value="after"/>
                                         <span style="font:normal 12px sans-serif">> </span>
                                         <input class="form-control" type="text" name="vfAcresSorghumFilter"
                                                ng-model="vfAcresSorghumFilter" placeholder="Set Filter"
-                                               ng-hide="prefs.user.viewfilters.vfAcresSorghum == 'all'"/>
+                                               ng-hide="user.viewfilters.vfAcresSorghum == 'all'"/>
                                     </td>
                                 </tr>
                                 <tr>
@@ -856,11 +856,11 @@
                                     </td>
                                     <td>
                                         <input type="radio" name="vfAttachments"
-                                               ng-model="prefs.user.viewfilters.vfAttachments"
+                                               ng-model="user.viewfilters.vfAttachments"
                                                value="1"> Yes
                                         &nbsp;&nbsp;
                                         <input type="radio" name="vfAttachments"
-                                               ng-model="prefs.user.viewfilters.vfAttachments"
+                                               ng-model="user.viewfilters.vfAttachments"
                                                value="0"> No
                                     </td>
                                     <td>
@@ -868,28 +868,28 @@
                                     </td>
                                     <td>
                                         <input type="radio" name="vfAcresWheat"
-                                               ng-model="prefs.user.viewfilters.vfAcresWheat"
+                                               ng-model="user.viewfilters.vfAcresWheat"
                                                value="all"/>
                                         <span style="font:normal 12px sans-serif">All</span>
                                         &nbsp;
                                         <input type="radio" name="vfAcresWheat"
-                                               ng-model="prefs.user.viewfilters.vfAcresWheat"
+                                               ng-model="user.viewfilters.vfAcresWheat"
                                                value="equal"/>
                                         <span style="font:normal 12px sans-serif">=</span>
                                         &nbsp;
                                         <input type="radio" name="vfAcresWheat"
-                                               ng-model="prefs.user.viewfilters.vfAcresWheat"
+                                               ng-model="user.viewfilters.vfAcresWheat"
                                                value="before"/>
                                         <span style="font:normal 12px sans-serif"><</span>
                                         &nbsp;
                                         <input type="radio" name="vfAcresWheat"
-                                               ng-model="prefs.user.viewfilters.vfAcresWheat"
+                                               ng-model="user.viewfilters.vfAcresWheat"
                                                value="after"/>
                                         <span style="font:normal 12px sans-serif">> </span>
                                         <input class="form-control" type="text" name="vfAcresWheat"
-                                               ng-model="prefs.user.viewfilters.vfAcresWheatFilter"
+                                               ng-model="user.viewfilters.vfAcresWheatFilter"
                                                placeholder="Set Filter"
-                                               ng-hide="prefs.user.viewfilters.vfAcresWheat == 'all'"/>
+                                               ng-hide="user.viewfilters.vfAcresWheat == 'all'"/>
                                     </td>
                                 </tr>
                                 <tr>
@@ -898,11 +898,11 @@
                                     </td>
                                     <td>
                                         <input type="radio" name="vfLimitClose"
-                                               ng-model="prefs.user.viewfilters.vfLimitClose"
+                                               ng-model="user.viewfilters.vfLimitClose"
                                                value="1"> Yes
                                         &nbsp;&nbsp;
                                         <input type="radio" name="vfLimitClose"
-                                               ng-model="prefs.user.viewfilters.vfLimitClose"
+                                               ng-model="user.viewfilters.vfLimitClose"
                                                value="0"> No
                                     </td>
                                     <td>
@@ -910,28 +910,28 @@
                                     </td>
                                     <td>
                                         <input type="radio" name="vfAcresCotton"
-                                               ng-model="prefs.user.viewfilters.vfAcresCotton"
+                                               ng-model="user.viewfilters.vfAcresCotton"
                                                value="all"/>
                                         <span style="font:normal 12px sans-serif">All</span>
                                         &nbsp;
                                         <input type="radio" name="vfAcresCotton"
-                                               ng-model="prefs.user.viewfilters.vfAcresCotton"
+                                               ng-model="user.viewfilters.vfAcresCotton"
                                                value="equal"/>
                                         <span style="font:normal 12px sans-serif">=</span>
                                         &nbsp;
                                         <input type="radio" name="vfAcresCotton"
-                                               ng-model="prefs.user.viewfilters.vfAcresCotton"
+                                               ng-model="user.viewfilters.vfAcresCotton"
                                                value="before"/>
                                         <span style="font:normal 12px sans-serif"><</span>
                                         &nbsp;
                                         <input type="radio" name="vfAcresCotton"
-                                               ng-model="prefs.user.viewfilters.vfAcresCotton"
+                                               ng-model="user.viewfilters.vfAcresCotton"
                                                value="after"/>
                                         <span style="font:normal 12px sans-serif">> </span>
                                         <input class="form-control" type="text" name="vfAcresCotton"
-                                               ng-model="prefs.user.viewfilters.vfAcresCottonFilter"
+                                               ng-model="user.viewfilters.vfAcresCottonFilter"
                                                placeholder="Set Filter"
-                                               ng-hide="prefs.user.viewfilters.vfAcresCotton == 'all'"/>
+                                               ng-hide="user.viewfilters.vfAcresCotton == 'all'"/>
                                     </td>
                                 </tr>
                                 <tr>
@@ -940,38 +940,38 @@
                                     </td>
                                     <td>
                                         <input type="radio" name="vfLimitExceeded"
-                                               ng-model="prefs.user.viewfilters.vfLimitExceeded" value="1"> Yes
+                                               ng-model="user.viewfilters.vfLimitExceeded" value="1"> Yes
                                         &nbsp;&nbsp;
                                         <input type="radio" name="vfLimitExceeded"
-                                               ng-model="prefs.user.viewfilters.vfLimitExceeded" value="0"> No
+                                               ng-model="user.viewfilters.vfLimitExceeded" value="0"> No
                                     </td>
                                     <td>
                                         <label>Acres - Rice:</label>
                                     </td>
                                     <td>
                                         <input type="radio" name="vfAcresRice"
-                                               ng-model="prefs.user.viewfilters.vfAcresRice"
+                                               ng-model="user.viewfilters.vfAcresRice"
                                                value="all"/>
                                         <span style="font:normal 12px sans-serif">All</span>
                                         &nbsp;
                                         <input type="radio" name="vfAcresRice"
-                                               ng-model="prefs.user.viewfilters.vfAcresRice"
+                                               ng-model="user.viewfilters.vfAcresRice"
                                                value="equal"/>
                                         <span style="font:normal 12px sans-serif">=</span>
                                         &nbsp;
                                         <input type="radio" name="vfAcresRice"
-                                               ng-model="prefs.user.viewfilters.vfAcresRice"
+                                               ng-model="user.viewfilters.vfAcresRice"
                                                value="before"/>
                                         <span style="font:normal 12px sans-serif"><</span>
                                         &nbsp;
                                         <input type="radio" name="vfAcresRice"
-                                               ng-model="prefs.user.viewfilters.vfAcresRice"
+                                               ng-model="user.viewfilters.vfAcresRice"
                                                value="after"/>
                                         <span style="font:normal 12px sans-serif">> </span>
                                         <input class="form-control" type="text" name="vfAcresRice"
-                                               ng-model="prefs.user.viewfilters.vfAcresRiceFilter"
+                                               ng-model="user.viewfilters.vfAcresRiceFilter"
                                                placeholder="Set Filter"
-                                               ng-hide="prefs.user.viewfilters.vfAcresRice == 'all'"/>
+                                               ng-hide="user.viewfilters.vfAcresRice == 'all'"/>
                                     </td>
                                 </tr>
                                 <tr>
@@ -981,24 +981,24 @@
                                     </td>
                                     <td>
                                         <input type="radio" name="vfAcresPeanuts"
-                                               ng-model="prefs.user.viewfilters.vfAcresPeanuts" value="all"/>
+                                               ng-model="user.viewfilters.vfAcresPeanuts" value="all"/>
                                         <span style="font:normal 12px sans-serif">All</span>
                                         &nbsp;
                                         <input type="radio" name="vfAcresPeanuts"
-                                               ng-model="prefs.user.viewfilters.vfAcresPeanuts" value="equal"/>
+                                               ng-model="user.viewfilters.vfAcresPeanuts" value="equal"/>
                                         <span style="font:normal 12px sans-serif">=</span>
                                         &nbsp;
                                         <input type="radio" name="vfAcresPeanuts"
-                                               ng-model="prefs.user.viewfilters.vfAcresPeanuts" value="before"/>
+                                               ng-model="user.viewfilters.vfAcresPeanuts" value="before"/>
                                         <span style="font:normal 12px sans-serif"><</span>
                                         &nbsp;
                                         <input type="radio" name="vfAcresPeanuts"
-                                               ng-model="prefs.user.viewfilters.vfAcresPeanuts" value="after"/>
+                                               ng-model="user.viewfilters.vfAcresPeanuts" value="after"/>
                                         <span style="font:normal 12px sans-serif">> </span>
                                         <input class="form-control" type="text" name="vfAcresPeanuts"
-                                               ng-model="prefs.user.viewfilters.vfAcresPeanutsFilter"
+                                               ng-model="user.viewfilters.vfAcresPeanutsFilter"
                                                placeholder="Set Filter"
-                                               ng-hide="prefs.user.viewfilters.vfAcresPeanuts == 'all'"/>
+                                               ng-hide="user.viewfilters.vfAcresPeanuts == 'all'"/>
                                     </td>
                                 </tr>
                                 <tr>
@@ -1006,28 +1006,28 @@
                                     <td><label>Acres - Sugar Cane:</label></td>
                                     <td>
                                         <input type="radio" name="vfAcresCane"
-                                               ng-model="prefs.user.viewfilters.vfAcresCane"
+                                               ng-model="user.viewfilters.vfAcresCane"
                                                value="all"/>
                                         <span style="font:normal 12px sans-serif">All</span>
                                         &nbsp;
                                         <input type="radio" name="vfAcresCane"
-                                               ng-model="prefs.user.viewfilters.vfAcresCane"
+                                               ng-model="user.viewfilters.vfAcresCane"
                                                value="equal"/>
                                         <span style="font:normal 12px sans-serif">=</span>
                                         &nbsp;
                                         <input type="radio" name="vfAcresCane"
-                                               ng-model="prefs.user.viewfilters.vfAcresCane"
+                                               ng-model="user.viewfilters.vfAcresCane"
                                                value="before"/>
                                         <span style="font:normal 12px sans-serif"><</span>
                                         &nbsp;
                                         <input type="radio" name="vfAcresCane"
-                                               ng-model="prefs.user.viewfilters.vfAcresCane"
+                                               ng-model="user.viewfilters.vfAcresCane"
                                                value="after"/>
                                         <span style="font:normal 12px sans-serif">> </span>
                                         <input class="form-control" type="text" name="vfAcresCane"
-                                               ng-model="prefs.user.viewfilters.vfAcresCaneFilter"
+                                               ng-model="user.viewfilters.vfAcresCaneFilter"
                                                placeholder="Set Filter"
-                                               ng-hide="prefs.user.viewfilters.vfAcresCane == 'all'"/>
+                                               ng-hide="user.viewfilters.vfAcresCane == 'all'"/>
                                     </td>
                                 </tr>
                                 <tr>
@@ -1037,28 +1037,28 @@
                                     </td>
                                     <td>
                                         <input type="radio" name="vfAcresOther"
-                                               ng-model="prefs.user.viewfilters.vfAcresOther"
+                                               ng-model="user.viewfilters.vfAcresOther"
                                                value="all"/>
                                         <span style="font:normal 12px sans-serif">All</span>
                                         &nbsp;
                                         <input type="radio" name="vfAcresOther"
-                                               ng-model="prefs.user.viewfilters.vfAcresOther"
+                                               ng-model="user.viewfilters.vfAcresOther"
                                                value="equal"/>
                                         <span style="font:normal 12px sans-serif">=</span>
                                         &nbsp;
                                         <input type="radio" name="vfAcresOther"
-                                               ng-model="prefs.user.viewfilters.vfAcresOther"
+                                               ng-model="user.viewfilters.vfAcresOther"
                                                value="before"/>
                                         <span style="font:normal 12px sans-serif"><</span>
                                         &nbsp;
                                         <input type="radio" name="vfAcresOther"
-                                               ng-model="prefs.user.viewfilters.vfAcresOther"
+                                               ng-model="user.viewfilters.vfAcresOther"
                                                value="after"/>
                                         <span style="font:normal 12px sans-serif">> </span>
                                         <input class="form-control" type="text" name="vfAcresOtherFilter"
-                                               ng-model="prefs.user.viewfilters.vfAcresOtherFilter"
+                                               ng-model="user.viewfilters.vfAcresOtherFilter"
                                                placeholder="Set Filter"
-                                               ng-hide="prefs.user.viewfilters.vfAcresOther == 'all'"/>
+                                               ng-hide="user.viewfilters.vfAcresOther == 'all'"/>
                                     </td>
                                 </tr>
                             </table>
@@ -1081,25 +1081,25 @@
                                 <p><strong>Farm Details</strong></p>
                                 <ul class="list-unstyled">
                                     <li>
-                                        <input type="checkbox" ng-model="prefs.user.optimopts.rent_per_acre_ARM"
+                                        <input type="checkbox" ng-model="user.optimopts.rent_per_acre_ARM"
                                                name="rent_per_acre_ARM"/>
                                         &nbsp;
                                         ARM Rent/Ac
                                     </li>
                                     <li>
-                                        <input type="checkbox" ng-model="prefs.user.optimopts.rent_per_acre_dist"
+                                        <input type="checkbox" ng-model="user.optimopts.rent_per_acre_dist"
                                                name="rent_per_acre_dist"/>
                                         &nbsp;
                                         Dist Rent/Ac
                                     </li>
                                     <li>
-                                        <input type="checkbox" ng-model="prefs.user.optimopts.rent_per_acre_other"
+                                        <input type="checkbox" ng-model="user.optimopts.rent_per_acre_other"
                                                name="rent_per_acre_other"/>
                                         &nbsp;
                                         3P Rent/Ac
                                     </li>
                                     <li>
-                                        <input type="checkbox" ng-model="prefs.user.optimopts.fsa_per_acre"
+                                        <input type="checkbox" ng-model="user.optimopts.fsa_per_acre"
                                                name="fsa_per_acre"/>
                                         &nbsp;
                                         FSA Rent/Ac
@@ -1110,49 +1110,49 @@
                                 <p><strong>Insurance</strong></p>
                                 <ul class="list-unstyled">
                                     <li>
-                                        <input type="checkbox" ng-model="prefs.user.optimopts.ins_share"
+                                        <input type="checkbox" ng-model="user.optimopts.ins_share"
                                                name="ins_share"/>
                                         &nbsp;
                                         Ins Share
                                     </li>
                                     <li>
-                                        <input type="checkbox" ng-model="prefs.user.optimopts.ins_price"
+                                        <input type="checkbox" ng-model="user.optimopts.ins_price"
                                                name="ins_price"/>
                                         &nbsp;
                                         Ins Price
                                     </li>
                                     <li>
-                                        <input type="checkbox" ng-model="prefs.user.optimopts.ins_level"
+                                        <input type="checkbox" ng-model="user.optimopts.ins_level"
                                                name="ins_level"/>
                                         &nbsp;
                                         Ins Level
                                     </li>
                                     <li>
-                                        <input type="checkbox" ng-model="prefs.user.optimopts.ins_guarantee"
+                                        <input type="checkbox" ng-model="user.optimopts.ins_guarantee"
                                                name="ins_guarantee"/>
                                         &nbsp;
                                         Ins Guarantee
                                     </li>
                                     <li>
-                                        <input type="checkbox" ng-model="prefs.user.optimopts.ins_premium"
+                                        <input type="checkbox" ng-model="user.optimopts.ins_premium"
                                                name="ins_premium"/>
                                         &nbsp;
                                         Ins Premium
                                     </li>
                                     <li>
-                                        <input type="checkbox" ng-model="prefs.user.optimopts.ins_value"
+                                        <input type="checkbox" ng-model="user.optimopts.ins_value"
                                                name="ins_value"/>
                                         &nbsp;
                                         Ins Value
                                     </li>
                                     <li>
-                                        <input type="checkbox" ng-model="prefs.user.optimopts.ins_type"
+                                        <input type="checkbox" ng-model="user.optimopts.ins_type"
                                                name="ins_type"/>
                                         &nbsp;
                                         Ins Type
                                     </li>
                                     <li>
-                                        <input type="checkbox" ng-model="prefs.user.optimopts.sco_max" name="sco_max"/>
+                                        <input type="checkbox" ng-model="user.optimopts.sco_max" name="sco_max"/>
                                         &nbsp;
                                         SCO Max
                                     </li>
@@ -1162,95 +1162,95 @@
                                 <p><strong>Cash Flow</strong></p>
                                 <ul class="list-unstyled">
                                     <li>
-                                        <input type="checkbox" ng-model="prefs.user.optimopts.prod_yield"
+                                        <input type="checkbox" ng-model="user.optimopts.prod_yield"
                                                name="prod_yield"/>
                                         &nbsp;
                                         Prod Yield
                                     </li>
                                     <li>
-                                        <input type="checkbox" ng-model="prefs.user.optimopts.prod_share"
+                                        <input type="checkbox" ng-model="user.optimopts.prod_share"
                                                name="prod_share"/>
                                         &nbsp;
                                         Prod Share
                                     </li>
                                     <li>
-                                        <input type="checkbox" ng-model="prefs.user.optimopts.prod_price"
+                                        <input type="checkbox" ng-model="user.optimopts.prod_price"
                                                name="prod_price"/>
                                         &nbsp;
                                         Prod Price
                                     </li>
                                     <li>
-                                        <input type="checkbox" ng-model="prefs.user.optimopts.var_harvest"
+                                        <input type="checkbox" ng-model="user.optimopts.var_harvest"
                                                name="var_harvest"/>
                                         &nbsp;
                                         Var Harvest
                                     </li>
                                     <li>
-                                        <input type="checkbox" ng-model="prefs.user.optimopts.rebate" name="rebate"/>
+                                        <input type="checkbox" ng-model="user.optimopts.rebate" name="rebate"/>
                                         &nbsp;
                                         Rebate
                                     </li>
                                     <li>
-                                        <input type="checkbox" ng-model="prefs.user.optimopts.prod_rev"
+                                        <input type="checkbox" ng-model="user.optimopts.prod_rev"
                                                name="prod_rev"/>
                                         &nbsp;
                                         Prod Rev
                                     </li>
                                     <li>
-                                        <input type="checkbox" ng-model="prefs.user.optimopts.prod_rev_adj"
+                                        <input type="checkbox" ng-model="user.optimopts.prod_rev_adj"
                                                name="prod_rev_adj"/>
                                         &nbsp;
                                         Prod Rev Adj
                                     </li>
                                     <li>
-                                        <input type="checkbox" ng-model="prefs.user.optimopts.budget_ARM"
+                                        <input type="checkbox" ng-model="user.optimopts.budget_ARM"
                                                name="budget_ARM"/>
                                         &nbsp;
                                         ARM Budget
                                     </li>
                                     <li>
-                                        <input type="checkbox" ng-model="prefs.user.optimopts.budget_dist"
+                                        <input type="checkbox" ng-model="user.optimopts.budget_dist"
                                                name="budget_dist"/>
                                         &nbsp;
                                         Dist Budget
                                     </li>
                                     <li>
-                                        <input type="checkbox" ng-model="prefs.user.optimopts.budget_other"
+                                        <input type="checkbox" ng-model="user.optimopts.budget_other"
                                                name="budget_other"/>
                                         &nbsp;
                                         3P Budget
                                     </li>
                                     <li>
-                                        <input type="checkbox" ng-model="prefs.user.optimopts.fee_ARM" name="fee_ARM"/>
+                                        <input type="checkbox" ng-model="user.optimopts.fee_ARM" name="fee_ARM"/>
                                         &nbsp;
                                         ARM Fee
                                     </li>
                                     <li>
-                                        <input type="checkbox" ng-model="prefs.user.optimopts.commit_ARM"
+                                        <input type="checkbox" ng-model="user.optimopts.commit_ARM"
                                                name="commit_ARM"/>
                                         &nbsp;
                                         ARM Commit
                                     </li>
                                     <li>
-                                        <input type="checkbox" ng-model="prefs.user.optimopts.commit_dist"
+                                        <input type="checkbox" ng-model="user.optimopts.commit_dist"
                                                name="commit_dist"/>
                                         &nbsp;
                                         Dist Commit
                                     </li>
                                     <li>
-                                        <input type="checkbox" ng-model="prefs.user.optimopts.interest_ARM"
+                                        <input type="checkbox" ng-model="user.optimopts.interest_ARM"
                                                name="interest_ARM"/>
                                         &nbsp;
                                         ARM Est Int
                                     </li>
                                     <li>
-                                        <input type="checkbox" ng-model="prefs.user.optimopts.interest_dist"
+                                        <input type="checkbox" ng-model="user.optimopts.interest_dist"
                                                name="interest_dist"/>
                                         &nbsp;
                                         Dist Est Int
                                     </li>
                                     <li>
-                                        <input type="checkbox" ng-model="prefs.user.optimopts.interest_other"
+                                        <input type="checkbox" ng-model="user.optimopts.interest_other"
                                                name="interest_other"/>
                                         &nbsp;
                                         3P Est Int
@@ -1261,67 +1261,67 @@
                                 <p><strong>Risk/Margin</strong></p>
                                 <ul class="list-unstyled">
                                     <li>
-                                        <input type="checkbox" ng-model="prefs.user.optimopts.percent_disc_crop"
+                                        <input type="checkbox" ng-model="user.optimopts.percent_disc_crop"
                                                name="percent_disc_crop"/>
                                         &nbsp;
                                         Crop Disc
                                     </li>
                                     <li>
-                                        <input type="checkbox" ng-model="prefs.user.optimopts.percent_disc_fsa"
+                                        <input type="checkbox" ng-model="user.optimopts.percent_disc_fsa"
                                                name="percent_disc_fsa"/>
                                         &nbsp;
                                         FSA Disc
                                     </li>
                                     <li>
-                                        <input type="checkbox" ng-model="prefs.user.optimopts.percent_disc_cropins"
+                                        <input type="checkbox" ng-model="user.optimopts.percent_disc_cropins"
                                                name="percent_disc_cropins"/>
                                         &nbsp;
                                         Crop Ins Disc
                                     </li>
                                     <li>
-                                        <input type="checkbox" ng-model="prefs.user.optimopts.percent_disc_nonrp"
+                                        <input type="checkbox" ng-model="user.optimopts.percent_disc_nonrp"
                                                name="percent_disc_nonrp"/>
                                         &nbsp;
                                         Non-RP Disc
                                     </li>
                                     <li>
-                                        <input type="checkbox" ng-model="prefs.user.optimopts.percent_disc_sco"
+                                        <input type="checkbox" ng-model="user.optimopts.percent_disc_sco"
                                                name="percent_disc_sco"/>
                                         &nbsp;
                                         SCO Disc
                                     </li>
                                     <li>
-                                        <input type="checkbox" ng-model="prefs.user.optimopts.disc_crop"
+                                        <input type="checkbox" ng-model="user.optimopts.disc_crop"
                                                name="disc_crop"/>
                                         &nbsp;
                                         Disc Crop
                                     </li>
                                     <li>
-                                        <input type="checkbox" ng-model="prefs.user.optimopts.disc_fsa"
+                                        <input type="checkbox" ng-model="user.optimopts.disc_fsa"
                                                name="disc_fsa"/>
                                         &nbsp;
                                         Disc FSA
                                     </li>
                                     <li>
-                                        <input type="checkbox" ng-model="prefs.user.optimopts.disc_insovercrop"
+                                        <input type="checkbox" ng-model="user.optimopts.disc_insovercrop"
                                                name="disc_insovercrop"/>
                                         &nbsp;
                                         Ins>Disc Crop
                                     </li>
                                     <li>
-                                        <input type="checkbox" ng-model="prefs.user.optimopts.disc_ins"
+                                        <input type="checkbox" ng-model="user.optimopts.disc_ins"
                                                name="disc_ins"/>
                                         &nbsp;
                                         Disc Ins
                                     </li>
                                     <li>
-                                        <input type="checkbox" ng-model="prefs.user.optimopts.disc_sco"
+                                        <input type="checkbox" ng-model="user.optimopts.disc_sco"
                                                name="disc_sco"/>
                                         &nbsp;
                                         Disc SCO
                                     </li>
                                     <li>
-                                        <input type="checkbox" ng-model="prefs.user.optimopts.disc_collateral"
+                                        <input type="checkbox" ng-model="user.optimopts.disc_collateral"
                                                name="disc_collateral"/>
                                         &nbsp;
                                         Disc Collateral
@@ -1347,40 +1347,40 @@
                                     <tr>
                                         <td>
                                             <input type="checkbox" name="comms_email"
-                                                   ng-model="prefs.user.comms_email"/>&nbsp;
+                                                   ng-model="user.comms_email"/>&nbsp;
                                             Email
                                         </td>
                                         <td>
                                             <input class="form-control" type="text" name="email"
-                                                   ng-model="prefs.user.email"/>
+                                                   ng-model="user.email"/>
                                         </td>
                                     </tr>
                                     <tr>
                                         <td>
-                                            <input type="checkbox" name="comms_sms" ng-model="prefs.user.comms_sms"/>&nbsp;
+                                            <input type="checkbox" name="comms_sms" ng-model="user.comms_sms"/>&nbsp;
                                             Text Message
                                         </td>
                                         <td>
-                                            <input class="form-control" type="text" ng-model="prefs.user.phone"
+                                            <input class="form-control" type="text" ng-model="user.phone"
                                                    ui-mask="(999) 999.9999"/>
                                         </td>
                                     </tr>
                                     <tr>
                                         <td>
                                             <input type="checkbox" name="comms_outlook"
-                                                   ng-model="prefs.user.comms_outlook"/>&nbsp;
+                                                   ng-model="user.comms_outlook"/>&nbsp;
                                             Outlook Notification (via Email)
                                         </td>
                                         <td>
                                             <input class="form-control" type="text" name="email"
-                                                   ng-model="prefs.user.outlook"/>
+                                                   ng-model="user.outlook"/>
                                         </td>
                                     </tr>
 
                                     <tr>
                                         <td>
                                             <input type="checkbox" name="comms_online"
-                                                   ng-model="prefs.user.comms_online"/>&nbsp;
+                                                   ng-model="user.comms_online"/>&nbsp;
                                             Online Notification Badge
                                         </td>
                                         <td>&nbsp;</td>

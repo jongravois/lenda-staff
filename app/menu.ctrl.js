@@ -4,10 +4,10 @@
         .module('ARM')
         .controller('MenuController', MenuController);
 
-        MenuController.$inject = ['$scope', 'MenuFactory'];
+        MenuController.$inject = ['$rootScope', '$scope', 'MenuFactory'];
 
         /* @ngInject */
-        function MenuController($scope, MenuFactory) {
+        function MenuController($rootScope, $scope, MenuFactory) {
             /* jshint validthis: true */
             MenuFactory.getLoantypes()
                 .then(function success(rsp) {

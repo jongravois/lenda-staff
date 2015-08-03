@@ -4,11 +4,13 @@
         .module('ARM')
         .controller('EditLoanController', EditLoanController);
     
-        EditLoanController.$inject = ['$rootScope', '$scope', '$state', 'AppFactory', 'Loan'];
+        EditLoanController.$inject = ['$rootScope', '$scope', '$state', 'AppFactory', 'DefaultsFactory', 'FeederFactory', 'Loan'];
     
         /* @ngInject */
-        function EditLoanController($rootScope, $scope, $state, AppFactory, Loan) {
+        function EditLoanController($rootScope, $scope, $state, AppFactory, DefaultsFactory, FeederFactory, Loan) {
             /* jshint validthis: true */
+            $scope.AppFactory = AppFactory;
+
             if (!$rootScope.currentUser) {
                 try {
                     var user = JSON.parse(localStorage.getItem('user'));
@@ -20,9 +22,20 @@
             }
             $scope.user = user;
             //console.log('user', user);
-            $scope.AppFactory = AppFactory;
-            $scope.feeder = $rootScope.feeder;
-            $scope.globals = $rootScope.defaults;
+
+            if(!$rootScope.feeder) {
+                FeederFactory.init();
+                $scope.feeder = FeederFactory.getObject();
+            } else {
+                $scope.feeder = $rootScope.feeder;
+            }
+
+            if(!$rootScope.defaults) {
+                DefaultsFactory.init();
+                $scope.defaults = DefaultsFactory.getObject();
+            } else {
+                $scope.globals = $rootScope.defaults;
+            }
 
             $scope.loan = Loan;
             $scope.states = $scope.feeder.states;

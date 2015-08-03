@@ -18,8 +18,8 @@
                                        id="farmer"
                                        class="form-control"
                                        autocomplete="false"
-                                       ng-model="edt.loan.farmer.farmer"
-                                       typeahead="f.farmer for f in edt.farmers|filter:$viewValue|limitTo:8"
+                                       ng-model="loan.farmer.farmer"
+                                       typeahead="f.farmer for f in farmers|filter:$viewValue|limitTo:8"
                                        typeahead-on-select="onFarmerSelect($item, $model, $label)"/>
                             </div>
                             <div class="form-group col-sm-3">
@@ -28,13 +28,13 @@
                                 <input type="text"
                                        class="form-control"
                                        name="ssn"
-                                       ng-model="edt.loan.farmer.ssn"
+                                       ng-model="loan.farmer.ssn"
                                        style="width: 150px;"/>
                             </div>
                             <div class="col-sm-2">
                                 <label>Farming Experience</label>
                                 <br/>
-                                <p>{{edt.loan.farmer.farm_exp}}</p>
+                                <p>{{loan.farmer.farm_exp}}</p>
                             </div>
                         </div>
                         <!-- FARMER/SSN/DOB -->
@@ -45,19 +45,19 @@
                                 <label>Mailing Address:</label>
                                 <input type="text"
                                        name="address"
-                                       ng-model="edt.loan.farmer.address"
+                                       ng-model="loan.farmer.address"
                                        class="form-control"/>
                             </div>
                             <div class="form-group col-sm-3">
                                 <label>City:</label>
-                                <input type="text" name="city" ng-model="edt.loan.farmer.city" class="form-control"/>
+                                <input type="text" name="city" ng-model="loan.farmer.city" class="form-control"/>
                             </div>
                             <div class="form-group col-sm-2">
                                 <label>State:</label>
                                 <select name="state"
                                         class="form-control"
-                                        ng-model="edt.loan.farmer.state_id"
-                                        ng-options="s.id as s.state for s in edt.states">
+                                        ng-model="loan.farmer.state_id"
+                                        ng-options="s.id as s.state for s in states">
                                     <option value="">Please select ...</option>
                                 </select>
                             </div>
@@ -65,7 +65,7 @@
                                 <label>Zip:</label>
                                 <input type="text"
                                        name="zip"
-                                       ng-model="edt.loan.farmer.zip"
+                                       ng-model="loan.farmer.zip"
                                        class="form-control"/>
                             </div>
                         </div>
@@ -78,14 +78,14 @@
                                 <input type="text"
                                        name="phone"
                                        ui-mask="(999) 999-9999"
-                                       ng-model="edt.loan.farmer.phone"
+                                       ng-model="loan.farmer.phone"
                                        class="form-control"/>
                             </div>
                             <div class="form-group col-sm-3">
                                 <label>Email Address:</label>
                                 <input type="text"
                                        name="email"
-                                       ng-model="edt.loan.farmer.email"
+                                       ng-model="loan.farmer.email"
                                        class="form-control"/>
                             </div>
                             <div class="form-group col-sm-2">
@@ -93,7 +93,7 @@
                                 <input type="text"
                                        name="dob"
                                        ui-mask="99/99/9999"
-                                       ng-model="edt.loan.farmer.dob"
+                                       ng-model="loan.farmer.dob"
                                        class="form-control"
                                        style="width: 140px;"/>
                             </div>
@@ -101,7 +101,7 @@
                                 <label>Year Began Farming:</label>
                                 <input type="text"
                                        name="first_year_farmer"
-                                       ng-model="edt.loan.farmer.first_year_farmer"
+                                       ng-model="loan.farmer.first_year_farmer"
                                        class="form-control"
                                        style="width:120px;"/>
                             </div>
@@ -119,7 +119,7 @@
                             </button>
                             <button style="margin-right:10px;"
                                     class="btn btn-primary"
-                                    ng-click="edt.updateFarmer(loan.farmer)"
+                                    ng-click="updateFarmer(loan.farmer)"
                                     ng-if="!newapplication">
                                 UPDATE
                             </button>
@@ -240,7 +240,7 @@
     </div>
 </fieldset>
 
-<fieldset ng-show="edt.loan.entity_type_id == '4'">
+<fieldset ng-show="loan.entity_type_id == '4'">
     <legend>Partners</legend>
     <div class="container-fluid">
         <div class="row">
@@ -288,7 +288,7 @@
     </div>
 </fieldset>
 
-<fieldset ng-show="edt.loan.entity_type_id == '3'">
+<fieldset ng-show="loan.entity_type_id == '3'">
     <legend>Joint Ventures</legend>
     <div class="container-fluid">
         <div class="row">
@@ -334,7 +334,7 @@
     </div>
 </fieldset>
 
-<fieldset ng-show="edt.loan.entity_type_id == '1'">
+<fieldset ng-show="loan.entity_type_id == '1'">
     <legend>Corporation</legend>
     <div class="container-fluid">
         <div class="row">

@@ -7,8 +7,8 @@
                 .state('loans', {
                     url: '/loans',
                     abstract: true,
-                    templateUrl: 'app/views/main.view.html',
-                    controller: 'LoansController as loan'
+                    //templateUrl: 'app/views/main.view.html',
+                    controller: 'LoansController'
                 })
                 .state('loans.home', {
                     url: '/home',

@@ -41,12 +41,12 @@
         </div>
 
         <!--No Comment Place Holder-->
-        <div ng-if="edt.comments.length === 0">
+        <div ng-if="comments.length === 0">
             <b>No Comments Found!</b>
         </div>
 
         <!--Loan/Addendum Comment-->
-        <div ng-repeat="c in edt.loan.comments|filter:{type: 'Loan'}">
+        <div ng-repeat="c in loan.comments|filter:{type: 'Loan'}">
             <div class="alert alert-default" role="alert">
                 <h4>
                     <span class="glyphicon glyphicon-pencil" ></span>
