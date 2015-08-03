@@ -4,38 +4,38 @@
         .module('ARM')
         .config(function($stateProvider, $urlRouterProvider, API_URL) {
             $stateProvider
-                .state('library', {
+                .state('arm.library', {
                     url: '/library',
                     abstract: true,
-                    templateUrl: '_modules/Library/_views/library.view.html',
+                    template: '<div ui-view></div>',
                     controller: 'LibraryController as library'
                 })
-                .state('library.classroom', {
+                .state('arm.library.classroom', {
                     url: '/classroom',
                     templateUrl: './_modules/Library/_views/classroom/classroom.html',
                     controller: 'LibraryController as library'
                 })
-                .state('library.guide', {
+                .state('arm.library.guide', {
                     url: '/guide',
                     templateUrl: './_modules/Library/_views/userguide/guide.html',
                     controller: 'LibraryController as library'
                 })
-                .state('library.legaldocs', {
+                .state('arm.library.legaldocs', {
                     url: '/legaldocs',
                     templateUrl: './_modules/Library/_views/legaldocs/legaldocs.html',
                     controller: 'LibraryController as library'
                 })
-                .state('library.loanproducts', {
+                .state('arm.library.loanproducts', {
                     url: '/loanproducts',
                     templateUrl: './_modules/Library/_views/products/loanproducts.html',
                     controller: 'LibraryController as library'
                 })
-                .state('library.matrix', {
+                .state('arm.library.matrix', {
                     url: '/matrix',
                     templateUrl: './_modules/Library/_views/matrix/matrix.html',
                     controller: 'LibraryController as library'
                 })
-                .state('library.pdfapps', {
+                .state('arm.library.pdfapps', {
                     url: '/pdfapps',
                     templateUrl: 'angular/library/pdf-apps/pdfapps.html',
                     controller: 'PdfAppsController',
@@ -49,13 +49,13 @@
                         }
                     }
                 })
-                .state('library.polsprocs', {
+                .state('arm.library.polsprocs', {
                     url: '/polsprocs',
                     templateUrl: './_modules/Library/_views/policies/pols.procs.tmpl.html',
                     controller: 'PolsProcsController',
                     controllerAS: 'polsprocs'
                 })
-                .state('library.resources', {
+                .state('arm.library.resources', {
                     url: '/resources',
                     templateUrl: './_modules/Library/_views/resources/resources.html',
                     controller: 'LibraryController as library'
