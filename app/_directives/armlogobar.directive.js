@@ -7,7 +7,7 @@
     function armLogoBar() {
         return {
             transclude: true,
-            controller: 'UserController as main',
+            controller: 'UserController',
             templateUrl: './app/views/logobar.tmpl.html'
         };
     }

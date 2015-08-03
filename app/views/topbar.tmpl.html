@@ -1,19 +1,19 @@
 <div class="header nav_banner" style="z-index:3;">
     <span class="navbar">
-        <a ui-sref='main.home'>
+        <a ui-sref='arm.home'>
             Loan Listing
         </a>
         &nbsp;&nbsp;|&nbsp;&nbsp;
-        <a ui-sref="loans.management">
+        <a ui-sref="arm.loan_management">
             Loan Management
         </a>
         &nbsp;&nbsp;|&nbsp;&nbsp;
-        <span class="dropdown" dropdown on-toggle="menu.toggled(open)">
+        <span class="dropdown" dropdown on-toggle="toggled(open)">
             <a href class="dropdown-toggle" dropdown-toggle>
                 New Loan Application <span class="menuglyphs glyphicons glyphicons-chevron-down"></span>
             </a>
             <ul class="dropdown-menu" role="menu">
-                <li ng-repeat="l in menu.loantypes">
+                <li ng-repeat="l in feeder.loantypes">
                     <a ng-click="newLoan(l.id, feeder.loantypes)">
                         {{l.loantype}}
                     </a>
@@ -21,49 +21,49 @@
             </ul>
         </span>
         &nbsp;&nbsp;|&nbsp;&nbsp;
-        <span class="dropdown" dropdown on-toggle="menu.toggled(open)">
+        <span class="dropdown" dropdown on-toggle="toggled(open)">
             <a href class="dropdown-toggle" dropdown-toggle>Reports <span class="menuglyphs glyphicons glyphicons-chevron-down"></span></a>
             <ul class="dropdown-menu" role="menu">
                 <li>
-                    <a ui-sref="reports.actdet">Activity Detail</a>
+                    <a ui-sref="arm.reports.actdet">Activity Detail</a>
                 </li>
                 <li>
-                    <a ui-sref="reports.lnman">Loan Management</a>
+                    <a ui-sref="arm.reports.lnman">Loan Management</a>
                 </li>
                 <li>
-                    <a ui-sref="reports.accrec">Account Reconciliation</a>
+                    <a ui-sref="arm.reports.accrec">Account Reconciliation</a>
                 </li>
                 <li>
-                    <a ui-sref="reports.cashflow">Cash Flow & Exposure</a>
+                    <a ui-sref="arm.reports.cashflow">Cash Flow & Exposure</a>
                 </li>
                 <li>
-                    <a ui-sref="reports.cusbud">Customer Budget</a>
+                    <a ui-sref="arm.reports.cusbud">Customer Budget</a>
                 </li>
                 <li>
-                    <a ui-sref="reports.actsum">Activity Summary</a>
+                    <a ui-sref="arm.reports.actsum">Activity Summary</a>
                 </li>
                 <li>
-                    <a ui-sref="reports.fmrhis">Farmer History</a>
+                    <a ui-sref="arm.reports.fmrhis">Farmer History</a>
                 </li>
                 <li>
-                    <a ui-sref="reports.crops">Crop Mix</a>
+                    <a ui-sref="arm.reports.crops">Crop Mix</a>
                 </li>
                 <li>
-                    <a ui-sref="reports.comapp">Committee Approval</a>
+                    <a ui-sref="arm.reports.comapp">Committee Approval</a>
                 </li>
                 <li>
-                    <a ui-sref="reports.comcom">Committee Comment</a>
+                    <a ui-sref="arm.reports.comcom">Committee Comment</a>
                 </li>
                 <li>
-                    <a ui-sref="reports.reqrpt">Required</a>
+                    <a ui-sref="arm.reports.reqrpt">Required</a>
                 </li>
                 <li>
-                    <a ui-sref="reports.usradt">Audit User</a>
+                    <a ui-sref="arm.reports.usradt">Audit User</a>
                 </li>
             </ul>
         </span>
         &nbsp;&nbsp;|&nbsp;&nbsp;
-        <span class="dropdown" dropdown on-toggle="menu.toggled(open)">
+        <span class="dropdown" dropdown on-toggle="toggled(open)">
             <a href class="dropdown-toggle" dropdown-toggle>Library <span class="menuglyphs glyphicons glyphicons-chevron-down"></span></a>
             <ul class="dropdown-menu" role="menu">
                 <li>
@@ -89,9 +89,9 @@
                 </li>
             </ul>
         </span>
-        <span ng-show="main.user.is_admin">
+        <span ng-show="user.is_admin">
             &nbsp;&nbsp;|&nbsp;&nbsp;
-            <span class="dropdown" dropdown on-toggle="menu.toggled(open)">
+            <span class="dropdown" dropdown on-toggle="toggled(open)">
                 <a href class="dropdown-toggle" dropdown-toggle>Admin <span class="menuglyphs glyphicons glyphicons-chevron-down"></span></a>
                <ul class="dropdown-menu" role="menu">
                    <li class="dropdown-submenu">

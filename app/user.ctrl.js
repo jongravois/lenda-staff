@@ -5,54 +5,25 @@
         .module('ARM')
         .controller('UserController', UserController);
 
-    UserController.$inject = ['$http', '$auth', '$rootScope', 'API_URL'];
+    UserController.$inject = ['$rootScope', '$scope', 'AppFactory'];
 
-    function UserController($http, $auth, $rootScope, API_URL) {
-        var vm = this;
+    function UserController($rootScope, $scope, AppFactory) {
 
-        /*jshint -W030 */
-        vm.user;
-        vm.users;
-        vm.locations;
-        vm.error;
+        if (!$rootScope.currentUser) {
+            try {
+                var user = JSON.parse(localStorage.getItem('user'));
+            } catch (exception) {
+                $state.go('auth');
+            }
+        } else {
+            var user = $rootScope.currentUser;
+        }
+        $scope.user = user;
+        //console.log('user', user);
 
-        var user = JSON.parse(localStorage.getItem('user'));
-        $http.get(API_URL + 'users/' + user.id)
-            .success(function(rsp){
-                vm.user = rsp.data;
-                var fulluser = JSON.stringify(rsp.data);
-                localStorage.removeItem('user');
-                localStorage.setItem('user', fulluser);
+        AppFactory.getAll('users')
+            .then(function(rsp){
+                $scope.users = rsp.data.data;
             });
-
-        vm.getUsers = function() {
-            $http.get(API_URL + 'authenticate')
-                .success(function(users) {
-                    vm.users = users;
-                })
-                .error(function(error) {
-                    vm.error = error;
-                });
-        };
-
-        vm.getLocations = function() {
-            $http.get(API_URL + 'locations')
-                .success(function(locations) {
-                    vm.locations = locations.data;
-                })
-                .error(function(error) {
-                    vm.error = error;
-                });
-        };
-
-        vm.logout = function() {
-            $auth.logout()
-                .then(function() {
-                    localStorage.removeItem('user');
-                    localStorage.removeItem('currentUserID');
-                    $rootScope.authenticated = false;
-                    $rootScope.currentUser = null;
-                });
-        };
     } // end controller
 })();

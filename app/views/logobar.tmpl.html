@@ -1,15 +1,15 @@
-<div id="" class="header arm-title-bar">
+<div class="header arm-title-bar">
     <a href="#/main/home">
         <img src="images/LENDA_Logo.png" style="height:70px;"/>
     </a>
     <span class="sp_controls">
-        <notificator counts="main.user.notificator" ng-if="main.user.notifications.length > 0"></notificator>
-        Welcome, {{main.user.name}}
+        <notificator counts="user.notificator" ng-if="user.notifications.length > 0"></notificator>
+        Welcome, {{user.name}}
         &nbsp;&nbsp;|&nbsp;&nbsp;
-        Location: {{main.user.loc_abr}}
+        Location: {{user.loc_abr}}
         &nbsp;&nbsp;|&nbsp;&nbsp;
-        <a ui-sref="main.prefs">My Settings</a>
+        <a ui-sref="arm.prefs">My Settings</a>
         &nbsp;&nbsp;|&nbsp;&nbsp;
-        <a href="#" ng-click="main.logout()">Logout</a>
+        <a href="#" ng-click="logout()">Logout</a>
     </span>
 </div>
