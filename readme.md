@@ -8,8 +8,10 @@
 * Run from the webroot: ```bower-installer```
 * Run from the /app: ```touch constants.js```
 * Edit /app/constants.js as
-```(function () {
-    'use strict';
+    
+```
+(function () {
+'use strict';
     angular
         .module('ARM')
         .constant('_', window._)
@@ -17,7 +19,8 @@
         .constant('API_URL', 'http://path_to_backend_app/api/')
         .constant('FILE_URL', 'http://path_to_backend_app/files_loans/')
         .constant('LEGAL_NAME', 'Ag Resource Management');
-})();```
+})();
+```
 
 ## Developing Tasks
 
