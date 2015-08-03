@@ -1,3 +1,6 @@
+/**
+ * For diagnostics for development.
+ */
 (function(){
     'use strict';
     angular
@@ -120,18 +123,6 @@
                  data.commit_dist = item.financials.commit_dist;
                  data.fee_total = item.;
                  data.int_percent_arm = item.fins.int_percent_arm;
-
-                 crop.mix
-                 data.beansFAC = item.crop_acres.beansFAC;
-                 data.cotton = item.crop_acres.cotton;
-                 data.crop_acres.corn = item.crop_acres.corn;
-                 data.peanuts = item.crop_acres.peanuts;
-                 data.rice = item.crop_acres.rice;
-                 data.sorghum = item.crop_acres.sorghum;
-                 data.soybeans = item.crop_acres.soybeans;
-                 data.sugarcane = item.crop_acres.sugarcane;
-                 data.sunflowers = item.crop_acres.sunflowers;
-                 data.wheat = item.crop_acres.wheat;
 
                  committee.approval
                  data.committee_member = item.;

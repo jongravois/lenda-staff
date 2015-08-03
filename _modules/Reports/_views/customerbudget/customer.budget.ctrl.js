@@ -35,10 +35,11 @@ Requires the following in styles.css
         .module('ARM')
         .controller('CustomerBudgetController', CustomerBudgetController);
 
-    CustomerBudgetController.$inject = ['$scope', '$http', '$filter', '$timeout', 'AppFactory'];
+    CustomerBudgetController.$inject = ['$scope', '$http', '$filter', '$timeout', 'AppFactory', 'Loans', 'CustomerBudgetFactory'];
 
-    function CustomerBudgetController($scope, $http, $filter, $timeout, AppFactory) {
+    function CustomerBudgetController($scope, $http, $filter, $timeout, AppFactory, Loans, CustomerBudgetFactory) {
         $scope.AppFactory = AppFactory;
+        $scope.loans = Loans;
 
         var columnDefs = [
             {
@@ -63,6 +64,8 @@ Requires the following in styles.css
                         return 'East';
                     } else if (params.data.region.toUpperCase() === 'W') {
                         return 'West';
+                    } else {
+                        return params.data.region;
                     }
                 },
                 suppressSorting: false,
@@ -268,6 +271,13 @@ Requires the following in styles.css
             }
         ];
 
+        $scope.getModel = function(){
+            if ($scope.gridOptions.api) {
+                console.log($scope.gridOptions.api.getModel());
+                return $scope.gridOptions.api.getModel();
+            }
+        }
+
         $scope.hideIcons = function () {
             $scope.icons = !$scope.icons;
             if ($scope.icons) {
@@ -275,47 +285,55 @@ Requires the following in styles.css
             } else {
                 $scope.gridOptions.pinnedColumnCount = $scope.pin;
             }
-            $scope.gridOptions.api.onNewCols();
-            $scope.gridOptions.api.hideColumns(['status_left', 'status', 'status_right'], $scope.icons);
-            $scope.gridOptions.api.hideColumns(['total_budget_amount'], !$scope.dollarsPercent);
-            $scope.gridOptions.api.hideColumns(['total_percent_budget'], $scope.dollarsPercent);
-            $scope.gridOptions.api.hideColumns(['total_budget_spent'], !$scope.dollarsPercent);
-            $scope.gridOptions.api.hideColumns(['total_percent_spent'], $scope.dollarsPercent);
-            $scope.gridOptions.api.hideColumns(['total_budget_remaining'], !$scope.dollarsPercent);
-            $scope.gridOptions.api.hideColumns(['total_percent_remaining'], $scope.dollarsPercent);
-            $scope.gridOptions.api.hideColumns(['status_left', 'status', 'status_right'], $scope.icons);
-            $scope.gridOptions.api.setSortModel($scope.sortKeys);
+            if ($scope.gridOptions.api) {
+                $scope.gridOptions.api.onNewCols();
+                $scope.gridOptions.api.hideColumns(['status_left', 'status', 'status_right'], $scope.icons);
+                $scope.gridOptions.api.hideColumns(['total_budget_amount'], !$scope.dollarsPercent);
+                $scope.gridOptions.api.hideColumns(['total_percent_budget'], $scope.dollarsPercent);
+                $scope.gridOptions.api.hideColumns(['total_budget_spent'], !$scope.dollarsPercent);
+                $scope.gridOptions.api.hideColumns(['total_percent_spent'], $scope.dollarsPercent);
+                $scope.gridOptions.api.hideColumns(['total_budget_remaining'], !$scope.dollarsPercent);
+                $scope.gridOptions.api.hideColumns(['total_percent_remaining'], $scope.dollarsPercent);
+                $scope.gridOptions.api.hideColumns(['status_left', 'status', 'status_right'], $scope.icons);
+                $scope.gridOptions.api.setSortModel($scope.sortKeys);
+            }
         }
 
         $scope.showToolPanel = function () {
             $scope.tools = !$scope.tools;
-            $scope.gridOptions.api.showToolPanel($scope.tools);
+            if ($scope.gridOptions.api) {
+                $scope.gridOptions.api.showToolPanel($scope.tools);
+            }
         }
 
         $scope.toggleDetail = function () {
             $scope.detail = !$scope.detail;
-            $scope.gridOptions.api.onNewCols();
-            $scope.gridOptions.api.hideColumns(['total_budget_amount'], !$scope.dollarsPercent);
-            $scope.gridOptions.api.hideColumns(['total_percent_budget'], $scope.dollarsPercent);
-            $scope.gridOptions.api.hideColumns(['total_budget_spent'], !$scope.dollarsPercent);
-            $scope.gridOptions.api.hideColumns(['total_percent_spent'], $scope.dollarsPercent);
-            $scope.gridOptions.api.hideColumns(['total_budget_remaining'], !$scope.dollarsPercent);
-            $scope.gridOptions.api.hideColumns(['total_percent_remaining'], $scope.dollarsPercent);
-            $scope.gridOptions.api.hideColumns(['status_left', 'status', 'status_right'], $scope.icons);
-            $scope.gridOptions.api.setSortModel($scope.sortKeys);
+            if ($scope.gridOptions.api) {
+                $scope.gridOptions.api.onNewCols();
+                $scope.gridOptions.api.hideColumns(['total_budget_amount'], !$scope.dollarsPercent);
+                $scope.gridOptions.api.hideColumns(['total_percent_budget'], $scope.dollarsPercent);
+                $scope.gridOptions.api.hideColumns(['total_budget_spent'], !$scope.dollarsPercent);
+                $scope.gridOptions.api.hideColumns(['total_percent_spent'], $scope.dollarsPercent);
+                $scope.gridOptions.api.hideColumns(['total_budget_remaining'], !$scope.dollarsPercent);
+                $scope.gridOptions.api.hideColumns(['total_percent_remaining'], $scope.dollarsPercent);
+                $scope.gridOptions.api.hideColumns(['status_left', 'status', 'status_right'], $scope.icons);
+                $scope.gridOptions.api.setSortModel($scope.sortKeys);
+            }
         }
 
         $scope.toggleDollarsPercent = function () {
             $scope.dollarsPercent = !$scope.dollarsPercent;
-            $scope.gridOptions.api.onNewCols();
-            $scope.gridOptions.api.hideColumns(['total_budget_amount'], !$scope.dollarsPercent);
-            $scope.gridOptions.api.hideColumns(['total_percent_budget'], $scope.dollarsPercent);
-            $scope.gridOptions.api.hideColumns(['total_budget_spent'], !$scope.dollarsPercent);
-            $scope.gridOptions.api.hideColumns(['total_percent_spent'], $scope.dollarsPercent);
-            $scope.gridOptions.api.hideColumns(['total_budget_remaining'], !$scope.dollarsPercent);
-            $scope.gridOptions.api.hideColumns(['total_percent_remaining'], $scope.dollarsPercent);
-            $scope.gridOptions.api.hideColumns(['status_left', 'status', 'status_right'], $scope.icons);
-            $scope.gridOptions.api.setSortModel($scope.sortKeys);
+            if ($scope.gridOptions.api) {
+                $scope.gridOptions.api.onNewCols();
+                $scope.gridOptions.api.hideColumns(['total_budget_amount'], !$scope.dollarsPercent);
+                $scope.gridOptions.api.hideColumns(['total_percent_budget'], $scope.dollarsPercent);
+                $scope.gridOptions.api.hideColumns(['total_budget_spent'], !$scope.dollarsPercent);
+                $scope.gridOptions.api.hideColumns(['total_percent_spent'], $scope.dollarsPercent);
+                $scope.gridOptions.api.hideColumns(['total_budget_remaining'], !$scope.dollarsPercent);
+                $scope.gridOptions.api.hideColumns(['total_percent_remaining'], $scope.dollarsPercent);
+                $scope.gridOptions.api.hideColumns(['status_left', 'status', 'status_right'], $scope.icons);
+                $scope.gridOptions.api.setSortModel($scope.sortKeys);
+            }
         }
 
         $scope.toggleHorizontal = function () {
@@ -330,17 +348,18 @@ Requires the following in styles.css
                 }
             }
             $scope.gridOptions.pinnedColumnCount = $scope.pin;
-            $scope.gridOptions.api.onNewCols();
-            $scope.gridOptions.api.hideColumns(['total_budget_amount'], !$scope.dollarsPercent);
-            $scope.gridOptions.api.hideColumns(['total_percent_budget'], $scope.dollarsPercent);
-            $scope.gridOptions.api.hideColumns(['total_budget_spent'], !$scope.dollarsPercent);
-            $scope.gridOptions.api.hideColumns(['total_percent_spent'], $scope.dollarsPercent);
-            $scope.gridOptions.api.hideColumns(['total_budget_remaining'], !$scope.dollarsPercent);
-            $scope.gridOptions.api.hideColumns(['total_percent_remaining'], $scope.dollarsPercent);
-            $scope.gridOptions.api.hideColumns(['status_left', 'status', 'status_right'], $scope.icons);
-            $scope.gridOptions.api.setSortModel($scope.sortKeys);
+            if ($scope.gridOptions.api) {
+                $scope.gridOptions.api.onNewCols();
+                $scope.gridOptions.api.hideColumns(['total_budget_amount'], !$scope.dollarsPercent);
+                $scope.gridOptions.api.hideColumns(['total_percent_budget'], $scope.dollarsPercent);
+                $scope.gridOptions.api.hideColumns(['total_budget_spent'], !$scope.dollarsPercent);
+                $scope.gridOptions.api.hideColumns(['total_percent_spent'], $scope.dollarsPercent);
+                $scope.gridOptions.api.hideColumns(['total_budget_remaining'], !$scope.dollarsPercent);
+                $scope.gridOptions.api.hideColumns(['total_percent_remaining'], $scope.dollarsPercent);
+                $scope.gridOptions.api.hideColumns(['status_left', 'status', 'status_right'], $scope.icons);
+                $scope.gridOptions.api.setSortModel($scope.sortKeys);
+            }
         }
-
 
         $scope.gridOptions = {
             columnDefs: columnDefs,
@@ -357,32 +376,34 @@ Requires the following in styles.css
             enableSorting: true
         };
 
-        $http.get("json/activity.detail.json")
-            .then(function (res) {
-                $scope.pins = 8;
-                $scope.pin = 0;
-                $scope.sortKeys = [
-                    {field: 'region', sort: 'asc'},
-                    {field: 'location', sort: 'asc'},
-                    {field: 'crop_year', sort: 'asc'},
-                    {field: 'season', sort: 'asc'},
-                    {field: 'analyst_abr', sort: 'asc'},
-                    {field: 'farmer', sort: 'asc'},
-                    {field: 'applicant', sort: 'asc'},
-                    {field: 'dist', sort: 'asc'},
-                    {field: 'loantype_abr', sort: 'asc'},
-                ];
-                $scope.gridOptions.rowData = res.data;
-                $scope.gridHeight = Number(($scope.gridOptions.rowData.length + 2) * 30).toString();
+        $scope.reduced = CustomerBudgetFactory.getData(Loans);
+        console.log('reduced', $scope.reduced);
 
-                $scope.gridOptions.api.hideColumns(['total_percent_budget', 'total_percent_spent', 'total_percent_remaining'], true);
-                $scope.gridOptions.api.onNewRows();
-                $scope.gridOptions.api.setSortModel($scope.sortKeys);
+        $scope.pins = 8;
+        $scope.pin = 0;
+        $scope.sortKeys = [
+            {field: 'region', sort: 'asc'},
+            {field: 'location', sort: 'asc'},
+            {field: 'crop_year', sort: 'asc'},
+            {field: 'season', sort: 'asc'},
+            {field: 'analyst_abr', sort: 'asc'},
+            {field: 'farmer', sort: 'asc'},
+            {field: 'applicant', sort: 'asc'},
+            {field: 'dist', sort: 'asc'},
+            {field: 'loantype_abr', sort: 'asc'},
+        ];
+        $scope.gridOptions.rowData = $scope.reduced;
+        $scope.gridHeight = Number(($scope.gridOptions.rowData.length + 2) * 30).toString();
 
-                $scope.icons = false;
-                $scope.dollarsPercent = true;
-                $scope.detail = true;
-            });
+        if ($scope.gridOptions.api) {
+            $scope.gridOptions.api.hideColumns(['total_percent_budget', 'total_percent_spent', 'total_percent_remaining'], true);
+            $scope.gridOptions.api.onNewRows();
+            $scope.gridOptions.api.setSortModel($scope.sortKeys);
+        }
+
+        $scope.icons = false;
+        $scope.dollarsPercent = true;
+        $scope.detail = true;
     }
 
 })();

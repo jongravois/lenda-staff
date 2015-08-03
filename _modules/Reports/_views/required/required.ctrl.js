@@ -4,10 +4,11 @@
         .module('ARM')
         .controller('RequiredController', RequiredController);
 
-    RequiredController.$inject = ['$scope', '$http', '$filter', '$timeout', 'AppFactory'];
+    RequiredController.$inject = ['$scope', '$http', '$filter', '$timeout', 'AppFactory', 'Loans', 'RequiredFactory'];
 
-    function RequiredController($scope, $http, $filter, $timeout, AppFactory) {
+    function RequiredController($scope, $http, $filter, $timeout, AppFactory, Loans, RequiredFactory) {
         $scope.AppFactory = AppFactory;
+        $scope.loans = Loans;
 
         var columnDefs = [
             {
@@ -23,6 +24,8 @@
                         return 'East';
                     } else if (params.data.region.toUpperCase() === 'W'){
                         return 'West';
+                    } else {
+                        return params.data.region;
                     }
                 },
                 suppressSorting: false,
@@ -158,23 +161,25 @@
             enableSorting: true
         };
 
-        $http.get("json/required.json")
-            .then(function (res) {
-                $scope.pins = 0;
-                $scope.pin = 0;
-                var sort = [
-                    {field: 'user', sort: 'asc'}
-                ];
-                $scope.gridOptions.rowData = res.data;
-                $scope.gridHeight = Number(($scope.gridOptions.rowData.length + 2) * 30).toString();
+        $scope.reduced = RequiredFactory.getData(Loans);
+        console.log('reduced', $scope.reduced);
 
-                $scope.gridOptions.api.onNewRows();
-                $scope.gridOptions.api.setSortModel($scope.sortKeys);
+        $scope.pins = 0;
+        $scope.pin = 0;
+        var sort = [
+            {field: 'user', sort: 'asc'}
+        ];
+        $scope.gridOptions.rowData = $scope.reduced;
+        $scope.gridHeight = Number(($scope.gridOptions.rowData.length + 2) * 30).toString();
 
-                $scope.pct_success = 60;
-                $scope.pct_warning = 10;
-                $scope.pct_danger  = 30;
-            });
+        if ($scope.gridOptions.api) {
+            $scope.gridOptions.api.onNewRows();
+            $scope.gridOptions.api.setSortModel($scope.sortKeys);
+        }
+
+        $scope.pct_success = 60;
+        $scope.pct_warning = 10;
+        $scope.pct_danger  = 30;
     }
 
 })();

@@ -210,9 +210,15 @@
                 suppressSizeToFit: false,
                 width: 105,
                 filter: 'number'
-
             }
         ];
+
+        $scope.getModel = function(){
+            if ($scope.gridOptions.api) {
+                console.log($scope.gridOptions.api.getModel());
+                return $scope.gridOptions.api.getModel();
+            }
+        }
 
         $scope.showToolPanel = function(){
             $scope.tools = !$scope.tools;
@@ -227,9 +233,11 @@
                 $scope.pin = $scope.pins;
             }
             $scope.gridOptions.pinnedColumnCount = $scope.pin;
-            $scope.gridOptions.api.onNewCols();
-            $scope.gridOptions.api.hideColumns(['status_left', 'status', 'status_right'], $scope.icons);
-            $scope.gridOptions.api.setSortModel($scope.sortKeys);
+            if ($scope.gridOptions.api) {
+                $scope.gridOptions.api.onNewCols();
+                $scope.gridOptions.api.hideColumns(['status_left', 'status', 'status_right'], $scope.icons);
+                $scope.gridOptions.api.setSortModel($scope.sortKeys);
+            }
         }
 
         $scope.gridOptions = {
