@@ -9,8 +9,6 @@
         /* @ngInject */
         function CommentsController($rootScope, $scope) {
             /* jshint validthis: true */
-            var vm = this;
-            console.log('commentsLoan', $scope.loan);
 
             //////////
 

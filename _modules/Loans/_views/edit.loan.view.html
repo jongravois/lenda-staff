@@ -8,21 +8,21 @@
     <div class="frmFull_Page">
         <div class="row view-page-header-bar">
             <div class="col-md-6" style="color:white;margin-top:3px;">
-                <h6>{{loan.loan_type}} <span ng-if="loan.has_distributor">&nbsp;[{{loan.distributor.distributor}}]&nbsp;</span>- {{loan.crop_year}} - {{loan.full_season}}: {{loan.applicant|displayname}}
-                    ({{loan.farmer|displayname}} )</h6>
+                <h6>{{loan.loan_type}} <span ng-if="loan.has_distributor">&nbsp;[{{loan.distributor.distributor}}]&nbsp;</span>- {{loan.crop_year}} - {{loan.full_season}}: {{loan.applicant.applicant|displayname}}
+                    ({{loan.farmer.farmer|displayname}} )</h6>
             </div>
 
             <div class="col-md-6 text-right" style="color:white;margin-top:3px;">
                 <h6 ng-if="loan.loan_type_id !== 7">
                     CF: {{AppFactory.calcCashFlow(loan)|flexCurrency:0}}
                 </h6>
-                <h6 ng-if="AppFactory.loan.loan_type_id !== 3 && loan.loan_type_id !== 4">
+                <h6 ng-if="loan.loan_type_id !== 3 && loan.loan_type_id !== 4">
                     &nbsp;&nbsp;|&nbsp;&nbsp;
         		    EX: {{AppFactory.calcExposure(loan)|flexCurrency:0}}
     		    </h6>
                 <h6 ng-if="loan.loan_type_id === 3 || loan.loan_type_id === 4">
         		    &nbsp;&nbsp;|&nbsp;&nbsp;
-        		    <sub>adj</sub>EX: {{calcAdjExposure(loan)|flexCurrency:0}}
+        		    <sub>adj</sub>EX: {{AppFactory.calcAdjExposure(loan)|flexCurrency:0}}
     		    </h6>
             </div>
         </div>
@@ -51,7 +51,7 @@
             </div>
 
             <div ng-class="showSidebar ? 'col-xs-10' : 'col-xs-11'"  id="colMain" style="margin: -18px 0 0 -44px;" >
-                <div style="padding:0 5px;" ui-view></div>
+                <div style="padding:0 5px;" ng-cloak ui-view></div>
             </div>
 
         </div>

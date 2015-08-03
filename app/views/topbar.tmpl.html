@@ -8,12 +8,12 @@
             Loan Management
         </a>
         &nbsp;&nbsp;|&nbsp;&nbsp;
-        <span class="dropdown" dropdown on-toggle="menu.toggled(open)">
+        <span class="dropdown" dropdown on-toggle="toggled(open)">
             <a href class="dropdown-toggle" dropdown-toggle>
                 New Loan Application <span class="menuglyphs glyphicons glyphicons-chevron-down"></span>
             </a>
             <ul class="dropdown-menu" role="menu">
-                <li ng-repeat="l in menu.loantypes">
+                <li ng-repeat="l in feeder.loantypes">
                     <a ng-click="newLoan(l.id, feeder.loantypes)">
                         {{l.loantype}}
                     </a>
@@ -21,7 +21,7 @@
             </ul>
         </span>
         &nbsp;&nbsp;|&nbsp;&nbsp;
-        <span class="dropdown" dropdown on-toggle="menu.toggled(open)">
+        <span class="dropdown" dropdown on-toggle="toggled(open)">
             <a href class="dropdown-toggle" dropdown-toggle>Reports <span class="menuglyphs glyphicons glyphicons-chevron-down"></span></a>
             <ul class="dropdown-menu" role="menu">
                 <li>
@@ -63,7 +63,7 @@
             </ul>
         </span>
         &nbsp;&nbsp;|&nbsp;&nbsp;
-        <span class="dropdown" dropdown on-toggle="menu.toggled(open)">
+        <span class="dropdown" dropdown on-toggle="toggled(open)">
             <a href class="dropdown-toggle" dropdown-toggle>Library <span class="menuglyphs glyphicons glyphicons-chevron-down"></span></a>
             <ul class="dropdown-menu" role="menu">
                 <li>
@@ -89,9 +89,9 @@
                 </li>
             </ul>
         </span>
-        <span ng-show="main.user.is_admin">
+        <span ng-show="user.is_admin">
             &nbsp;&nbsp;|&nbsp;&nbsp;
-            <span class="dropdown" dropdown on-toggle="menu.toggled(open)">
+            <span class="dropdown" dropdown on-toggle="toggled(open)">
                 <a href class="dropdown-toggle" dropdown-toggle>Admin <span class="menuglyphs glyphicons glyphicons-chevron-down"></span></a>
                <ul class="dropdown-menu" role="menu">
                    <li class="dropdown-submenu">
