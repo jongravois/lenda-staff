@@ -20,6 +20,7 @@
 
             var retro = _.map(loans, function(item){
                 var data = {};
+
                 data.region = item.location.regions.region;
                 data.location = item.location.loc_abr;
                 data.crop_year = item.crop_year;
@@ -33,11 +34,12 @@
                 data.sugarcane = item.fins.crop_acres.sugarcane;
                 data.sunflowers = item.fins.crop_acres.sunflowers;
                 data.wheat = item.fins.crop_acres.wheat;
+
                 return data;
             });
             //console.log('CropMixFactory.retro', retro);
 
-            function match(coll, loc) {
+            function getRegion(coll, loc) {
                 var val = _.find(retro, function(i){
                     if(i.location == loc) {
                         return i;
@@ -46,13 +48,35 @@
                 return val.region || '';
             }
 
+            /**
+             * getCropYear get a year associated with the location abbreviation of the office, i.e., JON
+             * for Jonesboro, Arkansas.  The problem associated with this function is that the year it
+             * gets may not be associated with the crop mix.  A location could easily have multiple years
+             * of crop data. This needs to be changed ASAP.
+             *
+             * 2015-07-31
+             *
+             * @param coll
+             * @param loc
+             * @returns {*|string}
+             */
+            function getCropYear(coll, loc) {
+                var val = _.find(retro, function(i){
+                    if(i.location == loc) {
+                        return i;
+                    }
+                });
+                return val.crop_year || '';
+            }
+
             var arr = [];
 
             var locations = _(retro).chain().groupBy('location').pairs().value();
             _.each(locations, function(loc){
                 var rec = {
-                    region: match(retro, loc[0]),
+                    region: getRegion(retro, loc[0]),
                     location: loc[0],
+                    crop_year: getCropYear(retro, loc[0]),
                     beansFAC: _.sumCollection(loc[1], 'beansFAC'),
                     corn: _.sumCollection(loc[1], 'corn'),
                     cotton: _.sumCollection(loc[1], 'cotton'),

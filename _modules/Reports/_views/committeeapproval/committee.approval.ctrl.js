@@ -4,10 +4,11 @@
         .module('ARM')
         .controller('CommitteeApprovalController', CommitteeApprovalController);
 
-    CommitteeApprovalController.$inject = ['$scope', '$http', '$filter', '$timeout', 'AppFactory'];
+    CommitteeApprovalController.$inject = ['$scope', '$http', '$filter', '$timeout', 'AppFactory', 'Loans', 'CommitteeApprovalFactory'];
 
-    function CommitteeApprovalController($scope, $http, $filter, $timeout, AppFactory) {
+    function CommitteeApprovalController($scope, $http, $filter, $timeout, AppFactory, Loans, CommitteeApprovalFactory) {
         $scope.AppFactory = AppFactory;
+        $scope.loans = Loans;
 
         var columnDefs = [
             {
@@ -123,9 +124,18 @@
             }
         ];
 
+        $scope.getModel = function(){
+            if ($scope.gridOptions.api) {
+                console.log($scope.gridOptions.api.getModel());
+                return $scope.gridOptions.api.getModel();
+            }
+        }
+
         $scope.showToolPanel = function(){
             $scope.tools = !$scope.tools;
-            $scope.gridOptions.api.showToolPanel($scope.tools);
+            if ($scope.gridOptions.api) {
+                $scope.gridOptions.api.showToolPanel($scope.tools);
+            }
         }
 
         $scope.gridOptions = {
@@ -142,21 +152,23 @@
             showToolPanel: false
         };
 
-        $http.get("json/committee.json")
-            .then(function (res) {
-                var sort = [
-                    {field: 'analyst_abr', sort: 'asc'},
-                    {field: 'committee_member', sort: 'asc'},
-                ];
-                $scope.gridOptions.rowData = res.data;
-                $scope.gridHeight = Number(($scope.gridOptions.rowData.length + 2) * 30).toString();
+        $scope.reduced = CommitteeApprovalFactory.getData(Loans);
+        console.log('reduced', $scope.reduced);
 
-                $scope.gridOptions.api.onNewRows();
-                $scope.gridOptions.api.setSortModel($scope.sortKeys);
+        var sort = [
+            {field: 'analyst_abr', sort: 'asc'},
+            {field: 'committee_member', sort: 'asc'},
+        ];
+        $scope.gridOptions.rowData = $scope.reduced;
+        $scope.gridHeight = Number(($scope.gridOptions.rowData.length + 2) * 30).toString();
 
-                $scope.icons = false;
-                $scope.tools = false;
-            });
+        if ($scope.gridOptions.api) {
+            $scope.gridOptions.api.onNewRows();
+            $scope.gridOptions.api.setSortModel($scope.sortKeys);
+        }
+
+        $scope.icons = false;
+        $scope.tools = false;
     }
 
 })();

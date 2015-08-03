@@ -8,10 +8,11 @@
         .module('ARM')
         .controller('ActivityDetailController', ActivityDetailController);
 
-    ActivityDetailController.$inject = ['$scope', '$http', '$filter', '$timeout', 'AppFactory'];
+    ActivityDetailController.$inject = ['$scope', '$http', '$filter', '$timeout', 'AppFactory', 'Loans', 'ActivityDetailFactory'];
 
-    function ActivityDetailController($scope, $http, $filter, $timeout, AppFactory) {
+    function ActivityDetailController($scope, $http, $filter, $timeout, AppFactory, Loans, ActivityDetailFactory) {
         $scope.AppFactory = AppFactory;
+        $scope.loans = Loans;
 
         var columnDefs = [
             {
@@ -39,6 +40,8 @@
                         return 'East';
                     } else if (params.data.region.toUpperCase() === 'W'){
                         return 'West';
+                    } else {
+                        return params.data.region;
                     }
                 },
                 suppressSorting: false,
@@ -239,8 +242,10 @@
         ];
 
         $scope.getModel = function(){
-            console.log($scope.gridOptions.api.getModel());
-            return $scope.gridOptions.api.getModel();
+            if ($scope.gridOptions.api) {
+                console.log($scope.gridOptions.api.getModel());
+                return $scope.gridOptions.api.getModel();
+            }
         }
 
         $scope.hideIcons = function(){
@@ -256,8 +261,10 @@
 
         $scope.showToolPanel = function(){
             $scope.tools = !$scope.tools;
-            $scope.gridOptions.api.showToolPanel($scope.tools);
-            $scope.gridOptions.api.showToolPanel(api.isToolPanelShowing());
+            if ($scope.gridOptions.api) {
+                $scope.gridOptions.api.showToolPanel($scope.tools);
+                $scope.gridOptions.api.showToolPanel(api.isToolPanelShowing());
+            }
         }
 
         $scope.toggleHorizontal = function(){
@@ -278,11 +285,13 @@
 
         $scope.toggleOrigDue = function(){
             $scope.origDue = !$scope.origDue;
-            $scope.gridOptions.api.onNewCols();
-            $scope.gridOptions.api.hideColumns(['orig_date'], $scope.origDue);
-            $scope.gridOptions.api.hideColumns(['due_date'], !$scope.origDue);
-            $scope.gridOptions.api.hideColumns(['status_left', 'status', 'status_right'], $scope.icons);
-            $scope.gridOptions.api.setSortModel($scope.sortKeys);
+            if ($scope.gridOptions.api) {
+                $scope.gridOptions.api.onNewCols();
+                $scope.gridOptions.api.hideColumns(['orig_date'], $scope.origDue);
+                $scope.gridOptions.api.hideColumns(['due_date'], !$scope.origDue);
+                $scope.gridOptions.api.hideColumns(['status_left', 'status', 'status_right'], $scope.icons);
+                $scope.gridOptions.api.setSortModel($scope.sortKeys);
+            }
         }
 
         $scope.gridOptions = {
@@ -300,37 +309,39 @@
             showToolPanel: false
         };
 
-        $http.get("json/activity.detail.json")
-            .then(function (res) {
-                $scope.pins = 8;
-                $scope.pin = 0;
-                $scope.sortKeys = [
-                    {field: 'region', sort: 'asc'},
-                    {field: 'location', sort: 'asc'},
-                    {field: 'crop_year', sort: 'asc'},
-                    {field: 'season', sort: 'asc'},
-                    {field: 'analyst_abr', sort: 'asc'},
-                    {field: 'farmer', sort: 'asc'},
-                    {field: 'applicant', sort: 'asc'},
-                    {field: 'dist', sort: 'asc'},
-                    {field: 'loantype_abr', sort: 'asc'},
-                    {field: 'qb_date', sort: 'asc'}
-                ];
-                $scope.gridOptions.rowData = res.data;
-                $scope.gridHeight = Number(($scope.gridOptions.rowData.length + 2) * 30).toString();
+        $scope.reduced = ActivityDetailFactory.getData(Loans);
+        console.log('reduced', $scope.reduced);
 
-                $scope.gridOptions.api.hideColumns(['due_date'], true);
-                $scope.gridOptions.api.onNewRows();
-                $scope.gridOptions.api.setSortModel($scope.sortKeys);
+        $scope.pins = 8;
+        $scope.pin = 0;
+        $scope.sortKeys = [
+            {field: 'region', sort: 'asc'},
+            {field: 'location', sort: 'asc'},
+            {field: 'crop_year', sort: 'asc'},
+            {field: 'season', sort: 'asc'},
+            {field: 'analyst_abr', sort: 'asc'},
+            {field: 'farmer', sort: 'asc'},
+            {field: 'applicant', sort: 'asc'},
+            {field: 'dist', sort: 'asc'},
+            {field: 'loantype_abr', sort: 'asc'},
+            {field: 'qb_date', sort: 'asc'}
+        ];
+        $scope.gridOptions.rowData = $scope.reduced;
+        $scope.gridHeight = Number(($scope.gridOptions.rowData.length + 2) * 30).toString();
 
-                console.log($scope.gridOptions);
+        if ($scope.gridOptions.api) {
+            $scope.gridOptions.api.hideColumns(['due_date'], true);
+            $scope.gridOptions.api.onNewRows();
+            $scope.gridOptions.api.setSortModel($scope.sortKeys);
+        }
 
-                $scope.icons = false;
-                $scope.tools = false;
-                $scope.origDue = false;
-                $scope.detail = false;
-                $scope.horizontal = false;
-            });
+        //console.log($scope.gridOptions);
+
+        $scope.icons = false;
+        $scope.tools = false;
+        $scope.origDue = false;
+        $scope.detail = false;
+        $scope.horizontal = false;
     }
 
 })();
