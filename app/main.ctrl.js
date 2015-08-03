@@ -10,7 +10,7 @@
     function MainController($rootScope, $scope, $http, $auth, $state, API_URL, DefaultsFactory, FeederFactory) {
         /* jshint validthis: true */
         /*jshint -W030 */
-        $scope.authenticated = false; //($rootScope.authenticated ? true : false);
+        $scope.authenticated = ($rootScope.authenticated ? true : false);
         $scope.user;
         $scope.users;
         $scope.feeder;
@@ -45,6 +45,15 @@
                     }
                 });
         };
+
+        var user = JSON.parse(localStorage.getItem('user'));
+        $http.get(API_URL + 'users/' + user.id)
+            .success(function(rsp){
+                $scope.user = rsp.data;
+                var fulluser = JSON.stringify(rsp.data);
+                localStorage.removeItem('user');
+                localStorage.setItem('user', fulluser);
+            });
 
         $scope.logout = function () {
             $auth.logout()
