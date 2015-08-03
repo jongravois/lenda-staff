@@ -41,11 +41,11 @@
 
                 data.analyst = item.analyst;
                 data.analyst_abr = item.analyst_abr;
-                data.farmer = item.farmer;
-                data.applicant = item.applicant;
+                data.farmer = item.farmer.farmer;
+                data.applicant = item.applicant.applicant;
                 data.loan_type = item.loan_type;
                 data.loantype_abr = item.loantype_abr;
-                data.distributor = item.distributor.distributor;
+                data.dist = item.distributor.distributor;
                 data.app_date = item.app_date;
                 data.due_date = item.due_date;
 
