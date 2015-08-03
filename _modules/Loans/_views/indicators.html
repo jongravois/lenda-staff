@@ -1,55 +1,44 @@
-<span ng-if="loanman.user.viewopts.voIconAddendum">
-    <!--<a href="#/edit/{{row.getProperty('loan_type_id')}}/{{row.getProperty('id')}}/addendums">-->
+<span ng-if="user.viewopts.voIconAddendum">
         <span class="glyphicons glyphicons-plus"
               tooltip="Addendum"
               tooltip-append-to-body="true"
               tooltip-placement="bottom"
               ng-class="{ clrOn : data.has_addendum, clrOff: !data.has_addendum }"></span>
-    <!--</a>-->
 </span>
 
-<span ng-if="loanman.user.viewopts.voIconCross">
-    <!--<a href="#/edit/{{row.getProperty('loan_type_id')}}/{{row.getProperty('id')}}/collateral">-->
+<span ng-if="user.viewopts.voIconCross">
         <span class="glyphicons glyphicons-random"
               tooltip="Cross Collateral"
               tooltip-append-to-body="true"
               tooltip-placement="bottom"
               ng-class="{ clrOn : data.is_cross_collateralized, clrOff: !data.is_cross_collateralized }"></span>
-    <!--</a>-->
 </span>
 
-<span ng-if="loanman.user.viewopts.voIconBankruptcy">
-    <!--<a href="#/edit/{{row.getProperty('loan_type_id')}}/{{row.getProperty('id')}}/quests">-->
+<span ng-if="user.viewopts.voIconBankruptcy">
         <span class="glyphicons glyphicons-fire"
               tooltip="Bankruptcy History"
               tooltip-append-to-body="true"
               tooltip-placement="bottom"
               ng-class="{ clrOn : data.bankruptcy_history, clrOff: !data.bankruptcy_history }"></span>
-    <!--</a>-->
 </span>
 
-<span ng-if="loanman.user.viewopts.voIcon3pcredit">
-    <!--<a href="#/edit/{{row.getProperty('loan_type_id')}}/{{row.getProperty('id')}}/collateral">-->
+<span ng-if="user.viewopts.voIcon3pcredit">
         <span class="glyphicons glyphicons-charts"
               tooltip="Third Party Credit Required"
               tooltip-append-to-body="true"
               tooltip-placement="bottom"
               ng-class="{ clrOn : data.required_3party, clrOff: !data.required_3party }"></span>
-    <!--</a>-->
 </span>
 
-<span ng-if="loanman.user.viewopts.voIconAddedland">
-    <!--<a href="#/edit/{{row.getProperty('loan_type_id')}}/{{row.getProperty('id')}}/collateral">-->
+<span ng-if="user.viewopts.voIconAddedland">
         <span class="glyphicons glyphicons-flag"
               tooltip="Added Land in Database"
               tooltip-append-to-body="true"
               tooltip-placement="bottom"
               ng-class="{ clrOn : data.added_land, clrOff: !data.added_land }"></span>
-    <!--</a>-->
 </span>
 
-<span ng-if="loanman.user.viewopts.voIconDisbursement">
-    <!--<a href="#/edit/{{row.getProperty('loan_type_id')}}/{{row.getProperty('id')}}/disbursement">-->
+<span ng-if="user.viewopts.voIconDisbursement">
         <span class="glyphicons glyphicons-lock"
               tooltip="Controlled Disbursement"
               tooltip-append-to-body="true"
@@ -58,12 +47,11 @@
     <!--</a>-->
 </span>
 
-<span ng-if="loanman.user.viewopts.voIconAttachments">
+<span ng-if="user.viewopts.voIconAttachments">
     <!--<a href="#/edit/{{row.getProperty('loan_type_id')}}/{{row.getProperty('id')}}/prerequisites">-->
         <span class="glyphicons glyphicons-paperclip"
               tooltip="Attachments"
               tooltip-append-to-body="true"
               tooltip-placement="bottom"
               ng-class="{ clrOn : data.has_attachments, clrOff: !data.has_attachments }"></span>
-    <!--</a>-->
 </span>

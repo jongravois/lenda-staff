@@ -4,47 +4,52 @@
         .module('ARM')
         .controller('ManagementController', ManagementController);
 
-    ManagementController.$inject = ['$location', 'AppFactory', 'LoansFactory', 'ManFactory'];
+    ManagementController.$inject = ['$rootScope', '$scope', '$filter', '$location', '$state', 'orderByFilter', 'AppFactory', 'LoansFactory', 'ManFactory'];
 
     /* @ngInject */
-    function ManagementController($location, AppFactory, LoansFactory, ManFactory) {
+    function ManagementController($rootScope, $scope, $filter, $location, $state, orderByFilter, AppFactory, LoansFactory, ManFactory) {
         /* jshint validthis: true */
-        var vm = this;
-
         var data = [];
-        var user = JSON.parse(localStorage.getItem('user'));
-        vm.user = user;
+        $scope.indWid = {
+            hide: false,
+            width: 136
+        };
+
+        $scope.pendingView = true;
+        $scope.sortPending = sortPending;
+        $scope.sortLoans = AppFactory.sortLoans;
+        $scope.landing_view = 'settings';
+        $scope.returnColor = AppFactory.returnColor;
+
+        if(!$rootScope.currentUser) {
+            try {
+                var user = JSON.parse(localStorage.getItem('user'));
+            } catch (exception) {
+                $state.go('auth');
+            }
+        } else {
+            var user = $rootScope.currentUser;
+        }
+        $scope.user = user;
         //console.log('user', user);
 
-        vm.pendingView = true;
-        vm.sortPending = sortPending;
-        var indWid = AppFactory.getIndicatorWidth(vm.user);
-
-        vm.sortLoans = AppFactory.sortLoans;
-        vm.returnColor = AppFactory.returnColor;
-        vm.clickManagement = ManFactory.clickManagement;
-        vm.landing_view = 'settings';
-
         LoansFactory.getLoans()
-            .then(function(loans){
-                vm.loans = loans;
-                vm.indWid = AppFactory.getIndicatorWidth(vm.user);
+            .then(function(rsp){
+                //console.log(rsp);
+                $scope.loans = rsp;
+                $scope.indWid = AppFactory.getIndicatorWidth($scope.user);
+                var LoansBySettings = AppFactory.filterLoans($scope.loans, 'settings');
+                var settingsLoans = $scope.sortLoans(LoansBySettings, 1);
+                $scope.sortedLoanList = settingsLoans;
+                $rootScope.loans = settingsLoans;
+                $scope.hgt = $scope.sortedLoanList.length * 38;
+                var data = AppFactory.getSortedData($scope.pendingView, $scope.sortedLoanList);
 
-                var LoansBySettings = AppFactory.filterLoans(loans, 'settings');
-                var settingsLoans = vm.sortLoans(LoansBySettings, 1);
-                vm.sortedLoanList = settingsLoans;
-                vm.hgt = vm.sortedLoanList.length * 38;
-                data = AppFactory.getSortedData(vm.pendingView, vm.sortedLoanList);
-
-                vm.gridOptions.api.setRows(data);
+                $scope.gridOptions.rowData = data;
+                if ($scope.gridOptions.api) {
+                    $scope.gridOptions.api.onNewRows();
+                }
             });
-
-        vm.changeLandingView = function (val) {
-            var loanset = AppFactory.filterLoans(vm.loans, val);
-            vm.sortedLoanList = loanset;
-            data = AppFactory.getSortedData(vm.pendingView, vm.sortedLoanList);
-            vm.gridOptions.api.setRows(data);
-        };
 
         var columnDefs = [
             {
@@ -63,8 +68,8 @@
                 templateUrl: './_modules/Loans/_views/indicators.html',
                 cellClass: 'text-center',
                 suppressSizeToFit: true,
-                width: indWid.width,
-                hide: indWid.hide
+                width: $scope.indWid.width,
+                hide: $scope.indWid.hide
             },
             {
                 valueGetter: 'data.farmer.farmer',
@@ -338,15 +343,40 @@
             }
         ];
 
+        $scope.gridOptions = {
+            angularCompileRows: true,
+            angularCompileHeaders: true,
+            columnDefs: columnDefs,
+            colWidth: 100,
+            rowHeight: 32,
+            rowSelection: false,
+            enableSorting: false,
+            sortPending: sortPending,
+            context: {
+                pending_view: $scope.pendingView
+            },
+            ready: function (api) {
+                api.setRows(data);
+                api.sizeColumnsToFit();
+            }
+        };
+
+        $scope.changeLandingView = function (val) {
+            var loanset = AppFactory.filterLoans($scope.loans, val);
+            $scope.sortedLoanList = loanset;
+            data = AppFactory.getSortedData($scope.pendingView, $scope.sortedLoanList);
+            $scope.gridOptions.api.setRows(data);
+        };
+
+        //////////
         function pendingHdr(params) {
             //console.log('before', params);
             if (params.context.pending_view) {
-                return '<div style="text-align:center !important;"><span class="pendicon glyphicons glyphicons-circle-exclamation-mark" ng-click="loanman.sortPending()" style="color:#000000;"></span></div>';
+                return '<div style="text-align:center !important;"><span class="pendicon glyphicons glyphicons-circle-exclamation-mark" ng-click="sortPending()" style="color:#000000;"></span></div>';
             } else {
-                return '<div style="text-align:center !important;"><span class="pendicon glyphicons glyphicons-circle-exclamation-mark" ng-click="loanman.sortPending()" style="color:#aaaaaa;"></span></div>';
+                return '<div style="text-align:center !important;"><span class="pendicon glyphicons glyphicons-circle-exclamation-mark" ng-click="sortPending()" style="color:#aaaaaa;"></span></div>';
             }
         }
-
         function managementHdr(params) {
             //console.log(params.value);
             switch (params.value) {
@@ -418,32 +448,12 @@
                     break;
             }
         }
-
-        vm.gridOptions = {
-            angularCompileRows: true,
-            angularCompileHeaders: true,
-            columnDefs: columnDefs,
-            colWidth: 100,
-            rowHeight: 32,
-            rowSelection: false,
-            enableSorting: false,
-            sortPending: sortPending,
-            context: {
-                pending_view: vm.pendingView
-            },
-            ready: function (api) {
-                api.setRows(data);
-                api.sizeColumnsToFit();
-            }
-        };
-
-        //////////
         function sortPending() {
-            vm.pendingView = !vm.pendingView;
-            vm.gridOptions.context.pending_view = !vm.gridOptions.context.pending_view;
-            vm.gridOptions.api.refreshHeader();
-            var newData = AppFactory.getSortedData(vm.pendingView, vm.sortedLoanList);
-            vm.gridOptions.api.setRows(newData);
+            $scope.pendingView = !$scope.pendingView;
+            $scope.gridOptions.context.pending_view = !$scope.gridOptions.context.pending_view;
+            $scope.gridOptions.api.refreshHeader();
+            var newData = AppFactory.getSortedData($scope.pendingView, $scope.sortedLoanList);
+            $scope.gridOptions.api.setRows(newData);
         }
 
     } // end function
