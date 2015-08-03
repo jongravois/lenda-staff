@@ -5,7 +5,7 @@
             .state('arm.reports', {
                 url: '/reports',
                 abstract: true,
-                templateUrl: '_modules/Reports/_views/reports/reports.view.html',
+                template: '<div ui-view></div>',
                 controller: 'ReportsController as reports',
                 resolve: {
                     Loans: function(LoansFactory) {
