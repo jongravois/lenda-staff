@@ -4,31 +4,28 @@
         .module('ARM')
         .controller('MainController', MainController);
 
-    MainController.$inject = ['$rootScope', '$http', '$auth', 'API_URL', 'DefaultsFactory', 'FeederFactory'];
+    MainController.$inject = ['$scope', '$http', '$auth', 'API_URL', 'DefaultsFactory', 'FeederFactory'];
 
     /* @ngInject */
-    function MainController($rootScope, $http, $auth, API_URL, DefaultsFactory, FeederFactory) {
+    function MainController($scope, $http, $auth, API_URL, DefaultsFactory, FeederFactory) {
         /* jshint validthis: true */
-        var vm = this;
-
         /*jshint -W030 */
-        vm.users;
-        vm.feeder;
-        vm.defaults;
-        vm.error;
+        $scope.users;
+        $scope.feeder;
+        $scope.defaults;
+        $scope.error;
 
-        vm.getUsers = function () {
+        $scope.getUsers = function () {
             $http.get(API_URL + 'authenticate')
                 .success(function (users) {
-                    vm.users = users;
-                    $rootScope.allUsers = users;
+                    $scope.users = users;
                 })
                 .error(function (error) {
-                    vm.error = error;
+                    $scope.error = error;
                 });
         };
 
-        vm.logout = function () {
+        $scope.logout = function () {
             $auth.logout()
                 .then(function () {
                     localStorage.removeItem('user');
@@ -39,9 +36,9 @@
 
         // FEEDER LISTS
         FeederFactory.init();
-        $rootScope.feeder = FeederFactory.getObject();
+        $scope.feeder = FeederFactory.getObject();
 
         DefaultsFactory.init();
-        $rootScope.defaults = DefaultsFactory.getObject();
+        $scope.defaults = DefaultsFactory.getObject();
     } // end function
 })();

@@ -4,49 +4,47 @@
         .module('ARM')
         .controller('LoansController', LoansController);
 
-        LoansController.$inject = ['$rootScope', '$filter', '$location', 'orderByFilter', 'AppFactory', 'LoansFactory'];
+        LoansController.$inject = ['$rootScope', '$scope', '$filter', '$location', 'orderByFilter', 'AppFactory', 'LoansFactory'];
 
         /* @ngInject */
-        function LoansController($rootScope, $filter, $location, orderByFilter, AppFactory, LoansFactory) {
+        function LoansController($rootScope, $scope, $filter, $location, orderByFilter, AppFactory, LoansFactory) {
             /* jshint validthis: true */
-            var vm = this;
-
             var data = [];
             var user = $rootScope.currentUser;
-            vm.user = user;
+            $scope.user = user;
             //console.log('user', user);
 
-            vm.pendingView = true;
-            vm.sortPending = sortPending;
-            var indWid = AppFactory.getIndicatorWidth(vm.user);
+            $scope.pendingView = true;
+            $scope.sortPending = sortPending;
+            var indWid = AppFactory.getIndicatorWidth($scope.user);
 
-            vm.sortLoans = AppFactory.sortLoans;
-            vm.landing_view = 'settings';
+            $scope.sortLoans = AppFactory.sortLoans;
+            $scope.landing_view = 'settings';
 
             LoansFactory.getLoans()
                 .then(function(loans){
-                    vm.loans = loans;
-                    vm.indWid = AppFactory.getIndicatorWidth(vm.user);
+                    $scope.loans = loans;
+                    $scope.indWid = AppFactory.getIndicatorWidth($scope.user);
 
                     var LoansBySettings = AppFactory.filterLoans(loans, 'settings');
                     //console.log('LoansBySettings', LoansBySettings);
-                    var settingsLoans = vm.sortLoans(LoansBySettings, 1);
-                    vm.sortedLoanList = settingsLoans;
+                    var settingsLoans = $scope.sortLoans(LoansBySettings, 1);
+                    $scope.sortedLoanList = settingsLoans;
                     $rootScope.loans = settingsLoans;
-                    vm.hgt = vm.sortedLoanList.length * 38;
-                    data = AppFactory.getSortedData(vm.pendingView, vm.sortedLoanList);
+                    $scope.hgt = $scope.sortedLoanList.length * 38;
+                    data = AppFactory.getSortedData($scope.pendingView, $scope.sortedLoanList);
                     //console.log('data', data);
 
                     if($location.path() === '/main/home') {
-                        vm.gridOptions.api.setRows(data);
+                        $scope.gridOptions.api.setRows(data);
                     }
                 });
 
-            vm.changeLandingView = function(val) {
-                var loanset = AppFactory.filterLoans(vm.loans, val);
-                vm.sortedLoanList = loanset;
-                data = getSortedData(vm.pendingView, vm.sortedLoanList);
-                vm.gridOptions.api.setRows(data);
+            $scope.changeLandingView = function(val) {
+                var loanset = AppFactory.filterLoans($scope.loans, val);
+                $scope.sortedLoanList = loanset;
+                data = getSortedData($scope.pendingView, $scope.sortedLoanList);
+                $scope.gridOptions.api.setRows(data);
             };
 
             var columnDefs = [
@@ -444,7 +442,7 @@
                 }
             }
 
-            vm.gridOptions = {
+            $scope.gridOptions = {
                 angularCompileRows: true,
                 angularCompileHeaders: true,
                 columnDefs: columnDefs,
@@ -454,7 +452,7 @@
                 enableSorting: false,
                 sortPending: sortPending,
                 context: {
-                    pending_view: vm.pendingView
+                    pending_view: $scope.pendingView
                 },
                 ready: function(api) {
                     api.setRows(data);
@@ -462,17 +460,17 @@
                 }
             };
 
-            vm.onHardRefresh = function() {
-                vm.gridOptions.api.refreshView();
+            $scope.onHardRefresh = function() {
+                $scope.gridOptions.api.refreshView();
             };
 
             //////////
             function sortPending() {
-                vm.pendingView = !vm.pendingView;
-                vm.gridOptions.context.pending_view = !vm.gridOptions.context.pending_view;
-                vm.gridOptions.api.refreshHeader();
-                var newData = AppFactory.getSortedData(vm.pendingView, vm.sortedLoanList);
-                vm.gridOptions.api.setRows(newData);
+                $scope.pendingView = !$scope.pendingView;
+                $scope.gridOptions.context.pending_view = !$scope.gridOptions.context.pending_view;
+                $scope.gridOptions.api.refreshHeader();
+                var newData = AppFactory.getSortedData($scope.pendingView, $scope.sortedLoanList);
+                $scope.gridOptions.api.setRows(newData);
             }
             function numberNewValueHandler(params) {
                 var valueAsNumber = parseInt(params.newValue);
@@ -484,7 +482,7 @@
             }
             function cellValueChangedFunction() {
                 // after a value changes, get the volatile cells to update
-                vm.gridOptions.api.softRefreshView();
+                $scope.gridOptions.api.softRefreshView();
             }
             function gtZero(value) {
                 var val = Number(value);

@@ -14,12 +14,12 @@
                     url: '/main',
                     abstract: true,
                     templateUrl: 'app/views/main.view.html',
-                    controller: 'MainController as main'
+                    controller: 'MainController'
                 })
                 .state('main.home', {
                     url: '/home',
                     templateUrl: 'app/views/home.tmpl.html',
-                    controller: 'LoansController as loans'
+                    controller: 'LoansController'
                 })
                 .state('main.prefs', {
                     url: '/prefs',

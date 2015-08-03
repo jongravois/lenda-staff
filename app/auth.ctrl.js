@@ -5,9 +5,9 @@
         .module('ARM')
         .controller('AuthController', AuthController);
 
-    AuthController.$inject = ['$auth', '$state', '$http', '$rootScope', 'API_URL'];
+    AuthController.$inject = ['$scope', '$auth', '$state', '$http', '$rootScope', 'API_URL'];
 
-    function AuthController($auth, $state, $http, $rootScope, API_URL) {
+    function AuthController($scope, $auth, $state, $http, $rootScope, API_URL) {
         var vm = this;
 
         /*jshint -W030 */
