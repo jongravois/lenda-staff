@@ -46,7 +46,7 @@
 
             $scope.ngcLink = function (slug) {
                 //alert(slug);
-                $state.go('edit.' + slug);
+                $state.go('arm.edit.' + slug);
             };
 
             $scope.toggleSidebar = function() {
