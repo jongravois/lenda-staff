@@ -4,10 +4,11 @@
         .module('ARM')
         .controller('CropMixController', CropMixController);
 
-    CropMixController.$inject = ['$scope', '$http', '$filter', '$timeout', 'AppFactory'];
+    CropMixController.$inject = ['$scope', '$http', '$filter', '$timeout', 'AppFactory', 'Loans', 'CropMixFactory'];
 
-    function CropMixController($scope, $http, $filter, $timeout, AppFactory) {
+    function CropMixController($scope, $http, $filter, $timeout, AppFactory, Loans, CropMixFactory) {
         $scope.AppFactory = AppFactory;
+        $scope.loans = Loans;
 
         var columnDefs = [
             {
@@ -23,6 +24,8 @@
                         return 'East';
                     } else if (params.data.region.toUpperCase() === 'W'){
                         return 'West';
+                    } else {
+                        return params.data.region;
                     }
                 },
                 suppressSorting: false,
@@ -244,21 +247,23 @@
             showToolPanel: false
         };
 
-        $http.get("json/crop.mix.json")
-            .then(function (res) {
-                $scope.pins = 3;
-                $scope.pin = 0;
-                $scope.gridOptions.rowData = res.data;
-                $scope.gridHeight = Number(($scope.gridOptions.rowData.length + 2) * 30).toString();
-                $scope.gridOptions.api.onNewRows();
-                $scope.sortKeys = [
-                    {field: 'region', sort: 'asc'},
-                    {field: 'location', sort: 'asc'},
-                ];
-                $scope.gridOptions.api.setSortModel($scope.sortKeys);
-                $scope.icons = false;
-                $scope.tools = false;
-            });
+        $scope.reduced = CropMixFactory.getData(Loans);
+        //console.log('reduced', $scope.reduced);
+
+        $scope.pins = 3;
+        $scope.pin = 0;
+        $scope.sortKeys = [
+            {field: 'region', sort: 'asc'},
+            {field: 'location', sort: 'asc'}
+        ];
+        $scope.gridOptions.rowData = $scope.reduced;
+        $scope.gridHeight = Number(($scope.gridOptions.rowData.length + 2) * 30).toString();
+        if ($scope.gridOptions.api) {
+            $scope.gridOptions.api.onNewRows();
+            $scope.gridOptions.api.setSortModel($scope.sortKeys);
+        };
+        $scope.icons = false;
+        $scope.tools = false;
     }
 
 })();

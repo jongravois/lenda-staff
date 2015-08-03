@@ -39,7 +39,7 @@
             },
             {
                 headerName: 'Analyst',
-                field: 'analyst',
+                field: 'analyst_abr',
                 cellClass: 'text-center',
                 suppressSorting: false,
                 suppressSizeToFit: false,
@@ -162,14 +162,15 @@
             .then(function (res) {
                 $scope.pins = 0;
                 $scope.pin = 0;
-                $scope.gridOptions.rowData = res.data;
-                $scope.gridHeight = Number(($scope.gridOptions.rowData.length + 2) * 30).toString();
-                $scope.gridOptions.api.onNewRows();
                 var sort = [
                     {field: 'user', sort: 'asc'}
                 ];
-                $scope.gridOptions.api.setSortModel(sort);
-                console.log($scope.gridOptions);
+                $scope.gridOptions.rowData = res.data;
+                $scope.gridHeight = Number(($scope.gridOptions.rowData.length + 2) * 30).toString();
+
+                $scope.gridOptions.api.onNewRows();
+                $scope.gridOptions.api.setSortModel($scope.sortKeys);
+
                 $scope.pct_success = 60;
                 $scope.pct_warning = 10;
                 $scope.pct_danger  = 30;
