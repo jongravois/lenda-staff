@@ -60,6 +60,8 @@
                 data.int_percent_arm = item.fins.int_percent_arm;
                 data.int_percent_dist = item.fins.int_percent_dist;
 
+                data.fee_total = item.financials.fee_total;
+
                 /*
                  data.commit_arm = item.financials.commit_arm;
                  data.commit_dist = item.financials.commit_dist;
