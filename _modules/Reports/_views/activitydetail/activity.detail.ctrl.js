@@ -32,17 +32,7 @@
                 field: 'region',
                 cellClass: 'text-center',
                 cellRenderer: function(params) {
-                    if (params.data.region.toUpperCase() === 'N'){
-                        return 'North';
-                    } else if (params.data.region.toUpperCase() === 'S'){
-                        return 'South';
-                    } else if (params.data.region.toUpperCase() === 'E'){
-                        return 'East';
-                    } else if (params.data.region.toUpperCase() === 'W'){
-                        return 'West';
-                    } else {
-                        return params.data.region;
-                    }
+                    return params.data.region;
                 },
                 suppressSorting: false,
                 suppressSizeToFit: false,
@@ -156,12 +146,18 @@
                 cellClass: 'text-center',
                 cellRenderer: function(params) {
                     if (params.data.past_due == 1) {
-                        return "<span style='color: orange'>" + moment(params.data.due_date).format('MM/DD/YYYY') + "</span>";
+                        // Deprecated
+                        //return "<span style='color: orange'>" + moment(params.data.due_date).format('MM/DD/YYYY') + "</span>";
+                        return "<span style='color: orange'>" + params.data.due_date + "</span>";
                     }
                     else if (params.data.past_due == 2) {
-                        return "<span style='color: #ee0000'>" + moment(params.data.due_date).format('MM/DD/YYYY') + "</span>";
+                        // Deprecated
+                        //return "<span style='color: #ee0000'>" + moment(params.data.due_date).format('MM/DD/YYYY') + "</span>";
+                        return "<span style='color: #ee0000'>" + params.data.due_date + "</span>";
                     } else {
-                        return "<span style='color: black'>" + moment(params.data.due_date).format('MM/DD/YYYY') + "</span>";
+                        // Deprecated
+                        //return "<span style='color: black'>" + moment(params.data.due_date).format('MM/DD/YYYY') + "</span>";
+                        return "<span style='color: black'>" + params.data.due_date + "</span>";
                     }
                 },
                 suppressSorting: false,
@@ -328,6 +324,7 @@
         ];
         $scope.gridOptions.rowData = $scope.reduced;
         $scope.gridHeight = Number(($scope.gridOptions.rowData.length + 2) * 30).toString();
+        $scope.gridOptions.api.setSortModel($scope.sortKeys);
 
         if ($scope.gridOptions.api) {
             $scope.gridOptions.api.hideColumns(['due_date'], true);

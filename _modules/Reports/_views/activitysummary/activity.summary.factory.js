@@ -60,6 +60,8 @@
                 data.int_percent_arm = item.fins.int_percent_arm;
                 data.int_percent_dist = item.fins.int_percent_dist;
 
+                data.fee_total = item.financials.fee_total;
+
                 return data;
             });
             //console.log('ActivitySummaryFactory.retro', retro);
