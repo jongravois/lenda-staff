@@ -20,6 +20,7 @@
             getSortedData: getSortedData,
             inArray: inArray,
             nullOrNot: nullOrNot,
+            parseComments: parseComments,
             patchIt: patchIt,
             postIt: postIt,
             putIt: putIt,
@@ -134,6 +135,35 @@
         }
         function nullOrNot(obj) {
             return !angular.isDefined(obj) || obj===null;
+        }
+        function parseComments(comms) {
+            var Account = _.filter(comms, function(i){
+                return i.type == 'Account';
+            })
+            var Addendum = _.filter(comms, function(i){
+                return i.type == 'Addendum';
+            });
+            var Analyst = _.filter(comms, function(i){
+                return i.type == 'Analyst';
+            });
+            var Committee = _.filter(comms, function(i){
+                return i.type == 'Committee';
+            })
+            var Loan = _.filter(comms, function(i){
+                return i.type == 'Loan';
+            });
+            var Watch = _.filter(comms, function(i){
+                return i.type == 'Watch';
+            });
+
+            return {
+                Account: Account,
+                Addendum: Addendum,
+                Analyst: Analyst,
+                Committee: Committee,
+                Loan: Loan,
+                Watch: Watch
+            };
         }
         function returnColor(val) {
             //console.log('returnColor', val);

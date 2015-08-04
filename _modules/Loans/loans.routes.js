@@ -58,7 +58,7 @@
                 .state('arm.edit.comments', {
                     url: '/comments',
                     templateUrl: './_modules/Loans/comments/comments.html',
-                    controller: 'EditLoanController',
+                    controller: 'CommentsController',
                     data: {newapplication: false},
                     resolve: {}
                 })
