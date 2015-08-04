@@ -143,7 +143,7 @@
             },
             {
                 headerName: 'Status',
-                field: 'status_id',
+                field: 'status',
                 cellClass: 'text-center',
                 suppressSorting: true,
                 suppressSizeToFit: false,
@@ -152,7 +152,7 @@
             },
             {
                 headerName: 'Progress',
-                field: '',
+                field: 'progress_bar',
                 cellClass: 'text-center',
                 suppressSorting: true,
                 suppressSizeToFit: false,
@@ -176,8 +176,8 @@
                 $scope.gridOptions.pinnedColumnCount = $scope.pin;
             }
             if ($scope.gridOptions.api) {
-                $scope.gridOptions.api.onNewCols();
-                $scope.gridOptions.api.hideColumns(['status_left', 'status'], $scope.icons);
+                //$scope.gridOptions.api.onNewCols();
+                //$scope.gridOptions.api.hideColumns(['status_left', 'status'], $scope.icons);
                 $scope.gridOptions.api.setSortModel($scope.sortKeys);
             }
         }
@@ -202,8 +202,8 @@
             }
             $scope.gridOptions.pinnedColumnCount = $scope.pin;
             if ($scope.gridOptions.api) {
-                $scope.gridOptions.api.onNewCols();
-                $scope.gridOptions.api.hideColumns(['status_left', 'status'], $scope.icons);
+            //    $scope.gridOptions.api.onNewCols();
+            //    $scope.gridOptions.api.hideColumns(['status_left', 'status'], $scope.icons);
                 $scope.gridOptions.api.setSortModel($scope.sortKeys);
             }
         }

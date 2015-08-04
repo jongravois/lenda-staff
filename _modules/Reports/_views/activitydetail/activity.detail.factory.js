@@ -16,8 +16,6 @@
         function getData(loans) {
             console.log('ActivityDetailFactory.loans', loans);
 
-            var groupByCrop = _.partial(_.ary(_.groupBy, 2), _, 'fins.crop_acres');
-
             var retro = _.map(loans, function (item) {
                 var data = {};
 
@@ -60,12 +58,10 @@
                 data.int_percent_arm = item.fins.int_percent_arm;
                 data.int_percent_dist = item.fins.int_percent_dist;
 
-                /*
-                 data.qb_date = item.;
-                 data.qb_type = item.;
-                 data.qb_cat = item.;
-                 data.qb_amount = item.;
-                 */
+                data.qb_date = '';
+                data.qb_type = '';
+                data.qb_cat = '';
+                data.qb_amount = '';
 
                 return data;
             });
