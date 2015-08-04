@@ -23,7 +23,7 @@
                 .state('arm.edit.applicant', {
                     url: '/applicant',
                     templateUrl: './_modules/Loans/applicant/applicant.html',
-                    controller: 'EditLoanController',
+                    controller: 'ApplicantsController',
                     data: {newapplication: false},
                     resolve: {}
                 })
@@ -93,7 +93,7 @@
                 .state('arm.edit.financials', {
                     url: '/financials',
                     templateUrl: './_modules/Loans/financials/financials.html',
-                    controller: 'EditLoanController',
+                    controller: 'FinancialsController',
                     data: {newapplication: false},
                     resolve: {}
                 })
@@ -120,14 +120,14 @@
                 .state('arm.edit.quests', {
                     url: '/quests',
                     templateUrl: './_modules/Loans/quests/quests.html',
-                    controller: 'EditLoanController',
+                    controller: 'QuestsController',
                     data: {newapplication: false},
                     resolve: {}
                 })
                 .state('arm.edit.references', {
                     url: '/references',
                     templateUrl: './_modules/Loans/references/references.html',
-                    controller: 'EditLoanController',
+                    controller: 'ReferencesController',
                     data: {newapplication: false},
                     resolve: {}
                 })

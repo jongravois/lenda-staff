@@ -56,6 +56,11 @@
                 });
         };
 
+        $scope.doSort = function(field) {
+            //TODO: create table sorter
+            alert('working');
+        }
+
 
         //////////
         function init() {
@@ -70,7 +75,7 @@
             FeederFactory.init();
             $rootScope.feeder = FeederFactory.getObject();
 
-            //DefaultsFactory.init();
+            DefaultsFactory.init();
             $rootScope.defaults = DefaultsFactory.getObject();
         }
     } // end function

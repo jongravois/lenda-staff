@@ -130,7 +130,9 @@
         </div>
     </div>
 </fieldset>
+
 <br><br>
+
 <fieldset>
     <legend>Applicant</legend>
     <div class="container-fluid">
@@ -149,11 +151,15 @@
                     </div>
                     <div class="form-group col-md-3">
                         <label>Entity Type</label><br>
-                        <input type="radio" name="entity_type_id" ng-model="loan.entity_type_id" value="2"/> <label>I</label>&nbsp;&nbsp;&nbsp;&nbsp;
-                        <input type="radio" name="entity_type_id" ng-model="loan.entity_type_id" value="5"/> <label>S</label>&nbsp;&nbsp;&nbsp;&nbsp;
-                        <input type="radio" name="entity_type_id" ng-model="loan.entity_type_id" value="4"/> <label>P</label>&nbsp;&nbsp;&nbsp;&nbsp;
-                        <input type="radio" name="entity_type_id" ng-model="loan.entity_type_id" value="3"/> <label>J</label>&nbsp;&nbsp;&nbsp;&nbsp;
-                        <input type="radio" name="entity_type_id" ng-model="loan.entity_type_id" value="1"/> <label>C</label>
+                        <input type="radio" name="entity_id" ng-model="loan.applicant.entity_id" value="2"/> <label>I</label>
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        <input type="radio" name="entity_id" ng-model="loan.applicant.entity_id" value="5"/> <label>S</label>
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        <input type="radio" name="entity_id" ng-model="loan.applicant.entity_id" value="4"/> <label>P</label>
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        <input type="radio" name="entity_id" ng-model="loan.applicant.entity_id" value="3"/> <label>J</label>
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        <input type="radio" name="entity_id" ng-model="loan.applicant.entity_id" value="1"/> <label>C</label>
                     </div>
                 </div>
                 <!-- APPLICANT / SSN / DOB -->
@@ -211,7 +217,7 @@
                 <!-- PHONE / EMAIL / SSN / DOB -->
 
                 <!-- SPOUSE / SSN -->
-                <div class="row" ng-if="applicant.entity_id == '5'">
+                <div class="row" ng-if="loan.applicant.entity_id === '5'">
                     <div class="form-group col-md-3">
                         <label>Spouse</label>
                         <br/>
@@ -240,120 +246,152 @@
     </div>
 </fieldset>
 
-<fieldset ng-show="loan.entity_type_id == '4'">
+<br><br>
+
+<fieldset ng-show="loan.applicant.entity_id === '4'">
     <legend>Partners</legend>
     <div class="container-fluid">
         <div class="row">
-            <table id="tblPartner" class="tblLanding" style="width:96%; margin:0 auto;">
-                <tr class="landing_data_row">
-                    <td colspan="6">
-                        <p ng-click="createPartner()" style="cursor:pointer;">
-                            <span class="glyphicon glyphicon-plus" ng-click="createPartner()"></span> Add New
-                        </p>
-                    </td>
-                </tr>
-                <tr class="landing_header_row clr-darkgreen" style="color:white;">
+            <table class="table table-striped table-rowed" style="width:96%; margin:0 auto;">
+                <tr>
                     <th style="width:20%;" data-ng-click="doSort('name')">Name</th>
                     <th style="width:10%;" data-ng-click="doSort('SSN')">SSN</th>
                     <th style="width:10%;" data-ng-click="doSort('Phone')">Phone</th>
                     <th style="width:10%;" data-ng-click="doSort('Email')">Email</th>
                     <th style="width:5%;">&nbsp;</th>
                 </tr>
-                <tr ng-repeat="p in loan.partners" class="landing_data_row">
-                    <td>
-                        <text-edit-in-place value="p.partner"></text-edit-in-place>
+                <tr ng-repeat="p in loan.partners" ng-init="!rowform.$visible" ng-dblclick="rowform.$show()">
+                    <td class="cBlue">
+                        <span editable-text="p.partner" e-name="partner" e-form="rowform" e-style="width:100%;" e-required>
+                  {{ p.partner || '--' }}
+                </span>
+                    </td>
+                    <td class="cBlue">
+                        <span editable-text="p.ssn" e-name="ssn" e-form="rowform" e-style="width:100%;" e-required>
+                  {{ p.ssn }}
+                </span>
+                    </td>
+                    <td class="cBlue">
+                       <span editable-text="p.phone" e-name="phone" e-form="rowform" e-style="width:100%;" e-required>
+                  {{ p.phone || '--' }}
+                </span>
+                    </td>
+                    <td class="cBlue">
+                        <span editable-text="p.email" e-name="email" e-form="rowform" e-style="width:100%;" e-required>
+                  {{ p.email || '--' }}
+                </span>
                     </td>
                     <td>
-                        <social-edit-in-place value="p.ssn"></social-edit-in-place>
-                    </td>
-                    <td>
-                        <phone-edit-in-place value="p.phone"></phone-edit-in-place>
-                    </td>
-                    <td>
-                        <text-edit-in-place value="p.email"></text-edit-in-place>
-                    </td>
-                    <td>
-        <span style="cursor: pointer;" ng-click="updatePartner(p)">
-          <span class="glyphicon glyphicon-ok-circle" style="color:#000099;"></span></span>
-          <span style="cursor: pointer;" ng-click="updatePartner(p)">
-            <span delete-record></span>
-          </span>
+                        <!-- form -->
+                        <form editable-form name="rowform" onbeforesave="savePartner($data, p.id)" ng-show="rowform.$visible" class="form-buttons form-inline">
+                            <button type="submit" ng-disabled="rowform.$waiting"><span class="glyphicons glyphicons-circle-ok" style="color:#006837;"></span></button>
+
+                            <button type="button" class="btnCancel" ng-disabled="rowform.$waiting" ng-click="rowform.$cancel()"><span class="glyphicons glyphicons-circle-remove" style="color: #990000;"></span></button>
+                        </form>
+                        <div class="buttons" ng-show="!rowform.$visible">
+                    <span class="glyphicons glyphicons-bin"
+                          style="color: #990000;"
+                          ng-click="deletePartner($index, p.id)"></span>
                     </td>
                 </tr>
-                <tr ng-if="loan.partners.length == 0" class="landing_data_row">
+                <tr ng-if="loan.partners.length == 0">
                     <td colspan="6"><b>No partners found!</b></td>
                 </tr>
             </table>
         </div>
     </div>
+    <p>
+        <a ng-click="createNewPartner()" class="btn btn-xs btn-default">
+            <span class="glyphicon glyphicon-plus-sign" style="color:#006837;"></span> Add New</a>
+    </p>
 </fieldset>
 
-<fieldset ng-show="loan.entity_type_id == '3'">
+<fieldset ng-show="loan.applicant.entity_id === '3'">
     <legend>Joint Ventures</legend>
     <div class="container-fluid">
         <div class="row">
-            <table id="tblCosigner" class="tblLanding" style="width:96%; margin:0 auto;">
-                <tr class="landing_data_row">
-                    <td colspan="6">
-                        <p ng-click="createVenture()" style="cursor:pointer;">
-                            <span class="glyphicon glyphicon-plus" ng-click="createVenture()"></span> Add New
-                        </p>
-                    </td>
-                </tr>
-                <tr class="landing_header_row clr-darkgreen" style="color:white;">
+            <table class="table table-striped table-rowed" style="width:96%; margin:0 auto;">
+                <tr>
                     <th style="width:20%;" data-ng-click="doSort('name')">Name</th>
                     <th style="width:10%;" data-ng-click="doSort('SSN')">SSN</th>
                     <th style="width:10%;" data-ng-click="doSort('Phone')">Phone</th>
                     <th style="width:10%;" data-ng-click="doSort('Email')">Email</th>
                     <th style="width:5%;">&nbsp;</th>
                 </tr>
-                <tr ng-repeat="p in loan.ventures" class="landing_data_row">
-                    <td>
-                        <text-edit-in-place value="p.partner"></text-edit-in-place>
+                <tr ng-repeat="p in loan.joints" ng-init="!rowform.$visible" ng-dblclick="rowform.$show()">
+                    <td class="cBlue">
+                        <span editable-text="p.partner" e-name="partner" e-form="rowform" e-style="width:100%;" e-required>
+                  {{ p.partner || '--' }}
+                </span>
+                    </td>
+                    <td class="cBlue">
+                        <span editable-text="p.ssn" e-name="ssn" e-form="rowform" e-style="width:100%;" e-required>
+                  {{ p.ssn }}
+                </span>
+                    </td>
+                    <td class="cBlue">
+                       <span editable-text="p.phone" e-name="phone" e-form="rowform" e-style="width:100%;" e-required>
+                  {{ p.phone || '--' }}
+                </span>
+                    </td>
+                    <td class="cBlue">
+                        <span editable-text="p.email" e-name="email" e-form="rowform" e-style="width:100%;" e-required>
+                  {{ p.email || '--' }}
+                </span>
                     </td>
                     <td>
-                        <social-edit-in-place value="p.ssn"></social-edit-in-place>
-                    </td>
-                    <td>
-                        <phone-edit-in-place value="p.phone"></phone-edit-in-place>
-                    </td>
-                    <td>
-                        <text-edit-in-place value="p.email"></text-edit-in-place>
-                    </td>
-                    <td>
-        <span style="cursor: pointer;" ng-click="updateVenture(p)">
-          <span class="glyphicon glyphicon-ok-circle" style="color:#000099;"></span> Update
-        </span>
+                        <!-- form -->
+                        <form editable-form name="rowform" onbeforesave="saveJoint($data, p.id)" ng-show="rowform.$visible" class="form-buttons form-inline">
+                            <button type="submit" ng-disabled="rowform.$waiting"><span class="glyphicons glyphicons-circle-ok" style="color:#006837;"></span></button>
+
+                            <button type="button" class="btnCancel" ng-disabled="rowform.$waiting" ng-click="rowform.$cancel()"><span class="glyphicons glyphicons-circle-remove" style="color: #990000;"></span></button>
+                        </form>
+                        <div class="buttons" ng-show="!rowform.$visible">
+                    <span class="glyphicons glyphicons-bin"
+                          style="color: #990000;"
+                          ng-click="deleteJoint($index, p.id)"></span>
                     </td>
                 </tr>
-                <tr ng-if="loan.ventures.length == 0" class="landing_data_row">
-                    <td colspan="6"><b>No joint ventures found!</b></td>
+                <tr ng-if="!loan.joints || loan.joints.length == 0">
+                    <td colspan="6"><b>No Joint Ventures found!</b></td>
                 </tr>
             </table>
         </div>
     </div>
+    <p>
+        <a ng-click="createNewJoint()" class="btn btn-xs btn-default">
+            <span class="glyphicon glyphicon-plus-sign" style="color:#006837;"></span> Add New</a>
+    </p>
 </fieldset>
 
-<fieldset ng-show="loan.entity_type_id == '1'">
+<fieldset ng-show="loan.applicant.entity_id === '1'">
     <legend>Corporation</legend>
     <div class="container-fluid">
-        <div class="row">
-            <div ng-repeat="c in loan.corporations">
+        <div class="row" ng-if="loan.corps.length === 0">
+            <h5>Add New Corporation</h5>
+        </div>
+        <div class="row" ng-if="loan.corps.length > 0">
+            <div ng-repeat="c in loan.corps">
                 <div class="row">
-                    <div class="form-group col-md-4">
+                    <div class="form-group col-md-3">
                         <label>President (Last, First, MI):</label>
                         <br/>
-                        <text-edit-in-place value="c.president"></text-edit-in-place>
+                        <input type="text" class="form-control" ng-model="c.president"/>
                     </div>
-                    <div class="form-group col-md-4">
+                    <div class="form-group col-md-3">
                         <label>Vice-President (Last, First, MI):</label>
                         <br/>
-                        <text-edit-in-place value="c.vicepresident"></text-edit-in-place>
+                        <input type="text" class="form-control" ng-model="c.vicepresident"/>
                     </div>
-                    <div class="form-group col-md-4">
-                        <label>Secretary/Treasurer (Last, First, MI):</label>
+                    <div class="form-group col-md-3">
+                        <label>Secretary (Last, First, MI):</label>
                         <br/>
-                        <text-edit-in-place value="c.secretarytreasurer"></text-edit-in-place>
+                        <input type="text" class="form-control" ng-model="c.secretary"/>
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label>Treasurer (Last, First, MI):</label>
+                        <br/>
+                        <input type="text" class="form-control" ng-model="c.treasurer"/>
                     </div>
                 </div>
 

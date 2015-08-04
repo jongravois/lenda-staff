@@ -9,6 +9,7 @@
     /* @ngInject */
     function AppFactory($http, $q, $state, $stateParamas, toastr, API_URL) {
         var publicAPI = {
+            averageArray: averageArray,
             calcAdjExposure: calcAdjExposure,
             calcCashFlow: calcCashFlow,
             calcExposure: calcExposure,
@@ -51,6 +52,10 @@
         }
 
         /* METHODS */
+        function averageArray(arr) {
+            var removed_empty = _.compact(arr);
+            return _.sum(removed_empty) / removed_empty.length;
+        }
         function calcAdjExposure(loan) {
             return loan.fins.adjExposure;
         }

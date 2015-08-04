@@ -25,16 +25,16 @@
                             <td style="width:8%;">
                                 <label>Grade</label>
                                 &nbsp;&nbsp;
-                                <label>{{loan.appfins.grade}}</label>
+                                <label>{{loan.applicant.fins.grade}}</label>
                             </td>
                             <td style="width:12%;">
                                 <label>Credit Score</label>
                                 &nbsp;&nbsp;
-                                <text-edit-in-place value="loan.appfins.credit_score"></text-edit-in-place>
+                                {{loan.applicant.fins.credit_score}}
                             </td>
                             <td style="width:18%;">
                                 <label>
-                                    <input type="checkbox" name="cpa_financials" ng-value="true" ng-model="loan.appfins.cpa_financials"/>&nbsp;
+                                    <input type="checkbox" name="cpa_financials" ng-value="true" ng-model="loan.applicant.fins.cpa_financials"/>&nbsp;
                                     CPA Prepared Financials
                                 </label>
                             </td>
@@ -116,49 +116,49 @@
                         <tr>
                             <td>Year 1</td>
                             <td class="text-right">
-                                <no-cents-edit-in-place value="loan.appfins.year_1_revenue"></no-cents-edit-in-place>
+                                {{afins.year_1_revenue|flexCurrency:0}}
                             </td>
                             <td class="text-right">
-                                <no-cents-edit-in-place value="loan.appfins.year_1_expenses"></no-cents-edit-in-place>
+                                {{afins.year_1_expenses|flexCurrency:0}}
                             </td>
                             <td class="text-right">
-                                {{year1Income = getIncome(loan.appfins.year_1_revenue * 1, loan.appfins.year_1_expenses * 1) | flexCurrency:0}}
+                                {{year1Income = afins.year_1_revenue-afins.year_1_expenses | flexCurrency:0}}
                             </td>
                         </tr>
                         <tr>
                             <td>Year 2</td>
                             <td class="text-right">
-                                <no-cents-edit-in-place value="loan.appfins.year_2_revenue"></no-cents-edit-in-place>
+                                {{afins.year_2_revenue|flexCurrency:0}}
                             </td>
                             <td class="text-right">
-                                <no-cents-edit-in-place value="loan.appfins.year_2_expenses"></no-cents-edit-in-place>
+                                {{afins.year_2_expenses|flexCurrency:0}}
                             </td>
                             <td class="text-right">
-                                {{year2Income = getIncome(loan.appfins.year_2_revenue * 1, loan.appfins.year_2_expenses * 1) | flexCurrency:0}}
+                                {{year2Income = afins.year_2_revenue-afins.year_2_expenses | flexCurrency:0}}
                             </td>
                         </tr>
                         <tr>
                             <td>Year 3</td>
                             <td class="text-right">
-                                <no-cents-edit-in-place value="loan.appfins.year_3_revenue"></no-cents-edit-in-place>
+                                {{afins.year_3_revenue|flexCurrency:0}}
                             </td>
                             <td class="text-right">
-                                <no-cents-edit-in-place value="loan.appfins.year_3_expenses"></no-cents-edit-in-place>
+                                {{afins.year_3_expenses|flexCurrency:0}}
                             </td>
                             <td class="text-right">
-                                {{year3Income = getIncome(loan.appfins.year_3_revenue * 1, loan.appfins.year_3_expenses * 1) | flexCurrency:0}}
+                                {{year3Income = afins.year_3_revenue-afins.year_3_expenses | flexCurrency:0}}
                             </td>
                         </tr>
                         <tr class="success">
                             <td>Average</td>
                             <td class="text-right">
-                                {{averageArray([loan.appfins.year_1_revenue * 1, loan.appfins.year_2_revenue * 1, loan.appfins.year_3_revenue * 1]) | flexCurrency:0}}
+                                {{AppFactory.averageArray([afins.year_1_revenue, afins.year_2_revenue, afins.year_3_revenue]) | flexCurrency:0}}
                             </td>
                             <td class="text-right">
-                                {{averageArray([loan.appfins.year_1_expenses * 1, loan.appfins.year_2_expenses * 1, loan.appfins.year_3_expenses * 1]) | flexCurrency:0}}
+                                {{AppFactory.averageArray([afins.year_1_expenses * 1, afins.year_2_expenses * 1, afins.year_3_expenses * 1]) | flexCurrency:0}}
                             </td>
                             <td class="text-right">
-                                {{averageArray([year1Income * 1, year2Income * 1, year3Income * 1]) | flexCurrency:0}}
+                                {{AppFactory.averageArray([year1Income, year2Income, year3Income]) | flexCurrency:0}}
                             </td>
                         </tr>
                     </table>
@@ -180,55 +180,55 @@
                         <tr>
                             <td>Current</td>
                             <td class="text-right">
-                                <no-cents-edit-in-place value="loan.appfins.current_assets"></no-cents-edit-in-place>
+                                {{afins.current_assets|flexCurrency:0}}
                             </td>
                             <td class="text-right">
-                                <percent-edit-in-place value="loan.appfins.current_assets_factor"></percent-edit-in-place>
+                                {{afins.current_assets_factor|flexPercent:1}}
                             </td>
                             <td class="text-right">
-                                {{ loan.appfins.current_assets_adj = loan.appfins.current_assets * ((100 - loan.appfins.current_assets_factor) / 100) | flexCurrency:0}}
+                                {{ afins.current_assets_adj = afins.current_assets * ((100 - afins.current_assets_factor) / 100) | flexCurrency:0}}
                             </td>
                             <td class="text-right">
-                                <no-cents-edit-in-place value="loan.appfins.current_assets_liability"></no-cents-edit-in-place>
+                                {{afins.current_assets_liability|flexCurrency:0}}
                             </td>
                             <td class="text-right">
-                                {{ loan.appfins.current_assets_reserve = (loan.appfins.current_assets * ((100 - loan.appfins.current_assets_factor) / 100)) - loan.appfins.current_assets_liability | flexCurrency:0}}
+                                {{ afins.current_assets_reserve = (afins.current_assets * ((100 - afins.current_assets_factor) / 100)) - afins.current_assets_liability | flexCurrency:0}}
                             </td>
                         </tr>
                         <tr>
                             <td>Intermediate</td>
                             <td class="text-right">
-                                <no-cents-edit-in-place value="loan.appfins.intermediate_assets"></no-cents-edit-in-place>
+                                {{afins.intermediate_assets|flexCurrency:0}}
                             </td>
                             <td class="text-right">
-                                <percent-edit-in-place value="loan.appfins.intermediate_assets_factor"></percent-edit-in-place>
+                                {{afins.intermediate_assets_factor|flexPercent:1}}
                             </td>
                             <td class="text-right">
-                                {{ loan.appfins.intermediate_assets_adj = loan.appfins.intermediate_assets * ((100 - loan.appfins.intermediate_assets_factor) / 100) | flexCurrency:0}}
+                                {{ afins.intermediate_assets_adj = afins.intermediate_assets * ((100 - afins.intermediate_assets_factor) / 100) | flexCurrency:0}}
                             </td>
                             <td class="text-right">
-                                <no-cents-edit-in-place value="loan.appfins.intermediate_assets_liability"></no-cents-edit-in-place>
+                                {{afins.intermediate_assets_liability|flexCurrency:0}}
                             </td>
                             <td class="text-right">
-                                {{ loan.appfins.intermediate_assets_reserve = (loan.appfins.intermediate_assets * ((100 - loan.appfins.intermediate_assets_factor) / 100)) - loan.appfins.intermediate_assets_liability | flexCurrency:0}}
+                                {{ afins.intermediate_assets_reserve = (afins.intermediate_assets * ((100 - afins.intermediate_assets_factor) / 100)) - afins.intermediate_assets_liability | flexCurrency:0}}
                             </td>
                         </tr>
                         <tr>
                             <td>Fixed</td>
                             <td class="text-right">
-                                <no-cents-edit-in-place value="loan.appfins.fixed_assets"></no-cents-edit-in-place>
+                                {{afins.fixed_assets|flexCurrency:0}}
                             </td>
                             <td class="text-right">
-                                <percent-edit-in-place value="loan.appfins.fixed_assets_factor"></percent-edit-in-place>
+                                {{afins.fixed_assets_factor|flexPercent:1}}
                             </td>
                             <td class="text-right">
-                                {{ loan.appfins.fixed_assets_adj = loan.appfins.fixed_assets * ((100 - loan.appfins.fixed_assets_factor) / 100) | noCentsCurrency}}
+                                {{ afins.fixed_assets_adj = afins.fixed_assets * ((100 - afins.fixed_assets_factor) / 100) | flexCurrency:0}}
                             </td>
                             <td class="text-right">
-                                <no-cents-edit-in-place value="loan.appfins.fixed_assets_liability"></no-cents-edit-in-place>
+                                {{afins.fixed_assets_liability|flexCurrency:0}}
                             </td>
                             <td class="text-right">
-                                {{ loan.appfins.fixed_assets_reserve = (loan.appfins.fixed_assets * ((100 - loan.appfins.fixed_assets_factor) / 100)) - loan.appfins.fixed_assets_liability | flexCurrency:0}}
+                                {{ afins.fixed_assets_reserve = (afins.fixed_assets * ((100 - afins.fixed_assets_factor) / 100)) - afins.fixed_assets_liability | flexCurrency:0}}
                             </td>
                         </tr>
                         <tr class="success">
@@ -269,11 +269,11 @@
                         </tr>
                         <tr>
                             <td>Debt to Asset [<=]</td>
-                            <td class="text-center" ng-class=gtZero(loan.appfins.debt2asset_ratio)>
-                                {{loan.appfins.debt2asset_ratio|flexPercent:1}}
+                            <td class="text-center" ng-class=gtZero(afins.debt2asset_ratio)>
+                                {{afins.debt2asset_ratio|flexPercent:1}}
                             </td>
-                            <td class="bright text-center" ng-class=gtZero(loan.appfins.debt2asset_ratio_adj)>
-                                {{loan.appfins.debt2asset_ratio_adj|flexPercent:1}}
+                            <td class="bright text-center" ng-class=gtZero(afins.debt2asset_ratio_adj)>
+                                {{afins.debt2asset_ratio_adj|flexPercent:1}}
                             </td>
                             <td class="text-center" ng-class="{red: loan.grader.debt2asset_ratio_adj > grads[0].debt2asset }">
                                 {{grads[0].debt2asset|flexPercent:1}}
@@ -290,64 +290,64 @@
                         </tr>
                         <tr>
                             <td>Current Ratio [>=]</td>
-                            <td class="text-center" ng-class=gtZero(loan.appfins.ratio_current)>
-                                {{loan.appfins.ratio_current/100|number:2}}
+                            <td class="text-center" ng-class=gtZero(afins.ratio_current)>
+                                {{afins.ratio_current/100|number:2}}
                             </td>
-                            <td class="bright text-center" ng-class=gtZero(loan.appfins.ratio_current_adj)>
-                                {{loan.appfins.ratio_current_adj/100|number:2}}
+                            <td class="bright text-center" ng-class=gtZero(afins.ratio_current_adj)>
+                                {{afins.ratio_current_adj/100|number:2}}
                             </td>
-                            <td class="text-center" ng-class="{red: loan.appfins.ratio_current_adj < grads[0].current_ratio }">
+                            <td class="text-center" ng-class="{red: afins.ratio_current_adj < grads[0].current_ratio }">
                                 {{grads[0].current_ratio/100|number:2}}
                             </td>
-                            <td class="text-center" ng-class="{red: loan.appfins.ratio_current_adj < grads[1].current_ratio }">
+                            <td class="text-center" ng-class="{red: afins.ratio_current_adj < grads[1].current_ratio }">
                                 {{grads[1].current_ratio/100|number:2}}
                             </td>
-                            <td class="text-center" ng-class="{red: loan.appfins.ratio_current_adj < grads[2].current_ratio }">
+                            <td class="text-center" ng-class="{red: afins.ratio_current_adj < grads[2].current_ratio }">
                                 {{grads[2].current_ratio/100|number:2}}
                             </td>
-                            <td class="text-center" ng-class="{red: loan.appfins.ratio_current_adj < grads[3].current_ratio }">
+                            <td class="text-center" ng-class="{red: afins.ratio_current_adj < grads[3].current_ratio }">
                                 {{grads[3].current_ratio/100|number:2}}
                             </td>
                         </tr>
                         <tr>
                             <td>Working Capital [>=]</td>
-                            <td class="text-center" ng-class=gtZero(loan.appfins.capWork)>
-                                {{loan.appfins.capWork|flexPercent:1}}
+                            <td class="text-center" ng-class=gtZero(afins.capWork)>
+                                {{afins.capWork|flexPercent:1}}
                             </td>
-                            <td class="bright text-center" ng-class=gtZero(loan.appfins.capWork_adj)>
-                                {{loan.appfins.capWork_adj|flexPercent:1}}
+                            <td class="bright text-center" ng-class=gtZero(afins.capWork_adj)>
+                                {{afins.capWork_adj|flexPercent:1}}
                             </td>
-                            <td class="text-center" ng-class="{red: loan.appfins.capWork_adj < grads[0].working_capital }">
+                            <td class="text-center" ng-class="{red: afins.capWork_adj < grads[0].working_capital }">
                                 {{grads[0].working_capital|flexPercent:1}}
                             </td>
-                            <td class="text-center" ng-class="{red: loan.appfins.capWork_adj < grads[1].working_capital }">
+                            <td class="text-center" ng-class="{red: afins.capWork_adj < grads[1].working_capital }">
                                 {{grads[1].working_capital|flexPercent:1}}
                             </td>
-                            <td class="text-center" ng-class="{red: loan.appfins.capWork_adj < grads[2].working_capital }">
+                            <td class="text-center" ng-class="{red: afins.capWork_adj < grads[2].working_capital }">
                                 {{grads[2].working_capital|flexPercent:1}}
                             </td>
-                            <td class="text-center" ng-class="{red: loan.appfins.capWork_adj < grads[3].working_capital }">
+                            <td class="text-center" ng-class="{red: afins.capWork_adj < grads[3].working_capital }">
                                 {{grads[3].working_capital|flexPercent:1}}
                             </td>
                         </tr>
                         <tr>
                             <td>Borrowing Capacity [>=]</td>
-                            <td class="text-center" ng-class=gtZero(loan.appfins.capBorrow)>
-                                {{loan.appfins.capBorrow|flexPercent:1}}
+                            <td class="text-center" ng-class=gtZero(afins.capBorrow)>
+                                {{afins.capBorrow|flexPercent:1}}
                             </td>
-                            <td class="bright text-center" ng-class=gtZero(loan.appfins.capBorrow_adj)>
-                                {{loan.appfins.capBorrow_adj|flexPercent:1}}
+                            <td class="bright text-center" ng-class=gtZero(afins.capBorrow_adj)>
+                                {{afins.capBorrow_adj|flexPercent:1}}
                             </td>
-                            <td class="text-center" ng-class="{red: loan.appfins.capBorrow_adj <= grads[0].borrowing_capacity }">
+                            <td class="text-center" ng-class="{red: afins.capBorrow_adj <= grads[0].borrowing_capacity }">
                                 {{grads[0].borrowing_capacity|flexPercent:1}}
                             </td>
-                            <td class="text-center" ng-class="{red: loan.appfins.capBorrow_adj <= grads[1].borrowing_capacity }">
+                            <td class="text-center" ng-class="{red: afins.capBorrow_adj <= grads[1].borrowing_capacity }">
                                 {{grads[1].borrowing_capacity|flexPercent:1}}
                             </td>
-                            <td class="text-center" ng-class="{red: loan.appfins.capBorrow_adj <= grads[2].borrowing_capacity }">
+                            <td class="text-center" ng-class="{red: afins.capBorrow_adj <= grads[2].borrowing_capacity }">
                                 {{grads[2].borrowing_capacity|flexPercent:1}}
                             </td>
-                            <td class="text-center" ng-class="{red: loan.appfins.capBorrow_adj <= grads[3].borrowing_capacity }">
+                            <td class="text-center" ng-class="{red: afins.capBorrow_adj <= grads[3].borrowing_capacity }">
                                 {{grads[3].borrowing_capacity|flexPercent:1}}
                             </td>
                         </tr>
@@ -355,18 +355,18 @@
                             <td>Credit Score [>=]</td>
                             <td></td>
                             <td class="bright text-center">
-                                {{loan.appfins.credit_score|displaynull}}
+                                {{afins.credit_score|displaynull}}
                             </td>
-                            <td class="text-center" ng-class="{red: loan.appfins.credit_score < grads[0].credit_score }">
+                            <td class="text-center" ng-class="{red: afins.credit_score < grads[0].credit_score }">
                                 {{grads[0].credit_score}}
                             </td>
-                            <td class="text-center" ng-class="{red: loan.appfins.credit_score < grads[1].credit_score }">
+                            <td class="text-center" ng-class="{red: afins.credit_score < grads[1].credit_score }">
                                 {{grads[1].credit_score}}
                             </td>
-                            <td class="text-center" ng-class="{red: loan.appfins.credit_score < grads[2].credit_score }">
+                            <td class="text-center" ng-class="{red: afins.credit_score < grads[2].credit_score }">
                                 {{grads[2].credit_score}}
                             </td>
-                            <td class="text-center" ng-class="{red: loan.appfins.credit_score < grads[3].credit_score }">
+                            <td class="text-center" ng-class="{red: afins.credit_score < grads[3].credit_score }">
                                 {{grads[3].credit_score}}
                             </td>
                         </tr>
@@ -374,18 +374,18 @@
                             <td>Years Farming [>=]</td>
                             <td></td>
                             <td class="text-center bright">
-                                {{loan.appfins.experience}}
+                                {{afins.experience}}
                             </td>
                             <td class="text-center" ng-class="{red: farmer.farm_exp < grads[0].years_farming }">
                                 {{grads[0].years_farming}}
                             </td>
-                            <td class="text-center" ng-class="{red: Number(loan.appfins.experience) < grads[1].years_farming }">
+                            <td class="text-center" ng-class="{red: Number(afins.experience) < grads[1].years_farming }">
                                 {{grads[1].years_farming}}
                             </td>
-                            <td class="text-center" ng-class="{red: Number(loan.appfins.experience) < grads[2].years_farming }">
+                            <td class="text-center" ng-class="{red: Number(afins.experience) < grads[2].years_farming }">
                                 {{grads[2].years_farming}}
                             </td>
-                            <td class="text-center" ng-class="{red: Number(loan.appfins.experience) < grads[3].years_farming }">
+                            <td class="text-center" ng-class="{red: Number(afins.experience) < grads[3].years_farming }">
                                 {{grads[3].years_farming}}
                             </td>
                         </tr>
@@ -393,7 +393,7 @@
                             <td>CPA Financials</td>
                             <td></td>
                             <td class="bright text-center">
-                                {{loan.appfins.cpa_financials|boolean}}
+                                {{afins.cpa_financials|boolean}}
                             </td>
                             <td class="text-center" ng-class="{red: !grads[0].cpa_financials }">
                                 {{grads[0].cpa_financials|boolean}}
@@ -600,7 +600,7 @@
 
         <div class="row">
             <div class="col-md-12 text-right">
-                <button style="margin-right:10px;" class="btn btn-primary">UPDATE</button>
+                <button style="margin-right:10px;" class="btn btn-primary" ng-click="updateFinancials()"><span class="glyphicons glyphicons-log-book"></span>&nbsp;UPDATE</button>
             </div>
         </div>
     </div>
