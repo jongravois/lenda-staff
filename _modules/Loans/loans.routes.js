@@ -30,28 +30,28 @@
                 .state('arm.edit.audit', {
                     url: '/audit',
                     templateUrl: './_modules/Loans/audit/audit.html',
-                    controller: 'EditLoanController',
+                    controller: 'AuditController',
                     data: {newapplication: false},
                     resolve: {}
                 })
                 .state('arm.edit.budget', {
                     url: '/budget',
                     templateUrl: './_modules/Loans/budget/budget.html',
-                    controller: 'EditLoanController',
+                    controller: 'BudgetsController',
                     data: {newapplication: false},
                     resolve: {}
                 })
                 .state('arm.edit.closing', {
                     url: '/closing',
                     templateUrl: './_modules/Loans/closing/closing.html',
-                    controller: 'EditLoanController',
+                    controller: 'ClosingsController',
                     data: {newapplication: false},
                     resolve: {}
                 })
                 .state('arm.edit.collateral', {
                     url: '/collateral',
                     templateUrl: './_modules/Loans/collateral/collateral.html',
-                    controller: 'EditLoanController',
+                    controller: 'CollateralsController',
                     data: {newapplication: false},
                     resolve: {}
                 })
@@ -65,28 +65,28 @@
                 .state('arm.edit.committee', {
                     url: '/committee',
                     templateUrl: './_modules/Loans/committee/committee.html',
-                    controller: 'EditLoanController',
+                    controller: 'CommitteesController',
                     data: {newapplication: false},
                     resolve: {}
                 })
                 .state('arm.edit.crops', {
                     url: '/crops',
                     templateUrl: './_modules/Loans/crops/crops.html',
-                    controller: 'EditLoanController',
+                    controller: 'CropsController',
                     data: {newapplication: false},
                     resolve: {}
                 })
                 .state('arm.edit.disbursements', {
                     url: '/disbursements',
                     templateUrl: './_modules/Loans/disbursements/disbursements.html',
-                    controller: 'EditLoanController',
+                    controller: 'DisbursementsController',
                     data: {newapplication: false},
                     resolve: {}
                 })
                 .state('arm.edit.farms', {
                     url: '/farms',
                     templateUrl: './_modules/Loans/farms/farms.html',
-                    controller: 'EditLoanController',
+                    controller: 'FarmsController',
                     data: {newapplication: false},
                     resolve: {}
                 })
@@ -97,23 +97,23 @@
                     data: {newapplication: false},
                     resolve: {}
                 })
-                .state('edit.insurance', {
+                .state('arm.edit.insurance', {
                     url: '/insurance',
                     templateUrl: './_modules/Loans/insurance/insurance.html',
-                    controller: 'EditLoanController',
+                    controller: 'InsuranceController',
                     data: {newapplication: false},
                     resolve: {}
                 })
                 .state('arm.edit.optimizer', {
                     url: '/optimizer',
                     templateUrl: './_modules/Loans/optimizer/optimizer.html',
-                    controller: 'EditLoanController',
+                    controller: 'OptimizersContoller',
                     data: {newapplication: false}
                 })
                 .state('arm.edit.prereqs', {
                     url: '/prereqs',
                     templateUrl: './_modules/Loans/prereqs/prereqs.html',
-                    controller: 'EditLoanController',
+                    controller: 'PrereqsController',
                     data: {newapplication: false},
                     resolve: {}
                 })
@@ -134,27 +134,27 @@
                 .state('arm.edit.storage', {
                     url: '/storage',
                     templateUrl: './_modules/Loans/storage/storage.html',
-                    controller: 'EditLoanController',
+                    controller: 'StoragesController',
                     data: {newapplication: false},
                     resolve: {}
                 })
                 .state('arm.edit.summary', {
                     url: '/summary',
                     templateUrl: './_modules/Loans/summary/summary.html',
-                    controller: 'EditLoanController',
+                    controller: 'SummaryController',
                     data: {newapplication: false}
                 })
                 .state('arm.edit.terms', {
                     url: '/terms',
                     templateUrl: './_modules/Loans/terms/terms.html',
-                    controller: 'EditLoanController',
+                    controller: 'TermsController',
                     data: {newapplication: false},
                     resolve: {}
                 })
                 .state('arm.edit.underwriting', {
                     url: '/underwriting',
                     templateUrl: './_modules/Loans/underwriting/underwriting.html',
-                    controller: 'EditLoanController',
+                    controller: 'UnderwritingController',
                     data: {newapplication: false}
                 });
         });
