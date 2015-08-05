@@ -11,7 +11,7 @@
             /* jshint validthis: true */
             var comms = $scope.loan.comments;
             $scope.comments = AppFactory.parseComments(comms);
-            //console.log('Comments', $scope.comments);
+            console.log('Comments', $scope.comments);
 
             $scope.btnCommentOk = function(comm) {
                 alert('Acknowledged');
