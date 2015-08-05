@@ -10,6 +10,7 @@
     function AppFactory($http, $q, $state, $stateParamas, toastr, API_URL) {
         var publicAPI = {
             averageArray: averageArray,
+            calcAcresCrop: calcAcresCrop,
             calcAdjExposure: calcAdjExposure,
             calcCashFlow: calcCashFlow,
             calcExposure: calcExposure,
@@ -56,6 +57,18 @@
         function averageArray(arr) {
             var removed_empty = _.compact(arr);
             return _.sum(removed_empty) / removed_empty.length;
+        }
+        function calcAcresCrop(cropID, loan) {
+            var crop_id = Number(cropID);
+            var farmpractices = loan.farmpractices;
+
+            var crop = _.filter(farmpractices, function(i) {
+                if (i.crop_id == crop_id) {
+                    return i;
+                }
+            });
+
+            return _.sumCollection(crop, 'acres');
         }
         function calcAdjExposure(loan) {
             return loan.fins.adjExposure;

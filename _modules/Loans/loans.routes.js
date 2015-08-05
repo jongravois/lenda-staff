@@ -107,7 +107,7 @@
                 .state('arm.edit.optimizer', {
                     url: '/optimizer',
                     templateUrl: './_modules/Loans/optimizer/optimizer.html',
-                    controller: 'OptimizersContoller',
+                    controller: 'OptimizersController',
                     data: {newapplication: false}
                 })
                 .state('arm.edit.prereqs', {

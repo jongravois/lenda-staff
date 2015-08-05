@@ -9,14 +9,14 @@
     }
 </style>
 <fieldset>
-    <legend>Optimizer</legend>
+    <legend>Optimizer [ <span class="glyphicons glyphicons-rabbit" ng-class="{cBlack: !alpine, cRed: alpine}" ng-click="toggleAlpine()"></span> ]</legend>
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-12">
                 <table class="table">
                     <tr>
                         <td colspan="{{loan.optimized.length + 2}}">
-                            <span class="glyphicon glyphicon-plus" ng-click="showCrop()"></span> Add Crop
+                            <span class="glyphicon glyphicon-plus cGreen" ng-click="showCrop()"></span> Add Crop
                             <span>&nbsp;</span>
                         <span class="pull-right">
                             <span>
@@ -91,8 +91,8 @@
                             ng-repeat="f in loan.optimized">
                             {{f.state}}
                         </td>
-                        <td class="text-right">
-                            <span class="glyphicon glyphicon-plus" ng-click="addFarm()"></span> Add Farm
+                        <td class="text-right" style="width:120px;">
+                            <span class="glyphicon glyphicon-plus cGreen" ng-click="addFarm()"></span> Add Unit
                         </td>
                     </tr>
                     <tr>
@@ -242,7 +242,7 @@
                         </td>
                     </tr>
 
-                    <!--<tbody id="corn" ng-if="tggl.tcropCorn">
+                    <tbody id="corn" ng-if="tggl.tcropCorn">
                     <tr>
                         <td>Corn</td>
                         <td class="cBlue" ng-class="gtZero(f.crops[1].c_acres)"
@@ -606,7 +606,7 @@
                         </td>
                         <td>&nbsp;</td>
                     </tr>
-                    </tbody>-->
+                    </tbody>
 
                     <tbody id="cotton" ng-if="tggl.tcropCotton">
                     <tr>
