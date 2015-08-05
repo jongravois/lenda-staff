@@ -53,18 +53,42 @@
                 data.commit_arm = item.financials.commit_arm;
                 data.commit_dist = item.financials.commit_dist;
 
-                data.account_classification = item.account_classification;
-
                 data.int_percent_arm = item.fins.int_percent_arm;
                 data.int_percent_dist = item.fins.int_percent_dist;
 
-                data.qb_date = '';
-                data.qb_type = '';
-                data.qb_cat = '';
-                data.qb_amount = '';
+                data.fee_total = item.financials.fee_total;
 
                 return data;
             });
+
+            //added_land: false
+            //agency: "Rayville State Farm"
+            //analyst: "Jonathan Gravois"
+            //analyst_abr: "JWG"
+            //app_date: "07/12/2015"
+            //applicant: "All Glass Towers"
+            //bankruptcy_history: false
+            //commit_arm: 126176.93
+            //commit_dist: 120140.075
+            //controlled_disbursement: false
+            //crop_year: 2015
+            //dist: "JSI"
+            //due_date: "12/15/2015"
+            //farmer: "Stark, Tony"
+            //fee_total: 6480.51642984
+            //has_addendum: true
+            //int_percent_arm: 9
+            //int_percent_dist: 9
+            //is_cross_collateralized: true
+            //loan_type: "Ag-Input"
+            //loantype_abr: "AGI"
+            //location: "RAY"
+            //num_attachments: 2
+            //region: "West"
+            //required_3party: false
+            //season: "Spring"
+            //status_id: 1
+
             console.log('ActivityDetailFactory.retro', retro);
             return retro;
         }

@@ -16,85 +16,54 @@
         function getData(loans) {
             console.log('CommitteeApprovalFactory.loans', loans);
 
-            function ObjToArray(obj) {
-                var arr = obj instanceof Array;
+            var groupByCrop = _.partial(_.ary(_.groupBy, 2), _, 'fins.crop_acres');
 
-                return (arr ? obj : Object.keys(obj)).map(function(i) {
-                    var val = arr ? i : obj[i];
-                    if(typeof val === 'object')
-                        return ObjToArray(val);
-                    else
-                        return val;
-                });
-            }
-            console.log('CommitteeApprovalFactory.committee', committee);
-            alert(JSON.stringify(ObjToArray(loans.committee, ' ')));
+            var retro = _.map(loans, function (item) {
+                var data = {};
 
-            //var retro = _.map(loans, function (item) {
-            //    var committee = [];
-            //    var committees = _(item.committee).chain().groupBy('id').value();
-            //    console.log('CommitteeApprovalFactory.committee', committee);
+                data.region = item.location.regions.region;
+                data.location = item.location.loc_abr;
+                data.crop_year = item.crop_year;
 
+                if (item.season == 'S') {
+                    data.season = 'Spring';
+                } else if (item.season == 'F') {
+                    data.season = 'Fall';
+                }
 
-                //var loan = {};
-                //loan.id = item.id;
-                //loan.account_classification = item.account_classification;
-                //loan.agency = item.agencies;
-                //loan.analyst = item.analyst;
-                //loan.analyst_abr = item.analyst_abr;
-                //loan.app_date = item.app_date;
-                //loan.applicant = item.applicant.applicant;
-                //loan.commit_arm = item.financials.commit_arm;
-                //loan.commit_dist = item.financials.commit_dist;
-                //loan.crop_year = item.crop_year;
-                //loan.dist = item.distributor.distributor;
-                //loan.due_date = item.due_date;
-                //loan.farmer = item.farmer.farmer;
-                //loan.int_percent_arm = item.fins.int_percent_arm;
-                //loan.int_percent_dist = item.fins.int_percent_dist;
-                //loan.loan_type = item.loan_type;
-                //loan.loantype_abr = item.loantype_abr;
-                //loan.location = item.location.loc_abr;
-                //loan.region = item.location.regions.region;
-                //loan.season = item.season;
-                //loan.status_id = item.status.id;
-                //
-                //if (loan.season == 'S') {
-                //    loan.season = 'Spring';
-                //} else if (loan.season == 'F') {
-                //    loan.season = 'Fall';
-                //}
-                //console.log('CommitteeApprovalFactory.loan', loan);
+                data.analyst = item.analyst;
+                data.analyst_abr = item.analyst_abr;
+                data.farmer = item.farmer.farmer;
+                data.applicant = item.applicant.applicant;
+                data.loan_type = item.loan_type;
+                data.loantype_abr = item.loantype_abr;
+                data.dist = item.distributor.distributor;
+                data.app_date = item.app_date;
+                data.due_date = item.due_date;
+
+                data.agency = item.agencies;
+                data.status_id = item.status.id;
+
+                data.commit_arm = item.financials.commit_arm;
+                data.commit_dist = item.financials.commit_dist;
+
+                data.account_classification = item.account_classification;
+
+                data.int_percent_arm = item.fins.int_percent_arm;
+                data.int_percent_dist = item.fins.int_percent_dist;
 
                 /*
-                var arr = [];
-                var locations = _(retro).chain().groupBy('location').pairs().value();
-                _.each(locations, function(loc){
-                    var rec = {
-                        region: getRegion(retro, loc[0]),
-                        location: loc[0],
-                        crop_year: getCropYear(retro, loc[0]),
-                        beansFAC: _.sumCollection(loc[1], 'beansFAC'),
-                        corn: _.sumCollection(loc[1], 'corn'),
-                        cotton: _.sumCollection(loc[1], 'cotton'),
-                        peanuts: _.sumCollection(loc[1], 'peanuts'),
-                        rice: _.sumCollection(loc[1], 'rice'),
-                        sorghum: _.sumCollection(loc[1], 'sorghum'),
-                        soybeans: _.sumCollection(loc[1], 'soybeans'),
-                        sugarcane: _.sumCollection(loc[1], 'sugarcane'),
-                        sunflowers: _.sumCollection(loc[1], 'sunflowers'),
-                        wheat: _.sumCollection(loc[1], 'wheat')
-                    };
-                    arr.push(rec);
-                });
-                console.log('CropMixFactory.locations', locations, 'arr', arr);
-                */
+                 data.committee_member = item.;
+                 data.applicant = item.applicant;
+                 data.addendum_date = item.;
+                 data.vote = item.;
+                 data.log = item.;
+                 */
 
-                //return loan;
-            //});
-            //console.log('CommitteeApprovalFactory.loan', loan);
-            //return retro;
-
+                return data;
+            });
+            console.log('CommitteeApprovalFactory.retro', retro);
+            return retro;
         }
     } // end factory
 })();

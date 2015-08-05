@@ -1,7 +1,3 @@
-/**
- * Update ag-grid css gray background for rows selected
- * .ag-fresh .ag-row-selected {background-color: #dedede;}
- */
 (function () {
     'use strict';
     angular
@@ -31,7 +27,7 @@
                 headerName: 'Region',
                 field: 'region',
                 cellClass: 'text-center',
-                cellRenderer: function(params) {
+                cellRenderer: function (params) {
                     return params.data.region;
                 },
                 suppressSorting: false,
@@ -65,8 +61,8 @@
                 headerName: 'Season',
                 field: 'season',
                 cellClass: 'text-center',
-                cellRenderer: function(params) {
-                    if (params.data.season.toUpperCase() == 'F'){
+                cellRenderer: function (params) {
+                    if (params.data.season.toUpperCase() == 'F') {
                         return 'Fall';
                     } else {
                         return 'Spring';
@@ -131,7 +127,7 @@
                 headerName: 'Orig Dt',
                 field: 'orig_date',
                 cellClass: 'text-center',
-                cellRenderer: function(params) {
+                cellRenderer: function (params) {
                     return moment(params.data.orig_date).format('MM/DD/YYYY');
                 },
                 suppressSorting: false,
@@ -144,18 +140,18 @@
                 headerName: 'Due Dt',
                 field: 'due_date',
                 cellClass: 'text-center',
-                cellRenderer: function(params) {
+                cellRenderer: function (params) {
                     if (params.data.past_due == 1) {
-                        // Deprecated
+                        //Deprecated
                         //return "<span style='color: orange'>" + moment(params.data.due_date).format('MM/DD/YYYY') + "</span>";
                         return "<span style='color: orange'>" + params.data.due_date + "</span>";
                     }
                     else if (params.data.past_due == 2) {
-                        // Deprecated
+                        //Deprecated
                         //return "<span style='color: #ee0000'>" + moment(params.data.due_date).format('MM/DD/YYYY') + "</span>";
                         return "<span style='color: #ee0000'>" + params.data.due_date + "</span>";
                     } else {
-                        // Deprecated
+                        //Deprecated
                         //return "<span style='color: black'>" + moment(params.data.due_date).format('MM/DD/YYYY') + "</span>";
                         return "<span style='color: black'>" + params.data.due_date + "</span>";
                     }
@@ -177,7 +173,7 @@
             {
                 headerTooltip: 'Status',
                 headerName: 'Status',
-                field: 'status_id',
+                field: 'status',
                 cellClass: 'text-center',
                 suppressSorting: true,
                 suppressSizeToFit: false,
@@ -192,7 +188,8 @@
                 field: 'qb_date',
                 cellClass: 'text-center',
                 cellRenderer: function (params) {
-                    return moment(params.data.qb_date).format('MM/DD/YYYY');
+                    //return moment(params.data.qb_date).format('MM/DD/YYYY');
+                    return params.data.qb_date;
                 },
                 suppressSorting: false,
                 suppressSizeToFit: false,
@@ -218,15 +215,15 @@
                 cellClass: 'text-left',
                 suppressSorting: false,
                 suppressSizeToFit: false,
-                width:110
+                width: 110
             },
             {
                 headerTooltip: 'Quickbooks Transaction Amount',
                 headerGroup: 'Quickbooks',
                 headerName: 'Amount',
                 field: 'qb_amount',
-                cellClass: function(params) {
-                    return (params.data.qb_amount ? 'text-right': 'text-center');
+                cellClass: function (params) {
+                    return (params.data.qb_amount ? 'text-right' : 'text-center');
                 },
                 cellRenderer: function (params) {
                     return $filter('flexCurrency')(params.data.qb_amount, 0);
@@ -237,16 +234,9 @@
             }
         ];
 
-        $scope.getModel = function(){
-            if ($scope.gridOptions.api) {
-                console.log($scope.gridOptions.api.getModel());
-                return $scope.gridOptions.api.getModel();
-            }
-        }
-
-        $scope.hideIcons = function(){
+        $scope.hideIcons = function () {
             $scope.icons = !$scope.icons;
-            if ($scope.icons){
+            if ($scope.icons) {
                 $scope.gridOptions.pinnedColumnCount = $scope.pins - 1;
             } else {
                 $scope.gridOptions.pinnedColumnCount = $scope.pin;
@@ -255,17 +245,9 @@
             $scope.toggleOrigDue();
         }
 
-        $scope.showToolPanel = function(){
-            $scope.tools = !$scope.tools;
-            if ($scope.gridOptions.api) {
-                $scope.gridOptions.api.showToolPanel($scope.tools);
-                $scope.gridOptions.api.showToolPanel(api.isToolPanelShowing());
-            }
-        }
-
-        $scope.toggleHorizontal = function(){
+        $scope.toggleHorizontal = function () {
             $scope.horizontal = !$scope.horizontal;
-            if ($scope.horizontal){
+            if ($scope.horizontal) {
                 $scope.pin = 0;
             } else {
                 if ($scope.icons) {
@@ -279,13 +261,13 @@
             $scope.toggleOrigDue();
         }
 
-        $scope.toggleOrigDue = function(){
+        $scope.toggleOrigDue = function () {
             $scope.origDue = !$scope.origDue;
             if ($scope.gridOptions.api) {
                 $scope.gridOptions.api.onNewCols();
                 $scope.gridOptions.api.hideColumns(['orig_date'], $scope.origDue);
                 $scope.gridOptions.api.hideColumns(['due_date'], !$scope.origDue);
-                $scope.gridOptions.api.hideColumns(['status_left', 'status', 'status_right'], $scope.icons);
+                $scope.gridOptions.api.hideColumns(['status_left', 'status'], $scope.icons);
                 $scope.gridOptions.api.setSortModel($scope.sortKeys);
             }
         }
@@ -310,6 +292,11 @@
 
         $scope.pins = 8;
         $scope.pin = 0;
+        $scope.icons = false;
+        $scope.tools = false;
+        $scope.origDue = false;
+        $scope.detail = false;
+        $scope.horizontal = false;
         $scope.sortKeys = [
             {field: 'region', sort: 'asc'},
             {field: 'location', sort: 'asc'},
@@ -319,26 +306,18 @@
             {field: 'farmer', sort: 'asc'},
             {field: 'applicant', sort: 'asc'},
             {field: 'dist', sort: 'asc'},
-            {field: 'loantype_abr', sort: 'asc'},
-            {field: 'qb_date', sort: 'asc'}
+            {field: 'loantype_abr', sort: 'asc'}
         ];
         $scope.gridOptions.rowData = $scope.reduced;
         $scope.gridHeight = Number(($scope.gridOptions.rowData.length + 2) * 30).toString();
-        $scope.gridOptions.api.setSortModel($scope.sortKeys);
-
         if ($scope.gridOptions.api) {
-            $scope.gridOptions.api.hideColumns(['due_date'], true);
             $scope.gridOptions.api.onNewRows();
+            $scope.gridOptions.api.hideColumns(['due_date'], true);
             $scope.gridOptions.api.setSortModel($scope.sortKeys);
         }
+        console.log($scope.gridOptions);
 
-        //console.log($scope.gridOptions);
-
-        $scope.icons = false;
-        $scope.tools = false;
-        $scope.origDue = false;
-        $scope.detail = false;
-        $scope.horizontal = false;
     }
 
 })();
+

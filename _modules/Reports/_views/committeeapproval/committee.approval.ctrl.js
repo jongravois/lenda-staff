@@ -153,7 +153,7 @@
         };
 
         $scope.reduced = CommitteeApprovalFactory.getData(Loans);
-        console.log('reduced', $scope.reduced);
+        console.log('CommitteeApprovalController reduced', $scope.reduced);
 
         var sort = [
             {field: 'analyst_abr', sort: 'asc'},
