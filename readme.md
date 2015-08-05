@@ -1,5 +1,7 @@
 ## LENDA: STAFF
 
+[![Join the chat at https://gitter.im/jongravois/jotclient](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/jongravois/jotclient?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 ## Installation
 
 * Clone repo to local environment.
