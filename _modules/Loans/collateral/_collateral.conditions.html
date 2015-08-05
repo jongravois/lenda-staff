@@ -1,0 +1,65 @@
+<table class="table table-striped rowed disp-sm" style="width:90%; margin: 0 auto;">
+    <tr>
+        <th>Loan Covenants and Agreements</th>
+        <th style="width:100px;">Fulfilled</th>
+    </tr>
+    <tr ng-repeat="c in loan.loanconditions|filter:{category: 'loan'}">
+        <td ng-class="{'red': c.status == 'pending'}">
+            {{c.condition}}
+        </td>
+        <td ng-show="c.status == 'verified'">{{c.action_date|date:'MM/dd/yyyy'}}</td>
+        <td ng-show="c.status == 'pending'" class="text-center">
+            <button class="btn btn-xs btn-error" ng-click="verifyCondition($index)">Fulfill</button>
+        </td>
+    </tr>
+</table>
+<br/>
+<table class="table table-striped rowed disp-sm" style="width:90%; margin: 0 auto;">
+    <tr>
+        <th>Personal Guarantees</th>
+        <th style="width:100px;">Fulfilled</th>
+    </tr>
+    <tr ng-repeat="c in loan.loanconditions|filter:{category: 'guar'}">
+        <td ng-class="{'red': c.status == 'pending'}">
+            {{c.condition}}
+        </td>
+        <td ng-show="c.status == 'verified'">{{c.action_date|date:'MM/dd/yyyy'}}</td>
+        <td ng-show="c.status == 'pending'" class="text-center">
+            <span class="glyphicon glyphicon-paperclip"></span>
+        </td>
+    </tr>
+    <tr class="default"><td colspan="2">&nbsp;</td></tr>
+    <tr>
+        <td>
+            <input type="text" class="form-control" name="condition" ng-model="newCondition.condition"/>
+        </td>
+        <td class="text-center">
+            <button class="btn btn-xs btn-primary" ng-click="createCollateralCondition()">Add</button>
+        </td>
+    </tr>
+</table>
+<br/>
+<table class="table table-striped rowed disp-sm" style="width:90%; margin: 0 auto;">
+    <tr>
+        <th>Additional Conditions</th>
+        <th style="width:100px;">Fulfilled</th>
+    </tr>
+    <tr ng-repeat="c in loan.loanconditions|filter:{category: 'free'}">
+        <td ng-class="{'red': c.status == 'pending'}">
+            {{c.condition}}
+        </td>
+        <td ng-show="c.status == 'verified'">{{c.action_date|date:'MM/dd/yyyy'}}</td>
+        <td ng-show="c.status == 'pending'" class="text-center">
+            <button class="btn btn-xs btn-error" ng-click="verifyCondition($index)">Fulfill</button>
+        </td>
+    </tr>
+    <tr class="default"><td colspan="2">&nbsp;</td></tr>
+    <tr>
+        <td>
+            <input type="text" class="form-control" name="condition" ng-model="newCondition.condition"/>
+        </td>
+        <td class="text-center">
+            <button class="btn btn-xs btn-primary" ng-click="createCollateralCondition()">Add</button>
+        </td>
+    </tr>
+</table>

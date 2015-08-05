@@ -19,6 +19,7 @@
             getIndicatorWidth: getIndicatorWidth,
             getOne: getOne,
             getSortedData: getSortedData,
+            gtZero: gtZero,
             inArray: inArray,
             nullOrNot: nullOrNot,
             parseComments: parseComments,
@@ -130,6 +131,14 @@
                 ds = _.sortByAll(collection, ['farmer']);
                 //console.log('false', ds);
                 return ds;
+            }
+        }
+        function gtZero(value) {
+            if (value === 0) {
+                return 'text-center';
+            }
+            else {
+                return 'text-right';
             }
         }
         function inArray(needle, haystack) {

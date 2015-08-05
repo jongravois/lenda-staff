@@ -234,17 +234,17 @@
                         <tr class="success">
                             <td>Total</td>
                             <td class="text-right">
-                                {{loan.appfins.total_assets = (loan.appfins.current_assets * 1) + (loan.appfins.intermediate_assets * 1) + (loan.appfins.fixed_assets * 1)  | noCentsCurrency}}
+                                {{afins.total_assets = (afins.current_assets * 1) + (afins.intermediate_assets * 1) + (afins.fixed_assets * 1)  | flexCurrency:0}}
                             </td>
                             <td class="text-center"> - </td>
                             <td class="text-right">
-                                {{ loan.appfins.total_assets_adj = (loan.appfins.current_assets_adj * 1) + (loan.appfins.intermediate_assets_adj * 1) + (loan.appfins.fixed_assets_adj * 1) | flexCurrency:0}}
+                                {{ afins.total_assets_adj = (afins.current_assets_adj * 1) + (afins.intermediate_assets_adj * 1) + (afins.fixed_assets_adj * 1) | flexCurrency:0}}
                             </td>
                             <td class="text-right">
-                                {{ loan.appfins.total_liability = (loan.appfins.current_assets_liability * 1) + (loan.appfins.intermediate_assets_liability * 1) + (loan.appfins.fixed_assets_liability * 1) | flexCurrency:0}}
+                                {{ afins.total_liability = (afins.current_assets_liability * 1) + (afins.intermediate_assets_liability * 1) + (afins.fixed_assets_liability * 1) | flexCurrency:0}}
                             </td>
                             <td class="text-right">
-                                {{ loan.appfins.total_reserve = (loan.appfins.current_assets_reserve * 1) + (loan.appfins.intermediate_assets_reserve * 1) + (loan.appfins.fixed_assets_reserve * 1) | flexCurrency:0}}
+                                {{ afins.total_reserve = (afins.current_assets_reserve * 1) + (afins.intermediate_assets_reserve * 1) + (afins.fixed_assets_reserve * 1) | flexCurrency:0}}
                             </td>
                         </tr>
                     </table>
@@ -597,11 +597,12 @@
             </div>
             <!-- SUMMARY PANEL-->
         </div>
-
-        <div class="row">
-            <div class="col-md-12 text-right">
-                <button style="margin-right:10px;" class="btn btn-primary" ng-click="updateFinancials()"><span class="glyphicons glyphicons-log-book"></span>&nbsp;UPDATE</button>
-            </div>
-        </div>
-    </div>
 </fieldset>
+<br>
+
+<div class="row">
+    <div class="col-md-12 text-right">
+        <button style="margin-right:10px;" class="btn btn-primary" ng-click="updateFinancials()"><span class="glyphicons glyphicons-log-book"></span>&nbsp;UPDATE</button>
+    </div>
+</div>
+</div>

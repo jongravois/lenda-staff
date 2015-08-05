@@ -9,11 +9,6 @@
 <fieldset>
     <legend>Prerequisite Documents</legend>
     <div class="container-fluid">
-        <div ng-if="docs || docs.length != 0" style="width:80%; margin:0 auto 10px 0;">
-            <input type="text" name="txtFilter" ng-model="txtFilter" placeholder="filter list" />
-        </div>
-        <br/>
-
         <div class="list-group"
              ng-if="!docs || docs.length == 0"
              style="width:80%; margin:0 auto;">
