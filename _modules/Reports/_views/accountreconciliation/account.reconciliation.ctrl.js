@@ -297,6 +297,9 @@
 
         $scope.pins = 8;
         $scope.pin = 0;
+        $scope.icons = false;
+        $scope.tools = false;
+        $scope.horizontal = false;
         $scope.sortKeys = [
             {field: 'region', sort: 'asc'},
             {field: 'location', sort: 'asc'},
@@ -315,10 +318,6 @@
             $scope.gridOptions.api.onNewRows();
             $scope.gridOptions.api.setSortModel($scope.sortKeys);
         }
-
-        $scope.icons = false;
-        $scope.tools = false;
-        $scope.horizontal = false;
     }
 
 })();
