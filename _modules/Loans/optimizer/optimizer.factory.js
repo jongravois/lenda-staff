@@ -12,27 +12,39 @@
             //calcInsGuarantee: calcInsGuarantee,
             //calcInsValue: calcInsValue,
             //getOptimizedLoan: getOptimizedLoan,
-            //getTotalCashRent: getTotalCashRent,
+            getTotalCashRent: getTotalCashRent,
+            getTotalFSAPaid: getTotalFSAPaid,
             //getTotalRentOvr: getTotalRentOvr,
-            //getTotalWaived: getTotalWaived,
-            parseUnits: parseUnits,
-            processFarms: processFarms
+            getTotalWaived: getTotalWaived,
+            parseUnits: parseUnits
         };
         return publicAPI;
 
         //////////
         function parseUnits(loan) {
-            var optimized = [
-                {},
-                {},
-                {},
-                {},
-                {}
-            ];
+            //console.log('PU-Loan', loan);
+            var optimized = [];
+            var processor = _.each(loan.farms, function(item){
+                _.each(item.units, function(i){
+                    //console.log('eye', i);
+                    i.fsn = item.fsn;
+                    i.practice = (i.IR === 0 ? 'NI' : 'IR');
+                    i.acres = Number(i.IR)+Number(i.NI);
+                    i.perm2ins = (i.perm_to_insure ? 'Y' : 'N');
+                    i.cash_rent = item.cash_rent;
+                    i.dist_rent = 0;
+                    i.waived = item.waived;
+                    i.when_due = item.when_due;
+                    i.fsa_paid = item.fsa_paid;
+                    i.cash_rent_acre_ARM = item.cash_rent/(Number(i.IR)+Number(i.NI));
+                    i.cash_rent_acre_dist = 0;
+                    i.cash_rent_acre_other = 0;
+                    i.fsa_acre = item.fsa_paid/(Number(i.IR)+Number(i.NI));
+                    optimized.push(i);
+                });
+            });
+            //console.log('farms', loan.farms, 'PU-P', optimized);
             return optimized;
-        }
-        function processFarms(farms) {
-            return farms;
         }
         /*
         function getOptimizedLoan(loan) {
@@ -73,17 +85,20 @@
                 share = (crop.c_ins_share ? Number(crop.c_ins_share)/100 : 1);
 
             return (guar + premium) / share;
-        }
+        }*/
         function getTotalCashRent(practices) {
             return _.sumCollection(practices, 'cash_rent');
         }
-        function getTotalRentOvr(practices) {
-            return _.weighted(practices, 'share_rent', 'acres');
+        function getTotalFSAPaid(practices) {
+            return _.sumCollection(practices, 'fsa_paid');
         }
+        /*function getTotalRentOvr(practices) {
+            return _.weighted(practices, 'share_rent', 'acres');
+        }*/
         function getTotalWaived(practices) {
             return _.sumCollection(practices, 'waived');
         }
-        function makeFarmPractice(obj, loan) {
+        /*function makeFarmPractice(obj, loan) {
             //console.log('obj', obj);
             //console.log('loan', loan);
 
