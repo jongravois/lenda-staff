@@ -1,0 +1,26 @@
+<div class="modal-header">
+    <h3>Required File Upload</h3>
+    <h5>{{properties.title}}</h5>
+</div>
+
+<div class="modal-body">
+    <input type="hidden" name="loan_id" value="{{properties.loanID}}"/>
+    <input type="hidden" name="document" value="{{properties.document}}"/>
+    <input type="hidden" name="filename" value="{{properties.filename}}"/>
+    <label>Please select file to upload!</label><br/>
+    <div class="btn btn-success"
+         ng-file-select
+         ng-model="files"
+         ng-multiple="multiple">
+        select file
+    </div>
+</div>
+
+<div class="modal-footer">
+    <button class="btn btn-primary" ng-click="ok()">
+        {{properties.buttons[0]}}
+    </button>
+    <button class="btn btn-default" ng-click="cancel()">
+        {{properties.buttons[1]}}
+    </button>
+</div>

@@ -1,0 +1,308 @@
+<!--
+<div id="One">
+    <p class="lg-text" ng-show="loan.has_distributor">
+      This is an {{loan.loan_type}} loan type where ARM and {{loan.distributor}} are partnering on the total commitment
+    </p>
+    <p class="lg-text" ng-show="!loan.has_distributor">
+      This is an {{loan.loan_type.type}} loan type where ARM is responsible for the total commitment
+    </p>
+</div>
+
+<div id="Two" ng-if="loan.fins.grade && loan.fins.grade != 'A'">
+  <p class="lg-text">
+    Applicant is rated  "{{loan.fins.grade}}"
+  </p>
+</div>
+
+<div id="Three" ng-if="!farmer.is_repeat">
+  <p class="lg-text">
+    Applicant is a first-time customer
+  </p>
+</div>
+
+<div id="Four" ng-if="applicant.loans_outstanding">
+  <p class="lg-text">
+    Applicant has outstanding loans at ARM
+  </p>
+</div>
+
+<div id="Five" ng-if="applicant.previous_addendum">
+  <p class="lg-text">
+    Applicant utilized loan addendums in previous year: 114%
+  </p>
+</div>
+
+<div id="Six" ng-if="!loan.guarantors || loan.guarantors.length == 0">
+  <p class="lg-text">
+    No personal guarantees were utilized in this loan
+  </p>
+</div>
+
+<div id="Seven" ng-if="loan.is_cross_collateralized">
+  <p class="lg-text">
+    This is a cross-collateralized loan
+  </p>
+</div>
+
+<div id="Eight" ng-if="loan.controlled_disbursement">
+  <p class="lg-text">
+    This is a controlled disbursements loan
+  </p>
+</div>
+
+<div id="Nine" ng-if="farms.totals.cash_rent && farms.totals.cash_rent > 0">
+  <p class="lg-text">
+    Cash Rent waivers were utilized
+  </p>
+</div>
+
+<div id="Ten" ng-if="loan.required_3party">
+  <p class="lg-text">
+    Third Party Credit other than Interest was utilized
+  </p>
+</div>
+
+<div id="Eleven" ng-if="farms.totals.harvest && farms.totals.harvest > 0">
+  <p class="lg-text">
+    Variable harvesting expenses was utilized
+  </p>
+</div>
+
+<div id="Twelve" ng-if="farmer.farm_exp < 3">
+  <p class="lg-text">
+    Applicant has less than 3 years of farming history
+  </p>
+</div>
+
+<div id="Thirteen" ng-if="!quests.plant_own">
+  <p class="lg-text">
+    Applicant does not plant his own crops
+  </p>
+</div>
+
+<div id="Fourteen" ng-if="!quests.harvest_own">
+  <p class="lg-text">Applicant does not harvest his own crop</p>
+</div>
+
+<div id="Fifteen" ng-if="!quests.equip_obligations">
+  <p class="lg-text">
+    Applicant does not have all equipment obligations met
+  </p>
+</div>
+
+<div id="Sixteen" ng-if="!quests.other_cash">
+  <p class="lg-text">
+    Applicant has not made provisions for all cash outlays
+  </p>
+</div>
+
+<div id="Seventeen" ng-if="!quests.fsa_good">
+  <p class="lg-text">
+    Applicant is not in good standing with FSA
+  </p>
+</div>
+
+<div id="Eighteen" ng-if="!quests.fci_good">
+  <p class="lg-text">Applicant is not in good standing with Federal Crop Insurance (RMA)</p>
+</div>
+
+<div id="Nineteen" ng-if="!quests.premiums_past">
+  <p class="lg-text">Applicant has Crop Insurance premiums past due</p>
+</div>
+
+<div id="Twenty" ng-if="quests.legal_defendant">
+  <p class="lg-text">
+    Applicant is defendant in legal actions
+  </p>
+</div>
+
+<div id="TwentyOne" ng-if="quests.judgements">
+  <p class="lg-text">
+    Applicant has judgements outstanding
+  </p>
+</div>
+
+<div id="TwentyTwo" ng-if="quests.bankruptcy">
+  <p class="lg-text">
+    Applicant has been previously involved in a bankruptcy
+  </p>
+</div>
+
+<div id="TwentyThree" ng-if="quests.bankruptcy_order">
+  <p class="lg-text">
+    This loan requires a Bankruptcy Order to incur debt
+  </p>
+</div>
+
+<div id="TwentyFour" ng-if="quests.liens">
+  <p class="lg-text">
+    There are outstanding liens on the mortgaged crop
+  </p>
+</div>
+
+<div id="TwentyFive" ng-if="quests.future_liabilities">
+  <p class="lg-text">
+    There are outstanding contractual obligations
+  </p>
+</div>
+
+<div id="TwentySix" ng-if="loan.crops[6].acres > 0">
+  <p class="lg-text">
+    This loan includes the production of peanuts
+  </p>
+</div>
+
+<div id="TwentySeven" ng-if="loan.crops[7].acres > 0">
+  <p class="lg-text">
+    This loan includes the production of sugar cane
+  </p>
+</div>
+
+<div id="TwentyEight">
+  <p class="lg-text">
+    No actual yield history existed - T-yield was used for corn…
+  </p>
+</div>
+
+<div id="TwentyNine">
+  <p class="lg-text">
+    Certain farms have no rent expense allocated
+  </p>
+</div>
+
+<div id="Thirty">
+  <p class="lg-text">
+    Whole farm expenses have been utilized and not directly allocated for each crop
+  </p>
+</div>
+
+<div id="ThirtyOne">
+  <p class="lg-text">
+    Crop Insurance other than RP is being used
+  </p>
+</div>
+
+<div id="ThirtyTwo">
+  <p class="lg-text">
+    Crop Insurance share used is greater than the applicants share of operation: corn…
+  </p>
+</div>
+
+<div id="ThirtyThree">
+  <p class="lg-text">
+    More crop was booked than was insured (acres x APH x level) - corn…
+  </p>
+</div>
+
+<div id="ThirtyFour">
+  <p class="lg-text">
+    This loan relies upon equipment as collateral
+  </p>
+</div>
+
+<div id="ThirtyFive">
+  <p class="lg-text">
+    This loan relies upon Real Estate as collateral
+  </p>
+</div>
+
+<div id="ThirtySix">
+  <p class="lg-text">
+    This loan relies upon outstanding Crop Insurance Claims as collateral
+  </p>
+</div>
+
+<div id="ThirtySeven">
+  <p class="lg-text">
+    Projected crops discount rate used is non-standard
+  </p>
+</div>
+
+<div id="ThirtyEight">
+  <p class="lg-text">
+    FSA assignment discount rate used is non standard
+  </p>
+</div>
+
+<div id="ThirtyNine">
+  <p class="lg-text">
+    Crop Insurance discount rate used is non-standard
+  </p>
+</div>
+
+<div id="Forty">
+  <p class="lg-text">
+    Equipment discount rate used is non-standard
+  </p>
+</div>
+
+<div id="FortyOne">
+  <p class="lg-text">
+    Real-Estate discount rate used is non-standard
+  </p>
+</div>
+
+<div id="FortyTwo">
+  <p class="lg-text">
+    Claims discount rate used is non-standard
+  </p>
+</div>
+
+<div id="FortyThree">
+  <p class="lg-text">
+    Loan has negative cash flow
+  </p>
+</div>
+
+<div id="FortyFour">
+  <p class="lg-text">
+    Applicant has yield history that is less than break-even for corn…
+  </p>
+</div>
+
+<div id="FortyFive">
+  <p class="lg-text">Loan's Risk Margin is less than 5% or Loans Risk Margin is less than 0</p>
+</div>
+
+<div id="FortySix">
+  <p class="lg-text">
+    The forecasted crop insurance plus FSA payments do not exceed the value of Total Commitment or The forecasted crop insurance plus FSA payments do not exceed the value of ARM Commitment
+  </p>
+</div>
+
+<div id="FortySeven">
+  <p class="lg-text">
+    The balance sheet shows less Net Worth than the ARM Commitment or The Balance Sheet shows negative net worth
+  </p>
+</div>
+
+<div id="FortyEight">
+  <p class="lg-text">
+    Service Fee is non-standard (this includes rate and/or is not charged on the total commitment)
+  </p>
+</div>
+
+<div id="FortyNine">
+  <p class="lg-text">
+    Processing Fee is non-standard (this includes rate and/or is not charged on the total commitment)
+  </p>
+</div>
+
+<div id="Fifty">
+  <p class="lg-text">
+    ARM Interest Rate is non-standard
+  </p>
+</div>
+
+<div id="FiftyOne">
+  <p class="lg-text">
+    ARM Interest Rate and Distributor Interest Rate are not the same
+  </p>
+</div>
+
+<div id="FiftyTwo">
+  <p class="lg-text">
+    Due Date is non-standard
+  </p>
+</div>
+-->

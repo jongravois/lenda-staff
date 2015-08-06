@@ -1,0 +1,99 @@
+<div class="row" style="padding-top: 20px;">
+  <div class="form-group col-md-12 text-left">
+    <b>Grain Storage</b>
+  </div>
+  <div class="row">
+    <div class="col-md-10 col-md-offset-1">
+      <table class="table table-striped">
+        <tr>
+          <td style="width:30%;">
+            <label>Amount Requested:</label>
+            &nbsp;&nbsp;&nbsp;
+            {{loan.fins.amount_requested|flexCurrency:0}}
+          </td>
+          <td style="width:30%;">
+            <label>Advance Percentage:</label>
+            &nbsp;&nbsp;&nbsp;
+            {{storage[0].advance_percent|flexPercent:1}}
+          </td>
+          <td style="width:40%;">
+            <label>Buyer:</label>
+            &nbsp;&nbsp;&nbsp;
+            {{storage[0].grain_buyer}}
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+  <br/>
+  <div class="row">
+    <div class="col-md-10 col-md-offset-1">
+      <table class="table table-striped rowed">
+        <tr>
+          <th>Contract Number</th>
+          <th>Contract Date</th>
+          <th>Delivery Due Date</th>
+          <th>Commodity</th>
+          <th>Contract Amount</th>
+          <th>Contract Price</th>
+          <th>Landowner Share</th>
+          <th>Expected Revenue</th>
+          <th>Eligible Proceeds</th>
+        </tr>
+        <tr>
+          <td colspan="8" ng-if="storage.length == 0">
+            <strong>No contracts found!</strong>
+          </td>
+        </tr>
+        <tr ng-repeat="store in storage">
+          <td>
+            {{store.contract_number}}
+          </td>
+          <td class="text-center">
+            {{store.contract_date}}
+          </td>
+          <td class="text-center">
+            {{store.delivery_date}}
+          </td>
+          <td class="text-center">
+            {{store.commodity|capitalize}}
+          </td>
+          <td class="text-right">
+            {{store.contract_amount|number:0}}
+          </td>
+          <td class="text-right">
+            {{store.contract_price|flexCurrency:4}}
+          </td>
+          <td class="text-right">
+            {{store.owner_share|flexPercent:1}}
+          </td>
+          <td class="text-right">
+            {{store.revenue|flexCurrency:0}}
+          </td>
+          <td class="text-right">
+            {{store.eligible_proceeds|flexCurrency:0}}
+          </td>
+        </tr>
+        <tr class="success">
+          <td colspan="4">Total</td>
+          <td class="text-right">
+            {{total_stored.acres|number:0}}
+          </td>
+          <td colspan="2">&nbsp;</td>
+          <td class="text-right">
+            {{total_stored.revenue|flexCurrency:0}}
+          </td>
+          <td class="text-right">
+            {{total_stored.eligible|flexCurrency:0}}
+          </td>
+        </tr>
+        <tr class="warning">
+          <td colspan="8">Residual</td>
+          <td class="text-right">
+            {{total_stored.remaining|flexCurrency:0}}
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>

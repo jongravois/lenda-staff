@@ -1,0 +1,71 @@
+<table class="table table-striped rowed disp-sm">
+    <tr>
+        <th colspan="5" style="width:50%;">&nbsp</th>
+        <th class="text-center" style="width:15%;">ARM</th>
+        <th class="text-center" style="width:15%;">Other</th>
+        <th class="text-center" style="width:15%;">Total</th>
+    </tr>
+    <tr ng-repeat="e in loan.expenses.byCat|orderBy: 'cat_id'" ng-if="e.expense != 'Total'">
+        <td colspan="5">
+            {{e.expense}}
+        </td>
+        <td class="text-right" ng-class=gtZero(e.calc_arm)>
+            {{e.calc_arm | flexCurrency:0 }}
+        </td>
+        <td class="text-right" ng-class=gtZero(e.calc_other)>
+            {{e.calc_other | flexCurrency:0 }}
+        </td>
+        <td class="text-right" ng-class=gtZero(e.calc_total)>
+            {{e.calc_total | flexCurrency:0 }}
+        </td>
+    </tr>
+
+    <!-- FEES -->
+    <tr>
+        <td colspan="5">Fees and Other</td>
+        <td class="text-right" ng-class=gtZero(AppFactory.getFeesForArm(loan))>
+            {{AppFactory.getFeesForArm(loan)|flexCurrency:0 }}
+        </td>
+        <td class="text-center"> - </td>
+        <td class="text-right" ng-class=gtZero(AppFactory.getFeesForArm(loan))>
+            {{AppFactory.getFeesForArm(loan)|flexCurrency:0 }}
+        </td>
+    </tr>
+
+    <!-- PRINCIPAL -->
+    <tr class="warning">
+        <td colspan="5" class="text-left">
+            <strong>Total Expenses</strong>
+        </td>
+        <td class="text-right" ng-class=gtZero(AppFactory.getArmPrincipal(loan))>
+            {{AppFactory.getArmPrincipal(loan)|flexCurrency:0}}
+        </td>
+        <td class="text-right" ng-class=gtZero(loan.expenses.totals.byLoan.other)>
+            {{loan.expenses.totals.byLoan.other | flexCurrency:0 }}
+        </td>
+        <td class="text-right" ng-class=gtZero(AppFactory.getTotalPrincipal(loan))>
+            {{AppFactory.getTotalPrincipal(loan) | flexCurrency:0 }}
+        </td>
+    </tr>
+
+    <!-- INTEREST -->
+    <tr>
+        <td colspan="5">Estimated Interest</td>
+        <td class="text-right" ng-class=gtZero(AppFactory.getArmInterest(loan))>
+            {{AppFactory.getArmInterest(loan)|flexCurrency:0}}
+        </td>
+        <td class="text-center"> - </td>
+        <td class="text-right" ng-class=gtZero(AppFactory.getTotalInterest(loan))>
+            {{AppFactory.getTotalInterest(loan)|flexCurrency:0}}
+        </td>
+    </tr>
+
+    <!-- CASH FLOW/DEFICIT -->
+    <tr class="success">
+        <td>Cash Flow (Deficit)</td>
+        <td colspan="6">&nbsp;</td>
+        <td class="text-right">
+            {{AppFactory.calcCashFlow(loan) | flexCurrency:0 }}
+        </td>
+    </tr>
+</table>

@@ -4,14 +4,17 @@
         .module('ARM')
         .factory('OptimizerFactory', OptimizerFactory);
 
-    OptimizerFactory.$inject = ['$q'];
+    OptimizerFactory.$inject = ['$http', '$q'];
 
     /* @ngInject */
-    function OptimizerFactory($q) {
+    function OptimizerFactory($http, $q) {
         var publicAPI = {
+            calcAcresCrop: calcAcresCrop,
+            calcAPHCrop: calcAPHCrop,
             calcInsGuarantee: calcInsGuarantee,
             calcInsValue: calcInsValue,
             getCrops: getCrops,
+            getMock: getMock,
             getOptimizedLoan: getOptimizedLoan,
             getTotalCashRent: getTotalCashRent,
             getTotalFSAPaid: getTotalFSAPaid,
@@ -23,6 +26,27 @@
         return publicAPI;
 
         //////////
+        function calcAcresCrop(cropID, loan) {
+            var acreage = _.sum(_.pluck(loan, 'acres'));
+            console.log('calcAcresCrop', loan, 'acres', acreage);
+
+        }
+        function calcAPHCrop(cropID) {
+            switch(cropID) {
+                case '0':
+                    return 932;
+                    break;
+                case '1':
+                    return 50;
+                    break;
+                case '6':
+                    return 932;
+                    break;
+                default:
+                    return 0;
+                    break;
+            }
+        }
         function parseUnits(loan) {
             //console.log('PU-Loan', loan);
             var optimized = [];
@@ -92,6 +116,9 @@
                 {id: 9, crop: 'sugarcane', name: 'Sugar Cane'},
                 {id: 10, crop: 'sunflowers', name: 'Sunflowers'},
             ];
+        }
+        function getMock() {
+            return $http.get('./_modules/Loans/optimizer/optimizer.json');
         }
         function calcInsValue(crop) {
             //console.log('Value Crop', crop);

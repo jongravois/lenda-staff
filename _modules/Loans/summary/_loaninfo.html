@@ -1,0 +1,131 @@
+<!--Applicant|Partners,etc|Analyst-->
+<div class="row">
+    <div class="form-group col-md-4">
+        <label>Applicant</label>
+        <br/>
+        <p class="display-field">
+            {{loan.applicant.applicant | displayname}}
+            <br/>
+            {{loan.applicant.address}}
+            <br/>
+            {{loan.applicant.city}}, {{loan.applicant.state_abr}} {{loan.applicant.zip}}
+            <br/>
+            {{loan.applicant.phone | phone}}
+            <br/>
+            {{loan.applicant.email}}
+            <br/>
+        </p>
+    </div>
+    <div class="form-group col-md-4">
+        <div ng-switch="loan.entity_type_id">
+            <div ng-switch-when="1">
+                <label>Corporation</label>
+                <br/>
+                <p class="display-field" ng-repeat="c in loan.corporations">
+                    {{c.corporation}}
+                </p>
+            </div>
+            <div ng-switch-when="3">
+                <label>Joint Venture</label>
+                <br/>
+                <p class="display-field" ng-repeat="j in loan.ventures">
+                    {{j.partner}}
+                </p>
+            </div>
+            <div ng-switch-when="4">
+                <label>Partners</label>
+                <br/>
+                <p class="display-field" ng-repeat="p in loan.partners">
+                    {{p.partner}}<br/><br/>
+                </p>
+            </div>
+            <div ng-switch-when="5">
+                <label>Spouse</label>
+                <br/>
+                <p class="display-field">
+                    {{loan.applicant.spouse | displayname}}
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="form-group col-md-4">
+        <label>Originating Officer:</label>
+        <br/>
+        <p class="display-field">
+            {{loan.analyst.name}}
+        </p>
+    </div>
+</div>
+
+<!-- OrgType| | AppDate-->
+<div class="row">
+    <div class="form-group col-md-4">
+        <label>Organization Type</label>
+        <br/>
+        <p class="display-field">
+            {{loan.entity_type}}
+        </p>
+    </div>
+    <div class="form-group col-md-4">&nbsp;</div>
+    <div class="form-group col-md-4">
+        <label ng-if="!loan.has_addendum">Application Date</label>
+        <label ng-if="loan.has_addendum">Addendum Date</label>
+        <br/>
+        <p class="display-field">
+            {{loan.app_date | date:'M/d/yy'}}
+        </p>
+    </div>
+</div>
+
+<!-- Income| |Interest Rates-->
+<div class="row">
+    <div class="form-group col-md-4">
+        <label>Income From Farm</label>
+        <br/>
+        <p class="display-field">
+            {{loan.quests.income_percent|flexPercent:1}}
+        </p>
+    </div>
+    <div class="form-group col-md-4">&nbsp;</div>
+    <div class="form-group col-md-4">
+        <label>Interest Rate</label>
+        <br/>
+        <table style="width:120px;">
+            <tr>
+                <td style="width:50%;">ARM:</td>
+                <td>{{loan.fins.int_percent_arm | number:1}}%</td>
+            </tr>
+            <tr ng-if="loan.has_distributor">
+                <td>{{loan.distributor}}:</td>
+                <td>{{loan.fins.int_percent_dist | number:1}}%</td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+<!--Income% Explanation-->
+<div class="row" ng-if="loan.quests.income_percent < 100">
+    <div class="form-group col-md-12">
+        <label>Additional Income</label>
+        <p>{{loan.quests.income_distribution_details}}</p>
+    </div>
+</div>
+
+<!--Pesticide Number| |Due Date-->
+<div class="row">
+    <div class="form-group col-md-4">
+        <label>Pesticide Number</label>
+        <br/>
+        <p class="display-field">
+            {{loan.quests.pesticide_number}}
+        </p>
+    </div>
+    <div class="form-group col-md-4">&nbsp;</div>
+    <div class="form-group col-md-4">
+        <label>Due Date</label>
+        <br/>
+        <p class="display-field">
+            {{loan.due_date | date:'M/d/yy'}}
+        </p>
+    </div>
+</div>

@@ -17,7 +17,7 @@
                 $scope.grads = $rootScope.defaults.admingraders;
             }
             $scope.afins = $scope.loan.applicant.fins;
-            console.log('Loan', $scope.loan, 'Financials', $scope.afins, 'Globs', $scope.grads);
+            //console.log('Loan', $scope.loan, 'Financials', $scope.afins, 'Globs', $scope.grads);
             
             $scope.updateFinancials = function() {
                 alert('working');

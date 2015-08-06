@@ -9,7 +9,7 @@
         function CropsController($rootScope, $scope, AppFactory){
             $scope.AppFactory = AppFactory;
             $scope.crops = $scope.loan.loancrops;
-            console.log('Loan', $scope.loan, 'Crops', $scope.crops);
+            //console.log('Loan', $scope.loan, 'Crops', $scope.crops);
 
             $scope.createCrop = function() {
                 alert('working');

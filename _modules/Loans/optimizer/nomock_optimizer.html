@@ -1,0 +1,309 @@
+<style>
+    .totaline td {
+        border-top: 1px solid #333333 !important;
+        border-bottom: 1px solid #333333 !important;
+    }
+</style>
+<fieldset>
+    <legend>Optimizer [ <span class="glyphicons glyphicons-rabbit" ng-class="{cBlack: !alpine, cRed: alpine}" ng-click="toggleAlpine()"></span> ]</legend>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <table class="table">
+                    <tr>
+                        <td colspan="{{optimized.length + 2}}">
+                            <span class="glyphicon glyphicon-plus cGreen" ng-click="showCrop()"></span> Add Crop
+                            <span>&nbsp;</span>
+                        <span class="pull-right">
+                            <span>
+                                <span class="glyphicons glyphicons-unchecked"
+                                      style="cursor:pointer; background-color:#f2f2f2;"
+                                      ng-if="!tggl.showRentRows"
+                                      ng-click="tggl.showRentRows = !tggl.showRentRows"></span>
+                                <span class="glyphicons glyphicons-check"
+                                      style="cursor:pointer; background-color:#f2f2f2;"
+                                      ng-if="tggl.showRentRows"
+                                      ng-click="tggl.showRentRows = !tggl.showRentRows"></span>
+                                Rent
+                            </span>
+                            &nbsp;&nbsp;&nbsp;
+                            <span>
+                                <span class="glyphicons glyphicons-unchecked"
+                                      style="cursor:pointer; background-color:#fee9db;"
+                                      ng-if="!tggl.showOverRentRows"
+                                      ng-click="tggl.showOverRentRows = !tggl.showOverRentRows"></span>
+                            <span class="glyphicons glyphicons-check"
+                                  style="cursor:pointer; background-color:#fee9db;"
+                                  ng-if="tggl.showOverRentRows"
+                                  ng-click="tggl.showOverRentRows = !tggl.showOverRentRows"></span>
+                            Rent Ovrd
+                        </span>
+                        &nbsp;&nbsp;&nbsp;
+                        <span>
+                            <span class="glyphicons glyphicons-unchecked"
+                                  style="cursor:pointer; background-color:#d9eef2;"
+                                  ng-if="!tggl.showInsuranceRows"
+                                  ng-click="tggl.showInsuranceRows = !tggl.showInsuranceRows"></span>
+                        <span class="glyphicons glyphicons-check"
+                              style="cursor:pointer; background-color:#d9eef2;"
+                              ng-if="tggl.showInsuranceRows"
+                              ng-click="tggl.showInsuranceRows = !tggl.showInsuranceRows"></span>
+                        Insurance
+                        </span>
+                        &nbsp;&nbsp;&nbsp;
+                        <span>
+                            <span class="glyphicons glyphicons-unchecked"
+                                  style="cursor:pointer; background-color: #ebf1e0;"
+                                  ng-if="!tggl.showCashFlowRows"
+                                  ng-click="tggl.showCashFlowRows = !tggl.showCashFlowRows"></span>
+                        <span class="glyphicons glyphicons-check"
+                              style="cursor:pointer; background-color: #ebf1e0;"
+                              ng-if="tggl.showCashFlowRows"
+                              ng-click="tggl.showCashFlowRows = !tggl.showCashFlowRows"></span>
+                        Relative CF
+                        </span>
+                        &nbsp;&nbsp;&nbsp;
+                        <span>
+                            <span class="glyphicons glyphicons-unchecked"
+                                  style="cursor:pointer; background-color:#fffed1;"
+                                  ng-if="!tggl.showRiskMarginRows"
+                                  ng-click="tggl.showRiskMarginRows = !tggl.showRiskMarginRows"></span>
+                            <span class="glyphicons glyphicons-check"
+                                  style="cursor:pointer; background-color:#fffed1;"
+                                  ng-if="tggl.showRiskMarginRows"
+                                  ng-click="tggl.showRiskMarginRows = !tggl.showRiskMarginRows"></span>
+                            Relative RM
+                            </span>
+                        </span>
+                        </td>
+                    </tr>
+                </table>
+
+                <table class="table rowed disp-sm">
+                    <tbody id="farms">
+                    <tr>
+                        <td style="width:120px;">State</td>
+                        <td class="text-center cBlue"
+                            ng-repeat="f in optimized">
+                            {{f.county.state.abr}}
+                        </td>
+                        <td class="text-right" style="width:120px;">
+                            <span class="glyphicon glyphicon-plus cGreen" ng-click="addFarm()"></span> Add Unit
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>County</td>
+                        <td class="text-center cBlue"
+                            ng-repeat="f in optimized">
+                            {{f.county.county}}
+                        </td>
+                        <td>&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td>FSN</td>
+                        <td class="text-center cBlue"
+                            ng-repeat="f in optimized">
+                            {{f.fsn}}
+                        </td>
+                        <td>&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td>Practice</td>
+                        <td class="text-center cBlue"
+                            ng-repeat="f in optimized">
+                            {{f.practice}}
+                        </td>
+                        <td>&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td>Landlord</td>
+                        <td class="text-center cBlue"
+                            ng-repeat="f in optimized">
+                            {{f.owner}}
+                        </td>
+                        <td>&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td>Total Acres</td>
+                        <td class="text-right cBlue"
+                            ng-repeat="f in optimized">
+                            {{f.acres|number:1}}
+                        </td>
+                        <td class="text-right">
+                            {{loan.fins.total_acres|number:1}}
+                        </td>
+                    </tr>
+                    <tr style="background-color: #f2f2f2;"
+                        ng-if="tggl.showRentRows">
+                        <td>Share Rent</td>
+                        <td class="text-right cBlue"
+                            ng-repeat="f in optimized">
+                            {{f.share_rent|flexZeroPercent:1}}
+                        </td>
+                        <td>&nbsp;</td>
+                    </tr>
+                    <tr style="background-color: #f2f2f2;"
+                        ng-if="tggl.showRentRows">
+                        <td>Perm to Ins</td>
+                        <td class="text-center cBlue"
+                            ng-repeat="f in optimized">
+                            {{f.perm2ins}}
+                        </td>
+                        <td class="text-right">&nbsp;</td>
+                    </tr>
+                    <tr style="background-color: #f2f2f2;"
+                        ng-if="tggl.showRentRows">
+                        <td>Cash Rent</td>
+                        <td class="cBlue" ng-class="AppFactory.gtZero(f.cash_rent)"
+                            ng-repeat="f in optimized">
+                            {{f.cash_rent|flexCurrency:0}}
+                        </td>
+                        <td ng-class="AppFactory.gtZero(OptimizerFactory.getTotalCashRent(optimized))">
+                            {{OptimizerFactory.getTotalCashRent(optimized)|flexCurrency:0}}
+                        </td>
+                    </tr>
+                    <tr style="background-color: #f2f2f2;"
+                        ng-if="tggl.showRentRows">
+                        <td>Waived</td>
+                        <td class="cBlue" ng-class="AppFactory.gtZero(f.waived)"
+                            ng-repeat="f in optimized">
+                            {{f.waived|flexCurrency:0}}
+                        </td>
+                        <td ng-class="AppFactory.gtZero(OptimizerFactory.getTotalWaived(optimized))">
+                            {{OptimizerFactory.getTotalWaived(optimized)|flexCurrency:0}}
+                        </td>
+                    </tr>
+                    <tr style="background-color: #f2f2f2;"
+                        ng-if="tggl.showRentRows">
+                        <td>When Due</td>
+                        <td class="text-right cBlue"
+                            ng-repeat="f in optimized">
+                            {{f.when_due}}
+                        </td>
+                        <td class="text-right">&nbsp;</td>
+                    </tr>
+                    <tr style="background-color: #f2f2f2;"
+                        ng-if="tggl.showRentRows">
+                        <td>Dist Rent</td>
+                        <td class="cBlue" ng-class="AppFactory.gtZero(f.dist_rent)"
+                            ng-repeat="f in optimized">
+                            {{f.dist_rent|flexCurrency:0}}
+                        </td>
+                        <td ng-class="AppFactory.gtZero(OptimizerFactory.getTotalDistRent(optimized))">
+                            {{OptimizerFactory.getTotalDistRent(optimized)|flexCurrency:0}}
+                        </td>
+                    </tr>
+                    <tr style="background-color: #f2f2f2;"
+                        ng-if="tggl.showRentRows">
+                        <td>FSA Pymt</td>
+                        <td class="cBlue" ng-class="AppFactory.gtZero(f.fsa_paid)"
+                            ng-repeat="f in optimized">
+                            {{f.fsa_paid|flexCurrency:0}}
+                        </td>
+                        <td ng-class="AppFactory.gtZero(OptimizerFactory.getTotalFSAPaid(optimized))">
+                            {{OptimizerFactory.getTotalFSAPaid(optimized)|flexCurrency:0}}
+                        </td>
+                    </tr>
+                    <tr style="background-color: #f2f2f2;"
+                        ng-if="tggl.showRentRows && user.optimopts.rent_per_acre_ARM">
+                        <td>ARM Rent/Ac</td>
+                        <td ng-class="AppFactory.gtZero(f.cash_rent_acre_ARM)"
+                            ng-repeat="f in optimized">
+                            {{f.cash_rent_acre_ARM|flexCurrency:2}}
+                        </td>
+                        <td class="text-right">&nbsp;</td>
+                    </tr>
+                    <tr style="background-color: #f2f2f2;"
+                        ng-if="tggl.showRentRows && user.optimopts.rent_per_acre_dist">
+                        <td>Dist Rent/Ac</td>
+                        <td ng-class="AppFactory.gtZero(f.cash_rent_acre_dist)"
+                            ng-repeat="f in optimized">
+                            {{f.cash_rent_acre_dist|flexCurrency:2}}
+                        </td>
+                        <td class="text-right">&nbsp;</td>
+                    </tr>
+                    <tr style="background-color: #f2f2f2;"
+                        ng-if="tggl.showRentRows && user.optimopts.rent_per_acre_other">
+                        <td>3P Rent/Ac</td>
+                        <td ng-class="AppFactory.gtZero(f.cash_rent_acre_other)"
+                            ng-repeat="f in optimized">
+                            {{f.cash_rent_acre_other|flexCurrency:2}}
+                        </td>
+                        <td class="text-right">&nbsp;</td>
+                    </tr>
+                    <tr style="background-color: #f2f2f2;"
+                        ng-if="tggl.showRentRows">
+                        <td>FSA/Ac</td>
+                        <td ng-class="AppFactory.gtZero(f.fsa_acre)"
+                            ng-repeat="f in optimized">
+                            {{f.fsa_acre|flexCurrency:2}}
+                        </td>
+                        <td class="text-right">&nbsp;</td>
+                    </tr>
+                    </tbody>
+
+                    <!-- CROP DIVIDER-->
+                    <tr>
+                        <td colspan="{{optimized.length + 2}}">
+                            <strong>CROPS</strong>
+                        </td>
+                    </tr>
+
+                    <tbody id="corn" ng-if="tggl.tcropCorn">
+                        <tr><td>Corn</td></tr>
+                    </tbody>
+
+                    <tbody id="soybeans" ng-if="tggl.tcropSoybeans">
+                    <tr><td>Soybeans</td></tr>
+                    </tbody>
+
+                    <tbody id="beansFAC" ng-if="tggl.tcropBeansFAC">
+                    <tr><td>Soybeans FAC</td></tr>
+                    </tbody>
+
+                    <tbody id="sorghum" ng-if="tggl.tcropSorghum">
+                    <tr><td>Sorghum</td></tr>
+                    </tbody>
+
+                    <tbody id="wheat" ng-if="tggl.tcropWheat">
+                    <tr><td>Wheat</td></tr>
+                    </tbody>
+
+                    <tbody id="cotton" ng-if="tggl.tcropCotton">
+                    <tr><td>Cotton</td></tr>
+                    </tbody>
+
+                    <tbody id="rice" ng-if="tggl.tcropRice">
+                    <tr><td>Rice</td></tr>
+                    </tbody>
+
+                    <tbody id="peanuts" ng-if="tggl.tcropPeanuts">
+                    <tr><td>Peanuts</td></tr>
+                    </tbody>
+
+                    <tbody id="sugarcane" ng-if="tggl.tcropSugarcane">
+                    <tr><td>Sugar Cane</td></tr>
+                    </tbody>
+
+                    <tbody id="sunflowers" ng-if="tggl.tcropSunflowers">
+                    <tr><td>Sun Flowers</td></tr>
+                    </tbody>
+
+                    <tbody id="grandTotal">
+                    <tr>
+                        <td>TOTAL</td>
+                        <td class="text-right"
+                            ng-repeat="f in optimized">
+                            {{f.acres|number:1}}
+                        </td>
+                        <td class="text-right">
+                            {{loan.fins.total_acres|number:1}}
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                <br/><br/>
+            </div>
+        </div>
+    </div>
+</fieldset>

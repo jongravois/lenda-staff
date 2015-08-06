@@ -1,0 +1,68 @@
+<table class="table table-striped rowed disp-sm">
+    <tr>
+        <th style="width:15%;">Source</th>
+        <th style="width:10%;">Acres</th>
+        <th style="width:10%;">Yield</th>
+        <th style="width:10%;">Price</th>
+        <th style="width:10%;">Bk Qty</th>
+        <th style="width:10%;">Bk Price</th>
+        <th style="width:10%;">Var Hrv</th>
+        <th style="width:10%;">Share</th>
+        <th style="width:10%;">Total</th>
+    </tr>
+    <tr ng-repeat="c in loan.loancrops" ng-if="c.is_active == '1'">
+        <td>{{c.crop.name}}</td>
+        <td class="text-right" ng-class="gtZero(c.acres)">
+            {{c.acres | number:1}}
+        </td>
+        <td class="text-right" ng-class="gtZero(c.prod_yield)">
+            {{c.prod_yield | number:1}}
+        </td>
+        <td class="text-right" ng-class="gtZero(c.prod_price)">
+            {{c.prod_price | flexCurrency:4}}
+        </td>
+        <td class="text-right" ng-class="gtZero(c.bkqty)">
+            {{Number(c.bkqty) | displaynull}}
+        </td>
+        <td class="text-right" ng-class="gtZero(c.bkprice)">
+            {{c.bkprice | flexCurrency:4}}
+        </td>
+        <td class="text-right" ng-class="gtZero(c.harvest)">
+            {{Number(c.harvest) | flexCurrency:4}}
+        </td>
+        <td class="text-right" ng-class="gtZero(c.prod_share)">
+            {{c.prod_share | flexPercent:1}}
+        </td>
+        <td class="text-right" ng-class="gtZero(c.crop_total)">
+            {{c.crop_total | flexCurrency:0}}
+        </td>
+    </tr>
+    <tr>
+        <td>Agriculture Input</td>
+        <td class="text-right">
+            {{loan.fins.total_acres|number:1}}
+        </td>
+        <td colspan="6">&nbsp;</td>
+        <td class="text-right">
+            {{2140323|flexCurrency:0}}
+        </td>
+    </tr>
+    <tr>
+        <td colspan="8">FSA Payment</td>
+        <td ng-class=gtZero(AppFactory.getTotalFSAPayment(loan))>
+            {{AppFactory.getTotalFSAPayment(loan) | flexCurrency:0}}
+        </td>
+    </tr>
+    <tr>
+        <td colspan="8">Other</td>
+        <td class="text-right">
+            {{20000 | flexCurrency:0}}
+        </td>
+    </tr>
+    <tr>
+        <td class="text-left success" colspan="8">Total Revenue</td>
+        <td class="text-right success">
+            {{2240323 | flexCurrency:0}}
+        </td>
+    </tr>
+</table>

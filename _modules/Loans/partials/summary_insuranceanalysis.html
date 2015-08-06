@@ -1,0 +1,55 @@
+<table class="table table-striped rowed">
+    <tr>
+        <th>&nbsp;</th>
+        <th>Type</th>
+        <th>Option</th>
+        <th>Price</th>
+        <th>Level</th>
+        <th>Guarantee</th>
+        <th>Premium</th>
+        <th>Share</th>
+        <th>Value</th>
+    </tr>
+    <tr ng-if="loan.insurance.byCrop.length === 0">
+        <td colspan="9"><strong>No Insurance Information Found.</strong></td>
+    </tr>
+    <tr ng-repeat="c in loan.insurance.byCrop|orderBy:'crop_id'" ng-if="loan.insurance.byCrop.length !== 0">
+        <td>{{c.name}}</td>
+        <td class="text-center">{{c.type}}</td>
+        <td class="text-center">{{c.option}}</td>
+        <td class="text-right">{{c.price|flexCurrency:2}}</td>
+        <td class="text-right">{{c.level|flexPercent:1}}</td>
+        <td class="text-right">{{c.guarantee|flexCurrency:0}}</td>
+        <td class="text-right">{{c.premium|flexCurrency:2}}</td>
+        <td class="text-right">{{c.share|flexPercent:1}}</td>
+        <td class="text-right">{{c.value|flexCurrency:0}}</td>
+    </tr>
+    <tr class="success" ng-if="loan.insurance.byCrop.length !== 0">
+        <td>Total</td>
+        <td colspan="7">&nbsp;</td>
+        <td class="text-right">
+            {{AppFactory.calcInsuranceTotalValue(loan)|flexCurrency:0}}
+        </td>
+    </tr>
+</table>
+<br/>
+<table class="table" style="width:80%; margin:0 auto;">
+    <tr>
+        <td style="width:60%;">ARM<span ng-if="loan.has_distributor"> and {{loan.distributor}} </span>Loan secured by Collateral Conditions</td>
+        <td style="width:40%;" colspan="3" class="text-right">
+            {{AppFactory.getArmDistCollateral(loan) | flexCurrency:0}}
+        </td>
+    </tr>
+    <tr>
+        <td>Applicant's share of crop insurance less premium</td>
+        <td colspan="3" class="text-right">
+            {{AppFactory.calcInsuranceTotalValue(loan) | flexCurrency:0}}
+        </td>
+    </tr>
+    <tr>
+        <td>Crop Insurance coverage in excess of ARM<span ng-if="loan.has_distributor"> and {{loan.distributor}}</span> Loan</td>
+        <td colspan="3" class="text-right">
+            {{AppFactory.calcInsuranceTotalValue(loan) - AppFactory.getArmDistCollateral(loan) | flexCurrency:0}}
+        </td>
+    </tr>
+</table>
