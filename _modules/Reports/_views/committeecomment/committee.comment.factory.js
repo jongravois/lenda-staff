@@ -95,7 +95,7 @@
                     var j = _.each(obj.comments, function(i){
                         var newbie = {};
                         newbie.user_name = i.user.name;
-                //        newbie.user_nick = i.user.nick;
+                        newbie.user_nick = i.user.nick;
                 //        newbie.comment = i.comments.comment;
                 //        newbie.comment_type = i.comments.comment.type;
                         comments.push(newbie);
