@@ -14,9 +14,7 @@
         return publicAPI;
 
         function getData(loans) {
-            //console.log('AccountReconciliationFactory.loans', loans);
-
-            var groupByCrop = _.partial(_.ary(_.groupBy, 2), _, 'fins.crop_acres');
+            console.log('AccountReconciliationFactory.loans', loans);
 
             var retro = _.map(loans, function (item) {
                 var data = {};
@@ -48,6 +46,7 @@
                 data.dist = item.distributor.distributor;
                 data.app_date = item.app_date;
                 data.due_date = item.due_date;
+                data.past_due = item.past_due;
 
                 data.agency = item.agencies;
                 data.status_id = item.status.id;

@@ -130,6 +130,7 @@
                 cellRenderer: function (params) {
                     return moment(params.data.orig_date).format('MM/DD/YYYY');
                 },
+                hide: true,
                 suppressSorting: false,
                 suppressSizeToFit: false,
                 width: 80
@@ -156,6 +157,7 @@
                         return "<span style='color: black'>" + params.data.due_date + "</span>";
                     }
                 },
+                hide: false,
                 suppressSorting: false,
                 suppressSizeToFit: false,
                 width: 80
@@ -181,8 +183,8 @@
                 width: 70
             },
             {
-                headerTooltip: 'Quickbooks Transaction Date',
-                headerGroup: 'Quickbooks',
+                headerTooltip: 'Accounting Transaction Date',
+                headerGroup: 'Accounting',
                 //headerGroupShow: 'closed',
                 headerName: 'Date',
                 field: 'qb_date',
@@ -196,8 +198,8 @@
                 width: 80
             },
             {
-                headerTooltip: 'Quickbooks Transaction Type',
-                headerGroup: 'Quickbooks',
+                headerTooltip: 'Accounting Transaction Type',
+                headerGroup: 'Accounting',
                 //headerGroupShow: 'closed',
                 headerName: 'Type',
                 field: 'qb_type',
@@ -207,8 +209,8 @@
                 width: 80
             },
             {
-                headerTooltip: 'Quickbooks Transaction Category',
-                headerGroup: 'Quickbooks',
+                headerTooltip: 'Accounting Transaction Category',
+                headerGroup: 'Accounting',
                 //headerGroupShow: 'closed',
                 headerName: 'Category',
                 field: 'qb_cat',
@@ -218,8 +220,8 @@
                 width: 110
             },
             {
-                headerTooltip: 'Quickbooks Transaction Amount',
-                headerGroup: 'Quickbooks',
+                headerTooltip: 'Accounting Transaction Amount',
+                headerGroup: 'Accounting',
                 headerName: 'Amount',
                 field: 'qb_amount',
                 cellClass: function (params) {
@@ -264,13 +266,14 @@
         $scope.toggleOrigDue = function () {
             $scope.origDue = !$scope.origDue;
             if ($scope.gridOptions.api) {
-                $scope.gridOptions.api.onNewCols();
                 $scope.gridOptions.api.hideColumns(['orig_date'], $scope.origDue);
                 $scope.gridOptions.api.hideColumns(['due_date'], !$scope.origDue);
-                $scope.gridOptions.api.hideColumns(['status_left', 'status'], $scope.icons);
+                $scope.gridOptions.api.hideColumns(['status_left', 'status', 'status_right'], $scope.icons);
+                $scope.gridOptions.api.onNewCols();
                 $scope.gridOptions.api.setSortModel($scope.sortKeys);
+
             }
-        }
+         }
 
         $scope.gridOptions = {
             columnDefs: columnDefs,

@@ -212,6 +212,7 @@
                 cellRenderer: function(params) {
                     return $filter('flexCurrency')(params.data.exposure, 0);
                 },
+                hide: true,
                 suppressSorting: false,
                 suppressSizeToFit: false,
                 width: 100
@@ -233,9 +234,9 @@
                 $scope.gridOptions.pinnedColumnCount = $scope.pin;
             }
             if ($scope.gridOptions.api) {
-                $scope.gridOptions.api.onNewCols();
                 $scope.gridOptions.api.hideColumns(['status_left', 'status', 'status_right'], $scope.icons);
                 $scope.gridOptions.api.setSortModel($scope.sortKeys);
+                $scope.gridOptions.api.onNewCols();
             }
         }
 

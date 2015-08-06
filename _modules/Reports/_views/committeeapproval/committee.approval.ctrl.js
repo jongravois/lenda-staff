@@ -103,10 +103,12 @@
                 field: 'committee_vote',
                 cellClass: 'text-center',
                 cellRenderer: function(params) {
-                    if (params.data.committee_vote){
+                    if (params.data.committee_vote == 1){
                         return '<div style="text-align:center !important;"><span class="pendicon glyphicon glyphicon-thumbs-up" style="color:#007700;"></span></div>';
-                    } else {
+                    } else if (params.data.committee_vote == 0){
                         return '<div style="text-align:center !important;"><span class="pendicon glyphicon glyphicon-thumbs-down"  style="color:#770000;"></span></div>';
+                    } else {
+                        return '<div style="text-align:center !important;"> - </div>';
                     }
                 },
                 suppressSorting: false,
@@ -156,6 +158,7 @@
         console.log('CommitteeApprovalController reduced', $scope.reduced);
 
         var sort = [
+            {field: 'loan_id', sort: 'asc'},
             {field: 'analyst_abr', sort: 'asc'},
             {field: 'committee_member', sort: 'asc'},
         ];
@@ -163,8 +166,8 @@
         $scope.gridHeight = Number(($scope.gridOptions.rowData.length + 2) * 30).toString();
 
         if ($scope.gridOptions.api) {
-            $scope.gridOptions.api.onNewRows();
             $scope.gridOptions.api.setSortModel($scope.sortKeys);
+            $scope.gridOptions.api.onNewRows();
         }
 
         $scope.icons = false;

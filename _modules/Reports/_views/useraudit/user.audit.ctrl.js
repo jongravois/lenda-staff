@@ -105,7 +105,7 @@
                 field: 'audit_date',
                 cellClass: 'text-center',
                 cellRenderer: function(params) {
-                    return moment(params.data.audit_date).format('MM/DD/YYYY');
+                    return moment(params.data.audit_date).format("MM/DD/YYYY");
                 },
                 suppressSorting: false,
                 suppressSizeToFit: false,
@@ -116,6 +116,9 @@
                 headerName: 'Time',
                 field: 'audit_time',
                 cellClass: 'text-center',
+                cellRenderer: function(params) {
+                    return moment(params.data.audit_time).format("HH:MM:SS");
+                },
                 suppressSorting: false,
                 suppressSizeToFit: false,
                 width: 90
@@ -127,7 +130,7 @@
                 cellClass: 'text-center',
                 suppressSorting: false,
                 suppressSizeToFit: false,
-                width: 90
+                width: 120
             },
             {
                 headerGroup: "Audit",

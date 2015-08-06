@@ -1,4 +1,4 @@
-(function(){
+(function () {
     'use strict';
     angular
         .module('ARM')
@@ -6,19 +6,13 @@
 
     HomeController.$inject = ['Loans', 'HomeFactory'];
 
-        /* @ngInject */
-        function HomeController(Loans, HomeFactory) {
-            /* jshint validthis: true */
-            var vm = this;
-            vm.loans = Loans;
-            console.log(Loans);
+    function HomeController(Loans, HomeFactory) {
+        $scope.loans = Loans;
+        console.log(Loans);
+        console.log($scope.loans);
 
-            vm.arr = HomeFactory.getData(vm.loans);
-            console.log(vm.arr);
+        $scope.arr = HomeFactory.getData($scope.loans);
+        console.log($scope.arr);
 
-            //vm.reporter = [];
-
-            //////////
-
-        } // end function
+    } // end function
 })();
