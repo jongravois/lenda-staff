@@ -9,14 +9,16 @@
     /* @ngInject */
     function OptimizerFactory($q) {
         var publicAPI = {
-            //calcInsGuarantee: calcInsGuarantee,
-            //calcInsValue: calcInsValue,
-            //getOptimizedLoan: getOptimizedLoan,
+            calcInsGuarantee: calcInsGuarantee,
+            calcInsValue: calcInsValue,
+            getCrops: getCrops,
+            getOptimizedLoan: getOptimizedLoan,
             getTotalCashRent: getTotalCashRent,
             getTotalFSAPaid: getTotalFSAPaid,
-            //getTotalRentOvr: getTotalRentOvr,
+            getTotalRentOvr: getTotalRentOvr,
             getTotalWaived: getTotalWaived,
-            parseUnits: parseUnits
+            parseUnits: parseUnits,
+            processCrops: processCrops
         };
         return publicAPI;
 
@@ -46,7 +48,6 @@
             //console.log('farms', loan.farms, 'PU-P', optimized);
             return optimized;
         }
-        /*
         function getOptimizedLoan(loan) {
             var deferred = $q.defer();
             var splitFarms = splitFarmsByPractice(loan);
@@ -78,6 +79,20 @@
             //console.log('Guar Crop', crop);
             return Number(crop.c_aph) * Number(crop.c_ins_price) * (Number(crop.c_ins_level)/100);
         }
+        function getCrops() {
+            return [
+                {id: 1, crop: 'corn', name: 'Corn'},
+                {id: 2, crop: 'soybeans', name: 'Soybeans'},
+                {id: 3, crop: 'beanFAC', name: 'Soybeans FAC'},
+                {id: 4, crop: 'sorghum', name: 'Sorghum'},
+                {id: 5, crop: 'wheat', name: 'Wheat'},
+                {id: 6, crop: 'cotton', name: 'Cotton'},
+                {id: 7, crop: 'rice', name: 'Rice'},
+                {id: 8, crop: 'peanuts', name: 'Peanuts'},
+                {id: 9, crop: 'sugarcane', name: 'Sugar Cane'},
+                {id: 10, crop: 'sunflowers', name: 'Sunflowers'},
+            ];
+        }
         function calcInsValue(crop) {
             //console.log('Value Crop', crop);
             var guar = calcInsGuarantee(crop),
@@ -85,20 +100,20 @@
                 share = (crop.c_ins_share ? Number(crop.c_ins_share)/100 : 1);
 
             return (guar + premium) / share;
-        }*/
+        }
         function getTotalCashRent(practices) {
             return _.sumCollection(practices, 'cash_rent');
         }
         function getTotalFSAPaid(practices) {
             return _.sumCollection(practices, 'fsa_paid');
         }
-        /*function getTotalRentOvr(practices) {
+        function getTotalRentOvr(practices) {
             return _.weighted(practices, 'share_rent', 'acres');
-        }*/
+        }
         function getTotalWaived(practices) {
             return _.sumCollection(practices, 'waived');
         }
-        /*function makeFarmPractice(obj, loan) {
+        function makeFarmPractice(obj, loan) {
             //console.log('obj', obj);
             //console.log('loan', loan);
 
@@ -191,6 +206,17 @@
                 c_share_rent: 0,
                 c_var_harv: 0
             };
+        }
+        function processCrops(loan) {
+            var returner = [];
+            var crops = getCrops();
+
+            _.each(loan.optimized, function(item){
+                console.log('item', item);
+                var bo = _.includes(_.pluck(item.practices, 'crop_id'), "6");
+                console.log(bo);
+            });
+            return returner;
         }
         function processFarmCrops(cps, loan) {
             //console.log('cps', cps);
@@ -298,102 +324,5 @@
 
             return returner;
         }
-        function splitFarmsByPractice(loan) {
-            var farms = loan.farms;
-            //console.log('Farms', farms);
-            var practiced = [];
-            var withZero = [];
-            var byPractice = [];
-
-            _.each(farms, function (item) {
-                var acreage = calcFarmAcres(item);
-                //console.log('item', item);
-                var splitIR = {
-                    id: item.id,
-                    state: item.county.states.abr,
-                    county: item.county.county,
-                    fsn: item.fsn,
-                    owner: item.owner,
-                    acres: acreage.irr,
-                    practice: 'IR',
-                    cash_rent: Number(item.cash_rent),
-                    waived: Number(item.waived),
-                    share_rent: Number(item.share_rent),
-                    perm_ins: item.perm_ins,
-                    when_due: item.when_due,
-                    fsa_paid: Number(item.fsa_paid) * Number(item.irr) / (Number(item.irr) + Number(item.ni)),
-                    cash_rent_acre_dist: 0,
-                    fsa_acre: (Number(item.fsa_paid) * Number(item.ni) / (Number(item.irr) + Number(item.ni)) / item.irr),
-                    practices: []
-                };
-
-                var splitNI = {
-                    id: item.id,
-                    state: item.county.states.abr,
-                    county: item.county.county,
-                    fsn: item.fsn,
-                    owner: item.owner,
-                    acres: acreage.ni,
-                    practice: 'NI',
-                    cash_rent: Number(item.cash_rent),
-                    waived: Number(item.waived),
-                    share_rent: Number(item.share_rent),
-                    perm_ins: item.perm_ins,
-                    when_due: item.when_due,
-                    fsa_paid: Number(item.fsa_paid) * Number(item.ni) / (Number(item.irr) + Number(item.ni)),
-                    fsa_acre: (Number(item.fsa_paid) * Number(item.ni) / (Number(item.irr) + Number(item.ni)) / item.ni),
-                    practices: []
-                };
-
-                _.each(item.farmpractices, function (crop) {
-                    if (crop.irrigated === '1') {
-                        splitIR.practices.push(crop);
-                    } else {
-                        splitNI.practices.push(crop);
-                    }
-                });
-
-                practiced.push(splitIR);
-                practiced.push(splitNI);
-            });
-            //console.log('Practiced', practiced);
-
-            _.each(practiced, function (item) {
-                var processed = {
-                    id: item.id,
-                    state: item.state,
-                    county: item.county,
-                    fsn: item.fsn,
-                    practice: item.practice,
-                    owner: item.owner,
-                    acres: item.acres,
-                    share_rent: item.share_rent,
-                    perm_ins: (item.perm_ins == '1' ? 'Y' : 'N'),
-                    cash_rent: Number(item.cash_rent),
-                    waived: Number(item.waived),
-                    when_due: item.when_due,
-                    fsa_paid: item.fsa_paid,
-                    cash_rent_acre_ARM: (item.acres !== 0 ? (Number(item.cash_rent) - Number(item.waived)) / Number(item.acres) : 0),
-                    cash_rent_acre_dist: 0,
-                    cash_rent_acre_other: (item.acres !== 0 ? Number(item.waived) / Number(item.acres) : 0),
-                    fsa_acre: (item.acres !== 0 ? Number(item.fsa_paid) / Number(item.acres) : 0),
-                    crops: processFarmCrops(item['practices'], loan)
-                };
-                withZero.push(processed);
-            });
-            //console.log('With Zero', withZero);
-
-            _.each(withZero, function (item) {
-                if (item.acres > 0) {
-                    byPractice.push(item);
-                } else {
-                    // handle "potential" farms (acres = 0)
-                }
-            });
-
-            //console.log('By Practice', byPractice);
-            return byPractice;
-        }
-        */
     } // end factory
 })();

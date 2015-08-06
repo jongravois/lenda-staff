@@ -4,14 +4,16 @@
         .module('ARM')
         .controller('OptimizersController', OptimizersController);
 
-    OptimizersController.$inject = ['$rootScope', '$scope', '$state', '$stateParams', 'AppFactory', 'OptimizerFactory'];
+    OptimizersController.$inject = ['$rootScope', '$scope', '$state', '$stateParams', 'AppFactory', 'FeederFactory', 'OptimizerFactory'];
 
-    function OptimizersController($rootScope, $scope, $state, $stateParams, AppFactory, OptimizerFactory) {
+    function OptimizersController($rootScope, $scope, $state, $stateParams, AppFactory, FeederFactory, OptimizerFactory) {
         $scope.AppFactory = AppFactory;
         $scope.OptimizerFactory = OptimizerFactory;
 
         $scope.alpine = false;
         $scope.optimized = OptimizerFactory.parseUnits($scope.loan);
+        $scope.loan.optimized = $scope.optimized;
+        $scope.unitcrops = OptimizerFactory.processCrops($scope.loan);
 
         $scope.tggl = {
             showRentRows: false,
