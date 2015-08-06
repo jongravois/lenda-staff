@@ -1,34 +1,3 @@
-/*
-Requires the following in styles.css
- .tbl-header-container {
- background: -webkit-linear-gradient(#fff, #d3d3d3);
- background: -moz-linear-gradient(#fff, #d3d3d3);
- background: -o-linear-gradient(#fff, #d3d3d3);
- background: -ms-linear-gradient(#fff, #d3d3d3);
- background: linear-gradient(#fff, #d3d3d3);
- border-bottom: 1px solid #808080;
- }
- .tbl-header-container-blue {
- background: -webkit-linear-gradient(#fff, #EC502A);
- background: -moz-linear-gradient(#fff, #EC502A);
- background: -o-linear-gradient(#fff, #EC502A);
- background: -ms-linear-gradient(#fff, #EC502A);
- background: linear-gradient(#fff, #EC502A);
- border-bottom: 1px solid #101010;
- }
- .table-zebra-stripes > tbody > tr:nth-child(2n+1) > td,
- .table-striped > tbody > tr:nth-child(2n+1) > th {
- background-color: #efefef;
- }
- .table-zebra-stripes-blue > tbody > tr:nth-child(2n+1) > td,
- .table-striped > tbody > tr:nth-child(2n+1) > th {
- background-color: #97c8ff;
- }
- .table-zebra-stripes-blue > tbody > tr:nth-child(2n) > td,
- .table-striped > tbody > tr:nth-child(2n) > th {
- background-color: #dfdfdf;
- }
- */
 (function () {
     'use strict';
     angular
@@ -236,6 +205,7 @@ Requires the following in styles.css
                     var total_percent_budget = params.data.total_budget_amount / params.data.total_budget_amount * 100;
                     return $filter('flexPercent')(total_percent_budget, 1);
                 },
+                hide: true,
                 suppressSorting: false,
                 suppressSizeToFit: false,
                 width: 100
@@ -250,6 +220,7 @@ Requires the following in styles.css
                 cellRenderer: function (params) {
                     return $filter('flexPercent')(params.data.total_percent_spent, 1);
                 },
+                hide: true,
                 suppressSorting: false,
                 suppressSizeToFit: false,
                 width: 100
@@ -265,6 +236,7 @@ Requires the following in styles.css
                     params.data.total_percent_remaining = 100 - params.data.total_percent_spent;
                     return $filter('flexPercent')(params.data.total_percent_remaining, 1);
                 },
+                hide: true,
                 suppressSorting: false,
                 suppressSizeToFit: false,
                 width: 100

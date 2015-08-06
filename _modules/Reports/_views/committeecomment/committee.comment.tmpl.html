@@ -2,8 +2,39 @@
 
 <h3> &nbsp; Committee Comment</h3>
 <div id="comcom">
-    <!--<pre>{{gridOptions.rowData | json}}</pre>-->
-    <div class="ag-fresh" ag-grid="gridOptions" ng-style="{height: gridHeight}"></div>
+    <!--table-zebra-stripes-->
+        <table class="table table-bordered table-condensed table-responsive rowed"
+               style="font-size:12px;overflow:auto;">
+            <tr class="tbl-header-container">
+                <th><br>Member</th>
+                <th><br>Analyst</th>
+                <th><br>Applicant</th>
+                <th>Crop<br>Year</th>
+                <th>Loan<br>Type</th>
+                <th><br>Addendum</th>
+                <th><br>Dist</th>
+                <th><br>Agency</th>
+                <th><br>Vote</th>
+                <th><br>Class</th>
+            </tr>
+            <tbody ng-repeat="data in reduced">
+            <tr>
+                <td class="text-left">{{data.committee_member}}</td>
+                <td class="text-center">{{data.analyst_abr}}</td>
+                <td class="text-left">{{data.applicant}}</td>
+                <td class="text-center">{{data.crop_year}}</td>
+                <td class="text-center">{{data.loantype_abr}}</td>
+                <td class="text-center" style="color:{{data.addendum_date_color}}">{{data.addendum_date}}</td>
+                <td class="text-center">{{data.dist}}</td>
+                <td class="text-left">{{data.agency}}</td>
+                <td class="text-center">{{data.committee_vote}}</td>
+                <td class="text-center">{{data.account_classification}}</td>
+            </tr>
+            <tr>
+                <td class="text-left" colspan="10">COMMENTS</td>
+            </tr>
+            </tbody>
+        </table>
     <form>
         <br>
         <span style="display:inline-block;float:left;">
@@ -23,3 +54,5 @@
         <br><br>
     </form>
 </div>
+<pre>{{reduced | json}}</pre>
+

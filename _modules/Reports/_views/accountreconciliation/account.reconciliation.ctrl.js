@@ -192,8 +192,8 @@
                 width: 100
             },
             {
-                headerTooltip: 'Quickbooks Account Balance',
-                headerGroup: 'Quickbooks',
+                headerTooltip: 'Accounting Account Balance',
+                headerGroup: 'Accounting',
                 headerName: 'Balance',
                 field: 'qb_balance',
                 cellClass: function(params) {

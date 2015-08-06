@@ -16,50 +16,36 @@
         function getData(loans) {
             console.log('UserAuditFactory.loans', loans);
 
-            var groupByCrop = _.partial(_.ary(_.groupBy, 2), _, 'fins.crop_acres');
+            var audit_trail = [];
+            _.each(loans, function(item){
+                var j = _.each(item.systemics, function(i){
+                    i.loan_id = item.id;
+                    i.region = item.location.regions.region;
+                    i.location = item.location.loc_abr;
+                    i.crop_year = item.crop_year;
 
-            var retro = _.map(loans, function (item) {
-                var data = {};
+                    if (item.season == 'S') {
+                        i.season = 'Spring';
+                    } else if (item.season == 'F') {
+                        i.season = 'Fall';
+                    }
 
-                data.region = item.location.regions.region;
-                data.location = item.location.loc_abr;
-                data.crop_year = item.crop_year;
+                    i.analyst_abr = item.analyst_abr;
+                    i.farmer = item.farmer.farmer;
+                    i.applicant = item.applicant.applicant;
+                    i.loantype_abr = item.loantype_abr;
 
-                if (item.season == 'S') {
-                    data.season = 'Spring';
-                } else if (item.season == 'F') {
-                    data.season = 'Fall';
-                }
+                    i.audit_date = i.updated_at;
+                    i.audit_time = i.updated_at;
+                    i.audit_user = i.user;
+                    i.audit_activity = i.action;
 
-                data.analyst = item.analyst;
-                data.analyst_abr = item.analyst_abr;
-                data.farmer = item.farmer.farmer;
-                data.applicant = item.applicant.applicant;
-                data.loan_type = item.loan_type;
-                data.loantype_abr = item.loantype_abr;
-                data.dist = item.distributor.distributor;
-                data.app_date = item.app_date;
-                data.due_date = item.due_date;
-
-                data.agency = item.agencies;
-                data.status_id = item.status.id;
-
-                data.commit_arm = item.financials.commit_arm;
-                data.commit_dist = item.financials.commit_dist;
-
-                data.account_classification = item.account_classification;
-
-                data.int_percent_arm = item.fins.int_percent_arm;
-                data.int_percent_dist = item.fins.int_percent_dist;
-
-                /*
-
-                 */
-
-                return data;
+                    audit_trail.push(i);
+                });
             });
-            console.log('UserAuditFactory.retro', retro);
-            return retro;
+            console.log('UserAuditFactory.audit_trail', audit_trail);
+            return audit_trail;
+
         }
     } // end factory
 })();

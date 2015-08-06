@@ -40,6 +40,7 @@
                 data.dist = item.distributor.distributor;
                 data.app_date = item.app_date;
                 data.due_date = item.due_date;
+                data.past_due = item.past_due;
 
                 data.agency = item.agencies;
                 data.status_id = item.status.id;

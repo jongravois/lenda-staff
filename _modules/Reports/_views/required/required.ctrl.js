@@ -97,6 +97,7 @@
                         return '';
                     }
                 },
+                hide: true,
                 suppressSorting: false,
                 suppressSizeToFit: false,
                 width: 90
@@ -120,23 +121,10 @@
                         return '';
                     }
                 },
+                hide: true,
                 suppressSorting: true,
                 suppressSizeToFit: false,
                 width: 70
-            },
-            {
-                headerName: 'Vote',
-                cellClass: 'text-center',
-                cellRenderer: function(params) {
-                    if (params.data.viewed){
-                        return '<div style="text-align:center !important;"><span class="pendicon glyphicon glyphicon-thumbs-up" style="color:#007700;"></span></div>';
-                    } else {
-                        return '<div style="text-align:center !important;"><span class="pendicon glyphicon glyphicon-thumbs-down"  style="color:#770000;"></span></div>';
-                    }
-                },
-                suppressSorting: true,
-                suppressSizeToFit: false,
-                width: 75
             },
             {
                 headerName: 'Efficiency',
