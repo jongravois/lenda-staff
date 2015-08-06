@@ -1,0 +1,81 @@
+<table class="table table-striped rowed disp-sm">
+    <tr>
+        <th style="width:3%;">&nbsp;</th>
+        <th class="text-center" style="width:10%;">Orig Date</th>
+        <th class="text-center" style="width:10%;">ARM</th>
+        <th class="text-center" style="width:10%;">{{loan.distributor.distributor}}</th>
+        <th class="text-center" style="width:10%;">Commitment</th>
+        <th class="text-center" style="width:10%;">Change</th>
+        <th class="text-center" style="width:10%;">Change</th>
+        <th class="text-center" style="width:10%;">3rd Party</th>
+        <th class="text-center" style="width:10%;">Fees</th>
+    </tr>
+
+    <!--LOAN (Latest Addendum)-->
+    <tr>
+        <td class="text-center">
+            <span class="glyphicon glyphicon-record" tooltip="Original Loan" style="color: #333;" ng-if="loan.addendum_type === '1'"></span>
+            <span class="glyphicon glyphicon-plus" tooltip="Loan Addendum" style="color: #333;" ng-if="loan.addendum_type === '2'"></span>
+            <span class="glyphicon glyphicon-usd" tooltip="Reconciliation Addendum" style="color: #333;" ng-if="loan.addendum_type === '3'"></span>
+        </td>
+        <td class="text-right">
+            {{loan.app_date}}
+        </td>
+        <td class="text-right">
+            {{loan.fins.commit_arm|flexCurrency:0}}
+        </td>
+        <td class="text-right">
+            {{loan.fins.commit_dist|flexCurrency:0}}
+        </td>
+        <td class="text-right">
+            {{loan.fins.arm_and_dist|flexCurrency:0}}
+        </td>
+        <td class="text-right">
+            {{(loan.fins.arm_and_dist - addendums[0].fins.arm_and_dist)|flexCurrency:0}}
+        </td>
+        <td class="text-right">
+            {{(loan.fins.arm_and_dist/addendums[0].fins.arm_and_dist) * 100|flexPercent:1}}
+        </td>
+        <td class="text-right">
+            {{loan.fins.commit_other|flexCurrency:0}}
+        </td>
+        <td class="text-right">
+            {{loan.fins.fee_total|flexCurrency:0}}
+        </td>
+    </tr>
+
+    <!--EARLIER ADDENDUMS AND ORIGINAL-->
+    <tr ng-repeat="a in addendums | orderBy: 'app_date':true">
+        <td class="text-center">
+            <span class="glyphicon glyphicon-record" tooltip="Original Loan" style="color: #333;" ng-if="a.addendum_type_id === 1"></span>
+            <span class="glyphicon glyphicon-plus" tooltip="Loan Addendum" style="color: #333;" ng-if="a.addendum_type_id === 2"></span>
+            <span class="glyphicon glyphicon-usd" tooltip="Reconciliation Addendum" style="color: #333;" ng-if="a.addendum_type_id === 3"></span>
+        </td>
+        <td class="text-right">
+            <a href="#/edit/{{a.loan_type_id}}/{{a.id}}/summary">
+                {{a.app_date}}
+            </a>
+        </td>
+        <td class="text-right">
+            {{a.fins.commit_arm|flexCurrency:0}}
+        </td>
+        <td class="text-right">
+            {{a.fins.commit_dist|flexCurrency:0}}
+        </td>
+        <td class="text-right">
+            {{a.fins.arm_and_dist|flexCurrency:0}}
+        </td>
+        <td class="text-right">
+            {{(a.fins.arm_and_dist - addendums[0].fins.arm_and_dist)|flexCurrency:0}}
+        </td>
+        <td class="text-right">
+            {{(a.fins.arm_and_dist/addendums[0].fins.arm_and_dist) * 100|flexPercent:1}}
+        </td>
+        <td class="text-right">
+            {{a.fins.commit_other|flexCurrency:0}}
+        </td>
+        <td class="text-right">
+            {{a.fins.fee_total|flexCurrency:0}}
+        </td>
+    </tr>
+</table>

@@ -3,6 +3,7 @@
     This loan has no conditions.
 </p>
 <p class="lg-text"
+   ng-class="{'cRed': c.status == 'pending'}"
    ng-repeat="c in loan.loanconditions">
-    <span class="glyphicon glyphicon-certificate"></span>&nbsp;{{c.condition}}
+    <span class="glyphicon glyphicon-certificate" aria-hidden="true"></span>&nbsp;{{c.condition}}
 </p>

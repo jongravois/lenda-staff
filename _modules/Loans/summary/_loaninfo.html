@@ -17,18 +17,18 @@
         </p>
     </div>
     <div class="form-group col-md-4">
-        <div ng-switch="loan.entity_type_id">
+        <div ng-switch="loan.applicant.entity_id">
             <div ng-switch-when="1">
                 <label>Corporation</label>
                 <br/>
-                <p class="display-field" ng-repeat="c in loan.corporations">
+                <p class="display-field" ng-repeat="c in loan.corps">
                     {{c.corporation}}
                 </p>
             </div>
             <div ng-switch-when="3">
                 <label>Joint Venture</label>
                 <br/>
-                <p class="display-field" ng-repeat="j in loan.ventures">
+                <p class="display-field" ng-repeat="j in loan.joints">
                     {{j.partner}}
                 </p>
             </div>
@@ -52,7 +52,7 @@
         <label>Originating Officer:</label>
         <br/>
         <p class="display-field">
-            {{loan.analyst.name}}
+            {{loan.analyst}}
         </p>
     </div>
 </div>
@@ -63,7 +63,7 @@
         <label>Organization Type</label>
         <br/>
         <p class="display-field">
-            {{loan.entity_type}}
+            {{loan.applicant.entity.entitytype}}
         </p>
     </div>
     <div class="form-group col-md-4">&nbsp;</div>
@@ -96,7 +96,7 @@
                 <td>{{loan.fins.int_percent_arm | number:1}}%</td>
             </tr>
             <tr ng-if="loan.has_distributor">
-                <td>{{loan.distributor}}:</td>
+                <td>{{loan.distributor.distributor}}:</td>
                 <td>{{loan.fins.int_percent_dist | number:1}}%</td>
             </tr>
         </table>
