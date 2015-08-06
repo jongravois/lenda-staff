@@ -1,0 +1,6 @@
+<p class="lg-text" ng-if="loan.exceptions.length == 0">This loan has no exceptions.</p>
+<p class="lg-text" ng-repeat="e in loan.exceptions">
+    <span class="glyphicon glyphicon-flash" aria-hidden="true"></span>&nbsp;{{e.msg}}
+</p>
+<!--<button ng-click="createExceptions()">Exceptions</button>-->
+<!--<button ng-click="createBankruptcy('99')">Bankruptcy</button>-->

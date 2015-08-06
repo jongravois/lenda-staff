@@ -8,7 +8,7 @@
     <div class="container-fluid">
         <table class="table table-striped rowed">
             <tr>
-                <th ng-click="doSort('locale')">St|County</th>
+                <th ng-click="doSort('locale')">ST | County</th>
                 <th ng-click="doSort('fsn')">FSN</th>
                 <th ng-click="doSort('owner')">Landlord</th>
                 <th ng-click="doSort('share')">Share</th>
@@ -20,96 +20,65 @@
                 <th ng-click="doSort('waived')">Waived</th>
                 <th ng-click="doSort('fsa')">FSA</th>
                 <th>&nbsp;</th>
+                <th>&nbsp;</th>
             </tr>
             <tr>
-                <td colspan="11">
+                <td colspan="12" ng-if="farms.length === 0">
                     <strong>No farms found.</strong>
                 </td>
             </tr>
-            <tr ng-repeat="f in farms" ng-init="!rowform.$visible" ng-dblclick="rowform.$show()">
-                <td class="cBlue">
-                        <span editable-text="p.partner" e-name="partner" e-form="rowform" e-style="width:100%;"
-                              e-required>
-                  {{ p.partner || '--' }}
-                </span>
-                </td>
-                <td class="cBlue">
-                        <span editable-text="p.partner" e-name="partner" e-form="rowform" e-style="width:100%;"
-                              e-required>
-                  {{ p.partner || '--' }}
-                </span>
-                </td>
-                <td class="cBlue">
-                        <span editable-text="p.partner" e-name="partner" e-form="rowform" e-style="width:100%;"
-                              e-required>
-                  {{ p.partner || '--' }}
-                </span>
-                </td>
-                <td class="cBlue">
-                        <span editable-text="p.partner" e-name="partner" e-form="rowform" e-style="width:100%;"
-                              e-required>
-                  {{ p.partner || '--' }}
-                </span>
-                </td>
-                <td class="cBlue">
-                        <span editable-text="p.partner" e-name="partner" e-form="rowform" e-style="width:100%;"
-                              e-required>
-                  {{ p.partner || '--' }}
-                </span>
-                </td>
-                <td class="cBlue">
-                        <span editable-text="p.partner" e-name="partner" e-form="rowform" e-style="width:100%;"
-                              e-required>
-                  {{ p.partner || '--' }}
-                </span>
-                </td>
-                <td class="cBlue">
-                        <span editable-text="p.partner" e-name="partner" e-form="rowform" e-style="width:100%;"
-                              e-required>
-                  {{ p.partner || '--' }}
-                </span>
-                </td>
-                <td class="cBlue">
-                        <span editable-text="p.partner" e-name="partner" e-form="rowform" e-style="width:100%;"
-                              e-required>
-                  {{ p.partner || '--' }}
-                </span>
-                </td>
-                <td class="cBlue">
-                        <span editable-text="p.partner" e-name="partner" e-form="rowform" e-style="width:100%;"
-                              e-required>
-                  {{ p.partner || '--' }}
-                </span>
-                </td>
-                <td class="cBlue">
-                        <span editable-text="p.partner" e-name="partner" e-form="rowform" e-style="width:100%;"
-                              e-required>
-                  {{ p.partner || '--' }}
-                </span>
-                </td>
-                <td class="cBlue">
-                        <span editable-text="p.partner" e-name="partner" e-form="rowform" e-style="width:100%;"
-                              e-required>
-                  {{ p.partner || '--' }}
-                </span>
-                </td>
-                <td>
-                    <!-- form -->
-                    <form editable-form name="rowform" onbeforesave="savePartner($data, p.id)"
-                          ng-show="rowform.$visible" class="form-buttons form-inline">
-                        <button type="submit" ng-disabled="rowform.$waiting"><span
-                            class="glyphicons glyphicons-circle-ok" style="color:#006837;"></span></button>
-
-                        <button type="button" class="btnCancel" ng-disabled="rowform.$waiting"
-                                ng-click="rowform.$cancel()"><span class="glyphicons glyphicons-circle-remove"
-                                                                   style="color: #990000;"></span></button>
-                    </form>
-                    <div class="buttons" ng-show="!rowform.$visible">
-                    <span class="glyphicons glyphicons-bin"
-                          style="color: #990000;"
-                          ng-click="deletePartner($index, p.id)"></span>
-                </td>
-            </tr>
+            <tbody ng-repeat="f in loan.farms">
+                <tr>
+                    <td></td>
+                    <td>
+                        {{f.fsn}}
+                    </td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td ng-class="AppFactory.gtZero(f.cash_rent)">
+                        {{f.cash_rent|flexCurrency:0}}
+                    </td>
+                    <td class="text-right">
+                        {{f.when_due}}
+                    </td>
+                    <td ng-class="AppFactory.gtZero(f.waived)">
+                        {{f.waived|flexCurrency:0}}
+                    </td>
+                    <td ng-class="AppFactory.gtZero(f.fsa_paid)">
+                        {{f.fsa_paid|flexCurrency:0}}
+                    </td>
+                    <td></td>
+                </tr>
+                <tr ng-repeat="u in f.units">
+                    <td>
+                        {{u.county.locale}}
+                    </td>
+                    <td></td>
+                    <td>
+                        {{u.owner}}
+                    </td>
+                    <td ng-class="AppFactory.gtZero(u.share_rent)">
+                        {{u.share_rent|flexPercent:1}}
+                    </td>
+                    <td ng-class="AppFactory.gtZero(u.IR)">
+                        {{u.IR|displaynullsingle}}
+                    </td>
+                    <td ng-class="AppFactory.gtZero(u.NI)">
+                        {{u.NI|displaynullsingle}}
+                    </td>
+                    <td class="text-right">
+                        {{(1*u.IR)+(1*u.NI)|displaynullsingle}}
+                    </td>
+                    <td></td>
+                    <td></td>
+                    <td class="text-right"></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </tbody>
         </table>
     </div>
 </fieldset>

@@ -1,0 +1,73 @@
+<table class="table table-striped rowed disp-sm">
+    <tr>
+        <th>&nbsp;</th>
+        <th>Type</th>
+        <th>Option</th>
+        <th>Price</th>
+        <th>Level</th>
+        <th>Guarantee</th>
+        <th>Premium</th>
+        <th>Share</th>
+        <th>Ins</th>
+        <th>Over Disc</th>
+        <th>Non RP</th>
+    </tr>
+    <tr ng-if="loan.insurance.byCrop.length === 0">
+        <td colspan="9"><strong>No Insurance Information Found.</strong></td>
+    </tr>
+    <tr ng-repeat="c in loan.insurance.byCrop|orderBy:'crop_id'" ng-if="loan.insurance.byCrop.length !== 0">
+        <td>{{c.crop.name}}
+        </td>
+        <td class="text-center">
+            {{c.type}}
+        </td>
+        <td class="text-center">
+            {{c.option}}
+        </td>
+        <td class="text-right" ng-class="gtZero(c.price)">
+            {{c.price|flexCurrency:2}}
+        </td>
+        <td class="text-right" ng-class="c.level">
+            {{c.level|flexPercent:1}}
+        </td>
+        <td class="text-right" ng-class="c.guarantee">
+            {{c.guarantee|flexCurrency:2}}
+        </td>
+        <td class="text-right" ng-class="c.premium">
+            {{c.premium|flexCurrency:2}}
+        </td>
+        <td class="text-right" ng-class="c.share">
+            {{c.share|flexPercent:1}}
+        </td>
+        <td class="text-right" ng-class="c.value">
+            {{c.value|flexCurrency:0}}
+        </td>
+        <td class="text-right" ng-class="gtZero(AppFactory.calcInsOverDisc(c))">
+            {{AppFactory.calcInsOverDisc(c)|flexCurrency:0}}
+        </td>
+        <td class="text-right" ng-class="gtZero(AppFactory.calcInsOverDiscNonRP(c))">
+            {{AppFactory.calcInsOverDiscNonRP(c)|flexCurrency:0}}
+        </td>
+    </tr>
+    <tr class="success" ng-if="loan.insurance.byCrop.length !== 0"
+        >
+        <td>Total Insurance</td>
+        <td colspan="7">&nbsp;</td>
+        <!--<td class="text-right"
+            ng-class="gtZero(AppFactory.calcTotalInsGuar(loan))">
+            {{AppFactory.calcTotalInsGuar(loan)|flexCurrency:0}}
+        </td>-->
+        <td class="text-right"
+            ng-class="gtZero(AppFactory.calcTotalInsValue(loan))">
+            {{AppFactory.calcTotalInsValue(loan)|flexCurrency:0}}
+        </td>
+        <td class="text-right"
+            ng-class="gtZero(AppFactory.calcTotalOverDisc(loan))">
+            {{AppFactory.calcTotalOverDisc(loan)|flexCurrency:0}}
+        </td>
+        <td class="text-right"
+            ng-class="gtZero(AppFactory.calcTotalOverDiscNonRP(loan))">
+            {{AppFactory.calcTotalOverDiscNonRP(loan)|flexCurrency:0}}
+        </td>
+    </tr>
+</table>

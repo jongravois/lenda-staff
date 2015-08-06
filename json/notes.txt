@@ -1,0 +1,124 @@
+A farm is one farm serial number with usually one set of owners and a lease describing rent agreement. There can be different land owners and different share arrangements. It usually has multiple practices i and ni. Each st/county/share/landowner/practice is a unit as identified by crop insurance rules and our loan
+
+===========================
+
+LOANCROP
+++++++++++++
+√id (int),
+crop_year (string), (Brad would have six columns)
+farm_id (int),
+√crop_id (int),
+acres (double),
+														irrigated (boolean),
+prod_price (double),
+prod_share (double),
+prod_yield (double),
+√market (string)
+√bkqty (double),
+√bkprice (double),
+√var_harvest (double),
+√gin_mill (string),
+√rebates (double)
+
+
+CROP YEAR
+crop_id,
+crop_year (string), (Brad would have six columns)
+prod_yield
+
+
+INSPOL
+id (int),
+loan_id (int),
+agent_id (int),
+													county_id
+crop_id (int),
+practice (string),
+type (string),
+unit (string),
+options (array),
+plc (boolean),
+hpe (boolean),
+level (double),
+ins_price (double),
+ins_yield (double),
+ins_premium (double),
+						ins_share (double),
+						ins_acres (double)
+						ins_price (double),  above inspols because irelevant of practice
+						ins_premium (double),
+
+
+SUPPINS
+
+
+
+FARMS
+id (int),
+loan_id (int),
+												county_id
+fsn (string),
+												IR
+												NI
+												ownner
+												share_rent
+cash_rent (double),
+waived (double),
+when_due (string),
+fsa_paid (double),
+																	Xpercent_irrigated (double)
+
+
+
+
+
+
+
+		UNITS
+		id (int),
+		farm_id (int),
+																	Xcounty_id (int),
+																	Xowner (string),
+																	crop_id
+																	practice
+																	?x?share_rent (double),
+		prod_share (double) -- inverse of share_rent
+		perm_to_ins (boolean),
+		ins_share (double)
+		acres (double)
+		aph (double)
+																	XXXX IR (double) - total available irrigated acres,
+																	XXXX NI (double) - total available non-irrigated acres
+
+
+XXXXXXXXXXX
+APHDB
+id (int),
+inspol_id (int),
+farm_id (int),
+ins_share (double),
+aph (double),
+
+
+
+
+
+
+
+STILL NOT SURE
+
+
+disc_percent_crop,50
+disc_percent_fsa,20
+disc_percent_ins_rp,20
+															disc_percent_insoyield,
+disc_percent_ins_nonrp,40
+disc_percent_ins_rphpe,30
+disc_percent_ins_supp,50
+															disc_percent_prod,
+disc_percent_equipment,50
+disc_percent_realestate,20
+disc_percent_other,100
+
+
+

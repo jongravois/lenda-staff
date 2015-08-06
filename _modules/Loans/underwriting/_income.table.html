@@ -1,0 +1,69 @@
+<table class="table table-striped rowed disp-sm" style="width:100%; margin: 0 auto;">
+    <tr>
+        <th>Source</th>
+        <th style="width:7%">Acres</th>
+        <th style="width:7%">Yield</th>
+        <th style="width:7%">Price</th>
+        <th style="width:7%">Share</th>
+        <th style="width:7%">Crops</th>
+        <th style="width:7%">Bk Adj</th>
+        <th style="width:7%">Hrv Adj</th>
+        <th style="width:7%">Insurance</th>
+        <th style="width:7%">Over Disc</th>
+        <th style="width:7%">Non RP</th>
+    </tr>
+    <tr ng-repeat="c in hot_springs">
+        <td>{{c.crop}}</td>
+        <td class="text-right" ng-class="gtZero(c.acres)">
+            {{c.acres | number:1}}
+        </td>
+        <td class="text-right" ng-class="gtZero(c.aph)">
+            {{c.aph | number:1}}
+        </td>
+        <td class="text-right" ng-class="gtZero(c.price)">
+            {{c.price | flexCurrency:4}}
+        </td>
+        <td class="text-right" ng-class="gtZero(c.share)">
+            {{c.share | flexPercent:1}}
+        </td>
+        <td class="text-right bright" ng-class="gtZero(c.crops)">
+            {{c.crops | flexCurrency:0}}
+        </td>
+        <td class="text-right" ng-class="gtZero(c.bkadj)">
+            {{c.bkadj | flexCurrency:0}}
+        </td>
+        <td class="text-right" ng-class="gtZero(c.hrvadj)">
+            {{c.hrvadj | flexCurrency:0}}
+        </td>
+        <td class="text-right" ng-class="gtZero(c.insurance)">
+            {{c.insurance | flexCurrency:0}}
+        </td>
+        <td class="text-right" ng-class="gtZero(c.ins_over_disc)">
+            {{c.ins_over_disc | flexCurrency:0}}
+        </td>
+        <td class="text-right" ng-class="gtZero(c.non_rp)">
+            {{c.non_rp | flexCurrency:0}}
+        </td>
+    </tr>
+    <tr>
+        <td colspan="10">FSA Payment</td>
+        <td class="text-right" ng-class="gtZero(loan.fins.total_fsa_payment)">
+            {{AppFactory.getTotalFSAPayment(loan) | flexCurrency:0}}
+        </td>
+    </tr>
+    <tr>
+        <td colspan="10">Other</td>
+        <td class="text-right">
+            {{20000 | flexCurrency:0}}
+        </td>
+    </tr>
+    <tr class="success">
+        <td class="text-left">Totals</td>
+        <td class="text-right">{{loan.fins.total_acres | number:1}}</td>
+        <td colspan="8">&nbsp;</td>
+        <td class="text-right">
+            {{624031 | flexCurrency:0}}
+        </td>
+    </tr>
+</table>
+<!--<pre>{{loan.loancrops | json}}</pre>-->
