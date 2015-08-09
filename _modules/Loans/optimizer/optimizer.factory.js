@@ -23,7 +23,8 @@
             var deferred = $q.defer();
             var splitFarms = splitFarmsByPractice(loan);
             //splitFarms contains crops with 0 acres
-            deferred.resolve(splitFarms);
+            loan.optimized = splitFarms;
+            deferred.resolve(loan);
             return deferred.promise;
         }
         function calcFarmAcres(farm) {
@@ -69,8 +70,10 @@
             return _.sumCollection(practices, 'waived');
         }
         function makeFarmPractice(obj, loan) {
+            return makePractice(obj.crop_id); //TODO: Fix
             var xps = [];
-            _.find(loan.expenses.byEntry, function(i){
+            //_.find(loan.expenses.byEntry, function(i){
+            _.find(loan.expenses, function(i){
                 if(obj.crop_id === i.loancrop_id){
                     xps.push(i);
                 }
@@ -160,8 +163,14 @@
             };
         }
         function processFarmCrops(cps, loan) {
-            //console.log('cps', cps);
+            //TODO: Get crops from Database
+            console.log('CPS', cps, '|| LOAN', loan);
             var returner = [], findcorn = [], findsoybeans = [], findbeansFAC = [], findsorghum = [], findwheat = [], findcotton = [], findrice = [], findpeanuts = [], findsugarcane = [], findother = [], corn = [], soybeans = [], beansFAC = [], sorghum = [], wheat = [], cotton = [], rice = [], peanuts = [], sugarcane = [], other = [];
+            var crops = [
+                {
+
+                }
+            ];
 
             findcorn = _.find(cps, function (i) {
                 return i.crop_id == '1';
@@ -194,70 +203,70 @@
             returner.push(beansFAC);
 
             findsorghum = _.find(cps, function (i) {
-                return i.crop_id == '3';
+                return i.crop_id == '4';
             });
             if (!findsorghum) {
-                sorghum = makePractice(3, loan);
+                sorghum = makePractice(4, loan);
             } else {
                 sorghum = makeFarmPractice(findsorghum, loan);
             }
             returner.push(sorghum);
 
             findwheat = _.find(cps, function (i) {
-                return i.crop_id == '4';
+                return i.crop_id == '5';
             });
             if (!findwheat) {
-                wheat = makePractice(4, loan);
+                wheat = makePractice(5, loan);
             } else {
                 wheat = makeFarmPractice(findwheat, loan);
             }
             returner.push(wheat);
 
             findcotton = _.find(cps, function (i) {
-                return i.crop_id == '5';
+                return i.crop_id == '6';
             });
             if (!findcotton) {
-                cotton = makePractice(5, loan);
+                cotton = makePractice(6, loan);
             } else {
                 cotton = makeFarmPractice(findcotton, loan);
             }
             returner.push(cotton);
 
             findrice = _.find(cps, function (i) {
-                return i.crop_id == '6';
+                return i.crop_id == '7';
             });
             if (!findrice) {
-                rice = makePractice(6, loan);
+                rice = makePractice(7, loan);
             } else {
                 rice = makeFarmPractice(findrice, loan);
             }
             returner.push(rice);
 
             findpeanuts = _.find(cps, function (i) {
-                return i.crop_id == '7';
+                return i.crop_id == '8';
             });
             if (!findpeanuts) {
-                peanuts = makePractice(7, loan);
+                peanuts = makePractice(8, loan);
             } else {
                 peanuts = makeFarmPractice(findpeanuts, loan);
             }
             returner.push(peanuts);
 
             findsugarcane = _.find(cps, function (i) {
-                return i.crop_id == '8';
+                return i.crop_id == '9';
             });
             if (!findsugarcane) {
-                sugarcane = makePractice(8, loan);
+                sugarcane = makePractice(9, loan);
             } else {
                 sugarcane = makeFarmPractice(findsugarcane, loan);
             }
             returner.push(sugarcane);
 
             findother = _.find(cps, function (i) {
-                return i.crop_id == '9';
+                return i.crop_id == '10';
             });
             if (!findother) {
-                other = makePractice(9, loan);
+                other = makePractice(10, loan);
             } else {
                 other = makeFarmPractice(findother, loan);
             }
@@ -266,66 +275,81 @@
             return returner;
         }
         function splitFarmsByPractice(loan) {
+            console.log('LOAN (OPFAC)', loan);
+
             var farms = loan.farms;
-            //console.log('Farms', farms);
+            //console.log('STARTER', farms);
             var practiced = [];
             var withZero = [];
             var byPractice = [];
 
             _.each(farms, function (item) {
-                var acreage = calcFarmAcres(item);
-                //console.log('acreage', item);
+                console.log('ITEM', item);
+                var totAcres = (item.IR + item.NI);
+                var fsaPayIR = item.fsa_paid * item.IR / totAcres;
+                var fsaPayNI = item.fsa_paid - fsaPayIR;
+
                 var splitIR = {
                     id: item.id,
                     county: item.county.county,
                     state: item.county.state.abr,
                     fsn: item.fsn,
                     owner: item.owner,
-                    acres: acreage.irr,
+                    acres: Number(item.IR),
                     practice: 'IR',
                     cash_rent: Number(item.cash_rent),
                     waived: Number(item.waived),
                     share_rent: Number(item.share_rent),
-                    perm_ins: item.perm_ins,
+                    perm_to_insure: item.perm_to_insure,
                     when_due: item.when_due,
-                    fsa_paid: Number(item.fsa_paid) * Number(item.irr) / (Number(item.irr) + Number(item.ni)),
-                    cash_rent_acre_dist: 0,
-                    fsa_acre: (Number(item.fsa_paid) * Number(item.ni) / (Number(item.irr) + Number(item.ni)) / item.irr),
+                    fsa_paid: fsaPayIR,
+                    cash_rent_acre_ARM: (Number(item.IR) !== 0 ? (Number(item.cash_rent) - Number(item.waived)) / Number(item.IR) : 0),
+                    cash_rent_acre_dist: 0, //TODO: store
+                    cash_rent_acre_other: 0,
+                    fsa_acre: (fsaPayIR/item.IR),
                     practices: []
                 };
-
                 var splitNI = {
                     id: item.id,
-                    state: item.county.state.abr,
                     county: item.county.county,
+                    state: item.county.state.abr,
                     fsn: item.fsn,
                     owner: item.owner,
-                    acres: acreage.ni,
+                    acres: Number(item.NI),
                     practice: 'NI',
                     cash_rent: Number(item.cash_rent),
                     waived: Number(item.waived),
                     share_rent: Number(item.share_rent),
-                    perm_ins: item.perm_ins,
+                    perm_to_insure: item.perm_to_insure,
                     when_due: item.when_due,
-                    fsa_paid: Number(item.fsa_paid) * Number(item.ni) / (Number(item.irr) + Number(item.ni)),
-                    fsa_acre: (Number(item.fsa_paid) * Number(item.ni) / (Number(item.irr) + Number(item.ni)) / item.ni),
+                    fsa_paid: fsaPayNI,
+                    cash_rent_acre_ARM: (Number(item.IR) !== 0 ? (Number(item.cash_rent) - Number(item.waived)) / Number(item.IR) : 0),
+                    cash_rent_acre_dist: 0, //TODO: store
+                    cash_rent_acre_other: 0,
+                    fsa_acre: (fsaPayNI/item.NI),
                     practices: []
                 };
 
-                _.each(item.practices, function (crop) {
-                    if (crop.irrigated === '1') {
-                        splitIR.practices.push(crop);
+                _.each(item, function (subfarm) {
+                    //console.log('UNIT', unit);
+                    if (subfarm.practice === 'IR') {
+                        splitIR.practices.push(subfarm);
                     } else {
-                        splitNI.practices.push(crop);
+                        splitNI.practices.push(subfarm);
                     }
                 });
 
-                practiced.push(splitIR);
                 practiced.push(splitNI);
+                practiced.push(splitIR);
             });
-            console.log('Practiced', practiced);
+            //console.log('PRACTICED', practiced);
 
+            /*
+            Farm is divided into IRR and NI and
+            includes subfarms with 0 acres and has no crops
+            */
             _.each(practiced, function (item) {
+                // Adding variables necessary for Optimizer
                 var processed = {
                     id: item.id,
                     state: item.state,
@@ -335,7 +359,7 @@
                     owner: item.owner,
                     acres: item.acres,
                     share_rent: item.share_rent,
-                    perm_ins: (item.perm_ins == '1' ? 'Y' : 'N'),
+                    perm_to_insure: (item.perm_to_insure ? 'Y' : 'N'),
                     cash_rent: Number(item.cash_rent),
                     waived: Number(item.waived),
                     when_due: item.when_due,
@@ -344,13 +368,20 @@
                     cash_rent_acre_dist: 0,
                     cash_rent_acre_other: (item.acres !== 0 ? Number(item.waived) / Number(item.acres) : 0),
                     fsa_acre: (item.acres !== 0 ? Number(item.fsa_paid) / Number(item.acres) : 0),
-                    crops: processFarmCrops(item['practices'], loan)
+                    crops: processFarmCrops(item, loan)
                 };
                 withZero.push(processed);
             });
-            //console.log('With Zero', withZero);
+            //console.log('WITH ZERO', withZero);
 
-            _.each(withZero, function (item) {
+            return _.each(withZero, function (item) {
+                // Adding variables necessary for Optimizer
+                item.crops = processFarmCrops(item, loan);
+            });
+            //console.log('WITH ZERO', withZero);
+
+            // removes subfarms without acres
+            _.each(practiced, function (item) {
                 if (item.acres > 0) {
                     byPractice.push(item);
                 } else {
@@ -358,6 +389,7 @@
                 }
             });
 
+            //byPractice = practiced;
             //console.log('By Practice', byPractice);
             return byPractice;
         }

@@ -4,10 +4,10 @@
         .module('ARM')
         .factory('LoansFactory', LoansFactory);
 
-    LoansFactory.$inject = ['$http', '$q', 'API_URL'];
+    LoansFactory.$inject = ['$http', '$q', 'API_URL', 'AppFactory'];
 
     /* @ngInject */
-    function LoansFactory($http, $q, API_URL) {
+    function LoansFactory($http, $q, API_URL, AppFactory) {
         var user = JSON.parse(localStorage.getItem('user'));
         var publicAPI = {
             getLoan: getLoan,
@@ -35,18 +35,18 @@
         function updateLoanData(loan) {
             return $q.all({
                 crops: getCrops(loan),
-                //expenses: getCropExpenses(loan),
-                //full_farm_exps: getLoanExpenses(loan),
+                expenses: getExpenses(loan),
                 loancrops: getLoanCrops(loan),
-                insurance: getInsurance(loan)
+                insurance: getInsurance(loan),
+                parsedComments: structureComments(loan)
             })
                 .then(function (updatedData) {
                     angular.extend(loan, updatedData);
 
-                    if(testComments(loan, user) !== 0) {
-                        loan.has_comment = true;
-                    } else {
+                    if(testComments(loan, user) === 0) {
                         loan.has_comment = false;
+                    } else if(testComments(loan, user) === 1){
+                        loan.has_comment = true;
                     }
 
                     if(testVote(loan, user) != 0) {
@@ -54,31 +54,50 @@
                     } else {
                         loan.vote_pending = false;
                     }
+
+                    //console.log('FromLoanFactory', loan);
                     return loan;
                 });
         }
         //////////
-        function flattenExpenses(expenses) {
+        function flattenExpenses(expenses, loan) {
             var flattened = [];
-            angular.forEach(expenses, function (exp) {
-                var single = {
-                    cat_id: Number(exp.cat_id),
-                    expense: exp.expense,
-                    loancrop_id: exp.loancrop_id,
-                    crop: exp.loancrops.crop.crop,
-                    name: exp.loancrops.crop.name,
-                    acres: Number(exp.loancrops.acres),
-                    arm: Number(exp.arm_adj),
-                    dist: Number(exp.dist_adj),
-                    other: Number(exp.other_adj),
-                    per_acre: Number(exp.arm_adj) + Number(exp.dist_adj) + Number(exp.other_adj),
-                    calc_arm: Number(exp.arm_adj) * Number(exp.loancrops.acres),
-                    calc_dist: Number(exp.dist_adj) * Number(exp.loancrops.acres),
-                    calc_other: Number(exp.other_adj) * Number(exp.loancrops.acres),
-                    calc_total: (Number(exp.arm_adj) + Number(exp.dist_adj) + Number(exp.other_adj)) * Number(exp.loancrops.acres)
-                };
-                this.push(single);
-            }, flattened);
+            var all_acres = loan.fins.crop_acres;
+            //console.log('ACRES', all_acres );
+
+            _.map(expenses, function(item){
+                var crop = item.crop.crop;
+                var acres = all_acres[item.crop_id].acres;
+
+                var stub = _.pick(item, [
+                    'id',
+                    'loan_id',
+                    'loancrop_id',
+                    'cat_id',
+                    'expense',
+                    'arm_adj',
+                    'dist_adj',
+                    'other_adj'
+                ]);
+                stub.arm = Number(stub.arm_adj);
+                stub.dist = Number(stub.dist_adj);
+                stub.other = Number(stub.other_adj);
+                stub.per_acre = stub.arm + stub.dist + stub.other;
+                stub.crop = crop;
+                stub.acres = acres;
+                stub.calc_arm = stub.arm * acres;
+                stub.calc_dist = stub.dist * acres;
+                stub.calc_other = stub.other * acres;
+                stub.calc_total = stub.per_acre * acres;
+
+                var finalpass = _.omit(stub, [
+                        'arm_adj', 'dist_adj', 'other_adj'
+                    ]);
+
+                flattened.push(finalpass);
+            });
+
+            //console.log('FLAT', flattened );
             return flattened;
         }
         function getCrops(loan) {
@@ -93,25 +112,19 @@
             });
             return crops;
         }
-        function getCropExpenses(loan) {
+        function getExpenses(loan) {
             var expenses = loan.expenses;
-            var farmexpenses = [];
+            var farmexpenses = loan.farmexpenses;
 
             var exps = {
-                byCat: processExpsByCat(flattenExpenses(expenses)),
-                byCrop: processExpsByCrop(flattenExpenses(expenses)),
-                byEntry: flattenExpenses(expenses),
-                totals: processExpsTotals(flattenExpenses(expenses), farmexpenses)
+                byCat: processExpsByCat(flattenExpenses(expenses, loan)),
+                byCrop: processExpsByCrop(flattenExpenses(expenses, loan)),
+                byEntry: flattenExpenses(expenses, loan),
+                totals: processExpsTotals(flattenExpenses(expenses, loan), farmexpenses)
             };
 
-            console.log('Expenses: ', exps);
+            //console.log('Expenses: ', exps);
             return (exps);
-        }
-        function getLoanExpenses(loan) {
-            var farmexpenses = loan.farmexpenses;
-            var ffExps = [];
-            var crops_in_loan = getCrops(loan);
-            return ffExps;
         }
         function getInsurance(loan) {
             var insurance = [];
@@ -125,6 +138,9 @@
                 });
         }
         function processExpsByCat(expenses) {
+            //_.mapValues(my_obj, 'field')
+            //console.log('XPS', expenses);
+            if(!expenses) { console.log('OUTTA HERE'); return []; }
             var grped = _.chain(expenses).groupBy('expense').value();
             var cats = _.uniq(_.pluck(expenses, 'expense'));
             //corn.arm*corn.acres + bean.arm*bean.acres etc
@@ -134,7 +150,7 @@
                     totsByCat.push([]);
                 } else {
                     var col = grped[cat];
-                    //console.log(col);
+                    //console.log('ColTots', col);
                     var colTots = {
                         cat_id: _.pluckuniq(col, 'cat_id'),
                         expense: _.pluckuniq(col, 'expense'),
@@ -149,7 +165,7 @@
                     totsByCat.push(colTots);
                 }
             });
-            return totsByCat;
+            return cats;
         }
         function processExpsByCrop(expenses) {
             var grped = _.chain(expenses).groupBy('crop').value();
@@ -172,6 +188,7 @@
             };
         }
         function processExpsTotalsByCat(expenses) {
+            if(!expenses) {return []; }
             var grped = _.chain(expenses).groupBy('expense').value();
             var cats = _.uniq(_.pluck(expenses, 'expense'));
 
@@ -251,20 +268,25 @@
                 total: _.sumCollection(expenses, 'calc_total')
             };
         }
+        function structureComments(loan) {
+            if(!loan.comments) {return []; }
+            var parsed = AppFactory.parseComments(loan.comments);
+            return parsed;
+        }
         function testComments(loan, user) {
-            if(loan.comments.length !== 0) {
-                return _.each(loan.comments, function(it){
-                    return _.each(it.status, function(i){
-                        if(i.recipient_id === user.id && i.status === 'pending') {
-                            return 1;
-                        } else {
-                            return 0;
-                        }
-                    });
+            if(loan.comments.length === 0) { return 0; }
+
+            var result = 0;
+
+            _.each(loan.comments, function(it){
+                return _.each(it.status, function(i){
+                    if(i.recipient_id === user.id && i.status === 'pending') {
+                        result = 1;
+                    }
                 });
-            } else {
-                return 0;
-            }
+            });
+
+            return result;
         }
         function testVote(loan, user) {
             if (loan.committee.length !== 0) {

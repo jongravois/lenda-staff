@@ -9,66 +9,31 @@
 <fieldset>
     <legend>Prerequisite Documents</legend>
     <div class="container-fluid">
-        <div class="list-group"
-             ng-if="!docs || docs.length == 0"
-             style="width:80%; margin:0 auto;">
-            No Attachments Found!
-        </div>
+        <table class="table table-striped rowed">
+            <tr>
+                <th></th>
+                <th>Document</th>
+                <th>Date Requested</th>
+                <th></th>
+                <th></th>
+            </tr>
+            <tr ng-repeat="d in docs">
+                <td>
 
-        <div class="list-group"
-             ng-repeat="d in docs | filter:txtFilter"
-             style="width:80%; margin:10px auto 0 auto;">
-            <a href="#"
-               class="list-group-item">
-                {{d.title}}
-            <span class="pull-right"
-                  ng-show="!d.date_requested"
-                  ng-hide="d.date_requested"
-                  ng-click="requestDocument(d.id)">
-                <span class="glyphicon glyphicon-envelope"
-                      style="font-size: 16px;"
-                      tooltip="Request Document"
-                      tooltip-append-to-body="true"
-                      tooltip-placement="bottom"></span>
-            </span>
-            <span class="pull-right"
-                  ng-show="!d.date_received && d.date_requested"
-                  ng-hide="d.date_received || !d.date_requested"
-                  ng-file-select
-                  ng-model="files"
-                  ng-multiple="multiple">
-                <span class="glyphicon glyphicon-upload"
-                      style="font-size: 16px;"
-                      tooltip="Upload File"
-                      tooltip-append-to-body="true"
-                      tooltip-placement="bottom"></span>
-            </span>
-            <span class="pull-right"
-                  ng-show="d.filename"
-                  ng-hide="!d.filename || d.filename == ''"
-                  ng-click="showDocument(d)">
-                    <span class="glyphicon glyphicon-paperclip"
-                          style="font-size: 16px;"
-                          tooltip="View Document"
-                          tooltip-append-to-body="true"
-                          tooltip-placement="bottom"></span>
-            </span>
-                <br/>
-            <span class="tiny-txt">
-                {{d.reason_pending}}
-            </span>
-            </a>
-        </div>
-        <!-- TODO: Refactor Add/Update to directive-->
-        <div class="row">
-            <div class="col-md-12 text-right" style="padding-top:25px;">
-        <span ng-if="newapplication">
-          <button style="margin-right:10px;" class="btn btn-primary" ng-click="moveFromDocs()">Next</button>
-        </span>
-        <span ng-if="!newapplication">
-          <button style="margin-right:10px;" class="btn btn-primary" ng-click="moveFromDocs()">UPDATE</button>
-        </span>
-            </div>
-        </div>
+                </td>
+                <td>
+                    <a target="_blank" href="{{FILE_URL+d.filename}}">{{d.title}}</a>
+                </td>
+                <td>
+
+                </td>
+                <td>
+
+                </td>
+                <td>
+
+                </td>
+            </tr>
+        </table>
     </div>
 </fieldset>

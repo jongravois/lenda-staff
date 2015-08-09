@@ -23,7 +23,7 @@
                             {{exp.spent|flexZeroCurrency:2}}
                         </td>
                         <td class="text-right">
-                            {{exp.remaining|flexZeroCurrency:2}}
+                            {{exp.remaining = exp.arm_budget - exp.spent|flexZeroCurrency:2}}
                         </td>
                         <td>
                             <input type="text" class="form-control text-right" ng-model="exp.requested"/>
@@ -32,13 +32,13 @@
                     <tr class="success">
                         <td>Total</td>
                         <td class="text-right">
-                            {{disburse_arm_total() | flexZeroCurrency:2 }}
+                            {{disburse_arm_total()|flexZeroCurrency:2 }}
                         </td>
                         <td class="text-right">
-                            {{disburse_rem_total()| flexZeroCurrency:2 }}
+                            {{disburse_spent_total()|flexZeroCurrency:2 }}
                         </td>
                         <td class="text-right">
-                            {{disburse_spent_total() | flexZeroCurrency:2 }}
+                            {{disburse_rem_total()|flexZeroCurrency:2 }}
                         </td>
                         <td class="text-center" ng-if="!disbursed">
                             <button class="btn btn-success btn-xs" ng-click="requestDisbursement()">Request</button>

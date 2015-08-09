@@ -1,4 +1,38 @@
 <arm-logo-bar></arm-logo-bar>
 <arm-menu-bar></arm-menu-bar>
 
-<div class="below-the-bar" ui-view></div>
+<div class="below-the-bar" ui-view>
+    <h3>Policies & Procedures</h3><br><br>
+    <table class="table table-striped table-bordered table-hover table-condensed">
+        <tr>
+            <td colspan="9">
+                <input type="text" class="form-control" ng-model="query" style="width:260px;" placeholder="Filter List"/>
+            </td>
+        </tr>
+        <tr>
+            <th style="">Document</th>
+            <th style="">Topic</th>
+            <th style="">State</th>
+            <th style="">Code</th>
+            <th style="">Privileges</th>
+            <th style="">Created</th>
+            <th style="">Modified</th>
+            <th style="">Actions</th>
+            <th style="">Template</th>
+        </tr>
+        <tr ng-repeat="d in filteredDocs| filter:query | orderBy: 'document'">
+            <td><h3><span class="glyphicon glyphicon-file"></span>{{ d.document }}</h3>{{ d.description }}</td>
+            <td class="text-center">{{ d.topic }}</td>
+            <td class="text-center">{{ d.state }}</td>
+            <td class="text-center">{{ d.code }}</td>
+            <td class="text-center">{{ d.privileges }}</td>
+            <td class="text-center">{{ d.created | date:"short" }}</td>
+            <td class="text-center">{{ d.modified | date:"short" }}</td>
+            <td style="white-space: nowrap;" class="text-center">
+                <button class="btn btn-info" ng-click="">View</button>
+                <button class="btn btn-success" ng-click="">Fill</button>
+            </td>
+            <td class="text-center"><input type="checkbox"></td>
+        </tr>
+    </table>
+</div>
