@@ -10,6 +10,15 @@
         $scope.AppFactory = AppFactory;
         $scope.loans = Loans;
 
+        $scope.icons = false;
+        $scope.tools = false;
+
+        var sort = [
+            {field: 'loan_id', sort: 'asc'},
+            {field: 'analyst_abr', sort: 'asc'},
+            {field: 'committee_member', sort: 'asc'},
+        ];
+
         var columnDefs = [
             {
                 headerTooltip: 'Committee Member',
@@ -65,8 +74,8 @@
                 headerName: 'Addendum',
                 field: 'loan_addendum',
                 cellClass: 'text-center',
-                cellRenderer: function(params) {
-                    if (params.data.loan_addendum){
+                cellRenderer: function (params) {
+                    if (params.data.loan_addendum) {
                         return "<span style='color:#007700'>+" + moment(params.data.loan_date).format('MM/DD/YYYY') + "</span>";
                     } else {
                         return "<span style='color:#000000'>&nbsp;" + moment(params.data.loan_date).format('MM/DD/YYYY') + "</span>";
@@ -102,10 +111,10 @@
                 headerName: 'Vote',
                 field: 'committee_vote',
                 cellClass: 'text-center',
-                cellRenderer: function(params) {
-                    if (params.data.committee_vote == 1){
+                cellRenderer: function (params) {
+                    if (params.data.committee_vote == 1) {
                         return '<div style="text-align:center !important;"><span class="pendicon glyphicon glyphicon-thumbs-up" style="color:#007700;"></span></div>';
-                    } else if (params.data.committee_vote == 0){
+                    } else if (params.data.committee_vote == 0) {
                         return '<div style="text-align:center !important;"><span class="pendicon glyphicon glyphicon-thumbs-down"  style="color:#770000;"></span></div>';
                     } else {
                         return '<div style="text-align:center !important;"> - </div>';
@@ -125,6 +134,23 @@
                 width: 100
             }
         ];
+
+        $scope.printState = function () {
+            var state = $scope.gridOptions.api.getColumnState();
+            console.log(state);
+        };
+
+        var savedState;
+
+        $scope.saveState = function () {
+            savedState = $scope.gridOptions.api.getColumnState();
+            console.log('column state saved');
+        };
+
+        $scope.restoreState = function () {
+            $scope.gridOptions.api.setColumnState(savedState);
+            console.log('column state restored');
+        }
 
         $scope.getModel = function(){
             if ($scope.gridOptions.api) {
@@ -151,27 +177,19 @@
             enableColResize: true,
             enableFilter: true,
             enableSorting: true,
-            showToolPanel: false
+            showToolPanel: false,
+            ready: function (api) {
+                $timeout(function () {
+                    api.setSortModel($scope.sortKeys);
+                });
+            }
         };
 
         $scope.reduced = CommitteeApprovalFactory.getData(Loans);
         console.log('CommitteeApprovalController reduced', $scope.reduced);
 
-        var sort = [
-            {field: 'loan_id', sort: 'asc'},
-            {field: 'analyst_abr', sort: 'asc'},
-            {field: 'committee_member', sort: 'asc'},
-        ];
         $scope.gridOptions.rowData = $scope.reduced;
         $scope.gridHeight = Number(($scope.gridOptions.rowData.length + 2) * 30).toString();
-
-        if ($scope.gridOptions.api) {
-            $scope.gridOptions.api.setSortModel($scope.sortKeys);
-            $scope.gridOptions.api.onNewRows();
-        }
-
-        $scope.icons = false;
-        $scope.tools = false;
     }
 
 })();

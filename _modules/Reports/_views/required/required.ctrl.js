@@ -4,48 +4,29 @@
         .module('ARM')
         .controller('RequiredController', RequiredController);
 
-    RequiredController.$inject = ['$scope', '$http', '$filter', '$timeout', 'AppFactory', 'Loans', 'RequiredFactory'];
+    RequiredController.$inject = ['$scope', '$http', '$filter', '$timeout', 'AppFactory', 'Loans'];
 
-    function RequiredController($scope, $http, $filter, $timeout, AppFactory, Loans, RequiredFactory) {
+    function RequiredController($scope, $http, $filter, $timeout, AppFactory, Loans) {
         $scope.AppFactory = AppFactory;
         $scope.loans = Loans;
 
         var columnDefs = [
             {
                 headerName: 'Region',
-                field: 'region',
+                valueGetter: 'data.location.regions.region',
                 cellClass: 'text-center',
-                cellRenderer: function(params) {
-                    if (params.data.region.toUpperCase() === 'N'){
-                        return 'North';
-                    } else if (params.data.region.toUpperCase() === 'S'){
-                        return 'South';
-                    } else if (params.data.region.toUpperCase() === 'E'){
-                        return 'East';
-                    } else if (params.data.region.toUpperCase() === 'W'){
-                        return 'West';
-                    } else {
-                        return params.data.region;
-                    }
-                },
-                suppressSorting: false,
-                suppressSizeToFit: false,
                 width: 85
             },
             {
                 headerName: 'Loc',
-                field: 'location',
+                valueGetter: 'data.location.loc_abr',
                 cellClass: 'text-center',
-                suppressSorting: false,
-                suppressSizeToFit: false,
                 width: 70
             },
             {
                 headerName: 'Analyst',
                 field: 'analyst_abr',
                 cellClass: 'text-center',
-                suppressSorting: false,
-                suppressSizeToFit: false,
                 width: 80
             },
             {
@@ -81,8 +62,6 @@
                         return 'n/a';
                     }
                 },
-                suppressSorting: false,
-                suppressSizeToFit: false,
                 width: 100
             },
             {
@@ -98,8 +77,6 @@
                     }
                 },
                 hide: true,
-                suppressSorting: false,
-                suppressSizeToFit: false,
                 width: 90
             },
             {
@@ -122,19 +99,42 @@
                     }
                 },
                 hide: true,
-                suppressSorting: true,
-                suppressSizeToFit: false,
                 width: 70
             },
             {
                 headerName: 'Efficiency',
                 cellClass: 'text-center',
                 suppressSorting: true,
-                suppressSizeToFit: false,
                 templateUrl: '_modules/Reports/_views/_partials/progress_bar.html',
                 width: 590
             }
         ];
+
+        $scope.printState = function() {
+            var state = $scope.gridOptions.api.getColumnState();
+            console.log(state);
+        };
+
+        var savedState;
+
+        $scope.saveState = function() {
+            savedState = $scope.gridOptions.api.getColumnState();
+            console.log('column state saved');
+        };
+
+        $scope.restoreState = function() {
+            $scope.gridOptions.api.setColumnState(savedState);
+            console.log('column state restored');
+        };
+
+        $scope.getModel = function(){
+            if ($scope.gridOptions.api) {
+                console.log($scope.gridOptions.api.getModel());
+                return $scope.gridOptions.api.getModel();
+            } else {
+                console.log('api not ready');
+            }
+        }
 
         $scope.gridOptions = {
             columnDefs: columnDefs,
@@ -146,23 +146,28 @@
             angularCompileHeaders: true,
             enableColResize: true,
             enableFilter: true,
-            enableSorting: true
+            enableSorting: true,
+            showToolPanel: false,
+            ready: function (api) {
+                $timeout(function () {
+                    api.setSortModel($scope.sortKeys);
+                });
+            }
         };
-
-        $scope.reduced = RequiredFactory.getData(Loans);
-        console.log('reduced', $scope.reduced);
 
         $scope.pins = 0;
         $scope.pin = 0;
         var sort = [
-            {field: 'user', sort: 'asc'}
+            {field: 'analyst_abr', sort: 'asc'}
         ];
-        $scope.gridOptions.rowData = $scope.reduced;
+        $scope.gridOptions.rowData = $scope.loans;
         $scope.gridHeight = Number(($scope.gridOptions.rowData.length + 2) * 30).toString();
 
         if ($scope.gridOptions.api) {
             $scope.gridOptions.api.onNewRows();
             $scope.gridOptions.api.setSortModel($scope.sortKeys);
+        } else {
+            console.log('api not ready');
         }
 
         $scope.pct_success = 60;
