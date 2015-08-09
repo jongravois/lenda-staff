@@ -9,8 +9,7 @@
         /* @ngInject */
         function CommentsController($rootScope, $scope, AppFactory) {
             /* jshint validthis: true */
-            var comms = $scope.loan.comments;
-            $scope.comments = AppFactory.parseComments(comms);
+            $scope.comments = $scope.loan.parsedComments;
             //console.log('Comments', $scope.comments);
 
             $scope.btnCommentOk = function(comm) {

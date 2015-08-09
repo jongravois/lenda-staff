@@ -16,10 +16,14 @@
             calcExposure: calcExposure,
             deleteIt: deleteIt,
             filterLoans: filterLoans,
+            fixDollars: fixDollars,
             getAll: getAll,
+            getAcresForCropInLoan: getAcresForCropInLoan,
+            getAllCrops: getAllCrops,
             getIndicatorWidth: getIndicatorWidth,
             getOne: getOne,
             getSortedData: getSortedData,
+            getRaw: getRaw,
             gtZero: gtZero,
             inArray: inArray,
             nullOrNot: nullOrNot,
@@ -42,6 +46,9 @@
         }
         function getOne(npoint, id) {
             return $http.get(API_URL+npoint+'/'+id);
+        }
+        function getRaw(fullendpoint) {
+            return $http.get(API_URL+fullendpoint);
         }
         function patchIt(npoint, id, data) {
             return $http.patch(API_URL+npoint+'/'+id, data);
@@ -101,6 +108,23 @@
                     });
                     break;
             } // end switch
+        }
+        function fixDollars(num, digits) {
+            num += 0.5;
+            var numS = num.toString(),
+                decPos = numS.indexOf('.'),
+                substrLength = decPos == -1 ? numS.length : 1 + decPos + digits,
+                trimmedResult = numS.substr(0, substrLength),
+                finalResult = isNaN(trimmedResult) ? 0 : trimmedResult;
+            return parseFloat(finalResult);
+
+        }
+        function getAcresForCropInLoan(loanID, cropID) {
+
+        }
+        function getAllCrops() {
+            //TODO: Hard Coded
+            return ['corn', 'soybeans', 'beansFAC', 'sorghum', 'wheat', 'cotton', 'rice', 'peanuts', 'sugarcane'];
         }
         function getIndicatorWidth(user) {
             var cnt = 0;
@@ -164,6 +188,7 @@
             return !angular.isDefined(obj) || obj===null;
         }
         function parseComments(comms) {
+            if(comms.length < 2) { return []; }
             var Account = _.filter(comms, function(i){
                 return i.type == 'Account';
             })

@@ -34,7 +34,7 @@
 
         LoansFactory.getLoans()
             .then(function (rsp) {
-                console.log('LoansFactory', rsp);
+                //console.log('LoansFactory', rsp);
                 $scope.loans = rsp;
                 $scope.indWid = AppFactory.getIndicatorWidth($scope.user);
                 var LoansBySettings = AppFactory.filterLoans($scope.loans, 'settings');
@@ -309,7 +309,7 @@
                 headerName: 'Acres: Corn',
                 headerClass: 'text-center',
                 cellRenderer: function (params) {
-                    return $filter('number')(params.data.fins.crop_acres.corn, 1);
+                    return $filter('number')(params.data.fins.crop_acres[0].acres, 1);
                 },
                 cellClass: 'text-right',
                 suppressSizeToFit: true,
@@ -322,7 +322,7 @@
                 headerName: 'Acres: Soybeans',
                 headerClass: 'text-center',
                 cellRenderer: function (params) {
-                    return $filter('number')(params.data.fins.crop_acres.soybeans, 1);
+                    return $filter('number')(params.data.fins.crop_acres[1].acres, 1);
                 },
                 cellClass: 'text-right',
                 suppressSizeToFit: true,
@@ -335,7 +335,7 @@
                 headerName: 'Acres: Soybeans FAC',
                 headerClass: 'text-center',
                 cellRenderer: function (params) {
-                    return $filter('number')(params.data.fins.crop_acres.beansFAC, 1);
+                    return $filter('number')(params.data.fins.crop_acres[2].acres, 1);
                 },
                 cellClass: 'text-right',
                 suppressSizeToFit: true,
@@ -348,7 +348,7 @@
                 headerName: 'Acres: Sorghum',
                 headerClass: 'text-center',
                 cellRenderer: function (params) {
-                    return $filter('number')(params.data.fins.crop_acres.sorghum, 1);
+                    return $filter('number')(params.data.fins.crop_acres[3].acres, 1);
                 },
                 cellClass: 'text-right',
                 suppressSizeToFit: true,
@@ -361,7 +361,7 @@
                 headerName: 'Acres: Wheat',
                 headerClass: 'text-center',
                 cellRenderer: function (params) {
-                    return $filter('number')(params.data.fins.crop_acres.wheat, 1);
+                    return $filter('number')(params.data.fins.crop_acres[4].acres, 1);
                 },
                 cellClass: 'text-right',
                 suppressSizeToFit: true,
@@ -374,7 +374,7 @@
                 headerName: 'Acres: Cotton',
                 headerClass: 'text-center',
                 cellRenderer: function (params) {
-                    return $filter('number')(params.data.fins.crop_acres.cotton, 1);
+                    return $filter('number')(params.data.fins.crop_acres[5].acres, 1);
                 },
                 cellClass: 'text-right',
                 suppressSizeToFit: true,
@@ -387,7 +387,7 @@
                 headerName: 'Acres: Rice',
                 headerClass: 'text-center',
                 cellRenderer: function (params) {
-                    return $filter('number')(params.data.fins.crop_acres.rice, 1);
+                    return $filter('number')(params.data.fins.crop_acres[6].acres, 1);
                 },
                 cellClass: 'text-right',
                 suppressSizeToFit: true,
@@ -400,7 +400,7 @@
                 headerName: 'Acres: Peanuts',
                 headerClass: 'text-center',
                 cellRenderer: function (params) {
-                    return $filter('number')(params.data.fins.crop_acres.peanuts, 1);
+                    return $filter('number')(params.data.fins.crop_acres[7].acres, 1);
                 },
                 cellClass: 'text-right',
                 suppressSizeToFit: true,
@@ -413,7 +413,7 @@
                 headerName: 'Acres: Cane',
                 headerClass: 'text-center',
                 cellRenderer: function (params) {
-                    return $filter('number')(params.data.fins.crop_acres.sugarcane, 1);
+                    return $filter('number')(params.data.fins.crop_acres[8].acres, 1);
                 },
                 cellClass: 'text-right',
                 suppressSizeToFit: true,
@@ -426,7 +426,7 @@
                 headerName: 'Acres: Sunflowers',
                 headerClass: 'text-center',
                 cellRenderer: function (params) {
-                    return $filter('number')(params.data.fins.crop_acres.sunflowers, 1);
+                    return $filter('number')(params.data.fins.crop_acres[9].acres, 1);
                 },
                 cellClass: 'text-right',
                 suppressSizeToFit: true,

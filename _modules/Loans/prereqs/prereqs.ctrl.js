@@ -4,10 +4,11 @@
         .module('ARM')
         .controller('PrereqsController', PrereqsController);
 
-        PrereqsController.$inject = ['$rootScope', '$scope', 'AppFactory'];
+        PrereqsController.$inject = ['$rootScope', '$scope', 'FILE_URL', 'AppFactory'];
 
-        function PrereqsController($rootScope, $scope, AppFactory){
+        function PrereqsController($rootScope, $scope, FILE_URL, AppFactory){
+            $scope.FILE_URL = FILE_URL;
             $scope.docs = $scope.loan.attachments;
-            console.log($scope.docs);
+            console.log('DOCS', $scope.docs);
         } // end controller
 })();

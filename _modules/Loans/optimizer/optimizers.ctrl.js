@@ -2,52 +2,79 @@
     'use strict';
     angular
         .module('ARM')
-        .controller('OptimizersController', OptimizersController);
+        .controller('OptimizerController', OptimizerController);
 
-    OptimizersController.$inject = ['$rootScope', '$scope', '$state', '$stateParams', 'AppFactory', 'FeederFactory', 'ModalService', 'OptimizerFactory'];
+    OptimizerController.$inject = ['$scope', '$state', '$stateParams', 'ModalService', 'AppFactory', 'LoansFactory', 'OptimizerFactory'];
 
-    function OptimizersController($rootScope, $scope, $state, $stateParams, AppFactory, FeederFactory, ModalService, OptimizerFactory) {
+    function OptimizerController($scope, $state, $stateParams, ModalService, AppFactory, LoansFactory, OptimizerFactory) {
         $scope.AppFactory = AppFactory;
         $scope.OptimizerFactory = OptimizerFactory;
+        //console.log('loan (OF)', $scope.loan);
 
-        $scope.alpine = false;
-        OptimizerFactory.getMock()
+        OptimizerFactory.getOptimizedLoan($scope.loan)
             .then(function(rsp){
-                $scope.loan.optimized = rsp.data;
+                $scope.loan = rsp;
             });
 
-        /*$scope.optimized = OptimizerFactory.parseUnits($scope.loan);
-        $scope.loan.optimized = $scope.optimized;
-        $scope.unitcrops = OptimizerFactory.processCrops($scope.loan);*/
+        console.log('optimized (OF)', $scope.loan);
+        //////////////////////////
+
+        //console.log($scope.loan.practices);
+        $scope.loan.crop_totals = [
+            {crop: 'Corn', acres: AppFactory.calcAcresCrop('1', $scope.loan)},
+            {crop: 'Soybeans', acres: AppFactory.calcAcresCrop('2', $scope.loan)},
+            {crop: 'Soybeans FAC', acres: AppFactory.calcAcresCrop('3', $scope.loan)},
+            {crop: 'Sorghum', acres: AppFactory.calcAcresCrop('4', $scope.loan)},
+            {crop: 'Wheat', acres: AppFactory.calcAcresCrop(5, $scope.loan)},
+            {crop: 'Cotton', acres: AppFactory.calcAcresCrop('6', $scope.loan)},
+            {crop: 'Rice', acres: AppFactory.calcAcresCrop('7', $scope.loan)},
+            {crop: 'Peanuts', acres: AppFactory.calcAcresCrop('8', $scope.loan)},
+            {crop: 'Sugar Cane', acres: AppFactory.calcAcresCrop('9', $scope.loan)},
+            {crop: 'Other', acres: AppFactory.calcAcresCrop('10', $scope.loan)}
+        ];
+        //console.log('crop_totals', $scope.loan.crop_totals);
 
         $scope.tggl = {
-            showRentRows: false,
-            showOverRentRows: false,
-            showInsuranceRows: false,
-            showCashFlowRows: false,
-            showRiskMarginRows: false,
-            tcropCorn: ($scope.loan.fins.crop_acres.corn > 0 ? true : false),
-            tcropSoybeans: ($scope.loan.fins.crop_acres.soybeans > 0 ? true : false),
-            tcropBeansFAC: ($scope.loan.fins.crop_acres.beansFAC > 0 ? true : false),
-            tcropSorghum: ($scope.loan.fins.crop_acres.sorghum > 0 ? true : false),
-            tcropWheat: ($scope.loan.fins.crop_acres.wheat > 0 ? true : false),
-            tcropCotton: ($scope.loan.fins.crop_acres.cotton > 0 ? true : false),
-            tcropRice: ($scope.loan.fins.crop_acres.rice > 0 ? true : false),
-            tcropPeanuts: ($scope.loan.fins.crop_acres.peanuts > 0 ? true : false),
-            tcropSugarcane: ($scope.loan.fins.crop_acres.sugarcane > 0 ? true : false),
-            tcropSunflowers: ($scope.loan.fins.crop_acres.sunflowers > 0 ? true : false)
+            showRentRows: true, //false,
+            showOverRentRows: true, //false,
+            showInsRows: true, //false,
+            showCFRows: true, //false,
+            showEXRows: true, //false,
+            tcropCorn: (AppFactory.calcAcresCrop('1', $scope.loan) > 0 ? true : false),
+            tcropSoybeans: (AppFactory.calcAcresCrop('2', $scope.loan) > 0 ? true : false),
+            tcropBeansFAC: (AppFactory.calcAcresCrop('3', $scope.loan) > 0 ? true : false),
+            tcropSorghum: (AppFactory.calcAcresCrop('4', $scope.loan) > 0 ? true : false),
+            tcropWheat: (AppFactory.calcAcresCrop('5', $scope.loan) > 0 ? true : false),
+            tcropCotton: true, //(AppFactory.calcAcresCrop('6', $scope.loan) > 0 ? true : false),
+            tcropRice: (AppFactory.calcAcresCrop('7', $scope.loan) > 0 ? true : false),
+            tcropPeanuts: (AppFactory.calcAcresCrop('8', $scope.loan) > 0 ? true : false),
+            tcropSugarcane: (AppFactory.calcAcresCrop('9', $scope.loan) > 0 ? true : false),
+            tcropOther: (AppFactory.calcAcresCrop('10', $scope.loan) > 0 ? true : false)
         };
 
-        ///////////
+        $scope.toggleAlpine = function() {
+            $scope.alpine = !$scope.alpine;
+            var data = {
+                title: 'Alpine Optimizer',
+                message: 'This is an expermental design that will allow ARM analysts easy access to loan variables to adjust and optimize loans and provide better customer service.',
+                buttons: ['ok', 'cancel']
+            };
+            ModalService.confirm(data)
+                .then(function() {
+                    // OK Button Clicked
+                }, function() {
+                    // Cancel Button Clicked
+                });
+        };
+
+        $scope.addFarm = function() {
+            alert('Adding a Farm.');
+        };
         $scope.showCrop = function() {
-            alert('working');
-        }
-        $scope.addUnit = function() {
-            alert('working');
-        }
+            alert('Showing another crop.');
+        };
         $scope.calcScoMax = function(crop) {
-            //console.log('crop', crop);
-            if(crop.c_acres === 0) {return 0;}
+            return 999999;
             var supplements = crop.insurance[0].suppins;
             //console.log('SCOMAX CROP', crop);
             //console.log('SCOMAX SUP', supplements);
@@ -120,59 +147,52 @@
             }
         };
         $scope.calcProdRevenue = function(crop) {
+            return 999999;
             //console.log('ProdRev Crop', crop);
             return Number(crop.c_prod_yield) * Number(crop.c_prod_price) * (Number(crop.c_prod_share)/100);
         };
         $scope.calcProdRevenueAdj = function(crop) {
+            return 999999;
             //console.log('ProdRev Crop', crop);
-            var yld, pshare, vhar, reba;
-            if(Number(crop.c_prod_yield) === 0) {
-                return 0;
-            } else {
-                yld = Number(crop.c_prod_yield);
-            }
-            if(Number(crop.c_prod_share) === 0) {
-                return 0;
-            } else {
-                pshare = Number(crop.c_prod_share);
-            }
-            if(Number(crop.c_var_harv) === 0) {
-                vhar = 1;
-            } else {
-                vhar = Number(crop.c_var_harv);
-            }
-            if(Number(crop.c_rebate) === 0) {
-                reba = 1;
-            } else {
-                reba = Number(crop.c_rebate);
-            }
-
-            if( vhar + reba === 0) {
-                vhar = 1;
-            }
-
-            return yld * (pshare/100) * (vhar + reba);
+            return Number(crop.c_prod_yield) * (Number(crop.c_prod_share)/100) * (Number(crop.c_var_harv) + Number(crop.c_rebate));
         };
         $scope.calcFee = function(crop) {
-            var fee = ((Number(crop.expenses.arm) + Number(crop.expenses.dist)) * (1/100)) + ((Number(crop.expenses.arm) + Number(crop.expenses.dist)) * (1.5/100));
+            return 999999;
+            var fee = 0;
+            if($scope.loan.fee_processing_onTotal) {
+                fee += (Number(crop.expenses.arm) + Number(crop.expenses.dist)) * (Number($scope.loan.fins.fee_processing_percent)/100);
+            } else {
+                fee += Number(crop.expenses.arm) * (Number($scope.loan.fins.fee_processing_percent)/100);
+            }
+            if($scope.loan.fee_service_onTotal) {
+                fee += (Number(crop.expenses.arm) + Number(crop.expenses.dist)) * (Number($scope.loan.fins.fee_service_percent)/100);
+            } else {
+                fee += Number(crop.expenses.arm) * (Number($scope.loan.fins.fee_service_percent)/100);
+            }
             return fee;
         };
         $scope.calcArmCommit = function(crop) {
+            return 999999;
             return crop.expenses.arm + $scope.calcFee(crop);
         };
         $scope.calcInterestARM = function(crop) {
+            return 999999;
             return (Number($scope.loan.fins.int_percent_arm)/100) * 0.375 * $scope.calcArmCommit(crop);
         };
         $scope.calcInterestDist = function(crop) {
+            return 999999;
             return (Number($scope.loan.fins.int_percent_dist)/100) * 0.375 * crop.expenses.dist;
         };
         $scope.calcDiscCrop = function(crop) {
+            return 999999;
             return Number($scope.calcProdRevenue(crop)) * (1 - (Number(crop.c_crop_disc)/100));
         };
         $scope.calcDiscFSA = function(crop, acreFSA) {
+            return 999999;
             return Number(acreFSA) * (1 - (Number(crop.c_fsa_disc)/100));
         };
         $scope.calcDiscInsOverCrop = function(crop) {
+            return 999999;
             var insval = Number(OptimizerFactory.calcInsValue(crop));
             var disccrop = Number($scope.calcDiscCrop(crop));
             var iocd = insval - disccrop;
@@ -183,6 +203,7 @@
             }
         };
         $scope.calcDiscIns = function(crop) {
+            return 999999;
             if(crop.c_ins_type === 'RP') {
                 return Number($scope.calcDiscInsOverCrop(crop)) * (1 - (Number(crop.c_cropins_disc)/100));
             } else {
@@ -190,55 +211,25 @@
             }
         };
         $scope.calcDiscSCO = function(crop) {
+            return 999999;
             return Number($scope.calcScoMax(crop)) * (1 - (Number(crop.c_sco_disc)/100));
         };
         $scope.calcDiscCollateral = function(crop, acre_fsa) {
+            return 999999;
             return Number($scope.calcDiscCrop(crop)) + Number($scope.calcDiscFSA(crop, acre_fsa)) + Number($scope.calcDiscInsOverCrop(crop)) + Number($scope.calcDiscIns(crop)) + Number($scope.calcDiscSCO(crop));
         };
         $scope.calcRelativeCF = function(crop, acre_fsa) {
+            return 999999;
             var revenue = Number($scope.calcProdRevenue(crop)) + Number($scope.calcProdRevenueAdj(crop)) + acre_fsa;
             var expenses = Number($scope.calcArmCommit(crop)) + Number(crop.expenses.dist) + Number(crop.expenses.other) + Number($scope.calcInterestARM(crop)) + Number($scope.calcInterestDist(crop));
 
             return Number(revenue) - Number(expenses);
         };
         $scope.calcRelativeRM = function(crop, acre_fsa) {
+            return 999999;
             var discountedCollateral = Number($scope.calcDiscCollateral(crop, acre_fsa));
             var fullCommittment = Number($scope.calcArmCommit(crop)) + Number(crop.expenses.dist) + Number($scope.calcInterestARM(crop)) + Number($scope.calcInterestDist(crop));
             return discountedCollateral - fullCommittment;
         };
-        $scope.getCropsAcres = function(cropID) {
-            switch(cropID) {
-                case '0':
-                    return 1000;
-                    break;
-                case '1':
-                    return 1000;
-                    break;
-                case '6':
-                    return 2000;
-                    break;
-                default:
-                    return 0;
-                    break;
-            }
-        };
-        $scope.toggleAlpine = function() {
-            $scope.alpine = !$scope.alpine;
-            var data = {
-                title: 'Alpine Optimizer',
-                message: 'This is an expermental design that will allow ARM analysts easy access to loan variables to adjust and optimize loans and provide better customer service.',
-                buttons: ['ok', 'cancel']
-            };
-            ModalService.confirm(data)
-                .then(function() {
-                    // OK Button Clicked
-                }, function() {
-                    // Cancel Button Clicked
-                });
-        };
-        /*$scope.toggleAlpine = function() {
-            return $scope.alpine = !$scope.alpine;
-        };*/
-
     } // end function
 })();

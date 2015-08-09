@@ -8,6 +8,6 @@
 
         function SummaryController($rootScope, $scope, AppFactory){
             $scope.comments = AppFactory.parseComments($scope.loan.comments);
-            console.log($scope.comments);
+            //console.log($scope.comments);
         } // end controller
 })();
