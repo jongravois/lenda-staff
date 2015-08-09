@@ -10,19 +10,27 @@
         $scope.AppFactory = AppFactory;
         $scope.loans = Loans;
 
+        $scope.icons = false;
+        $scope.tools = false;
+
+        $scope.sortKeys = [
+            {field: 'region', sort: 'asc'},
+            {field: 'location', sort: 'asc'}
+        ];
+
         var columnDefs = [
             {
                 headerName: 'Region',
                 field: 'region',
                 cellClass: 'text-center',
-                cellRenderer: function(params) {
-                    if (params.data.region.toUpperCase() === 'N'){
+                cellRenderer: function (params) {
+                    if (params.data.region.toUpperCase() === 'N') {
                         return 'North';
-                    } else if (params.data.region.toUpperCase() === 'S'){
+                    } else if (params.data.region.toUpperCase() === 'S') {
                         return 'South';
-                    } else if (params.data.region.toUpperCase() === 'E'){
+                    } else if (params.data.region.toUpperCase() === 'E') {
                         return 'East';
-                    } else if (params.data.region.toUpperCase() === 'W'){
+                    } else if (params.data.region.toUpperCase() === 'W') {
                         return 'West';
                     } else {
                         return params.data.region;
@@ -54,7 +62,7 @@
                 headerName: 'Corn',
                 field: 'corn',
                 cellClass: 'text-right',
-                cellRenderer: function(params) {
+                cellRenderer: function (params) {
                     return $filter('number')(params.data.corn, 0);
                 },
                 suppressSorting: false,
@@ -66,7 +74,7 @@
                 headerName: 'Soybeans',
                 field: 'soybeans',
                 cellClass: 'text-right',
-                cellRenderer: function(params) {
+                cellRenderer: function (params) {
                     return $filter('number')(params.data.soybeans, 0);
                 },
                 suppressSorting: false,
@@ -80,7 +88,7 @@
                 headerName: 'SB FAC',
                 field: 'beansFAC',
                 cellClass: 'text-right',
-                cellRenderer: function(params) {
+                cellRenderer: function (params) {
                     return $filter('number')(params.data.beansFAC, 0);
                 },
                 suppressSorting: false,
@@ -94,7 +102,7 @@
                 headerName: 'Sorghum',
                 field: 'sorghum',
                 cellClass: 'text-right',
-                cellRenderer: function(params) {
+                cellRenderer: function (params) {
                     return $filter('number')(params.data.sorghum, 0);
                 },
                 suppressSorting: false,
@@ -108,7 +116,7 @@
                 headerName: 'Cotton',
                 field: 'cotton',
                 cellClass: 'text-right',
-                cellRenderer: function(params) {
+                cellRenderer: function (params) {
                     return $filter('number')(params.data.cotton, 0);
                 },
                 suppressSorting: false,
@@ -122,7 +130,7 @@
                 headerName: 'Rice',
                 field: 'rice',
                 cellClass: 'text-right',
-                cellRenderer: function(params) {
+                cellRenderer: function (params) {
                     return $filter('number')(params.data.rice, 0);
                 },
                 suppressSorting: false,
@@ -136,7 +144,7 @@
                 headerName: 'Peanuts',
                 field: 'peanuts',
                 cellClass: 'text-right',
-                cellRenderer: function(params) {
+                cellRenderer: function (params) {
                     return $filter('number')(params.data.peanuts, 0);
                 },
                 suppressSorting: false,
@@ -150,7 +158,7 @@
                 headerName: 'Sugarcane',
                 field: 'sugarcane',
                 cellClass: 'text-right',
-                cellRenderer: function(params) {
+                cellRenderer: function (params) {
                     return $filter('number')(params.data.sugarcane, 0);
                 },
                 suppressSorting: false,
@@ -164,7 +172,7 @@
                 headerName: 'Wheat',
                 field: 'wheat',
                 cellClass: 'text-right',
-                cellRenderer: function(params) {
+                cellRenderer: function (params) {
                     return $filter('number')(params.data.wheat, 0);
                 },
                 suppressSorting: false,
@@ -178,7 +186,7 @@
                 headerName: 'Sunflowers',
                 field: 'sunflowers',
                 cellClass: 'text-right',
-                cellRenderer: function(params) {
+                cellRenderer: function (params) {
                     return $filter('number')(params.data.sunflowers, 0);
                 },
                 suppressSorting: false,
@@ -193,7 +201,7 @@
                 //headerGroupShow: 'closed',
                 field: 'total',
                 cellClass: 'text-right',
-                cellRenderer: function(params) {
+                cellRenderer: function (params) {
                     return $filter('number')(
                         params.data.corn
                         + params.data.soybeans
@@ -213,38 +221,39 @@
             }
         ];
 
-        $scope.getModel = function(){
+        $scope.printState = function () {
+            var state = $scope.gridOptions.api.getColumnState();
+            console.log(state);
+        };
+
+        var savedState;
+
+        $scope.saveState = function () {
+            savedState = $scope.gridOptions.api.getColumnState();
+            console.log('column state saved');
+        };
+
+        $scope.restoreState = function () {
+            $scope.gridOptions.api.setColumnState(savedState);
+            console.log('column state restored');
+        };
+
+        $scope.getModel = function () {
             if ($scope.gridOptions.api) {
                 console.log($scope.gridOptions.api.getModel());
                 return $scope.gridOptions.api.getModel();
             }
         }
 
-        $scope.showToolPanel = function(){
+        $scope.showToolPanel = function () {
             $scope.tools = !$scope.tools;
             $scope.gridOptions.api.showToolPanel($scope.tools);
-        }
-
-        $scope.toggleHorizontal = function(){
-            $scope.horizontal = !$scope.horizontal;
-            if ($scope.horizontal){
-                $scope.pin = 0;
-            } else {
-                $scope.pin = $scope.pins;
-            }
-            $scope.gridOptions.pinnedColumnCount = $scope.pin;
-            if ($scope.gridOptions.api) {
-                $scope.gridOptions.api.onNewCols();
-                $scope.gridOptions.api.hideColumns(['status_left', 'status', 'status_right'], $scope.icons);
-                $scope.gridOptions.api.setSortModel($scope.sortKeys);
-            }
         }
 
         $scope.gridOptions = {
             columnDefs: columnDefs,
             rowSelection: 'single',
             rowData: null,
-            pinnedColumnCount: $scope.pins,
             groupHeaders: true,
             angularCompileRows: true,
             angularCompileFilters: true,
@@ -252,26 +261,18 @@
             enableColResize: true,
             enableFilter: true,
             enableSorting: true,
-            showToolPanel: false
+            showToolPanel: false,
+            ready: function (api) {
+                $timeout(function () {
+                    api.setSortModel($scope.sortKeys);
+                });
+            }
         };
 
         $scope.reduced = CropMixFactory.getData(Loans);
-        //console.log('reduced', $scope.reduced);
 
-        $scope.pins = 3;
-        $scope.pin = 0;
-        $scope.sortKeys = [
-            {field: 'region', sort: 'asc'},
-            {field: 'location', sort: 'asc'}
-        ];
         $scope.gridOptions.rowData = $scope.reduced;
         $scope.gridHeight = Number(($scope.gridOptions.rowData.length + 2) * 30).toString();
-        if ($scope.gridOptions.api) {
-            $scope.gridOptions.api.onNewRows();
-            $scope.gridOptions.api.setSortModel($scope.sortKeys);
-        };
-        $scope.icons = false;
-        $scope.tools = false;
     }
 
 })();

@@ -4,11 +4,26 @@
         .module('ARM')
         .controller('FarmerHistoryController', FarmerHistoryController);
 
-    FarmerHistoryController.$inject = ['$scope', '$http', '$filter', '$timeout', 'AppFactory', 'Loans', 'FarmerHistoryFactory'];
+    FarmerHistoryController.$inject = ['$scope', '$http', '$filter', '$timeout', 'AppFactory', 'Loans'];
 
-    function FarmerHistoryController($scope, $http, $filter, $timeout, AppFactory, Loans, FarmerHistoryFactory) {
+    function FarmerHistoryController($scope, $http, $filter, $timeout, AppFactory, Loans) {
         $scope.AppFactory = AppFactory;
         $scope.loans = Loans;
+
+        $scope.icons = false;
+        $scope.tools = false;
+
+        $scope.sortKeys = [
+            {field: 'location.regions.region', sort: 'asc'},
+            {field: 'location.loc_abr', sort: 'asc'},
+            {field: 'crop_year', sort: 'asc'},
+            {field: 'full_season', sort: 'asc'},
+            {field: 'analyst_abr', sort: 'asc'},
+            {field: 'farmer.farmer', sort: 'asc'},
+            {field: 'applicant.applicant', sort: 'asc'},
+            {field: 'distributor.distributor', sort: 'asc'},
+            {field: 'loantype_abr', sort: 'asc'}
+        ];
 
         var columnDefs = [
             {
@@ -22,31 +37,14 @@
             },
             {
                 headerName: 'Region',
-                field: 'region',
+                valueGetter: 'data.location.regions.region',
                 cellClass: 'text-center',
-                cellRenderer: function(params) {
-                    if (params.data.region.toUpperCase() === 'N'){
-                        return 'North';
-                    } else if (params.data.region.toUpperCase() === 'S'){
-                        return 'South';
-                    } else if (params.data.region.toUpperCase() === 'E'){
-                        return 'East';
-                    } else if (params.data.region.toUpperCase() === 'W'){
-                        return 'West';
-                    } else {
-                        return params.data.region;
-                    }
-                },
-                suppressSorting: false,
-                suppressSizeToFit: false,
                 width: 85
             },
             {
                 headerName: 'Loc',
-                field: 'location',
+                valueGetter: 'data.location.loc_abr',
                 cellClass: 'text-center',
-                suppressSorting: false,
-                suppressSizeToFit: false,
                 width: 70
             },
             {
@@ -55,38 +53,25 @@
                 headerGroupShow: 'closed',
                 field: 'crop_year',
                 cellClass: 'text-center',
-                suppressSorting: false,
-                suppressSizeToFit: false,
                 width: 85,
                 filter: 'number'
             },
             {
                 headerGroup: 'Crop',
                 headerName: 'Season',
-                field: 'season',
+                field: 'full_season',
                 cellClass: 'text-center',
-                cellRenderer: function(params) {
-                    if (params.data.season.toUpperCase() == 'F'){
-                        return 'Fall';
-                    } else {
-                        return 'Spring';
-                    }
-                },
-                suppressSorting: false,
-                suppressSizeToFit: false,
                 width: 95
             },
             {
                 headerName: 'Analyst',
                 field: 'analyst_abr',
                 cellClass: 'text-center',
-                suppressSorting: false,
-                suppressSizeToFit: false,
                 width: 80
             },
             {
                 headerName: 'Farmer',
-                field: 'farmer',
+                valueGetter: 'data.farmer.farmer',
                 cellClass: 'text-left',
                 suppressSorting: false,
                 suppressSizeToFit: false,
@@ -94,10 +79,8 @@
             },
             {
                 headerName: 'Applicant',
-                field: 'applicant',
+                valueGetter: 'data.applicant.applicant',
                 cellClass: 'text-left',
-                suppressSorting: false,
-                suppressSizeToFit: false,
                 width: 120
             },
             {
@@ -106,18 +89,14 @@
                 headerName: 'Type',
                 field: 'loantype_abr',
                 cellClass: 'text-center',
-                suppressSorting: false,
-                suppressSizeToFit: false,
                 width: 80
             },
             {
                 headerGroup: 'Loan',
                 //headerGroupShow: 'closed',
                 headerName: 'Dist',
-                field: 'dist',
+                valueGetter: 'data.distributor.distributor',
                 cellClass: 'text-center',
-                suppressSorting: false,
-                suppressSizeToFit: false,
                 width: 80
             },
             {
@@ -128,17 +107,13 @@
                 cellRenderer: function (params) {
                     return moment(params.data.loan_date).format('MM/DD/YYYY');
                 },
-                suppressSorting: false,
-                suppressSizeToFit: false,
                 width: 80
             },
             {
                 headerGroup: '',
                 headerName: 'Agency',
-                field: 'agency',
+                field: 'agencies',
                 cellClass: 'text-center',
-                suppressSorting: false,
-                suppressSizeToFit: false,
                 width: 80
             },
             {
@@ -146,82 +121,88 @@
                 field: 'status',
                 cellClass: 'text-center',
                 suppressSorting: true,
-                suppressSizeToFit: false,
                 templateUrl: '_modules/Reports/_views/_partials/status.icon.html',
                 width: 70
             },
             {
                 headerGroup: 'Commitment',
                 headerName: 'ARM',
-                field: 'commit_arm',
+                valueGetter: 'data.financials.commit_arm',
                 cellClass: function (params) {
-                    return (params.data.commit_arm ? 'text-right' : 'text-center');
+                    return (params.data.financials.commit_arm ? 'text-right' : 'text-center');
                 },
                 cellRenderer: function (params) {
-                    return $filter('flexCurrency')(params.data.commit_arm, 0);
+                    return $filter('flexCurrency')(params.data.financials.commit_arm, 0);
                 },
-                suppressSorting: false,
-                suppressSizeToFit: false,
                 width: 100
             },
             {
                 headerGroup: 'Commitment',
                 headerName: 'Dist',
-                field: 'commit_dist',
+                valueGetter: 'data.financials.commit_dist',
                 cellClass: function (params) {
-                    return (params.data.commit_dist ? 'text-right' : 'text-center');
+                    return (params.data.financials.commit_dist ? 'text-right' : 'text-center');
                 },
                 cellRenderer: function (params) {
-                    return $filter('flexCurrency')(params.data.commit_dist, 0);
+                    return $filter('flexCurrency')(params.data.financials.commit_dist, 0);
                 },
                 // template: '<span ng-class="{gtZero(params.data.commit_dist)}">params.data.commit_dist</span>',
-                suppressSorting: false,
-                suppressSizeToFit: false,
                 width: 100
             },
             {
                 headerGroup: '',
                 headerName: 'Fees',
-                field: 'fee_total',
+                valueGetter: 'data.financials.fee_total',
                 cellClass: function (params) {
-                    return (params.data.fee_total ? 'text-right' : 'text-center');
+                    return (params.data.financials.fee_total ? 'text-right' : 'text-center');
                 },
                 cellRenderer: function (params) {
-                    return $filter('flexCurrency')(params.data.fee_total, 0);
+                    return $filter('flexCurrency')(params.data.financials.fee_total, 0);
                 },
-                suppressSorting: false,
-                suppressSizeToFit: false,
                 width: 100
             },
             {
                 headerGroup: 'Rate',
                 headerName: 'ARM',
-                field: 'int_percent_arm',
+                valueGetter: 'data.fins.int_percent_arm',
                 cellClass: function (params) {
-                    return (params.data.int_percent_arm ? 'text-right' : 'text-center');
+                    return (params.data.fins.int_percent_arm ? 'text-right' : 'text-center');
                 },
                 cellRenderer: function (params) {
-                    return $filter('flexPercent')(params.data.int_percent_arm, 2);
+                    return $filter('flexPercent')(params.data.fins.int_percent_arm, 2);
                 },
-                suppressSorting: false,
-                suppressSizeToFit: false,
                 width: 70
             },
             {
                 headerGroup: 'Rate',
                 headerName: 'Dist',
-                field: 'int_percent_dist',
+                valueGetter: 'data.fins.int_percent_dist',
                 cellClass: function (params) {
-                    return (params.data.int_percent_dist ? 'text-right' : 'text-center');
+                    return (params.data.fins.int_percent_dist ? 'text-right' : 'text-center');
                 },
                 cellRenderer: function (params) {
-                    return $filter('flexPercent')(params.data.int_percent_dist, 2);
+                    return $filter('flexPercent')(params.data.fins.int_percent_dist, 2);
                 },
-                suppressSorting: false,
-                suppressSizeToFit: false,
                 width: 70
             }
         ];
+
+        $scope.printState = function() {
+            var state = $scope.gridOptions.api.getColumnState();
+            console.log(state);
+        };
+
+        var savedState;
+
+        $scope.saveState = function() {
+            savedState = $scope.gridOptions.api.getColumnState();
+            console.log('column state saved');
+        };
+
+        $scope.restoreState = function() {
+            $scope.gridOptions.api.setColumnState(savedState);
+            console.log('column state restored');
+        };
 
         $scope.getModel = function(){
             if ($scope.gridOptions.api) {
@@ -232,11 +213,6 @@
 
         $scope.hideIcons = function(){
             $scope.icons = !$scope.icons;
-            if ($scope.icons){
-                $scope.gridOptions.pinnedColumnCount = $scope.pin - 1;
-            } else {
-                $scope.gridOptions.pinnedColumnCount = $scope.pin;
-            }
             if ($scope.gridOptions.api) {
                 $scope.gridOptions.api.onNewCols();
                 $scope.gridOptions.api.hideColumns(['status_left', 'status'], $scope.icons);
@@ -248,25 +224,6 @@
             $scope.tools = !$scope.tools;
             if ($scope.gridOptions.api) {
                 $scope.gridOptions.api.showToolPanel($scope.tools);
-            }
-        }
-
-        $scope.toggleHorizontal = function(){
-            $scope.horizontal = !$scope.horizontal;
-            if ($scope.horizontal){
-                $scope.pin = 0;
-            } else {
-                if ($scope.icons) {
-                    $scope.pin = $scope.pins - 1;
-                } else {
-                    $scope.pin = $scope.pins;
-                }
-            }
-            $scope.gridOptions.pinnedColumnCount = $scope.pin;
-            if ($scope.gridOptions.api) {
-                $scope.gridOptions.api.onNewCols();
-                $scope.gridOptions.api.hideColumns(['status_left', 'status'], $scope.icons);
-                $scope.gridOptions.api.setSortModel($scope.sortKeys);
             }
         }
 
@@ -282,36 +239,16 @@
             enableColResize: true,
             enableFilter: true,
             enableSorting: true,
-            showToolPanel: false
+            showToolPanel: false,
+            ready: function (api) {
+                $timeout(function () {
+                    api.setSortModel($scope.sortKeys);
+                });
+            }
         };
 
-        $scope.reduced = FarmerHistoryFactory.getData(Loans);
-        console.log('reduced', $scope.reduced);
-
-        $scope.pins = 8;
-        $scope.pin = 0;
-        $scope.sortKeys = [
-            {field: 'region', sort: 'asc'},
-            {field: 'location', sort: 'asc'},
-            {field: 'crop_year', sort: 'asc'},
-            {field: 'season', sort: 'asc'},
-            {field: 'analyst_abr', sort: 'asc'},
-            {field: 'farmer', sort: 'asc'},
-            {field: 'applicant', sort: 'asc'},
-            {field: 'dist', sort: 'asc'},
-            {field: 'loantype_abr', sort: 'asc'},
-        ];
-        $scope.gridOptions.rowData = $scope.reduced;
+        $scope.gridOptions.rowData = $scope.loans;
         $scope.gridHeight = Number(($scope.gridOptions.rowData.length + 2) * 30).toString();
-
-        if ($scope.gridOptions.api) {
-            $scope.gridOptions.api.onNewRows();
-            $scope.gridOptions.api.setSortModel($scope.sortKeys);
-        }
-
-        $scope.icons = false;
-        $scope.tools = false;
-        $scope.horizontal = false;
     }
 
 })();

@@ -6,10 +6,6 @@
     <div class="ag-fresh" ag-grid="gridOptions" ng-style="{height: gridHeight}"></div>
     <form>
         <br>
-        <span style="display:inline-block;float:left;">
-            <!--<span class="btn glyphicon glyphicon-briefcase" ng-click="showToolPanel()"> Options </span>-->
-            <!--<span class="btn glyphicon glyphicon-eye-open" ng-click="hideIcons()"> Icons </span>-->
-        </span>
         <span style="display:inline-block;float:right;">
             <span class="btn glyphicon glyphicon-print" ng-click=""> Print </span>
             <span class="btn glyphicon glyphicon-envelope" ng-click=""> Email </span>
@@ -21,5 +17,10 @@
             &nbsp; <input placeholder="Filter..." type="text" ng-model="gridOptions.quickFilterText"/>
         </span>
         <br><br>
+        <!--<span style="padding-bottom: 4px; display: inline-block;">-->
+            <!--<button ng-click="printState()">Print Col State</button>-->
+            <!--<button ng-click="saveState()">Save Col State</button>-->
+            <!--<button ng-click="restoreState()">Restore Col State</button>-->
+        <!--</span>-->
     </form>
 </div>

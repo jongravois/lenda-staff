@@ -10,34 +10,31 @@
         $scope.AppFactory = AppFactory;
         $scope.loans = Loans;
 
+        $scope.tools = false;
+
+        $scope.sortKeys = [
+            {field: 'location.regions.region', sort: 'asc'},
+            {field: 'location.loc_abr', sort: 'asc'},
+            {field: 'crop_year', sort: 'asc'},
+            {field: 'full_season', sort: 'asc'},
+            {field: 'analyst_abr', sort: 'asc'},
+            {field: 'farmer.farmer', sort: 'asc'},
+            {field: 'applicant.applicant', sort: 'asc'},
+            {field: 'distributor.distributor', sort: 'asc'},
+            {field: 'loantype_abr', sort: 'asc'},
+        ];
+
         var columnDefs = [
             {
                 headerName: 'Region',
                 field: 'region',
                 cellClass: 'text-center',
-                cellRenderer: function(params) {
-                    if (params.data.region.toUpperCase() === 'N'){
-                        return 'North';
-                    } else if (params.data.region.toUpperCase() === 'S'){
-                        return 'South';
-                    } else if (params.data.region.toUpperCase() === 'E'){
-                        return 'East';
-                    } else if (params.data.region.toUpperCase() === 'W'){
-                        return 'West';
-                    } else {
-                        return params.data.region;
-                    }
-                },
-                suppressSorting: false,
-                suppressSizeToFit: false,
                 width: 85
             },
             {
                 headerName: 'Loc',
                 field: 'location',
                 cellClass: 'text-center',
-                suppressSorting: false,
-                suppressSizeToFit: false,
                 width: 70
             },
             {
@@ -46,48 +43,31 @@
                 //headerGroupShow: 'closed',
                 field: 'crop_year',
                 cellClass: 'text-center',
-                suppressSorting: false,
-                suppressSizeToFit: false,
                 width: 90
             },
             {
                 headerGroup: 'Crop',
                 headerName: 'Season',
-                field: 'season',
+                field: 'full_season',
                 cellClass: 'text-center',
-                cellRenderer: function(params) {
-                    if (params.data.season.toUpperCase() == 'F'){
-                        return 'Fall';
-                    } else {
-                        return 'Spring';
-                    }
-                },
-                suppressSorting: false,
-                suppressSizeToFit: false,
                 width: 90
             },
             {
                 headerName: 'Analyst',
                 field: 'analyst_abr',
                 cellClass: 'text-center',
-                suppressSorting: false,
-                suppressSizeToFit: false,
                 width: 90
             },
             {
                 headerName: 'Farmer',
                 field: 'farmer',
                 cellClass: 'text-left',
-                suppressSorting: false,
-                suppressSizeToFit: false,
                 width: 120
             },
             {
                 headerName: 'Applicant',
                 field: 'applicant',
                 cellClass: 'text-left',
-                suppressSorting: false,
-                suppressSizeToFit: false,
                 width: 120
             },
             {
@@ -95,8 +75,6 @@
                 headerName: 'Type',
                 field: 'loantype_abr',
                 cellClass: 'text-center',
-                suppressSorting: false,
-                suppressSizeToFit: false,
                 width: 90
             },
             {
@@ -107,8 +85,6 @@
                 cellRenderer: function(params) {
                     return moment(params.data.audit_date).format("MM/DD/YYYY");
                 },
-                suppressSorting: false,
-                suppressSizeToFit: false,
                 width: 90
             },
             {
@@ -119,8 +95,6 @@
                 cellRenderer: function(params) {
                     return moment(params.data.audit_time).format("HH:MM:SS");
                 },
-                suppressSorting: false,
-                suppressSizeToFit: false,
                 width: 90
             },
             {
@@ -128,8 +102,6 @@
                 headerName: 'User',
                 field: 'audit_user',
                 cellClass: 'text-center',
-                suppressSorting: false,
-                suppressSizeToFit: false,
                 width: 120
             },
             {
@@ -137,11 +109,26 @@
                 headerName: 'Activity',
                 field: 'audit_activity',
                 cellClass: 'text-left',
-                suppressSorting: false,
-                suppressSizeToFit: false,
                 width: 300
             }
         ];
+
+        $scope.printState = function() {
+            var state = $scope.gridOptions.api.getColumnState();
+            console.log(state);
+        };
+
+        var savedState;
+
+        $scope.saveState = function() {
+            savedState = $scope.gridOptions.api.getColumnState();
+            console.log('column state saved');
+        };
+
+        $scope.restoreState = function() {
+            $scope.gridOptions.api.setColumnState(savedState);
+            console.log('column state restored');
+        };
 
         $scope.getModel = function(){
             if ($scope.gridOptions.api) {
@@ -157,25 +144,6 @@
             }
         }
 
-        $scope.toggleHorizontal = function(){
-            $scope.horizontal = !$scope.horizontal;
-            if ($scope.horizontal){
-                $scope.pin = 0;
-            } else {
-                if ($scope.icons) {
-                    $scope.pin = $scope.pins - 1;
-                } else {
-                    $scope.pin = $scope.pins;
-                }
-            }
-            $scope.gridOptions.pinnedColumnCount = $scope.pin;
-            if ($scope.gridOptions.api) {
-                $scope.gridOptions.api.onNewCols();
-                $scope.gridOptions.api.hideColumns(['status_left', 'status', 'status_right'], $scope.icons);
-                $scope.gridOptions.api.setSortModel($scope.sortKeys);
-            }
-        }
-
         $scope.gridOptions = {
             columnDefs: columnDefs,
             rowSelection: 'single',
@@ -188,34 +156,19 @@
             enableColResize: true,
             enableFilter: true,
             enableSorting: true,
-            showToolPanel: false
+            showToolPanel: false,
+            ready: function (api) {
+                $timeout(function () {
+                    api.setSortModel($scope.sortKeys);
+                });
+            }
         };
 
         $scope.reduced = UserAuditFactory.getData(Loans);
         console.log('reduced', $scope.reduced);
 
-        $scope.pins = 7;
-        $scope.pin = 0;
-        $scope.sortKeys = [
-            {field: 'region', sort: 'asc'},
-            {field: 'location', sort: 'asc'},
-            {field: 'crop_year', sort: 'asc'},
-            {field: 'season', sort: 'asc'},
-            {field: 'analyst_abr', sort: 'asc'},
-            {field: 'farmer', sort: 'asc'},
-            {field: 'applicant', sort: 'asc'},
-            {field: 'dist', sort: 'asc'},
-            {field: 'loantype_abr', sort: 'asc'},
-        ];
         $scope.gridOptions.rowData = $scope.reduced;
         $scope.gridHeight = Number(($scope.gridOptions.rowData.length + 2) * 30).toString();
-
-        if ($scope.gridOptions.api) {
-            $scope.gridOptions.api.onNewRows();
-            $scope.gridOptions.api.setSortModel($scope.sortKeys);
-        }
-
-        $scope.tools = false;
     }
 
 })();

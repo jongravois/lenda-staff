@@ -3,44 +3,58 @@
 <h3> &nbsp; Committee Comment</h3>
 <div id="comcom">
     <!--table-zebra-stripes-->
-        <table class="table table-bordered table-condensed table-responsive rowed"
-               style="font-size:12px;overflow:auto;">
-            <tr class="tbl-header-container">
-                <th><br>Member</th>
-                <th><br>Analyst</th>
-                <th><br>Applicant</th>
-                <th>Crop<br>Year</th>
-                <th>Loan<br>Type</th>
-                <th><br>Addendum</th>
-                <th><br>Dist</th>
-                <th><br>Agency</th>
-                <th><br>Vote</th>
-                <th><br>Class</th>
-            </tr>
-            <tbody ng-repeat="data in reduced">
-            <tr>
-                <td class="text-left">{{data.committee_member}}</td>
-                <td class="text-center">{{data.analyst_abr}}</td>
-                <td class="text-left">{{data.applicant}}</td>
-                <td class="text-center">{{data.crop_year}}</td>
-                <td class="text-center">{{data.loantype_abr}}</td>
-                <td class="text-center" style="color:{{data.addendum_date_color}}">{{data.addendum_date}}</td>
-                <td class="text-center">{{data.dist}}</td>
-                <td class="text-left">{{data.agency}}</td>
-                <td class="text-center">{{data.committee_vote}}</td>
-                <td class="text-center">{{data.account_classification}}</td>
-            </tr>
-            <tr>
-                <td class="text-left" colspan="10">COMMENTS</td>
-            </tr>
-            </tbody>
-        </table>
+    <table class="table table-bordered table-condensed table-responsive rowed"
+           style="font-size:12px;overflow:auto;">
+        <tr class="tbl-header-container">
+            <!--<th><br>Member</th>-->
+            <th><br>Analyst</th>
+            <th><br>Applicant</th>
+            <th>Crop<br>Year</th>
+            <th>Loan<br>Type</th>
+            <th><br>Addendum</th>
+            <th><br>Dist</th>
+            <th><br>Agency</th>
+            <th><br>Vote</th>
+            <th><br>Class</th>
+        </tr>
+        <tbody ng-repeat="data in loans">
+        <tr>
+            <!--<td class="text-left">{{data.committee_member}}</td>-->
+            <td class="text-center">{{data.analyst_abr}}</td>
+            <td class="text-left">{{data.applicant.applicant}}</td>
+            <td class="text-center">{{data.crop_year}}</td>
+            <td class="text-center">{{data.loantype_abr}}</td>
+            <td class="text-center" style="color:{{data.addendum_date_color}}">{{data.addendum_date}}</td>
+            <td class="text-center">{{data.distributor.distributor}}</td>
+            <td class="text-left">{{data.agencies}}</td>
+            <td class="text-center">{{data.committee_vote}}</td>
+            <td class="text-center">{{data.account_classification}}</td>
+        </tr>
+
+        <!--/**-->
+        <!--* comments []-->
+        <!--*   type: "Committee"-->
+        <!--*   comment: "There are concerns ..."-->
+        <!--*   user-->
+        <!--*     name: "Kenn E. Thompson"-->
+        <!--*     nick: "KET"-->
+        <!--*   responses: []-->
+        <!--*     body: "Applicand admitted that he was ..."-->
+        <!--*     user-->
+        <!--*       name: "Kenn E. Thompson"-->
+        <!--*       nick: "KET"-->
+        <!--*/        -->
+
+        <tr>
+            <td class="text-left" colspan="9" ng-repeat="comment in comments">
+                comments length: {{loans[$index].comments.Loan.length}}<br>
+                <p>{{loans[$index].comments.Loan.comment}}</p>
+            </td>
+        </tr>
+        </tbody>
+    </table>
     <form>
         <br>
-        <span style="display:inline-block;float:left;">
-            <!--<span class="btn glyphicon glyphicon-briefcase" ng-click="showToolPanel()"> Options </span>-->
-            <!--<span class="btn glyphicon glyphicon-eye-open" ng-click="hideIcons()"> Icons </span>-->
-        </span>
         <span style="display:inline-block;float:right;">
             <span class="btn glyphicon glyphicon-print" ng-click=""> Print </span>
             <span class="btn glyphicon glyphicon-envelope" ng-click=""> Email </span>
@@ -54,5 +68,5 @@
         <br><br>
     </form>
 </div>
-<pre>{{reduced | json}}</pre>
+<pre>{{comments | json}}</pre>
 
