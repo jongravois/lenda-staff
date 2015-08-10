@@ -165,7 +165,6 @@
                 field: 'qb_date',
                 cellClass: 'text-center',
                 cellRenderer: function (params) {
-                    //return moment(params.data.qb_date).format('MM/DD/YYYY');
                     return params.data.qb_date;
                 },
                 width: 80
