@@ -3,10 +3,10 @@
 <h3> &nbsp; Committee Comment</h3>
 <div id="comcom">
     <!--table-zebra-stripes-->
-    <table class="table table-bordered table-condensed table-responsive rowed"
-           style="font-size:12px;overflow:auto;">
+    <table style="width:100%"><tr><td>
+    <table class="table table-bordered table-condensed table-responsive rowed">
+        <tbody ng-repeat="loan in loans | filter:query">
         <tr class="tbl-header-container">
-            <!--<th><br>Member</th>-->
             <th><br>Analyst</th>
             <th><br>Applicant</th>
             <th>Crop<br>Year</th>
@@ -17,38 +17,108 @@
             <th><br>Vote</th>
             <th><br>Class</th>
         </tr>
-        <tbody ng-repeat="data in loans">
         <tr>
-            <!--<td class="text-left">{{data.committee_member}}</td>-->
-            <td class="text-center">{{data.analyst_abr}}</td>
-            <td class="text-left">{{data.applicant.applicant}}</td>
-            <td class="text-center">{{data.crop_year}}</td>
-            <td class="text-center">{{data.loantype_abr}}</td>
-            <td class="text-center" style="color:{{data.addendum_date_color}}">{{data.addendum_date}}</td>
-            <td class="text-center">{{data.distributor.distributor}}</td>
-            <td class="text-left">{{data.agencies}}</td>
-            <td class="text-center">{{data.committee_vote}}</td>
-            <td class="text-center">{{data.account_classification}}</td>
+            <td class="text-center">{{loan.analyst_abr}}</td>
+            <td class="text-left">{{loan.applicant.applicant}}</td>
+            <td class="text-center">{{loan.crop_year}}</td>
+            <td class="text-center">{{loan.loantype_abr}}</td>
+                <td class="text-center">
+                    <div ng-if="loan.has_addendum">
+                    {{loan.app_date}}
+            </div>
+                </td>
+            <td class="text-center">{{loan.distributor.distributor}}</td>
+            <td class="text-left">{{loan.agencies}}</td>
+            <td class="text-center"></td>
+            <td class="text-center">{{loan.account_classification}}</td>
         </tr>
-
-        <!--/**-->
-        <!--* comments []-->
-        <!--*   type: "Committee"-->
-        <!--*   comment: "There are concerns ..."-->
-        <!--*   user-->
-        <!--*     name: "Kenn E. Thompson"-->
-        <!--*     nick: "KET"-->
-        <!--*   responses: []-->
-        <!--*     body: "Applicand admitted that he was ..."-->
-        <!--*     user-->
-        <!--*       name: "Kenn E. Thompson"-->
-        <!--*       nick: "KET"-->
-        <!--*/        -->
-
         <tr>
-            <td class="text-left" colspan="9" ng-repeat="comment in comments">
-                comments length: {{loans[$index].comments.Loan.length}}<br>
-                <p>{{loans[$index].comments.Loan.comment}}</p>
+            <td class="text-left" colspan="9">
+                <div class="container-fluid">
+                    <!--No Comment Place Holder-->
+                    <div ng-if="loan.parsedComments.length === 0">
+                        <b>No Comments Found!</b>
+                    </div>
+
+                    <!--Loan/Addendum Comment-->
+                    <div ng-repeat="c in loan.parsedComments.Loan">
+                        <div class="alert alert-default" role="alert">
+                            <h5>
+                                <span class="glyphicon glyphicon-pencil"></span>
+                                Loan Summary
+                            </h5>
+                            <hr/>
+                            <p style="font-size:11px;font-weight:bold;"><i>{{c.user.name}}</i>
+                                &nbsp;&nbsp;-&nbsp;&nbsp;
+                                <i>{{c.updated_at | date:'MM/dd/yy'}}</i>
+                            </p>
+
+                            <p>{{c.comment}}</p>
+                        </div>
+                    </div>
+
+                    <!--WatchList Comment-->
+                    <div ng-if="loan.parsedComments.Watch.length > 0">
+                        <div ng-repeat="c in loan.parsedComments.Watch">
+                            <div class="alert alert-warning" role="alert">
+                                <div style="position: relative;">
+                                    <h5><span class="glyphicon glyphicon-eye-open"></span>
+                                        Watch List
+                                    </h5>
+                                    <hr/>
+                                    <p style="font-size:11px;font-weight:bold;"><i>{{c.user.name}}</i>
+                                        &nbsp;&nbsp;-&nbsp;&nbsp;
+                                        <i>{{c.updated_at | date:'MM/dd/yy'}}</i>
+                                    </p>
+
+                                    <p>{{c.comment}}</p>
+                                </div>
+                                <div ng-if="c.responses">
+                                    <div class="alert alert-response"
+                                         ng-repeat="res in c.responses | orderBy: 'created_at':true">
+                                        <p style="font-size:11px;font-weight:bold;"><i>{{res.user.username}}</i>
+                                            &nbsp;&nbsp;-&nbsp;&nbsp;
+                                            <i>{{res.created_at | date:'MM/dd/yy'}}</i>
+                                        </p>
+                                        <hr/>
+                                        <p>{{res.body}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--Committee Comments-->
+                    <div ng-if="loan.parsedComments.Committee.length > 0">
+                        <div ng-repeat="c in loan.parsedComments.Committee">
+                            <div class="alert alert-info" role="alert">
+                                <div style="position: relative;">
+                                    <h5><span class="glyphicon glyphicon-user"></span>
+                                        Committee Comment
+                                    </h5>
+                                    <hr/>
+                                    <p style="font-size:11px;font-weight:bold;"><i>{{c.user.name}}</i>
+                                        &nbsp;&nbsp;-&nbsp;&nbsp;
+                                        <i>{{c.updated_at | date:'MM/dd/yy'}}</i>
+                                    </p>
+
+                                    <p>{{c.comment}}</p>
+                                </div>
+                                <div ng-if="c.responses">
+                                    <div class="alert alert-response"
+                                         ng-repeat="res in c.responses | orderBy: 'created_at':true">
+                                        <p style="font-size:11px;font-weight:bold;"><i>{{res.user.name}}</i>
+                                            &nbsp;&nbsp;-&nbsp;&nbsp;
+                                            <i>{{res.created_at | date:'MM/dd/yy'}}</i>
+                                        </p>
+                                        <hr/>
+                                        <p>{{res.body}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </td>
         </tr>
         </tbody>
@@ -63,10 +133,11 @@
         </span>
         <br><br>
         <span style="display:inline-block;float:left;">
-            &nbsp; <input placeholder="Filter..." type="text" ng-model="gridOptions.quickFilterText"/>
+            &nbsp; <input placeholder="Filter..." type="text" ng-model="query"/>
         </span>
         <br><br>
     </form>
+        </td></tr></table>
 </div>
-<pre>{{comments | json}}</pre>
+<!--<pre>{{loans.parsedComments | json}}</pre>-->
 

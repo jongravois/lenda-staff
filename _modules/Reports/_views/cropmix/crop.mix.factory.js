@@ -24,16 +24,17 @@
                 data.region = item.location.regions.region;
                 data.location = item.location.loc_abr;
                 data.crop_year = item.crop_year;
-                data.beansFAC = item.fins.crop_acres.beansFAC;
-                data.cotton = item.fins.crop_acres.cotton;
-                data.corn = item.fins.crop_acres.corn;
-                data.peanuts = item.fins.crop_acres.peanuts;
-                data.rice = item.fins.crop_acres.rice;
-                data.sorghum = item.fins.crop_acres.sorghum;
-                data.soybeans = item.fins.crop_acres.soybeans;
-                data.sugarcane = item.fins.crop_acres.sugarcane;
-                data.sunflowers = item.fins.crop_acres.sunflowers;
-                data.wheat = item.fins.crop_acres.wheat;
+
+                data.beansFAC = _.find(item.fins.crop_acres, {crop:'beansFAC'}).acres;
+                data.cotton = _.find(item.fins.crop_acres, {crop:'cotton'}).acres;
+                data.corn = _.find(item.fins.crop_acres, {crop:'corn'}).acres;
+                data.peanuts = _.find(item.fins.crop_acres, {crop:'peanuts'}).acres;
+                data.rice = _.find(item.fins.crop_acres, {crop:'rice'}).acres;
+                data.sorghum = _.find(item.fins.crop_acres, {crop:'sorghum'}).acres;
+                data.soybeans = _.find(item.fins.crop_acres, {crop:'soybeans'}).acres;
+                data.sugarcane = _.find(item.fins.crop_acres, {crop:'sugarcane'}).acres;
+                data.sunflowers = _.find(item.fins.crop_acres, {crop:'sunflowers'}).acres;
+                data.wheat = _.find(item.fins.crop_acres, {crop:'wheat'}).acres;
 
                 return data;
             });
