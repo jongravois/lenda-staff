@@ -14,6 +14,10 @@
             calcAdjExposure: calcAdjExposure,
             calcCashFlow: calcCashFlow,
             calcExposure: calcExposure,
+            calcTotalArmAndFarmExpenses: calcTotalArmAndFarmExpenses,
+            calcTotalExpenses: calcTotalExpenses,
+            calcTotalFarmExpenses: calcTotalFarmExpenses,
+            createNewFarmExpense: createNewFarmExpense,
             deleteIt: deleteIt,
             filterLoans: filterLoans,
             fixDollars: fixDollars,
@@ -84,7 +88,21 @@
             return loan.fins.exposure;
         }
         function calcCashFlow(loan) {
-            return loan.fins.cash_flow;
+            return calcTotalExpenses(loan) + loan.fins.fee_total + loan.fins.int_total;
+        }
+        function calcTotalArmAndFarmExpenses(loan) {
+            return Number(loan.expenses.totals.byLoan.arm) + Number(calcTotalFarmExpenses(loan));
+        }
+        function calcTotalExpenses(loan) {
+            return Number(loan.expenses.totals.byLoan.arm) + Number(loan.expenses.totals.byLoan.dist) + Number(loan.expenses.totals.byLoan.other) + Number(calcTotalFarmExpenses(loan));
+        }
+        function calcTotalFarmExpenses(loan) {
+            var col = loan.farmexpenses;
+            var total = _.sumCollection(col, 'cost');
+            return total;
+        }
+        function createNewFarmExpense() {
+            alert('creating a new farm expense');
         }
         function filterLoans(loans, val) {
             //console.log(loans, val);
@@ -119,9 +137,7 @@
             return parseFloat(finalResult);
 
         }
-        function getAcresForCropInLoan(loanID, cropID) {
-
-        }
+        function getAcresForCropInLoan(loanID, cropID) {}
         function getAllCrops() {
             //TODO: Hard Coded
             return ['corn', 'soybeans', 'beansFAC', 'sorghum', 'wheat', 'cotton', 'rice', 'peanuts', 'sugarcane'];

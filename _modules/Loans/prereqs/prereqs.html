@@ -9,26 +9,34 @@
 <fieldset>
     <legend>Prerequisite Documents</legend>
     <div class="container-fluid">
-        <table class="table table-striped rowed">
+        <table class="table table-striped rowed disp-sm">
             <tr>
-                <th></th>
+                <th style="width: 40px;"></th>
                 <th>Document</th>
-                <th>Date Requested</th>
-                <th></th>
+                <th>Requested</th>
+                <th>Received</th>
+                <th>Uploaded</th>
                 <th></th>
             </tr>
             <tr ng-repeat="d in docs">
-                <td>
-
+                <td class="text-center">
+                    <span ng-if="d.status !== 'pending'">
+                        <a target="_blank" ng-href="{{FILE_URL+d.path}}">
+                            <img ng-src="./images/pdficon.png" style="height:32px;width:auto;"/>
+                        </a>
+                    </span>
                 </td>
                 <td>
-                    <a target="_blank" href="{{FILE_URL+d.filename}}">{{d.title}}</a>
+                    <a target="_blank" href="{{FILE_URL+d.path}}">{{d.title}}</a>
                 </td>
                 <td>
-
+                    {{d.date_requested|date:'MM/dd/yyyy'}}
                 </td>
                 <td>
-
+                    {{d.date_received|date:'MM/dd/yyyy'}}
+                </td>
+                <td>
+                    {{d.user.name}}
                 </td>
                 <td>
 

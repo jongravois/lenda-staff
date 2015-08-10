@@ -92,7 +92,7 @@
     <div class="container-fluid row form-group">
         <div class="col-md-12">
             <div class="col-md-9">
-                <label>Prior liens on crops?</label>
+                <label>Prior lien on crops?</label>
             </div>
             <div class="col-md-3">
                 <input type="radio" name="liens" ng-value="true" ng-model="loan.quests.liens"/>
@@ -117,7 +117,7 @@
                     <strong>No Liens Recorded!</strong>
                 </td>
             </tr>
-            <tr ng-repeat="p in loan.priorlien.liens">
+            <tr ng-repeat="p in loan.priorlien">
                 <td>
                     {{p.lien_holder}}
                 </td>
@@ -128,28 +128,28 @@
                     {{p.ins_over_discount|flexCurrency:0}}
                 </td>
                 <td class="text-right" ng-class="gtZero(p.lientotal)">
-                    {{p.lientotal|flexCurrency:0}}
+                    {{p.total|flexCurrency:0}}
                 </td>
             </tr>
             <tr class="success">
                 <td>
-                    {{loan.priorlien.totals.lien_holder}}
+                    {{loan.priorlien.total.lienholder}}
                 </td>
                 <td class="text-right" ng-class="gtZero(loan.priorlien.totals.projected_crops)">
-                    {{loan.priorlien.totals.projected_crops|flexCurrency:0}}
+                    {{loan.priorlien.total.projected_crops|flexCurrency:0}}
                 </td>
-                <td class="text-right" ng-class="gtZero(loan.priorlien.totals.ins_over_discount)">
-                    {{loan.priorlien.totals.ins_over_discount|flexCurrency:0}}
+                <td class="text-right" ng-class="gtZero(loan.priorlien.total.ins_over_discount)">
+                    {{loan.priorlien.total.insurance|flexCurrency:0}}
                 </td>
-                <td class="text-right" ng-class="gtZero(loan.priorlien.totals.lientotal)">
-                    {{loan.priorlien.totals.lientotal|flexCurrency:0}}
+                <td class="text-right" ng-class="gtZero(loan.priorlien.total.lientotal)">
+                    {{loan.priorlien.total.lientotal|flexCurrency:0}}
                 </td>
             </tr>
             <tr>
                 <td colspan="9">
-                        <span style="cursor: pointer;" ng-click="createPriorLien()">
-                            <span class="glyphicon glyphicon-plus" ng-click="createPriorLien()"></span> Add New
-                        </span>
+                    <span>
+                        <a ng-click="createPriorLien()" class="btn btn-xs btn-default"><span class="glyphicons glyphicons-plus" style="color:#006837;"></span> Add New</a>
+                    </span>
                 </td>
             </tr>
         </table>
