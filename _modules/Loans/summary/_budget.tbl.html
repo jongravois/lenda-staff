@@ -1,4 +1,4 @@
-<table class="table table-striped rowed">
+<table class="table table-striped rowed disp-sm">
     <tbody>
     <tr>
         <td colspan="5" style="width: 50%;">&nbsp</td>
@@ -10,35 +10,36 @@
         <td class="text-center" style="width:10%;">Total</td>
     </tr>
 
-    <tr ng-repeat="e in loan.expenses.byCat|orderBy: 'cat_id'" ng-if="e.expense != 'Total'">
-        <td colspan="5">{{e.expense}}</td>
-        <td class="text-right" ng-class=gtZero(e.calc_arm)>
-            {{e.calc_arm | flexCurrency:0 }}
+    <tr ng-repeat="e in loan.expenses.totals.byCat|orderBy: 'cat_id'" ng-if="e.expense != 'Total'">
+        <td colspan="5">{{e[0].expense}}</td>
+        <td class="text-right cBlue" ng-class=AppFactory.gtZero(e[0].calc_arm)>
+            {{e[0].calc_arm | flexCurrency:0 }}
         </td>
-        <td class="text-right" ng-class=gtZero(e.calc_dist) ng-if="loan.has_distributor">
-            {{e.calc_dist | flexCurrency:0 }}
+        <td class="text-right cBlue" ng-class=AppFactory.gtZero(e[0].calc_dist) ng-if="loan.has_distributor">
+            {{e[0].calc_dist | flexCurrency:0 }}
         </td>
-        <td class="text-right" ng-class=gtZero(e.calc_other)>
-            {{e.calc_other | flexCurrency:0 }}
+        <td class="text-right cBlue" ng-class=AppFactory.gtZero(e[0].calc_other)>
+            {{e[0].calc_other | flexCurrency:0 }}
         </td>
-        <td class="text-right" ng-class=gtZero(e.calc_total)>
-            {{e.calc_total | flexCurrency:0 }}
+        <td class="text-right" ng-class=AppFactory.gtZero(e[0].calc_total)>
+            {{e[0].calc_total | flexCurrency:0 }}
         </td>
     </tr>
 
+    <!-- CROP EXPENSES -->
     <tr class="warning">
         <td colspan="5">Crop Expenses</td>
-        <td class="text-right" ng-class=gtZero(loan.expenses.totals.byLoan.arm)>
+        <td class="text-right" ng-class=AppFactory.gtZero(loan.expenses.totals.byLoan.arm)>
             {{loan.expenses.totals.byLoan.arm | flexCurrency:0 }}
         </td>
-        <td class="text-right" ng-class=gtZero(loan.expenses.totals.byLoan.dist)>
+        <td class="text-right" ng-class=AppFactory.gtZero(loan.expenses.totals.byLoan.dist)>
             {{loan.expenses.totals.byLoan.dist | flexCurrency:0 }}
         </td>
-        <td class="text-right" ng-class=gtZero(loan.expenses.totals.byLoan.other)>
+        <td class="text-right" ng-class="AppFactory.gtZero(loan.expenses.totals.byLoan.other)">
             {{loan.expenses.totals.byLoan.other | flexCurrency:0 }}
         </td>
-        <td class="text-right" ng-class=gtZero(AppFactory.calcCropExpensesTotal(loan))>
-            {{AppFactory.calcCropExpensesTotal(loan) | flexCurrency:0 }}
+        <td class="text-right" ng-class="AppFactory.gtZero(loan.expenses.totals.byLoan.total)">
+            {{loan.expenses.totals.byLoan.total | flexCurrency:0 }}
         </td>
     </tr>
 
@@ -47,7 +48,7 @@
         <td colspan="5">
             {{fe.expense}}
         </td>
-        <td class="text-right">
+        <td class="text-right cBlue">
             {{fe.cost|flexCurrency:0}}
         </td>
         <td class="text-center"> -</td>
@@ -60,7 +61,7 @@
     <!-- SUMMARY OF FARM EXPENSES -->
     <tr class="warning">
         <td colspan="5">
-            Farm Expenses
+            Full Farm Expenses
         </td>
         <td class="text-right">
             {{AppFactory.calcTotalFarmExpenses(loan)|flexCurrency:0}}
@@ -73,15 +74,15 @@
     </tr>
 
     <!-- FEES -->
-    <tr>
+    <tr style="display:none;">
         <td colspan="5">Fees and Other</td>
         <td class="text-right">
-            {{AppFactory.getFeesForArm(loan)|flexCurrency:0 }}
+            {{loan.fins.fee_total|flexCurrency:0 }}
         </td>
         <td class="text-center" ng-if="loan.has_distributor"> -</td>
         <td class="text-center"> -</td>
         <td class="text-right">
-            {{AppFactory.getFeesForArm(loan)|flexCurrency:0 }}
+            {{loan.fins.fee_total|flexCurrency:0 }}
         </td>
     </tr>
 
@@ -91,10 +92,8 @@
             <strong>Total Expenses</strong>
         </td>
         <td class="text-right">
-            {{AppFactory.calcCommitARM(loan)|flexCurrency:0}}
+            {{AppFactory.calcTotalArmAndFarmExpenses(loan)|flexCurrency:0}}
         </td>
-
-
         <td class="text-right" ng-class=gtZero(loan.expenses.totals.byLoan.dist)>
             {{loan.expenses.totals.byLoan.dist | flexCurrency:0 }}
         </td>
@@ -102,7 +101,7 @@
             {{loan.expenses.totals.byLoan.other | flexCurrency:0 }}
         </td>
         <td class="text-right">
-            {{AppFactory.calcLoanExpensesTotal(loan) | flexCurrency:0 }}
+            {{AppFactory.calcTotalExpenses(loan) | flexCurrency:0 }}
         </td>
     </tr>
 
@@ -110,14 +109,14 @@
     <tr style="display:none;">
         <td colspan="5">Estimated Interest</td>
         <td class="text-right">
-            {{AppFactory.getArmInterest(loan)|flexCurrency:0}}
+            {{loan.fins.int_arm|flexCurrency:0}}
         </td>
         <td class="text-right" ng-if="loan.has_distributor">
-            {{AppFactory.getDistInterest(loan)|flexCurrency:0}}
+            {{loan.fins.int_dist|flexCurrency:0}}
         </td>
         <td class="text-center"> -</td>
         <td class="text-right">
-            {{AppFactory.getTotalInterest(loan)|flexCurrency:0}}
+            {{loan.fins.int_total|flexCurrency:0}}
         </td>
     </tr>
 
@@ -132,4 +131,6 @@
     </tr>
     </tbody>
 </table>
+<p><a ng-click="AppFactory.createNewFarmExpense()" class="btn btn-xs btn-default">
+    <span class="glyphicon glyphicon-plus-sign" style="color:#006837;"></span> Add New</a></p>
 <!--<pre>{{cropuse|json}}</pre>-->

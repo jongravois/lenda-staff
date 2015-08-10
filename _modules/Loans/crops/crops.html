@@ -21,8 +21,8 @@
                 </tr>
                 <tr ng-repeat="c in crops" ng-init="!rowform.$visible" ng-dblclick="rowform.$show()">
                     <td class="cBlue">
-                        <span editable-text="c.crops[0].crop" e-name="crop" e-form="rowform" e-style="width:100%;" e-required>
-                            {{c.crops[0].crop}}
+                        <span editable-text="c.crop.name" e-name="crop" e-form="rowform" e-style="width:100%;" e-required>
+                            {{c.crop.name}}
                         </span>
                     </td>
                     <td class="cBlue">

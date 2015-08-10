@@ -34,11 +34,13 @@
         }
         function updateLoanData(loan) {
             return $q.all({
+                collateral: processCollateral(loan.other_collateral),
                 crops: getCrops(loan),
                 expenses: getExpenses(loan),
                 loancrops: getLoanCrops(loan),
                 insurance: getInsurance(loan),
-                parsedComments: structureComments(loan)
+                parsedComments: structureComments(loan),
+                priorlien: processPriorLien(loan.prior_liens),
             })
                 .then(function (updatedData) {
                     angular.extend(loan, updatedData);
@@ -93,6 +95,7 @@
                 var finalpass = _.omit(stub, [
                         'arm_adj', 'dist_adj', 'other_adj'
                     ]);
+                console.log('FINAL PASS', finalpass);
 
                 flattened.push(finalpass);
             });
@@ -137,10 +140,14 @@
 
                 });
         }
+        function processCollateral(obj) {
+            var all = _.chain(obj).groupBy('type').value();
+            return all;
+        }
         function processExpsByCat(expenses) {
             //_.mapValues(my_obj, 'field')
             //console.log('XPS', expenses);
-            if(!expenses) { console.log('OUTTA HERE'); return []; }
+            if(!expenses) { return []; }
             var grped = _.chain(expenses).groupBy('expense').value();
             var cats = _.uniq(_.pluck(expenses, 'expense'));
             //corn.arm*corn.acres + bean.arm*bean.acres etc
@@ -165,7 +172,7 @@
                     totsByCat.push(colTots);
                 }
             });
-            return cats;
+            return totsByCat;
         }
         function processExpsByCrop(expenses) {
             var grped = _.chain(expenses).groupBy('crop').value();
@@ -190,6 +197,7 @@
         function processExpsTotalsByCat(expenses) {
             if(!expenses) {return []; }
             var grped = _.chain(expenses).groupBy('expense').value();
+            //console.log('GRPED', grped);
             var cats = _.uniq(_.pluck(expenses, 'expense'));
 
             var totsByCat = [];
@@ -197,25 +205,27 @@
                 if (!grped[cat]) {
                     totsByCat.push([
                         {
-                            arm: 0,
-                            dist: 0,
-                            other: 0,
-                            total: 0
+                            calc_arm: 0,
+                            calc_dist: 0,
+                            calc_other: 0,
+                            calc_total: 0
                         }
                     ]);
                 } else {
                     var col = grped[cat];
-                    //console.log(col);
+                    //console.log('TOTbyCAT', cat, col);
                     var colTots = [
                         {
-                            arm: _.sumCollection(col, 'calc_arm'),
-                            dist: _.sumCollection(col, 'calc_dist'),
-                            other: _.sumCollection(col, 'calc_other'),
-                            total: _.sumCollection(col, 'calc_total')
+                            expense: cat,
+                            calc_arm: _.sumCollection(col, 'calc_arm'),
+                            calc_dist: _.sumCollection(col, 'calc_dist'),
+                            calc_other: _.sumCollection(col, 'calc_other'),
+                            calc_total: _.sumCollection(col, 'calc_total')
                         }
                     ];
                     totsByCat.push(colTots);
                 }
+                //console.log('ProcessedTotsByCat', totsByCat);
             });
 
             return totsByCat;
@@ -267,6 +277,16 @@
                 other: _.sumCollection(expenses, 'calc_other'),
                 total: _.sumCollection(expenses, 'calc_total')
             };
+        }
+        function processPriorLien(liens) {
+            var merged = {
+                lienholder: 'Total',
+                projected_crops: _.sumCollection(liens, 'projected_crops'),
+                insurance: _.sumCollection(liens, 'ins_over_discount'),
+                lientotal: _.sumCollection(liens, 'total')
+            };
+            liens.total = merged;
+            return liens;
         }
         function structureComments(loan) {
             if(!loan.comments) {return []; }

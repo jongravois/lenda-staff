@@ -36,7 +36,7 @@
                 })
                 .state('arm.edit.budget', {
                     url: '/budget',
-                    templateUrl: './_modules/Loans/budget/budget.html',
+                    templateUrl: './_modules/Loans/budget/budgets.html',
                     controller: 'BudgetsController',
                     data: {newapplication: false},
                     resolve: {}
