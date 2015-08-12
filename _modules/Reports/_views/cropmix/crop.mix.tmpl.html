@@ -1,30 +1,77 @@
 <link rel="stylesheet" type="text/css" href="js/ag-grid/theme-reports.css">
+<!--<script src="https://rawgit.com/angular-ui/ui-sortable/master/src/sortable.js"></script>-->
 
-<h3> &nbsp; Crop Mix </h3>
+<h3> &nbsp; Crop Mix</h3>
 <div id="crpmix">
-    <!--<pre>{{gridOptions.rowData | json}}</pre>-->
-    <div class="ag-fresh" ag-grid="gridOptions" ng-style="{height: gridHeight}"></div>
-    <form>
-        <br>
-        <span style="display:inline-block;float:left;">
-            <span class="btn glyphicon glyphicon-briefcase" ng-click="showToolPanel()"> Options </span>
-            <!--<span class="btn glyphicon glyphicon-eye-open" ng-click="hideIcons()"> Icons </span>-->
-        </span>
+    <table style="width:100%">
+        <tr>
+            <td>
+                <table class="table table-bordered table-condensed table-hover table-responsive rowed" style="width:99%">
+                    <thead>
+                    <tr class="tbl-header-container" style="font-size:11px;">
+                        <th ng-click="sortBy='location';reverse=!reverse">Loc</th>
+                        <th>Year</th>
+                        <th>Corn</th>
+                        <th>Soybeans</th>
+                        <th>SB FAC</th>
+                        <th>Sorghum</th>
+                        <th>Cotton</th>
+                        <th>Rice</th>
+                        <th>Peanuts</th>
+                        <th>Sugarcane</th>
+                        <th>Wheat</th>
+                        <th>Sunflowers</th>
+                        <th>Total</th>
+                    </tr>
+                    </thead>
+                    <tbody ng-repeat="data in reduced | filter:query | orderBy:sortBy:reverse">
+                    <tr style="font-size:12px;">
+                        <td class="text-center">{{data.location}}</td>
+                        <td class="text-center">{{data.crop_year}}</td>
+                        <td class="text-right">{{data.corn | number:0}}</td>
+                        <td class="text-right">{{data.soybeans | number:0}}</td>
+                        <td class="text-right">{{data.beansFAC | number:0}}</td>
+                        <td class="text-right">{{data.sorghum | number:0}}</td>
+                        <td class="text-right">{{data.cotton | number:0}}</td>
+                        <td class="text-right">{{data.rice | number:0}}</td>
+                        <td class="text-right">{{data.peanuts | number:0}}</td>
+                        <td class="text-right">{{data.sugarcane | number:0}}</td>
+                        <td class="text-right">{{data.wheat | number:0}}</td>
+                        <td class="text-right">{{data.sunflowers | number:0}}</td>
+                        <td class="text-right">{{data.total | number:0}}</td>
+                    </tr>
+                    </tbody>
+                    <tfooter>
+                        <tr style="font-size:12px; background-color:#dff0d8;">
+                            <td class="text-center"> &nbsp; </td>
+                            <td class="text-center"> &nbsp; </td>
+                            <td class="text-right">{{totals.corn | number:0}}</td>
+                            <td class="text-right">{{totals.soybeans | number:0}}</td>
+                            <td class="text-right">{{totals.beansFAC | number:0}}</td>
+                            <td class="text-right">{{totals.sorghum | number:0}}</td>
+                            <td class="text-right">{{totals.cotton | number:0}}</td>
+                            <td class="text-right">{{totals.rice | number:0}}</td>
+                            <td class="text-right">{{totals.peanuts | number:0}}</td>
+                            <td class="text-right">{{totals.sugarcane | number:0}}</td>
+                            <td class="text-right">{{totals.wheat | number:0}}</td>
+                            <td class="text-right">{{totals.sunflowers | number:0}}</td>
+                            <td class="text-right">{{totals.total | number:0}}</td>
+                        </tr>
+                    </tfooter>
+                </table>
+                <form>
         <span style="display:inline-block;float:right;">
             <span class="btn glyphicon glyphicon-print" ng-click=""> Print </span>
             <span class="btn glyphicon glyphicon-envelope" ng-click=""> Email </span>
             <span class="btn glyphicon glyphicon-export" ng-click=""> Export </span>
             <span class="btn glyphicon glyphicon-file" ng-click=""> PDF </span>
         </span>
-        <br><br>
-        <span style="display:inline-block;float:left">
-            &nbsp; <input placeholder="Filter..." type="text" ng-model="gridOptions.quickFilterText"/>
+        <span style="display:inline-block;float:left;position: absolute;top: 150px;right: 28px;">
+        &nbsp; <input placeholder="Filter..." type="text" ng-model="query"/>
         </span>
-        <br><br>
-        <!--<span style="padding-bottom: 4px; display: inline-block;">-->
-            <!--<button ng-click="printState()">Print Col State</button>-->
-            <!--<button ng-click="saveState()">Save Col State</button>-->
-            <!--<button ng-click="restoreState()">Restore Col State</button>-->
-        <!--</span>-->
-    </form>
+                </form>
+            </td>
+        </tr>
+    </table>
 </div>
+

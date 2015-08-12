@@ -112,6 +112,13 @@
               ng-class="{'cGray': data.ccc_received == 0, 'cGreen': data.ccc_received == 1, 'cRed': data.ccc_received == 2}"></span>
         </td>
         <td>
+            <span class="progicon glyphicons glyphicons-map"
+                  tooltip="Crop Certification"
+                  tooltip_append-to-body="true"
+                  tooltip-placement="bottom"
+                  ng-class="{'cGray': data.crop_certified == 0, 'cGreen': data.crop_certified == 1, 'cRed': data.crop_certified == 2}"></span>
+        </td>
+        <td>
         <span class="progicon glyphicon glyphicon-cog"
               tooltip="Rebate Assignment"
               tooltip-append-to-body="true"

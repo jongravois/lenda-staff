@@ -42,6 +42,14 @@
                 width: 85
             },
             {
+                headerTooltip: 'Location',
+                headerName: 'Location',
+                valueGetter: 'data.location.location',
+                cellClass: 'text-left',
+                width: 100,
+                hide: true
+            },
+            {
                 headerName: 'Loc',
                 valueGetter: 'data.location.loc_abr',
                 cellClass: 'text-center',
@@ -49,7 +57,6 @@
             },
             {
                 headerGroup: 'Crop',
-                //headerGroupShow: 'closed',
                 headerName: 'Year',
                 field: 'crop_year',
                 cellClass: 'text-center',
@@ -59,9 +66,18 @@
             {
                 headerGroup: 'Crop',
                 headerName: 'Season',
+                headerGroupShow: 'closed',
                 field: 'full_season',
                 cellClass: 'text-center',
                 width: 95
+            },
+            {
+                headerTooltip: 'Analyst',
+                headerName: 'Analyst',
+                field: 'analyst',
+                cellClass: 'text-left',
+                width: 150,
+                hide: true
             },
             {
                 headerName: 'Analyst',
@@ -76,14 +92,30 @@
                 width: 120
             },
             {
+                headerTooltip: 'Farmer',
+                headerName: 'Nickname',
+                valueGetter: 'data.farmer.nick',
+                cellClass: 'text-left',
+                width: 150,
+                hide: true
+            },
+            {
                 headerName: 'Applicant',
                 valueGetter: 'data.applicant.applicant',
                 cellClass: 'text-left',
                 width: 120
             },
             {
+                headerTooltip: 'Loan Type',
                 headerGroup: 'Loan',
-                //headerGroupShow: 'closed',
+                headerName: 'Type',
+                field: 'loan_type',
+                cellClass: 'text-left',
+                width: 100,
+                hide: true
+            },
+            {
+                headerGroup: 'Loan',
                 headerName: 'Type',
                 field: 'loantype_abr',
                 cellClass: 'text-center',
@@ -91,19 +123,38 @@
             },
             {
                 headerGroup: 'Loan',
-                //headerGroupShow: 'closed',
                 headerName: 'Dist',
                 valueGetter: 'data.distributor.distributor',
                 cellClass: 'text-center',
                 width: 80
             },
             {
+                headerTooltip: 'Loan Origin Date',
                 headerGroup: 'Loan',
-                field: 'loan_date',
-                headerName: 'Date',
+                headerGroupShow: 'closed',
+                headerName: 'Orig Dt',
+                field: 'orig_date',
                 cellClass: 'text-center',
                 cellRenderer: function (params) {
-                    return moment(params.data.loan_date).format('MM/DD/YYYY');
+                    return moment(params.data.orig_date).format('MM/DD/YYYY');
+                },
+                width: 80
+            },
+            {
+                headerTooltip: 'Loan Due Date',
+                headerGroup: 'Loan',
+                headerName: 'Due Dt',
+                field: 'due_date',
+                cellClass: 'text-center',
+                cellRenderer: function (params) {
+                    if (params.data.past_due == 1) {
+                        return "<span style='color: orange'>" + params.data.due_date + "</span>";
+                    }
+                    else if (params.data.past_due == 2) {
+                        return "<span style='color: #ee0000'>" + params.data.due_date + "</span>";
+                    } else {
+                        return "<span style='color: black'>" + params.data.due_date + "</span>";
+                    }
                 },
                 width: 80
             },
@@ -111,8 +162,8 @@
                 headerGroup: '',
                 headerName: 'Agency',
                 field: 'agencies',
-                cellClass: 'text-center',
-                width: 80
+                cellClass: 'text-left',
+                width: 150
             },
             {
                 headerName: 'Status',
@@ -124,6 +175,7 @@
             },
             {
                 headerGroup: 'Budget',
+                headerGroupShow: 'closed',
                 headerName: 'Budget',
                 field: 'total_budget_amount',
                 cellClass: function (params) {
@@ -136,6 +188,7 @@
             },
             {
                 headerGroup: 'Budget',
+                headerGroupShow: 'closed',
                 headerName: 'Spent',
                 field: 'total_budget_spent',
                 cellClass: function (params) {
@@ -161,6 +214,7 @@
             },
             {
                 headerGroup: 'Budget',
+                headerGroupShow: 'closed',
                 headerName: 'Budget',
                 field: 'total_percent_budget',
                 cellClass: function (params) {
@@ -176,6 +230,7 @@
             },
             {
                 headerGroup: 'Budget',
+                headerGroupShow: 'closed',
                 headerName: 'Spent',
                 field: 'total_percent_spent',
                 cellClass: function (params) {
@@ -237,7 +292,7 @@
                 $scope.gridOptions.api.hideColumns(['total_percent_spent'], $scope.dollarsPercent);
                 $scope.gridOptions.api.hideColumns(['total_budget_remaining'], !$scope.dollarsPercent);
                 $scope.gridOptions.api.hideColumns(['total_percent_remaining'], $scope.dollarsPercent);
-                $scope.gridOptions.api.hideColumns(['status_left', 'status', 'status_right'], $scope.icons);
+                $scope.gridOptions.api.hideColumns(['status_left'], $scope.icons);
                 $scope.gridOptions.api.setSortModel($scope.sortKeys);
             }
         }
@@ -259,7 +314,7 @@
                 $scope.gridOptions.api.hideColumns(['total_percent_spent'], $scope.dollarsPercent);
                 $scope.gridOptions.api.hideColumns(['total_budget_remaining'], !$scope.dollarsPercent);
                 $scope.gridOptions.api.hideColumns(['total_percent_remaining'], $scope.dollarsPercent);
-                $scope.gridOptions.api.hideColumns(['status_left', 'status', 'status_right'], $scope.icons);
+                $scope.gridOptions.api.hideColumns(['status_left'], $scope.icons);
                 $scope.gridOptions.api.setSortModel($scope.sortKeys);
             }
         }
@@ -274,7 +329,7 @@
                 $scope.gridOptions.api.hideColumns(['total_percent_spent'], $scope.dollarsPercent);
                 $scope.gridOptions.api.hideColumns(['total_budget_remaining'], !$scope.dollarsPercent);
                 $scope.gridOptions.api.hideColumns(['total_percent_remaining'], $scope.dollarsPercent);
-                $scope.gridOptions.api.hideColumns(['status_left', 'status', 'status_right'], $scope.icons);
+                $scope.gridOptions.api.hideColumns(['status_left'], $scope.icons);
                 $scope.gridOptions.api.setSortModel($scope.sortKeys);
             }
         }

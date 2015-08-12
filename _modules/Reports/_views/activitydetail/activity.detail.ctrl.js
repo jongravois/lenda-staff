@@ -47,6 +47,14 @@
             },
             {
                 headerTooltip: 'Location',
+                headerName: 'Location',
+                valueGetter: 'data.location.location',
+                cellClass: 'text-left',
+                width: 100,
+                hide: true
+            },
+            {
+                headerTooltip: 'Location',
                 headerName: 'Loc',
                 valueGetter: 'data.location.loc_abr',
                 cellClass: 'text-center',
@@ -55,7 +63,6 @@
             {
                 headerTooltip: 'Crop Year',
                 headerGroup: 'Crop',
-                //headerGroupShow: 'closed',
                 headerName: 'Year',
                 field: 'crop_year',
                 cellClass: 'text-center',
@@ -65,10 +72,19 @@
             {
                 headerTooltip: 'Crop Season',
                 headerGroup: 'Crop',
+                headerGroupShow: 'closed',
                 headerName: 'Season',
                 field: 'full_season',
                 cellClass: 'text-center',
                 width: 95
+            },
+            {
+                headerTooltip: 'Analyst',
+                headerName: 'Analyst',
+                field: 'analyst',
+                cellClass: 'text-left',
+                width: 150,
+                hide: true
             },
             {
                 headerTooltip: 'Loan Analyst',
@@ -85,6 +101,14 @@
                 width: 120
             },
             {
+                headerTooltip: 'Farmer',
+                headerName: 'Nickname',
+                valueGetter: 'data.farmer.nick',
+                cellClass: 'text-left',
+                width: 150,
+                hide: true
+            },
+            {
                 headerTooltip: 'Applicant',
                 headerName: 'Applicant',
                 valueGetter: 'data.applicant.applicant',
@@ -94,7 +118,15 @@
             {
                 headerTooltip: 'Loan Type',
                 headerGroup: 'Loan',
-                //headerGroupShow: 'closed',
+                headerName: 'Type',
+                field: 'loan_type',
+                cellClass: 'text-left',
+                width: 100,
+                hide: true
+            },
+            {
+                headerTooltip: 'Loan Type',
+                headerGroup: 'Loan',
                 headerName: 'Type',
                 field: 'loantype_abr',
                 cellClass: 'text-center',
@@ -103,7 +135,6 @@
             {
                 headerTooltip: 'Distributor',
                 headerGroup: 'Loan',
-                //headerGroupShow: 'closed',
                 headerName: 'Dist',
                 valueGetter: 'data.distributor.distributor',
                 cellClass: 'text-center',
@@ -112,13 +143,13 @@
             {
                 headerTooltip: 'Loan Origin Date',
                 headerGroup: 'Loan',
+                headerGroupShow: 'closed',
                 headerName: 'Orig Dt',
                 field: 'orig_date',
                 cellClass: 'text-center',
                 cellRenderer: function (params) {
                     return moment(params.data.orig_date).format('MM/DD/YYYY');
                 },
-                hide: true,
                 width: 80
             },
             {
@@ -137,7 +168,6 @@
                         return "<span style='color: black'>" + params.data.due_date + "</span>";
                     }
                 },
-                hide: false,
                 width: 80
             },
             {
@@ -145,8 +175,8 @@
                 headerGroup: '',
                 headerName: 'Agency',
                 field: 'agencies',
-                cellClass: 'text-center',
-                width: 80
+                cellClass: 'text-left',
+                width: 150
             },
             {
                 headerTooltip: 'Status',
@@ -160,7 +190,7 @@
             {
                 headerTooltip: 'Accounting Transaction Date',
                 headerGroup: 'Accounting',
-                //headerGroupShow: 'closed',
+                headerGroupShow: 'closed',
                 headerName: 'Date',
                 field: 'qb_date',
                 cellClass: 'text-center',
@@ -172,7 +202,7 @@
             {
                 headerTooltip: 'Accounting Transaction Type',
                 headerGroup: 'Accounting',
-                //headerGroupShow: 'closed',
+                headerGroupShow: 'closed',
                 headerName: 'Type',
                 field: 'qb_type',
                 cellClass: 'text-center',
@@ -226,24 +256,47 @@
             }
         }
 
-        $scope.hideIcons = function () {
-            $scope.icons = !$scope.icons;
-            //$scope.toggleOrigDue();
-                $scope.gridOptions.api.hideColumns(['orig_date'], $scope.origDue);
-                $scope.gridOptions.api.hideColumns(['due_date'], !$scope.origDue);
-                $scope.gridOptions.api.hideColumns(['status_left', 'status', 'status_right'], $scope.icons);
-                //$scope.gridOptions.api.setSortModel($scope.sortKeys);
+        $scope.exportDataToCsv = function() {
+            var jsonData = $scope.gridOptions.rowData;
+            var csv = '';
+            var row = '';
+            for (var index in jsonData[0]) {
+                row += index + ',';
+            }
+
+            row = row.slice(0, -1);
+            csv += row + '\r\n';
+
+            for (var i = 0; i < jsonData.length; i++) {
+                row = '';
+                for (var index in jsonData[i]) {
+                    row += '"' + jsonData[i][index] + '",';
+                }
+                row.slice(0, -1);
+                csv += row + '\r\n';
+            }
+
+            var uri = 'data:text/csv;charset=utf-8,' + escape(csv);
+            var link = document.createElement("a");
+            link.href = uri;
+            link.style = "visibility:hidden";
+            link.download = $scope.filename.replace(/ /g, "_") + ".csv";
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+        $scope.showToolPanel = function(){
+            $scope.tools = !$scope.tools;
+            if ($scope.gridOptions.api) {
+                $scope.gridOptions.api.showToolPanel($scope.tools);
+            }
         }
 
-        $scope.toggleOrigDue = function () {
-            $scope.origDue = !$scope.origDue;
-            if ($scope.gridOptions.api) {
-                $scope.gridOptions.api.hideColumns(['orig_date'], $scope.origDue);
-                $scope.gridOptions.api.hideColumns(['due_date'], !$scope.origDue);
-                $scope.gridOptions.api.hideColumns(['status_left', 'status', 'status_right'], $scope.icons);
+        $scope.hideIcons = function () {
+            $scope.icons = !$scope.icons;
+                $scope.gridOptions.api.hideColumns(['status_left'], $scope.icons);
                 $scope.gridOptions.api.setSortModel($scope.sortKeys);
-            }
-         }
+        }
 
         $scope.gridOptions = {
             columnDefs: columnDefs,
@@ -259,7 +312,6 @@
             showToolPanel: false,
             ready: function (api) {
                 $timeout(function () {
-                    api.hideColumns(['due_date'], true);
                     api.setSortModel($scope.sortKeys);
                 });
             }

@@ -2,13 +2,12 @@
 
 <h3> &nbsp; Loan Management </h3>
 <div id="lnman">
-    <!--<pre>{{gridOptions.rowData | json}}</pre>-->
     <div class="ag-fresh" ag-grid="gridOptions" ng-style="{height: gridHeight}"></div>
     <form>
         <br>
         <span style="display:inline-block;float:left;">
-            <span class="btn glyphicon glyphicon-briefcase" ng-click="showToolPanel()"> Options </span>
-            <span class="btn glyphicon glyphicon-eye-open" ng-click="hideIcons()"> Icons </span>
+            <span class="btn glyphicon glyphicon-eye-open" ng-click="showToolPanel()"></span>
+            <span ng-click="hideIcons()"> Indicators </span>
         </span>
         <span style="display:inline-block;float:right;">
             <span class="btn glyphicon glyphicon-print" ng-click=""> Print </span>
@@ -17,14 +16,9 @@
             <span class="btn glyphicon glyphicon-file" ng-click=""> PDF </span>
         </span>
         <br><br>
-        <span style="display:inline-block;float:left;">
-            &nbsp; <input placeholder="Filter..." type="text" ng-model="gridOptions.quickFilterText"/>
+        <span style="display:inline-block;float:left;position: absolute;top: 150px;right: 28px;">
+        &nbsp; <input placeholder="Filter..." type="text" ng-model="gridOptions.quickFilterText"/>
         </span>
         <br><br>
-        <!--<span style="padding-bottom: 4px; display: inline-block;">-->
-            <!--<button ng-click="printState()">Print Col State</button>-->
-            <!--<button ng-click="saveState()">Save Col State</button>-->
-            <!--<button ng-click="restoreState()">Restore Col State</button>-->
-        <!--</span>-->
     </form>
 </div>

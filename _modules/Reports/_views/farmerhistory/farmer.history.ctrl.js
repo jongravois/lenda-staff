@@ -42,6 +42,14 @@
                 width: 85
             },
             {
+                headerTooltip: 'Location',
+                headerName: 'Location',
+                valueGetter: 'data.location.location',
+                cellClass: 'text-left',
+                width: 100,
+                hide: true
+            },
+            {
                 headerName: 'Loc',
                 valueGetter: 'data.location.loc_abr',
                 cellClass: 'text-center',
@@ -50,7 +58,6 @@
             {
                 headerGroup: 'Crop',
                 headerName: 'Year',
-                headerGroupShow: 'closed',
                 field: 'crop_year',
                 cellClass: 'text-center',
                 width: 85,
@@ -58,10 +65,19 @@
             },
             {
                 headerGroup: 'Crop',
+                headerGroupShow: 'closed',
                 headerName: 'Season',
                 field: 'full_season',
                 cellClass: 'text-center',
                 width: 95
+            },
+            {
+                headerTooltip: 'Analyst',
+                headerName: 'Analyst',
+                field: 'analyst',
+                cellClass: 'text-left',
+                width: 150,
+                hide: true
             },
             {
                 headerName: 'Analyst',
@@ -78,14 +94,30 @@
                 width: 120
             },
             {
+                headerTooltip: 'Farmer',
+                headerName: 'Nickname',
+                valueGetter: 'data.farmer.nick',
+                cellClass: 'text-left',
+                width: 150,
+                hide: true
+            },
+            {
                 headerName: 'Applicant',
                 valueGetter: 'data.applicant.applicant',
                 cellClass: 'text-left',
                 width: 120
             },
             {
+                headerTooltip: 'Loan Type',
                 headerGroup: 'Loan',
-                //headerGroupShow: 'closed',
+                headerName: 'Type',
+                field: 'loan_type',
+                cellClass: 'text-left',
+                width: 100,
+                hide: true
+            },
+            {
+                headerGroup: 'Loan',
                 headerName: 'Type',
                 field: 'loantype_abr',
                 cellClass: 'text-center',
@@ -100,12 +132,32 @@
                 width: 80
             },
             {
+                headerTooltip: 'Loan Origin Date',
                 headerGroup: 'Loan',
-                field: 'loan_date',
-                headerName: 'Date',
+                headerGroupShow: 'closed',
+                headerName: 'Orig Dt',
+                field: 'orig_date',
                 cellClass: 'text-center',
                 cellRenderer: function (params) {
-                    return moment(params.data.loan_date).format('MM/DD/YYYY');
+                    return moment(params.data.orig_date).format('MM/DD/YYYY');
+                },
+                width: 80
+            },
+            {
+                headerTooltip: 'Loan Due Date',
+                headerGroup: 'Loan',
+                headerName: 'Due Dt',
+                field: 'due_date',
+                cellClass: 'text-center',
+                cellRenderer: function (params) {
+                    if (params.data.past_due == 1) {
+                        return "<span style='color: orange'>" + params.data.due_date + "</span>";
+                    }
+                    else if (params.data.past_due == 2) {
+                        return "<span style='color: #ee0000'>" + params.data.due_date + "</span>";
+                    } else {
+                        return "<span style='color: black'>" + params.data.due_date + "</span>";
+                    }
                 },
                 width: 80
             },
@@ -113,8 +165,8 @@
                 headerGroup: '',
                 headerName: 'Agency',
                 field: 'agencies',
-                cellClass: 'text-center',
-                width: 80
+                cellClass: 'text-left',
+                width: 150
             },
             {
                 headerName: 'Status',
@@ -125,8 +177,8 @@
                 width: 70
             },
             {
-                headerGroup: 'Commitment',
-                headerName: 'ARM',
+                headerGroup: 'ARM',
+                headerName: 'Commitment',
                 valueGetter: 'data.financials.commit_arm',
                 cellClass: function (params) {
                     return (params.data.financials.commit_arm ? 'text-right' : 'text-center');
@@ -137,20 +189,8 @@
                 width: 100
             },
             {
-                headerGroup: 'Commitment',
-                headerName: 'Dist',
-                valueGetter: 'data.financials.commit_dist',
-                cellClass: function (params) {
-                    return (params.data.financials.commit_dist ? 'text-right' : 'text-center');
-                },
-                cellRenderer: function (params) {
-                    return $filter('flexCurrency')(params.data.financials.commit_dist, 0);
-                },
-                // template: '<span ng-class="{gtZero(params.data.commit_dist)}">params.data.commit_dist</span>',
-                width: 100
-            },
-            {
-                headerGroup: '',
+                headerGroup: 'ARM',
+                headerGroupShow: 'closed',
                 headerName: 'Fees',
                 valueGetter: 'data.financials.fee_total',
                 cellClass: function (params) {
@@ -162,8 +202,9 @@
                 width: 100
             },
             {
-                headerGroup: 'Rate',
-                headerName: 'ARM',
+                headerGroup: 'ARM',
+                headerGroupShow: 'closed',
+                headerName: 'Rate',
                 valueGetter: 'data.fins.int_percent_arm',
                 cellClass: function (params) {
                     return (params.data.fins.int_percent_arm ? 'text-right' : 'text-center');
@@ -174,8 +215,22 @@
                 width: 70
             },
             {
-                headerGroup: 'Rate',
-                headerName: 'Dist',
+                headerGroup: 'Dist',
+                headerName: 'Commitment',
+                valueGetter: 'data.financials.commit_dist',
+                cellClass: function (params) {
+                    return (params.data.financials.commit_dist ? 'text-right' : 'text-center');
+                },
+                cellRenderer: function (params) {
+                    return $filter('flexCurrency')(params.data.financials.commit_dist, 0);
+                },
+                // template: '<span ng-class="{gtZero(params.data.commit_dist)}">params.data.commit_dist</span>',
+                width: 100
+            },
+            {
+                headerGroup: 'Dist',
+                headerGroupShow: 'closed',
+                headerName: 'Rate',
                 valueGetter: 'data.fins.int_percent_dist',
                 cellClass: function (params) {
                     return (params.data.fins.int_percent_dist ? 'text-right' : 'text-center');
@@ -215,7 +270,7 @@
             $scope.icons = !$scope.icons;
             if ($scope.gridOptions.api) {
                 $scope.gridOptions.api.onNewCols();
-                $scope.gridOptions.api.hideColumns(['status_left', 'status'], $scope.icons);
+                $scope.gridOptions.api.hideColumns(['status_left'], $scope.icons);
                 $scope.gridOptions.api.setSortModel($scope.sortKeys);
             }
         }

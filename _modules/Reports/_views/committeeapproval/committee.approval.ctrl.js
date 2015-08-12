@@ -25,17 +25,21 @@
                 headerName: 'Member',
                 field: 'committee_member',
                 cellClass: 'text-left',
-                suppressSorting: false,
-                suppressSizeToFit: false,
                 width: 150
+            },
+            {
+                headerTooltip: 'Analyst',
+                headerName: 'Analyst',
+                field: 'analyst',
+                cellClass: 'text-left',
+                width: 150,
+                hide: true
             },
             {
                 headerTooltip: 'Loan Analyst',
                 headerName: 'Analyst',
                 field: 'analyst_abr',
                 cellClass: 'text-center',
-                suppressSorting: false,
-                suppressSizeToFit: false,
                 width: 100
             },
             {
@@ -43,20 +47,32 @@
                 headerName: 'Applicant',
                 field: 'applicant',
                 cellClass: 'text-left',
-                suppressSorting: false,
-                suppressSizeToFit: false,
                 width: 150
             },
             {
-                headerTooltip: 'Crop Year',
                 headerGroup: 'Crop',
                 headerName: 'Year',
                 field: 'crop_year',
                 cellClass: 'text-center',
-                suppressSorting: false,
-                suppressSizeToFit: false,
-                width: 100,
+                width: 85,
                 filter: 'number'
+            },
+            {
+                headerGroup: 'Crop',
+                headerName: 'Season',
+                headerGroupShow: 'closed',
+                field: 'full_season',
+                cellClass: 'text-center',
+                width: 95
+            },
+            {
+                headerTooltip: 'Loan Type',
+                headerGroup: 'Loan',
+                headerName: 'Type',
+                field: 'loan_type',
+                cellClass: 'text-left',
+                width: 100,
+                hide: true
             },
             {
                 headerTooltip: 'Loan Type',
@@ -64,13 +80,12 @@
                 headerName: 'Type',
                 field: 'loantype_abr',
                 cellClass: 'text-center',
-                suppressSorting: false,
-                suppressSizeToFit: false,
-                width: 100
+                width: 80
             },
             {
                 headerTooltip: 'Loan Addendum',
                 headerGroup: 'Loan',
+                headerGroupShow: 'closed',
                 headerName: 'Addendum',
                 field: 'loan_addendum',
                 cellClass: 'text-center',
@@ -81,29 +96,24 @@
                         return "<span style='color:#000000'>&nbsp;" + moment(params.data.loan_date).format('MM/DD/YYYY') + "</span>";
                     }
                 },
-                suppressSorting: false,
-                suppressSizeToFit: false,
                 width: 100
             },
             {
                 headerTooltip: 'Distributor',
                 headerGroup: 'Loan',
+                headerGroupShow: 'closed',
                 headerName: 'Dist',
                 field: 'dist',
                 cellClass: 'text-center',
-                suppressSorting: false,
-                suppressSizeToFit: false,
-                width: 100
+                width: 80
             },
             {
                 headerTooltip: 'Agency',
                 headerGroup: '',
                 headerName: 'Agency',
                 field: 'agency',
-                cellClass: 'text-center',
-                suppressSorting: false,
-                suppressSizeToFit: false,
-                width: 100
+                cellClass: 'text-left',
+                width: 150
             },
             {
                 headerTooltip: 'Vote',
@@ -120,18 +130,14 @@
                         return '<div style="text-align:center !important;"> - </div>';
                     }
                 },
-                suppressSorting: false,
-                suppressSizeToFit: false,
-                width: 100
+                width: 80
             },
             {
                 headerTooltip: 'Class',
                 headerName: 'Class',
                 field: 'account_classification',
                 cellClass: 'text-center',
-                suppressSorting: false,
-                suppressSizeToFit: false,
-                width: 100
+                width: 80
             }
         ];
 

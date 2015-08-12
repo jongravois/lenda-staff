@@ -43,6 +43,14 @@
             },
             {
                 headerTooltip: 'Location',
+                headerName: 'Location',
+                valueGetter: 'data.location.location',
+                cellClass: 'text-left',
+                width: 100,
+                hide: true
+            },
+            {
+                headerTooltip: 'Location',
                 headerName: 'Loc',
                 valueGetter: 'data.location.loc_abr',
                 cellClass: 'text-center',
@@ -51,7 +59,6 @@
             {
                 headerTooltip: 'Crop Year',
                 headerGroup: 'Crop',
-                //headerGroupShow: 'closed',
                 headerName: 'Year',
                 field: 'crop_year',
                 cellClass: 'text-center',
@@ -61,10 +68,19 @@
             {
                 headerTooltip: 'Season',
                 headerGroup: 'Crop',
+                headerGroupShow: 'closed',
                 headerName: 'Season',
                 field: 'full_season',
                 cellClass: 'text-center',
                 width: 95
+            },
+            {
+                headerTooltip: 'Analyst',
+                headerName: 'Analyst',
+                field: 'analyst',
+                cellClass: 'text-left',
+                width: 150,
+                hide: true
             },
             {
                 headerTooltip: 'Analyst',
@@ -81,6 +97,14 @@
                 width: 120
             },
             {
+                headerTooltip: 'Farmer',
+                headerName: 'Nickname',
+                valueGetter: 'data.farmer.nick',
+                cellClass: 'text-left',
+                width: 150,
+                hide: true
+            },
+            {
                 headerTooltip: 'Applicant',
                 headerName: 'Applicant',
                 valueGetter: 'data.applicant.applicant',
@@ -90,7 +114,15 @@
             {
                 headerTooltip: 'Loan Type',
                 headerGroup: 'Loan',
-                //headerGroupShow: 'closed',
+                headerName: 'Type',
+                field: 'loan_type',
+                cellClass: 'text-left',
+                width: 100,
+                hide: true
+            },
+            {
+                headerTooltip: 'Loan Type',
+                headerGroup: 'Loan',
                 headerName: 'Type',
                 field: 'loantype_abr',
                 cellClass: 'text-center',
@@ -99,20 +131,38 @@
             {
                 headerTooltip: 'Distributor',
                 headerGroup: 'Loan',
-                //headerGroupShow: 'closed',
                 headerName: 'Dist',
                 valueGetter: 'data.distributor.distributor',
                 cellClass: 'text-center',
                 width: 80
             },
             {
-                headerTooltip: 'Loan Date',
+                headerTooltip: 'Loan Origin Date',
                 headerGroup: 'Loan',
-                field: 'loan_date',
-                headerName: 'Date',
+                headerGroupShow: 'closed',
+                headerName: 'Orig Dt',
+                field: 'orig_date',
                 cellClass: 'text-center',
                 cellRenderer: function (params) {
-                    return moment(params.data.loan_date).format('MM/DD/YYYY');
+                    return moment(params.data.orig_date).format('MM/DD/YYYY');
+                },
+                width: 80
+            },
+            {
+                headerTooltip: 'Loan Due Date',
+                headerGroup: 'Loan',
+                headerName: 'Due Dt',
+                field: 'due_date',
+                cellClass: 'text-center',
+                cellRenderer: function (params) {
+                    if (params.data.past_due == 1) {
+                        return "<span style='color: orange'>" + params.data.due_date + "</span>";
+                    }
+                    else if (params.data.past_due == 2) {
+                        return "<span style='color: #ee0000'>" + params.data.due_date + "</span>";
+                    } else {
+                        return "<span style='color: black'>" + params.data.due_date + "</span>";
+                    }
                 },
                 width: 80
             },
@@ -121,8 +171,8 @@
                 headerGroup: '',
                 headerName: 'Agency',
                 field: 'agencies',
-                cellClass: 'text-center',
-                width: 80
+                cellClass: 'text-left',
+                width: 150
             },
             {
                 headerName: 'Status',
@@ -148,6 +198,7 @@
             {
                 headerTooltip: 'Commitment Dist',
                 headerGroup: 'Commitment',
+                headerGroupShow: 'closed',
                 headerName: 'Dist',
                 valueGetter: 'data.financials.commit_dist',
                 cellClass: function (params) {
@@ -221,7 +272,7 @@
         $scope.hideIcons = function () {
             $scope.icons = !$scope.icons;
             if ($scope.gridOptions.api) {
-                $scope.gridOptions.api.hideColumns(['status_left', 'status', 'status_right'], $scope.icons);
+                $scope.gridOptions.api.hideColumns(['status_left'], $scope.icons);
                 $scope.gridOptions.api.setSortModel($scope.sortKeys);
             }
         }
@@ -230,8 +281,6 @@
             $scope.tools = !$scope.tools;
             if ($scope.gridOptions.api) {
                 $scope.gridOptions.api.showToolPanel($scope.tools);
-            } else {
-                console.log('api not ready');
             }
         }
 

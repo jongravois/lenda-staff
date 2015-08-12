@@ -37,55 +37,7 @@
                 <div class="container-fluid">
                     <!--No Comment Place Holder-->
                     <div ng-if="loan.parsedComments.length === 0">
-                        <b>No Comments Found!</b>
-                    </div>
-
-                    <!--Loan/Addendum Comment-->
-                    <div ng-repeat="c in loan.parsedComments.Loan">
-                        <div class="alert alert-default" role="alert">
-                            <h5>
-                                <span class="glyphicon glyphicon-pencil"></span>
-                                Loan Summary
-                            </h5>
-                            <hr/>
-                            <p style="font-size:11px;font-weight:bold;"><i>{{c.user.name}}</i>
-                                &nbsp;&nbsp;-&nbsp;&nbsp;
-                                <i>{{c.updated_at | date:'MM/dd/yy'}}</i>
-                            </p>
-
-                            <p>{{c.comment}}</p>
-                        </div>
-                    </div>
-
-                    <!--WatchList Comment-->
-                    <div ng-if="loan.parsedComments.Watch.length > 0">
-                        <div ng-repeat="c in loan.parsedComments.Watch">
-                            <div class="alert alert-warning" role="alert">
-                                <div style="position: relative;">
-                                    <h5><span class="glyphicon glyphicon-eye-open"></span>
-                                        Watch List
-                                    </h5>
-                                    <hr/>
-                                    <p style="font-size:11px;font-weight:bold;"><i>{{c.user.name}}</i>
-                                        &nbsp;&nbsp;-&nbsp;&nbsp;
-                                        <i>{{c.updated_at | date:'MM/dd/yy'}}</i>
-                                    </p>
-
-                                    <p>{{c.comment}}</p>
-                                </div>
-                                <div ng-if="c.responses">
-                                    <div class="alert alert-response"
-                                         ng-repeat="res in c.responses | orderBy: 'created_at':true">
-                                        <p style="font-size:11px;font-weight:bold;"><i>{{res.user.username}}</i>
-                                            &nbsp;&nbsp;-&nbsp;&nbsp;
-                                            <i>{{res.created_at | date:'MM/dd/yy'}}</i>
-                                        </p>
-                                        <hr/>
-                                        <p>{{res.body}}</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        <!--<b>No Comments Found!</b>-->
                     </div>
 
                     <!--Committee Comments-->
@@ -132,8 +84,8 @@
             <span class="btn glyphicon glyphicon-file" ng-click=""> PDF </span>
         </span>
         <br><br>
-        <span style="display:inline-block;float:left;">
-            &nbsp; <input placeholder="Filter..." type="text" ng-model="query"/>
+        <span style="display:inline-block;float:left;position: absolute;top: 150px;right: 28px;">
+        &nbsp; <input placeholder="Filter..." type="text" ng-model="query"/>
         </span>
         <br><br>
     </form>

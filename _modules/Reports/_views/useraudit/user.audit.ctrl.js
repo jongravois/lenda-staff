@@ -13,14 +13,14 @@
         $scope.tools = false;
 
         $scope.sortKeys = [
-            {field: 'location.regions.region', sort: 'asc'},
-            {field: 'location.loc_abr', sort: 'asc'},
+            {field: 'region', sort: 'asc'},
+            {field: 'location', sort: 'asc'},
             {field: 'crop_year', sort: 'asc'},
             {field: 'full_season', sort: 'asc'},
-            {field: 'analyst_abr', sort: 'asc'},
+            //{field: 'analyst_abr', sort: 'asc'},
             {field: 'farmer.farmer', sort: 'asc'},
-            {field: 'applicant.applicant', sort: 'asc'},
-            {field: 'distributor.distributor', sort: 'asc'},
+            {field: 'applicant', sort: 'asc'},
+            //{field: 'distributor', sort: 'asc'},
             {field: 'loantype_abr', sort: 'asc'},
         ];
 
@@ -30,6 +30,14 @@
                 field: 'region',
                 cellClass: 'text-center',
                 width: 85
+            },
+            {
+                headerTooltip: 'Location',
+                headerName: 'Location',
+                valueGetter: 'data.location.location',
+                cellClass: 'text-left',
+                width: 100,
+                hide: true
             },
             {
                 headerName: 'Loc',
@@ -53,6 +61,14 @@
                 width: 90
             },
             {
+                headerTooltip: 'Analyst',
+                headerName: 'Analyst',
+                field: 'analyst',
+                cellClass: 'text-left',
+                width: 150,
+                hide: true
+            },
+            {
                 headerName: 'Analyst',
                 field: 'analyst_abr',
                 cellClass: 'text-center',
@@ -65,10 +81,27 @@
                 width: 120
             },
             {
+                headerTooltip: 'Farmer',
+                headerName: 'Nickname',
+                valueGetter: 'data.farmer.nick',
+                cellClass: 'text-left',
+                width: 150,
+                hide: true
+            },
+            {
                 headerName: 'Applicant',
                 field: 'applicant',
                 cellClass: 'text-left',
                 width: 120
+            },
+            {
+                headerTooltip: 'Loan Type',
+                headerGroup: 'Loan',
+                headerName: 'Type',
+                field: 'loan_type',
+                cellClass: 'text-left',
+                width: 100,
+                hide: true
             },
             {
                 headerGroup: 'Loan',
@@ -165,7 +198,7 @@
         };
 
         $scope.reduced = UserAuditFactory.getData(Loans);
-        console.log('reduced', $scope.reduced);
+        //console.log('reduced', $scope.reduced);
 
         $scope.gridOptions.rowData = $scope.reduced;
         $scope.gridHeight = Number(($scope.gridOptions.rowData.length + 2) * 30).toString();

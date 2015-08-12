@@ -44,6 +44,14 @@
             },
             {
                 headerTooltip: 'Location',
+                headerName: 'Location',
+                valueGetter: 'data.location.location',
+                cellClass: 'text-left',
+                width: 100,
+                hide: true
+            },
+            {
+                headerTooltip: 'Location',
                 headerName: 'Loc',
                 valueGetter: 'data.location.loc_abr',
                 cellClass: 'text-center',
@@ -53,7 +61,6 @@
                 headerTooltip: 'Crop Year',
                 headerGroup: 'Crop',
                 headerName: 'Year',
-                //headerGroupShow: 'closed',
                 field: 'crop_year',
                 cellClass: 'text-center',
                 width: 85,
@@ -62,10 +69,19 @@
             {
                 headerTooltip: 'Crop Season',
                 headerGroup: 'Crop',
+                headerGroupShow: 'closed',
                 headerName: 'Season',
                 field: 'full_season',
                 cellClass: 'text-center',
                 width: 95
+            },
+            {
+                headerTooltip: 'Analyst',
+                headerName: 'Analyst',
+                field: 'analyst',
+                cellClass: 'text-left',
+                width: 150,
+                hide: true
             },
             {
                 headerTooltip: 'Loan Analyst',
@@ -82,6 +98,14 @@
                 width: 120
             },
             {
+                headerTooltip: 'Farmer',
+                headerName: 'Nickname',
+                valueGetter: 'data.farmer.nick',
+                cellClass: 'text-left',
+                width: 150,
+                hide: true
+            },
+            {
                 headerTooltip: 'Applicant',
                 headerName: 'Applicant',
                 valueGetter: 'data.applicant.applicant',
@@ -94,7 +118,15 @@
                 headerTooltip: 'Loan Type',
                 headerGroup: 'Loan',
                 headerName: 'Type',
-                //headerGroupShow: 'closed',
+                field: 'loan_type',
+                cellClass: 'text-left',
+                width: 100,
+                hide: true
+            },
+            {
+                headerTooltip: 'Loan Type',
+                headerGroup: 'Loan',
+                headerName: 'Type',
                 field: 'loantype_abr',
                 cellClass: 'text-center',
                 width: 80
@@ -103,19 +135,37 @@
                 headerTooltip: 'Distributor',
                 headerGroup: 'Loan',
                 headerName: 'Dist',
-                //headerGroupShow: 'closed',
                 valueGetter: 'data.distributor.distributor',
                 cellClass: 'text-center',
                 width: 80
             },
             {
-                headerTooltip: 'Loan Date',
+                headerTooltip: 'Loan Origin Date',
                 headerGroup: 'Loan',
-                field: 'loan_date',
-                headerName: 'Date',
+                headerGroupShow: 'closed',
+                headerName: 'Orig Dt',
+                field: 'orig_date',
                 cellClass: 'text-center',
-                cellRenderer: function(params) {
-                    return moment(params.data.loan_date).format('MM/DD/YYYY');
+                cellRenderer: function (params) {
+                    return moment(params.data.orig_date).format('MM/DD/YYYY');
+                },
+                width: 80
+            },
+            {
+                headerTooltip: 'Loan Due Date',
+                headerGroup: 'Loan',
+                headerName: 'Due Dt',
+                field: 'due_date',
+                cellClass: 'text-center',
+                cellRenderer: function (params) {
+                    if (params.data.past_due == 1) {
+                        return "<span style='color: orange'>" + params.data.due_date + "</span>";
+                    }
+                    else if (params.data.past_due == 2) {
+                        return "<span style='color: #ee0000'>" + params.data.due_date + "</span>";
+                    } else {
+                        return "<span style='color: black'>" + params.data.due_date + "</span>";
+                    }
                 },
                 width: 80
             },
@@ -124,8 +174,8 @@
                 headerGroup: '',
                 headerName: 'Agency',
                 field: 'agencies',
-                cellClass: 'text-center',
-                width: 80
+                cellClass: 'text-left',
+                width: 150
             },
             {
                 headerTooltip: 'Status',
@@ -137,9 +187,9 @@
                 width: 70
             },
             {
-                headerTooltip: 'ARM Commitment',
-                headerGroup: 'Commitment',
-                headerName: 'ARM',
+                headerTooltip: 'ARM',
+                headerGroup: 'ARM',
+                headerName: 'Commitment',
                 valueGetter: 'data.financials.commit_arm',
                 cellClass: function(params) {
                     return (params.data.financials.commit_arm ? 'text-right': 'text-center');
@@ -151,7 +201,8 @@
             },
             {
                 headerTooltip: 'Loan Rate',
-                headerGroup: '',
+                headerGroup: 'ARM',
+                headerGroupShow: 'closed',
                 headerName: 'Rate',
                 valueGetter: 'data.financials.int_percent_arm',
                 cellClass: function(params) {
@@ -164,7 +215,8 @@
             },
             {
                 headerTooltip: 'Fees',
-                headerGroup: '',
+                headerGroup: 'ARM',
+                headerGroupShow: 'closed',
                 headerName: 'Fees',
                 valueGetter: 'data.financials.fee_total',
                 cellClass: function(params) {
@@ -204,7 +256,7 @@
         $scope.hideIcons = function(){
             $scope.icons = !$scope.icons;
             if ($scope.gridOptions.api) {
-                $scope.gridOptions.api.hideColumns(['status_left', 'status', 'status_right'], $scope.icons);
+                $scope.gridOptions.api.hideColumns(['status_left'], $scope.icons);
                 $scope.gridOptions.api.setSortModel($scope.sortKeys);
             }
         }

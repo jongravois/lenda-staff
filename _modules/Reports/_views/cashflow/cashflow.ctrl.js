@@ -42,6 +42,14 @@
                 width: 85
             },
             {
+                headerTooltip: 'Location',
+                headerName: 'Location',
+                valueGetter: 'data.location.location',
+                cellClass: 'text-left',
+                width: 100,
+                hide: true
+            },
+            {
                 headerName: 'Loc',
                 valueGetter: 'data.location.loc_abr',
                 cellClass: 'text-center',
@@ -49,7 +57,6 @@
             },
             {
                 headerGroup: 'Crop',
-                //headerGroupShow: 'closed',
                 headerName: 'Year',
                 field: 'crop_year',
                 cellClass: 'text-center',
@@ -59,9 +66,18 @@
             {
                 headerGroup: 'Crop',
                 headerName: 'Season',
+                headerGroupShow: 'closed',
                 field: 'full_season',
                 cellClass: 'text-center',
                 width: 95
+            },
+            {
+                headerTooltip: 'Analyst',
+                headerName: 'Analyst',
+                field: 'analyst',
+                cellClass: 'text-left',
+                width: 150,
+                hide: true
             },
             {
                 headerName: 'Analyst',
@@ -76,14 +92,30 @@
                 width: 120
             },
             {
+                headerTooltip: 'Farmer',
+                headerName: 'Nickname',
+                valueGetter: 'data.farmer.nick',
+                cellClass: 'text-left',
+                width: 150,
+                hide: true
+            },
+            {
                 headerName: 'Applicant',
                 valueGetter: 'data.applicant.applicant',
                 cellClass: 'text-left',
                 width: 120
             },
             {
+                headerTooltip: 'Loan Type',
                 headerGroup: 'Loan',
-                //headerGroupShow: 'closed',
+                headerName: 'Type',
+                field: 'loan_type',
+                cellClass: 'text-left',
+                width: 100,
+                hide: true
+            },
+            {
+                headerGroup: 'Loan',
                 headerName: 'Type',
                 field: 'loantype_abr',
                 cellClass: 'text-center',
@@ -91,19 +123,38 @@
             },
             {
                 headerGroup: 'Loan',
-                //headerGroupShow: 'closed',
                 headerName: 'Dist',
                 valueGetter: 'data.distributor.distributor',
                 cellClass: 'text-center',
                 width: 80
             },
             {
+                headerTooltip: 'Loan Origin Date',
                 headerGroup: 'Loan',
-                field: 'loan_date',
-                headerName: 'Date',
+                headerGroupShow: 'closed',
+                headerName: 'Orig Dt',
+                field: 'orig_date',
                 cellClass: 'text-center',
-                cellRenderer: function(params) {
-                    return moment(params.data.loan_date).format('MM/DD/YYYY');
+                cellRenderer: function (params) {
+                    return moment(params.data.orig_date).format('MM/DD/YYYY');
+                },
+                width: 80
+            },
+            {
+                headerTooltip: 'Loan Due Date',
+                headerGroup: 'Loan',
+                headerName: 'Due Dt',
+                field: 'due_date',
+                cellClass: 'text-center',
+                cellRenderer: function (params) {
+                    if (params.data.past_due == 1) {
+                        return "<span style='color: orange'>" + params.data.due_date + "</span>";
+                    }
+                    else if (params.data.past_due == 2) {
+                        return "<span style='color: #ee0000'>" + params.data.due_date + "</span>";
+                    } else {
+                        return "<span style='color: black'>" + params.data.due_date + "</span>";
+                    }
                 },
                 width: 80
             },
@@ -111,8 +162,8 @@
                 headerGroup: '',
                 headerName: 'Agency',
                 field: 'agencies',
-                cellClass: 'text-center',
-                width: 80
+                cellClass: 'text-left',
+                width: 150
             },
             {
                 headerName: 'Status',
@@ -123,8 +174,8 @@
                 width: 70
             },
             {
-                headerGroup: 'Commitment',
-                headerName: 'ARM',
+                headerGroup: 'ARM',
+                headerName: 'Commitment',
                 valueGetter: 'data.financials.commit_arm',
                 cellClass: function(params) {
                     return (params.data.financials.commit_arm ? 'text-right': 'text-center');
@@ -135,6 +186,8 @@
                 width: 110
             },
             {
+                headerGroup: 'ARM',
+                headerGroupShow: 'closed',
                 headerName: 'Fees',
                 valueGetter: 'data.financials.fee_total',
                 cellClass: function(params) {
@@ -146,6 +199,8 @@
                 width: 100
             },
             {
+                headerGroup: 'ARM',
+                headerGroupShow: 'closed',
                 headerName: 'Rate',
                 valueGetter: 'data.fins.int_percent_arm',
                 cellClass: function(params) {
@@ -157,7 +212,7 @@
                 width: 100
             },
             {
-                headerName: 'CF',
+                headerName: 'Cash Flow',
                 valueGetter: 'data.financials.cash_flow',
                 cellClass: function(params) {
                     return (params.data.financials.cash_flow ? 'text-right': 'text-center');
@@ -168,7 +223,7 @@
                 width: 100
             },
             {
-                headerName: 'EX',
+                headerName: 'Exposure',
                 valueGetter: 'data.financials.risk',
                 cellClass: function(params) {
                     return (params.data.financials.risk ? 'text-right': 'text-center');
@@ -179,18 +234,6 @@
                 width: 100
             }
         ];
-
-        /**
-         * Cash flow and exposure will be read from fins instead of financials
-         * interest rate, and fee_total also from fins
-         *
-         * Ag-pro (3), Ag-pro fast track (4) use adjusted exposure
-         * all other loans use exposure
-         *
-         * crop_certified icon
-         *
-         *
-         */
 
         $scope.printState = function() {
             var state = $scope.gridOptions.api.getColumnState();
@@ -219,7 +262,7 @@
         $scope.hideIcons = function(){
             $scope.icons = !$scope.icons;
             if ($scope.gridOptions.api) {
-                $scope.gridOptions.api.hideColumns(['status_left', 'status', 'status_right'], $scope.icons);
+                $scope.gridOptions.api.hideColumns(['status_left'], $scope.icons);
                 $scope.gridOptions.api.setSortModel($scope.sortKeys);
             }
         }
@@ -251,6 +294,7 @@
         };
         $scope.gridOptions.rowData = $scope.loans;
         $scope.gridHeight = Number(($scope.gridOptions.rowData.length + 2) * 30).toString();
+
     }
 
 })();

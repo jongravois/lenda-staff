@@ -10,6 +10,14 @@
         $scope.AppFactory = AppFactory;
         $scope.loans = Loans;
 
+        $scope.pct_success = 60;
+        $scope.pct_warning = 10;
+        $scope.pct_danger  = 30;
+
+        var sort = [
+            {field: 'analyst_abr', sort: 'asc'}
+        ];
+
         var columnDefs = [
             {
                 headerName: 'Region',
@@ -18,16 +26,32 @@
                 width: 85
             },
             {
+                headerTooltip: 'Location',
+                headerName: 'Location',
+                valueGetter: 'data.location.location',
+                cellClass: 'text-left',
+                width: 100,
+                hide: true
+            },
+            {
                 headerName: 'Loc',
                 valueGetter: 'data.location.loc_abr',
                 cellClass: 'text-center',
                 width: 70
             },
             {
+                headerTooltip: 'Analyst',
+                headerName: 'Analyst',
+                field: 'analyst',
+                cellClass: 'text-left',
+                width: 150,
+                hide: true
+            },
+            {
                 headerName: 'Analyst',
                 field: 'analyst_abr',
                 cellClass: 'text-center',
-                width: 80
+                width: 150
             },
             {
                 headerName: 'Report',
@@ -59,7 +83,7 @@
                     } else if (params.data.report == 'usradt') {
                         return 'Audit Trail';
                     } else {
-                        return 'n/a';
+                        return '';
                     }
                 },
                 width: 100
@@ -105,7 +129,7 @@
                 headerName: 'Efficiency',
                 cellClass: 'text-center',
                 suppressSorting: true,
-                templateUrl: '_modules/Reports/_views/_partials/progress_bar.html',
+                //templateUrl: '_modules/Reports/_views/_partials/progress_bar.html',
                 width: 590
             }
         ];
@@ -131,8 +155,6 @@
             if ($scope.gridOptions.api) {
                 console.log($scope.gridOptions.api.getModel());
                 return $scope.gridOptions.api.getModel();
-            } else {
-                console.log('api not ready');
             }
         }
 
@@ -155,24 +177,8 @@
             }
         };
 
-        $scope.pins = 0;
-        $scope.pin = 0;
-        var sort = [
-            {field: 'analyst_abr', sort: 'asc'}
-        ];
         $scope.gridOptions.rowData = $scope.loans;
         $scope.gridHeight = Number(($scope.gridOptions.rowData.length + 2) * 30).toString();
-
-        if ($scope.gridOptions.api) {
-            $scope.gridOptions.api.onNewRows();
-            $scope.gridOptions.api.setSortModel($scope.sortKeys);
-        } else {
-            console.log('api not ready');
-        }
-
-        $scope.pct_success = 60;
-        $scope.pct_warning = 10;
-        $scope.pct_danger  = 30;
     }
 
 })();
