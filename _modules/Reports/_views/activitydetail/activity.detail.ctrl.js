@@ -256,35 +256,6 @@
             }
         }
 
-        $scope.exportDataToCsv = function() {
-            var jsonData = $scope.gridOptions.rowData;
-            var csv = '';
-            var row = '';
-            for (var index in jsonData[0]) {
-                row += index + ',';
-            }
-
-            row = row.slice(0, -1);
-            csv += row + '\r\n';
-
-            for (var i = 0; i < jsonData.length; i++) {
-                row = '';
-                for (var index in jsonData[i]) {
-                    row += '"' + jsonData[i][index] + '",';
-                }
-                row.slice(0, -1);
-                csv += row + '\r\n';
-            }
-
-            var uri = 'data:text/csv;charset=utf-8,' + escape(csv);
-            var link = document.createElement("a");
-            link.href = uri;
-            link.style = "visibility:hidden";
-            link.download = $scope.filename.replace(/ /g, "_") + ".csv";
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-        }
         $scope.showToolPanel = function(){
             $scope.tools = !$scope.tools;
             if ($scope.gridOptions.api) {
