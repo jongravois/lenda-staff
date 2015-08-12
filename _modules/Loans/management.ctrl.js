@@ -43,12 +43,15 @@
                 $scope.sortedLoanList = settingsLoans;
                 $rootScope.loans = settingsLoans;
                 $scope.hgt = $scope.sortedLoanList.length * 38;
+                if($scope.hgt < 300) { $scope.hgt = 300; }
+
                 var data = AppFactory.getSortedData($scope.pendingView, $scope.sortedLoanList);
 
                 $scope.gridOptions.rowData = data;
                 if ($scope.gridOptions.api) {
                     $scope.gridOptions.api.onNewRows();
                 }
+                console.log('Loans', $scope.loans);
             });
 
         var columnDefs = [
@@ -56,7 +59,7 @@
                 field: '',
                 headerName: 'Pending',
                 suppressSorting: true,
-                templateUrl: './_modules/Loans/_views/pending.icons.html',
+                templateUrl: './app/views/grid_tmpl/pending.icons.html',
                 width: 90,
                 suppressSizeToFit: true,
                 headerCellRenderer: pendingHdr,
@@ -65,7 +68,7 @@
             {
                 field: 'notification',
                 headerName: '',
-                templateUrl: './_modules/Loans/_views/indicators.html',
+                templateUrl: './app/views/grid_tmpl/indicators.html',
                 cellClass: 'text-center',
                 suppressSizeToFit: true,
                 width: $scope.indWid.width,
@@ -438,7 +441,7 @@
                     return '<div style="text-align:center !important;"><span class="pendicon glyphicons glyphicons-map"></span></div>';
                     break;
                 case 'LWN':
-                    return '<div style="text-align:center !important;"><span class="pendicon glyphicons glyphicons-wifi-alt"></span></div>';
+                    return '<div style="text-align:center !important;"><span class="pendicon glyphicons glyphicons-alert"></span></div>';
                     break;
                 case 'RCL':
                     return '<div style="text-align:center !important;"><span class="pendicon glyphicons glyphicons-retweet-2"></span></div>';
@@ -455,6 +458,5 @@
             var newData = AppFactory.getSortedData($scope.pendingView, $scope.sortedLoanList);
             $scope.gridOptions.api.setRows(newData);
         }
-
     } // end function
 })();

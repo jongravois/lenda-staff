@@ -9,6 +9,7 @@
     /* @ngInject */
     function OptimizerFactory($q) {
         var publicAPI = {
+            calcFarmAcres: calcFarmAcres,
             calcInsGuarantee: calcInsGuarantee,
             calcInsValue: calcInsValue,
             getOptimizedLoan: getOptimizedLoan,

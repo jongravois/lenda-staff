@@ -10,20 +10,6 @@
         <div class="row">
             <table class="table table-striped rowed" style="width:60%;">
                 <tr>
-                    <td>
-                        &nbsp;
-                    </td>
-                    <td colspan="2" class="text-center">
-                        <span ng-if="loan.loan_type_id == 2">
-                            <span ng-if="loan.loan_type_id == 2">
-                              <input type="checkbox" ng-model="loan.financials.fee_onTotal"/>
-                            </span>
-                            &nbsp;Fee On Total
-                        </span>
-                    </td>
-                </tr>
-
-                <tr>
                     <td style="width:22%;">Loan Due Date</td>
                     <td colspan="2" class="text-right cblue">
                         <a href="#" editable-bsdate="loan.due_date" e-datepicker-popup="dd-MMMM-yyyy">
@@ -63,6 +49,20 @@
                         <span ng-if="!loan.fins.fee_service_onTotal">
                           {{loan.fins.srvc_fee_arm_only | flexCurrency:0}}
                         </span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="text-right">
+                        <span ng-if="loan.loan_type_id == 2">
+                            <span ng-if="loan.loan_type_id == 2">
+                              <input type="checkbox" ng-model="loan.financials.fee_onTotal"/>
+                            </span>
+                            &nbsp;Fee On Total
+                        </span>
+                    </td>
+                    <td colspan="2" class="text-center">
+                        &nbsp;
                     </td>
                 </tr>
 

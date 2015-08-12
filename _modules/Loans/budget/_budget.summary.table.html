@@ -74,7 +74,7 @@
     </tr>
 
     <!-- FEES -->
-    <tr>
+    <tr style="display: none;">
         <td colspan="5">Fees and Other</td>
         <td class="text-right">
             {{loan.fins.fee_total|flexCurrency:0 }}
@@ -89,7 +89,7 @@
     <!-- PRINCIPAL -->
     <tr class="success">
         <td colspan="5" class="text-left">
-            <strong>Total Expenses</strong>
+            <strong>Total Budgeted Expenses</strong>
         </td>
         <td class="text-right">
             {{AppFactory.calcTotalArmAndFarmExpenses(loan)|flexCurrency:0}}
@@ -106,7 +106,7 @@
     </tr>
 
     <!-- INTEREST -->
-    <tr><!--<tr style="display:none;">-->
+    <tr style="display:none;">
         <td colspan="5">Estimated Interest</td>
         <td class="text-right">
             {{loan.fins.int_arm|flexCurrency:0}}
@@ -121,7 +121,7 @@
     </tr>
 
     <!-- CASH FLOW/DEFICIT -->
-    <tr class="warning">
+    <tr class="warning" style="display: none;">
         <td>Cash Flow (Deficit)</td>
         <td colspan="7" ng-if="loan.has_distributor">&nbsp;</td>
         <td colspan="6" ng-if="!loan.has_distributor">&nbsp;</td>

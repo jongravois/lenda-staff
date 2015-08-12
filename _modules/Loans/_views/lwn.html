@@ -1,3 +1,5 @@
 <div style="width: 100%; height: 4px;">
-    <img ng-src="images/dot_{{returnColor(data.limit_warning)}}.png" alt="" ng-click="clickManagement(data.id, data.limit_warning, 'LWN')"/>
+    <span class="pendicon glyphicons glyphicons-alert cRed" ng-click="clickManagement(data.id, data.limit_warning, 'LWN')" ng-if="data.limit_warning > 2"></span>
+    <span class="pendicon glyphicons glyphicons-alert cYellow" ng-click="clickManagement(data.id, data.limit_warning, 'LWN')" ng-if="data.limit_warning === 2"></span>
+    <span class="pendicon glyphicons glyphicons-alert cGray" ng-click="clickManagement(data.id, data.limit_warning, 'LWN')" ng-if="data.limit_warning < 2"></span>
 </div>
