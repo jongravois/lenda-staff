@@ -11,7 +11,8 @@
         var user = JSON.parse(localStorage.getItem('user'));
         var publicAPI = {
             getLoan: getLoan,
-            getLoans: getLoans
+            getLoans: getLoans,
+            getPrerequisites: getPrerequisites
         };
         return publicAPI;
 
@@ -62,6 +63,14 @@
                 });
         }
         //////////
+        function checkStax(policies) {
+            var added = _.each(policies, function(item) {
+                item.stax = !!~item.options.indexOf('STAX');
+                item.showStax = false;
+                return item;
+            });
+            return added;
+        }
         function flattenExpenses(expenses, loan) {
             var flattened = [];
             var all_acres = loan.fins.crop_acres;
@@ -69,7 +78,8 @@
 
             _.map(expenses, function(item){
                 var crop = item.crop.crop;
-                var acres = all_acres[item.crop_id].acres;
+                var acres = all_acres[Number(item.crop.id)-1].acres;
+                //console.log('ACRES IN MAP', acres, all_acres, item);
 
                 var stub = _.pick(item, [
                     'id',
@@ -95,7 +105,7 @@
                 var finalpass = _.omit(stub, [
                         'arm_adj', 'dist_adj', 'other_adj'
                     ]);
-                console.log('FINAL PASS', finalpass);
+                //console.log('FINAL PASS', finalpass);
 
                 flattened.push(finalpass);
             });
@@ -130,15 +140,85 @@
             return (exps);
         }
         function getInsurance(loan) {
-            var insurance = [];
-            return insurance;
+            var policyList = loan.inspols;
+            //console.log('Policies', policyList);
+
+            var ins = {
+                agencies: processAgencies(policyList),
+                byCrop: processInsByCrop(loan),
+                database: processForInsDB(policyList),
+                //not Working
+                nonrp: processNonRPInsurance(policyList),
+                policies: checkStax(policyList),
+                //not Working
+                totals: processInsTotals(processInsByCrop(policyList))
+            };
+            console.log('LoanInsurance: ', ins);
+            return ins;
         }
         function getLoanCrops(loan) {
-            return $http.get(API_URL + 'loans/' + loan.id + '/loancrops')
-                .then(function(rsp){
-                    return rsp.data.data;
+            var loancrops = loan.loancrops;
+            var crop_acres = loan.fins.crop_acres;
 
+            return _.each(loancrops, function(item) {
+                var acres = _.find(crop_acres, function(aa) {
+                    if (aa.id === Number(item.crop_id)) {
+                        return aa.acres;
+                    };
                 });
+
+                item.acres = acres.acres;
+                return item;
+            });
+        }
+        function getPrerequisites(id) {
+            return $http.get(API_URL + 'loans/' + id + '/prereqs');
+        }
+        function processAgencies(policies) {
+            var result = [];
+            var exists = {};
+            var arrayOfFinalProduct = [];
+            var agentExists = {};
+
+            var firstPass = _.forEach(policies, function (policy) {
+                if (!exists[policy.agent_id]) {
+                    result.push(policy);
+                    exists[policy.agent_id] = true;
+                }
+            });
+            //console.log('RESULT', result);
+
+            var secondPass = _.forEach(result, function (policy) {
+                var idealProduct = {};
+                var allreadyHappend = _.find(arrayOfFinalProduct, {'id': policy.agency_id});
+                if (!_.isUndefined(allreadyHappend)) {
+                    allreadyHappend.agents.push({
+                        id: policy.agent_id,
+                        agent: policy.agent.agent,
+                        agent_email: policy.agent_email,
+                        agent_phone: policy.agent_phone
+                    });
+                } else if (!agentExists[policy.agent_id]) {
+                    idealProduct.agents = [];
+                    idealProduct.id = policy.agent.agency_id;
+                    idealProduct.agency = policy.agent.agency;
+                    idealProduct.agency_address = policy.agency_address;
+                    idealProduct.agency_city = policy.agency_city;
+                    idealProduct.agency_state = policy.agency_state;
+                    idealProduct.agency_zip = policy.agency_zip;
+                    idealProduct.agency_email = policy.agency_email;
+                    idealProduct.agency_phone = policy.agency_phone;
+                    idealProduct.agents.push({
+                        id: policy.agent_id,
+                        agent: policy.agent,
+                        agent_email: policy.agent_email,
+                        agent_phone: policy.agent_phone
+                    });
+                    arrayOfFinalProduct.push(idealProduct);
+                    agentExists[policy.agent_id] = true;
+                }
+            });
+            return arrayOfFinalProduct;
         }
         function processCollateral(obj) {
             var all = _.chain(obj).groupBy('type').value();
@@ -277,6 +357,86 @@
                 other: _.sumCollection(expenses, 'calc_other'),
                 total: _.sumCollection(expenses, 'calc_total')
             };
+        }
+        function processForInsDB(policies) {
+            console.log('A POLICY', policies[2]);
+            var onlyPractices = [];
+
+            _.each(policies, function(item){
+                if(item.databases.length > 0) {
+                    onlyPractices.push(item);
+                }
+            });
+
+            return onlyPractices;
+        }
+        function processInsByCrop(loan) {
+            var policies = loan.inspols;
+            //console.log('POLS', policies);
+
+            var grped = _.chain(policies).groupBy('loancrop_id').value();
+            //console.log('grped', grped);
+            var byCrop = [];
+
+            angular.forEach(grped, function (row) {
+                var calcer = {
+                    level: _.pluckuniq(row, 'level'),
+                    price: _.pluckuniq(row, 'price'),
+                    yield: _.weighted(row, 'yield', 'acres'),
+                    premium: _.pluckuniq(row, 'premium'),
+                    share: _.weighted(row, 'share', 'acres'),
+                    acres: _.sumCollection(row, 'acres'),
+                    disc_prod_percent: loan.fins.disc_prod_percent
+                };
+
+                var crop = {
+                    loancrop_id: _.pluckuniq(row, 'loancrop_id'),
+                    crop: _.pluckuniq(row, 'crop'),
+                    name: _.pluckuniq(row, 'name'),
+                    type: _.pluckuniq(row, 'type'),
+                    option: _.pluckuniq(row, 'option'),
+                    price: _.pluckuniq(row, 'price'),
+                    premium: _.pluckuniq(row, 'premium'),
+                    acres: _.sumCollection(row, 'acres'),
+                    share: _.weighted(row, 'share', 'acres'),
+                    level: _.pluckuniq(row, 'level'),
+                    ins_yield: _.weighted(row, 'yield', 'acres'),
+                    proj_crop_discount: Number(loan.fins.disc_prod_percent),
+                    guarantee: Number(AppFactory.calcInsuranceGuaranty(calcer)),
+                    value: Number(AppFactory.calcCropValue(calcer))
+                };
+                this.push(crop);
+            }, byCrop);
+            return byCrop;
+        }
+        function processInsTotals(obj) {
+            var lone = {acres: 0, value: 0};
+            var byLoan = _.forEach(obj, function (item) {
+                lone.acres += Number(item.acres);
+                lone.value += Number(item.value);
+            });
+            return byLoan;
+        }
+        function processNonRPInsurance(obj) {
+            var nonrp = _.filter(obj, function (item) {
+                if (item.type !== 'RP') {
+                    return item;
+                }
+            });
+            if (!nonrp) {
+                return {
+                    acres: 0,
+                    value: 0
+                };
+            } else {
+                var lone = {acres: 0, value: 0};
+                // TODO: Does nonrp have value to accumulate?
+                var byLoan = _.forEach(nonrp, function (item, key) {
+                    lone.acres += Number(item.acres);
+                    lone.value += Number(item.value);
+                });
+                return lone;
+            }
         }
         function processPriorLien(liens) {
             var merged = {

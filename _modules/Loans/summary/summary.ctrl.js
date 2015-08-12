@@ -8,6 +8,35 @@
 
         function SummaryController($rootScope, $scope, AppFactory){
             $scope.comments = AppFactory.parseComments($scope.loan.comments);
-            //console.log($scope.comments);
+            console.log('Income', $scope.loan.loancrops[2]);
+            var optimizer = AppFactory.optimized($scope.loan);
+
+            $scope.getCropProdYield = function(obj) {
+                return _.weighted(obj.practices, 'prod_yield', 'acres');
+            };
+            $scope.getCropProdPrice = function(obj) {
+                return _.weighted(obj.practices, 'prod_price', 'acres');
+            };
+            $scope.getCropProdShare = function(obj) {
+                return _.weighted(obj.practices, 'prod_share', 'acres');
+            }
+            $scope.getCropTotal = function(obj) {
+                var crop_value = Number(obj.acres) * Number($scope.getCropProdYield(obj) * (Number($scope.getCropProdShare(obj)/100)));
+                var bk_adj = (obj.bkprice - Number($scope.getCropProdPrice(obj))) * obj.bkqty;
+                var harvest_adj = (Number(obj.acres) * Number($scope.getCropProdYield(obj))) - obj.var_harvest;
+
+                return crop_value + bk_adj + harvest_adj;
+            }
+            $scope.calcAgInput = function(loan) {
+                var runner = 0;
+                _.each(loan.loancrops, function(i){
+                    var cl = $scope.getCropTotal(i);
+                    runner += cl;
+                });
+                return runner;
+            }
+            $scope.calcTotalRevenue = function(loan) {
+                return Number($scope.calcAgInput(loan)) + Number(loan.fins.total_fsa_pay) + Number(loan.fins.total_claims);
+            }
         } // end controller
 })();

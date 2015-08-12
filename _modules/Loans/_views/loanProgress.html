@@ -1,11 +1,18 @@
 <table class="table">
     <tr>
         <td>
-            <span tooltip="Vote Needed"
+            <span tooltip="WatchList"
                   tooltip-append-to-body="true"
                   tooltip-placement="bottom"
-                  class="progicon glyphicons glyphicons-circle-exclamation-mark"
-                  ng-class="{'cBlue': loan.vote_pending, 'cGray': !loan.vote_pending}"></span>
+                  class="progicon glyphicons glyphicons-sunglasses"
+                  ng-class="{'cBlack': loan.is_watched, 'cGray': !loan.is_watched}"></span>
+            <a href="#/edit/{{data.loan_type_id}}/{{data.id}}/committee">
+                <span tooltip="Vote Needed"
+                      tooltip-append-to-body="true"
+                      tooltip-placement="bottom"
+                      class="progicon glyphicons glyphicons-circle-exclamation-mark"
+                      ng-class="{'cBlue': loan.vote_pending, 'cGray': !loan.vote_pending}"></span>
+            </a>
             <span tooltip="Comments"
                   tooltip-append-to-body="true"
                   tooltip-placement="bottom"
@@ -16,11 +23,6 @@
                   tooltip-placement="bottom"
                   class="progicon glyphicons glyphicons-circle-exclamation-mark"
                   ng-class="{'cRed': loan.is_stale, 'cGray': !loan.is_stale}"></span>
-            <span tooltip="WatchList"
-                  tooltip-append-to-body="true"
-                  tooltip-placement="bottom"
-                  class="progicon glyphicons glyphicons-sunglasses"
-                  ng-class="{'cBlack': loan.is_watched, 'cGray': !loan.is_watched}"></span>
             <span tooltip="Disbursement"
                   tooltip-append-to-body="true"
                   tooltip-placement="bottom"
@@ -230,7 +232,7 @@
         <!--<td class="bleft">-->
         <td>
             <!--<a href="#/edit/{{l.loan_type_id}}/{{l.id}}/disbursement">-->
-                <span class="glyphicons glyphicons-wifi-alt"
+                <span class="glyphicons glyphicons-alert"
                       alt=""
                       tooltip="{{loan.limit_warning_message}}"
                       tooltip-append-to-body="true"

@@ -2,11 +2,11 @@
     .rqdoc li{
         line-height: 2.4em;
     }
-    .panel-default>.panel-heading{
+    /*.panel-default>.panel-heading{
         color: white;
         background-color: #006837;
         border-color: #333333;
-    }
+    }*/
 </style>
 <fieldset>
     <legend>Closing</legend>
@@ -19,7 +19,7 @@
                             is-open="status.isFirstOpen"
                             is-disabled="status.isFirstDisabled">
                             <accordion-heading>
-                                Outstanding Loan Condition(s)
+                                Collateral Condition(s)
                                 <span class="pull-right badge">{{missingConditions.length}}</span>
                             </accordion-heading>
                             <ul class="list-unstyled" style="margin-left:20px;" ng-repeat="c in missingConditions">
@@ -46,14 +46,17 @@
                                 Closing Documents
                             </accordion-heading>
                             <ul class="rqdoc list-unstyled" style="margin-left:20px;">
-                                <li><input type="checkbox"/>&nbsp;ARM Fees Invoice</li>
-                                <li><input type="checkbox"/>&nbsp;Bo Gwin Guarantor Agreement</li>
-                                <li><input type="checkbox" checked="checked"/>&nbsp;Sharon Gwin Guarantor Agreement</li>
                                 <li><input type="checkbox"/>&nbsp;Promissory Note</li>
                                 <li><input type="checkbox"/>&nbsp;Agriculture Security Agreement</li>
-                                <li><input type="checkbox"/>&nbsp;Assignment of FSA Payment</li>
+                                <li><input type="checkbox"/>&nbsp;UCC Security Agreement</li>
                                 <li><input type="checkbox"/>&nbsp;Assignment of Indemnity of Crop Insurance</li>
-                                <li><input type="checkbox"/>&nbsp;Loan Document</li>
+                                <li><input type="checkbox"/>&nbsp;Assignment of FSA Payment</li>
+                                <li><input type="checkbox"/>&nbsp;Bo Gwin Guarantor Agreement</li>
+                                <li><input type="checkbox" checked="checked"/>&nbsp;Sharon Gwin Guarantor Agreement</li>
+                                <li><input type="checkbox"/>&nbsp;Cross Collateral Documents</li>
+                                <li><input type="checkbox"/>&nbsp;ARM Fees Invoice</li>
+                                <li><input type="checkbox" ng-if="loan.has_distributor"/>&nbsp;Distributor Documents</li>
+
                             </ul>
                         </accordion-group>
                     </accordion>

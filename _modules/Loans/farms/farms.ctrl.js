@@ -8,6 +8,6 @@
 
         function FarmsController($rootScope, $scope, AppFactory){
             $scope.AppFactory = AppFactory;
-            console.log($scope.loan);
+            console.log($scope.loan.farms);
         } // end controller
 })();

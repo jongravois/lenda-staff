@@ -18,48 +18,48 @@
             </tab>
             <!-- SOYBEANS -->
             <tab heading="Soybeans" ng-if="loan.fins.crop_acres[1].acres > 0">
-                <div ng-if="loan.has_distributor" ng-include="'./_modules/Loans/budget/_budget.table.html'" ng-init="thisacres = loan.fins.crop_acres[1].acres; thiscrop = loan.expenses.byCrop[1]; thistotal = loan.expenses.totals.byCrop[1][0]"></div>
+                <div ng-if="loan.has_distributor" ng-include="'./_modules/Loans/budget/_budget.table.html'" ng-init="thisacres = loan.fins.crop_acres[1].acres; thiscrop = loan.expenses.byCrop[1]; thistotal = loan.expenses.totals.byCrop[0][1]"></div>
                 <div ng-if="!loan.has_distributor" ng-include="'./_modules/Loans/budget/_budget.nd.table.html'" ng-init="thisacres = loan.fins.crop_acres[1].acres; thiscrop = loan.expenses.byCrop[1]; thistotal = loan.expenses.totals.byCrop[1][0]"></div>
             </tab>
             <!-- BEANSFAC -->
             <tab heading="BeansFAC" ng-if="loan.fins.crop_acres[2].acres > 0">
-                <div ng-if="loan.has_distributor" ng-include="'./_modules/Loans/budget/_budget.table.html'" ng-init="thisacres = loan.fins.crop_acres[2].acres; thiscrop = loan.expenses.byCrop[2]; thistotal = loan.expenses.totals.byCrop[2][0]"></div>
-                <div ng-if="!loan.has_distributor" ng-include="'./_modules/Loans/budget/_budget.nd.table.html'" ng-init="thisacres = loan.fins.crop_acres[2].acres; thiscrop = loan.expenses.byCrop[2]; thistotal = loan.expenses.totals.byCrop[2][0]"></div>
+                <div ng-if="loan.has_distributor" ng-include="'./_modules/Loans/budget/_budget.table.html'" ng-init="thisacres = loan.fins.crop_acres[2].acres; thiscrop = loan.expenses.byCrop[2]; thistotal = loan.expenses.totals.byCrop[0][2]"></div>
+                <div ng-if="!loan.has_distributor" ng-include="'./_modules/Loans/budget/_budget.nd.table.html'" ng-init="thisacres = loan.fins.crop_acres[2].acres; thiscrop = loan.expenses.byCrop[2]; thistotal = loan.expenses.totals.byCrop[0][2]"></div>
             </tab>
             <!-- SORGHUM -->
             <tab heading="Sorghum" ng-if="loan.fins.crop_acres[3].acres > 0">
-                <div ng-if="loan.has_distributor" ng-include="'./_modules/Loans/budget/_budget.table.html'" ng-init="thisacres = loan.fins.crop_acres[3].acres; thiscrop = loan.expenses.byCrop[3]; thistotal = loan.expenses.totals.byCrop[3][0]"></div>
-                <div ng-if="!loan.has_distributor" ng-include="'./_modules/Loans/budget/_budget.nd.table.html'" ng-init="thisacres = loan.fins.crop_acres[3].acres; thiscrop = loan.expenses.byCrop[3]; thistotal = loan.expenses.totals.byCrop[3][0]"></div>
+                <div ng-if="loan.has_distributor" ng-include="'./_modules/Loans/budget/_budget.table.html'" ng-init="thisacres = loan.fins.crop_acres[3].acres; thiscrop = loan.expenses.byCrop[3]; thistotal = loan.expenses.totals.byCrop[0][3]"></div>
+                <div ng-if="!loan.has_distributor" ng-include="'./_modules/Loans/budget/_budget.nd.table.html'" ng-init="thisacres = loan.fins.crop_acres[3].acres; thiscrop = loan.expenses.byCrop[3]; thistotal = loan.expenses.totals.byCrop[0][3]"></div>
             </tab>
             <!-- WHEAT -->
             <tab heading="Wheat" ng-if="loan.fins.crop_acres[4].acres > 0">
-                <div ng-if="loan.has_distributor" ng-include="'./_modules/Loans/budget/_budget.table.html'" ng-init="thisacres = loan.fins.crop_acres[4].acres; thiscrop = loan.expenses.byCrop[4]; thistotal = loan.expenses.totals.byCrop[4][0]"></div>
-                <div ng-if="!loan.has_distributor" ng-include="'./_modules/Loans/budget/_budget.nd.table.html'" ng-init="thisacres = loan.fins.crop_acres[4].acres; thiscrop = loan.expenses.byCrop[4]; thistotal = loan.expenses.totals.byCrop[4][0]"></div>
+                <div ng-if="loan.has_distributor" ng-include="'./_modules/Loans/budget/_budget.table.html'" ng-init="thisacres = loan.fins.crop_acres[4].acres; thiscrop = loan.expenses.byCrop[4]; thistotal = loan.expenses.totals.byCrop[0][4]"></div>
+                <div ng-if="!loan.has_distributor" ng-include="'./_modules/Loans/budget/_budget.nd.table.html'" ng-init="thisacres = loan.fins.crop_acres[4].acres; thiscrop = loan.expenses.byCrop[4]; thistotal = loan.expenses.totals.byCrop[0][1]"></div>
             </tab>
             <!-- COTTON -->
             <tab heading="Cotton" ng-if="loan.fins.crop_acres[5].acres > 0">
-                <div ng-if="loan.has_distributor" ng-include="'./_modules/Loans/budget/_budget.table.html'" ng-init="thisacres = loan.fins.crop_acres[5].acres; thiscrop = loan.expenses.byCrop[5]; thistotal = loan.expenses.totals.byCrop[5][0]"></div>
-                <div ng-if="!loan.has_distributor" ng-include="'./_modules/Loans/budget/_budget.nd.table.html'" ng-init="thisacres = loan.fins.crop_acres[5].acres; thiscrop = loan.expenses.byCrop[5]; thistotal = loan.expenses.totals.byCrop[5][0]"></div>
+                <div ng-if="loan.has_distributor" ng-include="'./_modules/Loans/budget/_budget.table.html'" ng-init="thisacres = loan.fins.crop_acres[5].acres; thiscrop = loan.expenses.byCrop[2]; thistotal = loan.expenses.totals.byCrop[0][2]"></div>
+                <div ng-if="!loan.has_distributor" ng-include="'./_modules/Loans/budget/_budget.nd.table.html'" ng-init="thisacres = loan.fins.crop_acres[5].acres; thiscrop = loan.expenses.byCrop[5]; thistotal = loan.expenses.totals.byCrop[0][5]"></div>
             </tab>
             <!-- RICE -->
             <tab heading="Rice" ng-if="loan.fins.crop_acres[6].acres > 0">
-                <div ng-if="loan.has_distributor" ng-include="'./_modules/Loans/budget/_budget.table.html'" ng-init="thisacres = loan.fins.crop_acres[6].acres; thiscrop = loan.expenses.byCrop[6]; thistotal = loan.expenses.totals.byCrop[6][0]"></div>
-                <div ng-if="!loan.has_distributor" ng-include="'./_modules/Loans/budget/_budget.nd.table.html'" ng-init="thisacres = loan.fins.crop_acres[6].acres; thiscrop = loan.expenses.byCrop[6]; thistotal = loan.expenses.totals.byCrop[6][0]"></div>
+                <div ng-if="loan.has_distributor" ng-include="'./_modules/Loans/budget/_budget.table.html'" ng-init="thisacres = loan.fins.crop_acres[6].acres; thiscrop = loan.expenses.byCrop[6]; thistotal = loan.expenses.totals.byCrop[0][6]"></div>
+                <div ng-if="!loan.has_distributor" ng-include="'./_modules/Loans/budget/_budget.nd.table.html'" ng-init="thisacres = loan.fins.crop_acres[0].acres; thiscrop = loan.expenses.byCrop[6]; thistotal = loan.expenses.totals.byCrop[0][6]"></div>
             </tab>
             <!-- PEANUTS -->
             <tab heading="Peanuts" ng-if="loan.fins.crop_acres[7].acres > 0">
-                <div ng-if="loan.has_distributor" ng-include="'./_modules/Loans/budget/_budget.table.html'" ng-init="thisacres = loan.fins.crop_acres[7].acres; thiscrop = loan.expenses.byCrop[7]; thistotal = loan.expenses.totals.byCrop[7][0]"></div>
-                <div ng-if="!loan.has_distributor" ng-include="'./_modules/Loans/budget/_budget.nd.table.html'" ng-init="thisacres = loan.fins.crop_acres[7].acres; thiscrop = loan.expenses.byCrop[7]; thistotal = loan.expenses.totals.byCrop[7][0]"></div>
+                <div ng-if="loan.has_distributor" ng-include="'./_modules/Loans/budget/_budget.table.html'" ng-init="thisacres = loan.fins.crop_acres[7].acres; thiscrop = loan.expenses.byCrop[7]; thistotal = loan.expenses.totals.byCrop[0][7]"></div>
+                <div ng-if="!loan.has_distributor" ng-include="'./_modules/Loans/budget/_budget.nd.table.html'" ng-init="thisacres = loan.fins.crop_acres[7].acres; thiscrop = loan.expenses.byCrop[7]; thistotal = loan.expenses.totals.byCrop[0][7]"></div>
             </tab>
             <!-- SUGAR CANE-->
             <tab heading="Sugar Cane" ng-if="loan.fins.crop_acres[8].acres > 0">
-                <div ng-if="loan.has_distributor" ng-include="'./_modules/Loans/budget/_budget.table.html'" ng-init="thisacres = loan.fins.crop_acres[8].acres; thiscrop = loan.expenses.byCrop[8]; thistotal = loan.expenses.totals.byCrop[8][0]"></div>
-                <div ng-if="!loan.has_distributor" ng-include="'./_modules/Loans/budget/_budget.nd.table.html'" ng-init="thisacres = lloan.fins.crop_acres[8].acres; thiscrop = loan.expenses.byCrop[8]; thistotal = loan.expenses.totals.byCrop[8][0]"></div>
+                <div ng-if="loan.has_distributor" ng-include="'./_modules/Loans/budget/_budget.table.html'" ng-init="thisacres = loan.fins.crop_acres[8].acres; thiscrop = loan.expenses.byCrop[8]; thistotal = loan.expenses.totals.byCrop[0][8]"></div>
+                <div ng-if="!loan.has_distributor" ng-include="'./_modules/Loans/budget/_budget.nd.table.html'" ng-init="thisacres = lloan.fins.crop_acres[8].acres; thiscrop = loan.expenses.byCrop[8]; thistotal = loan.expenses.totals.byCrop[0][8]"></div>
             </tab>
             <!-- SUNFLOWERS-->
             <tab heading="Other" ng-if="loan.fins.crop_acres[9].acres > 0">
-                <div ng-if="loan.has_distributor" ng-include="'./_modules/Loans/budget/_budget.table.html'" ng-init="thisacres = loan.fins.crop_acres[9].acres; thiscrop = loan.expenses.byCrop[9]; thistotal = loan.expenses.totals.byCrop[9][0]"></div>
-                <div ng-if="!loan.has_distributor" ng-include="'./_modules/Loans/budget/_budget.nd.table.html'" ng-init="thisacres = loan.fins.crop_acres[9].acres; thiscrop = loan.expenses.byCrop[9]; thistotal = loan.expenses.totals.byCrop[9][0]"></div>
+                <div ng-if="loan.has_distributor" ng-include="'./_modules/Loans/budget/_budget.table.html'" ng-init="thisacres = loan.fins.crop_acres[9].acres; thiscrop = loan.expenses.byCrop[9]; thistotal = loan.expenses.totals.byCrop[0][9]"></div>
+                <div ng-if="!loan.has_distributor" ng-include="'./_modules/Loans/budget/_budget.nd.table.html'" ng-init="thisacres = loan.fins.crop_acres[9].acres; thiscrop = loan.expenses.byCrop[9]; thistotal = loan.expenses.totals.byCrop[0][9]"></div>
             </tab>
         </tabset>
     </fieldset>

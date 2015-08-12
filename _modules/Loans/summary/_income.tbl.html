@@ -1,4 +1,5 @@
-<table class="table table-striped rowed disp-sm">
+<table class="table table-striped table-condensed rowed disp-sm">
+    <tbody>
     <tr>
         <th style="width:15%;">Source</th>
         <th style="width:10%;">Acres</th>
@@ -7,34 +8,34 @@
         <th style="width:10%;">Bk Qty</th>
         <th style="width:10%;">Bk Price</th>
         <th style="width:10%;">Var Hrv</th>
-        <th style="width:10%;">Share</th>
+        <th style="width:10%;">Prod Share</th>
         <th style="width:10%;">Total</th>
     </tr>
-    <tr ng-repeat="c in loan.loancrops" ng-if="c.is_active == '1'">
+    <tr ng-repeat="c in loan.loancrops" ng-if="c.acres !== 0">
         <td>{{c.crop.name}}</td>
-        <td class="text-right" ng-class="gtZero(c.acres)">
+        <td class="text-right" ng-class="AppFactory.gtZero(c.acres)">
             {{c.acres | number:1}}
         </td>
-        <td class="text-right" ng-class="gtZero(c.prod_yield)">
-            {{c.prod_yield | number:1}}
+        <td class="text-right" ng-class="AppFactory.gtZero(getCropProdYield(c))">
+            {{getCropProdYield(c) | number:1}}
         </td>
-        <td class="text-right" ng-class="gtZero(c.prod_price)">
-            {{c.prod_price | flexCurrency:4}}
+        <td class="text-right" ng-class="AppFactory.gtZero(getCropProdPrice(c))">
+            {{getCropProdPrice(c) | flexCurrency:4}}
         </td>
-        <td class="text-right" ng-class="gtZero(c.bkqty)">
-            {{Number(c.bkqty) | displaynull}}
+        <td class="text-right" ng-class="AppFactory.gtZero(c.bkqty)">
+            {{c.bkqty | displaynull}}
         </td>
-        <td class="text-right" ng-class="gtZero(c.bkprice)">
+        <td class="text-right" ng-class="AppFactory.gtZero(c.bkprice)">
             {{c.bkprice | flexCurrency:4}}
         </td>
-        <td class="text-right" ng-class="gtZero(c.harvest)">
-            {{Number(c.harvest) | flexCurrency:4}}
+        <td class="text-right" ng-class="AppFactory.gtZero(c.var_harvest)">
+            {{c.var_harvest | flexCurrency:4}}
         </td>
-        <td class="text-right" ng-class="gtZero(c.prod_share)">
-            {{c.prod_share | flexPercent:1}}
+        <td class="text-right" ng-class="AppFactory.gtZero(getCropProdShare(c))">
+            {{getCropProdShare(c) | flexPercent:1}}
         </td>
-        <td class="text-right" ng-class="gtZero(c.crop_total)">
-            {{c.crop_total | flexCurrency:0}}
+        <td class="text-right" ng-class="AppFactory.gtZero(getCropTotal(c))">
+            {{getCropTotal(c) | flexCurrency:0}}
         </td>
     </tr>
     <tr>
@@ -44,25 +45,26 @@
         </td>
         <td colspan="6">&nbsp;</td>
         <td class="text-right">
-            {{2140323|flexCurrency:0}}
+            {{calcAgInput(loan)|flexCurrency:0}}
         </td>
     </tr>
     <tr>
         <td colspan="8">FSA Payment</td>
-        <td ng-class=gtZero(AppFactory.getTotalFSAPayment(loan))>
-            {{AppFactory.getTotalFSAPayment(loan) | flexCurrency:0}}
+        <td ng-class=AppFactory.gtZero(loan.fins.total_fsa_pay)>
+            {{loan.fins.total_fsa_pay | flexCurrency:0}}
         </td>
     </tr>
     <tr>
         <td colspan="8">Other</td>
-        <td class="text-right">
-            {{20000 | flexCurrency:0}}
+        <td ng-class=AppFactory.gtZero(loan.fins.total_claims)>
+            {{loan.fins.total_claims | flexCurrency:0}}
         </td>
     </tr>
     <tr>
         <td class="text-left success" colspan="8">Total Revenue</td>
         <td class="text-right success">
-            {{2240323 | flexCurrency:0}}
+            {{calcTotalRevenue(loan) | flexCurrency:0}}
         </td>
     </tr>
+    </tbody>
 </table>

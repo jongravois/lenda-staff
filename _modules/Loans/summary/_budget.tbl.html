@@ -12,13 +12,13 @@
 
     <tr ng-repeat="e in loan.expenses.totals.byCat|orderBy: 'cat_id'" ng-if="e.expense != 'Total'">
         <td colspan="5">{{e[0].expense}}</td>
-        <td class="text-right cBlue" ng-class=AppFactory.gtZero(e[0].calc_arm)>
+        <td class="text-right" ng-class=AppFactory.gtZero(e[0].calc_arm)>
             {{e[0].calc_arm | flexCurrency:0 }}
         </td>
-        <td class="text-right cBlue" ng-class=AppFactory.gtZero(e[0].calc_dist) ng-if="loan.has_distributor">
+        <td class="text-right" ng-class=AppFactory.gtZero(e[0].calc_dist) ng-if="loan.has_distributor">
             {{e[0].calc_dist | flexCurrency:0 }}
         </td>
-        <td class="text-right cBlue" ng-class=AppFactory.gtZero(e[0].calc_other)>
+        <td class="text-right" ng-class=AppFactory.gtZero(e[0].calc_other)>
             {{e[0].calc_other | flexCurrency:0 }}
         </td>
         <td class="text-right" ng-class=AppFactory.gtZero(e[0].calc_total)>
@@ -27,7 +27,7 @@
     </tr>
 
     <!-- CROP EXPENSES -->
-    <tr class="warning">
+    <tr class="warning" style="display:none;">
         <td colspan="5">Crop Expenses</td>
         <td class="text-right" ng-class=AppFactory.gtZero(loan.expenses.totals.byLoan.arm)>
             {{loan.expenses.totals.byLoan.arm | flexCurrency:0 }}
@@ -48,7 +48,7 @@
         <td colspan="5">
             {{fe.expense}}
         </td>
-        <td class="text-right cBlue">
+        <td class="text-right">
             {{fe.cost|flexCurrency:0}}
         </td>
         <td class="text-center"> -</td>
@@ -59,7 +59,7 @@
     </tr>
 
     <!-- SUMMARY OF FARM EXPENSES -->
-    <tr class="warning">
+    <tr class="warning" style="display:none;">
         <td colspan="5">
             Full Farm Expenses
         </td>
@@ -74,7 +74,7 @@
     </tr>
 
     <!-- FEES -->
-    <tr style="display:none;">
+    <tr style="display:none;" style="display:none;">
         <td colspan="5">Fees and Other</td>
         <td class="text-right">
             {{loan.fins.fee_total|flexCurrency:0 }}
@@ -89,7 +89,7 @@
     <!-- PRINCIPAL -->
     <tr class="success">
         <td colspan="5" class="text-left">
-            <strong>Total Expenses</strong>
+            <strong>Total Budgeted Expenses</strong>
         </td>
         <td class="text-right">
             {{AppFactory.calcTotalArmAndFarmExpenses(loan)|flexCurrency:0}}
@@ -131,6 +131,3 @@
     </tr>
     </tbody>
 </table>
-<p><a ng-click="AppFactory.createNewFarmExpense()" class="btn btn-xs btn-default">
-    <span class="glyphicon glyphicon-plus-sign" style="color:#006837;"></span> Add New</a></p>
-<!--<pre>{{cropuse|json}}</pre>-->

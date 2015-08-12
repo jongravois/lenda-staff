@@ -11,14 +11,14 @@
                 <th ng-click="doSort('locale')">ST | County</th>
                 <th ng-click="doSort('fsn')">FSN</th>
                 <th ng-click="doSort('owner')">Landlord</th>
-                <th ng-click="doSort('share')">Share</th>
                 <th ng-click="doSort('ac_ir')">AC-IR</th>
                 <th ng-click="doSort('ac_ni')">AC-NI</th>
-                <th ng-click="doSort('acres')">Acres</th>
+                <th ng-click="doSort('share')">Share</th>
                 <th ng-click="doSort('cash_rent')">Cash Rent</th>
                 <th ng-click="doSort('when_due')">When Due</th>
                 <th ng-click="doSort('waived')">Waived</th>
-                <th ng-click="doSort('fsa')">FSA</th>
+                <th ng-click="doSort('pgm')">FSA Pgm</th>
+                <th ng-click="doSort('fsa')">FSA Pymt</th>
                 <th>&nbsp;</th>
                 <th>&nbsp;</th>
             </tr>
@@ -29,53 +29,44 @@
             </tr>
             <tbody ng-repeat="f in loan.farms">
                 <tr>
-                    <td></td>
+                    <td>
+                        {{f.county.locale}}
+                    </td>
                     <td>
                         {{f.fsn}}
                     </td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                    <td>
+                        {{f.owner}}
+                    </td>
+                    <td ng-class="AppFactory.gtZero(f.IR)">
+                        {{f.IR|flexNumber:1}}
+                    </td>
+                    <td ng-class="AppFactory.gtZero(f.NI)">
+                        {{f.NI|flexNumber:1}}
+                    </td>
+                    <td ng-class="AppFactory.gtZero(f.share_rent)">
+                        {{f.share_rent|flexPercent:1}}
+                    </td>
                     <td ng-class="AppFactory.gtZero(f.cash_rent)">
                         {{f.cash_rent|flexCurrency:0}}
                     </td>
-                    <td class="text-right">
+                    <td>
                         {{f.when_due}}
                     </td>
                     <td ng-class="AppFactory.gtZero(f.waived)">
                         {{f.waived|flexCurrency:0}}
                     </td>
+                    <td>
+                        <select name="pgm">
+                            <option>N/A</option>
+                            <option>ARCc</option>
+                            <option>ARCf</option>
+                            <option>PLC</option>
+                        </select>
+                    </td>
                     <td ng-class="AppFactory.gtZero(f.fsa_paid)">
                         {{f.fsa_paid|flexCurrency:0}}
                     </td>
-                    <td></td>
-                </tr>
-                <tr ng-repeat="u in f.units">
-                    <td>
-                        {{u.county.locale}}
-                    </td>
-                    <td></td>
-                    <td>
-                        {{u.owner}}
-                    </td>
-                    <td ng-class="AppFactory.gtZero(u.share_rent)">
-                        {{u.share_rent|flexPercent:1}}
-                    </td>
-                    <td ng-class="AppFactory.gtZero(u.IR)">
-                        {{u.IR|displaynullsingle}}
-                    </td>
-                    <td ng-class="AppFactory.gtZero(u.NI)">
-                        {{u.NI|displaynullsingle}}
-                    </td>
-                    <td class="text-right">
-                        {{(1*u.IR)+(1*u.NI)|displaynullsingle}}
-                    </td>
-                    <td></td>
-                    <td></td>
-                    <td class="text-right"></td>
-                    <td></td>
                     <td></td>
                 </tr>
             </tbody>

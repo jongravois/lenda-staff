@@ -42,6 +42,8 @@
                 $scope.sortedLoanList = settingsLoans;
                 $rootScope.loans = settingsLoans;
                 $scope.hgt = $scope.sortedLoanList.length * 38;
+                if($scope.hgt < 300) { $scope.hgt = 300; }
+
                 var data = AppFactory.getSortedData($scope.pendingView, $scope.sortedLoanList);
 
                 $scope.gridOptions.rowData = data;
@@ -64,7 +66,7 @@
             {
                 field: 'notification',
                 headerName: ' ',
-                templateUrl: './app/views/grid_tmpl/listing.indicators.html',
+                templateUrl: './app/views/grid_tmpl/indicators.html',
                 cellClass: 'text-center',
                 suppressSizeToFit: true,
                 width: $scope.indWid.width,
@@ -134,7 +136,7 @@
                 headerName: 'Due',
                 headerClass: 'text-center',
                 suppressSizeToFit: true,
-                width: 90,
+                width: 85,
                 headerTooltip: 'Due Date',
                 hide: !user.viewopts.voDueDate
             },
@@ -143,7 +145,7 @@
                 headerName: 'Reg',
                 headerClass: 'text-center',
                 suppressSizeToFit: true,
-                width: 60,
+                width: 85,
                 headerTooltip: 'Region',
                 hide: !user.viewopts.voRegion
             },
@@ -152,7 +154,7 @@
                 headerName: 'Season',
                 headerClass: 'text-center',
                 suppressSizeToFit: true,
-                width: 90,
+                width: 85,
                 headerTooltip: 'Season',
                 hide: !user.viewopts.voSeason
             },
@@ -161,7 +163,7 @@
                 headerName: 'Dist',
                 headerClass: 'text-center',
                 suppressSizeToFit: true,
-                width: 60,
+                width: 85,
                 headerTooltip: 'Distributor',
                 hide: !user.viewopts.voDistributor
             },
@@ -170,7 +172,7 @@
                 headerName: 'Agency',
                 headerClass: 'text-center',
                 suppressSizeToFit: true,
-                width: 60,
+                width: 85,
                 headerTooltip: 'Agency',
                 hide: !user.viewopts.voAgency
             },
@@ -183,7 +185,7 @@
                 },
                 cellClass: 'text-right',
                 suppressSizeToFit: true,
-                width: 90,
+                width: 85,
                 headerTooltip: 'Total Commit',
                 hide: !user.viewopts.voCommitTotal
             },
@@ -196,7 +198,7 @@
                 },
                 cellClass: 'text-right',
                 suppressSizeToFit: true,
-                width: 90,
+                width: 85,
                 headerTooltip: 'ARM Commit',
                 hide: !user.viewopts.voCommitArm
             },
@@ -209,7 +211,7 @@
                 },
                 cellClass: 'text-right',
                 suppressSizeToFit: true,
-                width: 90,
+                width: 85,
                 headerTooltip: 'Dist Commit',
                 hide: !user.viewopts.voCommitDistributor
             },
@@ -222,7 +224,7 @@
                 },
                 cellClass: 'text-right',
                 suppressSizeToFit: true,
-                width: 60,
+                width: 85,
                 headerTooltip: '3p Commit',
                 hide: !user.viewopts.voCommitOther
             },
@@ -235,7 +237,7 @@
                 },
                 cellClass: 'text-right',
                 suppressSizeToFit: true,
-                width: 60,
+                width: 85,
                 headerTooltip: 'Total Fee %',
                 hide: !user.viewopts.voFeePercentage
             },
@@ -248,7 +250,7 @@
                 },
                 cellClass: 'text-right',
                 suppressSizeToFit: true,
-                width: 60,
+                width: 85,
                 headerTooltip: 'Total Fee',
                 hide: !user.viewopts.voFeeTotal
             },
@@ -261,7 +263,7 @@
                 },
                 cellClass: 'text-right',
                 suppressSizeToFit: true,
-                width: 60,
+                width: 85,
                 headerTooltip: 'ARM Rate',
                 hide: !user.viewopts.voRateArm
             },
@@ -274,7 +276,7 @@
                 },
                 cellClass: 'text-right',
                 suppressSizeToFit: true,
-                width: 60,
+                width: 85,
                 headerTooltip: 'Dist Rate',
                 hide: !user.viewopts.voRateDist
             },
@@ -287,7 +289,7 @@
                 },
                 cellClass: 'text-right',
                 suppressSizeToFit: true,
-                width: 60,
+                width: 85,
                 headerTooltip: 'Balance',
                 hide: !user.viewopts.voBalanceDue
             },
@@ -300,7 +302,7 @@
                 },
                 cellClass: 'text-right',
                 suppressSizeToFit: true,
-                width: 60,
+                width: 85,
                 headerTooltip: 'Total Acres',
                 hide: !user.viewopts.voAcresTotal
             },
@@ -313,7 +315,7 @@
                 },
                 cellClass: 'text-right',
                 suppressSizeToFit: true,
-                width: 60,
+                width: 85,
                 headerTooltip: 'Corn Acres',
                 hide: !user.viewopts.voAcresCorn
             },
@@ -326,7 +328,7 @@
                 },
                 cellClass: 'text-right',
                 suppressSizeToFit: true,
-                width: 60,
+                width: 85,
                 headerTooltip: 'Soybean Acres',
                 hide: !user.viewopts.voAcresSoybeans
             },
@@ -339,7 +341,7 @@
                 },
                 cellClass: 'text-right',
                 suppressSizeToFit: true,
-                width: 60,
+                width: 85,
                 headerTooltip: 'Soybean FAC Acres',
                 hide: !user.viewopts.voAcresBeansFAC
             },
@@ -352,7 +354,7 @@
                 },
                 cellClass: 'text-right',
                 suppressSizeToFit: true,
-                width: 60,
+                width: 85,
                 headerTooltip: 'Sorghum Acres',
                 hide: !user.viewopts.voAcresSorghum
             },
@@ -365,7 +367,7 @@
                 },
                 cellClass: 'text-right',
                 suppressSizeToFit: true,
-                width: 60,
+                width: 85,
                 headerTooltip: 'Wheat Acres',
                 hide: !user.viewopts.voAcresWheat
             },
@@ -378,7 +380,7 @@
                 },
                 cellClass: 'text-right',
                 suppressSizeToFit: true,
-                width: 60,
+                width: 85,
                 headerTooltip: 'Cotton Acres',
                 hide: !user.viewopts.voAcresCotton
             },
@@ -391,7 +393,7 @@
                 },
                 cellClass: 'text-right',
                 suppressSizeToFit: true,
-                width: 60,
+                width: 85,
                 headerTooltip: 'Rice Acres',
                 hide: !user.viewopts.voAcresRice
             },
@@ -404,7 +406,7 @@
                 },
                 cellClass: 'text-right',
                 suppressSizeToFit: true,
-                width: 60,
+                width: 85,
                 headerTooltip: 'Peanut Acres',
                 hide: !user.viewopts.voAcresPeanuts
             },
@@ -417,7 +419,7 @@
                 },
                 cellClass: 'text-right',
                 suppressSizeToFit: true,
-                width: 60,
+                width: 90,
                 headerTooltip: 'Sugar Cane Acres',
                 hide: !user.viewopts.voAcresSugarcane
             },
@@ -430,7 +432,7 @@
                 },
                 cellClass: 'text-right',
                 suppressSizeToFit: true,
-                width: 60,
+                width: 85,
                 headerTooltip: 'Sunflower Acres',
                 hide: !user.viewopts.voAcresOther
             }

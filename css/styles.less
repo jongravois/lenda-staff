@@ -144,6 +144,50 @@ table.ls-sm td{ font-size: 14px; }
     background-color: @arm-green;
     border-color: darken(@arm-green, 20%);
 }
+.btn-ARM {
+    color: #ffffff;
+    background-color: #006837;
+    border-color: #002B17;
+}
+
+.btn-ARM:hover,
+.btn-ARM:focus,
+.btn-ARM:active,
+.btn-ARM.active,
+.open .dropdown-toggle.btn-ARM {
+    color: #ffffff;
+    background-color: #010805;
+    border-color: #002B17;
+}
+
+.btn-ARM:active,
+.btn-ARM.active,
+.open .dropdown-toggle.btn-ARM {
+    background-image: none;
+}
+.btn-ARM.disabled,
+.btn-ARM[disabled],
+fieldset[disabled] .btn-ARM,
+.btn-ARM.disabled:hover,
+.btn-ARM[disabled]:hover,
+fieldset[disabled] .btn-ARM:hover,
+.btn-ARM.disabled:focus,
+.btn-ARM[disabled]:focus,
+fieldset[disabled] .btn-ARM:focus,
+.btn-ARM.disabled:active,
+.btn-ARM[disabled]:active,
+fieldset[disabled] .btn-ARM:active,
+.btn-ARM.disabled.active,
+.btn-ARM[disabled].active,
+fieldset[disabled] .btn-ARM.active {
+    background-color: #aaaaaa;
+    border-color: #777777
+}
+
+.btn-ARM .badge {
+    color: #006837;
+    background-color: #ffffff;
+}
 .btn-black {
     background: @darkestgray;
     color: @white;
