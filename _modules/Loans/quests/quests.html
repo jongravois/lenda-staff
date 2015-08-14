@@ -249,7 +249,7 @@
                 </div>
             </div>
         </div>
-        <div class="row form-group" ng-if="loan.quests.legal_defendant">
+        <div class="row form-group" ng-show="loan.quests.legal_defendant || loan.quests.legal_defendant == '1'" ng-hide="loan.quests.legal_defendant == '0'">
             <div class="col-md-8 col-lg-offset-2">
                 <div class="col-md-12">
                     <label>Details</label>
@@ -266,15 +266,15 @@
                     <label>Are there any judgement outstanding against you?</label>
                 </div>
                 <div class="col-md-3">
-                    <input type="radio" name="judgements" ng-value="true" ng-model="loan.quests.judgements"/>
+                    <input type="radio" name="judgements" ng-value="true" ng-true-value='1' ng-model="loan.quests.judgements"/>
                     &nbsp;<label>Yes</label>
                     &nbsp;&nbsp;&nbsp;
-                    <input type="radio" name="judgements" ng-value="false" ng-model="loan.quests.judgements"/>
+                    <input type="radio" name="judgements" ng-value="false" ng-true-value='0' ng-model="loan.quests.judgements"/>
                     &nbsp;<label>No</label>
                 </div>
             </div>
         </div>
-        <div class="row form-group" ng-if="loan.quests.judgements">
+        <div class="row form-group" ng-show="loan.quests.judgements || loan.quests.judgements == '1'" ng-hide="loan.quests.judgements == '0'">
             <div class="col-md-8 col-lg-offset-2">
                 <div class="col-md-12">
                     <label>Details</label>
@@ -292,15 +292,15 @@
                 </div>
                 <div class="col-md-3">
                     <!-- 'YES' TURNS ON BANKRUPTCY HISTORY -->
-                    <input type="radio" name="bankruptcy" ng-value="true" ng-model="loan.quests.bankruptcy"/>
+                    <input type="radio" name="bankruptcy" ng-value="true" ng-true-value='1' ng-model="loan.quests.bankruptcy"/>
                     &nbsp;<label>Yes</label>
                     &nbsp;&nbsp;&nbsp;
-                    <input type="radio" name="bankruptcy" ng-value="false" ng-model="loan.quests.bankruptcy"/>
+                    <input type="radio" name="bankruptcy" ng-value="false" ng-true-value='0' ng-model="loan.quests.bankruptcy"/>
                     &nbsp;<label>No</label>
                 </div>
             </div>
         </div>
-        <div class="row form-group" ng-if="loan.quests.bankruptcy">
+        <div class="row form-group" ng-show="loan.quests.bankruptcy || loan.quests.bankruptcy == '1'" ng-hide="loan.quests.bankruptcy == '0'">
             <div class="col-md-8 col-lg-offset-2">
                 <div class="col-md-12">
                     <label>Details</label>
@@ -308,7 +308,7 @@
                 </div>
             </div>
         </div>
-        <div class="row form-group" ng-if="loan.quests.bankruptcy">
+        <div class="row form-group" ng-show="loan.quests.bankruptcy || loan.quests.bankruptcy == '1'" ng-hide="loan.quests.bankruptcy == '0'">
             <div class="col-md-8 col-lg-offset-2">
                 <div class="col-md-9">
                     <label style="color:#000099;">Must you have a Court Order to Incur Debt?</label>
@@ -330,15 +330,15 @@
                     <label>Are there any outstanding liens on the crops involved in this loan?</label>
                 </div>
                 <div class="col-md-3">
-                    <input type="radio" name="liens" ng-value="true" ng-model="loan.quests.liens"/>
+                    <input type="radio" name="liens" ng-value="true" ng-true-value='1' ng-model="loan.quests.liens"/>
                     &nbsp;<label>Yes</label>
                     &nbsp;&nbsp;&nbsp;
-                    <input type="radio" name="liens" ng-value="false" ng-model="loan.quests.liens"/>
+                    <input type="radio" name="liens" ng-value="false" ng-true-value='0' ng-model="loan.quests.liens"/>
                     &nbsp;<label>No</label>
                 </div>
             </div>
         </div>
-        <div class="row form-group" ng-if="loan.quests.liens">
+        <div class="row form-group" ng-show="loan.quests.lien_details || loan.quests.lien_details == '1'" ng-hide="loan.quests.lien_details == '0'">
             <div class="col-md-8 col-lg-offset-2">
                 <div class="col-md-12">
                     <label>Details</label>

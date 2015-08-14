@@ -10,10 +10,17 @@
         function CommentsController($rootScope, $scope, AppFactory) {
             /* jshint validthis: true */
             $scope.comments = $scope.loan.parsedComments;
-            //console.log('Comments', $scope.comments);
+            console.log('Comments', $scope.comments);
+
+            $scope.checkCommentStatus = function(obj) {
+                if(!obj.status || obj.status.length === 0) {
+                    return false;
+                }
+                return true;
+            };
 
             $scope.btnCommentOk = function(comm) {
-                alert('Acknowledged');
+                return comm.status == true;
             }
             $scope.btnCommentReply = function(comm) {
                 alert('Replying');

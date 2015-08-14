@@ -36,8 +36,10 @@
         function updateLoanData(loan) {
             return $q.all({
                 collateral: processCollateral(loan.other_collateral),
+                countycrops: getCountyCrops(loan),
                 crops: getCrops(loan),
                 expenses: getExpenses(loan),
+                fins: processFins(loan),
                 loancrops: getLoanCrops(loan),
                 insurance: getInsurance(loan),
                 parsedComments: structureComments(loan),
@@ -113,6 +115,38 @@
             //console.log('FLAT', flattened );
             return flattened;
         }
+        function getCountiesInLoan(loan) {
+            var parishes = [];
+            _.each(loan.farms, function(item){
+                console.log('FARMS', item);
+                var newbie = {
+                    county_id: item.county_id,
+                    county: item.county.county,
+                    state_id: item.county.state_id,
+                    state_abr: item.county.state.abr,
+                    state: item.county.state.state,
+                    locale: item.county.locale
+                };
+                if(!_.some(parishes, {'county_id' : newbie.county_id})) {
+                    parishes.push(newbie);
+                }
+            });
+            var counties = _.chain(parishes)
+                .groupBy('county')
+                .value();
+            return counties;
+        }
+        function getCountyCrops(loan) {
+            return 999999;
+        }
+        function getCropAcresInCounty(cropID, countyID, loan) {
+            //find farms in county
+            var farms = _.some(loan.farms, {county_id: countyID});
+            console.log('FIC', farms);
+            //find crop in farm
+            //find practices in farm
+            //sum acres of practices in crop in farm in county
+        }
         function getCrops(loan) {
             var crops = [];
             _.each(loan.loancrops, function(item){
@@ -120,7 +154,6 @@
                     crop_id: item.crop.id,
                     crop: item.crop.crop
                 };
-                //crops.push(item.crops.crop);
                 crops.push(newbie);
             });
             return crops;
@@ -153,7 +186,7 @@
                 //not Working
                 totals: processInsTotals(processInsByCrop(policyList))
             };
-            console.log('LoanInsurance: ', ins);
+            //console.log('LoanInsurance: ', ins);
             return ins;
         }
         function getLoanCrops(loan) {
@@ -358,8 +391,31 @@
                 total: _.sumCollection(expenses, 'calc_total')
             };
         }
+        function processFins(loan) {
+            var fins = loan.fins;
+            var crops_in_loan = getCrops(loan);
+            var counties_in_loan = getCountiesInLoan(loan);
+
+            var farms = getCropAcresInCounty('6', '1310', loan);
+
+            var gpd_crops = _.chain(crops_in_loan)
+                .groupBy('crop')
+                .value();
+            console.log('GPD', gpd_crops);
+
+            fins.total_income = 10000000;
+
+            var loan_crops_acres = {
+                working: true
+            };
+
+            fins.loan_crops_acres = loan_crops_acres;
+            fins.counties_in_loan = counties_in_loan;
+            fins.loan_crops_acres = loan_crops_acres;
+            return fins;
+        }
         function processForInsDB(policies) {
-            console.log('A POLICY', policies[2]);
+            //console.log('A POLICY', policies[2]);
             var onlyPractices = [];
 
             _.each(policies, function(item){
@@ -374,17 +430,21 @@
             var policies = loan.inspols;
             //console.log('POLS', policies);
 
-            var grped = _.chain(policies).groupBy('loancrop_id').value();
+            var grped = _.chain(policies).groupBy('crop_id').value();
             //console.log('grped', grped);
             var byCrop = [];
 
             angular.forEach(grped, function (row) {
+                var calced_ins_share = 0;
+                if(row.databases && row.databases.length > 0) {
+                    calced_ins_share = _.weighted();
+                }
                 var calcer = {
-                    level: _.pluckuniq(row, 'level'),
-                    price: _.pluckuniq(row, 'price'),
-                    yield: _.weighted(row, 'yield', 'acres'),
+                    ins_level: _.pluckuniq(row, 'ins_level'),
+                    ins_price: _.pluckuniq(row, 'ins_price'),
+                    //ins_yield: _.weighted(row, 'yield', 'acres'),
                     premium: _.pluckuniq(row, 'premium'),
-                    share: _.weighted(row, 'share', 'acres'),
+                    ins_share: calced_ins_share,
                     acres: _.sumCollection(row, 'acres'),
                     disc_prod_percent: loan.fins.disc_prod_percent
                 };
@@ -394,13 +454,13 @@
                     crop: _.pluckuniq(row, 'crop'),
                     name: _.pluckuniq(row, 'name'),
                     type: _.pluckuniq(row, 'type'),
-                    option: _.pluckuniq(row, 'option'),
-                    price: _.pluckuniq(row, 'price'),
+                    options: _.pluckuniq(row, 'options'),
+                    ins_price: _.pluckuniq(row, 'ins_price'),
                     premium: _.pluckuniq(row, 'premium'),
                     acres: _.sumCollection(row, 'acres'),
-                    share: _.weighted(row, 'share', 'acres'),
-                    level: _.pluckuniq(row, 'level'),
-                    ins_yield: _.weighted(row, 'yield', 'acres'),
+                    ins_level: _.pluckuniq(row, 'ins_level'),
+                    ins_share: calced_ins_share,
+                    //ins_yield: _.weighted(row, 'ins_yield', 'acres'),
                     proj_crop_discount: Number(loan.fins.disc_prod_percent),
                     guarantee: Number(AppFactory.calcInsuranceGuaranty(calcer)),
                     value: Number(AppFactory.calcCropValue(calcer))

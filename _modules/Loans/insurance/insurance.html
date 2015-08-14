@@ -120,12 +120,13 @@
                         <td class="text-right cBlue" style="width:80px;">
                             {{p.planting_days|number:0}}
                         </td>
+                        <td></td>
                     </tr>
                     <tr ng-repeat-end
                         ng-if="p.stax"
                         ng-show="p.showStax"
                         ng-hide="!p.showStax">
-                        <td colspan="3">&nbsp;</td>
+                        <td colspan="2">&nbsp;</td>
                         <td colspan="2" class="text-right">
                             <label style="font-weight: normal;">
                                 STAX Loss Trigger:
@@ -156,6 +157,7 @@
                                 {{p.stax_protection_factor|flexPercent:0}}
                             </span>
                         </td>
+                        <td></td>
                     </tr>
                 </table>
                 <p>

@@ -46,7 +46,7 @@
               tooltip-append-to-body="true"
               tooltip-placement="bottom"
               ng-click="toggleCrossColateral()"
-              ng-class="{'cRed': XColView, 'clrOn': loan.is_cross_collateralized, 'clrOff': !loan.is_cross_collateralized }" style="color: #333333;" ng-if="!XColView"></span>
+              ng-class="{'cRed': XColView, 'clrOn': loan.is_cross_collateralized, 'clrOff': !loan.is_cross_collateralized }" style="color: #cccccc;" ng-if="!XColView"></span>
         <span class="progicon glyphicons glyphicons-fire"
               tooltip="Bankruptcy History"
               tooltip-append-to-body="true"
@@ -237,7 +237,7 @@
                       tooltip="{{loan.limit_warning_message}}"
                       tooltip-append-to-body="true"
                       tooltip-placement="bottom"
-                      ng-class="{'cGray': loan.limit_warning < 2, 'cYellow': loan.limit_warning == 2, 'cRed': loan.limit_warning == 3, 'cGray': loan.limit_warning > 3}"></span>
+                      ng-class="{'cGray': loan.limit_warning > 3, 'cRed': loan.limit_warning === 3, 'cYellow': loan.limit_warning === 2, 'cGray': loan.limit_warning < 2}"></span>
             <!--</a>-->
         </td>
         <td>

@@ -26,6 +26,8 @@
             calcInsuranceTotalValue: calcInsuranceTotalValue,
             calcInsuranceValue: calcInsuranceValue,
             calcMarketValueTotal: calcMarketValueTotal,
+            calcSuppInsMax: calcSuppInsMax,
+            calcSuppInsTotal: calcSuppInsTotal,
             calcTotalArmAndFarmExpenses: calcTotalArmAndFarmExpenses,
             calcTotalExpenses: calcTotalExpenses,
             calcTotalFarmExpenses: calcTotalFarmExpenses,
@@ -35,6 +37,7 @@
             filterLoans: filterLoans,
             fixDollars: fixDollars,
             getAll: getAll,
+            getAcresForCropInCounty: getAcresForCropInCounty,
             getAcresForCropInLoan: getAcresForCropInLoan,
             getAllCrops: getAllCrops,
             getIndicatorWidth: getIndicatorWidth,
@@ -133,7 +136,7 @@
                     unit.cf = ((unit.fsa_acre + unit.prod_rev + unit.prod_rev_adj) - ((unit.arm_budget + unit.arm_rent_acre + unit.arm_fees) + (unit.dist_budget + unit.dist_rent_acres) + unit.other_budget + unit.arm_int + unit.dist_int + unit.other_int)) * parseFloat(unit_practice.acres);
 
                     unit_cf_calcs.push(unit);
-                    console.log('UCC', unit_cf_calcs);
+                    //console.log('UCC', unit_cf_calcs);
                 }
             });
             return unit_cf_calcs;
@@ -225,16 +228,23 @@
             return _.weighted(crop, 'ins_share', 'acres');
         }
         function calcInsuranceGuaranty(obj) {
-            if(!obj.yield){
-                obj.yield = obj.aph;
+            if(!obj.ins_yield){
+                if(obj.aph){
+                    obj.ins_yield = obj.aph;
+                } else {
+                    return 0;
+                }
             }
-            return (Number(obj.level) / 100) * Number(obj.price) * Number(obj.yield);
+            return (Number(obj.ins_level) / 100) * Number(obj.ins_price) * Number(obj.yield) * (Number*(obj.ins_share)/100);
         }
         function calcInsuranceTotalGuarantee(loan) {
             if(!loan) { return; }
 
-            // TOTAL INSURANCE VALUE
-            return calcTotalOverDisc(loan);
+            //LEVEL * PRICE * YIELD
+
+            //SUM ALL CROPS IN LOAN MPCI
+
+            return ;
         }
         function calcInsuranceTotalValue(loan) {
             if(!loan) { return; }
@@ -255,6 +265,18 @@
             //formula: calcPlannedCropValue(loan) + calcFSACollateralValue(loan) + calcIODCollateralValue(loan) + calcNRPCollateralValue(loan) + calcSuppInsValue(loan) + calcEquipmentCollateralValue(loan) + calcRECollateralTotal(loan) + calcOtherCollateralValue(loan);
 
             return Number(loan.fins.adj_prod) + Number(loan.fins.total_fsa_payment) + Number(loan.fins.ins_disc_prod) + Number(loan.insurance.nonrp.value) + Number(loan.supplements.totals.value) + Number(calcEquipmentCollateralValue(loan)) + Number(calcRECollateralValue(loan)) + Number(calcOtherCollateralValue(loan));
+        }
+        function calcSuppInsMax(obj) {
+            //console.log('MAX', obj);
+            //coverage range/100 * expected yield * price
+            var max = 0;
+            return 50;
+        }
+        function calcSuppInsTotal(obj) {
+            //console.log('INSPOLS', obj);
+
+            var max = calcSuppInsMax(obj);
+            return 999999;
         }
         function calcTotalArmAndFarmExpenses(loan) {
             return Number(loan.expenses.totals.byLoan.arm) + Number(calcTotalFarmExpenses(loan));
@@ -317,7 +339,12 @@
             return parseFloat(finalResult);
 
         }
-        function getAcresForCropInLoan(loanID, cropID) {}
+        function getAcresForCropInLoan(loanID, cropID) {
+            return 999999;
+        }
+        function getAcresForCropInCounty(loanID, cropID) {
+            return 999999;
+        }
         function getAllCrops() {
             //TODO: Hard Coded
             return ['corn', 'soybeans', 'beansFAC', 'sorghum', 'wheat', 'cotton', 'rice', 'peanuts', 'sugarcane'];

@@ -1,34 +1,88 @@
-<table class="table table-striped rowed disp-sm">
+<table class="table table-striped table-condensed rowed disp-sm">
     <tr>
-        <th>Crop</th>
-        <th>Type</th>
-        <th>Option</th>
-        <th>Price</th>
-        <th>Level</th>
-        <th>RPCI</th>
-        <th>Premium</th>
-        <th>Share</th>
-        <th>Value</th>
+        <th style="width:15%;">Crop</th>
+        <th style="width:15%;">ST | Cnty</th>
+        <th style="width:6%;">Type</th>
+        <th style="width:6%;">Opt</th>
+        <th style="width:8%;">Ins Price</th>
+        <th style="width:6%;">Level</th>
+        <th style="width:8%;">MPCI</th>
+        <th style="width:8%;">Sup</th>
+        <th style="width:8%;">Premium</th>
+        <th style="width:8%;">Ins Share</th>
+        <th style="width:20%;">Value</th>
     </tr>
     <tr ng-if="loan.insurance.byCrop.length === 0">
         <td colspan="9"><strong>No Insurance Information Found.</strong></td>
     </tr>
-    <tr ng-repeat="c in loan.insurance.byCrop|orderBy:'crop_id'" ng-if="loan.insurance.byCrop.length !== 0">
+    <tr ng-repeat="c in loan.insurance.byCrop|orderBy:'crop_id'">
         <td>{{c.crop.name}}</td>
+        <td>{{c.county.locale}}</td>
         <td class="text-center">{{c.type}}</td>
-        <td class="text-center">{{c.option}}</td>
-        <td class="text-right">{{c.price|flexCurrency:2}}</td>
-        <td class="text-right">{{c.level|flexPercent:1}}</td>
+        <td class="text-center">{{c.options}}</td>
+        <td class="text-right">{{c.ins_price|flexCurrency:2}}</td>
+        <td class="text-right">{{c.ins_level|flexPercent:1}}</td>
         <td class="text-right">{{c.guarantee|flexCurrency:2}}</td>
+        <td class="text-right">{{AppFactory.calcSuppInsTotal(c)|flexCurrency:2}}</td>
         <td class="text-right">{{c.premium|flexCurrency:2}}</td>
-        <td class="text-right">{{c.share|flexPercent:1}}</td>
+        <td class="text-right">{{c.ins_share|flexPercent:1}}</td>
         <td class="text-right">{{c.value|flexCurrency:0}}</td>
     </tr>
     <tr ng-if="loan.insurance.byCrop.length !== 0">
-        <td class="success">Total Insurance</td>
-        <td class="success" colspan="7">&nbsp;</td>
+        <td class="success">
+            Total Insurance
+        </td>
+        <td class="success" colspan="9">&nbsp;</td>
         <td class="text-right success">
             {{AppFactory.calcInsuranceTotalValue(loan)|flexCurrency:0}}
+        </td>
+    </tr>
+</table>
+<br/>
+<table class="table table-striped table-condensed rowed disp-sm">
+    <tr>
+        <th style="width:15%;">Crop</th>
+        <th style="width:15%;">ST | Cnty</th>
+        <th style="width:6%;">&nbsp;</th>
+        <th style="width:6%;">&nbsp;</th>
+        <th style="width:8%;">&nbsp;</th>
+        <th style="width:6%;">&nbsp;</th>
+        <th style="width:8%;">Amount</th>
+        <th style="width:8%;">&nbsp;</th>
+        <th style="width:8%;">Premium</th>
+        <th style="width:8%;">&nbsp;</th>
+        <th style="width:20%;">Value</th>
+    </tr>
+    <tr ng-if="loan.crophail.length === 0">
+        <td colspan="11"><strong>No Policies Found.</strong></td>
+    </tr>
+    <tr ng-repeat="c in loan.crophail">
+        <td>
+            {{c.crop.name}}
+        </td>
+        <td>
+            {{c.county.locale}}
+        </td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td ng-class="AppFactory.gtZero(c.amount)">
+            {{c.amount|flexCurrency:2}}
+        </td>
+        <td>&nbsp;</td>
+        <td ng-class="AppFactory.gtZero(c.premium)">
+            {{c.premium|flexCurrency:2}}
+        </td>
+        <td>&nbsp;</td>
+        <td ng-class="AppFactory.gtZero(calcCropHailValue(c))">
+            {{calcCropHailValue(c)|flexCurrency:0}}
+        </td>
+    </tr>
+    <tr class="success">
+        <td colspan="10">Total Value</td>
+        <td ng-class="AppFactory.gtZero(calcCropHailTotalValue(loan.crophail))">
+            {{calcCropHailTotalValue(loan.crophail)|flexCurrency:0}}
         </td>
     </tr>
 </table>

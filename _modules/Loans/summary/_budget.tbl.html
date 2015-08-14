@@ -1,13 +1,13 @@
-<table class="table table-striped rowed disp-sm">
+<table class="table table-striped table-condensed rowed disp-sm">
     <tbody>
     <tr>
-        <td colspan="5" style="width: 50%;">&nbsp</td>
-        <td class="text-center" style="width:10%;">ARM</td>
-        <td class="text-center" style="width:10%;" ng-if="loan.has_distributor">
+        <th colspan="5" style="width: 50%;">&nbsp</th>
+        <th class="text-center" style="width:10%;">ARM</th>
+        <th class="text-center" style="width:10%;" ng-if="loan.has_distributor">
             {{loan.distributor.distributor}}
-        </td>
-        <td class="text-center" style="width:10%;">Other</td>
-        <td class="text-center" style="width:10%;">Total</td>
+        </th>
+        <th class="text-center" style="width:10%;">Other</th>
+        <th class="text-center" style="width:10%;">Total</th>
     </tr>
 
     <tr ng-repeat="e in loan.expenses.totals.byCat|orderBy: 'cat_id'" ng-if="e.expense != 'Total'">
@@ -74,7 +74,7 @@
     </tr>
 
     <!-- FEES -->
-    <tr style="display:none;" style="display:none;">
+    <tr>
         <td colspan="5">Fees and Other</td>
         <td class="text-right">
             {{loan.fins.fee_total|flexCurrency:0 }}
@@ -89,7 +89,7 @@
     <!-- PRINCIPAL -->
     <tr class="success">
         <td colspan="5" class="text-left">
-            <strong>Total Budgeted Expenses</strong>
+            Total Budgeted Expenses
         </td>
         <td class="text-right">
             {{AppFactory.calcTotalArmAndFarmExpenses(loan)|flexCurrency:0}}
@@ -106,7 +106,7 @@
     </tr>
 
     <!-- INTEREST -->
-    <tr style="display:none;">
+    <tr>
         <td colspan="5">Estimated Interest</td>
         <td class="text-right">
             {{loan.fins.int_arm|flexCurrency:0}}
@@ -121,7 +121,7 @@
     </tr>
 
     <!-- CASH FLOW/DEFICIT -->
-    <tr class="warning" style="display:none;">
+    <tr class="warning">
         <td>Cash Flow (Deficit)</td>
         <td colspan="7" ng-if="loan.has_distributor">&nbsp;</td>
         <td colspan="6" ng-if="!loan.has_distributor">&nbsp;</td>
