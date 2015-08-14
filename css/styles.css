@@ -250,6 +250,7 @@ table.ls-sm td {
   border: 2px solid #cccccc;
   border-radius: 4px;
 }
+
 .btn-primary {
   background-color: #006837;
   border-color: #000201;
@@ -274,6 +275,7 @@ table.ls-sm td {
   color: #ffffff;
   text-align: left;
 }
+
 .button_bar {
   margin: 45px 5px 5px 0;
 }
@@ -508,6 +510,7 @@ table.ls-sm td {
 .editable-click,
 div.editable-click {
   color: #000099;
+  font-style: normal;
   cursor: pointer;
   border-bottom: none;
 }
@@ -1097,4 +1100,8 @@ div.editable-click {
 .view-full-table tr.header-row th {
   background-color: #006837 !important;
   color: #ffffff !important;
+}
+
+.clear_back {
+  background-color: inherit;
 }
