@@ -21,7 +21,7 @@
             {field: 'farmer.farmer', sort: 'asc'},
             {field: 'applicant', sort: 'asc'},
             //{field: 'distributor', sort: 'asc'},
-            {field: 'loantype_abr', sort: 'asc'},
+            {field: 'loantype_abr', sort: 'asc'}
         ];
 
         var columnDefs = [
@@ -75,22 +75,18 @@
                 width: 90
             },
             {
+                headerTooltip: 'Farmer',
+                headerGroup: 'Customer',
                 headerName: 'Farmer',
-                field: 'farmer',
+                valueGetter: 'data.farmer.farmer',
                 cellClass: 'text-left',
                 width: 120
             },
             {
-                headerTooltip: 'Farmer',
-                headerName: 'Nickname',
-                valueGetter: 'data.farmer.nick',
-                cellClass: 'text-left',
-                width: 150,
-                hide: true
-            },
-            {
+                headerTooltip: 'Applicant',
+                headerGroup: 'Customer',
                 headerName: 'Applicant',
-                field: 'applicant',
+                valueGetter: 'data.applicant.applicant',
                 cellClass: 'text-left',
                 width: 120
             },
@@ -146,23 +142,6 @@
             }
         ];
 
-        $scope.printState = function() {
-            var state = $scope.gridOptions.api.getColumnState();
-            console.log(state);
-        };
-
-        var savedState;
-
-        $scope.saveState = function() {
-            savedState = $scope.gridOptions.api.getColumnState();
-            console.log('column state saved');
-        };
-
-        $scope.restoreState = function() {
-            $scope.gridOptions.api.setColumnState(savedState);
-            console.log('column state restored');
-        };
-
         $scope.getModel = function(){
             if ($scope.gridOptions.api) {
                 console.log($scope.gridOptions.api.getModel());
@@ -201,7 +180,11 @@
         //console.log('reduced', $scope.reduced);
 
         $scope.gridOptions.rowData = $scope.reduced;
-        $scope.gridHeight = Number(($scope.gridOptions.rowData.length + 2) * 30).toString();
+        if ($scope.gridOptions.rowData.length < 20){
+            $scope.gridHeight = (15 * 30).toString();
+        } else {
+            $scope.gridHeight = Number(($scope.gridOptions.rowData.length + 2) * 30).toString();
+        }
     }
 
 })();
