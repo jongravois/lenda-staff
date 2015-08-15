@@ -1,132 +1,146 @@
 <table class="table">
     <tr>
         <td>
-      <span class="progicon glyphicon glyphicon-list-alt"
+      <span class="progicon glyphicons glyphicons-list-alt"
             tooltip="ITS List Verfified"
             tooltip-append-to-body="true"
             tooltip-placement="bottom"
             ng-class="{'cGray': data.its_list == 0, 'cGreen': data.its_list == 1, 'cRed': data.its_list == 2}"></span>
         </td>
         <td>
-        <span class="progicon glyphicon glyphicon-home"
+        <span class="progicon glyphicons glyphicons-home"
               tooltip="FSA Eligibility"
               tooltip-append-to-body="true"
               tooltip-placement="bottom"
               ng-class="{'cGray': data.fsa_compliant == 0, 'cGreen': data.fsa_compliant == 1, 'cRed': data.fsa_compliant == 2}"></span>
         </td>
         <td>
-        <span class="progicon glyphicon glyphicon-star"
+        <span class="progicon glyphicons glyphicons-history"
               tooltip="Prior Lien Verfied"
               tooltip-append-to-body="true"
               tooltip-placement="bottom"
               ng-class="{'cGray': data.prev_lien_verified == 0, 'cGreen': data.prev_lien_verified == 1, 'cRed': data.prev_lien_verified == 2}"></span>
         </td>
         <td>
-        <span class="progicon glyphicon glyphicon-leaf"
+        <span class="progicon glyphicons glyphicons-leaf"
               tooltip="Leases Valid"
               tooltip-append-to-body="true"
               tooltip-placement="bottom"
               ng-class="{'cGray': data.leases_valid == 0, 'cGreen': data.leases_valid == 1, 'cRed': data.leases_valid == 2}"></span>
         </td>
         <td>
-        <span class="progicon glyphicon glyphicon-fire"
+        <span class="progicon glyphicons glyphicons-fire"
               tooltip="Bankruptcy Order Received"
               tooltip-append-to-body="true"
               tooltip-placement="bottom"
               ng-class="{'cGray': data.bankruptcy_order_received == 0, 'cGreen': data.bankruptcy_order_received == 1, 'cRed': data.bankruptcy_order_received == 2}"></span>
         </td>
         <td>
-        <span class="progicon glyphicon glyphicon-stats"
+        <span class="progicon glyphicons glyphicons-charts"
               tooltip="Third Party Credit Verified"
               tooltip-append-to-body="true"
               tooltip-placement="bottom"
               ng-class="{'cGray': data.received_3party == 0, 'cGreen': data.received_3party == 1, 'cRed': data.received_3party == 2}"></span>
         </td>
         <td>
-        <span class="progicon glyphicon glyphicon-share-alt"
+        <span class="progicon glyphicons glyphicons-share"
               tooltip="Recommended"
               tooltip-append-to-body="true"
               tooltip-placement="bottom"
               ng-class="{'cGray': data.recommended == 0, 'cGreen': data.recommended == 1, 'cRed': data.recommended == 2}"></span>
         </td>
         <td>
-        <span class="progicon glyphicon glyphicon-thumbs-up"
-              tooltip="ARM Approved"
-              tooltip-append-to-body="true"
-              tooltip-placement="bottom"
-              ng-class="{'cGray': data.arm_approved == 0, 'cGreen': data.arm_approved == 1, 'cRed': data.arm_approved == 2}"></span>
-        </td>
-        <td>
-        <span class="progicon glyphicon glyphicon-hand-up"
+        <span class="progicon glyphicons glyphicons-hand-up"
               tooltip="Distributor Approved"
               tooltip-append-to-body="true"
               tooltip-placement="bottom"
               ng-class="{'cGray': data.dist_approved == 0, 'cGreen': data.dist_approved == 1, 'cRed': data.dist_approved == 2}"></span>
         </td>
         <td>
-        <span class="progicon glyphicon glyphicon-folder-close"
+        <span class="progicon glyphicons glyphicons-thumbs-up"
+              tooltip="ARM Approved"
+              tooltip-append-to-body="true"
+              tooltip-placement="bottom"
+              ng-class="{'cGray': data.arm_approved == 0, 'cGreen': data.arm_approved == 1, 'cRed': data.arm_approved == 2}"></span>
+        </td>
+        <td>
+        <span class="progicon glyphicons glyphicons-folder-close"
               tooltip="Loan Closed"
               tooltip-append-to-body="true"
               tooltip-placement="bottom"
               ng-class="{'cGray': data.loan_closed == 0, 'cGreen': data.loan_closed == 1, 'cRed': data.loan_closed == 2}"></span>
         </td>
         <td>
-        <span class="progicon glyphicon glyphicon-flag"
+        <span class="progicon glyphicons glyphicons-flag"
               tooltip="Added Land Verified"
               tooltip-append-to-body="true"
               tooltip-placement="bottom"
               ng-class="{'cGray': data.added_land_verified == 0, 'cGreen': data.added_land_verified == 1, 'cRed': data.added_land_verified == 2}"></span>
         </td>
         <td>
-            <span class="progicon glyphicon glyphicon-gift"
+            <span class="progicon glyphicons glyphicons-gift"
                   tooltip="Permission to Insure Verified" tooltip-append-to-body="true"
                   tooltip-placement="bottom"
-                  ng-class="{'cGray': data.permission_to_insure_verified == 0, 'cGreen': data.permission_to_insure == 1, 'cRed': data.permission_to_insure == 2}"></span>
+                  ng-class="{'cGray': data.permission_to_insure_verified == 0, 'cGreen': data.permission_to_insure_verified == 1, 'cRed': data.permission_to_insure_verified == 2}"></span>
         </td>
         <td>
-        <span class="progicon glyphicon glyphicon-log-in"
+        <span class="progicon glyphicons glyphicons-king"
               tooltip="ARM UCC Received"
               tooltip-append-to-body="true"
               tooltip-placement="bottom"
               ng-class="{'cGray': data.arm_ucc_received == 0, 'cGreen': data.arm_ucc_received == 1, 'cRed': data.arm_ucc_received == 2}"></span>
         </td>
         <td>
-        <span class="progicon glyphicon glyphicon-log-in"
+        <span class="progicon glyphicons glyphicons-queen"
               tooltip="Distributor UCC Received"
               tooltip-append-to-body="true"
               tooltip-placement="bottom"
               ng-class="{'cGray': data.dist_ucc_received == 0, 'cGreen': data.dist_ucc_received == 1, 'cRed': data.dist_ucc_received == 2}"></span>
         </td>
         <td>
-        <span class="progicon glyphicon glyphicon-circle-arrow-right"
+        <span class="progicon glyphicons glyphicons-edit"
+              tooltip="Lien Letter Received"
+              tooltip-append-to-body="true"
+              tooltip-placement="bottom"
+              ng-class="{'cGray': data.lien_letter_received == 0, 'cGreen': data.lien_letter_received == 1, 'cRed': data.lien_letter_received == 2}"></span>
+        </td>
+        <td>
+        <span class="progicon glyphicons glyphicons-shield"
               tooltip="AOI Received"
               tooltip-append-to-body="true"
               tooltip-placement="bottom"
               ng-class="{'cGray': data.aoi_received == 0, 'cGreen': data.aoi_received == 1, 'cRed': data.aoi_received == 2}"></span>
         </td>
         <td>
-        <span class="progicon glyphicon glyphicon-link"
+        <span class="progicon glyphicons glyphicons-knight"
               tooltip="CCC Received"
               tooltip-append-to-body="true"
               tooltip-placement="bottom"
               ng-class="{'cGray': data.ccc_received == 0, 'cGreen': data.ccc_received == 1, 'cRed': data.ccc_received == 2}"></span>
         </td>
         <td>
-            <span class="progicon glyphicons glyphicons-map"
+            <span class="progicon glyphiconss glyphiconss-map"
                   tooltip="Crop Certification"
                   tooltip_append-to-body="true"
                   tooltip-placement="bottom"
                   ng-class="{'cGray': data.crop_certified == 0, 'cGreen': data.crop_certified == 1, 'cRed': data.crop_certified == 2}"></span>
         </td>
         <td>
-        <span class="progicon glyphicon glyphicon-cog"
-              tooltip="Rebate Assignment"
-              tooltip-append-to-body="true"
-              tooltip-placement="bottom"
-              ng-class="{'cGray': data.rebate_assignment == 0, 'cGreen': data.rebate_assignment == 1, 'cRed': data.rebate_assignment == 2}"></span>
+            <span class="progicon glyphiconss glyphiconss-piggy-bank"
+                  tooltip="Rebates Assigned"
+                  tooltip_append-to-body="true"
+                  tooltip-placement="bottom"
+                  ng-class="{'cGray': data.rebate_assignment == 0, 'cGreen': data.rebate_assignment == 1, 'cRed': data.rebate_assignment == 2}"></span>
         </td>
         <td>
-            <span class="progicon glyphicon glyphicon-grain"
+            <span class="progicon glyphicons glyphicons-map"
+                  tooltip="Crop Certified"
+                  tooltip-append-to-body="true"
+                  tooltip-placement="bottom"
+                  ng-class="{'cGray': data.crop_certified == 0, 'cGreen': data.crop_certified == 1, 'cRed': data.crop_certified == 2}"></span>
+        </td>
+        <td>
+            <span class="progicon glyphicons glyphicons-flower"
                   tooltip="Crop Inspection"
                   tooltip-append-to-body="true"
                   tooltip-placement="bottom"
@@ -134,7 +148,16 @@
         </td>
         <td>
             <span
-                    class="pendicon glyphicon glyphicon-retweet"
+                    class="pendicon glyphicons glyphicons-alert"
+                    tooltip="Limit Warning"
+                    tooltip-append-to-body="true"
+                    tooltip-placement="bottom"
+                    ng-class="{'cBlack': data.limit_warning, 'clrOff': !data.limit_warning}">
+            </span>
+        </td>
+        <td>
+            <span
+                    class="pendicon glyphicons glyphicons-scale-classic"
                     tooltip="Account Reconciliation"
                     tooltip-append-to-body="true"
                     tooltip-placement="bottom"

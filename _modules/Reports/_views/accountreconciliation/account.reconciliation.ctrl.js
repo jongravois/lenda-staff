@@ -10,7 +10,6 @@
         $scope.AppFactory = AppFactory;
         $scope.loans = Loans;
 
-        $scope.icons = false;
         $scope.tools = false;
 
         $scope.sortKeys = [
@@ -22,7 +21,7 @@
             {field: 'farmer.farmer', sort: 'asc'},
             {field: 'applicant.applicant', sort: 'asc'},
             {field: 'distributor.distributor', sort: 'asc'},
-            {field: 'loantype_abr', sort: 'asc'},
+            {field: 'loantype_abr', sort: 'asc'}
         ];
 
         var columnDefs = [
@@ -32,9 +31,12 @@
                 cellClass: 'text-center',
                 suppressSorting: true,
                 templateUrl: '_modules/Reports/_views/_partials/status.icons.left.html',
-                width: 165
+                width: 165,
+                hide: true
             },
             {
+                headerGroup: 'Area',
+                headerGroupShow: 'open',
                 headerTooltip: 'Region',
                 headerName: 'Reg',
                 valueGetter: 'data.location.regions.region',
@@ -42,6 +44,7 @@
                 width: 85
             },
             {
+                headerGroup: 'Area',
                 headerTooltip: 'Location',
                 headerName: 'Location',
                 valueGetter: 'data.location.location',
@@ -50,15 +53,17 @@
                 hide: true
             },
             {
+                headerGroup: 'Area',
                 headerTooltip: 'Location',
-                headerName: 'Loc',
+                headerName: 'Location',
                 valueGetter: 'data.location.loc_abr',
                 cellClass: 'text-center',
-                width: 70
+                width: 80
             },
             {
                 headerTooltip: 'Crop Year',
                 headerGroup: 'Crop',
+                headerGroupShow: 'open',
                 headerName: 'Year',
                 field: 'crop_year',
                 cellClass: 'text-center',
@@ -68,7 +73,6 @@
             {
                 headerTooltip: 'Season',
                 headerGroup: 'Crop',
-                headerGroupShow: 'closed',
                 headerName: 'Season',
                 field: 'full_season',
                 cellClass: 'text-center',
@@ -87,25 +91,20 @@
                 headerName: 'Analyst',
                 field: 'analyst_abr',
                 cellClass: 'text-center',
-                width: 80
+                width: 80,
+                hide: true
             },
             {
                 headerTooltip: 'Farmer',
+                headerGroup: 'Customer',
                 headerName: 'Farmer',
                 valueGetter: 'data.farmer.farmer',
                 cellClass: 'text-left',
                 width: 120
             },
             {
-                headerTooltip: 'Farmer',
-                headerName: 'Nickname',
-                valueGetter: 'data.farmer.nick',
-                cellClass: 'text-left',
-                width: 150,
-                hide: true
-            },
-            {
                 headerTooltip: 'Applicant',
+                headerGroup: 'Customer',
                 headerName: 'Applicant',
                 valueGetter: 'data.applicant.applicant',
                 cellClass: 'text-left',
@@ -131,6 +130,7 @@
             {
                 headerTooltip: 'Distributor',
                 headerGroup: 'Loan',
+                headerGroupShow: 'open',
                 headerName: 'Dist',
                 valueGetter: 'data.distributor.distributor',
                 cellClass: 'text-center',
@@ -138,8 +138,7 @@
             },
             {
                 headerTooltip: 'Loan Origin Date',
-                headerGroup: 'Loan',
-                headerGroupShow: 'closed',
+                headerGroup: 'Date',
                 headerName: 'Orig Dt',
                 field: 'orig_date',
                 cellClass: 'text-center',
@@ -150,7 +149,8 @@
             },
             {
                 headerTooltip: 'Loan Due Date',
-                headerGroup: 'Loan',
+                headerGroup: 'Date',
+                headerGroupShow: 'open',
                 headerName: 'Due Dt',
                 field: 'due_date',
                 cellClass: 'text-center',
@@ -172,7 +172,8 @@
                 headerName: 'Agency',
                 field: 'agencies',
                 cellClass: 'text-left',
-                width: 150
+                width: 150,
+                hide: true
             },
             {
                 headerName: 'Status',
@@ -183,23 +184,46 @@
                 width: 70
             },
             {
-                headerTooltip: 'Commitment ARM',
-                headerGroup: 'Commitment',
-                headerName: 'ARM',
+                headerGroup: 'ARM',
+                headerName: 'Commit',
                 valueGetter: 'data.financials.commit_arm',
-                cellClass: function (params) {
-                    return (params.data.financials.commit_arm ? 'text-right' : 'text-center');
+                cellClass: function(params) {
+                    return (params.data.financials.commit_arm ? 'text-right': 'text-center');
                 },
-                cellRenderer: function (params) {
+                cellRenderer: function(params) {
                     return $filter('flexCurrency')(params.data.financials.commit_arm, 0);
+                },
+                width: 110
+            },
+            {
+                headerGroup: 'ARM',
+                headerGroupShow: 'open',
+                headerName: 'Fees',
+                valueGetter: 'data.financials.fee_total',
+                cellClass: function(params) {
+                    return (params.data.financials.fee_total ? 'text-right': 'text-center');
+                },
+                cellRenderer: function(params) {
+                    return $filter('flexCurrency')(params.data.financials.fee_total, 0);
                 },
                 width: 100
             },
             {
-                headerTooltip: 'Commitment Dist',
-                headerGroup: 'Commitment',
-                headerGroupShow: 'closed',
-                headerName: 'Dist',
+                headerGroup: 'ARM',
+                headerGroupShow: 'open',
+                headerName: 'Rate',
+                valueGetter: 'data.fins.int_percent_arm',
+                cellClass: function(params) {
+                    return (params.data.fins.int_percent_arm ? 'text-right': 'text-center');
+                },
+                cellRenderer: function(params) {
+                    return $filter('flexPercent')(params.data.fins.int_percent_arm, 2);
+                },
+                width: 100
+            },
+            {
+                headerGroup: 'Dist',
+                headerName: 'Commitment',
                 valueGetter: 'data.financials.commit_dist',
                 cellClass: function (params) {
                     return (params.data.financials.commit_dist ? 'text-right' : 'text-center');
@@ -207,7 +231,23 @@
                 cellRenderer: function (params) {
                     return $filter('flexCurrency')(params.data.financials.commit_dist, 0);
                 },
-                width: 100
+                // template: '<span ng-class="{gtZero(params.data.commit_dist)}">params.data.commit_dist</span>',
+                width: 100,
+                hide: true
+            },
+            {
+                headerGroup: 'Dist',
+                headerGroupShow: 'closed',
+                headerName: 'Rate',
+                valueGetter: 'data.fins.int_percent_dist',
+                cellClass: function (params) {
+                    return (params.data.fins.int_percent_dist ? 'text-right' : 'text-center');
+                },
+                cellRenderer: function (params) {
+                    return $filter('flexPercent')(params.data.fins.int_percent_dist, 2);
+                },
+                width: 70,
+                hide: true
             },
             {
                 headerTooltip: 'Accounting Account Balance',
@@ -225,15 +265,6 @@
                 width: 100
             },
             {
-                headerTooltip: 'Classification',
-                headerName: 'Class',
-                field: 'account_classification',
-                cellClass: 'text-center',
-                suppressSorting: false,
-                suppressSizeToFit: false,
-                width: 80
-            },
-            {
                 headerName: 'Acct',
                 field: 'status_right',
                 cellClass: 'text-center',
@@ -241,25 +272,17 @@
                 suppressSizeToFit: false,
                 templateUrl: '_modules/Reports/_views/_partials/status.icons.right.html',
                 width: 80
+            },
+            {
+                headerTooltip: 'Classification',
+                headerName: 'Class',
+                field: 'account_classification',
+                cellClass: 'text-center',
+                suppressSorting: false,
+                suppressSizeToFit: false,
+                width: 80
             }
         ];
-
-        $scope.printState = function () {
-            var state = $scope.gridOptions.api.getColumnState();
-            console.log(state);
-        };
-
-        var savedState;
-
-        $scope.saveState = function () {
-            savedState = $scope.gridOptions.api.getColumnState();
-            console.log('column state saved');
-        };
-
-        $scope.restoreState = function () {
-            $scope.gridOptions.api.setColumnState(savedState);
-            console.log('column state restored');
-        };
 
         $scope.getModel = function () {
             if ($scope.gridOptions.api) {
@@ -269,13 +292,6 @@
             }
         }
 
-        $scope.hideIcons = function () {
-            $scope.icons = !$scope.icons;
-            if ($scope.gridOptions.api) {
-                $scope.gridOptions.api.hideColumns(['status_left'], $scope.icons);
-                $scope.gridOptions.api.setSortModel($scope.sortKeys);
-            }
-        }
 
         $scope.showToolPanel = function () {
             $scope.tools = !$scope.tools;
@@ -304,7 +320,11 @@
         };
 
         $scope.gridOptions.rowData = $scope.loans;
-        $scope.gridHeight = Number(($scope.gridOptions.rowData.length + 2) * 30).toString();
+        if ($scope.gridOptions.rowData.length < 20){
+            $scope.gridHeight = (15 * 30).toString();
+        } else {
+            $scope.gridHeight = Number(($scope.gridOptions.rowData.length + 2) * 30).toString();
+        }
     }
 
 })();

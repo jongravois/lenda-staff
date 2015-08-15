@@ -141,23 +141,6 @@
             }
         ];
 
-        $scope.printState = function () {
-            var state = $scope.gridOptions.api.getColumnState();
-            console.log(state);
-        };
-
-        var savedState;
-
-        $scope.saveState = function () {
-            savedState = $scope.gridOptions.api.getColumnState();
-            console.log('column state saved');
-        };
-
-        $scope.restoreState = function () {
-            $scope.gridOptions.api.setColumnState(savedState);
-            console.log('column state restored');
-        }
-
         $scope.getModel = function(){
             if ($scope.gridOptions.api) {
                 console.log($scope.gridOptions.api.getModel());
@@ -195,7 +178,11 @@
         console.log('CommitteeApprovalController reduced', $scope.reduced);
 
         $scope.gridOptions.rowData = $scope.reduced;
-        $scope.gridHeight = Number(($scope.gridOptions.rowData.length + 2) * 30).toString();
+        if ($scope.gridOptions.rowData.length < 20){
+            $scope.gridHeight = (15 * 30).toString();
+        } else {
+            $scope.gridHeight = Number(($scope.gridOptions.rowData.length + 2) * 30).toString();
+        }
     }
 
 })();

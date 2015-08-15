@@ -178,7 +178,11 @@
         };
 
         $scope.gridOptions.rowData = $scope.loans;
-        $scope.gridHeight = Number(($scope.gridOptions.rowData.length + 2) * 30).toString();
+        if ($scope.gridOptions.rowData.length < 20){
+            $scope.gridHeight = (15 * 30).toString();
+        } else {
+            $scope.gridHeight = Number(($scope.gridOptions.rowData.length + 2) * 30).toString();
+        }
     }
 
 })();

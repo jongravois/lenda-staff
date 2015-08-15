@@ -31,17 +31,21 @@
                 field: 'status_left',
                 cellClass: 'text-center',
                 suppressSorting: true,
-                suppressSizeToFit: false,
                 templateUrl: '_modules/Reports/_views/_partials/status.icons.left.html',
-                width: 165
+                width: 165,
+                hide: true
             },
             {
-                headerName: 'Region',
+                headerGroup: 'Area',
+                headerGroupShow: 'open',
+                headerTooltip: 'Region',
+                headerName: 'Reg',
                 valueGetter: 'data.location.regions.region',
                 cellClass: 'text-center',
                 width: 85
             },
             {
+                headerGroup: 'Area',
                 headerTooltip: 'Location',
                 headerName: 'Location',
                 valueGetter: 'data.location.location',
@@ -50,13 +54,17 @@
                 hide: true
             },
             {
-                headerName: 'Loc',
+                headerGroup: 'Area',
+                headerTooltip: 'Location',
+                headerName: 'Location',
                 valueGetter: 'data.location.loc_abr',
                 cellClass: 'text-center',
-                width: 70
+                width: 80
             },
             {
+                headerTooltip: 'Crop Year',
                 headerGroup: 'Crop',
+                headerGroupShow: 'open',
                 headerName: 'Year',
                 field: 'crop_year',
                 cellClass: 'text-center',
@@ -64,8 +72,8 @@
                 filter: 'number'
             },
             {
+                headerTooltip: 'Season',
                 headerGroup: 'Crop',
-                headerGroupShow: 'closed',
                 headerName: 'Season',
                 field: 'full_season',
                 cellClass: 'text-center',
@@ -80,28 +88,24 @@
                 hide: true
             },
             {
+                headerTooltip: 'Analyst',
                 headerName: 'Analyst',
                 field: 'analyst_abr',
                 cellClass: 'text-center',
-                width: 80
-            },
-            {
-                headerName: 'Farmer',
-                valueGetter: 'data.farmer.farmer',
-                cellClass: 'text-left',
-                suppressSorting: false,
-                suppressSizeToFit: false,
-                width: 120
-            },
-            {
-                headerTooltip: 'Farmer',
-                headerName: 'Nickname',
-                valueGetter: 'data.farmer.nick',
-                cellClass: 'text-left',
-                width: 150,
+                width: 80,
                 hide: true
             },
             {
+                headerTooltip: 'Farmer',
+                headerGroup: 'Customer',
+                headerName: 'Farmer',
+                valueGetter: 'data.farmer.farmer',
+                cellClass: 'text-left',
+                width: 120
+            },
+            {
+                headerTooltip: 'Applicant',
+                headerGroup: 'Customer',
                 headerName: 'Applicant',
                 valueGetter: 'data.applicant.applicant',
                 cellClass: 'text-left',
@@ -117,6 +121,7 @@
                 hide: true
             },
             {
+                headerTooltip: 'Loan Type',
                 headerGroup: 'Loan',
                 headerName: 'Type',
                 field: 'loantype_abr',
@@ -124,8 +129,9 @@
                 width: 80
             },
             {
+                headerTooltip: 'Distributor',
                 headerGroup: 'Loan',
-                //headerGroupShow: 'closed',
+                headerGroupShow: 'open',
                 headerName: 'Dist',
                 valueGetter: 'data.distributor.distributor',
                 cellClass: 'text-center',
@@ -133,8 +139,7 @@
             },
             {
                 headerTooltip: 'Loan Origin Date',
-                headerGroup: 'Loan',
-                headerGroupShow: 'closed',
+                headerGroup: 'Date',
                 headerName: 'Orig Dt',
                 field: 'orig_date',
                 cellClass: 'text-center',
@@ -145,7 +150,8 @@
             },
             {
                 headerTooltip: 'Loan Due Date',
-                headerGroup: 'Loan',
+                headerGroup: 'Date',
+                headerGroupShow: 'open',
                 headerName: 'Due Dt',
                 field: 'due_date',
                 cellClass: 'text-center',
@@ -162,11 +168,13 @@
                 width: 80
             },
             {
+                headerTooltip: 'Agency',
                 headerGroup: '',
                 headerName: 'Agency',
                 field: 'agencies',
                 cellClass: 'text-left',
-                width: 150
+                width: 150,
+                hide: true
             },
             {
                 headerName: 'Status',
@@ -239,39 +247,33 @@
                     return $filter('flexPercent')(params.data.fins.int_percent_dist, 2);
                 },
                 width: 70
+            },
+            {
+                headerName: 'Acct',
+                field: 'status_right',
+                cellClass: 'text-center',
+                suppressSorting: true,
+                suppressSizeToFit: false,
+                templateUrl: '_modules/Reports/_views/_partials/status.icons.right.html',
+                width: 80,
+                hide: true
+            },
+            {
+                headerTooltip: 'Classification',
+                headerName: 'Class',
+                field: 'account_classification',
+                cellClass: 'text-center',
+                suppressSorting: false,
+                suppressSizeToFit: false,
+                width: 80,
+                hide: true
             }
         ];
-
-        $scope.printState = function() {
-            var state = $scope.gridOptions.api.getColumnState();
-            console.log(state);
-        };
-
-        var savedState;
-
-        $scope.saveState = function() {
-            savedState = $scope.gridOptions.api.getColumnState();
-            console.log('column state saved');
-        };
-
-        $scope.restoreState = function() {
-            $scope.gridOptions.api.setColumnState(savedState);
-            console.log('column state restored');
-        };
 
         $scope.getModel = function(){
             if ($scope.gridOptions.api) {
                 console.log($scope.gridOptions.api.getModel());
                 return $scope.gridOptions.api.getModel();
-            }
-        }
-
-        $scope.hideIcons = function(){
-            $scope.icons = !$scope.icons;
-            if ($scope.gridOptions.api) {
-                $scope.gridOptions.api.onNewCols();
-                $scope.gridOptions.api.hideColumns(['status_left'], $scope.icons);
-                $scope.gridOptions.api.setSortModel($scope.sortKeys);
             }
         }
 
@@ -303,7 +305,11 @@
         };
 
         $scope.gridOptions.rowData = $scope.loans;
-        $scope.gridHeight = Number(($scope.gridOptions.rowData.length + 2) * 30).toString();
+        if ($scope.gridOptions.rowData.length < 20){
+            $scope.gridHeight = (15 * 30).toString();
+        } else {
+            $scope.gridHeight = Number(($scope.gridOptions.rowData.length + 2) * 30).toString();
+        }
     }
 
 })();
