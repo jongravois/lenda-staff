@@ -4,8 +4,29 @@ var config = require('./gulp.config')();
 var del = require('del');
 var $ = require('gulp-load-plugins')({lazy: true});
 ///////////
+gulp.task('clean-styles', function(done) {
+    clean(config.css + 'styles.css');
+});
 gulp.task('default', ['newjs']);
 gulp.task('help', $.taskListing);
+gulp.task('newjs', function() {
+    var target = gulp.src('./index.html');
+    var sources = gulp.src([
+        './app/**/*.js',
+        './_modules/**/*.js'
+    ], {read: false});
+    return target.pipe($.inject(sources))
+        .pipe(gulp.dest('./'));
+});
+gulp.task('styles', function() {
+    log('Compiling Less --> CSS');
+
+    return gulp
+        .src(config.less)
+        .pipe($.less())
+        .on('error', errorLogger)
+        .pipe(gulp.dest(config.css));
+});
 gulp.task('vet', function() {
     log('Analyzing source with JSHint and JSCS');
 
@@ -17,20 +38,17 @@ gulp.task('vet', function() {
         .pipe($.jshint.reporter('jshint-stylish', {verbose: true}))
         .pipe($.jshint.reporter('fail'));
 });
-gulp.task('newjs', function() {
-    var target = gulp.src('./index.html');
-    var sources = gulp.src([
-        './app/**/*.js',
-        './_modules/**/*.js'
-    ], {read: false});
-    return target.pipe($.inject(sources))
-        .pipe(gulp.dest('./'));
-});
 
 ///////////
 function clean(path, done) {
     log('Cleaning ' + $.util.colors.blue(path));
     del(path, done);
+}
+function errorLogger(error) {
+    log('*** Error Start ***');
+    log(error);
+    log('*** Error End ***');
+    this.emit('end');
 }
 function log(msg) {
     if (typeof(msg) === 'object') {

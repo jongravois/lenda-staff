@@ -118,7 +118,7 @@
         function getCountiesInLoan(loan) {
             var parishes = [];
             _.each(loan.farms, function(item){
-                console.log('FARMS', item);
+                //console.log('FARMS', item);
                 var newbie = {
                     county_id: item.county_id,
                     county: item.county.county,
@@ -138,14 +138,6 @@
         }
         function getCountyCrops(loan) {
             return 999999;
-        }
-        function getCropAcresInCounty(cropID, countyID, loan) {
-            //find farms in county
-            var farms = _.some(loan.farms, {county_id: countyID});
-            console.log('FIC', farms);
-            //find crop in farm
-            //find practices in farm
-            //sum acres of practices in crop in farm in county
         }
         function getCrops(loan) {
             var crops = [];
@@ -396,7 +388,7 @@
             var crops_in_loan = getCrops(loan);
             var counties_in_loan = getCountiesInLoan(loan);
 
-            var farms = getCropAcresInCounty('6', '1310', loan);
+           // var farms = getCropAcresInCounty('6', '1310', loan);
 
             var gpd_crops = _.chain(crops_in_loan)
                 .groupBy('crop')

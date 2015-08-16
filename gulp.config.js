@@ -13,6 +13,8 @@ module.exports = function() {
             './app/**/*.js'
         ],
 
+        css: './css/',
+
         less: [
             './css/less/styles.less'
         ]

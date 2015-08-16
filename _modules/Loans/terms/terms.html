@@ -4,18 +4,25 @@
         border: none !important;
     }
 </style>
+<div class="row">
+    <div class="col-md-12 text-right">
+        <button style="margin-right:10px;" class="btn btn-primary" ng-click="updateTerms()"><span class="glyphicons glyphicons-log-book"></span>&nbsp;UPDATE</button>
+    </div>
+</div>
+<br>
 <fieldset>
     <legend>Terms</legend>
     <div class="container-fluid">
         <div class="row">
-            <table class="table table-striped rowed" style="width:60%;">
+            <table class="table table-striped rowed" style="width:70%;">
                 <tr>
                     <td style="width:22%;">Loan Due Date</td>
-                    <td colspan="2" class="text-right cblue">
+                    <td class="text-right cblue">
                         <a href="#" editable-bsdate="loan.due_date" e-datepicker-popup="dd-MMMM-yyyy">
                             {{loan.due_date|date:'MM/dd/yyyy'}}
                         </a>
                     </td>
+                    <td>&nbsp;</td>
                 </tr>
 
                 <tr>
@@ -53,20 +60,6 @@
                 </tr>
 
                 <tr>
-                    <td class="text-right">
-                        <span ng-if="loan.loan_type_id == 2">
-                            <span ng-if="loan.loan_type_id == 2">
-                              <input type="checkbox" ng-model="loan.financials.fee_onTotal"/>
-                            </span>
-                            &nbsp;Fee On Total
-                        </span>
-                    </td>
-                    <td colspan="2" class="text-center">
-                        &nbsp;
-                    </td>
-                </tr>
-
-                <tr>
                     <td>ARM Interest Rate</td>
                     <td class="text-right">
                         <a href="#" editable-text="loan.fins.int_percent_arm">
@@ -89,17 +82,17 @@
                         {{loan.fins.int_dist|flexCurrency:0}}*
                     </td>
                 </tr>
-
-                <tr>
-                    <td colspan="3"><span class="small_txt">* Interest amounts are best estimates</span></td>
-                </tr>
             </table>
+            <p style="margin-top: -18px;">
+                <span class="small_txt">* Interest amounts are best estimates</span>
+                <br>
+                <span class="small_txt" ng-if="loan.loan_type_id === 2">
+                    <span ng-if="loan.loan_type_id === 2">
+                        <input type="checkbox" ng-model="loan.financials.fee_onTotal"/>
+                    </span>
+                    &nbsp;Fee On Total
+                </span>
+            </p>
         </div>
     </div>
 </fieldset>
-<br>
-<div class="row">
-    <div class="col-md-12 text-right">
-        <button style="margin-right:10px;" class="btn btn-primary" ng-click="updateTerms()"><span class="glyphicons glyphicons-log-book"></span>&nbsp;UPDATE</button>
-    </div>
-</div>

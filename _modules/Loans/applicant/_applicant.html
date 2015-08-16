@@ -1,0 +1,107 @@
+<div class="row">
+    <form novalidate>
+        <!-- APPLICANT / SSN -->
+        <div class="row">
+            <div class="form_group col-md-8">
+                <label>Name (Last Name, First Name or Company):</label>
+                <br/>
+                <input type="text" class="form-control"
+                       autocomplete="false"
+                       ng-model="loan.applicant.applicant"
+                       typeahead="a.applicant for a in applicants|filter:$viewValue|limitTo:8"
+                       typeahead-on-select="onApplicantSelect($item, $model, $label)"/>
+            </div>
+            <div class="form-group col-md-3">
+                <label>Entity Type</label><br>
+                <input type="radio" name="entity_id" ng-model="loan.applicant.entity_id" value="2"/> <label>I</label>
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                <input type="radio" name="entity_id" ng-model="loan.applicant.entity_id" value="5"/> <label>S</label>
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                <input type="radio" name="entity_id" ng-model="loan.applicant.entity_id" value="4"/> <label>P</label>
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                <input type="radio" name="entity_id" ng-model="loan.applicant.entity_id" value="3"/> <label>J</label>
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                <input type="radio" name="entity_id" ng-model="loan.applicant.entity_id" value="1"/> <label>C</label>
+            </div>
+        </div>
+        <!-- APPLICANT / SSN / DOB -->
+
+        <!-- ADDRESS / PHONE -->
+        <div class="row">
+            <div class="form-group col-md-5">
+                <label>Mailing Address:</label>
+                <br/>
+                <input type="text" name="address" ng-model="loan.applicant.address" class="form-control"/>
+            </div>
+            <div class="form-group col-md-3">
+                <label>City:</label>
+                <br/>
+                <input type="text" name="city" ng-model="loan.applicant.city" class="form-control"/>
+            </div>
+            <div class="form-group col-md-2">
+                <label>State:</label>
+                <br/>
+                <select name="state" ng-model="loan.applicant.state_id" class="form-control" ng-options="s.id as s.state for s in feeder.states">
+                    <option value="">Please select ...</option>
+                </select>
+            </div>
+            <div class="form-group col-md-2">
+                <label>Zip:</label>
+                <br/>
+                <input type="text" name="zip" ng-model="loan.applicant.zip" class="form-control"/>
+            </div>
+        </div>
+        <!-- ADDRESS / PHONE -->
+
+        <!-- PHONE / EMAIL / SSN / DOB -->
+        <div class="row">
+            <div class="form-group col-md-5">
+                <label>Phone:</label>
+                <br/>
+                <input type="text" name="phone" ui-mask="(999) 999-9999" ng-model="loan.applicant.phone" class="form-control"/>
+            </div>
+            <div class="form-group col-md-3">
+                <label>Email Address:</label>
+                <br/>
+                <input type="text" name="email" ng-model="loan.applicant.email" class="form-control"/>
+            </div>
+            <div class="form-group col-md-2">
+                <label>SSN / Tax ID Number:</label>
+                <br/>
+                <input type="text" name="ssn" ng-model="loan.applicant.ssn" class="form-control"/>
+            </div>
+            <div class="form-group col-md-2">
+                <label>DOB or Incorporation:</label>
+                <br/>
+                <input type="text" name="dob" ui-mask="99/99/9999" ng-model="loan.applicant.dob" class="form-control" style="width: 120px;"/>
+            </div>
+        </div>
+        <!-- PHONE / EMAIL / SSN / DOB -->
+
+        <!-- SPOUSE / SSN -->
+        <div class="row" ng-if="loan.applicant.entity_id === '5'">
+            <div class="form-group col-md-3">
+                <label>Spouse</label>
+                <br/>
+                <input type="text" name="spouse" ng-model="loan.applicant.spouse" class="form-control"/>
+            </div>
+            <div class="form-group col-md-3">
+                <label>Spouse SSN:</label>
+                <br/>
+                <input type="text" name="spouse_ssn" ng-model="loan.applicant.spouse_ssn" ui-mask="999-99-9999" class="form-control"/>
+            </div>
+            <div class="form-group col-md-3">
+                <label>Spouse Phone:</label>
+                <br/>
+                <input type="text" name="spouse_phone" ui-mask="(999) 999-9999" ng-model="loan.applicant.spouse_phone" class="form-control"/>
+            </div>
+            <div class="form-group col-md-3">
+                <label>Spouse Email:</label>
+                <br/>
+                <input type="text" name="spouse_email" ng-model="loan.applicant.spouse_email" class="form-control"/>
+            </div>
+
+        </div>
+        <!-- SPOUSE / SSN -->
+    </form>
+</div>

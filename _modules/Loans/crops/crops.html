@@ -1,97 +1,44 @@
-<fieldset>
-    <legend>Crops</legend>
-    <div class="container-fluid">
-        <div class="row form-group">
-            <table class="table table-striped rowed">
-                <tr>
-                    <th>Crop</th>
-                    <th>Market</th>
-                    <th>Bk Qty</th>
-                    <th>Bk Prc</th>
-                    <th>UoM</th>
-                    <th>Var Hvst</th>
-                    <th>UoM</th>
-                    <th>Rebator</th>
-                    <th>Rebates</th>
-                    <th>UoM</th>
-                    <th>&nbsp;</th>
-                </tr>
-                <tr ng-if="crops.length === 0">
-                    <td colspan="10"><strong>No crops added!</strong></td>
-                </tr>
-                <tr ng-repeat="c in crops" ng-init="!rowform.$visible" ng-dblclick="rowform.$show()">
-                    <td class="cBlue">
-                        <span editable-text="c.crop.name" e-name="crop" e-form="rowform" e-style="width:100%;" e-required>
-                            {{c.crop.name}}
-                        </span>
-                    </td>
-                    <td class="cBlue">
-                        <span editable-text="c.market" e-name="market" e-form="rowform" e-style="width:100%;" e-required>
-                            {{c.market}}
-                        </span>
-                    </td>
-                    <td class="text-right cBlue">
-                        <span editable-text="c.bkqty" e-name="bkqty" e-form="rowform" e-style="width:100%;" e-required>
-                            {{c.bkqty|number:2}}
-                        </span>
-                    </td>
-                    <td class="cBlue" ng-class="AppFactory.gtZero(c.bkprice)">
-                        <span editable-text="c.bkprice" e-name="bkprice" e-form="rowform" e-style="width:100%;" e-required>
-                            {{c.bkprice|flexCurrency:2}}
-                        </span>
-                    </td>
-                    <td class="text-center cBlue">
-                        <span editable-text="c.crop_measure" e-name="crop_measure" e-form="rowform" e-style="width:100%;" e-required>
-                            {{c.crop_measure}}
-                        </span>
-                    </td>
-                    <td class="cBlue" ng-class="AppFactory.gtZero(c.var_harvest)">
-                        <span editable-text="c.var_harvest" e-name="var_harvest" e-form="rowform" e-style="width:100%;" e-required>
-                            {{c.var_harvest|flexCurrency:4}}
-                        </span>
-                    </td>
-                    <td class="text-center cBlue">
-                        <span editable-text="c.harvest_measure" e-name="harvest_measure" e-form="rowform" e-style="width:100%;" e-required>
-                            {{c.harvest_measure}}
-                        </span>
-                    </td>
-                    <td class="cBlue">
-                        <span editable-text="c.gin_mill" e-name="gin_mill" e-form="rowform" e-style="width:100%;" e-required>
-                            {{c.gin_mill}}
-                        </span>
-                    </td>
-                    <td class="cBlue" ng-class="AppFactory.gtZero(c.rebates)">
-                        <span editable-text="c.rebates" e-name="rebates" e-form="rowform" e-style="width:100%;" e-required>
-                            {{c.rebates|flexCurrency:4}}
-                        </span>
-                    </td>
-                    <td class="text-center cBlue">
-                        <span editable-text="c.rebate_measure" e-name="rebate_measure" e-form="rowform" e-style="width:100%;" e-required>
-                            {{c.rebate_measure}}
-                        </span>
-                    </td>
-                    <td class="text-center">
-                        <!-- form -->
-                        <form editable-form name="rowform" onbeforesave="saveCrop($data, p.id)" ng-show="rowform.$visible" class="form-buttons form-inline">
-                            <button type="submit" ng-disabled="rowform.$waiting"><span class="glyphicons glyphicons-circle-ok" style="color:#006837;"></span></button>
-
-                            <button type="button" class="btnCancel" ng-disabled="rowform.$waiting" ng-click="rowform.$cancel()"><span class="glyphicons glyphicons-unsharee" style="color: #990000;border: none !important;"></span></button>
-                        </form>
-                        <div class="buttons" ng-show="!rowform.$visible">
-                    <span class="glyphicons glyphicons-circle-remove"
-                          style="color: #990000;border: none !important;"
-                          ng-click="deleteCrop($index, p.id)"></span>
-                    </td>
-                </tr>
-            </table>
-        </div>
-        <a ng-click="createCrop()" class="btn btn-xs btn-default">
-            <span class="glyphicon glyphicon-plus-sign" style="color:#006837;"></span> Add New</a>
-    </div>
-</fieldset>
-<br>
 <div class="row">
     <div class="col-md-12 text-right">
-        <button style="margin-right:10px;" class="btn btn-primary" ng-click="updateCrops()"><span class="glyphicons glyphicons-log-book"></span>&nbsp;UPDATE</button>
+        <button style="margin-right:10px;" class="btn btn-primary" ng-click="updateCrops()"><span
+            class="glyphicons glyphicons-log-book"></span>&nbsp;UPDATE
+        </button>
     </div>
 </div>
+<br>
+<fieldset>
+    <legend>
+        &nbsp;
+        <span class="pendicon glyphicon glyphicon-chevron-right"
+                  ng-click="togShowCrops()"
+                  ng-if="!showCrops"></span>
+        <span class="pendicon glyphicon glyphicon-chevron-down"
+                  ng-click="togShowCrops()"
+                  ng-if="showCrops"></span>
+        &nbsp;
+        Crops
+    </legend>
+    <div class="container-fluid"
+         ng-include="'./_modules/Loans/crops/_crops.html'"
+         ng-if="showCrops">
+    </div>
+</fieldset>
+<br><br>
+<fieldset>
+    <legend>
+        &nbsp;
+        <span class="pendicon glyphicon glyphicon-chevron-right"
+              ng-click="togShowIndirect()"
+              ng-if="!showIndirect"></span>
+        <span class="pendicon glyphicon glyphicon-chevron-down"
+              ng-click="togShowIndirect()"
+              ng-if="showIndirect"></span>
+        &nbsp;
+        Indirect Crop Income
+    </legend>
+    <div class="container-fluid"
+         ng-include="'./_modules/Loans/crops/_indirect.income.html'"
+         ng-if="showIndirect">
+    </div>
+</fieldset>
+<br><br><br><br>

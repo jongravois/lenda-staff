@@ -22,7 +22,7 @@
                 })
                 .state('arm.edit.applicant', {
                     url: '/applicant',
-                    templateUrl: './_modules/Loans/applicant/applicant.html',
+                    templateUrl: './_modules/Loans/applicant/shell.html',
                     controller: 'ApplicantsController',
                     data: {newapplication: false},
                     resolve: {}

@@ -44,7 +44,9 @@
                 //TOTAL ACRES OF PRACTICE IN COUNTY x AMOUNT
                 return 0;
             };
-            
+
+            //TEMP
+            $scope.loan.lien_letter_received = 0;
             console.log('LOAN', $scope.loan);
         } // end controller
 })();
