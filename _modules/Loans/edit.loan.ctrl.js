@@ -4,12 +4,13 @@
         .module('ARM')
         .controller('EditLoanController', EditLoanController);
     
-        EditLoanController.$inject = ['$rootScope', '$scope', '$state', 'AppFactory', 'DefaultsFactory', 'FeederFactory', 'Loan'];
+        EditLoanController.$inject = ['$rootScope', '$scope', '$state', 'AppFactory', 'DefaultsFactory', 'FeederFactory', 'Loan', 'ManFactory'];
     
         /* @ngInject */
-        function EditLoanController($rootScope, $scope, $state, AppFactory, DefaultsFactory, FeederFactory, Loan) {
+        function EditLoanController($rootScope, $scope, $state, AppFactory, DefaultsFactory, FeederFactory, Loan, ManFactory) {
             /* jshint validthis: true */
             $scope.AppFactory = AppFactory;
+            $scope.ManFactory = ManFactory;
 
             if (!$rootScope.currentUser) {
                 try {
