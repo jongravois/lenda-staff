@@ -293,14 +293,14 @@
                 headerGroup: 'Budget',
                 headerGroupShow: 'closed',
                 headerName: 'Budget',
-                field: 'total_percent_budget',
+                field: 'total_balance',
                 cellClass: function (params) {
-                    var total_percent_budget = params.data.total_budget_amount / params.data.total_budget_amount * 100;
-                    return (total_percent_budget ? 'text-right' : 'text-center');
+                    var total_balance = params.data.total_balance / params.data.total_balance * 100;
+                    return (total_balance ? 'text-right' : 'text-center');
                 },
                 cellRenderer: function (params) {
-                    var total_percent_budget = params.data.total_budget_amount / params.data.total_budget_amount * 100;
-                    return $filter('flexPercent')(total_percent_budget, 1);
+                    var total_balance = params.data.total_balance / params.data.total_balance * 100;
+                    return $filter('flexPercent')(total_balance, 1);
                 },
                 hide: true,
                 width: 100
@@ -355,18 +355,9 @@
             }
         ];
 
-        $scope.getModel = function(){
-            if ($scope.gridOptions.api) {
-                console.log($scope.gridOptions.api.getModel());
-                return $scope.gridOptions.api.getModel();
-            }
-        }
-
         $scope.showToolPanel = function () {
             $scope.tools = !$scope.tools;
-            if ($scope.gridOptions.api) {
-                $scope.gridOptions.api.showToolPanel($scope.tools);
-            }
+            $scope.gridOptions.api.showToolPanel($scope.tools);
         }
 
         $scope.toggleDetail = function () {
@@ -422,7 +413,7 @@
 
         $scope.gridOptions.rowData = $scope.loans;
         if ($scope.gridOptions.rowData.length < 20){
-            $scope.gridHeight = (15 * 30).toString();
+            $scope.gridHeight = (350).toString();
         } else {
             $scope.gridHeight = Number(($scope.gridOptions.rowData.length + 2) * 30).toString();
         }

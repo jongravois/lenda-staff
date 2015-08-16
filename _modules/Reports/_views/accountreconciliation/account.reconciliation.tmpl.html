@@ -3,15 +3,15 @@
 <div id="accrecon">
     <div class="ag-fresh" ag-grid="gridOptions" ng-style="{height: gridHeight}"></div>
     <form>
-        <span style="display:inline-block;float:left;">
-            <span class="btn glyphicon glyphicon-flash" ng-click="showToolPanel()">Toolbox</span>
-        </span>
-        <span style="display:inline-block;float:right;">
-            <span class="btn glyphicon glyphicon-print" ng-click=""> Print </span>
-            <span class="btn glyphicon glyphicon-envelope" ng-click=""> Email </span>
-            <span class="btn glyphicon glyphicon-export" ng-click=""> Export </span>
-            <span class="btn glyphicon glyphicon-file" ng-click=""> PDF </span>
-        </span>
+            <span style="display:inline-block;float:left;"> &nbsp;
+            <span ng-click="showToolPanel()"><img ng-src="images/control_panel.png" style="width:30px"> Control Panel </span>
+            </span>
+            <span style="display:inline-block;float:right;">
+            <span ng-click=""><img ng-src="images/print.png" style="width:25px"> Print </span>
+            <span ng-click=""><img ng-src="images/email.png" style="width:25px"> Email </span>
+            <span ng-click=""><img ng-src="images/excel.jpg" style="width:25px"> Excel </span>
+            <span ng-click=""><img ng-src="images/pdficon.png" style="width:25px"> PDF &nbsp; </span>
+            </span>
         <span style="display:inline-block;float:left;position: absolute;top: 150px;right: 28px;">
         &nbsp; <input placeholder="Filter..." type="text" ng-model="gridOptions.quickFilterText"/>
         </span>

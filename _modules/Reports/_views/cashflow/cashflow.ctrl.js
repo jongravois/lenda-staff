@@ -273,18 +273,9 @@
             }
         ];
 
-        $scope.getModel = function() {
-            if ($scope.gridOptions.api) {
-                console.log($scope.gridOptions.api.getModel());
-                return $scope.gridOptions.api.getModel();
-            }
-        }
-
-        $scope.showToolPanel = function(){
+        $scope.showToolPanel = function () {
             $scope.tools = !$scope.tools;
-            if ($scope.gridOptions.api) {
-                $scope.gridOptions.api.showToolPanel($scope.tools);
-            }
+            $scope.gridOptions.api.showToolPanel($scope.tools);
         }
 
         $scope.gridOptions = {
@@ -307,7 +298,7 @@
         };
         $scope.gridOptions.rowData = $scope.loans;
         if ($scope.gridOptions.rowData.length < 20){
-            $scope.gridHeight = (15 * 30).toString();
+            $scope.gridHeight = (350).toString();
         } else {
             $scope.gridHeight = Number(($scope.gridOptions.rowData.length + 2) * 30).toString();
         }

@@ -189,10 +189,10 @@
                 headerGroup: 'ARM',
                 headerName: 'Commit',
                 valueGetter: 'data.financials.commit_arm',
-                cellClass: function(params) {
-                    return (params.data.financials.commit_arm ? 'text-right': 'text-center');
+                cellClass: function (params) {
+                    return (params.data.financials.commit_arm ? 'text-right' : 'text-center');
                 },
-                cellRenderer: function(params) {
+                cellRenderer: function (params) {
                     return $filter('flexCurrency')(params.data.financials.commit_arm, 0);
                 },
                 width: 110
@@ -202,10 +202,10 @@
                 headerGroupShow: 'open',
                 headerName: 'Fees',
                 valueGetter: 'data.financials.fee_total',
-                cellClass: function(params) {
-                    return (params.data.financials.fee_total ? 'text-right': 'text-center');
+                cellClass: function (params) {
+                    return (params.data.financials.fee_total ? 'text-right' : 'text-center');
                 },
-                cellRenderer: function(params) {
+                cellRenderer: function (params) {
                     return $filter('flexCurrency')(params.data.financials.fee_total, 0);
                 },
                 width: 100
@@ -215,10 +215,10 @@
                 headerGroupShow: 'open',
                 headerName: 'Rate',
                 valueGetter: 'data.fins.int_percent_arm',
-                cellClass: function(params) {
-                    return (params.data.fins.int_percent_arm ? 'text-right': 'text-center');
+                cellClass: function (params) {
+                    return (params.data.fins.int_percent_arm ? 'text-right' : 'text-center');
                 },
-                cellRenderer: function(params) {
+                cellRenderer: function (params) {
                     return $filter('flexPercent')(params.data.fins.int_percent_arm, 2);
                 },
                 width: 100
@@ -316,37 +316,10 @@
             }
         ];
 
-        $scope.printState = function() {
-            var state = $scope.gridOptions.api.getColumnState();
-            console.log(state);
-        };
-
-        var savedState;
-
-        $scope.saveState = function() {
-            savedState = $scope.gridOptions.api.getColumnState();
-            console.log('column state saved');
-        };
-
-        $scope.restoreState = function() {
-            $scope.gridOptions.api.setColumnState(savedState);
-            console.log('column state restored');
-        };
-
-        $scope.getModel = function(){
-            if ($scope.gridOptions.api) {
-                console.log($scope.gridOptions.api.getModel());
-                return $scope.gridOptions.api.getModel();
-            }
-        }
-
-        $scope.showToolPanel = function(){
+        $scope.showToolPanel = function () {
             $scope.tools = !$scope.tools;
-            if ($scope.gridOptions.api) {
-                $scope.gridOptions.api.showToolPanel($scope.tools);
-            }
+            $scope.gridOptions.api.showToolPanel($scope.tools);
         }
-
 
         $scope.gridOptions = {
             columnDefs: columnDefs,
@@ -366,9 +339,27 @@
                 });
             }
         };
+
+        //hotkeys.add({
+        //    combo: 'ctrl+m',
+        //    description: 'Display tool panel.',
+        //    callback: function(){
+        //        return showToolPanel();
+        //    }
+        //});
+
+        //hotkeys.add({
+        //    combo: 'ctrl+h',
+        //    description: 'Display tool panel.',
+        //    callback: function(){
+        //        return showToolPanel();
+        //    }
+        //});
+
         $scope.gridOptions.rowData = $scope.loans;
-        if ($scope.gridOptions.rowData.length < 20){
-            $scope.gridHeight = (15 * 30).toString();
+
+        if ($scope.gridOptions.rowData.length < 20) {
+            $scope.gridHeight = (350).toString();
         } else {
             $scope.gridHeight = Number(($scope.gridOptions.rowData.length + 2) * 30).toString();
         }
