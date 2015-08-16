@@ -15,7 +15,14 @@
 
         //////////
         function clickManagement(loanID, val, step) {
-            console.log(val+' at step '+step+' for loan '+loanID);
+            switch(step) {
+                case 'lwn':
+                    return false;
+                    break;
+                default:
+                    console.log(val+' at step '+step+' for loan '+loanID);
+                    break;
+            }
         }
     } // end factory
 })();

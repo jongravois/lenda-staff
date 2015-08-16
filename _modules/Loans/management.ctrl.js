@@ -9,6 +9,7 @@
     /* @ngInject */
     function ManagementController($rootScope, $scope, $filter, $location, $state, orderByFilter, AppFactory, LoansFactory, ManFactory) {
         /* jshint validthis: true */
+        $scope.ManFactory = ManFactory;
         var data = [];
         $scope.indWid = {
             hide: false,
@@ -62,7 +63,8 @@
                 templateUrl: './app/views/grid_tmpl/pending.icons.html',
                 width: 90,
                 suppressSizeToFit: true,
-                headerCellRenderer: pendingHdr
+                headerCellRenderer: pendingHdr,
+                headerTooltip: ''
             },
             {
                 field: 'notification',
@@ -71,7 +73,8 @@
                 cellClass: 'text-center',
                 suppressSizeToFit: true,
                 width: $scope.indWid.width,
-                hide: $scope.indWid.hide
+                hide: $scope.indWid.hide,
+                headerTooltip: ''
             },
             {
                 valueGetter: 'data.farmer.farmer',
@@ -125,7 +128,8 @@
                 headerClass: 'text-center',
                 headerCellRenderer: managementHdr,
                 cellClass: 'text-center',
-                width: 18
+                width: 18,
+                headerTooltip: ''
             },
             {
                 field: 'fsa_compliant',
@@ -333,6 +337,7 @@
             colWidth: 100,
             rowHeight: 32,
             rowSelection: false,
+            suppressCellSelection: true,
             enableSorting: false,
             sortPending: sortPending,
             context: {

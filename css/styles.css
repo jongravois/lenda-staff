@@ -1248,3 +1248,6 @@ fieldset[disabled] .btn-success.active {
   font-size: 32px;
   color: #aaaaaa;
 }
+.progidisc {
+  cursor: pointer;
+}
