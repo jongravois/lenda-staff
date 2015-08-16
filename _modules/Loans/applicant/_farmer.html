@@ -1,0 +1,112 @@
+<div class="row">
+    <form novalidate>
+        <h6 class="text-right small pulled-up">
+            <span class="req">*</span> indicates Required Field
+        </h6>
+        <div class="row">
+            <div class="form-group col-sm-12">
+                <!-- FARMER/SSN/DOB -->
+                <div class="row">
+                    <div class="form_group col-sm-7 required">
+                        <label><span class="req">*</span>
+                            Name (Last Name, First Name):
+                        </label>
+                        <input type="text"
+                               id="farmer"
+                               class="form-control"
+                               autocomplete="false"
+                               ng-model="loan.farmer.farmer"
+                               typeahead="f.farmer for f in farmers|filter:$viewValue|limitTo:8"
+                               typeahead-on-select="onFarmerSelect($item, $model, $label)"/>
+                    </div>
+                    <div class="form-group col-sm-3">
+                        <label><span class="req">*</span>
+                            SSN / Tax ID:</label>
+                        <input type="text"
+                               class="form-control"
+                               name="ssn"
+                               ng-model="loan.farmer.ssn"
+                               style="width: 150px;"/>
+                    </div>
+                    <div class="col-sm-2">
+                        <label>Farming Experience</label>
+                        <br/>
+                        <p>{{loan.farmer.farm_exp}}</p>
+                    </div>
+                </div>
+                <!-- FARMER/SSN/DOB -->
+
+                <!-- ADDRESS -->
+                <div class="row">
+                    <div class="form-group col-sm-4">
+                        <label>Mailing Address:</label>
+                        <input type="text"
+                               name="address"
+                               ng-model="loan.farmer.address"
+                               class="form-control"/>
+                    </div>
+                    <div class="form-group col-sm-3">
+                        <label>City:</label>
+                        <input type="text" name="city" ng-model="loan.farmer.city" class="form-control"/>
+                    </div>
+                    <div class="form-group col-sm-2">
+                        <label>State:</label>
+                        <select name="state"
+                                class="form-control"
+                                ng-model="loan.farmer.state_id"
+                                ng-options="s.id as s.state for s in states">
+                            <option value="">Please select ...</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-sm-2">
+                        <label>Zip:</label>
+                        <input type="text"
+                               name="zip"
+                               ng-model="loan.farmer.zip"
+                               class="form-control"/>
+                    </div>
+                </div>
+                <!-- ADDRESS -->
+
+                <!-- PHONE / EMAIL / INFO -->
+                <div class="row">
+                    <div class="form-group col-sm-4">
+                        <label>Phone:</label>
+                        <input type="text"
+                               name="phone"
+                               ui-mask="(999) 999-9999"
+                               ng-model="loan.farmer.phone"
+                               class="form-control"/>
+                    </div>
+                    <div class="form-group col-sm-3">
+                        <label>Email Address:</label>
+                        <input type="text"
+                               name="email"
+                               ng-model="loan.farmer.email"
+                               class="form-control"/>
+                    </div>
+                    <div class="form-group col-sm-2">
+                        <label>DOB:</label>
+                        <input type="text"
+                               name="dob"
+                               ui-mask="99/99/9999"
+                               ng-model="loan.farmer.dob"
+                               class="form-control"
+                               style="width: 140px;"/>
+                    </div>
+                    <div class="form-group col-sm-3">
+                        <label>Year Began Farming:</label>
+                        <input type="text"
+                               name="first_year_farmer"
+                               ng-model="loan.farmer.first_year_farmer"
+                               class="form-control"
+                               style="width:120px;"/>
+                    </div>
+
+                </div>
+                <!-- PHONE / EMAIL / DOB -->
+            </div>
+
+        </div>
+    </form>
+</div>

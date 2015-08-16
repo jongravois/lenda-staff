@@ -1,17 +1,17 @@
-<span ng-if="user.viewopts.voIconAddendum">
-        <span class="glyphicons glyphicons-plus"
-              tooltip="Addendum"
-              tooltip-append-to-body="true"
-              tooltip-placement="bottom"
-              ng-class="{ clrOn : data.has_addendum, clrOff: !data.has_addendum }"></span>
-</span>
-
 <span ng-if="user.viewopts.voIconCross">
         <span class="glyphicons glyphicons-random"
               tooltip="Cross Collateral"
               tooltip-append-to-body="true"
               tooltip-placement="bottom"
               ng-class="{ clrOn : data.is_cross_collateralized, clrOff: !data.is_cross_collateralized }"></span>
+</span>
+
+<span ng-if="user.viewopts.voIconAddendum">
+        <span class="glyphicons glyphicons-plus"
+              tooltip="Addendum"
+              tooltip-append-to-body="true"
+              tooltip-placement="bottom"
+              ng-class="{ clrOn : data.has_addendum, clrOff: !data.has_addendum }"></span>
 </span>
 
 <span ng-if="user.viewopts.voIconBankruptcy">

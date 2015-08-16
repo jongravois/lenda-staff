@@ -1,20 +1,51 @@
 <style>
     .voteicon{ cursor: pointer; }
+    .btn-group button{
+        width: 160px !important;
+        min-width: 160px !important;
+        max-width: 160px !important;
+    }
 </style>
 <fieldset>
     <legend>Committee</legend>
     <div class="container-fluid">
         <div class="row">
-            <table class="table table-striped rowed" style="width:80%;margin: 0 auto;">
+            <div class="btn-group btn-group-sm pull-right" role="group">
+                <button type="button"
+                        class="btn btn-primary"
+                        ng-if="loan.has_distributor">
+                    <span class="glyphicons glyphicons-share"></span>
+                    Submit to Distributor
+                </button>
+                <button type="button"
+                        class="btn btn-primary">
+                    <span class="glyphicons glyphicons-share"></span>
+                    Submit to Committee
+                </button>
+                <button type="button"
+                        class="btn btn-primary">
+                    <span class="glyphicons glyphicons-person-walking"></span>
+                    Withdraw
+                </button>
+                <button type="button"
+                        class="btn btn-primary"
+                        ng-disabled="loan.analyst_can_approve">
+                    <span class="glyphicons glyphicons-thumbs-up"></span>
+                    Approve
+                </button>
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <table class="table table-striped rowed" style="width:70%;">
                 <tr>
-                    <th style="width:6%;">&nbsp;</th>
-                    <th style="width:8%;">Role</th>
-                    <th style="width:15%;">User</th>
-                    <th style="width:10%;">Added</th>
-                    <th style="width:10%;">Voted</th>
-                    <th style="width:10%;">Vote</th>
-                    <th style="width:32%;display: none;">&nbsp;</th>
-                    <th style="width:9%;">&nbsp;</th>
+                    <th style="width:120px;">&nbsp;</th>
+                    <th style="width:15%;">Role</th>
+                    <th style="width:20%;">User</th>
+                    <th style="width:15%;">Added</th>
+                    <th style="width:15%;">Voted</th>
+                    <th style="width:15%;">Vote</th>
+                    <th style="width:100px;">&nbsp;</th>
                 </tr>
                 <tr ng-repeat="c in loan.committee|orderBy:'role_id'" ng-init="!rowform.$visible" ng-dblclick="rowform.$show()">
                     <td>
@@ -50,14 +81,7 @@
                             <span class="voteicon glyphicons glyphicons-comments cYellow" style="font-size:16px;"tooltip="Comment" tooltip-append-to-body="true" tooltip-placement="bottom"></span>
                         </span>
                     </td>
-                    <td style="display: none;">
-          <span class="glyphicon glyphicon-comment"
-                style="margin-right:10px;cursor: pointer;"
-                ng-repeat="cc in comments.Committee"
-                tooltip="{{cc.comment}}"
-                ng-class="{cYellow: cc.status[0].status == 'pending', cGreen: cc.status.length === 0, cGreen: cc.status[0].status == 'accepted'}"></span>
-                    </td>
-                    <td class="text-center">
+                   <td width:60px; class="text-right">
                         <!-- form -->
                         <form editable-form name="rowform" onbeforesave="saveCommittee($data, p.id)" ng-show="rowform.$visible" class="form-buttons form-inline">
                             <button type="submit" ng-disabled="rowform.$waiting"><span class="glyphicons glyphicons-circle-ok" style="color:#006837;border: none !important;"></span></button>
@@ -80,9 +104,4 @@
         </div>
     </div>
 </fieldset>
-<br>
-<div class="row">
-    <div class="col-md-12 text-right">
-        <button style="margin-right:10px;" class="btn btn-primary" ng-click="updateCommitteeMembers()"><span class="glyphicons glyphicons-log-book"></span>&nbsp;UPDATE</button>
-    </div>
-</div>
+<br><br><br><br>

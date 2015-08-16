@@ -7,8 +7,30 @@
         ApplicantsController.$inject = ['$rootScope', '$scope'];
 
         function ApplicantsController($rootScope, $scope){
-            //console.log('LOAN', $scope.loan, 'F', $scope.loan.farmer, 'A', $scope.loan.applicant, 'P', $scope.loan.partners);
+            $scope.showFarmer = false;
+            $scope.showApplicant = false;
+            $scope.showPartner = false;
+            $scope.showJoints = false;
+            $scope.showCorps = false;
 
+            $scope.togShowFarmer = function() {
+                $scope.showFarmer = !$scope.showFarmer;
+            };
+            $scope.togShowApplicant = function() {
+                $scope.showApplicant = !$scope.showApplicant;
+            };
+            $scope.togShowPartner = function() {
+                $scope.showPartner = !$scope.showPartner;
+            };
+            $scope.togShowJoints = function() {
+                $scope.showJoints = !$scope.showJoints;
+            };
+            $scope.togShowCorps = function() {
+                $scope.showCorps = !$scope.showCorps;
+            };
+            $scope.updateApplicantsScreen = function() {
+                alert('working');
+            };
             $scope.createNewPartner = function() {
                 alert('working');
             }

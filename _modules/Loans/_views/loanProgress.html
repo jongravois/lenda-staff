@@ -30,11 +30,6 @@
                   ng-class="{'cGreen': loan.disbursement_issue, 'cGray': !loan.disbursement_issue}"></span>
         </td>
         <td>
-        <span class="progicon glyphicons glyphicons-plus"
-              tooltip="Addendum"
-              tooltip-append-to-body="true"
-              tooltip-placement="bottom"
-              ng-class="{'clrOn': loan.has_addendum, 'clrOff': !loan.has_addendum}"></span>
         <span class="progicon glyphicons glyphicons-random"
               tooltip="Cross Collateral"
               tooltip-append-to-body="true"
@@ -47,6 +42,11 @@
               tooltip-placement="bottom"
               ng-click="toggleCrossColateral()"
               ng-class="{'cRed': XColView, 'clrOn': loan.is_cross_collateralized, 'clrOff': !loan.is_cross_collateralized }" style="color: #cccccc;" ng-if="!XColView"></span>
+        <span class="progicon glyphicons glyphicons-plus"
+              tooltip="Addendum"
+              tooltip-append-to-body="true"
+              tooltip-placement="bottom"
+              ng-class="{'clrOn': loan.has_addendum, 'clrOff': !loan.has_addendum}"></span>
         <span class="progicon glyphicons glyphicons-fire"
               tooltip="Bankruptcy History"
               tooltip-append-to-body="true"
@@ -95,7 +95,7 @@
               ng-class="{'cGray': loan.fsa_compliant == 0, 'cGreen': loan.fsa_compliant == 1, 'cRed': loan.fsa_compliant == 2}"></span>
         </td>
         <td>
-        <span class="progicon glyphicons glyphicons-star"
+        <span class="progicon glyphicons glyphicons-history"
               tooltip="Prior Lien Verfied"
               tooltip-append-to-body="true"
               tooltip-placement="bottom"
@@ -135,20 +135,20 @@
               ng-class="{'cGray': loan.recommended == 0, 'cGreen': loan.recommended == 1, 'cRed': loan.recommended == 2}"></span>
         </td>
         <td>
-        <span class="progicon glyphicons glyphicons-thumbs-up"
-              tooltip="ARM Approved"
-              tooltip-append-to-body="true"
-              tooltip-placement="bottom"
-              ng-click="AppFactory.clickManagement(data.id, data.its_list, 'ARM')"
-              ng-class="{'cGray': loan.arm_approved == 0, 'cGreen': loan.arm_approved == 1, 'cRed': loan.arm_approved == 2}"></span>
-        </td>
-        <td>
         <span class="progicon glyphicons glyphicons-hand-up"
               tooltip="Distributor Approved"
               tooltip-append-to-body="true"
               tooltip-placement="bottom"
               ng-click="AppFactory.clickManagement(data.id, data.its_list, 'DIS')"
               ng-class="{'cGray': loan.dist_approved == 0, 'cGreen': loan.dist_approved == 1, 'cRed': loan.dist_approved == 2}"></span>
+        </td>
+        <td>
+        <span class="progicon glyphicons glyphicons-thumbs-up"
+              tooltip="ARM Approved"
+              tooltip-append-to-body="true"
+              tooltip-placement="bottom"
+              ng-click="AppFactory.clickManagement(data.id, data.its_list, 'ARM')"
+              ng-class="{'cGray': loan.arm_approved == 0, 'cGreen': loan.arm_approved == 1, 'cRed': loan.arm_approved == 2}"></span>
         </td>
         <td>
         <span class="progicon glyphicons glyphicons-folder-closed"
@@ -174,7 +174,7 @@
                   ng-class="{'cGray': loan.permission_to_insure_verified == 0, 'cGreen': loan.permission_to_insure_verified == 1, 'cRed': loan.permission_to_insure_verified == 2}"></span>
         </td>
         <td>
-        <span class="progicon glyphicons glyphicons-log-in"
+        <span class="progicon glyphicons glyphicons-king"
               tooltip="ARM UCC Received"
               tooltip-append-to-body="true"
               tooltip-placement="bottom"
@@ -182,7 +182,7 @@
               ng-class="{'cGray': loan.arm_ucc_received == 0, 'cGreen': loan.arm_ucc_received == 1, 'cRed': loan.arm_ucc_received == 2}"></span>
         </td>
         <td>
-        <span class="progicon glyphicons glyphicons-log-in"
+        <span class="progicon glyphicons glyphicons-queen"
               tooltip="Distributor UCC Received"
               tooltip-append-to-body="true"
               tooltip-placement="bottom"
@@ -190,7 +190,15 @@
               ng-class="{'cGray': loan.dist_ucc_received == 0, 'cGreen': loan.dist_ucc_received == 1, 'cRed': loan.dist_ucc_received == 2}"></span>
         </td>
         <td>
-        <span class="progicon glyphicons glyphicons-circle-arrow-right"
+        <span class="progicon glyphicons glyphicons-edit"
+              tooltip="Lien Letter"
+              tooltip-append-to-body="true"
+              tooltip-placement="bottom"
+              ng-click="AppFactory.clickManagement(data.id, data.lien_letter, 'LLR')"
+              ng-class="{'cGray': loan.lien_letter_received == 0, 'cGreen': loan.lien_letter_received == 1, 'cRed': loan.lien_letter_received == 2}"></span>
+        </td>
+        <td>
+        <span class="progicon glyphicons glyphicons-shield"
               tooltip="AOI Received"
               tooltip-append-to-body="true"
               tooltip-placement="bottom"
@@ -198,7 +206,7 @@
               ng-class="{'cGray': loan.aoi_received == 0, 'cGreen': loan.aoi_received == 1, 'cRed': loan.aoi_received == 2}"></span>
         </td>
         <td>
-        <span class="progicon glyphicons glyphicons-link"
+        <span class="progicon glyphicons glyphicons-knight"
               tooltip="CCC Received"
               tooltip-append-to-body="true"
               tooltip-placement="bottom"
@@ -206,20 +214,20 @@
               ng-class="{'cGray': loan.ccc_received == 0, 'cGreen': loan.ccc_received == 1, 'cRed': loan.ccc_received == 2}"></span>
         </td>
         <td>
-            <span class="progicon glyphicons glyphicons-map"
-                  tooltip="Crop Certification"
-                  tooltip_append-to-body="true"
-                  tooltip-placement="bottom"
-                  ng-click="AppFactory.clickManagement(data.id, data.its_list, 'CER')"
-                  ng-class="{'cGray': loan.crop_certified == 0, 'cGreen': loan.crop_certified == 1, 'cRed': loan.crop_certified == 2}"></span>
-        </td>
-        <td>
-        <span class="progicon glyphicons glyphicons-cogwheel"
+        <span class="progicon glyphicons glyphicons-piggy-bank"
               tooltip="Rebate Assignment"
               tooltip-append-to-body="true"
               tooltip-placement="bottom"
               ng-click="AppFactory.clickManagement(data.id, data.its_list, 'REB')"
               ng-class="{'cGray': loan.rebate_assignment == 0, 'cGreen': loan.rebate_assignment == 1, 'cRed': loan.rebate_assignment == 2}"></span>
+        </td>
+        <td>
+            <span class="progicon glyphicons glyphicons-map"
+                  tooltip="Crops Certified"
+                  tooltip_append-to-body="true"
+                  tooltip-placement="bottom"
+                  ng-click="AppFactory.clickManagement(data.id, data.its_list, 'CER')"
+                  ng-class="{'cGray': loan.crop_certified == 0, 'cGreen': loan.crop_certified == 1, 'cRed': loan.crop_certified == 2}"></span>
         </td>
         <td>
             <span class="progicon glyphicons glyphicons-flower"
@@ -241,12 +249,12 @@
             <!--</a>-->
         </td>
         <td>
-          <span class="progicon glyphicons glyphicons-retweet-2"
+          <span class="progicon glyphicons glyphicons-scale-classic"
                 tooltip="RECONCILIATION"
                 tooltip-append-to-body="true"
                 tooltip-placement="bottom"
                 ng-click="AppFactory.clickManagement(data.id, data.its_list, 'RCL')"
-                ng-class="{'cGray': loan.crop_inspection == 0, 'cGreen': loan.reconciliation == 1, 'cRed': loan.reconciliation == 3}"></span>
+                ng-class="{'cGray': loan.reconciliation == 0, 'cGreen': loan.reconciliation == 1, 'cRed': loan.reconciliation == 3}"></span>
         </td>
         <td>
             <span style="font-size:18px;">{{loan.account_classification}}</span>
