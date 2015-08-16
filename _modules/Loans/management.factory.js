@@ -20,7 +20,7 @@
                     return false;
                     break;
                 default:
-                    console.log(val+' at step '+step+' for loan '+loanID);
+                    alert(val+' at step '+step+' for loan '+loanID);
                     break;
             }
         }
