@@ -126,7 +126,7 @@
                 })
                 .state('arm.edit.references', {
                     url: '/references',
-                    templateUrl: './_modules/Loans/references/references.html',
+                    templateUrl: './_modules/Loans/references/shell.html',
                     controller: 'ReferencesController',
                     data: {newapplication: false},
                     resolve: {}

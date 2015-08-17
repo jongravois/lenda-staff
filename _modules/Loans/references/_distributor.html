@@ -1,0 +1,67 @@
+<div class="row">
+    <div class="form-group col-md-12">
+        <!-- DISTRIBUTOR -->
+        <div class="row">
+            <div class="form_group col-md-7">
+                <label>Distributor:</label>
+                <br/>
+                <input type="text" class="form-control" ng-model="loan.distributor.distributor"/>
+            </div>
+            <div class="form-group col-md-4">
+                <label>Phone:</label>
+                <br/>
+                <input type="text" class="form-control" ui-mask="(999) 999.9999" ng-model="loan.distributor.phone"/>
+            </div>
+        </div>
+        <!-- Distributor -->
+
+        <!-- ADDRESS / PHONE -->
+        <div class="row">
+            <div class="form-group col-md-4">
+                <label>Mailing Address:</label>
+                <br/>
+                <input type="text" class="form-control" ng-model="loan.distributor.address"/>
+            </div>
+            <div class="form-group col-md-3">
+                <label>City:</label>
+                <br/>
+                <input type="text" class="form-control" ng-model="loan.distributor.city"/>
+            </div>
+            <div class="form-group col-md-2">
+                <label>State:</label>
+                <br/>
+                <select name="state" ng-model="loan.distributor.state_id" class="form-control"
+                        ng-options="s.id as s.state for s in feeder.states">
+                    <option value="">Please select ...</option>
+                </select>
+            </div>
+            <div class="form-group col-md-2">
+                <label>Zip:</label>
+                <br/>
+                <input type="text" class="form-control" ng-model="loan.distributor.zip"/>
+            </div>
+        </div>
+        <!-- ADDRESS / PHONE -->
+
+        <!-- PHONE / EMAIL / DOB -->
+        <div class="row">
+            <div class="form-group col-md-4">
+                <label>Loan Contact:</label>
+                <br/>
+                <input type="text" class="form-control" ng-model="loan.distributor.contact"/>
+            </div>
+            <div class="form-group col-md-3">
+                <label>Phone:</label>
+                <br/>
+                <input type="text" class="form-control" ui-mask="(999) 999.9999" ng-model="loan.distributor.phone"/>
+            </div>
+            <div class="form-group col-md-4">
+                <label>Email Address:</label>
+                <br/>
+                <input type="text" class="form-control" ng-model="loan.distributor.email"/>
+            </div>
+        </div>
+        <!-- PHONE / EMAIL / DOB -->
+
+    </div>
+</div>
