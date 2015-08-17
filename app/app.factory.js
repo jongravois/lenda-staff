@@ -296,7 +296,6 @@
 
             return Number(loan.fins.adj_prod) + Number(loan.fins.total_fsa_payment) + Number(loan.fins.ins_disc_prod) + Number(loan.insurance.nonrp.value) + Number(loan.supplements.totals.value) + Number(calcEquipmentCollateralValue(loan)) + Number(calcRECollateralValue(loan)) + Number(calcOtherCollateralValue(loan));
         }
-
         function calcMPCIbyCrop(loancrop) {
             var ins = getInsByType(loancrop);
             console.log('TYPE', ins);
