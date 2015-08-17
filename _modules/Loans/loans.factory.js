@@ -60,7 +60,7 @@
                         loan.vote_pending = false;
                     }
 
-                    //console.log('FromLoanFactory', loan);
+                    console.log('FromLoanFactory', loan);
                     return loan;
                 });
         }
@@ -184,6 +184,7 @@
         function getLoanCrops(loan) {
             var loancrops = loan.loancrops;
             var crop_acres = loan.fins.crop_acres;
+            //console.log('187', loancrops);
 
             return _.each(loancrops, function(item) {
                 var acres = _.find(crop_acres, function(aa) {
@@ -192,7 +193,7 @@
                     };
                 });
 
-                item.acres = acres.acres;
+                item.acres = Number(acres.acres);
                 return item;
             });
         }
@@ -393,7 +394,7 @@
             var gpd_crops = _.chain(crops_in_loan)
                 .groupBy('crop')
                 .value();
-            console.log('GPD', gpd_crops);
+            //console.log('GPD', gpd_crops);
 
             fins.total_income = 10000000;
 
@@ -468,6 +469,17 @@
                 lone.value += Number(item.value);
             });
             return byLoan;
+        }
+        function processLC(loan) {
+            //console.log('L', loan);
+            var lci = [];
+            var loancrops = getLoanCrops(loan);
+            _.each(loancrops, function(item){
+                var prac = item.practices;
+                var newbie = _.chain(prac).flatten().groupBy('type').value();
+                lci.push(newbie);
+            });
+            return lci;
         }
         function processNonRPInsurance(obj) {
             var nonrp = _.filter(obj, function (item) {
