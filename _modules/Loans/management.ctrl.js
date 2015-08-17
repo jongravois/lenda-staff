@@ -129,7 +129,7 @@
                 headerCellRenderer: managementHdr,
                 cellClass: 'text-center',
                 width: 18,
-                headerTooltip: ''
+                headerTooltip: false
             },
             {
                 field: 'fsa_compliant',
@@ -138,7 +138,8 @@
                 headerClass: 'text-center',
                 headerCellRenderer: managementHdr,
                 cellClass: 'text-center',
-                width: 18
+                width: 18,
+                headerTooltip: false
             },
             {
                 field: 'prev_lien_verified',
@@ -147,7 +148,8 @@
                 headerClass: 'text-center',
                 headerCellRenderer: managementHdr,
                 cellClass: 'text-center',
-                width: 18
+                width: 18,
+                headerTooltip: false
             },
             {
                 field: 'leases_valid',
@@ -156,7 +158,8 @@
                 headerClass: 'text-center',
                 headerCellRenderer: managementHdr,
                 cellClass: 'text-center',
-                width: 18
+                width: 18,
+                headerTooltip: false
             },
             {
                 field: 'bankruptcy_order_received',
@@ -165,7 +168,8 @@
                 headerClass: 'text-center',
                 headerCellRenderer: managementHdr,
                 cellClass: 'text-center',
-                width: 18
+                width: 18,
+                headerTooltip: false
             },
             {
                 field: 'received_3party',
@@ -174,7 +178,8 @@
                 headerClass: 'text-center',
                 headerCellRenderer: managementHdr,
                 cellClass: 'text-center',
-                width: 18
+                width: 18,
+                headerTooltip: false
             },
             {
                 field: 'recommended',
@@ -183,7 +188,8 @@
                 headerClass: 'text-center',
                 headerCellRenderer: managementHdr,
                 cellClass: 'text-center',
-                width: 18
+                width: 18,
+                headerTooltip: false
             },
             {
                 field: 'dist_approved',
@@ -192,7 +198,8 @@
                 headerClass: 'text-center',
                 headerCellRenderer: managementHdr,
                 cellClass: 'text-center',
-                width: 18
+                width: 18,
+                headerTooltip: false
             },
             {
                 field: 'arm_approved',
@@ -201,7 +208,8 @@
                 headerClass: 'text-center',
                 headerCellRenderer: managementHdr,
                 cellClass: 'text-center',
-                width: 18
+                width: 18,
+                headerTooltip: false
             },
             {
                 field: 'loan_closed',
@@ -210,7 +218,8 @@
                 headerClass: 'text-center',
                 headerCellRenderer: managementHdr,
                 cellClass: 'text-center',
-                width: 18
+                width: 18,
+                headerTooltip: false
             },
             {
                 field: 'added_land_verified',
@@ -219,7 +228,8 @@
                 headerClass: 'text-center',
                 headerCellRenderer: managementHdr,
                 cellClass: 'text-center',
-                width: 18
+                width: 18,
+                headerTooltip: false
             },
             {
                 field: 'permission_to_insure_verified',
@@ -228,7 +238,8 @@
                 headerClass: 'text-center',
                 headerCellRenderer: managementHdr,
                 cellClass: 'text-center',
-                width: 18
+                width: 18,
+                headerTooltip: false
             },
             {
                 field: 'arm_ucc_received',
@@ -237,7 +248,8 @@
                 headerClass: 'text-center',
                 headerCellRenderer: managementHdr,
                 cellClass: 'text-center',
-                width: 18
+                width: 18,
+                headerTooltip: false
             },
             {
                 field: 'dist_ucc_received',
@@ -246,7 +258,8 @@
                 headerClass: 'text-center',
                 headerCellRenderer: managementHdr,
                 cellClass: 'text-center',
-                width: 18
+                width: 18,
+                headerTooltip: false
             },
             {
                 field: 'lien_letter_received',
@@ -255,7 +268,8 @@
                 headerClass: 'text-center',
                 headerCellRenderer: managementHdr,
                 cellClass: 'text-center',
-                width: 18
+                width: 18,
+                headerTooltip: false
             },
             {
                 field: 'aoi_received',
@@ -264,7 +278,8 @@
                 headerClass: 'text-center',
                 headerCellRenderer: managementHdr,
                 cellClass: 'text-center',
-                width: 18
+                width: 18,
+                headerTooltip: false
             },
             {
                 field: 'ccc_received',
@@ -273,7 +288,8 @@
                 headerClass: 'text-center',
                 headerCellRenderer: managementHdr,
                 cellClass: 'text-center',
-                width: 18
+                width: 18,
+                headerTooltip: false
             },
             {
                 field: 'rebate_assignment',
@@ -282,7 +298,8 @@
                 headerClass: 'text-center',
                 headerCellRenderer: managementHdr,
                 cellClass: 'text-center',
-                width: 18
+                width: 18,
+                headerTooltip: false
             },
             {
                 field: 'crop_certified',
@@ -291,7 +308,8 @@
                 headerClass: 'text-center',
                 headerCellRenderer: managementHdr,
                 cellClass: 'text-center',
-                width: 18
+                width: 18,
+                headerTooltip: false
             },
             {
                 field: 'crop_inspection',
@@ -300,7 +318,8 @@
                 headerClass: 'text-center',
                 headerCellRenderer: managementHdr,
                 cellClass: 'text-center',
-                width: 18
+                width: 18,
+                headerTooltip: false
             },
             {
                 field: 'limit_warning',
@@ -309,7 +328,8 @@
                 headerClass: 'text-center bleft',
                 headerCellRenderer: managementHdr,
                 cellClass: 'text-center bleft',
-                width: 18
+                width: 18,
+                headerTooltip: false
             },
             {
                 field: 'reconciliation',
@@ -318,7 +338,8 @@
                 headerClass: 'text-center',
                 headerCellRenderer: managementHdr,
                 cellClass: 'text-center',
-                width: 18
+                width: 18,
+                headerTooltip: false
             },
             {
                 field: 'account_classification',
@@ -326,7 +347,8 @@
                 headerClass: 'text-center',
                 headerCellRenderer: managementHdr,
                 cellClass: 'text-center',
-                width: 18
+                width: 18,
+                headerTooltip: false
             }
         ];
 

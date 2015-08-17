@@ -8,6 +8,9 @@
 
         function QuestsController($rootScope, $scope){
             //console.log('Loan', $scope.loan);
-            console.log('Quests', $scope.loan.quests);
+            //console.log('Quests', $scope.loan.quests);
+            $scope.updateLoanQuestions = function() {
+                alert('working');
+            };
         } // end controller
 })();
