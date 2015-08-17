@@ -1,307 +1,86 @@
+<div class="row">
+    <div class="col-md-12 text-right">
+        <button style="margin-right:10px;" class="btn btn-arm" ng-click="updateLoanQuestions()"><span class="glyphicons glyphicons-log-book"></span>&nbsp;UPDATE</button>
+    </div>
+</div>
+
+<br>
+
 <fieldset>
     <legend>Questions</legend>
     <div class="container-fluid">
-        <div class="row form-group" ng-if="loan.loan_type_id != 7">
-            <div class="col-md-8 col-lg-offset-2">
-                <div class="col-md-9">
-                    <label>Do you plant your own crops?</label>
-                </div>
-                <div class="col-md-3">
-                    <input type="radio" name="plant_own" ng-value='true' ng-true-value='1' ng-model="loan.quests.plant_own"/>
-                    &nbsp;<label>Yes</label>
-                    &nbsp;&nbsp;&nbsp;
-                    <input type="radio" name="plant_own" ng-value='false' ng-model="loan.quests.plant_own"/>
-                    &nbsp;<label>No</label>
-                </div>
-            </div>
+        <div class="alert alert-success" role="alert">
+            <h4>Borrower</h4>
         </div>
-        <div class="row form-group" ng-if="!loan.quests.plant_own">
-            <div class="col-md-8 col-lg-offset-2">
-                <div class="col-md-12">
-                    <label>Details</label>
-                    <textarea name="plant_own_details" ng-model="loan.quests.plant_own_details" class="form-control"></textarea>
-                </div>
-            </div>
-        </div>
-        <!-- PLANT OWN CROPS [plantOwn] {APPLICANT or FARMER} -->
 
-        <!-- HARVEST OWN CROPS [harvestOwn] {APPLICANT or FARMER} -->
-        <div class="row form-group" ng-if="loan.loan_type_id != 7">
-            <div class="col-md-8 col-lg-offset-2">
-                <div class="col-md-9">
-                    <label>Do you harvest your own crops?</label>
-                </div>
-                <div class="col-md-3">
-                    <input type="radio" name="harvest_own" ng-value="true" ng-model="loan.quests.harvest_own"/>
-                    &nbsp;<label>Yes</label>
-                    &nbsp;&nbsp;&nbsp;
-                    <input type="radio" name="harvest_own" ng-value="false" ng-model="loan.quests.harvest_own"/>
-                    &nbsp;<label>No</label>
-                </div>
-            </div>
-        </div>
-        <div class="row form-group" ng-if="!loan.quests.harvest_own">
-            <div class="col-md-8 col-lg-offset-2">
-                <div class="col-md-12">
-                    <label>Details</label>
-                    <textarea name="plant_own_details" ng-model="loan.quests.harvest_own_details" class="form-control"></textarea>
-                </div>
-            </div>
-        </div>
-        <!-- HARVEST OWN CROPS [harvestOwn] {APPLICANT or FARMER} -->
-
-        <!-- EQUIPMENT OBLIGATIONS [equipObligations] {LOAN} -->
-        <div class="row form-group" ng-if="loan.loan_type_id != 7">
-            <div class="col-md-8 col-lg-offset-2">
-                <div class="col-md-9">
-                    <label>Do you have all equipment obligations met and/or factored into the loan?</label>
-                </div>
-                <div class="col-md-3">
-                    <input type="radio" name="equip_obligations" ng-value="true" ng-model="loan.quests.equip_obligations"/>
-                    &nbsp;<label>Yes</label>
-                    &nbsp;&nbsp;&nbsp;
-                    <input type="radio" name="equip_obligations" ng-value="false" ng-model="loan.quests.equip_obligations"/>
-                    &nbsp;<label>No</label>
-                </div>
-            </div>
-        </div>
-        <div class="row form-group" ng-if="!loan.quests.equip_obligations">
-            <div class="col-md-8 col-lg-offset-2">
-                <div class="col-md-12">
-                    <label>Details</label>
-                    <textarea name="equip_obligations_details" ng-model="loan.quests.equip_obligations_details" class="form-control"></textarea>
-                </div>
-            </div>
-        </div>
-        <!-- EQUIPMENT OBLIGATIONS [equipObligations] {LOAN} -->
-
-        <!-- OTHER CASH OUTLAYS [otherCash] {?}-->
-        <div class="row form-group" ng-if="loan.loan_type_id != 7">
-            <div class="col-md-8 col-lg-offset-2">
-                <div class="col-md-9">
-                    <label>Have you made provisions for all other non-requested cash outlays?</label>
-                </div>
-                <div class="col-md-3">
-                    <input type="radio" name="other_cash" ng-value="true" ng-model="loan.quests.other_cash"/>
-                    &nbsp;<label>Yes</label>
-                    &nbsp;&nbsp;&nbsp;
-                    <input type="radio" name="other_cash" ng-value="false" ng-model="loan.quests.other_cash"/>
-                    &nbsp;<label>No</label>
-                </div>
-            </div>
-        </div>
-        <div class="row form-group" ng-if="!loan.quests.other_cash">
-            <div class="col-md-8 col-lg-offset-2">
-                <div class="col-md-12">
-                    <label>Details</label>
-                    <textarea name="other_cash_details" ng-model="loan.quests.other_cash_details" class="form-control"></textarea>
-                </div>
-            </div>
-        </div>
-        <!-- OTHER CASH OUTLAYS [otherCash] {?}-->
-
-        <!-- FSA STANDING [fsaGood] {APPLICANT or FARMER} -->
-        <div class="row form-group" ng-if="loan.loan_type_id != 7">
-            <div class="col-md-8 col-lg-offset-2">
-                <div class="col-md-9">
-                    <label>Are you in good standing with the FSA?</label>
-                </div>
-                <div class="col-md-3">
-                    <input type="radio" name="fsa_good" ng-value="true" ng-model="loan.quests.fsa_good"/>
-                    &nbsp;<label>Yes</label>
-                    &nbsp;&nbsp;&nbsp;
-                    <input type="radio" name="fsa_good" ng-value="false" ng-model="loan.quests.fsa_good"/>
-                    &nbsp;<label>No</label>
-                </div>
-            </div>
-        </div>
-        <div class="row form-group" ng-if="!loan.quests.fsa_good">
-            <div class="col-md-8 col-lg-offset-2">
-                <div class="col-md-12">
-                    <label>Details</label>
-                    <textarea name="fsa_goods_details" ng-model="loan.quests.fsa_good_details" class="form-control"></textarea>
-                </div>
-            </div>
-        </div>
-        <!-- FSA STANDING [fsaGood] {APPLICANT or FARMER} -->
-
-        <!-- FSA DIRECT PAYMENTS [fsa_direct_pay] -->
-        <div class="row form-group" ng-if="loan.loan_type_id != 7">
-            <div class="col-md-8 col-lg-offset-2">
-                <div class="col-md-9">
-                    <label>Have you received any FSA Direct Payments?</label>
-                </div>
-                <div class="col-md-3">
-                    <input type="radio" name="fsa_direct_pay" ng-value="true" ng-model="loan.quests.fsa_direct_pay"/>
-                    &nbsp;<label>Yes</label>
-                    &nbsp;&nbsp;&nbsp;
-                    <input type="radio" name="fsa_direct_pay" ng-value="false" ng-model="loan.quests.fsa_direct_pay"/>
-                    &nbsp;<label>No</label>
-                </div>
-            </div>
-        </div>
-        <div class="row form-group" ng-if="loan.quests.fsa_direct_pay">
-            <div class="col-md-8 col-lg-offset-2">
-                <div class="col-md-12">
-                    <label>FSA Direct Payment Details</label>
-                    <textarea name="fsa_direct_pay_details" ng-model="loan.quests.fsa_direct_pay_details" class="form-control"></textarea>
-                </div>
-            </div>
-        </div>
-        <!-- FSA DIRECT PAYMENTS [fsa_direct_pay] -->
-
-        <!-- FEDERAL CROP INSURANCE -->
-        <div class="row form-group" ng-if="loan.loan_type_id != 7">
-            <div class="col-md-8 col-md-offset-2">
-                <div class="col-md-9">
-                    <label>Do you have Federal Crop Insurance in force?</label>
-                </div>
-                <div class="col-md-3">
-                    <input type="radio" name="insInPlace" ng-value="true" ng-model="loan.quests.insInPlace"/>
-                    &nbsp;<label>Yes</label>
-                    &nbsp;&nbsp;&nbsp;
-                    <input type="radio" name="insInPlace" ng-value="false" ng-model="loan.quests.insInPlace"/>
-                    &nbsp;<label>No</label>
-                </div>
-            </div>
-        </div>
-        <!-- FEDERAL CROP INSURANCE -->
-
-        <!-- STORED CROP INSURANCE -->
-        <div class="row form-group" ng-if="loan.loan_type_id == 7">
-            <div class="col-md-8 col-md-offset-2">
-                <div class="col-md-9">
-                    <label>Is your stored grain value insured?</label>
-                </div>
-                <div class="col-md-3">
-                    <input type="radio" name="insInPlace" ng-value="true" ng-model="loan.quests.insInPlace"/>
-                    &nbsp;<label>Yes</label>
-                    &nbsp;&nbsp;&nbsp;
-                    <input type="radio" name="insInPlace" ng-value="false" ng-model="loan.quests.insInPlace"/>
-                    &nbsp;<label>No</label>
-                </div>
-            </div>
-        </div>
-        <!-- STORED CROP INSURANCE -->
-
-        <!-- Federal Crop Insurance Standing [fciGood] -->
-        <div class="row form-group" ng-if="loan.loan_type_id != 7">
-            <div class="col-md-8 col-md-offset-2">
-                <div class="col-md-9">
-                    <label>Are you in good standing with Federal Crop Insurance?</label>
-                </div>
-                <div class="col-md-3">
-                    <input type="radio" name="fci_good" ng-value="true" ng-model="loan.quests.fci_good"/>
-                    &nbsp;<label>Yes</label>
-                    &nbsp;&nbsp;&nbsp;
-                    <input type="radio" name="fci_good" ng-value="false" ng-model="loan.quests.fci_good"/>
-                    &nbsp;<label>No</label>
-                </div>
-            </div>
-        </div>
-        <div class="row form-group" ng-if="!loan.quests.fci_good">
-            <div class="col-md-8 col-lg-offset-2">
-                <div class="col-md-12">
-                    <label>Details</label>
-                    <textarea name="fci_good_details" ng-model="loan.quests.fci_good_details" class="form-control"></textarea>
-                </div>
-            </div>
-        </div>
-        <!-- Federal Crop Insurance Standing [fciGood] -->
-
-        <!-- PREMIUMS DUE [premiumsPast] -->
-        <div class="row form-group" ng-if="loan.loan_type_id != 7">
-            <div class="col-md-8 col-lg-offset-2">
-                <div class="col-md-9">
-                    <label>Are you current in all Crop Insurance premiums?</label>
-                </div>
-                <div class="col-md-3">
-                    <input type="radio" name="premiums_past" ng-value="true" ng-model="loan.quests.premiums_past"/>
-                    &nbsp;<label>Yes</label>
-                    &nbsp;&nbsp;&nbsp;
-                    <input type="radio" name="premiums_past" ng-value="false" ng-model="loan.quests.premiums_past"/>
-                    &nbsp;<label>No</label>
-                </div>
-            </div>
-        </div>
-        <div class="row form-group" ng-if="!loan.quests.premiums_past">
-            <div class="col-md-8 col-lg-offset-2">
-                <div class="col-md-12">
-                    <label>Late Premiums Details</label>
-                    <textarea name="premiums_details" ng-model="loan.quests.premiums_details" class="form-control"></textarea>
-                </div>
-            </div>
-        </div>
-        <!-- PREMIUMS DUE [premiumsPast] -->
-
-        <!-- LEGAL DEFENDANT [legalDefendant] -->
+        <!-- [10] LEGAL DEFENDANT [legalDefendant] -->
         <div class="row form-group">
-            <div class="col-md-8 col-lg-offset-2">
+            <div class="col-md-2">
+                <input type="radio" name="legal_defendant" ng-value="true" ng-true-value='1' ng-model="loan.quests.legal_defendant"/>
+                &nbsp;<label>Yes</label>
+                &nbsp;&nbsp;&nbsp;
+                <input type="radio" name="legal_defendant" ng-value="false" ng-model="loan.quests.legal_defendant"/>
+                &nbsp;<label>No</label>
+            </div>
+            <div class="col-md-10">
                 <div class="col-md-9">
                     <label>Are you a defendant in any suits or legal actions?</label>
-                </div>
-                <div class="col-md-3">
-                    <input type="radio" name="legal_defendant" ng-value="true" ng-true-value='1' ng-model="loan.quests.legal_defendant"/>
-                    &nbsp;<label>Yes</label>
-                    &nbsp;&nbsp;&nbsp;
-                    <input type="radio" name="legal_defendant" ng-value="false" ng-model="loan.quests.legal_defendant"/>
-                    &nbsp;<label>No</label>
                 </div>
             </div>
         </div>
         <div class="row form-group" ng-show="loan.quests.legal_defendant || loan.quests.legal_defendant == '1'" ng-hide="loan.quests.legal_defendant == '0'">
-            <div class="col-md-8 col-lg-offset-2">
+            <div class="col-md-10 col-lg-offset-2">
                 <div class="col-md-12">
                     <label>Details</label>
                     <textarea name="defendant_details" ng-model="loan.quests.defendant_details" class="form-control"></textarea>
                 </div>
             </div>
         </div>
-        <!-- LEGAL DEFENDANT [legalDefendant] -->
+        <!-- [10] LEGAL DEFENDANT [legalDefendant] -->
 
-        <!-- OUTSTANDING JUDGEMENTS [judgments] -->
+        <!-- [11] OUTSTANDING JUDGEMENTS [judgments] -->
         <div class="row form-group">
-            <div class="col-md-8 col-lg-offset-2">
+            <div class="col-md-2">
+                <input type="radio" name="judgements" ng-value="true" ng-true-value='1' ng-model="loan.quests.judgements"/>
+                &nbsp;<label>Yes</label>
+                &nbsp;&nbsp;&nbsp;
+                <input type="radio" name="judgements" ng-value="false" ng-true-value='0' ng-model="loan.quests.judgements"/>
+                &nbsp;<label>No</label>
+            </div>
+            <div class="col-md-10">
                 <div class="col-md-9">
                     <label>Are there any judgement outstanding against you?</label>
-                </div>
-                <div class="col-md-3">
-                    <input type="radio" name="judgements" ng-value="true" ng-true-value='1' ng-model="loan.quests.judgements"/>
-                    &nbsp;<label>Yes</label>
-                    &nbsp;&nbsp;&nbsp;
-                    <input type="radio" name="judgements" ng-value="false" ng-true-value='0' ng-model="loan.quests.judgements"/>
-                    &nbsp;<label>No</label>
                 </div>
             </div>
         </div>
         <div class="row form-group" ng-show="loan.quests.judgements || loan.quests.judgements == '1'" ng-hide="loan.quests.judgements == '0'">
-            <div class="col-md-8 col-lg-offset-2">
+            <div class="col-md-10 col-lg-offset-2">
                 <div class="col-md-12">
                     <label>Details</label>
                     <textarea name="judgement_details" ng-model="loan.quests.judgement_details" class="form-control"></textarea>
                 </div>
             </div>
         </div>
-        <!-- OUTSTANDING JUDGeMENTS [judgments] -->
+        <!-- [11] OUTSTANDING JUDGeMENTS [judgments] -->
 
-        <!-- BANKRUPTCY [bankruptcy] -->
+        <!-- [12] BANKRUPTCY [bankruptcy] -->
         <div class="row form-group">
-            <div class="col-md-8 col-lg-offset-2">
+            <div class="col-md-2">
+                <!-- 'YES' TURNS ON BANKRUPTCY HISTORY -->
+                <input type="radio" name="bankruptcy" ng-value="true" ng-true-value='1' ng-model="loan.quests.bankruptcy"/>
+                &nbsp;<label>Yes</label>
+                &nbsp;&nbsp;&nbsp;
+                <input type="radio" name="bankruptcy" ng-value="false" ng-true-value='0' ng-model="loan.quests.bankruptcy"/>
+                &nbsp;<label>No</label>
+            </div>
+            <div class="col-md-10">
                 <div class="col-md-9">
                     <label>Have you ever been, or are you now involved in bankruptcy?</label>
-                </div>
-                <div class="col-md-3">
-                    <!-- 'YES' TURNS ON BANKRUPTCY HISTORY -->
-                    <input type="radio" name="bankruptcy" ng-value="true" ng-true-value='1' ng-model="loan.quests.bankruptcy"/>
-                    &nbsp;<label>Yes</label>
-                    &nbsp;&nbsp;&nbsp;
-                    <input type="radio" name="bankruptcy" ng-value="false" ng-true-value='0' ng-model="loan.quests.bankruptcy"/>
-                    &nbsp;<label>No</label>
                 </div>
             </div>
         </div>
         <div class="row form-group" ng-show="loan.quests.bankruptcy || loan.quests.bankruptcy == '1'" ng-hide="loan.quests.bankruptcy == '0'">
-            <div class="col-md-8 col-lg-offset-2">
+            <div class="col-md-10 col-lg-offset-2">
                 <div class="col-md-12">
                     <label>Details</label>
                     <textarea name="bankruptcy_details" ng-model="loan.quests.bankruptcy_details" class="form-control"></textarea>
@@ -309,7 +88,7 @@
             </div>
         </div>
         <div class="row form-group" ng-show="loan.quests.bankruptcy || loan.quests.bankruptcy == '1'" ng-hide="loan.quests.bankruptcy == '0'">
-            <div class="col-md-8 col-lg-offset-2">
+            <div class="col-md-10 col-md-offset-2">
                 <div class="col-md-9">
                     <label style="color:#000099;">Must you have a Court Order to Incur Debt?</label>
                 </div>
@@ -321,102 +100,35 @@
             </div>
             <br><br>
         </div>
-        <!-- BANKRUPTCY [bankruptcy] -->
+        <!-- [12] BANKRUPTCY [bankruptcy] -->
 
-        <!-- LIENS [liens] -->
+        <!-- [16] AFFILIATED ENTITIES [affiliated entities] {}-->
         <div class="row form-group">
-            <div class="col-md-8 col-lg-offset-2">
-                <div class="col-md-9">
-                    <label>Are there any outstanding liens on the crops involved in this loan?</label>
-                </div>
-                <div class="col-md-3">
-                    <input type="radio" name="liens" ng-value="true" ng-true-value='1' ng-model="loan.quests.liens"/>
-                    &nbsp;<label>Yes</label>
-                    &nbsp;&nbsp;&nbsp;
-                    <input type="radio" name="liens" ng-value="false" ng-true-value='0' ng-model="loan.quests.liens"/>
-                    &nbsp;<label>No</label>
-                </div>
+            <div class="col-md-2">
+                <input type="radio" name="affiliates"  ng-value="true" ng-model="loan.quests.affiliates"/>
+                &nbsp;<label>Yes</label>
+                &nbsp;&nbsp;&nbsp;
+                <input type="radio" name="affiliates"  ng-value="false" ng-model="loan.quests.affiliates"/>
+                &nbsp;<label>No</label>
             </div>
-        </div>
-        <div class="row form-group" ng-hide="2 = 2">
-            <!--<div class="row form-group" ng-show="loan.quests.lien_details || loan.quests.lien_details == '1'" ng-hide="loan.quests.lien_details == '0'">-->
-            <div class="col-md-8 col-lg-offset-2">
-                <div class="col-md-12">
-                    <label>Details</label>
-                    <textarea name="liens_details" ng-model="loan.quests.liens_details" class="form-control"></textarea>
-                </div>
-            </div>
-        </div>
-        <!-- LIENS [liens] -->
-
-        <!-- OUTSTANDING/FUTURE LIABILITIES [future_liabilities] -->
-        <div class="row form-group" ng-if="loan.loan_type_id != 7">
-            <div class="col-md-8 col-lg-offset-2">
-                <div class="col-md-9">
-                    <label>Do you have any future crops booked or other future contract liabilities?</label>
-                </div>
-                <div class="col-md-3">
-                    <input type="radio" name="future_liabilities" value="1" ng-model="loan.quests.future_liabilities"/>
-                    &nbsp;<label>Yes</label>
-                    &nbsp;&nbsp;&nbsp;
-                    <input type="radio" name="future_liabilities" value="0" ng-model="loan.quests.future_liabilities"/>
-                    &nbsp;<label>No</label>
-                </div>
-            </div>
-        </div>
-        <!-- OUTSTANDING/FUTURE LIABILITIES [future_liabilities] -->
-
-        <!-- THIRD PARTY CREDIT [third_party_credit_available] -->
-        <div class="row form-group" ng-if="loan.loan_type_id != 7">
-            <div class="col-md-8 col-lg-offset-2">
-                <div class="col-md-9">
-                    <label>Do you have any third-party credit available (PHI, Monsanto, FarmPlan, etc.)?</label>
-                </div>
-                <div class="col-md-3">
-                    <input type="radio" name="third_party_credit_available"  ng-value="true" ng-model="loan.quests.credit_3p_available"/>
-                    &nbsp;<label>Yes</label>
-                    &nbsp;&nbsp;&nbsp;
-                    <input type="radio" name="third_party_credit_available"  ng-value="false" ng-model="loan.quests.credit_3p_available"/>
-                    &nbsp;<label>No</label>
-                </div>
-            </div>
-        </div>
-        <div class="row form-group" ng-if="loan.quests.credit_3p_available">
-            <div class="col-md-8 col-lg-offset-2">
-                <div class="col-md-12">
-                    <label>How much is available and with whom?</label>
-                    <textarea name="third_party_credit_available_details" ng-model="loan.quests.credit_3p_details" class="form-control"></textarea>
-                </div>
-            </div>
-        </div>
-        <!-- THIRD PARTY CREDIT [third_party_credit_available] -->
-
-        <!--AFFILIATED ENTITIES [affiliated entities] {}-->
-        <div class="row form-group">
-            <div class="col-md-8 col-lg-offset-2">
+            <div class="col-md-10">
                 <div class="col-md-9">
                     <label>Are the additional affiliated entities to report?</label>
-                </div>
-                <div class="col-md-3">
-                    <input type="radio" name="affiliates"  ng-value="true" ng-model="loan.quests.affiliates"/>
-                    &nbsp;<label>Yes</label>
-                    &nbsp;&nbsp;&nbsp;
-                    <input type="radio" name="affiliates"  ng-value="false" ng-model="loan.quests.affiliates"/>
-                    &nbsp;<label>No</label>
                 </div>
             </div>
         </div>
         <div class="row form-group" ng-if="loan.quests.affiliates">
-            <div class="col-md-8 col-lg-offset-2">
+            <div class="col-md-10 col-lg-offset-2">
                 <div class="col-md-12">
                     <label>Please list affiliated entities and their ownership percentage. Include any entity's name under which you have sold grain in the past three (3) years.</label>
                     <textarea name="affiliated_entities" ng-model="loan.quests.affiliated_entities" class="form-control"></textarea>
                 </div>
             </div>
         </div>
-        <!--AFFILIATED ENTITIES [affiliated entities] {}-->
+        <!-- [16] AFFILIATED ENTITIES [affiliated entities] {}-->
 
-        <!-- INCOME PERCENTAGE [income_percent] {LOAN}-->
+
+        <!-- [17] INCOME PERCENTAGE [income_percent] {LOAN}-->
         <div class="row form-group" ng-if="loan.loan_type_id != 7">
             <div class="col-md-8 col-lg-offset-2">
                 <div class="col-md-9">
@@ -438,32 +150,335 @@
                 </div>
             </div>
         </div>
-        <!-- INCOME PERCENTAGE [income_percent] {LOAN}-->
+        <!-- [17] INCOME PERCENTAGE [income_percent] {LOAN}-->
 
         <!-- RESTRICTED USE PESTICIDE [pesticide_number] {} -->
         <div class="row form-group" ng-if="loan.loan_type_id == '2' || loan.loan_type_id == '6'">
-            <div class="col-md-8 col-lg-offset-2">
-                <div class="col-md-9">
-                    <label>Restricted Use Pesticide Number</label>
-                </div>
-                <div class="col-md-3">
-                    <input type="text" name="pesticide_number" ng_model="loan.quests.pesticide_number" class="form-control"/>
-                </div>
+            <div class="col-md-2 col-md-offset-2">
+                <label>Restricted Use Pesticide Number</label>
+            </div>
+            <div class="col-md-3">
+                <input type="text" name="pesticide_number" ng_model="loan.quests.pesticide_number" class="form-control"/>
+            </div>
+            <div class="col-md-2">
+                <label>Restricted Use Pesticide Expiration Date</label>
+            </div>
+            <div class="col-md-3">
+                <input type="text" name="pest_num_expiration" ng_model="loan.quests.pest_num_expiration" class="form-control"/>
             </div>
         </div>
         <!-- RESTRICTED USE PESTICIDE [pesticide_number] {} -->
 
-        <!-- RESTRICTED USE PESTICIDE EXPIRATION [pesticide_number] {} -->
-        <div class="row form-group" ng-if="loan.loan_type_id == '2' || loan.loan_type_id == '6'">
-            <div class="col-md-8 col-lg-offset-2">
+        <div class="alert alert-success" role="alert">
+            <h4>Collateral</h4>
+        </div>
+
+        <!-- [5] FSA STANDING [fsaGood] {APPLICANT or FARMER} -->
+        <div class="row form-group" ng-if="loan.loan_type_id != 7">
+            <div class="col-md-2">
+                <input type="radio" name="fsa_good" ng-value="true" ng-model="loan.quests.fsa_good"/>
+                &nbsp;<label>Yes</label>
+                &nbsp;&nbsp;&nbsp;
+                <input type="radio" name="fsa_good" ng-value="false" ng-model="loan.quests.fsa_good"/>
+                &nbsp;<label>No</label>
+            </div>
+            <div class="col-md-10">
                 <div class="col-md-9">
-                    <label>Restricted Use Pesticide Expiration Date</label>
-                </div>
-                <div class="col-md-3">
-                    <input type="text" name="pest_num_expiration" ng_model="loan.quests.pest_num_expiration" class="form-control"/>
+                    <label>Are you in good standing with the FSA?</label>
                 </div>
             </div>
         </div>
-        <!-- RESTRICTED USE PESTICIDE [pesticide_number] {} -->
+        <div class="row form-group" ng-if="!loan.quests.fsa_good">
+            <div class="col-md-10 col-md-offset-2">
+                <div class="col-md-12">
+                    <label>Details</label>
+                    <textarea name="fsa_goods_details" ng-model="loan.quests.fsa_good_details" class="form-control"></textarea>
+                </div>
+            </div>
+        </div>
+        <!-- [5] FSA STANDING [fsaGood] {APPLICANT or FARMER} -->
+
+        <!-- [6] FSA DIRECT PAYMENTS [fsa_direct_pay] -->
+        <div class="row form-group" ng-if="loan.loan_type_id != 7">
+            <div class="col-md-2">
+                <input type="radio" name="fsa_direct_pay" ng-value="true" ng-model="loan.quests.fsa_direct_pay"/>
+                &nbsp;<label>Yes</label>
+                &nbsp;&nbsp;&nbsp;
+                <input type="radio" name="fsa_direct_pay" ng-value="false" ng-model="loan.quests.fsa_direct_pay"/>
+                &nbsp;<label>No</label>
+            </div>
+            <div class="col-md-10">
+                <div class="col-md-9">
+                    <label>Have you received any FSA Direct Payments?</label>
+                </div>
+            </div>
+        </div>
+        <div class="row form-group" ng-if="loan.quests.fsa_direct_pay">
+            <div class="col-md-10 col-md-offset-2">
+                <div class="col-md-12">
+                    <label>FSA Direct Payment Details</label>
+                    <textarea name="fsa_direct_pay_details" ng-model="loan.quests.fsa_direct_pay_details" class="form-control"></textarea>
+                </div>
+            </div>
+        </div>
+        <!-- [6] FSA DIRECT PAYMENTS [fsa_direct_pay] -->
+
+        <!-- [7] FEDERAL CROP INSURANCE -->
+        <div class="row form-group" ng-if="loan.loan_type_id != 7">
+            <div class="col-md-2">
+                <input type="radio" name="insInPlace" ng-value="true" ng-model="loan.quests.insInPlace"/>
+                &nbsp;<label>Yes</label>
+                &nbsp;&nbsp;&nbsp;
+                <input type="radio" name="insInPlace" ng-value="false" ng-model="loan.quests.insInPlace"/>
+                &nbsp;<label>No</label>
+            </div>
+            <div class="col-md-10">
+                <div class="col-md-9">
+                    <label>Do you have Federal Crop Insurance in force?</label>
+                </div>
+            </div>
+        </div>
+        <!-- [7] FEDERAL CROP INSURANCE -->
+
+        <!-- [7] STORED CROP INSURANCE -->
+        <div class="row form-group" ng-if="loan.loan_type_id == 7">
+            <div class="col-md-2">
+                <input type="radio" name="insInPlace" ng-value="true" ng-model="loan.quests.insInPlace"/>
+                &nbsp;<label>Yes</label>
+                &nbsp;&nbsp;&nbsp;
+                <input type="radio" name="insInPlace" ng-value="false" ng-model="loan.quests.insInPlace"/>
+                &nbsp;<label>No</label>
+            </div>
+            <div class="col-md-10">
+                <div class="col-md-9">
+                    <label>Is your stored grain value insured?</label>
+                </div>
+            </div>
+        </div>
+        <!-- [7] STORED CROP INSURANCE -->
+
+        <!-- [8] Federal Crop Insurance Standing [fciGood] -->
+        <div class="row form-group" ng-if="loan.loan_type_id != 7">
+            <div class="col-md-2">
+                <input type="radio" name="fci_good" ng-value="true" ng-model="loan.quests.fci_good"/>
+                &nbsp;<label>Yes</label>
+                &nbsp;&nbsp;&nbsp;
+                <input type="radio" name="fci_good" ng-value="false" ng-model="loan.quests.fci_good"/>
+                &nbsp;<label>No</label>
+            </div>
+            <div class="col-md-10">
+                <div class="col-md-9">
+                    <label>Are you in good standing with Federal Crop Insurance?</label>
+                </div>
+
+            </div>
+        </div>
+        <div class="row form-group" ng-if="!loan.quests.fci_good">
+            <div class="col-md-10 col-md-offset-2">
+                <div class="col-md-12">
+                    <label>Details</label>
+                    <textarea name="fci_good_details" ng-model="loan.quests.fci_good_details" class="form-control"></textarea>
+                </div>
+            </div>
+        </div>
+        <!-- [8] Federal Crop Insurance Standing [fciGood] -->
+
+        <!-- [9] PREMIUMS DUE [premiumsPast] -->
+        <div class="row form-group" ng-if="loan.loan_type_id != 7">
+            <div class="col-md-2">
+                <input type="radio" name="premiums_past" ng-value="true" ng-model="loan.quests.premiums_past"/>
+                &nbsp;<label>Yes</label>
+                &nbsp;&nbsp;&nbsp;
+                <input type="radio" name="premiums_past" ng-value="false" ng-model="loan.quests.premiums_past"/>
+                &nbsp;<label>No</label>
+            </div>
+            <div class="col-md-10">
+                <div class="col-md-9">
+                    <label>Are you current in all Crop Insurance premiums?</label>
+                </div>
+            </div>
+        </div>
+        <div class="row form-group" ng-if="!loan.quests.premiums_past">
+            <div class="col-md-10 col-md-offset-2">
+                <div class="col-md-12">
+                    <label>Late Premiums Details</label>
+                    <textarea name="premiums_details" ng-model="loan.quests.premiums_details" class="form-control"></textarea>
+                </div>
+            </div>
+        </div>
+        <!-- [9] PREMIUMS DUE [premiumsPast] -->
+
+        <!-- [13] LIENS [liens] -->
+        <div class="row form-group">
+            <div class="col-md-2">
+                <input type="radio" name="liens" ng-value="true" ng-true-value='1' ng-model="loan.quests.liens"/>
+                &nbsp;<label>Yes</label>
+                &nbsp;&nbsp;&nbsp;
+                <input type="radio" name="liens" ng-value="false" ng-true-value='0' ng-model="loan.quests.liens"/>
+                &nbsp;<label>No</label>
+            </div>
+            <div class="col-md-10">
+                <div class="col-md-9">
+                    <label>Are there any outstanding liens on the crops involved in this loan?</label>
+                </div>
+            </div>
+        </div>
+        <div class="row form-group" ng-show="loan.quests.liens" ng-hide="!loan.quests.liens">
+            <div class="col-md-10 col-md-offset-2">
+                <div class="col-md-12">
+                    <label>Details</label>
+                    <textarea name="liens_details" ng-model="loan.quests.liens_details" class="form-control"></textarea>
+                </div>
+            </div>
+        </div>
+        <!-- [13] LIENS [liens] -->
+
+        <!-- [14] OUTSTANDING/FUTURE LIABILITIES [future_liabilities] -->
+        <div class="row form-group" ng-if="loan.loan_type_id != 7">
+            <div class="col-md-2">
+                <input type="radio" name="future_liabilities" value="1" ng-model="loan.quests.future_liabilities"/>
+                &nbsp;<label>Yes</label>
+                &nbsp;&nbsp;&nbsp;
+                <input type="radio" name="future_liabilities" value="0" ng-model="loan.quests.future_liabilities"/>
+                &nbsp;<label>No</label>
+            </div>
+            <div class="col-md-10">
+                <div class="col-md-9">
+                    <label>Do you have any future crops booked or other future contract liabilities?</label>
+                </div>
+
+            </div>
+        </div>
+        <!-- [14] OUTSTANDING/FUTURE LIABILITIES [future_liabilities] -->
+
+        <div class="alert alert-success" role="alert">
+            <h4>Operational</h4>
+        </div>
+
+        <!-- [1] PLANT OWN CROPS [plantOwn] {APPLICANT or FARMER} -->
+        <div class="row form-group" ng-if="loan.loan_type_id != 7">
+            <div class="col-md-2">
+                <input type="radio" name="plant_own" ng-value='true' ng-true-value='1' ng-model="loan.quests.plant_own"/>
+                &nbsp;<label>Yes</label>
+                &nbsp;&nbsp;&nbsp;
+                <input type="radio" name="plant_own" ng-value='false' ng-model="loan.quests.plant_own"/>
+                &nbsp;<label>No</label>
+            </div>
+            <div class="col-md-10">
+                <div class="col-md-9">
+                    <label>Do you plant your own crops?</label>
+                </div>
+            </div>
+        </div>
+        <div class="row form-group" ng-if="!loan.quests.plant_own">
+            <div class="col-md-10 col-md-offset-2">
+                <div class="col-md-12">
+                    <label>Details</label>
+                    <textarea name="plant_own_details" ng-model="loan.quests.plant_own_details" class="form-control"></textarea>
+                </div>
+            </div>
+        </div>
+        <!-- [1] PLANT OWN CROPS [plantOwn] {APPLICANT or FARMER} -->
+
+        <!-- [2] HARVEST OWN CROPS [harvestOwn] {APPLICANT or FARMER} -->
+        <div class="row form-group" ng-if="loan.loan_type_id != 7">
+            <div class="col-md-2">
+                <input type="radio" name="harvest_own" ng-value="true" ng-model="loan.quests.harvest_own"/>
+                &nbsp;<label>Yes</label>
+                &nbsp;&nbsp;&nbsp;
+                <input type="radio" name="harvest_own" ng-value="false" ng-model="loan.quests.harvest_own"/>
+                &nbsp;<label>No</label>
+            </div>
+            <div class="col-md-10">
+                <div class="col-md-9">
+                    <label>Do you harvest your own crops?</label>
+                </div>
+            </div>
+        </div>
+        <div class="row form-group" ng-if="!loan.quests.harvest_own">
+            <div class="col-md-10 col-md-offset-2">
+                <div class="col-md-12">
+                    <label>Details</label>
+                    <textarea name="plant_own_details" ng-model="loan.quests.harvest_own_details" class="form-control"></textarea>
+                </div>
+            </div>
+        </div>
+        <!-- [2] HARVEST OWN CROPS [harvestOwn] {APPLICANT or FARMER} -->
+
+        <!-- [3] EQUIPMENT OBLIGATIONS [equipObligations] {LOAN} -->
+        <div class="row form-group" ng-if="loan.loan_type_id != 7">
+            <div class="col-md-2">
+                <input type="radio" name="equip_obligations" ng-value="true" ng-model="loan.quests.equip_obligations"/>
+                &nbsp;<label>Yes</label>
+                &nbsp;&nbsp;&nbsp;
+                <input type="radio" name="equip_obligations" ng-value="false" ng-model="loan.quests.equip_obligations"/>
+                &nbsp;<label>No</label>
+            </div>
+            <div class="col-md-10">
+                <div class="col-md-9">
+                    <label>Do you have all equipment obligations met and/or factored into the loan?</label>
+                </div>
+            </div>
+        </div>
+        <div class="row form-group" ng-if="!loan.quests.equip_obligations">
+            <div class="col-md-10 col-md-offset-2">
+                <div class="col-md-12">
+                    <label>Details</label>
+                    <textarea name="equip_obligations_details" ng-model="loan.quests.equip_obligations_details" class="form-control"></textarea>
+                </div>
+            </div>
+        </div>
+        <!-- [3] EQUIPMENT OBLIGATIONS [equipObligations] {LOAN} -->
+
+        <!-- [4] OTHER CASH OUTLAYS [otherCash] {?}-->
+        <div class="row form-group" ng-if="loan.loan_type_id != 7">
+            <div class="col-md-2">
+                <input type="radio" name="other_cash" ng-value="true" ng-model="loan.quests.other_cash"/>
+                &nbsp;<label>Yes</label>
+                &nbsp;&nbsp;&nbsp;
+                <input type="radio" name="other_cash" ng-value="false" ng-model="loan.quests.other_cash"/>
+                &nbsp;<label>No</label>
+            </div>
+            <div class="col-md-10">
+                <div class="col-md-9">
+                    <label>Have you made provisions for all other non-requested cash outlays?</label>
+                </div>
+            </div>
+        </div>
+        <div class="row form-group" ng-if="!loan.quests.other_cash">
+            <div class="col-md-10 col-md-offset-2">
+                <div class="col-md-12">
+                    <label>Details</label>
+                    <textarea name="other_cash_details" ng-model="loan.quests.other_cash_details" class="form-control"></textarea>
+                </div>
+            </div>
+        </div>
+        <!-- [4] OTHER CASH OUTLAYS [otherCash] {?}-->
+
+        <!-- [15] THIRD PARTY CREDIT [third_party_credit_available] -->
+        <div class="row form-group" ng-if="loan.loan_type_id != 7">
+            <div class="col-md-2">
+                <input type="radio" name="third_party_credit_available"  ng-value="true" ng-model="loan.quests.credit_3p_available"/>
+                &nbsp;<label>Yes</label>
+                &nbsp;&nbsp;&nbsp;
+                <input type="radio" name="third_party_credit_available"  ng-value="false" ng-model="loan.quests.credit_3p_available"/>
+                &nbsp;<label>No</label>
+            </div>
+            <div class="col-md-10">
+                <div class="col-md-9">
+                    <label>Do you have any third-party credit available (PHI, Monsanto, FarmPlan, etc.)?</label>
+                </div>
+            </div>
+        </div>
+        <div class="row form-group" ng-if="loan.quests.credit_3p_available">
+            <div class="col-md-10 col-md-offset-2">
+                <div class="col-md-12">
+                    <label>How much is available and with whom?</label>
+                    <textarea name="third_party_credit_available_details" ng-model="loan.quests.credit_3p_details" class="form-control"></textarea>
+                </div>
+            </div>
+        </div>
+        <!-- [15] THIRD PARTY CREDIT [third_party_credit_available] -->
+
     </div>
 </fieldset>
