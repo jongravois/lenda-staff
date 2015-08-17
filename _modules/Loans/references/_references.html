@@ -1,0 +1,81 @@
+<div class="row">
+    <div class="form-group">
+        <table class="table table-striped rowed table-condensed disp-sm" style="width:85%;">
+            <tr>
+                <th style="width:25%;" ng-click="doSort('creditor')">Creditor</th>
+                <th style="width:20%;" ng-click="doSort('contact')">Contact</th>
+                <th style="width:20%;" ng-click="doSort('city_state')">Location</th>
+                <th style="width:15%;" ng-click="doSort('phone')">Phone</th>
+                <th style="width:15%;" ng-click="doSort('email')">Email</th>
+                <th style="width:140px;">&nbsp;</th>
+            </tr>
+            <tr ng-repeat="p in loan.references | orderBy:sortBy:reverse" ng-init="!rowform.$visible"
+                ng-dblclick="rowform.$show()">
+                <td class="cBlue">
+                        <span editable-text="p.creditor" e-name="creditor" e-form="rowform" e-style="width:100%;"
+                              e-required>
+                  {{ p.creditor }}
+                </span>
+                </td>
+                <td class="cBlue">
+                        <span editable-text="p.contact" e-name="contact" e-form="rowform" e-style="width:100%;"
+                              e-required>
+                  {{ p.contact }}
+                </span>
+                </td>
+                <td class="cBlue">
+                            <span editable-text="p.city_state" e-name="city_state" e-form="rowform"
+                                  e-style="width:100%;" e-required>
+                                {{ p.city_state }}
+                            </span>
+                </td>
+                <td class="cBlue">
+                           <span editable-text="p.phone" e-name="phone" e-form="rowform" e-style="width:100%;"
+                                 e-required>
+                                {{ p.phone|phone }}
+                            </span>
+                </td>
+                <td class="cBlue">
+                        <span editable-text="p.email" e-name="email" e-form="rowform" e-style="width:100%;" e-required>
+                  {{ p.email }}
+                </span>
+                </td>
+                <td class="text-center">
+                    <!-- form -->
+                    <form editable-form
+                          name="rowform"
+                          onbeforesave="saveReference($data, p.id)"
+                          ng-show="rowform.$visible"
+                          class="form-buttons form-inline">
+                        <button type="submit"
+                                ng-disabled="rowform.$waiting"
+                                style="border: none !important; padding: 0 !important; background-color: transparent;">
+                                    <span class="glyphicons glyphicons-circle-ok"
+                                          ng-click=""
+                                          style="color:#006837;"></span>
+                        </button>
+
+                                <span class="glyphicons glyphicons-unshare"
+                                      style="color: #990000;"
+                                      ng-disabled="rowform.$waiting"
+                                      ng-click="rowform.$cancel()"></span>
+                    </form>
+                    <div class="buttons"
+                         ng-show="!rowform.$visible">
+                                <span class="glyphicons glyphicons-remove-2"
+                                      style="color: #990000;"
+                                      ng-click="deleteReference($index, p.id)"></span>
+                </td>
+            </tr>
+            <tr ng-if="loan.references.length == 0">
+                <td colspan="6"><b>No references found!</b></td>
+            </tr>
+        </table>
+    </div>
+    <div class="row" style="margin-left: 0;">
+        <p>
+            <a ng-click="createNew()" class="btn btn-xs btn-default">
+                <span class="glyphicon glyphicon-plus-sign" style="color:#006837;"></span> Add New</a>
+        </p>
+    </div>
+</div>

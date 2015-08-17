@@ -13,6 +13,14 @@
     }
     .red{ color: red; }
 </style>
+<div class="row">
+    <div class="col-md-12 text-right">
+        <button style="margin-right:10px;" class="btn btn-arm" ng-click="updateFinancials()"><span class="glyphicons glyphicons-log-book"></span>&nbsp;UPDATE</button>
+    </div>
+</div>
+
+<br>
+
 <fieldset>
     <legend>Financials</legend>
     <div class="container-fluid">
@@ -23,7 +31,7 @@
                         <tr>
                             </td>
                             <td style="width:8%;">
-                                <label>Grade</label>
+                                <label>Rating</label>
                                 &nbsp;&nbsp;
                                 <label>{{loan.applicant.fins.grade}}</label>
                             </td>
@@ -52,7 +60,7 @@
             <!-- PLANNED CROP CONSTRAINTS -->
             <div class="row" ng-hide="loan.loan_type_id == 2">
                 <div class="col-md-12">
-                    <table class="table table-striped rowed">
+                    <table class="table table-striped rowed table-condensed disp-sm">
                         <tr>
                             <th style="width:25%;">Planned Crop Constraints</th>
                             <th style="width:15%;">Acres</th>
@@ -83,17 +91,17 @@
                             <td class="text-left">
                                 Total
                             </td>
-                            <td class="text-right" ng-class=gtZero(loan.total_acres)>
+                            <td class="text-right" ng-class=AppFactory.gtZero(loan.total_acres)>
                                 {{loan.total_acres | displaynullsingle}}
                             </td>
                             <td class="text-center"> - </td>
-                            <td ng-class=gtZero(loan.fins.totalPCC)>
+                            <td ng-class=AppFactory.gtZero(loan.fins.totalPCC)>
                                 {{loan.appfins.totalPCC | flexCurrency:0}}
                             </td>
-                            <td ng-class=gtZero(loan.fins.totalPCC)>
+                            <td ng-class=AppFactory.gtZero(loan.fins.totalPCC)>
                                 {{loan.appfins.totalPCC * .35 | flexCurrency:0}}
                             </td>
-                            <td ng-class=gtZero(loan.fins.totalPCC)>
+                            <td ng-class=AppFactory.gtZero(loan.fins.totalPCC)>
                                 {{loan.appfins.totalPCC * .35 | flexCurrency:0}}
                             </td>
                         </tr>
@@ -106,19 +114,19 @@
             <div class="row">
                 <div class="col-md-5">
                     <span><strong>Income Statement</strong></span>
-                    <table class="table table-striped rowed">
+                    <table class="table table-striped rowed table-condensed disp-sm">
                         <tr>
                             <th><!--Income Constraints--></th>
                             <th>Revenue</th>
-                            <th>Expenses</th>
+                            <th class="bright">Expenses</th>
                             <th>Income</th>
                         </tr>
                         <tr>
                             <td>Year 1</td>
-                            <td class="text-right">
+                            <td class="text-right cBlue">
                                 {{afins.year_1_revenue|flexCurrency:0}}
                             </td>
-                            <td class="text-right">
+                            <td class="text-right cBlue bright">
                                 {{afins.year_1_expenses|flexCurrency:0}}
                             </td>
                             <td class="text-right">
@@ -127,10 +135,10 @@
                         </tr>
                         <tr>
                             <td>Year 2</td>
-                            <td class="text-right">
+                            <td class="text-right cBlue">
                                 {{afins.year_2_revenue|flexCurrency:0}}
                             </td>
-                            <td class="text-right">
+                            <td class="text-right cBlue bright">
                                 {{afins.year_2_expenses|flexCurrency:0}}
                             </td>
                             <td class="text-right">
@@ -139,10 +147,10 @@
                         </tr>
                         <tr>
                             <td>Year 3</td>
-                            <td class="text-right">
+                            <td class="text-right cBlue">
                                 {{afins.year_3_revenue|flexCurrency:0}}
                             </td>
-                            <td class="text-right">
+                            <td class="text-right cBlue bright">
                                 {{afins.year_3_expenses|flexCurrency:0}}
                             </td>
                             <td class="text-right">
@@ -154,7 +162,7 @@
                             <td class="text-right">
                                 {{AppFactory.averageArray([afins.year_1_revenue, afins.year_2_revenue, afins.year_3_revenue]) | flexCurrency:0}}
                             </td>
-                            <td class="text-right">
+                            <td class="text-right bright">
                                 {{AppFactory.averageArray([afins.year_1_expenses * 1, afins.year_2_expenses * 1, afins.year_3_expenses * 1]) | flexCurrency:0}}
                             </td>
                             <td class="text-right">
@@ -168,27 +176,27 @@
                 <!-- BALANCE SHEET CONSTRAINTS-->
                 <div class="col-md-7">
                     <span><strong>Balance Sheet</strong></span>
-                    <table class="table table-striped rowed">
+                    <table class="table table-striped rowed table-condensed disp-sm">
                         <tr>
                             <th><!--Balance Sheet Constraint--></th>
                             <th>Asset</th>
                             <th>Discount</th>
-                            <th>Adj Value</th>
+                            <th class="bright">Adj Value</th>
                             <th>Liability</th>
                             <th>Reserve</th>
                         </tr>
                         <tr>
                             <td>Current</td>
-                            <td class="text-right">
+                            <td class="text-right cBlue">
                                 {{afins.current_assets|flexCurrency:0}}
                             </td>
-                            <td class="text-right">
+                            <td class="text-right cBlue">
                                 {{afins.current_assets_factor|flexPercent:1}}
                             </td>
-                            <td class="text-right">
+                            <td class="text-right bright">
                                 {{ afins.current_assets_adj = afins.current_assets * ((100 - afins.current_assets_factor) / 100) | flexCurrency:0}}
                             </td>
-                            <td class="text-right">
+                            <td class="text-right cBlue">
                                 {{afins.current_assets_liability|flexCurrency:0}}
                             </td>
                             <td class="text-right">
@@ -197,16 +205,16 @@
                         </tr>
                         <tr>
                             <td>Intermediate</td>
-                            <td class="text-right">
+                            <td class="text-right cBlue">
                                 {{afins.intermediate_assets|flexCurrency:0}}
                             </td>
-                            <td class="text-right">
+                            <td class="text-right cBlue">
                                 {{afins.intermediate_assets_factor|flexPercent:1}}
                             </td>
-                            <td class="text-right">
+                            <td class="text-right bright">
                                 {{ afins.intermediate_assets_adj = afins.intermediate_assets * ((100 - afins.intermediate_assets_factor) / 100) | flexCurrency:0}}
                             </td>
-                            <td class="text-right">
+                            <td class="text-right cBlue">
                                 {{afins.intermediate_assets_liability|flexCurrency:0}}
                             </td>
                             <td class="text-right">
@@ -215,16 +223,16 @@
                         </tr>
                         <tr>
                             <td>Fixed</td>
-                            <td class="text-right">
+                            <td class="text-right cBlue">
                                 {{afins.fixed_assets|flexCurrency:0}}
                             </td>
-                            <td class="text-right">
+                            <td class="text-right cBlue">
                                 {{afins.fixed_assets_factor|flexPercent:1}}
                             </td>
-                            <td class="text-right">
+                            <td class="text-right bright">
                                 {{ afins.fixed_assets_adj = afins.fixed_assets * ((100 - afins.fixed_assets_factor) / 100) | flexCurrency:0}}
                             </td>
-                            <td class="text-right">
+                            <td class="text-right cBlue">
                                 {{afins.fixed_assets_liability|flexCurrency:0}}
                             </td>
                             <td class="text-right">
@@ -237,7 +245,7 @@
                                 {{afins.total_assets = (afins.current_assets * 1) + (afins.intermediate_assets * 1) + (afins.fixed_assets * 1)  | flexCurrency:0}}
                             </td>
                             <td class="text-center"> - </td>
-                            <td class="text-right">
+                            <td class="text-right bright">
                                 {{ afins.total_assets_adj = (afins.current_assets_adj * 1) + (afins.intermediate_assets_adj * 1) + (afins.fixed_assets_adj * 1) | flexCurrency:0}}
                             </td>
                             <td class="text-right">
@@ -255,7 +263,7 @@
             <!-- RATIO CONSTRAINTS -->
             <div class="row">
                 <div class="col-md-12">
-                    <table class="table table-striped rowed">
+                    <table class="table table-striped rowed table-condensed disp-sm">
                         <tr>
                             <th style="width: 26%;">Ratio Constraints</th>
                             <th style="width: 12%;">Ratios</th>
@@ -269,10 +277,10 @@
                         </tr>
                         <tr>
                             <td>Debt to Asset [<=]</td>
-                            <td class="text-center" ng-class=gtZero(afins.debt2asset_ratio)>
+                            <td class="text-center cBlue" ng-class="AppFactory.gtZero(afins.debt2asset_ratio)">
                                 {{afins.debt2asset_ratio|flexPercent:1}}
                             </td>
-                            <td class="bright text-center" ng-class=gtZero(afins.debt2asset_ratio_adj)>
+                            <td class="bright text-center cBlue" ng-class="AppFactory.gtZero(afins.debt2asset_ratio_adj)">
                                 {{afins.debt2asset_ratio_adj|flexPercent:1}}
                             </td>
                             <td class="text-center" ng-class="{red: loan.grader.debt2asset_ratio_adj > grads[0].debt2asset }">
@@ -290,10 +298,10 @@
                         </tr>
                         <tr>
                             <td>Current Ratio [>=]</td>
-                            <td class="text-center" ng-class=gtZero(afins.ratio_current)>
+                            <td class="text-center cBlue" ng-class="AppFactory.gtZero(afins.ratio_current)">
                                 {{afins.ratio_current/100|number:2}}
                             </td>
-                            <td class="bright text-center" ng-class=gtZero(afins.ratio_current_adj)>
+                            <td class="bright text-center cBlue" ng-class="AppFactory.gtZero(afins.ratio_current_adj)">
                                 {{afins.ratio_current_adj/100|number:2}}
                             </td>
                             <td class="text-center" ng-class="{red: afins.ratio_current_adj < grads[0].current_ratio }">
@@ -311,10 +319,10 @@
                         </tr>
                         <tr>
                             <td>Working Capital [>=]</td>
-                            <td class="text-center" ng-class=gtZero(afins.capWork)>
+                            <td class="text-center cBlue" ng-class="AppFactory.gtZero(afins.capWork)">
                                 {{afins.capWork|flexPercent:1}}
                             </td>
-                            <td class="bright text-center" ng-class=gtZero(afins.capWork_adj)>
+                            <td class="bright text-center cBlue" ng-class="AppFactory.gtZero(afins.capWork_adj)">
                                 {{afins.capWork_adj|flexPercent:1}}
                             </td>
                             <td class="text-center" ng-class="{red: afins.capWork_adj < grads[0].working_capital }">
@@ -332,10 +340,10 @@
                         </tr>
                         <tr>
                             <td>Borrowing Capacity [>=]</td>
-                            <td class="text-center" ng-class=gtZero(afins.capBorrow)>
+                            <td class="text-center cBlue" ng-class="AppFactory.gtZero(afins.capBorrow)">
                                 {{afins.capBorrow|flexPercent:1}}
                             </td>
-                            <td class="bright text-center" ng-class=gtZero(afins.capBorrow_adj)>
+                            <td class="bright text-center cBlue" ng-class="AppFactory.gtZero(afins.capBorrow_adj)">
                                 {{afins.capBorrow_adj|flexPercent:1}}
                             </td>
                             <td class="text-center" ng-class="{red: afins.capBorrow_adj <= grads[0].borrowing_capacity }">
@@ -354,7 +362,7 @@
                         <tr>
                             <td>Credit Score [>=]</td>
                             <td></td>
-                            <td class="bright text-center">
+                            <td class="bright text-center cBlue">
                                 {{afins.credit_score|displaynull}}
                             </td>
                             <td class="text-center" ng-class="{red: afins.credit_score < grads[0].credit_score }">
@@ -373,7 +381,7 @@
                         <tr>
                             <td>Years Farming [>=]</td>
                             <td></td>
-                            <td class="text-center bright">
+                            <td class="text-center bright cBlue">
                                 {{afins.experience}}
                             </td>
                             <td class="text-center" ng-class="{red: farmer.farm_exp < grads[0].years_farming }">
@@ -392,7 +400,7 @@
                         <tr>
                             <td>CPA Financials</td>
                             <td></td>
-                            <td class="bright text-center">
+                            <td class="bright text-center cBlue">
                                 {{afins.cpa_financials|boolean}}
                             </td>
                             <td class="text-center" ng-class="{red: !grads[0].cpa_financials }">
@@ -405,7 +413,7 @@
                         <tr>
                             <td>Bankruptcy</td>
                             <td></td>
-                            <td class="text-center bright">
+                            <td class="text-center bright cBlue">
                                 {{ quests.bankruptcy|boolean}}
                             </td>
                             <td class="text-center" ng-class="{red: quests.bankruptcy }">
@@ -424,7 +432,7 @@
                         <tr>
                             <td>Judgement</td>
                             <td></td>
-                            <td class="text-center bright">
+                            <td class="text-center bright cBlue">
                                 {{ quests.judgements|boolean}}
                             </td>
                             <td class="text-center" ng-class="{red: quests.judgements }">
@@ -444,118 +452,118 @@
                             <td>Any Type Max Loan Constraint</td>
                             <td></td>
                             <td class="bright"></td>
-                            <td class="text-right" ng-class=gtZero(grads[0].all_max_loan)>
+                            <td class="text-right" ng-class="AppFactory.gtZero(grads[0].all_max_loan)">
                                 {{grads[0].all_max_loan|flexCurrency:0}}
                             </td>
-                            <td class="text-right" ng-class=gtZero(grads[1].all_max_loan)>
+                            <td class="text-right" ng-class="AppFactory.gtZero(grads[1].all_max_loan)">
                                 {{grads[1].all_max_loan|flexCurrency:0}}
                             </td>
-                            <td class="text-right" ng-class=gtZero(grads[2].all_max_loan)>
+                            <td class="text-right" ng-class="AppFactory.gtZero(grads[2].all_max_loan)">
                                 {{grads[2].all_max_loan|flexCurrency:0}}
                             </td>
-                            <td class="text-right" ng-class=gtZero(grads[3].all_max_loan)>
+                            <td class="text-right" ng-class="AppFactory.gtZero(grads[3].all_max_loan)">
                                 {{grads[3].all_max_loan|flexCurrency:0}}
                             </td>
                         </tr>
-                        <tr ng-if="loan.loan_type_id == 3">
+                        <tr ng-if="loan.loan_type_id === 3">
                             <td>Ag-Pro Max Loan Constraint</td>
                             <td></td>
                             <td class="bright"></td>
-                            <td class="text-right" ng-class=gtZero(grads[0].ag_pro_max_loan)>
+                            <td class="text-right" ng-class="AppFactory.gtZero(grads[0].ag_pro_max_loan)">
                                 {{grads[0].ag_pro_max_loan|flexCurrency:0}}
                             </td>
-                            <td class="text-right"ng-class=gtZero(grads[1].ag_pro_max_loan)>
+                            <td class="text-right"ng-class="AppFactory.gtZero(grads[1].ag_pro_max_loan)">
                                 {{grads[1].ag_pro_max_loan|flexCurrency:0}}
                             </td>
-                            <td class="text-right"ng-class=gtZero(grads[2].ag_pro_max_loan)>
+                            <td class="text-right"ng-class="AppFactory.gtZero(grads[2].ag_pro_max_loan)">
                                 {{grads[2].ag_pro_max_loan|flexCurrency:0}}
                             </td>
-                            <td class="text-right"ng-class=gtZero(grads[3].ag_pro_max_loan)>
+                            <td class="text-right"ng-class="AppFactory.gtZero(grads[3].ag_pro_max_loan)">
                                 {{grads[3].ag_pro_max_loan|flexCurrency:0}}
                             </td>
                         </tr>
-                        <tr ng-if="loan.loan_type_id == 4">
+                        <tr ng-if="loan.loan_type_id === 4">
                             <td>Capital Bridge Max Loan Constraint</td>
                             <td></td>
                             <td class="bright"></td>
-                            <td class="text-right" ng-class=gtZero(grads[0].capital_bridge_max_loan)>
+                            <td class="text-right" ng-class="AppFactory.gtZero(grads[0].capital_bridge_max_loan)">
                                 {{grads[0].capital_bridge_max_loan|flexCurrency:0}}
                             </td>
-                            <td class="text-right" ng-class=gtZero(grads[1].capital_bridge_max_loan)>
+                            <td class="text-right" ng-class="AppFactory.gtZero(grads[1].capital_bridge_max_loan)">
                                 {{grads[1].capital_bridge_max_loan|flexCurrency:0}}
                             </td>
-                            <td class="text-right" ng-class=gtZero(grads[2].capital_bridge_max_loan)>
+                            <td class="text-right" ng-class="AppFactory.gtZero(grads[2].capital_bridge_max_loan)">
                                 {{grads[2].capital_bridge_max_loan|flexCurrency:0}}
                             </td>
-                            <td class="text-right" ng-class=gtZero(grads[3].capital_bridge_max_loan)>
+                            <td class="text-right" ng-class="AppFactory.gtZero(grads[3].capital_bridge_max_loan)">
                                 {{grads[3].capital_bridge_max_loan|flexCurrency:0}}
                             </td>
                         </tr>
-                        <tr ng-if="loan.loan_type_id == 5">
+                        <tr ng-if="loan.loan_type_id === 5">
                             <td>Ag-Vest Max Loan Constraint</td>
                             <td></td>
                             <td class="class-right bright"></td>
-                            <td class="text-right" ng-class=gtZero(grads[0].ag_vest_max_loan)>
+                            <td class="text-right" ng-class="AppFactory.gtZero(grads[0].ag_vest_max_loan)">
                                 {{grads[0].ag_vest_max_loan|flexCurrency:0}}
                             </td>
-                            <td class="text-right" ng-class=gtZero(grads[1].ag_vest_max_loan)>
+                            <td class="text-right" ng-class="AppFactory.gtZero(grads[1].ag_vest_max_loan)">
                                 {{grads[1].ag_vest_max_loan|flexCurrency:0}}
                             </td>
-                            <td class="text-right" ng-class=gtZero(grads[2].ag_vest_max_loan)>
+                            <td class="text-right" ng-class="AppFactory.gtZero(grads[2].ag_vest_max_loan)">
                                 {{grads[2].ag_vest_max_loan|flexCurrency:0}}
                             </td>
-                            <td class="text-right" ng-class=gtZero(grads[3].ag_vest_max_loan)>
+                            <td class="text-right" ng-class="AppFactory.gtZero(grads[3].ag_vest_max_loan)">
                                 {{grads[3].ag_vest_max_loan|flexCurrency:0}}
                             </td>
                         </tr>
-                        <tr ng-if="loan.loan_type_id == 3">
+                        <tr ng-if="loan.loan_type_id === 3">
                             <td>Ag-Pro Max Rate of Avg Expenses</td>
                             <td></td>
                             <td class="class-right bright"></td>
-                            <td class="text-right" ng-class=gtZero(grads[0].ag_pro_max_rate)>
+                            <td class="text-right" ng-class="AppFactory.gtZero(grads[0].ag_pro_max_rate)">
                                 {{grads[0].ag_pro_max_rate|flexPercent:1}}
                             </td>
-                            <td class="text-right" ng-class=gtZero(grads[1].ag_pro_max_rate)>
+                            <td class="text-right" ng-class="AppFactory.gtZero(grads[1].ag_pro_max_rate)">
                                 {{grads[1].ag_pro_max_rate|flexPercent:1}}
                             </td>
-                            <td class="text-right" ng-class=gtZero(grads[2].ag_pro_max_rate)>
+                            <td class="text-right" ng-class="AppFactory.gtZero(grads[2].ag_pro_max_rate)">
                                 {{grads[2].ag_pro_max_rate|flexPercent:1}}
                             </td>
-                            <td class="text-right" ng-class=gtZero(grads[3].ag_pro_max_rate)>
+                            <td class="text-right" ng-class="AppFactory.gtZero(grads[3].ag_pro_max_rate)">
                                 {{grads[3].ag_pro_max_rate|flexPercent:1}}
                             </td>
                         </tr>
-                        <tr ng-if="loan.loan_type_id == 4">
+                        <tr ng-if="loan.loan_type_id === 4">
                             <td>Capital Bridge Max Rate of Avg Expenses</td>
                             <td></td>
                             <td class="class-right bright"></td>
-                            <td class="text-right" ng-class=gtZero(grads[0].capital_bridge_max_rate)>
+                            <td class="text-right" ng-class="AppFactory.gtZero(grads[0].capital_bridge_max_rate)">
                                 {{grads[0].capital_bridge_max_rate|flexPercent:1}}
                             </td>
-                            <td class="text-right" ng-class=gtZero(grads[1].capital_bridge_max_rate)>
+                            <td class="text-right" ng-class="AppFactory.gtZero(grads[1].capital_bridge_max_rate)">
                                 {{grads[1].capital_bridge_max_rate|flexPercent:1}}
                             </td>
-                            <td class="text-right" ng-class=gtZero(grads[2].capital_bridge_max_rate)>
+                            <td class="text-right" ng-class="AppFactory.gtZero(grads[2].capital_bridge_max_rate)">
                                 {{grads[2].capital_bridge_max_rate|flexPercent:1}}
                             </td>
-                            <td class="text-right" ng-class=gtZero(grads[3].capital_bridge_max_rate)>
+                            <td class="text-right" ng-class="AppFactory.gtZero(grads[3].capital_bridge_max_rate)">
                                 {{grads[3].capital_bridge_max_rate|flexPercent:1}}
                             </td>
                         </tr>
-                        <tr ng-if="loan.loan_type_id == 5">
+                        <tr ng-if="loan.loan_type_id === 5">
                             <td>Ag-Vest Max Rate of Avg Expenses</td>
                             <td></td>
                             <td class="class-right bright"></td>
-                            <td class="text-right" ng-class=gtZero(grads[0].ag_vest_max_rate)>
+                            <td class="text-right" ng-class="AppFactory.gtZero(grads[0].ag_vest_max_rate)">
                                 {{grads[0].ag_vest_max_rate|flexPercent:1}}
                             </td>
-                            <td class="text-right" ng-class=gtZero(grads[1].ag_vest_max_rate)>
+                            <td class="text-right" ng-class="AppFactory.gtZero(grads[1].ag_vest_max_rate)">
                                 {{grads[1].ag_vest_max_rate|flexPercent:1}}
                             </td>
-                            <td class="text-right" ng-class=gtZero(grads[2].ag_vest_max_rate)>
+                            <td class="text-right" ng-class="AppFactory.gtZero(grads[2].ag_vest_max_rate)">
                                 {{grads[2].ag_vest_max_rate|flexPercent:1}}
                             </td>
-                            <td class="text-right" ng-class=gtZero(grads[3].ag_vest_max_rate)>
+                            <td class="text-right" ng-class="AppFactory.gtZero(grads[3].ag_vest_max_rate)">
                                 {{grads[3].ag_vest_max_rate|flexPercent:1}}
                             </td>
                         </tr>
@@ -567,7 +575,8 @@
             <!-- SUMMARY PANEL-->
             <div class="row" style="display:none;">
                 <div class="col-md-12">
-                    <table class="table table-striped rowed" style="width:40%">
+                    <table class="table table-striped rowed table-condensed disp-sm"
+                           style="width:40%">
                         <tr>
                             <th>Borrower Rating</th>
                             <th>
@@ -576,19 +585,19 @@
                         </tr>
                         <tr ng-if="loan.loan_type_id == 3">
                             <td>Ag-Pro Max Loan Addition</td>
-                            <td class="text-right" ng-class=gtZero(loan.grade.ag_pro_max)>
+                            <td class="text-right" ng-class="AppFactory.gtZero(loan.grade.ag_pro_max)">
                                 {{loan.grade.ag_pro_max | flexCurrency:0}}
                             </td>
                         </tr>
                         <tr ng-if="loan.loan_type_id == 4">
                             <td>Capital Bridge Max Loan</td>
-                            <td class="text-right" ng-class=gtZero(loan.grade.cap_bridge_max)>
+                            <td class="text-right" ng-class="AppFactory.gtZero(loan.grade.cap_bridge_max)">
                                 {{loan.grade.cap_bridge_max | flexCurrency:0}}
                             </td>
                         </tr>
                         <tr ng-if="loan.loan_type_id == 5">
                             <td>Ag-Vest Max Loan</td>
-                            <td class="text-right" ng-class=gtZero(loan.grade.ag_vest_max)>
+                            <td class="text-right" ng-class="AppFactory.gtZero(loan.grade.ag_vest_max)">
                                 {{loan.grade.ag_vest_max | flexCurrency:0}}
                             </td>
                         </tr>
@@ -598,11 +607,4 @@
             <!-- SUMMARY PANEL-->
         </div>
 </fieldset>
-<br>
-
-<div class="row">
-    <div class="col-md-12 text-right">
-        <button style="margin-right:10px;" class="btn btn-primary" ng-click="updateFinancials()"><span class="glyphicons glyphicons-log-book"></span>&nbsp;UPDATE</button>
-    </div>
-</div>
-</div>
+<br><br><br><br>

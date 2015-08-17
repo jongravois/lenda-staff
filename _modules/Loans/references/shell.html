@@ -1,0 +1,40 @@
+<div class="row">
+    <div class="col-md-12 text-right">
+        <button style="margin-right:10px;" class="btn btn-arm" ng-click="updateReferences()"><span class="glyphicons glyphicons-log-book"></span>&nbsp;UPDATE</button>
+    </div>
+</div>
+
+<br>
+
+<fieldset>
+    <legend>
+        &nbsp;
+        <span class="pendicon glyphicon glyphicon-chevron-right"
+              ng-click="togShowDistributor()"
+              ng-if="!showDistributor"></span>
+        <span class="pendicon glyphicon glyphicon-chevron-down"
+              ng-click="togShowDistributor()"
+              ng-if="showDistributor"></span>
+        &nbsp;Distributor
+    </legend>
+    <div class="container-fluid" ng-if="showDistributor">
+        <div ng-include="'./_modules/Loans/references/_distributor.html'"></div>
+    </div>
+</fieldset>
+<br><br>
+<fieldset>
+    <legend>
+        &nbsp;
+        <span class="pendicon glyphicon glyphicon-chevron-right"
+              ng-click="togShowReference()"
+              ng-if="!showReference"></span>
+        <span class="pendicon glyphicon glyphicon-chevron-down"
+              ng-click="togShowReference()"
+              ng-if="showReference"></span>
+        &nbsp;References
+    </legend>
+    <div class="container-fluid" ng-if="showReference">
+        <div ng-include="'./_modules/Loans/references/_references.html'"></div>
+    </div>
+</fieldset>
+<br><br><br><br>

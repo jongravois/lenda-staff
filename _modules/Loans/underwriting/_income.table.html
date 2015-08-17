@@ -8,32 +8,44 @@
         <th style="width:7%">Crops</th>
         <th style="width:7%">Bk Adj</th>
         <th style="width:7%">Hrv Adj</th>
+        <th style="width:7%">RP</th>
+        <th style="width:7%">RP-HPE</th>
+        <th style="width:7%">YP</th>
         <th style="width:7%">Insurance</th>
         <th style="width:7%">Over Disc</th>
-        <th style="width:7%">Non RP</th>
+        <th style="width:7%">Total</th>
     </tr>
     <tr ng-repeat="c in loan.loancrops">
         <td>{{c.crop.name}}</td>
-        <td class="text-right" ng-class="AppFactory.gtZero(calcCropAcres(c))">
-            {{calcCropAcres(c) | number:1}}
+        <td class="text-right" ng-class="AppFactory.gtZero(AppFactory.calcCropAcres(c))">
+            {{AppFactory.calcCropAcres(c) | number:1}}
         </td>
-        <td class="text-right" ng-class="AppFactory.gtZero(calcCropAph(c))">
-            {{calcCropAph(c) | number:1}}
+        <td class="text-right" ng-class="AppFactory.gtZero(AppFactory.calcCropAph(c))">
+            {{AppFactory.calcCropAph(c) | number:1}}
         </td>
-        <td class="text-right" ng-class="AppFactory.gtZero(calcCropProdPrice(c))">
-            {{calcCropProdPrice(c) | flexCurrency:4}}
+        <td class="text-right" ng-class="AppFactory.gtZero(AppFactory.calcCropProdPrice(c))">
+            {{AppFactory.calcCropProdPrice(c) | flexCurrency:4}}
         </td>
-        <td class="text-right" ng-class="AppFactory.gtZero(calcCropProdShare(c))">
-            {{calcCropProdShare(c) | flexPercent:1}}
+        <td class="text-right" ng-class="AppFactory.gtZero(AppFactory.calcCropProdShare(c))">
+            {{AppFactory.calcCropProdShare(c) | flexPercent:1}}
         </td>
-        <td class="text-right bright" ng-class="AppFactory.gtZero(calcCropValue(c))">
-            {{calcCropValue(c) | flexCurrency:0}}
+        <td class="text-right bright" ng-class="AppFactory.gtZero(AppFactory.calcCropValue(c))">
+            {{AppFactory.calcCropValue(c) | flexCurrency:0}}
         </td>
-        <td class="text-right" ng-class="AppFactory.gtZero(calcBookAdj(c))">
-            {{calcBookAdj(c) | flexCurrency:0}}
+        <td class="text-right" ng-class="AppFactory.gtZero(AppFactory.calcBookAdj(c))">
+            {{AppFactory.calcBookAdj(c) | flexCurrency:0}}
         </td>
-        <td class="text-right" ng-class="AppFactory.gtZero(calcHvstAdj(c))">
-            {{calcHvstAdj(c) | flexCurrency:0}}
+        <td class="text-right bright" ng-class="AppFactory.gtZero(AppFactory.calcHvstAdj(c))">
+            {{AppFactory.calcHvstAdj(c) | flexCurrency:0}}
+        </td>
+        <td class="text-right" ng-class="AppFactory.gtZero(AppFactory.calcRPbyCrop(c))">
+            {{AppFactory.calcRPbyCrop(c) | flexCurrency:0}}
+        </td>
+        <td class="text-right" ng-class="AppFactory.gtZero(c.ins_rphpe)">
+            {{c.ins_rphpe | flexCurrency:0}}
+        </td>
+        <td class="text-right" ng-class="AppFactory.gtZero(c.ins_yp)">
+            {{c.ins_yp | flexCurrency:0}}
         </td>
         <td class="text-right" ng-class="AppFactory.gtZero(c.insurance)">
             {{c.insurance | flexCurrency:0}}
@@ -41,29 +53,33 @@
         <td class="text-right" ng-class="AppFactory.gtZero(c.ins_over_disc)">
             {{c.ins_over_disc | flexCurrency:0}}
         </td>
-        <td class="text-right" ng-class="AppFactory.gtZero(c.non_rp)">
-            {{c.non_rp | flexCurrency:0}}
+        <td class="text-right" ng-class="AppFactory.gtZero(c.total)">
+            {{c.total | flexCurrency:0}}
         </td>
     </tr>
     <tr>
-        <td colspan="10">FSA Payment</td>
-        <td class="text-right" ng-class="AppFactory.gtZero(loan.fins.total_fsa_pay)">
+        <td colspan="5">FSA Payment</td>
+        <td class="text-right bright" ng-class="AppFactory.gtZero(loan.fins.total_fsa_pay)">
             {{loan.fins.total_fsa_pay | flexCurrency:0}}
         </td>
+        <td colspan="8">&nbsp;</td>
     </tr>
     <tr>
-        <td colspan="10">Other</td>
-        <td class="text-right" ng-class="AppFactory.gtZero(loan.fins.total_claims)">
+        <td colspan="5">Other</td>
+        <td class="text-right bright" ng-class="AppFactory.gtZero(loan.fins.total_claims)">
             {{loan.fins.total_claims | flexCurrency:0}}
         </td>
+        <td colspan="8">&nbsp;</td>
     </tr>
     <tr class="success">
         <td class="text-left">Totals</td>
         <td class="text-right">{{loan.fins.total_acres | number:1}}</td>
-        <td colspan="8">&nbsp;</td>
-        <td class="text-right">
-            {{loan.fins.total_income | flexCurrency:0}}
+        <td colspan="3">&nbsp;</td>
+        <td class="text-right bright">
+            {{AppFactory.calcTotalIncome(loan) | flexCurrency:0}}
         </td>
+        <td colspan="8">&nbsp;</td>
+
     </tr>
 </table>
 <!--<pre>{{loan.loancrops | json}}</pre>-->
