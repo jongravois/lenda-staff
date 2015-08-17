@@ -1,3 +1,11 @@
+<style>
+    #loanQuestions .form-group {
+        margin-bottom: 5px !important;
+    }
+    #loanQuestions .alert {
+        padding: 10px 0 0 10px;
+    }
+</style>
 <div class="row">
     <div class="col-md-12 text-right">
         <button style="margin-right:10px;" class="btn btn-arm" ng-click="updateLoanQuestions()"><span class="glyphicons glyphicons-log-book"></span>&nbsp;UPDATE</button>
@@ -6,7 +14,7 @@
 
 <br>
 
-<fieldset>
+<fieldset id="loanQuestions">
     <legend>Questions</legend>
     <div class="container-fluid">
         <div class="alert alert-success" role="alert">
@@ -113,7 +121,7 @@
             </div>
             <div class="col-md-10">
                 <div class="col-md-9">
-                    <label>Are the additional affiliated entities to report?</label>
+                    <label>Are the any additional affiliated entities?</label>
                 </div>
             </div>
         </div>
