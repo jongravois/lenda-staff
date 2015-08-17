@@ -188,10 +188,10 @@
                 headerGroup: 'ARM',
                 headerName: 'Commit',
                 valueGetter: 'data.financials.commit_arm',
-                cellClass: function(params) {
-                    return (params.data.financials.commit_arm ? 'text-right': 'text-center');
+                cellClass: function (params) {
+                    return (params.data.financials.commit_arm ? 'text-right' : 'text-center');
                 },
-                cellRenderer: function(params) {
+                cellRenderer: function (params) {
                     return $filter('flexCurrency')(params.data.financials.commit_arm, 0);
                 },
                 width: 110
@@ -201,10 +201,10 @@
                 headerGroupShow: 'open',
                 headerName: 'Fees',
                 valueGetter: 'data.financials.fee_total',
-                cellClass: function(params) {
-                    return (params.data.financials.fee_total ? 'text-right': 'text-center');
+                cellClass: function (params) {
+                    return (params.data.financials.fee_total ? 'text-right' : 'text-center');
                 },
-                cellRenderer: function(params) {
+                cellRenderer: function (params) {
                     return $filter('flexCurrency')(params.data.financials.fee_total, 0);
                 },
                 width: 100
@@ -214,10 +214,10 @@
                 headerGroupShow: 'open',
                 headerName: 'Rate',
                 valueGetter: 'data.fins.int_percent_arm',
-                cellClass: function(params) {
-                    return (params.data.fins.int_percent_arm ? 'text-right': 'text-center');
+                cellClass: function (params) {
+                    return (params.data.fins.int_percent_arm ? 'text-right' : 'text-center');
                 },
-                cellRenderer: function(params) {
+                cellRenderer: function (params) {
                     return $filter('flexPercent')(params.data.fins.int_percent_arm, 2);
                 },
                 width: 100
@@ -252,66 +252,71 @@
             },
             {
                 headerGroup: 'Budget',
-                headerGroupShow: 'closed',
+                //headerGroupShow: 'closed',
                 headerName: 'Budget',
-                field: 'total_budget_amount',
+                field: 'fins.balance_total',
                 cellClass: function (params) {
-                    return (params.data.total_budget_amount ? 'text-right' : 'text-center');
+                    return (params.data.fins.balance_total ? 'text-right' : 'text-center');
                 },
                 cellRenderer: function (params) {
-                    return $filter('flexCurrency')(params.data.total_budget_amount, 0);
+                    return $filter('flexCurrency')(params.data.fins.balance_total, 0);
                 },
                 width: 100
             },
             {
                 headerGroup: 'Budget',
-                headerGroupShow: 'closed',
+                //headerGroupShow: 'closed',
                 headerName: 'Spent',
-                field: 'total_budget_spent',
+                field: 'fins.balance_spent',
                 cellClass: function (params) {
-                    return (params.data.total_budget_spent ? 'text-right' : 'text-center');
+                    return (params.data.fins.balance_spent ? 'text-right' : 'text-center');
                 },
                 cellRenderer: function (params) {
-                    return $filter('flexCurrency')(params.data.total_budget_spent, 0);
+                    return $filter('flexCurrency')(params.data.fins.balance_spent, 0);
                 },
                 width: 100
             },
             {
                 headerGroup: 'Budget',
                 headerName: 'Available',
-                field: 'total_budget_remaining',
+                field: 'fins.balance_remaining',
                 cellClass: function (params) {
-                    return (params.data.total_budget_remaining ? 'text-right' : 'text-center');
+                    return (params.data.fins.balance_remaining ? 'text-right' : 'text-center');
                 },
                 cellRenderer: function (params) {
-                    params.data.total_budget_remaining = params.data.total_budget_amount - params.data.total_budget_spent;
-                    return $filter('flexCurrency')(params.data.total_budget_remaining, 0);
+                    params.data.fins.balance_remaining = params.data.fins.balance_total - params.data.fins.balance_spent;
+                    return $filter('flexCurrency')(params.data.fins.balance_remaining, 0);
                 },
                 width: 100
             },
             {
                 headerGroup: 'Budget',
-                headerGroupShow: 'closed',
-                headerName: 'Budget',
-                field: 'total_balance',
+                //headerGroupShow: 'closed',
+                headerName: 'Budget %',
+                field: 'total_percent_budget',
                 cellClass: function (params) {
-                    var total_balance = params.data.total_balance / params.data.total_balance * 100;
-                    return (total_balance ? 'text-right' : 'text-center');
+                    params.data.total_percent_budget = params.data.fins.balance_total / params.data.fins.balance_total * 100;
+                    return (params.data.total_percent_budget ? 'text-right' : 'text-center');
                 },
                 cellRenderer: function (params) {
-                    var total_balance = params.data.total_balance / params.data.total_balance * 100;
-                    return $filter('flexPercent')(total_balance, 1);
+                    if (params.data.fins.balance_total > 0) {
+                        params.data.total_percent_budget = 100;
+                    } else {
+                        params.data.total_percent_budget = 0;
+                    }
+                    return $filter('flexPercent')(params.data.total_percent_budget, 1);
                 },
                 hide: true,
                 width: 100
             },
             {
                 headerGroup: 'Budget',
-                headerGroupShow: 'closed',
-                headerName: 'Spent',
+                //headerGroupShow: 'closed',
+                headerName: 'Spent %',
                 field: 'total_percent_spent',
                 cellClass: function (params) {
-                    return (params.data.total_budget_spent ? 'text-right' : 'text-center');
+                    params.data.total_percent_spent = params.data.fins.balance_spent / params.data.fins.balance_total * 100;
+                    return (params.data.total_percent_spent ? 'text-right' : 'text-center');
                 },
                 cellRenderer: function (params) {
                     return $filter('flexPercent')(params.data.total_percent_spent, 1);
@@ -321,10 +326,10 @@
             },
             {
                 headerGroup: 'Budget',
-                headerName: 'Available',
+                headerName: 'Available %',
                 field: 'total_percent_remaining',
                 cellClass: function (params) {
-                    return (1 - params.data.total_percent_spent ? 'text-right' : 'text-center');
+                    return (100 - params.data.total_percent_spent ? 'text-right' : 'text-center');
                 },
                 cellRenderer: function (params) {
                     params.data.total_percent_remaining = 100 - params.data.total_percent_spent;
@@ -362,32 +367,13 @@
 
         $scope.toggleDetail = function () {
             $scope.detail = !$scope.detail;
-            if ($scope.gridOptions.api) {
-                $scope.gridOptions.api.onNewCols();
-                $scope.gridOptions.api.hideColumns(['total_budget_amount'], !$scope.dollarsPercent);
-                $scope.gridOptions.api.hideColumns(['total_percent_budget'], $scope.dollarsPercent);
-                $scope.gridOptions.api.hideColumns(['total_budget_spent'], !$scope.dollarsPercent);
-                $scope.gridOptions.api.hideColumns(['total_percent_spent'], $scope.dollarsPercent);
-                $scope.gridOptions.api.hideColumns(['total_budget_remaining'], !$scope.dollarsPercent);
-                $scope.gridOptions.api.hideColumns(['total_percent_remaining'], $scope.dollarsPercent);
-                $scope.gridOptions.api.hideColumns(['status_left'], $scope.icons);
-                $scope.gridOptions.api.setSortModel($scope.sortKeys);
-            }
         }
 
         $scope.toggleDollarsPercent = function () {
             $scope.dollarsPercent = !$scope.dollarsPercent;
-            if ($scope.gridOptions.api) {
-                $scope.gridOptions.api.onNewCols();
-                $scope.gridOptions.api.hideColumns(['total_budget_amount'], !$scope.dollarsPercent);
-                $scope.gridOptions.api.hideColumns(['total_percent_budget'], $scope.dollarsPercent);
-                $scope.gridOptions.api.hideColumns(['total_budget_spent'], !$scope.dollarsPercent);
-                $scope.gridOptions.api.hideColumns(['total_percent_spent'], $scope.dollarsPercent);
-                $scope.gridOptions.api.hideColumns(['total_budget_remaining'], !$scope.dollarsPercent);
-                $scope.gridOptions.api.hideColumns(['total_percent_remaining'], $scope.dollarsPercent);
-                $scope.gridOptions.api.hideColumns(['status_left'], $scope.icons);
-                $scope.gridOptions.api.setSortModel($scope.sortKeys);
-            }
+            $scope.gridOptions.api.hideColumns(['total_percent_budget', 'total_percent_spent', 'total_percent_remaining'], $scope.dollarsPercent);
+            $scope.gridOptions.api.hideColumns(['fins.balance_total', 'fins.balance_spent', 'fins.balance_remaining'], !$scope.dollarsPercent);
+            $scope.gridOptions.api.setSortModel($scope.sortKeys);
         }
 
         $scope.gridOptions = {
@@ -412,8 +398,10 @@
         };
 
         $scope.gridOptions.rowData = $scope.loans;
-        if ($scope.gridOptions.rowData.length < 20){
-            $scope.gridHeight = (350).toString();
+        console.log('rowData', $scope.gridOptions.rowData);
+
+        if ($scope.gridOptions.rowData.length < 20) {
+            $scope.gridHeight = (400).toString();
         } else {
             $scope.gridHeight = Number(($scope.gridOptions.rowData.length + 2) * 30).toString();
         }

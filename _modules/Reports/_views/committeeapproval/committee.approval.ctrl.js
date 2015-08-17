@@ -8,13 +8,11 @@
 
     function CommitteeApprovalController($scope, $http, $filter, $timeout, AppFactory, Loans, CommitteeApprovalFactory) {
         $scope.AppFactory = AppFactory;
-        $scope.loans = Loans;
 
         $scope.icons = false;
         $scope.tools = false;
 
         var sort = [
-            {field: 'loan_id', sort: 'asc'},
             {field: 'analyst_abr', sort: 'asc'},
             {field: 'committee_member', sort: 'asc'},
         ];
@@ -119,12 +117,12 @@
                 headerTooltip: 'Vote',
                 headerGroup: '',
                 headerName: 'Vote',
-                field: 'committee_vote',
+                field: 'vote',
                 cellClass: 'text-center',
                 cellRenderer: function (params) {
-                    if (params.data.committee_vote == 1) {
+                    if (params.data.vote == 1) {
                         return '<div style="text-align:center !important;"><span class="pendicon glyphicon glyphicon-thumbs-up" style="color:#007700;"></span></div>';
-                    } else if (params.data.committee_vote == 0) {
+                    } else if (params.data.vote == 0) {
                         return '<div style="text-align:center !important;"><span class="pendicon glyphicon glyphicon-thumbs-down"  style="color:#770000;"></span></div>';
                     } else {
                         return '<div style="text-align:center !important;"> - </div>';
@@ -166,14 +164,21 @@
         };
 
         $scope.reduced = CommitteeApprovalFactory.getData(Loans);
-        console.log('CommitteeApprovalController reduced', $scope.reduced);
+        //console.log('CommitteeApprovalController reduced', $scope.reduced);
 
         $scope.gridOptions.rowData = $scope.reduced;
-        if ($scope.gridOptions.rowData.length < 20){
+        try {
+            if ($scope.gridOptions.rowData.length < 20) {
+                $scope.gridHeight = (350).toString();
+            } else {
+                $scope.gridHeight = Number(($scope.gridOptions.rowData.length + 2) * 30).toString();
+            }
+        } catch (err) {
+            console.error('ERROR', err.name + ': "' + err.message);
+        } finally {
             $scope.gridHeight = (350).toString();
-        } else {
-            $scope.gridHeight = Number(($scope.gridOptions.rowData.length + 2) * 30).toString();
         }
+
     }
 
 })();

@@ -227,7 +227,7 @@
                 field: 'progress_bar',
                 cellClass: 'text-center',
                 templateUrl: '_modules/Reports/_views/_partials/progress.html',
-                width: 700
+                width: 750
             },
             {
                 headerName: 'Acct',

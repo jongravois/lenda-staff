@@ -15,6 +15,15 @@
 
         function getData(loans) {
            //console.log('UserAuditFactory.loans', loans);
+
+            //Systemics
+            //id: 1,
+            //loan_id: 1,
+            //user: "Jonathan Gravois",
+            //action: "Created loan",
+            //created_at: "2015-02-14 09:10:00",
+            //updated_at: "2015-08-16 13:21:17"
+
            var audit_trail = [];
            _.each(loans, function(item){
                 _.each(item.systemics, function(i){

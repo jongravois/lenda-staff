@@ -18,7 +18,7 @@
             {field: 'crop_year', sort: 'asc'},
             {field: 'full_season', sort: 'asc'},
             //{field: 'analyst_abr', sort: 'asc'},
-            {field: 'farmer.farmer', sort: 'asc'},
+            {field: 'farmer', sort: 'asc'},
             {field: 'applicant', sort: 'asc'},
             //{field: 'distributor', sort: 'asc'},
             {field: 'loantype_abr', sort: 'asc'}
@@ -48,7 +48,7 @@
             {
                 headerGroup: 'Crop',
                 headerName: 'Year',
-                //headerGroupShow: 'closed',
+                headerGroupShow: 'open',
                 field: 'crop_year',
                 cellClass: 'text-center',
                 width: 90
@@ -72,13 +72,13 @@
                 headerName: 'Analyst',
                 field: 'analyst_abr',
                 cellClass: 'text-center',
-                width: 90
+                width: 80
             },
             {
                 headerTooltip: 'Farmer',
                 headerGroup: 'Customer',
                 headerName: 'Farmer',
-                valueGetter: 'data.farmer.farmer',
+                field: 'farmer',
                 cellClass: 'text-left',
                 width: 120
             },
@@ -86,7 +86,7 @@
                 headerTooltip: 'Applicant',
                 headerGroup: 'Customer',
                 headerName: 'Applicant',
-                valueGetter: 'data.applicant.applicant',
+                field: 'applicant',
                 cellClass: 'text-left',
                 width: 120
             },
@@ -104,7 +104,7 @@
                 headerName: 'Type',
                 field: 'loantype_abr',
                 cellClass: 'text-center',
-                width: 90
+                width: 70
             },
             {
                 headerGroup: "Audit",
@@ -114,7 +114,7 @@
                 cellRenderer: function(params) {
                     return moment(params.data.audit_date).format("MM/DD/YYYY");
                 },
-                width: 90
+                width: 70
             },
             {
                 headerGroup: "Audit",
@@ -124,7 +124,7 @@
                 cellRenderer: function(params) {
                     return moment(params.data.audit_time).format("HH:MM:SS");
                 },
-                width: 90
+                width: 70
             },
             {
                 headerGroup: "Audit",
@@ -138,7 +138,7 @@
                 headerName: 'Activity',
                 field: 'audit_activity',
                 cellClass: 'text-left',
-                width: 300
+                width: 290
             }
         ];
 

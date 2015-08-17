@@ -1,12 +1,12 @@
-<link rel="stylesheet" type="text/css" href="js/ag-grid/theme-reports.css">
+<link rel="stylesheet" type="text/css" href="css/theme-reports.css">
 
 <h3> &nbsp; Customer Budget </h3>
 <div id="cusbud">
-    <!--<pre>{{gridOptions.rowData | json}}</pre>-->
     <form>
         <div ng-if="detail">
             <div ng-repeat="x in gridOptions.selectedRows">
-                <table style="width:auto;float:right" class="table table-zebra-stripes-blue table-bordered table-condensed table-hover table-responsive">
+                <table style="width:auto;float:right"
+                       class="table table-zebra-stripes-blue table-bordered table-condensed table-hover table-responsive">
                     <thead>
                     <tr class="tbl-header-container-blue">
                         <th>Category</th>
@@ -16,36 +16,47 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr ng-repeat="item in x.budget">
-                        <td class="text-left">{{item['category']}}</td>
-                        <td class="text-right">{{item['amount'] | currency}}</td>
-                        <td class="text-right">{{item['spent'] | currency}}</td>
-                        <td class="text-right">{{item['amount'] - item['spent'] | currency}}</td>
+                    <div ng-if="x.disbursements != null">
+                        <tr ng-repeat="item in x.disbursements">
+                            <td class="text-left">{{item['expense']}}</td>
+                            <td class="text-right">{{item['arm_budget'] | currency}}</td>
+                            <td class="text-right">{{item['spent'] | currency}}</td>
+                            <td class="text-right">{{item['arm_budget'] - item['spent'] | currency}}</td>
+                        </tr>
+                    </div>
+                    <div ng-if="x.disbursements== null">
+                    <tr>
+                        <td>BUDGET DATA NOT FOUND</td>
                     </tr>
-                    </tbody>
-                </table>
-                <!--<br><div><pre>{{gridOptions.selectedRows | json}}</pre></div><br>-->
             </div>
+            </tbody>
+            </table>
         </div>
-    </form>
-    <div class="ag-fresh" ag-grid="gridOptions" ng-style="{height: gridHeight}"></div>
-    <form>
-       <span style="display:inline-block;float:left;">
-            <span class="btn glyphicon glyphicon-flash" ng-click="showToolPanel()">Toolbox</span>
-        <span ng-click="toggleDollarsPercent()"> $/% </span>
-            <span class="btn glyphicon glyphicon-expand" ng-click="toggleDetail()"> Detail </span>
-        </span>
-        <span style="display:inline-block;float:right;">
-            <span class="btn glyphicon glyphicon-print" ng-click=""> Print </span>
-            <span class="btn glyphicon glyphicon-envelope" ng-click=""> Email </span>
-            <span class="btn glyphicon glyphicon-export" ng-click=""> Export </span>
-            <span class="btn glyphicon glyphicon-file" ng-click=""> PDF </span>
-        </span>
-        <br><br>
+</div>
+</form>
+<div class="ag-fresh" ag-grid="gridOptions" ng-style="{height: gridHeight}"></div>
+<form>
+            <span style="display:inline-block;float:left;"> &nbsp;
+            <span ng-click="showToolPanel()"><img ng-src="images/control_panel.png"
+                                                  style="width:30px"> Control Panel </span>
+                &nbsp; &nbsp;
+            <span ng-click="toggleDollarsPercent()" style="width:30px"> $/%</span>
+                &nbsp; &nbsp;
+            <span class="btn glyphicons glyphicons-expand" ng-click="toggleDetail()"></span>
+            </span>
+            <span style="display:inline-block;float:right;">
+            <span ng-click=""><img ng-src="images/print.png" style="width:25px"> Print </span>
+            <span ng-click=""><img ng-src="images/email.png" style="width:25px"> Email </span>
+            <span ng-click=""><img ng-src="images/excel.jpg" style="width:25px"> Excel </span>
+            <span ng-click=""><img ng-src="images/pdficon.png" style="width:25px"> PDF &nbsp; </span>
+            </span>
         <span style="display:inline-block;float:left;position: absolute;top: 150px;right: 28px;">
         &nbsp; <input placeholder="Filter..." type="text" ng-model="gridOptions.quickFilterText"/>
         </span>
-    </form>
+    <br><br>
+</form>
 </div>
-<!--<pre>{{gridOptions.selectedRows.budget | json}}</pre>-->
+<!--<pre>{{gridOptions.selectedRows | json}}</pre>-->
+
+
 

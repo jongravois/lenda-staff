@@ -14,35 +14,32 @@
         return publicAPI;
 
         function getData(loans) {
-            console.log('CommitteeApprovalFactory.loans', loans);
+            //console.log('CommitteeApprovalFactory.loans', loans);
 
             var committees = [];
-            _.each(loans, function(item){
-
-                var j = _.each(item.committee, function(i){
-                    i.loan_id = item.id;
-                    i.analyst = item.analyst;
-                    i.analyst_abr = item.analyst_abr;
-                    i.applicant = item.applicant.applicant;
-                    i.crop_year = item.crop_year;
-                    i.full_season = item.full_season;
-                    i.loan_type = item.loan_type;
-                    i.loantype_abr = item.loantype_abr;
-                    i.is_addendum = item.is_addendum;
-                    if(item.is_addendum) {
-                        i.addendum_date = item.addendum_date;
-                    } else {
-                        i.addendum_date = '';
+            _.each(loans, function (item) {
+                _.each(item.committee, function (c) {
+                    try {
+                        c.loan_id = item.id;
+                        c.analyst_abr = item.analyst_abr;
+                        c.applicant = item.applicant.applicant;
+                        c.full_season = item.full_season;
+                        c.crop_year = item.crop_year;
+                        c.loantype_abr = item.loantype_abr;
+                        c.addendum_date = item.addendum_date;
+                        c.dist = item.distributor.distributor;
+                        c.agency = item.agencies;
+                        c.account_classification = item.account_classification;
+                        c.committee_member = c.user.name;
+                        c.vote = c.vote;
+                        committees.push(c);
+                    } catch(err) {
+                        console.error('ERROR', err.name + ': "' + err.message);
                     }
-                    i.dist = item.distributor.distributor;
-                    i.agency = item.agencies;
-                    i.account_classification = item.account_classification;
-                    i.committee_member = i.user.name;
-                    committees.push(i);
                 });
             });
-            console.log('CommitteeApprovalFactory.committees', committees);
             return committees;
+            //console.log('CommitteeApprovalFactory.committees', committees);
         }
     } // end factory
 })();
