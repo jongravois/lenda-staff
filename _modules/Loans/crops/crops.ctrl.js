@@ -9,8 +9,15 @@
         function CropsController($rootScope, $scope, AppFactory){
             $scope.AppFactory = AppFactory;
             $scope.crops = $scope.loan.loancrops;
-            //console.log('Loan', $scope.loan, 'Crops', $scope.crops);
+            $scope.showCrops = false;
+            $scope.showIndirect = false;
 
+            $scope.togShowCrops = function() {
+                $scope.showCrops = !$scope.showCrops;
+            };
+            $scope.togShowIndirect = function() {
+                $scope.showIndirect = !$scope.showIndirect;
+            };
             $scope.createCrop = function() {
                 alert('working');
             }

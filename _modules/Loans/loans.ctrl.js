@@ -445,6 +445,7 @@
             colWidth: 100,
             rowHeight: 32,
             rowSelection: false,
+            suppressCellSelection: true,
             enableSorting: false,
             sortPending: sortPending,
             context: {

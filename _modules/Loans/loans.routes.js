@@ -22,7 +22,7 @@
                 })
                 .state('arm.edit.applicant', {
                     url: '/applicant',
-                    templateUrl: './_modules/Loans/applicant/applicant.html',
+                    templateUrl: './_modules/Loans/applicant/shell.html',
                     controller: 'ApplicantsController',
                     data: {newapplication: false},
                     resolve: {}
@@ -126,7 +126,7 @@
                 })
                 .state('arm.edit.references', {
                     url: '/references',
-                    templateUrl: './_modules/Loans/references/references.html',
+                    templateUrl: './_modules/Loans/references/shell.html',
                     controller: 'ReferencesController',
                     data: {newapplication: false},
                     resolve: {}

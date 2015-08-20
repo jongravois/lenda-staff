@@ -140,75 +140,6 @@ table.ls-sm td{ font-size: 14px; }
         border-radius: 4px;
     }
 }
-.btn-primary {
-    background-color: @arm-green;
-    border-color: darken(@arm-green, 20%);
-}
-.btn-ARM {
-    color: #ffffff;
-    background-color: #006837;
-    border-color: #002B17;
-}
-
-.btn-ARM:hover,
-.btn-ARM:focus,
-.btn-ARM:active,
-.btn-ARM.active,
-.open .dropdown-toggle.btn-ARM {
-    color: #ffffff;
-    background-color: #010805;
-    border-color: #002B17;
-}
-
-.btn-ARM:active,
-.btn-ARM.active,
-.open .dropdown-toggle.btn-ARM {
-    background-image: none;
-}
-.btn-ARM.disabled,
-.btn-ARM[disabled],
-fieldset[disabled] .btn-ARM,
-.btn-ARM.disabled:hover,
-.btn-ARM[disabled]:hover,
-fieldset[disabled] .btn-ARM:hover,
-.btn-ARM.disabled:focus,
-.btn-ARM[disabled]:focus,
-fieldset[disabled] .btn-ARM:focus,
-.btn-ARM.disabled:active,
-.btn-ARM[disabled]:active,
-fieldset[disabled] .btn-ARM:active,
-.btn-ARM.disabled.active,
-.btn-ARM[disabled].active,
-fieldset[disabled] .btn-ARM.active {
-    background-color: #aaaaaa;
-    border-color: #777777
-}
-
-.btn-ARM .badge {
-    color: #006837;
-    background-color: #ffffff;
-}
-.btn-black {
-    background: @darkestgray;
-    color: @white;
-    text-align: left;
-
-    &:hover {
-        background: @darkestgray;
-        color: @orange;
-        text-align: left;
-    }
-    &:focus {
-        background: @arm-green;
-        color: @white;
-        text-align: left;
-    }
-    &.active {
-        background: @arm-green;
-        color: @white;
-        text-align: left;
-    }
-}
 .button_bar { margin: 45px 5px 5px 0; }
 .landing_buttons { margin: 0; }
 .filterQueue {
@@ -227,34 +158,6 @@ fieldset[disabled] .btn-ARM.active {
     max-height: 300px;
     overflow: auto;
     overflow-x: hidden;
-}
-.tbl-header-container {
-  background: -webkit-linear-gradient(#fff, #d3d3d3);
-  background: -moz-linear-gradient(#fff, #d3d3d3);
-  background: -o-linear-gradient(#fff, #d3d3d3);
-  background: -ms-linear-gradient(#fff, #d3d3d3);
-  background: linear-gradient(#fff, #d3d3d3);
-  border-bottom: 1px solid #808080;
-}
-.tbl-header-container-blue {
-  background: -webkit-linear-gradient(#fff, #EC502A);
-  background: -moz-linear-gradient(#fff, #EC502A);
-  background: -o-linear-gradient(#fff, #EC502A);
-  background: -ms-linear-gradient(#fff, #EC502A);
-  background: linear-gradient(#fff, #EC502A);
-  border-bottom: 1px solid #101010;
-}
-.table-zebra-stripes > tbody > tr:nth-child(2n+1) > td,
-.table-striped-stripes > tbody > tr:nth-child(2n+1) > th {
-  background-color: #efefef;
-}
-.table-zebra-stripes-blue > tbody > tr:nth-child(2n+1) > td,
-.table-striped-stripes-blue > tbody > tr:nth-child(2n+1) > th {
-  background-color: #97c8ff;
-}
-.table-zebra-stripes-blue > tbody > tr:nth-child(2n) > td,
-.table-striped-stripes-blue > tbody > tr:nth-child(2n) > th {
-  background-color: #dfdfdf;
 }
 .tblLanding {
     width: 100%;
@@ -561,6 +464,7 @@ fieldset[disabled] .btn-ARM.active {
     @import "sidebar";
     @import "views";
     @import "icons";
+    @import "buttons";
     @import "logobar";
     @import "loans";
     @import "reports";

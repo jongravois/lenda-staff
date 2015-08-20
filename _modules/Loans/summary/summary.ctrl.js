@@ -37,6 +37,17 @@
             }
             $scope.calcTotalRevenue = function(loan) {
                 return Number($scope.calcAgInput(loan)) + Number(loan.fins.total_fsa_pay) + Number(loan.fins.total_claims);
-            }
+            };
+            $scope.calcCropHailValue = function(obj) {
+                return 0;
+            };
+            $scope.calcCropHailTotalValue = function(obj) {
+                //TOTAL ACRES OF PRACTICE IN COUNTY x AMOUNT
+                return 0;
+            };
+
+            //TEMP
+            $scope.loan.lien_letter_received = 0;
+            console.log('LOAN', $scope.loan);
         } // end controller
 })();

@@ -9,6 +9,7 @@
     /* @ngInject */
     function ManagementController($rootScope, $scope, $filter, $location, $state, orderByFilter, AppFactory, LoansFactory, ManFactory) {
         /* jshint validthis: true */
+        $scope.ManFactory = ManFactory;
         var data = [];
         $scope.indWid = {
             hide: false,
@@ -63,7 +64,7 @@
                 width: 90,
                 suppressSizeToFit: true,
                 headerCellRenderer: pendingHdr,
-                headerTooltip: 'On/Off'
+                headerTooltip: ''
             },
             {
                 field: 'notification',
@@ -72,12 +73,12 @@
                 cellClass: 'text-center',
                 suppressSizeToFit: true,
                 width: $scope.indWid.width,
-                hide: $scope.indWid.hide
+                hide: $scope.indWid.hide,
+                headerTooltip: ''
             },
             {
                 valueGetter: 'data.farmer.farmer',
                 headerName: 'Farmer',
-                headerTooltip: 'Farmer',
                 width: 90
             },
             {
@@ -85,7 +86,6 @@
                 headerName: 'Applicant',
                 headerClass: 'text-center',
                 templateUrl: './app/views/grid_tmpl/applicant.html',
-                headerTooltip: 'Applicant',
                 width: 90
             },
             {
@@ -94,7 +94,6 @@
                 cellClass: 'text-center',
                 headerClass: 'text-center',
                 suppressSizeToFit: true,
-                headerTooltip: 'Loan Type',
                 width: 60
             },
             {
@@ -103,7 +102,6 @@
                 cellClass: 'text-center',
                 headerClass: 'text-center',
                 suppressSizeToFit: true,
-                headerTooltip: 'Crop Year',
                 width: 60
             },
             {
@@ -112,7 +110,6 @@
                 cellClass: 'text-center',
                 headerClass: 'text-center',
                 suppressSizeToFit: true,
-                headerTooltip: 'Location',
                 width: 60
             },
             {
@@ -122,7 +119,6 @@
                 headerClass: 'text-center',
                 templateUrl: './_modules/Loans/_views/manstats.html',
                 suppressSizeToFit: true,
-                //headerTooltip: 'Status',
                 width: 50
             },
             {
@@ -132,8 +128,8 @@
                 headerClass: 'text-center',
                 headerCellRenderer: managementHdr,
                 cellClass: 'text-center',
-                headerTooltip: 'ITS List',
-                width: 20
+                width: 18,
+                headerTooltip: false
             },
             {
                 field: 'fsa_compliant',
@@ -142,8 +138,8 @@
                 headerClass: 'text-center',
                 headerCellRenderer: managementHdr,
                 cellClass: 'text-center',
-                headerTooltip: 'FSA eligible',
-                width: 20
+                width: 18,
+                headerTooltip: false
             },
             {
                 field: 'prev_lien_verified',
@@ -152,8 +148,8 @@
                 headerClass: 'text-center',
                 headerCellRenderer: managementHdr,
                 cellClass: 'text-center',
-                headerTooltip: 'Prior liens verified',
-                width: 20
+                width: 18,
+                headerTooltip: false
             },
             {
                 field: 'leases_valid',
@@ -162,8 +158,8 @@
                 headerClass: 'text-center',
                 headerCellRenderer: managementHdr,
                 cellClass: 'text-center',
-                headerTooltip: 'Leases valid',
-                width: 20
+                width: 18,
+                headerTooltip: false
             },
             {
                 field: 'bankruptcy_order_received',
@@ -172,8 +168,8 @@
                 headerClass: 'text-center',
                 headerCellRenderer: managementHdr,
                 cellClass: 'text-center',
-                headerTooltip: 'Bankruptcy order rcvd',
-                width: 20
+                width: 18,
+                headerTooltip: false
             },
             {
                 field: 'received_3party',
@@ -182,8 +178,8 @@
                 headerClass: 'text-center',
                 headerCellRenderer: managementHdr,
                 cellClass: 'text-center',
-                headerTooltip: 'Third party credit',
-                width: 20
+                width: 18,
+                headerTooltip: false
             },
             {
                 field: 'recommended',
@@ -192,18 +188,8 @@
                 headerClass: 'text-center',
                 headerCellRenderer: managementHdr,
                 cellClass: 'text-center',
-                headerTooltip: 'Recommended',
-                width: 20
-            },
-            {
-                field: 'arm_approved',
-                headerName: 'ARM',
-                templateUrl: './_modules/Loans/_views/arm.html',
-                headerClass: 'text-center',
-                headerCellRenderer: managementHdr,
-                cellClass: 'text-center',
-                headerTooltip: 'Approved by ARM',
-                width: 20
+                width: 18,
+                headerTooltip: false
             },
             {
                 field: 'dist_approved',
@@ -212,8 +198,18 @@
                 headerClass: 'text-center',
                 headerCellRenderer: managementHdr,
                 cellClass: 'text-center',
-                headerTooltip: 'Approved by distributor',
-                width: 20
+                width: 18,
+                headerTooltip: false
+            },
+            {
+                field: 'arm_approved',
+                headerName: 'ARM',
+                templateUrl: './_modules/Loans/_views/arm.html',
+                headerClass: 'text-center',
+                headerCellRenderer: managementHdr,
+                cellClass: 'text-center',
+                width: 18,
+                headerTooltip: false
             },
             {
                 field: 'loan_closed',
@@ -222,8 +218,8 @@
                 headerClass: 'text-center',
                 headerCellRenderer: managementHdr,
                 cellClass: 'text-center',
-                headerTooltip: 'Loan closed',
-                width: 20
+                width: 18,
+                headerTooltip: false
             },
             {
                 field: 'added_land_verified',
@@ -232,8 +228,8 @@
                 headerClass: 'text-center',
                 headerCellRenderer: managementHdr,
                 cellClass: 'text-center',
-                headerTooltip: 'Added land verified',
-                width: 20
+                width: 18,
+                headerTooltip: false
             },
             {
                 field: 'permission_to_insure_verified',
@@ -242,8 +238,8 @@
                 headerClass: 'text-center',
                 headerCellRenderer: managementHdr,
                 cellClass: 'text-center',
-                headerTooltip: 'Perm to ins verified',
-                width: 20
+                width: 18,
+                headerTooltip: false
             },
             {
                 field: 'arm_ucc_received',
@@ -252,8 +248,8 @@
                 headerClass: 'text-center',
                 headerCellRenderer: managementHdr,
                 cellClass: 'text-center',
-                headerTooltip: 'ARM UCC',
-                width: 20
+                width: 18,
+                headerTooltip: false
             },
             {
                 field: 'dist_ucc_received',
@@ -262,8 +258,18 @@
                 headerClass: 'text-center',
                 headerCellRenderer: managementHdr,
                 cellClass: 'text-center',
-                headerTooltip: 'Distributor UCC',
-                width: 20
+                width: 18,
+                headerTooltip: false
+            },
+            {
+                field: 'lien_letter_received',
+                headerName: 'LLR',
+                templateUrl: './_modules/Loans/_views/llr.html',
+                headerClass: 'text-center',
+                headerCellRenderer: managementHdr,
+                cellClass: 'text-center',
+                width: 18,
+                headerTooltip: false
             },
             {
                 field: 'aoi_received',
@@ -272,8 +278,8 @@
                 headerClass: 'text-center',
                 headerCellRenderer: managementHdr,
                 cellClass: 'text-center',
-                headerTooltip: 'AOI Recvd',
-                width: 20
+                width: 18,
+                headerTooltip: false
             },
             {
                 field: 'ccc_received',
@@ -282,18 +288,8 @@
                 headerClass: 'text-center',
                 headerCellRenderer: managementHdr,
                 cellClass: 'text-center',
-                headerTooltip: 'CCC Recvd',
-                width: 20
-            },
-            {
-                field: 'crop_certified',
-                headerName: 'CER',
-                templateUrl: './_modules/Loans/_views/cer.html',
-                headerClass: 'text-center',
-                headerCellRenderer: managementHdr,
-                cellClass: 'text-center',
-                headerTooltip: 'Crop certification',
-                width: 20
+                width: 18,
+                headerTooltip: false
             },
             {
                 field: 'rebate_assignment',
@@ -302,8 +298,18 @@
                 headerClass: 'text-center',
                 headerCellRenderer: managementHdr,
                 cellClass: 'text-center',
-                headerTooltip: 'Rebate assignment',
-                width: 20
+                width: 18,
+                headerTooltip: false
+            },
+            {
+                field: 'crop_certified',
+                headerName: 'CER',
+                templateUrl: './_modules/Loans/_views/cer.html',
+                headerClass: 'text-center',
+                headerCellRenderer: managementHdr,
+                cellClass: 'text-center',
+                width: 18,
+                headerTooltip: false
             },
             {
                 field: 'crop_inspection',
@@ -312,8 +318,8 @@
                 headerClass: 'text-center',
                 headerCellRenderer: managementHdr,
                 cellClass: 'text-center',
-                headerTooltip: 'Crop inspection',
-                width: 20
+                width: 18,
+                headerTooltip: false
             },
             {
                 field: 'limit_warning',
@@ -322,8 +328,8 @@
                 headerClass: 'text-center bleft',
                 headerCellRenderer: managementHdr,
                 cellClass: 'text-center bleft',
-                headerTooltip: 'Limit warning',
-                width: 20
+                width: 18,
+                headerTooltip: false
             },
             {
                 field: 'reconciliation',
@@ -332,8 +338,8 @@
                 headerClass: 'text-center',
                 headerCellRenderer: managementHdr,
                 cellClass: 'text-center',
-                headerTooltip: 'Reconciliation',
-                width: 20
+                width: 18,
+                headerTooltip: false
             },
             {
                 field: 'account_classification',
@@ -341,8 +347,8 @@
                 headerClass: 'text-center',
                 headerCellRenderer: managementHdr,
                 cellClass: 'text-center',
-                headerTooltip: 'Account classification',
-                width: 20
+                width: 18,
+                headerTooltip: false
             }
         ];
 
@@ -353,6 +359,7 @@
             colWidth: 100,
             rowHeight: 32,
             rowSelection: false,
+            suppressCellSelection: true,
             enableSorting: false,
             sortPending: sortPending,
             context: {
@@ -381,73 +388,75 @@
             }
         }
         function managementHdr(params) {
-            //console.log(params.value);
             switch (params.value) {
                 case 'ITS':
-                    return '<div style="text-align:center !important;"><span class="pendicon glyphicons glyphicons-list-alt"></span></div>';
+                    return '<div style="text-align:center !important;"><span class="pendicon glyphicons glyphicons-list-alt" tooltip="ITS List" tooltip-append-to-body="true" tooltip-placement="bottom"></span></div>';
                     break;
                 case 'FSA':
-                    return '<div style="text-align:center !important;"><span class="pendicon glyphicons glyphicons-home"></span></div>';
+                    return '<div style="text-align:center !important;"><span class="pendicon glyphicons glyphicons-home" tooltip="FSA Eligible" tooltip-append-to-body="true" tooltip-placement="bottom"></span></div>';
                     break;
                 case 'PLV':
-                    return '<div style="text-align:center !important;"><span class="pendicon glyphicons glyphicons-star"></span></div>';
+                    return '<div style="text-align:center !important;"><span class="pendicon glyphicons glyphicons-history" tooltip="Prior liens verified" tooltip-append-to-body="true" tooltip-placement="bottom"></span></div>';
                     break;
                 case 'LSV':
-                    return '<div style="text-align:center !important;"><span class="pendicon glyphicons glyphicons-leaf"></span></div>';
+                    return '<div style="text-align:center !important;"><span class="pendicon glyphicons glyphicons-leaf" tooltip="Leases verified" tooltip-append-to-body="true" tooltip-placement="bottom"></span></div>';
                     break;
                 case 'BOR':
-                    return '<div style="text-align:center !important;"><span class="pendicon glyphicons glyphicons-fire"></span></div>';
+                    return '<div style="text-align:center !important;"><span class="pendicon glyphicons glyphicons-fire" tooltip="Bankruptcy Order Rcvd" tooltip-append-to-body="true" tooltip-placement="bottom"></span></div>';
                     break;
                 case 'C3V':
-                    return '<div style="text-align:center !important;"><span class="pendicon glyphicons glyphicons-charts"></span></div>';
+                    return '<div style="text-align:center !important;"><span class="pendicon glyphicons glyphicons-charts" tooltip="Third Party Credit" tooltip-append-to-body="true" tooltip-placement="bottom"></span></div>';
                     break;
                 case 'REC':
-                    return '<div style="text-align:center !important;"><span class="pendicon glyphicons glyphicons-share"></span></div>';
-                    break;
-                case 'ARM':
-                    return '<div style="text-align:center !important;"><span class="pendicon glyphicons glyphicons-thumbs-up"></span></div>';
+                    return '<div style="text-align:center !important;"><span class="pendicon glyphicons glyphicons-share" tooltip="Recommended" tooltip-append-to-body="true" tooltip-placement="bottom"></span></div>';
                     break;
                 case 'DIS':
-                    return '<div style="text-align:center !important;"><span class="pendicon glyphicons glyphicons-hand-up"></span></div>';
+                    return '<div style="text-align:center !important;"><span class="pendicon glyphicons glyphicons-hand-up" tooltip="Distributor Approved" tooltip-append-to-body="true" tooltip-placement="bottom"></span></div>';
+                    break;
+                case 'ARM':
+                    return '<div style="text-align:center !important;"><span class="pendicon glyphicons glyphicons-thumbs-up" tooltip="ARM Approved" tooltip-append-to-body="true" tooltip-placement="bottom"></span></div>';
                     break;
                 case 'CLO':
-                    return '<div style="text-align:center !important;"><span class="pendicon glyphicons glyphicons-folder-closed"></span></div>';
+                    return '<div style="text-align:center !important;"><span class="pendicon glyphicons glyphicons-folder-closed" tooltip="Loan Closed" tooltip-append-to-body="true" tooltip-placement="bottom"></span></div>';
                     break;
                 case 'ADD':
-                    return '<div style="text-align:center !important;"><span class="pendicon glyphicons glyphicons-flag"></span></div>';
+                    return '<div style="text-align:center !important;"><span class="pendicon glyphicons glyphicons-flag" tooltip="Added land verified" tooltip-append-to-body="true" tooltip-placement="bottom"></span></div>';
                     break;
                 case 'P2I':
-                    return '<div style="text-align:center !important;"><span class="pendicon glyphicons glyphicons-gift"></span></div>';
+                    return '<div style="text-align:center !important;"><span class="pendicon glyphicons glyphicons-gift" tooltip="Permission to Insure verified" tooltip-append-to-body="true" tooltip-placement="bottom"></span></div>';
                     break;
                 case 'UCC':
-                    return '<div style="text-align:center !important;"><span class="pendicon glyphicons glyphicons-log-in"></span></div>';
+                    return '<div style="text-align:center !important;"><span class="pendicon glyphicons glyphicons-king" tooltip="ARM UCC" tooltip-append-to-body="true" tooltip-placement="bottom"></span></div>';
                     break;
                 case 'DCC':
-                    return '<div style="text-align:center !important;"><span class="pendicon glyphicons glyphicons-log-in"></span></div>';
+                    return '<div style="text-align:center !important;"><span class="pendicon glyphicons glyphicons-queen" tooltip="Dist UCC" tooltip-append-to-body="true" tooltip-placement="bottom"></span></div>';
+                    break;
+                case 'LLR':
+                    return '<div style="text-align:center !important;"><span class="pendicon glyphicons glyphicons-edit" tooltip="Lien Letter" tooltip-append-to-body="true" tooltip-placement="bottom"></span></div>';
                     break;
                 case 'AOI':
-                    return '<div style="text-align:center !important;"><span class="pendicon glyphicons glyphicons-circle-arrow-right"></span></div>';
+                    return '<div style="text-align:center !important;"><span class="pendicon glyphicons glyphicons-shield" tooltip="AOI Rcvd" tooltip-append-to-body="true" tooltip-placement="bottom"></span></div>';
                     break;
                 case 'CCC':
-                    return '<div style="text-align:center !important;"><span class="pendicon glyphicons glyphicons-link"></span></div>';
+                    return '<div style="text-align:center !important;"><span class="pendicon glyphicons glyphicons-knight" tooltip="CCC Rcvd" tooltip-append-to-body="true" tooltip-placement="bottom"></span></div>';
                     break;
                 case 'REB':
-                    return '<div style="text-align:center !important;"><span class="pendicon glyphicons glyphicons-cogwheel"></span></div>';
-                    break;
-                case 'INS':
-                    return '<div style="text-align:center !important;"><span class="pendicon glyphicons glyphicons-flower"></span></div>';
+                    return '<div style="text-align:center !important;"><span class="pendicon glyphicons glyphicons-piggy-bank" tooltip="Rebate Assignment" tooltip-append-to-body="true" tooltip-placement="bottom"></span></div>';
                     break;
                 case 'CER':
-                    return '<div style="text-align:center !important;"><span class="pendicon glyphicons glyphicons-map"></span></div>';
+                    return '<div style="text-align:center !important;"><span class="pendicon glyphicons glyphicons-map" tooltip="Crops Certified" tooltip-append-to-body="true" tooltip-placement="bottom"></span></div>';
+                    break;
+                case 'INS':
+                    return '<div style="text-align:center !important;"><span class="pendicon glyphicons glyphicons-flower" tooltip="Inspection requested" tooltip-append-to-body="true" tooltip-placement="bottom"></span></div>';
                     break;
                 case 'LWN':
-                    return '<div style="text-align:center !important;"><span class="pendicon glyphicons glyphicons-alert"></span></div>';
+                    return '<div style="text-align:center !important;"><span class="pendicon glyphicons glyphicons-alert" tooltip="Limits Warning" tooltip-append-to-body="true" tooltip-placement="bottom"></span></div>';
                     break;
                 case 'RCL':
-                    return '<div style="text-align:center !important;"><span class="pendicon glyphicons glyphicons-retweet-2"></span></div>';
+                    return '<div style="text-align:center !important;"><span class="pendicon glyphicons glyphicons-scale-classic" tooltip="Account Reconciliation" tooltip-append-to-body="true" tooltip-placement="bottom"></span></div>';
                     break;
                 case 'CLA':
-                    return '<div style="text-align:center !important;"><span class="pendicon glyphicons glyphicons-sort-by-alphabet"></span></div>';
+                    return '<div style="text-align:center !important;">&nbsp;</div>';
                     break;
             }
         }

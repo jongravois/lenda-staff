@@ -58,7 +58,7 @@
                         loan.vote_pending = false;
                     }
 
-                    //console.log('FromLoanFactory', loan);
+                    console.log('FromLoanFactory', loan);
                     return loan;
                 });
         }
@@ -113,6 +113,30 @@
             //console.log('FLAT', flattened );
             return flattened;
         }
+        function getCountiesInLoan(loan) {
+            var parishes = [];
+            _.each(loan.farms, function(item){
+                //console.log('FARMS', item);
+                var newbie = {
+                    county_id: item.county_id,
+                    county: item.county.county,
+                    state_id: item.county.state_id,
+                    state_abr: item.county.state.abr,
+                    state: item.county.state.state,
+                    locale: item.county.locale
+                };
+                if(!_.some(parishes, {'county_id' : newbie.county_id})) {
+                    parishes.push(newbie);
+                }
+            });
+            var counties = _.chain(parishes)
+                .groupBy('county')
+                .value();
+            return counties;
+        }
+        function getCountyCrops(loan) {
+            return 999999;
+        }
         function getCrops(loan) {
             var crops = [];
             _.each(loan.loancrops, function(item){
@@ -159,6 +183,7 @@
         function getLoanCrops(loan) {
             var loancrops = loan.loancrops;
             var crop_acres = loan.fins.crop_acres;
+            //console.log('187', loancrops);
 
             return _.each(loancrops, function(item) {
                 var acres = _.find(crop_acres, function(aa) {
@@ -167,7 +192,7 @@
                     };
                 });
 
-                item.acres = acres.acres;
+                item.acres = Number(acres.acres);
                 return item;
             });
         }
@@ -358,6 +383,29 @@
                 total: _.sumCollection(expenses, 'calc_total')
             };
         }
+        function processFins(loan) {
+            var fins = loan.fins;
+            var crops_in_loan = getCrops(loan);
+            var counties_in_loan = getCountiesInLoan(loan);
+
+           // var farms = getCropAcresInCounty('6', '1310', loan);
+
+            var gpd_crops = _.chain(crops_in_loan)
+                .groupBy('crop')
+                .value();
+            //console.log('GPD', gpd_crops);
+
+            fins.total_income = 10000000;
+
+            var loan_crops_acres = {
+                working: true
+            };
+
+            fins.loan_crops_acres = loan_crops_acres;
+            fins.counties_in_loan = counties_in_loan;
+            fins.loan_crops_acres = loan_crops_acres;
+            return fins;
+        }
         function processForInsDB(policies) {
             console.log('A POLICY', policies[2]);
             var onlyPractices = [];
@@ -416,6 +464,17 @@
                 lone.value += Number(item.value);
             });
             return byLoan;
+        }
+        function processLC(loan) {
+            //console.log('L', loan);
+            var lci = [];
+            var loancrops = getLoanCrops(loan);
+            _.each(loancrops, function(item){
+                var prac = item.practices;
+                var newbie = _.chain(prac).flatten().groupBy('type').value();
+                lci.push(newbie);
+            });
+            return lci;
         }
         function processNonRPInsurance(obj) {
             var nonrp = _.filter(obj, function (item) {
