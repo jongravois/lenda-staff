@@ -58,7 +58,7 @@
                         loan.vote_pending = false;
                     }
 
-                    console.log('FromLoanFactory', loan);
+                    //console.log('FromLoanFactory', loan);
                     return loan;
                 });
         }
@@ -177,7 +177,7 @@
                 //not Working
                 totals: processInsTotals(processInsByCrop(policyList))
             };
-            console.log('LoanInsurance: ', ins);
+            //console.log('LoanInsurance: ', ins);
             return ins;
         }
         function getLoanCrops(loan) {
@@ -407,7 +407,7 @@
             return fins;
         }
         function processForInsDB(policies) {
-            console.log('A POLICY', policies[2]);
+            //console.log('A POLICY', policies[2]);
             var onlyPractices = [];
 
             _.each(policies, function(item){
