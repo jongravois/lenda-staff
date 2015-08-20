@@ -16,7 +16,9 @@
     "init": "npm install",
     "install": "bower install"
   },
-  "dependencies": {},
+  "dependencies": {
+    "angular-hotkeys": "^1.5.0"
+  },
   "devDependencies": {
     "del": "^1.2.0",
     "gulp": "^3.8.11",

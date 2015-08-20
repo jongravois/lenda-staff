@@ -4,134 +4,244 @@
         .module('ARM')
         .controller('RequiredController', RequiredController);
 
-    RequiredController.$inject = ['$scope', '$http', '$filter', '$timeout', 'AppFactory', 'Loans'];
+    RequiredController.$inject = ['$rootScope', '$scope', '$http', '$filter', '$timeout', 'AppFactory', 'Loans', 'Trackers', 'RequiredFactory'];
 
-    function RequiredController($scope, $http, $filter, $timeout, AppFactory, Loans) {
+    function RequiredController($rootScope, $scope, $http, $filter, $timeout, AppFactory, Loans, Trackers, RequiredFactory) {
         $scope.AppFactory = AppFactory;
-        $scope.loans = Loans;
+        //console.log('RequiredController.Trackers', Trackers);
+
+        $scope.reduced = RequiredFactory.getData(Loans, Trackers);
+        //console.log('RequiredController.reduced', $scope.reduced);
 
         $scope.pct_success = 60;
         $scope.pct_warning = 10;
-        $scope.pct_danger  = 30;
+        $scope.pct_danger = 30;
 
         var sort = [
-            {field: 'analyst_abr', sort: 'asc'}
+            {field: 'report', sort: 'asc'},
+            {field: 'loc_abr', sort: 'asc'},
+            {field: 'name', sort: 'asc'}
         ];
+
+        var hide = true;
 
         var columnDefs = [
             {
                 headerName: 'Region',
-                valueGetter: 'data.location.regions.region',
+                field: 'region',
                 cellClass: 'text-center',
                 width: 85
             },
             {
                 headerTooltip: 'Location',
                 headerName: 'Location',
-                valueGetter: 'data.location.location',
+                field: 'location',
                 cellClass: 'text-left',
                 width: 100,
-                hide: true
+                hide: hide
             },
             {
                 headerName: 'Loc',
-                valueGetter: 'data.location.loc_abr',
+                field: 'loc_abr',
                 cellClass: 'text-center',
-                width: 70
+                width: 80
             },
             {
                 headerTooltip: 'Analyst',
                 headerName: 'Analyst',
-                field: 'analyst',
+                field: 'name',
                 cellClass: 'text-left',
-                width: 150,
-                hide: true
+                width: 150
             },
             {
                 headerName: 'Analyst',
-                field: 'analyst_abr',
+                field: 'nick',
                 cellClass: 'text-center',
-                width: 150
+                width: 80,
+                hide: hide
             },
             {
                 headerName: 'Report',
                 field: 'report',
                 cellClass: 'text-left',
-                cellRenderer: function (params) {
-                    if (params.data.report == 'actdet') {
-                        return 'Account Detail';
-                    } else if (params.data.report == 'actdet') {
-                            return 'Account Detail';
-                    } else if (params.data.report == 'accrecon') {
-                        return 'Account Reconciliation';
-                    } else if (params.data.report == 'cashflow') {
-                        return 'Cashflow/Exposure';
-                    } else if (params.data.report == 'actsum') {
-                        return 'Account Summary';
-                    } else if (params.data.report == 'fmrhis') {
-                        return 'Loan History';
-                    } else if (params.data.report == 'crpmix') {
-                        return 'Crop Mix';
-                    } else if (params.data.report == 'comapp') {
-                        return 'Committee Approval';
-                    } else if (params.data.report == 'comcom') {
-                        return 'Committee Comments';
-                    } else if (params.data.report == 'lnman') {
-                        return 'Loan Management';
-                    } else if (params.data.report == 'required') {
-                        return 'Required';
-                    } else if (params.data.report == 'usradt') {
-                        return 'Audit Trail';
-                    } else {
-                        return '';
-                    }
-                },
-                width: 100
+                width: 150
             },
             {
-                // headerGroup: 'Last',
-                headerName: 'Viewed',
-                field: 'viewed',
+                headerName: 'Posted',
+                field: 'made_required',
                 cellClass: 'text-center',
                 cellRenderer: function (params) {
-                    if (params.data.viewed) {
-                        return moment(params.data.viewed).format('MM/DD/YYYY');
+                    return moment(params.data.made_required).format('MM/DD/YYYY');
+                },
+                width: 80,
+                hide: hide
+            },
+            {
+                headerName: 'Updated',
+                field: 'updated_at',
+                cellClass: 'text-center',
+                cellRenderer: function (params) {
+                    return moment(params.data.updated_at).format('MM/DD/YYYY');
+                },
+                width: 80,
+                hide: hide
+            },
+            {
+                headerName: 'Last',
+                field: 'last_acknowledged',
+                cellClass: 'text-center',
+                cellRenderer: function (params) {
+                    return moment(params.data.last_acknowledged).format('MM/DD/YYYY');
+                },
+                width: 80,
+                hide: hide
+            },
+            {
+                headerName: 'Active',
+                field: 'is_active',
+                cellClass: 'text-center',
+                cellRenderer: function (params) {
+                    if (params.data.is_active == 1) {
+                        return "<span style='color: black' class='glyphicons glyphicons-ok-2'></span>";
                     } else {
-                        return '';
+                        return "<span style='color: gray'></span>";
                     }
                 },
-                hide: true,
-                width: 90
+                width: 80,
+                hide: hide
+            },
+            {
+                headerName: 'Admin',
+                field: 'is_admin',
+                cellClass: 'text-center',
+                cellRenderer: function (params) {
+                    if (params.data.is_admin == 1) {
+                        return "<span style='color: black' class='glyphicons glyphicons-ok-2'></span>";
+                    } else {
+                        return "<span style='color: gray'></span>";
+                    }
+                },
+                width: 80,
+                hide: hide
+            },
+            {
+                headerName: 'Approver',
+                field: 'is_approver',
+                cellClass: 'text-center',
+                cellRenderer: function (params) {
+                    if (params.data.is_approver == 1) {
+                        return "<span style='color: black' class='glyphicons glyphicons-ok-2'></span>";
+                    } else {
+                        return "<span style='color: gray'></span>";
+                    }
+                },
+                width: 80,
+                hide: hide
+            },
+            {
+                headerName: 'Manager',
+                field: 'is_manager',
+                cellClass: 'text-center',
+                cellRenderer: function (params) {
+                    if (params.data.is_manager == 1) {
+                        return "<span style='color: black' class='glyphicons glyphicons-ok-2'></span>";
+                    } else {
+                        return "<span style='color: gray'></span>";
+                    }
+                },
+                width: 80,
+                hide: hide
+            },
+            {
+                headerName: 'DTW',
+                field: 'days_to_warn',
+                cellClass: 'text-right',
+                width: 80,
+                hide: hide
+            },
+            {
+                headerName: 'DTA',
+                field: 'days_to_alert',
+                cellClass: 'text-right',
+                width: 80,
+                hide: hide
+            },
+            {
+                headerName: 'Warned',
+                field: 'cnt_warned',
+                cellClass: 'text-right',
+                width: 80,
+                hide: false
+            },
+            {
+                headerName: 'Warnings',
+                field: 'plot_cnt_warned',
+                cellClass: 'text-left',
+                cellRenderer: function (params) {
+                    return params.data.plot_cnt_warned;
+                },
+                width: 375,
+                hide: hide
+            },
+            {
+                headerName: 'Alerted',
+                field: 'cnt_alerted',
+                cellClass: 'text-right',
+                width: 80,
+                hide: false
+            },
+            {
+                headerName: 'Alarms',
+                field: 'plot_cnt_alerted',
+                cellClass: 'text-left',
+                cellRenderer: function (params) {
+                    return params.data.plot_cnt_alerted;
+                },
+                width: 375,
+                hide: hide
+            },
+            {
+                headerName: 'Num Days',
+                field: 'total_days',
+                cellClass: 'text-right',
+                width: 80,
+                hide: hide
+            },
+            {
+                headerName: 'Mean',
+                field: 'mean_response',
+                cellClass: 'text-right',
+                width: 80,
+                hide: false
+            },
+            {
+                headerName: 'Mean Response',
+                field: 'plot_mean_response',
+                cellClass: 'text-left',
+                cellRenderer: function (params) {
+                    return params.data.plot_mean_response;
+                },
+                width: 375,
+                hide: hide
             },
             {
                 headerName: 'Days',
-                field: 'days',
+                field: 'days_since_last_acknowledged',
                 cellClass: 'text-right',
-                cellRenderer: function (params) {
-                    var a = moment(params.data.updated, "YYYY-MM-DD");
-                    if (params.data.viewed){
-                        var b = moment(params.data.viewed, "YYYY-MM-DD");
-                    } else {
-                        var now = moment();
-                        var b = moment(now, "YYYY-MM-DD");
-                    }
-                    var d = b.diff(a, 'days');
-                    if (d >= 0) {
-                        return b.diff(a, 'days');
-                    } else {
-                        return '';
-                    }
-                },
-                hide: true,
-                width: 70
+                width: 80,
+                hide: false
             },
             {
                 headerName: 'Efficiency',
-                cellClass: 'text-center',
-                suppressSorting: true,
-                //templateUrl: '_modules/Reports/_views/_partials/progress_bar.html',
-                width: 590
-            }
+                field: 'plot_days',
+                cellClass: 'text-left',
+                cellRenderer: function (params) {
+                    //console.log('params', params);
+                    return params.data.plot_days;
+                },
+                width: 375,
+                hide: false
+            },
         ];
 
         $scope.showToolPanel = function () {
@@ -158,8 +268,13 @@
             }
         };
 
-        $scope.gridOptions.rowData = $scope.loans;
-        if ($scope.gridOptions.rowData.length < 20){
+        $scope.gridOptions.rowData = $scope.reduced;
+
+        console.log('gridOptions', $scope.gridOptions);
+        console.log('reduced', $scope.reduced);
+        console.log('loans', Loans);
+
+        if ($scope.gridOptions.rowData.length < 20) {
             $scope.gridHeight = (350).toString();
         } else {
             $scope.gridHeight = Number(($scope.gridOptions.rowData.length + 2) * 30).toString();

@@ -121,6 +121,13 @@
                 });
         }
 
+        function getReportTrackers() {
+            return $http.get(API_URL + 'reporttrackers')
+                .then(function (response) {
+                    data.reports = response.data.data;
+                });
+        }
+
         function getRoles() {
             return $http.get(API_URL + 'roles')
                 .then(function (response) {
@@ -163,6 +170,7 @@
             getMeasures();
             getRegions();
             getReports();
+            getReportTrackers();
             getRoles();
             getSpendcats();
             getStates();
@@ -174,6 +182,7 @@
             getStates: getStates,
             getSpendcats: getSpendcats,
             getRoles: getRoles,
+            getReportTrackers: getReportTrackers,
             getReports: getReports,
             getRegions: getRegions,
             getMeasures: getMeasures,

@@ -71,7 +71,12 @@
             .state('arm.reports.reqrpt', {
                 url: '/reqrpt',
                 templateUrl: '_modules/Reports/_views/required/required.tmpl.html',
-                controller: 'RequiredController'
+                controller: 'RequiredController',
+                resolve: {
+                    Trackers: function(AppFactory) {
+                        return AppFactory.getAll('reporttrackers');
+                    }
+                }
             })
             .state('arm.reports.usradt', {
                 url: '/usradt',
