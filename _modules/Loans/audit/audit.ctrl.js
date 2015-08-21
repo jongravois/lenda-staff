@@ -7,6 +7,6 @@
         AuditController.$inject = ['$rootScope', '$scope', 'AppFactory'];
 
         function AuditController($rootScope, $scope, AppFactory){
-            console.log($scope.loan.systemics);
+            //console.log($scope.loan.systemics);
         } // end controller
 })();
