@@ -232,7 +232,7 @@
                 hide: false
             },
             {
-                headerName: 'Efficiency',
+                headerName: 'Current',
                 field: 'plot_days',
                 cellClass: 'text-left',
                 cellRenderer: function (params) {

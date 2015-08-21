@@ -40,7 +40,7 @@
                     i.location = item.location.loc_abr;
                     i.region = item.location.regions.region;
 
-                    i.audit_activity = i.action;
+                    i.audit_activity = i.name;
                     i.audit_date = i.updated_at;
                     i.audit_time = i.updated_at;
                     i.audit_user = i.user;
