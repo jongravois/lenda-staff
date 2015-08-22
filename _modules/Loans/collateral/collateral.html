@@ -332,15 +332,15 @@
                 <label>Cross Collateralized Loans</label>
             </div>
             <div class="col-md-3">
-                <input type="radio" name="xcol" ng-value="true" ng-model="loan.is_cross_collateralized"/>
+                <input type="radio" name="xcol" ng-value="true" ng-model="loan.is_xcolled"/>
                 &nbsp;<label>Yes</label>
                 &nbsp;&nbsp;&nbsp;
-                <input type="radio" name="xcol" ng-value="false" ng-model="loan.is_cross_collateralized"/>
+                <input type="radio" name="xcol" ng-value="false" ng-model="loan.is_xcolled"/>
                 &nbsp;<label>No</label>
             </div>
         </div>
     </div>
-    <div class="container row form-group" ng-if="loan.is_cross_collateralized">
+    <div class="container row form-group" ng-if="loan.is_xcolled">
     </div>
     <div>
         <div class="form-group">

@@ -46,13 +46,13 @@
                   tooltip-append-to-body="true"
                   tooltip-placement="bottom"
                   ng-click="toggleCrossColateral()"
-                  ng-class="{'clrOn': loan.is_cross_collateralized, 'clrOff': !loan.is_cross_collateralized }" style="color: #006837;" ng-if="XColView"></span>
+                  ng-class="{'clrOn': loan.is_xcolled, 'clrOff': !loan.is_xcolled }" style="color: #006837;" ng-if="XColView"></span>
             <span class="progicon glyphicons glyphicons-random"
                   tooltip="Cross Collateral"
                   tooltip-append-to-body="true"
                   tooltip-placement="bottom"
                   ng-click="toggleCrossColateral()"
-                  ng-class="{'cRed': XColView, 'clrOn': loan.is_cross_collateralized, 'clrOff': !loan.is_cross_collateralized }" style="color: #cccccc;" ng-if="!XColView"></span>
+                  ng-class="{'cRed': XColView, 'clrOn': loan.is_xcolled, 'clrOff': !loan.is_xcolled }" style="color: #cccccc;" ng-if="!XColView"></span>
             <span class="progicon glyphicons glyphicons-plus"
                   tooltip="Addendum"
                   tooltip-append-to-body="true"
