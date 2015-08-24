@@ -10,7 +10,8 @@
             'oitozero.ngSweetAlert',
             'angularGrid',
             'xeditable',
-            'angular-loading-bar'
+            'angular-loading-bar',
+            'cfp.hotkeys'
         ])
         .config(function(){
             function groupByMulti(obj, values, context) {

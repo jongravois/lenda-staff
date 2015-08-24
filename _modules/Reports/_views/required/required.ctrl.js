@@ -4,9 +4,9 @@
         .module('ARM')
         .controller('RequiredController', RequiredController);
 
-    RequiredController.$inject = ['$rootScope', '$scope', '$http', '$filter', '$timeout', 'AppFactory', 'Loans', 'Trackers', 'RequiredFactory'];
+    RequiredController.$inject = ['$rootScope', '$scope', '$http', '$filter', '$timeout', 'AppFactory', 'Loans', 'Trackers', 'RequiredFactory', 'hotkeys'];
 
-    function RequiredController($rootScope, $scope, $http, $filter, $timeout, AppFactory, Loans, Trackers, RequiredFactory) {
+    function RequiredController($rootScope, $scope, $http, $filter, $timeout, AppFactory, Loans, Trackers, RequiredFactory, hotkeys) {
         $scope.AppFactory = AppFactory;
         //console.log('RequiredController.Trackers', Trackers);
 
@@ -174,7 +174,7 @@
                 hide: false
             },
             {
-                headerName: 'Warnings',
+                headerName: 'Graph Warnings Data',
                 field: 'plot_cnt_warned',
                 cellClass: 'text-left',
                 cellRenderer: function (params) {
@@ -191,7 +191,7 @@
                 hide: false
             },
             {
-                headerName: 'Alarms',
+                headerName: 'Graph Alarms Data',
                 field: 'plot_cnt_alerted',
                 cellClass: 'text-left',
                 cellRenderer: function (params) {
@@ -215,7 +215,7 @@
                 hide: false
             },
             {
-                headerName: 'Mean Response',
+                headerName: 'Graph Mean Response Data',
                 field: 'plot_mean_response',
                 cellClass: 'text-left',
                 cellRenderer: function (params) {
@@ -232,7 +232,7 @@
                 hide: false
             },
             {
-                headerName: 'Current',
+                headerName: 'Graph Current Response Data',
                 field: 'plot_days',
                 cellClass: 'text-left',
                 cellRenderer: function (params) {
@@ -244,10 +244,66 @@
             },
         ];
 
+        $scope.email = function(){
+          alert('E-mail not available');
+        }
+
+        $scope.excel = function(){
+            alert('Excel not available');
+        }
+
+        $scope.help = function(){
+            $scope.help = !$scope.help;
+        }
+
+        $scope.print = function(){
+            alert('Print not available');
+        }
+
+        $scope.pdf = function(){
+            alert('PDF not available');
+        }
+
         $scope.showToolPanel = function () {
             $scope.tools = !$scope.tools;
             $scope.gridOptions.api.showToolPanel($scope.tools);
         }
+
+        hotkeys.bindTo($scope).add({
+            combo: 'fn+c',
+            description: 'Opens Angular Grid Control Panel',
+            callback: $scope.showToolPanel
+        });
+
+        hotkeys.bindTo($scope).add({
+            combo: 'fn+d',
+            description: 'PDF Document of Report',
+            callback: $scope.pdf
+        });
+
+        hotkeys.bindTo($scope).add({
+            combo: 'fn+e',
+            description: 'Send Report by Email',
+            callback: $scope.email
+        });
+
+        hotkeys.bindTo($scope).add({
+            combo: 'fn+h',
+            description: 'Help',
+            callback: $scope.help
+        });
+
+        hotkeys.bindTo($scope).add({
+            combo: 'fn+p',
+            description: 'Send Report to Printer',
+            callback: $scope.print
+        });
+
+        hotkeys.bindTo($scope).add({
+            combo: 'fn+x',
+            description: 'Send Report to Excel',
+            callback: $scope.excel
+        });
 
         $scope.gridOptions = {
             columnDefs: columnDefs,
@@ -279,6 +335,8 @@
         } else {
             $scope.gridHeight = Number(($scope.gridOptions.rowData.length + 2) * 30).toString();
         }
+
+        $scope.help = false;
     }
 
 })();

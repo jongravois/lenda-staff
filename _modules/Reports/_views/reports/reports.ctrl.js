@@ -4,19 +4,18 @@
         .module('ARM')
         .controller('ReportsController', ReportsController);
 
-        ReportsController.$inject = ['Loans', 'ReportsFactory'];
+        ReportsController.$inject = ['$scope', 'Loans', 'ReportsFactory'];
 
         /* @ngInject */
-        function ReportsController(Loans, ReportsFactory) {
+        function ReportsController($scope, Loans, ReportsFactory) {
             /* jshint validthis: true */
-            var vm = this;
-            vm.loans = Loans;
+            $scope.loans = Loans;
             console.log(Loans);
 
-            vm.toy = ReportsFactory.getJonsToy(vm.loans);
-            console.log('GJT', vm.toy);
+            $scope.toy = ReportsFactory.getJonsToy($scope.loans);
+            console.log('GJT', $scope.toy);
 
-            vm.reporter = [];
+            $scope.reporter = [];
             //////////
 
         } // end function
