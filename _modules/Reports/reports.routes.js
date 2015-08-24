@@ -6,7 +6,7 @@
                 url: '/reports',
                 abstract: true,
                 template: '<div ui-view></div>',
-                controller: 'ReportsController as reports',
+                controller: 'ReportsController',
                 resolve: {
                     Loans: function(LoansFactory) {
                         return LoansFactory.getLoans();

@@ -25,17 +25,15 @@
                         </tr>
                     </div>
                     <div ng-if="x.disbursements== null">
-                    <tr>
-                        <td>BUDGET DATA NOT FOUND</td>
-                    </tr>
+                    </div>
+                    </tbody>
+                </table>
             </div>
-            </tbody>
-            </table>
         </div>
-</div>
-</form>
-<div class="ag-fresh" ag-grid="gridOptions" ng-style="{height: gridHeight}"></div>
-<form>
+    </form>
+
+    <div class="ag-fresh" ag-grid="gridOptions" ng-style="{height: gridHeight}"></div>
+    <form>
             <span style="display:inline-block;float:left;"> &nbsp;
             <span ng-click="showToolPanel()"><img ng-src="images/control_panel.png"
                                                   style="width:30px"> Control Panel </span>
@@ -53,9 +51,8 @@
         <span style="display:inline-block;float:left;position: absolute;top: 150px;right: 28px;">
         &nbsp; <input placeholder="Filter..." type="text" ng-model="gridOptions.quickFilterText"/>
         </span>
-    <br><br>
-</form>
-</div>
+        <br><br>
+    </form>
 <!--<pre>{{gridOptions.selectedRows | json}}</pre>-->
 
 

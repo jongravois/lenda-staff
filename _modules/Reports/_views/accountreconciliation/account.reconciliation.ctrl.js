@@ -4,9 +4,9 @@
         .module('ARM')
         .controller('AccountReconciliationController', AccountReconciliationController);
 
-    AccountReconciliationController.$inject = ['$scope', '$http', '$filter', '$timeout', 'AppFactory', 'Loans'];
+    AccountReconciliationController.$inject = ['$scope', '$http', '$filter', '$timeout', 'AppFactory', 'Loans', 'hotkeys'];
 
-    function AccountReconciliationController($scope, $http, $filter, $timeout, AppFactory, Loans) {
+    function AccountReconciliationController($scope, $http, $filter, $timeout, AppFactory, Loans, hotkeys) {
         $scope.AppFactory = AppFactory;
         $scope.loans = Loans;
 
@@ -284,10 +284,66 @@
             }
         ];
 
+        $scope.email = function(){
+            alert('E-mail not available');
+        }
+
+        $scope.excel = function(){
+            alert('Excel not available');
+        }
+
+        $scope.help = function(){
+            $scope.help = !$scope.help;
+        }
+
+        $scope.print = function(){
+            alert('Print not available');
+        }
+
+        $scope.pdf = function(){
+            alert('PDF not available');
+        }
+
         $scope.showToolPanel = function () {
             $scope.tools = !$scope.tools;
             $scope.gridOptions.api.showToolPanel($scope.tools);
         }
+
+        hotkeys.bindTo($scope).add({
+            combo: 'fn+c',
+            description: 'Opens Angular Grid Control Panel',
+            callback: $scope.showToolPanel
+        });
+
+        hotkeys.bindTo($scope).add({
+            combo: 'fn+d',
+            description: 'PDF Document of Report',
+            callback: $scope.pdf
+        });
+
+        hotkeys.bindTo($scope).add({
+            combo: 'fn+e',
+            description: 'Send Report by Email',
+            callback: $scope.email
+        });
+
+        hotkeys.bindTo($scope).add({
+            combo: 'fn+h',
+            description: 'Help',
+            callback: $scope.help
+        });
+
+        hotkeys.bindTo($scope).add({
+            combo: 'fn+p',
+            description: 'Send Report to Printer',
+            callback: $scope.print
+        });
+
+        hotkeys.bindTo($scope).add({
+            combo: 'fn+x',
+            description: 'Send Report to Excel',
+            callback: $scope.excel
+        });
 
         $scope.gridOptions = {
             columnDefs: columnDefs,
@@ -314,6 +370,8 @@
         } else {
             $scope.gridHeight = Number(($scope.gridOptions.rowData.length + 2) * 30).toString();
         }
+
+        $scope.help = false;
     }
 
 })();
