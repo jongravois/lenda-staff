@@ -1,17 +1,37 @@
+.clr-arm {
+  color: #ffffff;
+  background: #006837;
+}
 .clr-black {
+  color: #ffffff;
   background: #000000;
-  /* Old browsers */
-  background: linear-gradient(#aaaaaa, #000000);
+}
+.clr-darkgreen {
+  color: #ffffff;
+  background: #006837;
+}
+.clr-goldenrod {
+  color: #000000;
+  background: #fffed1;
 }
 .clr-gray {
   background: #aaaaaa;
-  /* Old browsers */
-  background: linear-gradient(#cccccc, #aaaaaa);
 }
-.clr-darkgreen {
-  background: #006837;
-  /* Old browsers */
-  background: linear-gradient(#006837, #00ce6d);
+.clr-liteblue {
+  color: #000000;
+  background: #d9eef2;
+}
+.clr-litegray {
+  color: #000000;
+  background: #f2f2f2;
+}
+.clr-litegreen {
+  color: #000000;
+  background: #ebf1e0;
+}
+.clr-salmon {
+  color: #000000;
+  background: #fee9db;
 }
 .make-blue {
   color: #000099;
@@ -960,10 +980,14 @@ div.editable-click {
   background-color: #006837;
   border-color: #002B17;
 }
-.btn-arm:hover,
 .btn-arm:focus,
 .btn-arm:active,
-.btn-arm.active,
+.btn-arm.active {
+  color: #ffffff;
+  background-color: #006837;
+  border-color: #002B17;
+}
+.btn-arm:hover,
 .open .dropdown-toggle.btn-arm {
   color: #ffffff;
   background-color: #010805;
@@ -1014,6 +1038,106 @@ fieldset[disabled] .btn-arm.active {
 .btn-black.active {
   background: #006837;
   color: #ffffff;
+  text-align: left;
+}
+.btn-gray {
+  background: #f2f2f2;
+  color: #000000;
+  text-align: left;
+}
+.btn-gray:hover {
+  background: #333333;
+  color: #f2f2f2;
+  text-align: left;
+}
+.btn-gray:focus {
+  background: #f2f2f2;
+  color: #000000;
+  text-align: left;
+}
+.btn-gray.active {
+  background: #f2f2f2;
+  color: #000000;
+  text-align: left;
+}
+.btn-salmon {
+  background: #fee9db;
+  color: #000000;
+  text-align: left;
+}
+.btn-salmon:hover {
+  background: #333333;
+  color: #f2f2f2;
+  text-align: left;
+}
+.btn-salmon:focus {
+  background: #fee9db;
+  color: #000000;
+  text-align: left;
+}
+.btn-salmon.active {
+  background: #fee9db;
+  color: #000000;
+  text-align: left;
+}
+.btn-liteblue {
+  background: #d9eef2;
+  color: #000000;
+  text-align: left;
+}
+.btn-liteblue:hover {
+  background: #333333;
+  color: #f2f2f2;
+  text-align: left;
+}
+.btn-liteblue:focus {
+  background: #d9eef2;
+  color: #000000;
+  text-align: left;
+}
+.btn-liteblue.active {
+  background: #d9eef2;
+  color: #000000;
+  text-align: left;
+}
+.btn-litegreen {
+  background: #ebf1e0;
+  color: #000000;
+  text-align: left;
+}
+.btn-litegreen:hover {
+  background: #333333;
+  color: #f2f2f2;
+  text-align: left;
+}
+.btn-litegreen:focus {
+  background: #ebf1e0;
+  color: #000000;
+  text-align: left;
+}
+.btn-litegreen.active {
+  background: #ebf1e0;
+  color: #000000;
+  text-align: left;
+}
+.btn-goldenrod {
+  background: #fffed1;
+  color: #000000;
+  text-align: left;
+}
+.btn-goldenrod:hover {
+  background: #333333;
+  color: #f2f2f2;
+  text-align: left;
+}
+.btn-goldenrod:focus {
+  background: #fffed1;
+  color: #000000;
+  text-align: left;
+}
+.btn-goldenrod.active {
+  background: #fffed1;
+  color: #000000;
   text-align: left;
 }
 .btn-primary:hover,

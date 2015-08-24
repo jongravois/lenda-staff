@@ -3,14 +3,16 @@
 </a>
 
 <a href="#/arm/edit/{{data.loan_type_id}}/{{data.id}}/committee">
-    <span tooltip="Vote Needed" tooltip-append-to-body="true" tooltip-placement="bottom" class="pendicon glyphicons glyphicons-circle-exclamation-mark" ng-class="{cBlue: data.vote_pending, cGray: !data.vote_pending}"></span>
+    <span tooltip="Vote Needed" tooltip-append-to-body="true" tooltip-placement="bottom" class="pendicon glyphicons glyphicons-group" ng-class="{cBlue: data.vote_pending, cGray: !data.vote_pending}"></span>
 </a>
 
 <a href="#/arm/edit/{{data.loan_type_id}}/{{data.id}}/comments">
-    <span tooltip="Comments" tooltip-append-to-body="true" tooltip-placement="bottom" class="pendicon glyphicons glyphicons-circle-exclamation-mark" ng-class="{cYellow: data.has_comment, cGray: !data.has_comment}"></span>
+    <span tooltip="Comments" tooltip-append-to-body="true" tooltip-placement="bottom" class="pendicon glyphicons glyphicons-comments" ng-class="{cYellow: data.has_comment, cGray: !data.has_comment}"></span>
 </a>
 
-<span tooltip="Stale Application" tooltip-append-to-body="true" tooltip-placement="bottom" class="pendicon glyphicons glyphicons-circle-exclamation-mark" ng-class="{cRed: data.is_stale, cGray: !data.is_stale}"></span>
+<a href="#">
+    <span tooltip="Stale Application" tooltip-append-to-body="true" tooltip-placement="bottom" class="pendicon glyphicons glyphicons-clock" ng-class="{cRed: data.is_stale, cGray: !data.is_stale}"></span>
+</a>
 
 <a href="#/arm/edit/{{data.loan_type_id}}/{{data.id}}/disbursements">
         <span tooltip="Disbursement Issue" tooltip-append-to-body="true" tooltip-placement="bottom" class="pendicon glyphicons glyphicons-usd" ng-class="{cGreen: data.disbursement_issue, cGray: !data.disbursement_issue}"></span>

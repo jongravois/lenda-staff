@@ -16,7 +16,7 @@
                 $scope.loan = rsp;
             });
 
-        console.log('optimized (OF)', $scope.loan);
+        //console.log('OPTIMIZED', $scope.loan);
         //////////////////////////
 
         //console.log($scope.loan.practices);
@@ -40,16 +40,16 @@
             showInsRows: true, //false,
             showCFRows: true, //false,
             showEXRows: true, //false,
-            tcropCorn: (AppFactory.calcAcresCrop('1', $scope.loan) > 0 ? true : false),
-            tcropSoybeans: (AppFactory.calcAcresCrop('2', $scope.loan) > 0 ? true : false),
-            tcropBeansFAC: (AppFactory.calcAcresCrop('3', $scope.loan) > 0 ? true : false),
-            tcropSorghum: (AppFactory.calcAcresCrop('4', $scope.loan) > 0 ? true : false),
-            tcropWheat: (AppFactory.calcAcresCrop('5', $scope.loan) > 0 ? true : false),
+            tcropCorn: true, //(AppFactory.calcAcresCrop('1', $scope.loan) > 0 ? true : false),
+            tcropSoybeans: true, //(AppFactory.calcAcresCrop('2', $scope.loan) > 0 ? true : false),
+            tcropBeansFAC: true, //(AppFactory.calcAcresCrop('3', $scope.loan) > 0 ? true : false),
+            tcropSorghum: true, //(AppFactory.calcAcresCrop('4', $scope.loan) > 0 ? true : false),
+            tcropWheat: true, //(AppFactory.calcAcresCrop('5', $scope.loan) > 0 ? true : false),
             tcropCotton: true, //(AppFactory.calcAcresCrop('6', $scope.loan) > 0 ? true : false),
-            tcropRice: (AppFactory.calcAcresCrop('7', $scope.loan) > 0 ? true : false),
-            tcropPeanuts: (AppFactory.calcAcresCrop('8', $scope.loan) > 0 ? true : false),
-            tcropSugarcane: (AppFactory.calcAcresCrop('9', $scope.loan) > 0 ? true : false),
-            tcropOther: (AppFactory.calcAcresCrop('10', $scope.loan) > 0 ? true : false)
+            tcropRice: true, //(AppFactory.calcAcresCrop('7', $scope.loan) > 0 ? true : false),
+            tcropPeanuts: true, //(AppFactory.calcAcresCrop('8', $scope.loan) > 0 ? true : false),
+            tcropSugarcane: true, //(AppFactory.calcAcresCrop('9', $scope.loan) > 0 ? true : false),
+            tcropOther: true, //(AppFactory.calcAcresCrop('10', $scope.loan) > 0 ? true : false)
         };
 
         $scope.toggleAlpine = function() {

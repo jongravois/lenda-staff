@@ -12,25 +12,30 @@
         <div class="row">
             <div class="btn-group btn-group-sm pull-right" role="group">
                 <button type="button"
-                        class="btn btn-primary"
-                        ng-if="loan.has_distributor">
+                        class="btn btn-arm"
+                        ng-if="loan.has_distributor"
+                        ng-click="AppFactory.submitToDist(loan)">
                     <span class="glyphicons glyphicons-share"></span>
                     <span ng-if="loan_type_id !== 6">Distributor</span>
                     <span ng-if="loan_type_id === 6">Dist 100%</span>
                 </button>
                 <button type="button"
-                        class="btn btn-primary">
+                        class="btn btn-arm"
+                        ng-disabled="!loan.analyst_can_submit"
+                        ng-click="AppFactory.submitLoan(loan)">
                     <span class="glyphicons glyphicons-share"></span>
                     Committee
                 </button>
                 <button type="button"
-                        class="btn btn-primary">
+                        class="btn btn-arm"
+                        ng-click="AppFactory.withdrawLoan(loan)">
                     <span class="glyphicons glyphicons-person-walking"></span>
                     Withdraw
                 </button>
                 <button type="button"
-                        class="btn btn-primary"
-                        ng-disabled="!loan.analyst_can_approve">
+                        class="btn btn-arm"
+                        ng-disabled="!loan.analyst_can_approve"
+                        ng-click="AppFactory.submitLoanSolo(loan)">
                     <span class="glyphicons glyphicons-thumbs-up"></span>
                     Approve
                 </button>
@@ -40,9 +45,9 @@
         <div class="row">
             <table class="table table-striped rowed table-condensed disp-sm" style="width:70%;">
                 <tr>
-                    <th style="width:120px;">&nbsp;</th>
-                    <th style="width:15%;">Role</th>
-                    <th style="width:20%;">User</th>
+                    <th style="width:160px;">&nbsp;</th>
+                    <th style="width:14%;">Role</th>
+                    <th style="width:28%;">User</th>
                     <th style="width:15%;">Added</th>
                     <th style="width:15%;">Voted</th>
                     <th style="width:15%;">Vote</th>
@@ -50,10 +55,10 @@
                 </tr>
                 <tr ng-repeat="c in loan.committee|orderBy:'role_id'" ng-init="!rowform.$visible" ng-dblclick="rowform.$show()">
                     <td>
-                        <span ng-if="c.vote_status == 'pending'" tooltip="Vote Needed" class="glyphicon glyphicon-exclamation-sign cBlue" style="font-size:18px;"></span>
-                        <span ng-if="c.vote_status != 'pending'" tooltip="Vote Needed" class="glyphicon glyphicon-exclamation-sign cGray" style="font-size:18px;"></span>
-                        <span ng-if="c.has_comment" tooltip="Comments" class="glyphicon glyphicon-exclamation-sign cYellow" style="font-size:18px;"></span>
-                        <span ng-if="!c.has_comment" tooltip="Comments" class="glyphicon glyphicon-exclamation-sign cGray" style="font-size:18px;"></span>
+                        <span ng-if="c.vote_status == 'pending'" tooltip="Vote Needed" class="glyphicons glyphicons-group cBlue" style="font-size:18px;">&nbsp;</span>
+                        <span ng-if="c.vote_status != 'pending'" tooltip="Vote Needed" class="glyphicons glyphicons-group cGray" style="font-size:18px;">&nbsp;</span>
+                        <span ng-if="c.has_comment" tooltip="Comments" class="glyphicons glyphicons-comments cYellow" style="font-size:18px;"></span>
+                        <span ng-if="!c.has_comment" tooltip="Comments" class="glyphicons glyphicons-comments cGray" style="font-size:18px;"></span>
                     </td>
                     <td>
                         <span editable-text="c.committee_role" e-name="role" e-form="rowform" e-style="width:100%;" e-required>
@@ -61,10 +66,12 @@
                                 <b>{{c.role.abr}}</b>
                             </span>
                     </td>
-                    <td>
+                    <td class="cBlue">
                         <span editable-text="c.user.name" e-name="name" e-form="rowform" e-style="width:100%;" e-required>
-                            <span editable-select="user.status" e-name="status" e-ng-options="s.value as s.text for s in statuses">
-                        {{c.user.name}}
+                            <!--<span editable-select="user.status" e-name="status" e-ng-options="s.value as s.text for s in statuses">-->
+                            {{c.user.name}}
+                            <!--</span>-->
+                        </span>
                     </td>
                     <td class="text-center">
                         {{c.vote_request_date | date:'M/d/yy'}}
@@ -78,11 +85,13 @@
                         </span>
                         <span ng-if="!c.vote && c.user_id !== '0'">
                             <span class="voteicon glyphicons glyphicons-thumbs-up cGreen" style="font-size:16px;" tooltip="Approve" tooltip-append-to-body="true" tooltip-placement="bottom"></span>
+                            &nbsp;
                             <span class="voteicon glyphicons glyphicons-thumbs-down cRed" style="font-size:16px;"tooltip="Reject" tooltip-append-to-body="true" tooltip-placement="bottom"></span>
-                            <span class="voteicon glyphicons glyphicons-comments cYellow" style="font-size:16px;"tooltip="Comment" tooltip-append-to-body="true" tooltip-placement="bottom"></span>
+                            &nbsp;
+                            <span class="voteicon glyphicons glyphicons-comments cBlack" style="font-size:16px;"tooltip="Comment" tooltip-append-to-body="true" tooltip-placement="bottom"></span>
                         </span>
                     </td>
-                   <td width:60px; class="text-right">
+                   <td style="width:120px;" class="text-center">
                         <!-- form -->
                         <form editable-form name="rowform" onbeforesave="saveCommittee($data, p.id)" ng-show="rowform.$visible" class="form-buttons form-inline">
                             <button type="submit" ng-disabled="rowform.$waiting"><span class="glyphicons glyphicons-circle-ok" style="color:#006837;border: none !important;"></span></button>

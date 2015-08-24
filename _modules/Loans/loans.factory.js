@@ -38,7 +38,6 @@
                 collateral: processCollateral(loan.other_collateral),
                 crops: getCrops(loan),
                 expenses: getExpenses(loan),
-                loancrops: getLoanCrops(loan),
                 insurance: getInsurance(loan),
                 parsedComments: structureComments(loan),
                 priorlien: processPriorLien(loan.prior_liens),
@@ -179,22 +178,6 @@
             };
             //console.log('LoanInsurance: ', ins);
             return ins;
-        }
-        function getLoanCrops(loan) {
-            var loancrops = loan.loancrops;
-            var crop_acres = loan.fins.crop_acres;
-            //console.log('187', loancrops);
-
-            return _.each(loancrops, function(item) {
-                var acres = _.find(crop_acres, function(aa) {
-                    if (aa.id === Number(item.crop_id)) {
-                        return aa.acres;
-                    };
-                });
-
-                item.acres = Number(acres.acres);
-                return item;
-            });
         }
         function getPrerequisites(id) {
             return $http.get(API_URL + 'loans/' + id + '/prereqs');

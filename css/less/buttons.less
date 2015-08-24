@@ -9,10 +9,14 @@
     background-color: #006837;
     border-color: #002B17;
 }
-.btn-arm:hover,
 .btn-arm:focus,
 .btn-arm:active,
-.btn-arm.active,
+.btn-arm.active {
+    color: #ffffff;
+    background-color: #006837;
+    border-color: #002B17;
+}
+.btn-arm:hover,
 .open .dropdown-toggle.btn-arm {
     color: #ffffff;
     background-color: #010805;
@@ -45,6 +49,7 @@ fieldset[disabled] .btn-arm.active {
     color: #006837;
     background-color: #ffffff;
 }
+
 .btn-black {
     background: @darkestgray;
     color: @white;
@@ -66,6 +71,117 @@ fieldset[disabled] .btn-arm.active {
         text-align: left;
     }
 }
+
+.btn-gray {
+    background: @litegray;
+    color: @black;
+    text-align: left;
+
+    &:hover {
+        background: @darkestgray;
+        color: @litegray;
+        text-align: left;
+    }
+    &:focus {
+        background: @litegray;
+        color: @black;
+        text-align: left;
+    }
+    &.active {
+        background: @litegray;
+        color: @black;
+        text-align: left;
+    }
+}
+
+.btn-salmon {
+    background: @salmon;
+    color: @black;
+    text-align: left;
+
+    &:hover {
+        background: @darkestgray;
+        color: @litegray;
+        text-align: left;
+    }
+    &:focus {
+        background: @salmon;
+        color: @black;
+        text-align: left;
+    }
+    &.active {
+        background: @salmon;
+        color: @black;
+        text-align: left;
+    }
+}
+
+.btn-liteblue {
+    background: @liteblue;
+    color: @black;
+    text-align: left;
+
+    &:hover {
+        background: @darkestgray;
+        color: @litegray;
+        text-align: left;
+    }
+    &:focus {
+        background: @liteblue;
+        color: @black;
+        text-align: left;
+    }
+    &.active {
+        background: @liteblue;
+        color: @black;
+        text-align: left;
+    }
+}
+
+.btn-litegreen {
+    background: @litegreen;
+    color: @black;
+    text-align: left;
+
+    &:hover {
+        background: @darkestgray;
+        color: @litegray;
+        text-align: left;
+    }
+    &:focus {
+        background: @litegreen;
+        color: @black;
+        text-align: left;
+    }
+    &.active {
+        background: @litegreen;
+        color: @black;
+        text-align: left;
+    }
+}
+
+.btn-goldenrod {
+    background: @goldenrod;
+    color: @black;
+    text-align: left;
+
+    &:hover {
+        background: @darkestgray;
+        color: @litegray;
+        text-align: left;
+    }
+    &:focus {
+        background: @goldenrod;
+        color: @black;
+        text-align: left;
+    }
+    &.active {
+        background: @goldenrod;
+        color: @black;
+        text-align: left;
+    }
+}
+
 
 .btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .open .dropdown-toggle.btn-primary {
     color: @white;

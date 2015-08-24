@@ -6,33 +6,56 @@
 @darkergray: #555555;
 @darkgray: #aaaaaa;
 @gray: #cccccc;
+@litegray: #f2f2f2;
 @faintgray: #EAEDF1;
 @pending: #dddddd;
 @darkgreen: @arm-green;
+@litegreen: #ebf1e0;
 @tarheelblue: #99badd;
 @blue: #000099;
+@liteblue: #d9eef2;
 @medblue: #3366AA;
 @brightred: #ba0000;
 @red: #990000;
 @yellow: #e0a02d;
+@goldenrod: #fffed1;
 @orange: #ff4500;
+@salmon: #fee9db;
 
-.clr-black {
-    background: @black;
-    /* Old browsers */
-    background: linear-gradient(@darkgray, @black);
+.clr-arm {
+    color: @white;
+    background: @arm-green;
 }
-
+.clr-black {
+    color: @white;
+    background: @black;
+}
+.clr-darkgreen {
+    color: @white;
+    background: @arm-green;
+}
+.clr-goldenrod {
+    color: @black;
+    background: @goldenrod;
+}
 .clr-gray {
     background: @darkgray;
-    /* Old browsers */
-    background: linear-gradient(@gray, @darkgray);
 }
-
-.clr-darkgreen {
-    background: @arm-green;
-    /* Old browsers */
-    background: linear-gradient(@arm-green, lighten(@arm-green, 20%));
+.clr-liteblue {
+    color: @black;
+    background: @liteblue;
+}
+.clr-litegray {
+    color: @black;
+    background: @litegray;
+}
+.clr-litegreen {
+    color: @black;
+    background: @litegreen;
+}
+.clr-salmon {
+    color: @black;
+    background: @salmon;
 }
 
 .make-blue { color: @blue; }
