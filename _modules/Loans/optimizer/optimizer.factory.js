@@ -23,8 +23,8 @@
         function getOptimizedLoan(loan) {
             var deferred = $q.defer();
             var splitFarms = splitFarmsByPractice(loan);
-            //splitFarms contains crops with 0 acres
             loan.optimized = splitFarms;
+            console.log('Optimized Loan', loan.optimized);
             deferred.resolve(loan);
             return deferred.promise;
         }
@@ -54,7 +54,6 @@
             return Number(crop.c_aph) * Number(crop.c_ins_price) * (Number(crop.c_ins_level)/100);
         }
         function calcInsValue(crop) {
-            //console.log('Value Crop', crop);
             var guar = calcInsGuarantee(crop),
                 premium = Number(crop.c_ins_premium),
                 share = (crop.c_ins_share ? Number(crop.c_ins_share)/100 : 1);
@@ -70,49 +69,43 @@
         function getTotalWaived(practices) {
             return _.sumCollection(practices, 'waived');
         }
-        function makeFarmPractice(obj, loan) {
-            return makePractice(obj.crop_id); //TODO: Fix
-            var xps = [];
-            //_.find(loan.expenses.byEntry, function(i){
-            _.find(loan.expenses, function(i){
-                if(obj.crop_id === i.loancrop_id){
-                    xps.push(i);
-                }
-            });
-
-            var exp_arm = _.sumCollection(xps, 'arm') || 0;
-            var exp_dist = _.sumCollection(xps, 'dist') || 0;
-            var exp_other = _.sumCollection(xps, 'other') || 0;
-
-            var exps = {
-                arm: exp_arm,
-                dist: exp_dist,
-                other: exp_other
+        function makeFarmPractice(obj, crop, loan) {
+            console.log('MFP', obj);
+            var xps = {
+                arm: loan.fins.arm_crop_commit[obj.crop],
+                dist: loan.fins.dist_crop_commit[obj.crop],
+                other: loan.fins.other_crop_commit[obj.crop]
             };
-            //console.log('expenses', exps);
 
-            return {
-                expenses: exps,
-                insurance: obj.insurance,
-                c_acres: obj.acres,
-                c_share_rent: obj.share_rent,
-                c_aph: obj.aph,
-                c_ins_share: obj.ins_share,
-                c_ins_price: obj.ins_price,
-                c_ins_level: obj.ins_level,
-                c_ins_premium: obj.ins_premium,
-                c_ins_type: obj.insurance[0].type,
-                c_prod_yield: obj.prod_yield,
-                c_prod_share: obj.prod_share,
-                c_prod_price: obj.prod_price,
-                c_var_harv: obj.harvest,
-                c_rebate: obj.rebates,
-                c_crop_disc: obj.crop_disc,
-                c_fsa_disc: obj.fsa_disc,
-                c_cropins_disc: obj.cropins_disc,
-                c_nonrp_disc: obj.nonrp_disc,
-                c_sco_disc: obj.sco_disc
+            var retro = {
+                expenses: xps,
+                c_crop_disc: Number(loan.fins.discounts.percent_crop),
+                c_fsa_disc: Number(loan.fins.discounts.percent_fsa),
+                c_cropins_disc: Number(loan.fins.discounts.percent_ins),
+                c_nonrp_disc: Number(loan.fins.discounts.percent_nonrp),
+                c_sco_disc: Number(loan.fins.discounts.percent_suppins),
+                c_acres: Number(obj.acres),
+                c_share_rent: Number(obj.share_rent),
+                c_aph: Number(obj.aph),
+                c_ins_type: obj.ins_type,
+                c_ins_level: Number(obj.ins_level),
+                c_ins_share: Number(obj.ins_share),
+                c_ins_price: Number(obj.ins_price),
+                c_ins_premium: Number(obj.ins_premium),
+                c_supp_coverage: 'STAX',
+                c_loss_trigger: 'Loss',
+                c_cov_range: 'Cov',
+                c_prot_factor: 'Prot',
+                c_exp_yield: 'XYld',
+                c_exp_revenue: 'XRev',
+                c_prod_yield: Number(obj.prod_yield),
+                c_prod_share: Number(obj.prod_share),
+                c_prod_price: Number(obj.prod_price),
+                c_var_harv: Number(obj.harvest),
+                c_rebate: Number(obj.rebates)
             };
+            console.log('RETRO', retro);
+            return retro;
         }
         function makePractice(crop_id) {
             return {
@@ -163,132 +156,156 @@
                 c_var_harv: 0
             };
         }
-        function processFarmCrops(cps, loan) {
-            //TODO: Get crops from Database
-            console.log('CPS', cps, '|| LOAN', loan);
-            var returner = [], findcorn = [], findsoybeans = [], findbeansFAC = [], findsorghum = [], findwheat = [], findcotton = [], findrice = [], findpeanuts = [], findsugarcane = [], findother = [], corn = [], soybeans = [], beansFAC = [], sorghum = [], wheat = [], cotton = [], rice = [], peanuts = [], sugarcane = [], other = [];
-            var crops = [
+        function processFarmCrops(pracs, IR_NI, loan) {
+            //console.log('CPS', pracs);
+            //TODO: Get allcrops from Database
+            var allcrops = [
                 {
-
+                    id: 1,
+                    crop: "corn",
+                    name: "Corn",
+                    sort_order: 1,
+                    tea: 750,
+                    arm_default_price: 5.11,
+                    arm_default_ins_price: 4.92,
+                    measurement: "bu",
+                    rebate_measurement: "bu"
+                },
+                {
+                    id: 2,
+                    crop: "soybeans",
+                    name: "Soybeans",
+                    sort_order: 2,
+                    tea: 450,
+                    arm_default_price: 11,
+                    arm_default_ins_price: 9.7,
+                    measurement: "bu",
+                    rebate_measurement: "bu"
+                },
+                {
+                    id: 3,
+                    crop: "beansFAC",
+                    name: "Soybeans FAC",
+                    sort_order: 3,
+                    tea: 450,
+                    arm_default_price: 11,
+                    arm_default_ins_price: 9.7,
+                    measurement: "bu",
+                    rebate_measurement: "bu"
+                },
+                {
+                    id: 4,
+                    crop: "sorghum",
+                    name: "Sorghum",
+                    sort_order: 4,
+                    tea: 375,
+                    arm_default_price: 4.21,
+                    arm_default_ins_price: 4,
+                    measurement: "bu",
+                    rebate_measurement: "bu"
+                },
+                {
+                    id: 5,
+                    crop: "wheat",
+                    name: "Wheat",
+                    sort_order: 9,
+                    tea: 360,
+                    arm_default_price: 6.64,
+                    arm_default_ins_price: 5.75,
+                    measurement: "bu",
+                    rebate_measurement: "bu"
+                },
+                {
+                    id: 6,
+                    crop: "cotton",
+                    name: "Cotton",
+                    sort_order: 5,
+                    tea: 540,
+                    arm_default_price: 93,
+                    arm_default_ins_price: 90,
+                    measurement: "lb",
+                    rebate_measurement: "lb"
+                },
+                {
+                    id: 7,
+                    crop: "rice",
+                    name: "Rice",
+                    sort_order: 6,
+                    tea: 750,
+                    arm_default_price: 0.135,
+                    arm_default_ins_price: 0.14,
+                    measurement: "lb",
+                    rebate_measurement: "bu"
+                },
+                {
+                    id: 8,
+                    crop: "peanuts",
+                    name: "Peanuts",
+                    sort_order: 7,
+                    tea: 750,
+                    arm_default_price: 2.3,
+                    arm_default_ins_price: 2.8,
+                    measurement: "bu",
+                    rebate_measurement: "bu"
+                },
+                {
+                    id: 9,
+                    crop: "sugarcane",
+                    name: "Sugar Cane",
+                    sort_order: 8,
+                    tea: 750,
+                    arm_default_price: 0.28,
+                    arm_default_ins_price: 0.16,
+                    measurement: "ton",
+                    rebate_measurement: "ton"
+                },
+                {
+                    id: 10,
+                    crop: "sunflowers",
+                    name: "Sunflowers",
+                    sort_order: 10,
+                    tea: 0,
+                    arm_default_price: 217.4,
+                    arm_default_ins_price: 124.22,
+                    measurement: "lb",
+                    rebate_measurement: "lb"
                 }
             ];
+            var units = [];
 
-            findcorn = _.find(cps, function (i) {
-                return i.crop_id == '1';
-            });
-            if (!findcorn) {
-                corn = makePractice(1, loan);
-            } else {
-                corn = makeFarmPractice(findcorn, loan);
-            }
-            returner.push(corn);
+            _.each(allcrops, function(c){
+                _.each(pracs, function(p){
+                    var foundIt = false;
+                    if(Number(p.crop_id) === Number(c.id) && p.practice === IR_NI) {
+                        p.crop = c.crop;
+                        p.crop_name = c.name;
+                        units.push(makeFarmPractice(p, c, loan));
+                        foundIt = true;
+                    }
+                    if(!foundIt) {
+                        units.push(makePractice(c.id));
+                    }
+                });
+            })
 
-            findsoybeans = _.find(cps, function (i) {
-                return i.crop_id == '2';
-            });
-            if (!findsoybeans) {
-                soybeans = makePractice(2, loan);
-            } else {
-                soybeans = makeFarmPractice(findsoybeans, loan);
-            }
-            returner.push(soybeans);
-
-            findbeansFAC = _.find(cps, function (i) {
-                return i.crop_id == '3';
-            });
-            if (!findbeansFAC) {
-                beansFAC = makePractice(3, loan);
-            } else {
-                beansFAC = makeFarmPractice(findbeansFAC, loan);
-            }
-            returner.push(beansFAC);
-
-            findsorghum = _.find(cps, function (i) {
-                return i.crop_id == '4';
-            });
-            if (!findsorghum) {
-                sorghum = makePractice(4, loan);
-            } else {
-                sorghum = makeFarmPractice(findsorghum, loan);
-            }
-            returner.push(sorghum);
-
-            findwheat = _.find(cps, function (i) {
-                return i.crop_id == '5';
-            });
-            if (!findwheat) {
-                wheat = makePractice(5, loan);
-            } else {
-                wheat = makeFarmPractice(findwheat, loan);
-            }
-            returner.push(wheat);
-
-            findcotton = _.find(cps, function (i) {
-                return i.crop_id == '6';
-            });
-            if (!findcotton) {
-                cotton = makePractice(6, loan);
-            } else {
-                cotton = makeFarmPractice(findcotton, loan);
-            }
-            returner.push(cotton);
-
-            findrice = _.find(cps, function (i) {
-                return i.crop_id == '7';
-            });
-            if (!findrice) {
-                rice = makePractice(7, loan);
-            } else {
-                rice = makeFarmPractice(findrice, loan);
-            }
-            returner.push(rice);
-
-            findpeanuts = _.find(cps, function (i) {
-                return i.crop_id == '8';
-            });
-            if (!findpeanuts) {
-                peanuts = makePractice(8, loan);
-            } else {
-                peanuts = makeFarmPractice(findpeanuts, loan);
-            }
-            returner.push(peanuts);
-
-            findsugarcane = _.find(cps, function (i) {
-                return i.crop_id == '9';
-            });
-            if (!findsugarcane) {
-                sugarcane = makePractice(9, loan);
-            } else {
-                sugarcane = makeFarmPractice(findsugarcane, loan);
-            }
-            returner.push(sugarcane);
-
-            findother = _.find(cps, function (i) {
-                return i.crop_id == '10';
-            });
-            if (!findother) {
-                other = makePractice(10, loan);
-            } else {
-                other = makeFarmPractice(findother, loan);
-            }
-            returner.push(other);
-
-            return returner;
+            return units;
         }
         function splitFarmsByPractice(loan) {
-            console.log('LOAN (OPFAC)', loan);
-
+            var practiced = [], withZero = [], optimized = [], totAcres, fsaPayIR, fsaPayNI;
             var farms = loan.farms;
-            //console.log('STARTER', farms);
-            var practiced = [];
-            var withZero = [];
-            var byPractice = [];
 
+            //splitting (ex. 4 farms -> 8)
             _.each(farms, function (item) {
-                console.log('ITEM', item);
-                var totAcres = (item.IR + item.NI);
-                var fsaPayIR = item.fsa_paid * item.IR / totAcres;
-                var fsaPayNI = item.fsa_paid - fsaPayIR;
+                //if farm has acres, calculate Total Acres, and FSA By Acre
+                if(Number(item.IR) + Number(item.NI) > 0) {
+                    totAcres = Number(item.IR) + Number(item.NI);
+                    fsaPayIR = item.fsa_paid * item.IR / totAcres;
+                    fsaPayNI = item.fsa_paid - fsaPayIR;
+                } else {
+                    totAcres = 0;
+                    fsaPayIR = 0;
+                    fsaPayNI = 0;
+                }
 
                 var splitIR = {
                     id: item.id,
@@ -299,16 +316,17 @@
                     acres: Number(item.IR),
                     practice: 'IR',
                     cash_rent: Number(item.cash_rent),
+                    dist_rent: Number(item.dist_rent),
                     waived: Number(item.waived),
                     share_rent: Number(item.share_rent),
                     perm_to_insure: item.perm_to_insure,
                     when_due: item.when_due,
                     fsa_paid: fsaPayIR,
                     cash_rent_acre_ARM: (Number(item.IR) !== 0 ? (Number(item.cash_rent) - Number(item.waived)) / Number(item.IR) : 0),
-                    cash_rent_acre_dist: 0, //TODO: store
+                    cash_rent_acre_dist: (Number(item.IR) !== 0 ? Number(item.dist_rent) / Number(item.IR) : 0),
                     cash_rent_acre_other: 0,
-                    fsa_acre: (fsaPayIR/item.IR),
-                    practices: []
+                    fsa_acre: (Number(item.IR) !== 0 ? fsaPayIR / Number(item.IR) : 0),
+                    crops: item.units
                 };
                 var splitNI = {
                     id: item.id,
@@ -324,31 +342,25 @@
                     perm_to_insure: item.perm_to_insure,
                     when_due: item.when_due,
                     fsa_paid: fsaPayNI,
-                    cash_rent_acre_ARM: (Number(item.IR) !== 0 ? (Number(item.cash_rent) - Number(item.waived)) / Number(item.IR) : 0),
-                    cash_rent_acre_dist: 0, //TODO: store
+                    cash_rent_acre_ARM: (Number(item.NI) !== 0 ? (Number(item.cash_rent) - Number(item.waived)) / Number(item.NI) : 0),
+                    cash_rent_acre_dist: (Number(item.NI) !== 0 ? Number(item.dist_rent) / Number(item.NI) : 0),
                     cash_rent_acre_other: 0,
-                    fsa_acre: (fsaPayNI/item.NI),
-                    practices: []
+                    fsa_acre: (Number(item.NI) !== 0 ? fsaPayIR / Number(item.NI) : 0),
+                    crops: item.units
                 };
-
-                _.each(item, function (subfarm) {
-                    //console.log('UNIT', unit);
-                    if (subfarm.practice === 'IR') {
-                        splitIR.practices.push(subfarm);
-                    } else {
-                        splitNI.practices.push(subfarm);
-                    }
-                });
+                
+                if (item.practice === 'IR') {
+                    splitIR.push(item);
+                } else if (item.practice === 'NI') {
+                    splitNI.push(item);
+                }
 
                 practiced.push(splitNI);
                 practiced.push(splitIR);
             });
-            //console.log('PRACTICED', practiced);
 
-            /*
-            Farm is divided into IRR and NI and
-            includes subfarms with 0 acres and has no crops
-            */
+            //filling in missing crops
+            //console.log('PRACTICED', practiced);
             _.each(practiced, function (item) {
                 // Adding variables necessary for Optimizer
                 var processed = {
@@ -365,34 +377,24 @@
                     waived: Number(item.waived),
                     when_due: item.when_due,
                     fsa_paid: item.fsa_paid,
-                    cash_rent_acre_ARM: (item.acres !== 0 ? (Number(item.cash_rent) - Number(item.waived)) / Number(item.acres) : 0),
-                    cash_rent_acre_dist: 0,
-                    cash_rent_acre_other: (item.acres !== 0 ? Number(item.waived) / Number(item.acres) : 0),
-                    fsa_acre: (item.acres !== 0 ? Number(item.fsa_paid) / Number(item.acres) : 0),
-                    crops: processFarmCrops(item, loan)
+                    cash_rent_acre_ARM: item.cash_rent_acre_ARM,
+                    cash_rent_acre_dist: item.cash_rent_acre_dist,
+                    cash_rent_acre_other: item.cash_rent_acre_other,
+                    fsa_acre: item.fsa_acre,
+                    crops: processFarmCrops(item.crops, item.practice, loan)
                 };
                 withZero.push(processed);
             });
-            //console.log('WITH ZERO', withZero);
 
-            return _.each(withZero, function (item) {
-                // Adding variables necessary for Optimizer
-                item.crops = processFarmCrops(item, loan);
-            });
-            //console.log('WITH ZERO', withZero);
-
-            // removes subfarms without acres
-            _.each(practiced, function (item) {
+            //remove farms without acres
+            _.each(withZero, function (item) {
                 if (item.acres > 0) {
-                    byPractice.push(item);
+                    optimized.push(item);
                 } else {
                     // handle "potential" farms (acres = 0)
                 }
             });
-
-            //byPractice = practiced;
-            //console.log('By Practice', byPractice);
-            return byPractice;
+            return optimized;
         }
     } // end factory
 })();

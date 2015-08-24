@@ -63,7 +63,11 @@
             putIt: putIt,
             returnColor: returnColor,
             sortLoans: sortLoans,
-            sumThese: sumThese
+            submitLoan: submitLoan,
+            submitLoanSolo: submitLoanSolo,
+            submitToDist: submitToDist,
+            sumThese: sumThese,
+            withdrawLoan: withdrawLoan
         };
         return publicAPI;
 
@@ -156,10 +160,10 @@
         }
         function calcAcresCrop(cropID, loan) {
             var crop_id = Number(cropID);
-            var farmpractices = loan.farmpractices;
+            var loanpractices = loan.loanpractices;
 
-            var crop = _.filter(farmpractices, function(i) {
-                if (i.crop_id == crop_id) {
+            var crop = _.filter(loanpractices, function(i) {
+                if (Number(i.crop_id) == Number(crop_id)) {
                     return i;
                 }
             });
@@ -505,8 +509,20 @@
             }
             return sorted;
         }
+        function submitLoan(loan) {
+            alert('Submitting loan id #' + loan.id + ' to committee');
+        }
+        function submitLoanSolo(loan) {
+            alert('Solo submitting loan id #' + loan.id + ' to committee');
+        }
+        function submitToDist(loan) {
+            alert('Submitting loan id #' + loan.id + ' to distributor');
+        }
         function sumThese(a, b) {
             return a + b;
+        }
+        function withdrawLoan(loan) {
+            alert('Withdraw loan id #' + loan.id);
         }
     } // end factory
 
