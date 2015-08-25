@@ -1,5 +1,3 @@
-<link rel="stylesheet" type="text/css" href="css/theme-reports.css">
-
 <h3> &nbsp; Customer Budget </h3>
 <div id="cusbud">
     <form>
@@ -38,9 +36,14 @@
             <span ng-click="showToolPanel()"><img ng-src="images/control_panel.png"
                                                   style="width:30px"> Control Panel </span>
                 &nbsp; &nbsp;
-            <span ng-click="toggleDollarsPercent()" style="width:30px"> $/%</span>
+            <span ng-click="toggleDollarsPercent()"
+                  ng-class="{'cBlack': dollarsPercent, 'cGray': !dollarsPercent}"
+                  style="width:30px"> $/%</span>
                 &nbsp; &nbsp;
-            <span class="btn glyphicons glyphicons-expand" ng-click="toggleDetail()"></span>
+            <span class="btn glyphicons glyphicons-expand"
+                  ng-click="toggleDetail()"
+                  ng-class="{'cBlack': detail, 'cGray': !detail}">
+            </span>
             </span>
             <span style="display:inline-block;float:right;">
             <span ng-click=""><img ng-src="images/print.png" style="width:25px"> Print </span>
@@ -53,7 +56,5 @@
         </span>
         <br><br>
     </form>
-<!--<pre>{{gridOptions.selectedRows | json}}</pre>-->
 
-
-
+    <!--<pre>{{gridOptions.selectedRows | json}}</pre>-->

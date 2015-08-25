@@ -146,7 +146,7 @@
                     // Push new record
                     reduced.push(j);
                 } catch (err) {
-                    console.error('ERROR', err.name + ': "' + err.message);
+                    console.error('CATCH ERROR', err.name + ': "' + err.message);
                 }
             });
             return reduced;

@@ -1400,10 +1400,16 @@ fieldset[disabled] .btn-success.active {
   font-size: 32px;
   color: #aaaaaa;
 }
-.progidisc {
+#Loans .progidisc {
   cursor: pointer;
 }
-#reports .tbl-header-container-blue {
+#Reports .ag-root {
+  font-size: 12px;
+}
+#Reports .cursor-pointer {
+  cursor: pointer;
+}
+#Reports .tbl-header-container-blue {
   background: -webkit-linear-gradient(#ffffff, #ec502a);
   background: -moz-linear-gradient(#ffffff, #ec502a);
   background: -o-linear-gradient(#ffffff, #ec502a);
@@ -1411,15 +1417,15 @@ fieldset[disabled] .btn-success.active {
   background: linear-gradient(#ffffff, #ec502a);
   border-bottom: 1px solid #101010;
 }
-#reports .table-zebra-stripes > tbody > tr:nth-child(2n+1) > td,
-#reports .table-striped > tbody > tr:nth-child(2n+1) > th {
+#Reports .table-zebra-stripes > tbody > tr:nth-child(2n+1) > td,
+#Reports .table-striped > tbody > tr:nth-child(2n+1) > th {
   background-color: #efefef;
 }
-#reports .table-zebra-stripes-blue > tbody > tr:nth-child(2n+1) > td,
-#reports .table-striped > tbody > tr:nth-child(2n+1) > th {
+#Reports .table-zebra-stripes-blue > tbody > tr:nth-child(2n+1) > td,
+#Reports .table-striped > tbody > tr:nth-child(2n+1) > th {
   background-color: #97c8ff;
 }
-#reports .table-zebra-stripes-blue > tbody > tr:nth-child(2n) > td,
-#reports .table-striped > tbody > tr:nth-child(2n) > th {
+#Reports .table-zebra-stripes-blue > tbody > tr:nth-child(2n) > td,
+#Reports .table-striped > tbody > tr:nth-child(2n) > th {
   background-color: #dfdfdf;
 }
