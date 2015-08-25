@@ -9,9 +9,29 @@
     /* @ngInject */
     function OptimizerFactory($q) {
         var publicAPI = {
+            calcArmCommit: calcArmCommit,
+            calcCropCF: calcCropCF,
+            calcDiscCollateral: calcDiscCollateral,
+            calcDiscFSA: calcDiscFSA,
+            calcDiscIns: calcDiscIns,
+            calcDiscInsOverCrop: calcDiscInsOverCrop,
+            calcDiscProdRev: calcDiscProdRev,
+            calcDiscProdRevAdj: calcDiscProdRevAdj,
+            calcDiscSCO: calcDiscSCO,
+            calcDistCommit: calcDistCommit,
+            calcDistFee: calcDistFee,
+            calcExposure: calcExposure,
+            calcExpRev: calcExpRev,
             calcFarmAcres: calcFarmAcres,
+            calcFee: calcFee,
             calcInsGuarantee: calcInsGuarantee,
             calcInsValue: calcInsValue,
+            calcInterestARM: calcInterestARM,
+            calcInterestDist: calcInterestDist,
+            calcMPCI: calcMPCI,
+            calcProdRev: calcProdRev,
+            calcProdRevAdj: calcProdRevAdj,
+            calcSupMax: calcSupMax,
             getOptimizedLoan: getOptimizedLoan,
             getTotalCashRent: getTotalCashRent,
             getTotalRentOvr: getTotalRentOvr,
@@ -27,6 +47,54 @@
             console.log('Optimized Loan', loan.optimized);
             deferred.resolve(loan);
             return deferred.promise;
+        }
+        function calcArmCommit(cropname, loan) {
+            return Number(loan.fins.arm_crop_commit[cropname]) + Number(calcFee(cropname, loan));
+        }
+        function calcCropCF(crop, unit, loan) {
+            var positives = (Number(unit.fsa_acre) + Number(calcProdRev(crop)) + Number(calcProdRevAdj(crop)));
+            var negatives = (Number(calcArmCommit(crop.crop, loan)) + Number(calcDistCommit(crop.crop, loan)) + Number(loan.fins.other_crop_commit[crop.crop]) + Number(calcInterestARM(crop, loan)) + Number(calcInterestDist(crop, loan)));
+
+            return Number(positives) - Number(negatives);
+        }
+        function calcDiscCollateral(crop, unit, loan) {
+            return Number(calcDiscProdRev(crop, loan)) + Number(calcDiscProdRevAdj(crop, loan)) + Number(calcDiscInsOverCrop(crop, loan)) + Number(calcDiscIns(crop, loan)) + Number(calcDiscSCO(crop, loan)) + Number(calcDiscFSA(crop, unit, loan));
+        }
+        function calcDiscFSA(crop, unit, loan) {
+            return Number(unit.fsa_acre) * ((100 - Number(loan.fins.discounts.percent_fsa))/100);
+        }
+        function calcDiscIns(crop, loan) {
+            return Number(calcDiscInsOverCrop(crop, loan)) * ((100 - loan.fins.discounts.percent_ins)/100);
+        }
+        function calcDiscInsOverCrop(crop, loan) {
+            var val = Number(calcInsValue(crop)) - Number(calcDiscProdRev(crop, loan));
+
+            if( val > 0) {
+                return val;
+            } else {
+                return 0;
+            }
+        }
+        function calcDiscProdRev(crop, loan) {
+            return Number(calcProdRev(crop)) * ((100 - Number(loan.fins.discounts.percent_crop))/100);
+        }
+        function calcDiscProdRevAdj(crop, loan) {
+            return Number(calcProdRevAdj(crop)) * ((100 - Number(loan.fins.discounts.percent_crop))/100);
+        }
+        function calcDiscSCO(crop, loan) {
+            return Number(calcSupMax(crop)) * ((100 - Number(loan.fins.discounts.percent_suppins))/100);
+        }
+        function calcDistCommit(cropname, loan) {
+            return Number(loan.fins.dist_crop_commit[cropname]) + Number(calcDistFee(cropname, loan));
+        }
+        function calcDistFee(cropname, loan) {
+            return 0;
+        }
+        function calcExposure(crop, unit, loan) {
+            return Number(calcDiscCollateral(crop, unit, loan)) - Number(calcArmCommit(crop.crop, loan)) - Number(calcDistCommit(crop.crop, loan)) - Number(calcInterestARM(crop, loan)) - Number(calcInterestDist(crop, loan));
+        }
+        function calcExpRev(crop) {
+            return Number(crop.exp_yield) * Number(crop.ins_price);
         }
         function calcFarmAcres(farm) {
             //console.log('calcFarmAcres', farm);
@@ -49,16 +117,49 @@
                 percent_irrigated: Number(irr) / (Number(irr) + Number(ni))
             };
         }
+        function calcFee(cropname, loan) {
+            var arm_exp = Number(loan.fins.arm_crop_commit[cropname]);
+            var dist_exp = Number(loan.fins.dist_crop_commit[cropname]);
+            var feeOnTotal = loan.financials.fee_onTotal;
+            var proc_int = Number(loan.financials.fee_processing)/100;
+            var srvc_int = Number(loan.financials.fee_service)/100;
+
+            if(feeOnTotal) {
+                return (arm_exp + dist_exp) * (proc_int + srvc_int);
+            } else {
+                return arm_exp * (proc_int + srvc_int);
+            }
+        }
         function calcInsGuarantee(crop) {
             //console.log('Guar Crop', crop);
             return Number(crop.c_aph) * Number(crop.c_ins_price) * (Number(crop.c_ins_level)/100);
         }
         function calcInsValue(crop) {
-            var guar = calcInsGuarantee(crop),
-                premium = Number(crop.c_ins_premium),
-                share = (crop.c_ins_share ? Number(crop.c_ins_share)/100 : 1);
+            var mpci = calcMPCI(crop),
+                premium = Number(crop.ins_premium),
+                share = (crop.ins_share ? Number(crop.ins_share)/100 : 1);
 
-            return (guar + premium) / share;
+            return (mpci + premium) / share;
+        }
+        function calcInterestARM(crop, loan) {
+            return Number(calcArmCommit(crop.crop, loan)) * (Number(loan.financials.int_percent_arm)/100);
+        }
+        function calcInterestDist(crop, loan) {
+            //TODO: Fix this
+            return Number(calcDistCommit(crop.crop, loan)) * (Number(loan.financials.int_percent_dist)/100);
+        }
+        function calcMPCI(crop) {
+            return Number(crop.aph) * Number(crop.ins_price) * (Number(crop.ins_level)/100);
+        }
+        function calcProdRev(crop) {
+            return Number(crop.prod_yield) * Number(crop.prod_price) * (Number(crop.prod_share)/100);
+        }
+        function calcProdRevAdj(crop) {
+            return Number(crop.prod_yield) * (Number(crop.prod_share)/100) * (Number(crop.var_harvst) + Number(crop.rebate));
+        }
+        function calcSupMax(crop) {
+            var max = (Number(crop.cov_range)/100) * (Number(crop.prot_factor)/100) * Number(calcExpRev(crop));
+            return max;
         }
         function getTotalCashRent(practices) {
             return _.sumCollection(practices, 'cash_rent');

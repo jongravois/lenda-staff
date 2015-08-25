@@ -10,6 +10,7 @@
     function AppFactory($http, $q, $state, $stateParamas, toastr, API_URL) {
         var publicAPI = {
             averageArray: averageArray,
+            calcAcresByCrop: calcAcresByCrop,
             calcAcresCrop: calcAcresCrop,
             calcAdjExposure: calcAdjExposure,
             calcBookAdj: calcBookAdj,
@@ -158,12 +159,21 @@
             var removed_empty = _.compact(arr);
             return _.sum(removed_empty) / removed_empty.length;
         }
+        function calcAcresByCrop(crop, loan) {
+            var farmunits = loan.farmunits;
+            var collection = [];
+            var acres = 0;
+            _.each(farmunits, function(fu){
+                collection.push(fu.crops[crop]);
+            });
+
+            return _.sumCollection(collection, 'acres');
+        }
         function calcAcresCrop(cropID, loan) {
-            var crop_id = Number(cropID);
             var loanpractices = loan.loanpractices;
 
             var crop = _.filter(loanpractices, function(i) {
-                if (Number(i.crop_id) == Number(crop_id)) {
+                if (Number(i.crop_id) == Number(cropID)) {
                     return i;
                 }
             });

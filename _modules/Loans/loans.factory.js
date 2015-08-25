@@ -182,6 +182,94 @@
         function getPrerequisites(id) {
             return $http.get(API_URL + 'loans/' + id + '/prereqs');
         }
+        function makeFarmPractice(obj, crop, loan) {
+            console.log('MFP', obj, crop);
+            var xps = {
+                //TODO: Not working
+                arm: loan.fins.arm_crop_commit[obj.crop_crop],
+                dist: loan.fins.dist_crop_commit[obj.crop_crop],
+                other: loan.fins.other_crop_commit[obj.crop_crop]
+            };
+
+            var retro = {
+                expenses: xps,
+                c_crop_disc: Number(loan.fins.discounts.percent_crop), //√
+                c_fsa_disc: Number(loan.fins.discounts.percent_fsa), //√
+                c_cropins_disc: Number(loan.fins.discounts.percent_ins), //√
+                c_nonrp_disc: Number(loan.fins.discounts.percent_nonrp), //√
+                c_sco_disc: Number(loan.fins.discounts.percent_suppins), //√
+                c_acres: Number(obj.acres), //√
+                c_share_rent: Number(obj.share_rent), //√
+                c_aph: Number(obj.aph), //√
+                c_ins_type: obj.ins_type, //√
+                c_ins_level: Number(obj.ins_level), //√
+                c_ins_share: Number(obj.ins_share), //√
+                c_ins_price: Number(obj.ins_price), //√
+                c_ins_premium: Number(obj.ins_premium), //√
+                c_supp_coverage: 'STAX', //√
+                c_loss_trigger: 'Loss', //√
+                c_cov_range: 'Cov', //√
+                c_prot_factor: 'Prot', //√
+                c_exp_yield: 'XYld', //√
+                c_exp_revenue: 'XRev', //√
+                c_prod_yield: Number(obj.prod_yield), //√
+                c_prod_share: Number(obj.prod_share), //√
+                c_prod_price: Number(obj.prod_price), //√
+                c_var_harv: Number(obj.var_harv), //X
+                c_rebate: Number(obj.rebate) //X
+            };
+            //console.log('RETRO', retro);
+            return retro;
+        }
+        function makePractice(crop_id) {
+            return {
+                expenses: {
+                    arm: 0,
+                    dist: 0,
+                    other: 0
+                },
+                c_crop_id: crop_id,
+                c_acres: 0,
+                c_aph: 0,
+                c_arm_fee: 0,
+                c_budget_arm: 0,
+                c_budget_dist: 0,
+                c_budget_other: 0,
+                c_cf: 0,
+                c_commit_arm: 0,
+                c_commit_dist: 0,
+                c_crop_disc: 0,
+                c_cropins_disc: 0,
+                c_disc_collateral: 0,
+                c_disc_crop: 0,
+                c_disc_fsa: 0,
+                c_disc_ins: 0,
+                c_disc_sco: 0,
+                c_fsa_disc: 0,
+                c_ins_disc_crop: 0,
+                c_ins_guarantee: 0,
+                c_ins_level: 0,
+                c_ins_premium: 0,
+                c_ins_price: 0,
+                c_ins_share: 0,
+                c_ins_type: "",
+                c_ins_value: 0,
+                c_interest_arm: 0,
+                c_interest_dist: 0,
+                c_nonrp_disc: 0,
+                c_prod_price: 0,
+                c_prod_rev: 0,
+                c_prod_rev_adj: 0,
+                c_prod_share: 0,
+                c_prod_yield: 0,
+                c_rebate: 0,
+                c_rm: 0,
+                c_sco_disc: 0,
+                c_sco_max: 0,
+                c_share_rent: 0,
+                c_var_harv: 0
+            };
+        }
         function processAgencies(policies) {
             var result = [];
             var exists = {};
