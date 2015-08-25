@@ -164,10 +164,15 @@
             var collection = [];
             var acres = 0;
             _.each(farmunits, function(fu){
-                collection.push(fu.crops[crop]);
+                if(fu.crops && fu.crops[crop]) {
+                    collection.push(fu.crops[crop]);
+                }
             });
-
-            return _.sumCollection(collection, 'acres');
+            if(collection.length !== 0){
+                return _.sumCollection(collection, 'acres');
+            } else {
+                return 0;
+            }
         }
         function calcAcresCrop(cropID, loan) {
             var loanpractices = loan.loanpractices;
