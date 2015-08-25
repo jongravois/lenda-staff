@@ -176,14 +176,14 @@
                 width: 150,
                 hide: true
             },
-             {
-             headerName: 'Status',
-             field: 'status',
-             cellClass: 'text-center',
-             suppressSorting: true,
-             templateUrl: '_modules/Reports/_views/_partials/status.icon.html',
-             width: 70
-             },
+            {
+                headerName: 'Status',
+                field: 'status',
+                cellClass: 'text-center',
+                suppressSorting: true,
+                templateUrl: '_modules/Reports/_views/_partials/status.icon.html',
+                width: 70
+            },
             {
                 headerGroup: 'ARM',
                 headerName: 'Commit',
@@ -360,23 +360,27 @@
             }
         ];
 
-        $scope.email = function(){
+        function rowSelectedFunc(row) {
+            $scope.detail = true;
+        }
+
+        $scope.email = function () {
             alert('E-mail not available');
         }
 
-        $scope.excel = function(){
+        $scope.excel = function () {
             alert('Excel not available');
         }
 
-        $scope.help = function(){
+        $scope.help = function () {
             $scope.help = !$scope.help;
         }
 
-        $scope.print = function(){
+        $scope.print = function () {
             alert('Print not available');
         }
 
-        $scope.pdf = function(){
+        $scope.pdf = function () {
             alert('PDF not available');
         }
 
@@ -446,6 +450,7 @@
 
         $scope.gridOptions = {
             columnDefs: columnDefs,
+            rowSelected: rowSelectedFunc,
             rowSelection: 'single',
             rowDeselection: true,
             rowData: null,
