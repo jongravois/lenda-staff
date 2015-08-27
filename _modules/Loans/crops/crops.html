@@ -1,4 +1,4 @@
-<div class="row">
+<div class="row"  ng-if="loan.loan_type_id !== 7">
     <div class="col-md-12 text-right">
         <button style="margin-right:10px;" class="btn btn-arm" ng-click="updateCrops()"><span
             class="glyphicons glyphicons-log-book"></span>&nbsp;UPDATE
@@ -6,7 +6,7 @@
     </div>
 </div>
 <br>
-<fieldset>
+<fieldset ng-if="loan.loan_type_id !== 7">
     <legend>
         &nbsp;
         <span class="pendicon glyphicon glyphicon-chevron-right"
@@ -24,7 +24,7 @@
     </div>
 </fieldset>
 <br><br>
-<fieldset>
+<fieldset ng-if="loan.loan_type_id !== 7">
     <legend>
         &nbsp;
         <span class="pendicon glyphicon glyphicon-chevron-right"
@@ -34,15 +34,14 @@
               ng-click="togShowIndirect()"
               ng-if="showIndirect"></span>
         &nbsp;
-<<<<<<< HEAD
-        Indirect
-=======
         Indirect Crop Income
->>>>>>> work
     </legend>
     <div class="container-fluid"
          ng-include="'./_modules/Loans/crops/_indirect.income.html'"
          ng-if="showIndirect">
     </div>
+</fieldset>
+<fieldset ng-if="loan.loan_type_id === 7">
+    <legend>Storage Contract</legend>
 </fieldset>
 <br><br><br><br>

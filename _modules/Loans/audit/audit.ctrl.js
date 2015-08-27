@@ -4,9 +4,10 @@
         .module('ARM')
         .controller('AuditController', AuditController);
 
-        AuditController.$inject = ['$rootScope', '$scope', 'AppFactory'];
+        AuditController.$inject = ['$rootScope', '$scope', '$state', 'AppFactory'];
 
-        function AuditController($rootScope, $scope, AppFactory){
+        function AuditController($rootScope, $scope, $state, AppFactory){
+            $scope.newapplications = $state.current.data.newapplications;
             //console.log($scope.loan.systemics);
         } // end controller
 })();

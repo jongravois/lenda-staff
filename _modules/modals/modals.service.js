@@ -34,7 +34,7 @@
                         };
                     }
                 },
-                size: 'lg'
+                size: 'xl'
             });
 
             return modalInstance.result;

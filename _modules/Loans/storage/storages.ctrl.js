@@ -4,8 +4,9 @@
         .module('ARM')
         .controller('StoragesController', StoragesController);
 
-        StoragesController.$inject = ['$rootScope', '$scope', 'AppFactory'];
+        StoragesController.$inject = ['$rootScope', '$scope', '$state', 'AppFactory'];
 
-        function StoragesController($rootScope, $scope, AppFactory){
+        function StoragesController($rootScope, $scope, $state, AppFactory){
+            $scope.newapplications = $state.current.data.newapplications;
         } // end controller
 })();

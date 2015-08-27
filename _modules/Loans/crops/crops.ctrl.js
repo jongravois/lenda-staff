@@ -4,9 +4,10 @@
         .module('ARM')
         .controller('CropsController', CropsController);
 
-        CropsController.$inject = ['$rootScope', '$scope', 'AppFactory'];
+        CropsController.$inject = ['$rootScope', '$scope', '$state', 'AppFactory'];
 
-        function CropsController($rootScope, $scope, AppFactory){
+        function CropsController($rootScope, $scope, $state, AppFactory){
+            $scope.newapplications = $state.current.data.newapplications;
             $scope.AppFactory = AppFactory;
             $scope.crops = $scope.loan.loancrops;
             $scope.showCrops = false;

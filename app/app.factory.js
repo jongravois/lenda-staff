@@ -159,20 +159,10 @@
             var removed_empty = _.compact(arr);
             return _.sum(removed_empty) / removed_empty.length;
         }
-        function calcAcresByCrop(crop, loan) {
-            var farmunits = loan.farmunits;
-            var collection = [];
-            var acres = 0;
-            _.each(farmunits, function(fu){
-                if(fu.crops && fu.crops[crop]) {
-                    collection.push(fu.crops[crop]);
-                }
-            });
-            if(collection.length !== 0){
-                return _.sumCollection(collection, 'acres');
-            } else {
-                return 0;
-            }
+        function calcAcresByCrop(cropname, loan) {
+            var ca = loan.fins.crop_acres;
+            var cp = _.find(ca, {crop: cropname});
+            return cp.acres;
         }
         function calcAcresCrop(cropID, loan) {
             var loanpractices = loan.loanpractices;
@@ -336,7 +326,6 @@
             var max = calcSuppInsMax(obj);
             return 999999;
         }
-
         function calcTotalArmAndFarmExpenses(loan) {
             return Number(loan.expenses.totals.byLoan.arm) + Number(calcTotalFarmExpenses(loan));
         }
