@@ -34,6 +34,7 @@
             calcInsuranceValue: calcInsuranceValue,
             calcMarketValueTotal: calcMarketValueTotal,
             calcMPCIbyCrop: calcMPCIbyCrop,
+            calcOtherCollateralByType: calcOtherCollateralByType,
             calcRPbyCrop: calcRPbyCrop,
             calcSuppInsMax: calcSuppInsMax,
             calcSuppInsTotal: calcSuppInsTotal,
@@ -220,7 +221,8 @@
             return Number(calcCropAcres(loancrop)) * Number(calcCropAph(loancrop)) * Number(calcCropProdPrice(loancrop)) * (Number(calcCropProdShare(loancrop))/100)
         }
         function calcExposure(loan) {
-            return loan.fins.exposure;
+            //TODO: FIX!
+            return -34251;
         }
         function calcHvstAdj(loancrop) {
             var hvsta = Number(calcCropAcres(loancrop)) * Number(calcCropAph(loancrop)) * Number(loancrop.var_harvest);
@@ -309,6 +311,25 @@
             var ins = getInsByType(loancrop);
             console.log('TYPE', ins);
             return 1000;
+        }
+        function calcOtherCollateralByType(type, loan) {
+            var collateral = loan.other_collateral;
+            var entries = [];
+            _.each(collateral, function(i){
+                if(i.type === type) {
+                    entries.push(i);
+                }
+            });
+
+            var total = 0;
+            _.each(entries, function(obj){
+                var val = Number(obj.mkt_value) * ((100 - Number(obj.discount))/100) - Number(obj.prior_lien);
+                if(val >= 0) {
+                    total += val;
+                }
+            });
+
+            return total;
         }
         function calcRPbyCrop(loancrop) {
             //(MPCI - premium)*acres*share///MPCI = level * price * yield
