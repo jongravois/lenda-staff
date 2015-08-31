@@ -19,7 +19,7 @@
             $scope.showCrops = false;
             $scope.showYields = false;
             $scope.showIndirect = false;
-            console.log('loancrops', $scope.loan.loancrops);
+            //console.log('loancrops', $scope.loan.loancrops);
 
             $scope.togShowCrops = function() {
                 $scope.showCrops = !$scope.showCrops;
