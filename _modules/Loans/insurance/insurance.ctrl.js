@@ -4,9 +4,11 @@
         .module('ARM')
         .controller('InsuranceController', InsuranceController);
 
-        InsuranceController.$inject = ['$rootScope', '$scope', 'AppFactory'];
+        InsuranceController.$inject = ['$rootScope', '$scope', '$state', 'AppFactory'];
 
-        function InsuranceController($rootScope, $scope, AppFactory){
+        function InsuranceController($rootScope, $scope, $state, AppFactory){
+            $scope.newapplications = $state.current.data.newapplications;
+
             if($scope.loan.insurance.agencies.length !== 0){
                 $scope.loan.insurance.agencies[0].is_open = true;
             }

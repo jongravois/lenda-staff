@@ -1,0 +1,319 @@
+<div class="col-md-12">
+    <table class="table">
+        <tr>
+            <td colspan="{{loan.farmunits.length + 2}}">
+                <span>
+                    <a ng-click="showCrop()" class="btn btn-xs btn-default">
+                        <span class="glyphicon glyphicon-plus-sign" style="color:#006837;"></span> Add Crop</a>
+                </span>
+                    <span>&nbsp;</span>
+                    <span class="pull-right">
+                        <div class="btn-group btn-group-sm pull-right" role="group">
+                            <button type="button"
+                                    class="btn btn-gray"
+                                    ng-click="tggl.showRentRows = !tggl.showRentRows">
+                                <span class="glyphicons glyphicons-check"
+                                      ng-if="tggl.showRentRows"></span>
+                                <span class="glyphicons glyphicons-unchecked"
+                                      ng-if="!tggl.showRentRows"></span>
+                                Rent
+                            </button>
+                            <button type="button"
+                                    class="btn btn-salmon"
+                                    ng-click="tggl.showOverRentRows = !tggl.showOverRentRows">
+                                <span class="glyphicons glyphicons-check"
+                                      ng-if="tggl.showOverRentRows"></span>
+                                <span class="glyphicons glyphicons-unchecked"
+                                      ng-if="!tggl.showOverRentRows"></span>
+                                Override
+                            </button>
+                            <button type="button"
+                                    class="btn btn-liteblue"
+                                    ng-click="tggl.showInsRows = !tggl.showInsRows">
+                                <span class="glyphicons glyphicons-check"
+                                      ng-if="tggl.showInsRows"></span>
+                                <span class="glyphicons glyphicons-unchecked"
+                                      ng-if="!tggl.showInsRows"></span>
+                                Insurance
+                            </button>
+                            <button type="button"
+                                    class="btn btn-litegreen"
+                                    ng-click="tggl.showCFRows = !tggl.showCFRows">
+                                <span class="glyphicons glyphicons-check"
+                                      ng-if="tggl.showCFRows"></span>
+                                <span class="glyphicons glyphicons-unchecked"
+                                      ng-if="!tggl.showCFRows"></span>
+                                Cash Flow
+                            </button>
+                            <button type="button"
+                                    class="btn btn-goldenrod"
+                                    ng-click="tggl.showEXRows = !tggl.showEXRows">
+                                <span class="glyphicons glyphicons-check"
+                                      ng-if="tggl.showEXRows"></span>
+                                <span class="glyphicons glyphicons-unchecked"
+                                      ng-if="!tggl.showEXRows"></span>
+                                Exposure
+                            </button>
+                        </div>
+                    </span>
+            </td>
+        </tr>
+    </table>
+
+    <table class="table rowed disp-sm">
+        <tbody id="farms">
+        <!-- STATE-->
+        <tr>
+            <td style="width:140px;">
+                State
+            </td>
+            <td class="text-center"
+                ng-repeat="f in loan.farmunits"
+                style="position: relative;">
+                {{f.state}}
+                        <span class="glyphicons glyphicons-remove-2"
+                              style="color: #990000;position: absolute; top: 0;right: 0;cursor: pointer;"
+                              ng-click="deleteFarm(f.id)"></span>
+            </td>
+            <td class="text-right">
+                <a ng-click="addFarm()" class="btn btn-xs btn-default">
+                    <span class="glyphicon glyphicon-plus-sign" style="color:#006837;"></span> Add Farm</a>
+                    <!--<br>
+                    <span>
+                        <select name="selector">
+                            <option>FSN# 456 - IR</option>
+                            <option>FSN# 567 - NI</option>
+                            <option>FSN# 789 - NI</option>
+                            <option>New FSN</option>
+                        </select>
+                    </span>-->
+            </td>
+        </tr>
+        <!-- COUNTY-->
+        <tr>
+            <td>County</td>
+            <td class="text-center"
+                ng-repeat="f in loan.farmunits">
+                {{f.county}}
+            </td>
+            <td>&nbsp;</td>
+        </tr>
+        <!-- FSN-->
+        <tr>
+            <td>FSN</td>
+            <td class="text-center"
+                ng-repeat="f in loan.farmunits">
+                {{f.fsn}}
+            </td>
+            <td>&nbsp;</td>
+        </tr>
+        <!-- PRACTICE-->
+        <tr>
+            <td>Practice</td>
+            <td class="text-center"
+                ng-repeat="f in loan.farmunits">
+                {{f.practice}}
+            </td>
+            <td>&nbsp;</td>
+        </tr>
+        <!-- LANDLORD-->
+        <tr>
+            <td>Landlord</td>
+            <td class="text-center"
+                ng-repeat="f in loan.farmunits">
+                {{f.owner}}
+            </td>
+            <td>&nbsp;</td>
+        </tr>
+        <!-- TOTAL ACRES-->
+        <tr>
+            <td>Total Acres</td>
+            <td class="text-center"
+                ng-repeat="f in loan.farmunits">
+                {{f.total_acres|number:1}}
+            </td>
+            <td class="text-right">
+                {{loan.fins.total_acres|number:1}}
+            </td>
+        </tr>
+        <!-- SHARE RENT-->
+        <tr class="clr-litegray"
+            ng-if="tggl.showRentRows">
+            <td>Share Rent</td>
+            <td class="text-right cBlue"
+                ng-repeat="f in loan.farmunits">
+                {{f.share_rent|flexZeroPercent:1}}
+            </td>
+            <td>&nbsp;</td>
+        </tr>
+        <!-- PERM2INSURE-->
+        <tr class="clr-litegray"
+            ng-if="tggl.showRentRows">
+            <td>Perm to Ins</td>
+            <td class="text-center cBlue"
+                ng-repeat="f in loan.farmunits">
+                {{f.perm2ins}}
+            </td>
+            <td class="text-right">&nbsp;</td>
+        </tr>
+        <!-- CASH RENT-->
+        <tr class="clr-litegray"
+            ng-if="tggl.showRentRows">
+            <td>Cash Rent</td>
+            <td class="cBlue" ng-class="AppFactory.gtZero(f.cash_rent)"
+                ng-repeat="f in loan.farmunits">
+                {{f.cash_rent|flexCurrency:0}}
+            </td>
+            <td ng-class="AppFactory.gtZero(OptimizerFactory.getTotalCashRent(loan.farmunits))">
+                {{OptimizerFactory.getTotalCashRent(loan.farmunits)|flexCurrency:0}}
+            </td>
+        </tr>
+        <!-- WAIVED-->
+        <tr class="clr-litegray"
+            ng-if="tggl.showRentRows">
+            <td>Waived</td>
+            <td class="cBlue" ng-class="AppFactory.gtZero(f.waived)"
+                ng-repeat="f in loan.farmunits">
+                {{f.waived|flexCurrency:0}}
+            </td>
+            <td ng-class="AppFactory.gtZero(OptimizerFactory.getTotalWaived(loan.farmunits))">
+                {{OptimizerFactory.getTotalWaived(loan.farmunits)|flexCurrency:0}}
+            </td>
+        </tr>
+        <!-- WHEN DUE-->
+        <tr class="clr-litegray"
+            ng-if="tggl.showRentRows">
+            <td>When Due</td>
+            <td class="text-right cBlue"
+                ng-repeat="f in loan.farmunits">
+                {{f.when_due}}
+            </td>
+            <td class="text-right">&nbsp;</td>
+        </tr>
+        <!-- FSA PAID-->
+        <tr class="clr-litegray"
+            ng-if="tggl.showRentRows">
+            <td>FSA Pymt</td>
+            <td class="cBlue" ng-class="AppFactory.gtZero(f.fsa_paid)"
+                ng-repeat="f in loan.farmunits">
+                {{f.fsa_paid|flexCurrency:0}}
+            </td>
+            <td ng-class="AppFactory.gtZero(loan.fins.total_fsa_pay)">
+                {{loan.fins.total_fsa_pay|flexCurrency:0}}
+            </td>
+        </tr>
+        <!-- ARM RENT/ACRE-->
+        <tr class="clr-litegray"
+            ng-if="tggl.showRentRows && user.optimopts.rent_per_acre_ARM">
+            <td>ARM Rent/Ac</td>
+            <td ng-class="AppFactory.gtZero(f.cash_rent_acre_ARM)"
+                ng-repeat="f in loan.farmunits">
+                {{f.cash_rent_acre_ARM|flexCurrency:2}}
+            </td>
+            <td class="text-right">&nbsp;</td>
+        </tr>
+        <!-- DIST RENT/ACRE-->
+        <tr class="clr-litegray"
+            ng-if="tggl.showRentRows && user.optimopts.rent_per_acre_dist">
+            <td>Dist Rent/Ac</td>
+            <td ng-class="AppFactory.gtZero(f.cash_rent_acre_dist)"
+                ng-repeat="f in loan.farmunits">
+                {{f.cash_rent_acre_dist|flexCurrency:2}}
+            </td>
+            <td class="text-right">&nbsp;</td>
+        </tr>
+        <!-- 3P RENT/ACRE-->
+        <tr class="clr-litegray"
+            ng-if="tggl.showRentRows && user.optimopts.rent_per_acre_other">
+            <td>3P Rent/Ac</td>
+            <td ng-class="AppFactory.gtZero(f.cash_rent_acre_other)"
+                ng-repeat="f in loan.farmunits">
+                {{f.cash_rent_acre_other|flexCurrency:2}}
+            </td>
+            <td class="text-right">&nbsp;</td>
+        </tr>
+        <!-- FSA/ACRE-->
+        <tr class="clr-litegray"
+            ng-if="tggl.showRentRows">
+            <td>FSA/Ac</td>
+            <td ng-class="AppFactory.gtZero(f.fsa_acre)"
+                ng-repeat="f in loan.farmunits">
+                {{f.fsa_acre|flexCurrency:2}}
+            </td>
+            <td class="text-right">&nbsp;</td>
+        </tr>
+        </tbody>
+
+        <!-- CROP DIVIDER-->
+        <tr>
+            <td colspan="{{loan.farmunits.length + 2}}">
+                <strong>CROPS</strong>
+            </td>
+        </tr>
+
+        <tbody id="corn"
+               ng-if="tggl.tcropCorn"
+               ng-include="'./_modules/Loans/optimizer/_crop.corn.html'">
+        </tbody>
+
+        <tbody id="soybeans"
+               ng-if="tggl.tcropSoybeans"
+               ng-include="'./_modules/Loans/optimizer/_crop.soybeans.html'">
+        </tbody>
+
+        <tbody id="beansFAC"
+               ng-if="tggl.tcropBeansFAC"
+               ng-include="'./_modules/Loans/optimizer/_crop.beansfac.html'">
+        </tbody>
+
+        <tbody id="sorghum"
+               ng-if="tggl.tcropSorghum"
+               ng-include="'./_modules/Loans/optimizer/_crop.sorghum.html'">
+        </tbody>
+
+        <tbody id="wheat"
+               ng-if="tggl.tcropWheat"
+               ng-include="'./_modules/Loans/optimizer/_crop.wheat.html'">
+
+        </tbody>
+
+        <tbody id="cotton"
+               ng-if="tggl.tcropCotton"
+               ng-include="'./_modules/Loans/optimizer/_crop.cotton.html'">
+        </tbody>
+
+        <tbody id="rice"
+               ng-if="tggl.tcropRice"
+               ng-include="'./_modules/Loans/optimizer/_crop.rice.html'">
+        </tbody>
+
+        <tbody id="peanuts"
+               ng-if="tggl.tcropPeanuts"
+               ng-include="'./_modules/Loans/optimizer/_crop.peanuts.html'">
+        </tbody>
+
+        <tbody id="sugarcane"
+               ng-if="tggl.tcropSugarcane"
+               ng-include="'./_modules/Loans/optimizer/_crop.sugarcane.html'">
+        </tbody>
+
+        <tbody id="sunflowers"
+               ng-if="tggl.tcropSunflowers"
+               ng-include="'./_modules/Loans/optimizer/_crop.sunflowers.html'">
+        </tbody>
+
+        <tbody id="grandTotal">
+        <tr>
+            <td>TOTAL</td>
+            <td class="text-right"
+                ng-repeat="f in loan.farmunits">
+                {{f.total_acres|number:1}}
+            </td>
+            <td class="text-right">
+                {{loan.fins.total_acres|number:1}}
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <br/><br/>
+</div>

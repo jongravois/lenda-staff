@@ -1,48 +1,103 @@
-<div class="row">
-    <div class="col-md-12 text-right">
-        <button style="margin-right:10px;" class="btn btn-arm" ng-click="updateCrops()"><span
-            class="glyphicons glyphicons-log-book"></span>&nbsp;UPDATE
-        </button>
+<!-- CROPS & INDIRECT INCOME-->
+<span ng-if="loan.loan_type_id !== 7 && loan.crop_loan">
+    <div class="row">
+        <div class="col-md-12 text-right">
+            <button style="margin-right:10px;" class="btn btn-arm" ng-click="updateCrops()"><span
+                class="glyphicons glyphicons-log-book"></span>&nbsp;UPDATE
+            </button>
+        </div>
     </div>
-</div>
-<br>
-<fieldset>
-    <legend>
-        &nbsp;
-        <span class="pendicon glyphicon glyphicon-chevron-right"
-                  ng-click="togShowCrops()"
-                  ng-if="!showCrops"></span>
-        <span class="pendicon glyphicon glyphicon-chevron-down"
-                  ng-click="togShowCrops()"
-                  ng-if="showCrops"></span>
-        &nbsp;
-        Crops
-    </legend>
-    <div class="container-fluid"
-         ng-include="'./_modules/Loans/crops/_crops.html'"
-         ng-if="showCrops">
-    </div>
-</fieldset>
-<br><br>
-<fieldset>
-    <legend>
-        &nbsp;
+    <br>
+    <fieldset>
+        <legend>
+            &nbsp;
+            <span class="pendicon glyphicon glyphicon-chevron-right"
+                      ng-click="togShowCrops()"
+                      ng-if="!showCrops"></span>
+            <span class="pendicon glyphicon glyphicon-chevron-down"
+                      ng-click="togShowCrops()"
+                      ng-if="showCrops"></span>
+            &nbsp;
+            Crops
+        </legend>
+        <div class="container-fluid"
+             ng-include="'./_modules/Loans/crops/_crops.html'"
+             ng-if="showCrops">
+        </div>
+    </fieldset>
+    <br><br>
+    <fieldset>
+        <legend>
+            &nbsp;
+            <span class="pendicon glyphicon glyphicon-chevron-right"
+                  ng-click="togShowYields()"
+                  ng-if="!showYields"></span>
+            <span class="pendicon glyphicon glyphicon-chevron-down"
+                  ng-click="togShowYields()"
+                  ng-if="showYields"></span>
+            &nbsp;
+            Crop Historic Yields
+        </legend>
+        <div class="container-fluid" ng-include="'./_modules/Loans/crops/_yields.html'" ng-if="showYields">
+        </div>
+    </fieldset>
+    <br><br>
+    <fieldset>
+        <legend>
+            &nbsp;
         <span class="pendicon glyphicon glyphicon-chevron-right"
               ng-click="togShowIndirect()"
               ng-if="!showIndirect"></span>
         <span class="pendicon glyphicon glyphicon-chevron-down"
               ng-click="togShowIndirect()"
               ng-if="showIndirect"></span>
-        &nbsp;
-<<<<<<< HEAD
-        Indirect
-=======
-        Indirect Crop Income
->>>>>>> work
-    </legend>
-    <div class="container-fluid"
-         ng-include="'./_modules/Loans/crops/_indirect.income.html'"
-         ng-if="showIndirect">
+            &nbsp;
+            Indirect Crop Income
+        </legend>
+        <div class="container-fluid"
+             ng-include="'./_modules/Loans/crops/_indirect.income.html'"
+             ng-if="showIndirect">
+        </div>
+    </fieldset>
+</span>
+
+<!-- PLANNED CROPS -->
+<span ng-if="loan.loan_type_id !== 7 && !loan.crop_loan">
+    <div class="row">
+        <div class="col-md-12 text-right">
+            <button style="margin-right:10px;" class="btn btn-arm" ng-click="updatePlannedCrops()"><span class="glyphicons glyphicons-log-book"></span>&nbsp;UPDATE
+            </button>
+        </div>
     </div>
-</fieldset>
+    <br>
+    <fieldset>
+        <legend>
+            Planned Crops
+        </legend>
+        <div class="container-fluid"
+             ng-include="'./_modules/Loans/crops/_planned.crops.html'"
+             ng-if="showCrops">
+        </div>
+    </fieldset>
+</span>
+
+<!-- STORAGE CONTRACT-->
+<span ng-if="loan.loan_type_id === 7">
+    <div class="row">
+        <div class="col-md-12 text-right">
+            <button style="margin-right:10px;" class="btn btn-arm" ng-click="updateStorage()"><span
+                class="glyphicons glyphicons-log-book"></span>&nbsp;UPDATE
+            </button>
+        </div>
+    </div>
+    <br>
+    <fieldset>
+        <legend>Storage Contract</legend>
+        <div class="container-fluid"
+             ng-include="'./_modules/Loans/crops/_storage.html'"
+             ng-if="showCrops">
+        </div>
+    </fieldset>
+</span>
+
 <br><br><br><br>

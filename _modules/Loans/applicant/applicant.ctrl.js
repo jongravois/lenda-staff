@@ -4,9 +4,11 @@
         .module('ARM')
         .controller('ApplicantsController', ApplicantsController);
 
-        ApplicantsController.$inject = ['$rootScope', '$scope'];
+        ApplicantsController.$inject = ['$rootScope', '$scope', '$state'];
 
-        function ApplicantsController($rootScope, $scope){
+        function ApplicantsController($rootScope, $scope, $state){
+            $scope.newapplications = $state.current.data.newapplications;
+
             $scope.showFarmer = false;
             $scope.showApplicant = false;
             $scope.showPartner = false;

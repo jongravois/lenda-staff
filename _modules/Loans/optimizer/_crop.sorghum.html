@@ -1,0 +1,486 @@
+<!-- CROP NAME-->
+<tr>
+    <td>
+                            <span
+                                ng-if="tggl.showSorghum"
+                                ng-click="tggl.showSorghum = !tggl.showSorghum"
+                                style="cursor:pointer;">
+                                &blacktriangledown;&nbsp;
+                            </span>
+                            <span ng-if="!tggl.showSorghum"
+                                  ng-click="tggl.showSorghum = !tggl.showSorghum"
+                                  style="cursor:pointer;">
+                                &blacktriangleright;&nbsp;
+                            </span>
+        Sorghum
+    </td>
+    <td class="text-right cBlue"
+        ng-repeat="f in loan.farmunits">
+        {{f.crops[0].sorghum.acres|number:1}}
+    </td>
+    <td class="text-right">
+        {{AppFactory.calcAcresByCrop('sorghum', loan)|number:1}}
+    </td>
+</tr>
+
+<!-- SHARE OVERRIDE* -->
+<tr class="clr-salmon"
+    ng-if="tggl.showOverRentRows && tggl.showSorghum">
+    <td>Rent Override</td>
+    <td class="text-right cBlue"
+        ng-repeat="f in loan.farmunits">
+        {{f.crops[0].sorghum.override|flexZeroPercent:1}}
+    </td>
+    <td ng-class="AppFactory.gtZero(OptimizerFactory.getTotalRentOvr('sorghum', loan))">
+        {{OptimizerFactory.getTotalRentOvr('sorghum', loan)|flexPercent:1}}
+    </td>
+</tr>
+
+<!-- INSURANCE -->
+<!-- APH*-->
+<tr class="clr-liteblue"
+    ng-if="tggl.showInsRows && tggl.showSorghum">
+    <td>APH</td>
+    <td class="text-right cBlue"
+        ng-repeat="f in loan.farmunits">
+        {{f.crops[0].sorghum.aph|number:1}}
+    </td>
+    <td ng-class="OptimizerFactory.gtZero(AppFactory.calcAPHCrop('sorghum', loan))">
+        {{OptimizerFactory.calcAPHCrop('sorghum', loan)|flexNumber:1}}
+    </td>
+</tr>
+<!-- INS TYPE-->
+<tr class="clr-liteblue"
+    ng-if="tggl.showInsRows && user.optimopts.ins_type && tggl.showSorghum">
+    <td>Ins Type</td>
+    <td class="text-center"
+        ng-repeat="f in loan.farmunits">
+        {{f.crops[0].sorghum.ins_type}}
+    </td>
+    <td>&nbsp;</td>
+</tr>
+<!-- INS OPTS-->
+<tr class="clr-liteblue"
+    ng-if="tggl.showInsRows && user.optimopts.ins_opts && tggl.showSorghum">
+    <td>Ins Options</td>
+    <td class="text-center"
+        ng-repeat="f in loan.farmunits">
+        {{f.crops[0].sorghum.ins_opts}}
+    </td>
+    <td>&nbsp;</td>
+</tr>
+<!-- INS PRICE*-->
+<tr class="clr-liteblue"
+    ng-if="tggl.showInsRows && user.optimopts.ins_price && tggl.showSorghum">
+    <td>Ins Price</td>
+    <td ng-class="AppFactory.gtZero(f.crops[0].sorghum.ins_price)"
+        ng-repeat="f in loan.farmunits">
+        {{f.crops[0].sorghum.ins_price|flexCurrency:4}}
+    </td>
+    <td ng-class="OptimizerFactory.gtZero(AppFactory.calcInsPriceCrop('sorghum', loan))">
+        {{OptimizerFactory.calcInsPriceCrop('sorghum', loan)|flexNumber:1}}
+    </td>
+</tr>
+<!-- INS LEVEL*-->
+<tr class="clr-liteblue"
+    ng-if="tggl.showInsRows && user.optimopts.ins_level && tggl.showSorghum">
+    <td>Ins Level</td>
+    <td ng-class="AppFactory.gtZero(f.crops[0].sorghum.ins_level)"
+        ng-repeat="f in loan.farmunits">
+        {{f.crops[0].sorghum.ins_level|flexPercent:1}}
+    </td>
+    <td ng-class="OptimizerFactory.gtZero(AppFactory.calcInsLevelCrop('sorghum', loan))">
+        {{OptimizerFactory.calcInsLevelCrop('sorghum', loan)|flexNumber:1}}
+    </td>
+</tr>
+<!-- MPCI-->
+<tr class="clr-liteblue"
+    ng-if="tggl.showInsRows && user.optimopts.ins_guarantee && tggl.showSorghum">
+    <td>MPCI</td>
+    <td ng-class="AppFactory.gtZero(OptimizerFactory.calcMPCI(f.crops[0].sorghum))"
+        ng-repeat="f in loan.farmunits">
+        {{OptimizerFactory.calcMPCI(f.crops[0].sorghum)|flexCurrency:2}}
+    </td>
+    <td>&nbsp;</td>
+</tr>
+<!-- INS PREMIUM-->
+<tr class="clr-liteblue"
+    ng-if="tggl.showInsRows && user.optimopts.ins_premium && tggl.showSorghum">
+    <td>Ins Premium</td>
+    <td ng-class="AppFactory.gtZero(f.crops[0].sorghum.ins_premium)"
+        ng-repeat="f in loan.farmunits">
+        {{f.crops[0].sorghum.ins_premium|flexCurrency:2}}
+    </td>
+    <td>&nbsp;</td>
+</tr>
+<!-- INS SHARE*-->
+<tr class="clr-liteblue"
+    ng-if="tggl.showInsRows && user.optimopts.ins_share && tggl.showSorghum">
+    <td>Ins Share</td>
+    <td ng-class="AppFactory.gtZero(f.crops[0].sorghum.ins_share)"
+        ng-repeat="f in loan.farmunits">
+        {{f.crops[0].sorghum.ins_share|flexPercent:1}}
+    </td>
+    <td ng-class="OptimizerFactory.gtZero(AppFactory.calcInsShareCrop('sorghum', loan))">
+        {{OptimizerFactory.calcInsShareCrop('sorghum', loan)|flexNumber:1}}
+    </td>
+</tr>
+<!-- INS VALUE*-->
+<tr class="clr-liteblue"
+    ng-if="tggl.showInsRows && user.optimopts.ins_value && tggl.showSorghum">
+    <td>Ins Value</td>
+    <td ng-class="AppFactory.gtZero(OptimizerFactory.calcInsValue(f.crops[0].sorghum))"
+        ng-repeat="f in loan.farmunits">
+        {{OptimizerFactory.calcInsValue(f.crops[0].sorghum)|flexCurrency:2}}
+    </td>
+    <td ng-class="OptimizerFactory.gtZero(AppFactory.calcInsValueCrop('sorghum', loan))">
+        {{OptimizerFactory.calcInsValueCrop('sorghum', loan)|flexNumber:1}}
+    </td>
+</tr>
+<!-- SUP COVERAGE-->
+<tr class="clr-liteblue"
+    ng-if="tggl.showInsRows && tggl.showSorghum">
+    <td>Sup Coverage</td>
+    <td class="text-center"
+        ng-repeat="f in loan.farmunits">
+        {{f.crops[0].sorghum.ins_opts}}
+    </td>
+    <td>&nbsp;</td>
+</tr>
+<!-- LOSS TRIGGER-->
+<tr class="clr-liteblue"
+    ng-if="tggl.showInsRows && tggl.showSorghum">
+    <td>Loss Trigger</td>
+    <td ng-class="AppFactory.gtZero(f.crops[0].sorghum.loss_trigger)"
+        ng-repeat="f in loan.farmunits">
+        {{f.crops[0].sorghum.loss_trigger|flexPercent:0}}
+    </td>
+    <td>&nbsp;</td>
+</tr>
+<!-- COV RANGE-->
+<tr class="clr-liteblue"
+    ng-if="tggl.showInsRows && tggl.showSorghum">
+    <td>Cov Range</td>
+    <td ng-class="AppFactory.gtZero(f.crops[0].sorghum.cov_range)"
+        ng-repeat="f in loan.farmunits">
+        {{f.crops[0].sorghum.cov_range|flexPercent:0}}
+    </td>
+    <td>&nbsp;</td>
+</tr>
+<!-- PROT FACTOR-->
+<tr class="clr-liteblue"
+    ng-if="tggl.showInsRows && tggl.showSorghum">
+    <td>Prot Factor</td>
+    <td ng-class="AppFactory.gtZero(f.crops[0].sorghum.prot_factor)"
+        ng-repeat="f in loan.farmunits">
+        {{f.crops[0].sorghum.prot_factor|flexPercent:0}}
+    </td>
+    <td>&nbsp;</td>
+</tr>
+<!-- EXP YIELD-->
+<tr class="clr-liteblue"
+    ng-if="tggl.showInsRows && tggl.showSorghum">
+    <td>Exp Yield</td>
+    <td ng-class="AppFactory.gtZero(f.crops[0].sorghum.exp_yield)"
+        ng-repeat="f in loan.farmunits">
+        {{f.crops[0].sorghum.exp_yield|number:1}}
+    </td>
+    <td>&nbsp;</td>
+</tr>
+<!-- EXP REVENUE-->
+<tr class="clr-liteblue"
+    ng-if="tggl.showInsRows && tggl.showSorghum">
+    <td>Exp Revenue</td>
+    <td ng-class="AppFactory.gtZero(OptimizerFactory.calcExpRev(f.crops[0].sorghum))"
+        ng-repeat="f in loan.farmunits">
+        {{OptimizerFactory.calcExpRev(f.crops[0].sorghum)|flexCurrency:0}}
+    </td>
+    <td>&nbsp;</td>
+</tr>
+<!-- SUP MAX*-->
+<tr class="clr-liteblue"
+    ng-if="tggl.showInsRows && user.optimopts.sco_max && tggl.showSorghum">
+    <td>Sup Max</td>
+    <td ng-class="AppFactory.gtZero(OptimizerFactory.calcSupMax(f.crops[0].sorghum))"
+        ng-repeat="f in loan.farmunits">
+                            <span ng-if="f.crops[0].sorghum.cov_err_check <= 90">
+                            {{OptimizerFactory.calcSupMax(f.crops[0].sorghum)|flexCurrency:2}}
+                            </span>
+                            <span ng-if="f.crops[0].sorghum.cov_err_check > 90" class="cRed">
+                                cov>90%
+                            </span>
+    </td>
+    <td ng-class="OptimizerFactory.gtZero(AppFactory.calcSupMaxCrop('sorghum', loan))">
+        {{OptimizerFactory.calcSupMaxCrop('sorghum', loan)|flexNumber:1}}
+    </td>
+</tr>
+
+<!-- CASH FLOW -->
+<!-- PROD YIELD*-->
+<tr class="clr-litegreen"
+    ng-if="tggl.showCFRows && tggl.showSorghum">
+    <td>Prod Yield</td>
+    <td ng-class="AppFactory.gtZero(f.crops[0].sorghum.prod_yield)"
+        ng-repeat="f in loan.farmunits">
+        {{f.crops[0].sorghum.prod_yield|number:1}}
+    </td>
+    <td ng-class="OptimizerFactory.gtZero(AppFactory.calcProdYieldCrop('sorghum', loan))">
+        {{OptimizerFactory.calcProdYieldCrop('sorghum', loan)|flexNumber:1}}
+    </td>
+</tr>
+<!-- PROD SHARE*-->
+<tr class="clr-litegreen"
+    ng-if="tggl.showCFRows && tggl.showSorghum">
+    <td>Prod Share</td>
+    <td ng-class="AppFactory.gtZero(f.crops[0].sorghum.prod_share)"
+        ng-repeat="f in loan.farmunits">
+        {{f.crops[0].sorghum.prod_share|flexPercent:1}}
+    </td>
+    <td ng-class="OptimizerFactory.gtZero(AppFactory.calcProdShareCrop('sorghum', loan))">
+        {{OptimizerFactory.calcProdShareCrop('sorghum', loan)|flexNumber:1}}
+    </td>
+</tr>
+<!-- PROD PRICE-->
+<tr class="clr-litegreen"
+    ng-if="tggl.showCFRows && tggl.showSorghum">
+    <td>Prod Price</td>
+    <td ng-class="AppFactory.gtZero(f.crops[0].sorghum.prod_price)"
+        ng-repeat="f in loan.farmunits">
+        {{f.crops[0].sorghum.prod_price|flexCurrency:4}}
+    </td>
+    <td>&nbsp;</td>
+</tr>
+<!-- VAR HARVEST-->
+<tr class="clr-litegreen"
+    ng-if="tggl.showCFRows && tggl.showSorghum">
+    <td>Var Harvest</td>
+    <td ng-class="AppFactory.gtZero(f.crops[0].sorghum.var_harvst)"
+        ng-repeat="f in loan.farmunits">
+        {{f.crops[0].sorghum.var_harvst|flexCurrency:4}}
+    </td>
+    <td>&nbsp;</td>
+</tr>
+<!-- REBATES-->
+<tr class="clr-litegreen"
+    ng-if="tggl.showCFRows && tggl.showSorghum">
+    <td>Rebate</td>
+    <td ng-class="AppFactory.gtZero(f.crops[0].sorghum.rebate)"
+        ng-repeat="f in loan.farmunits">
+        {{f.crops[0].sorghum.rebate|flexCurrency:4}}
+    </td>
+    <td>&nbsp;</td>
+</tr>
+<!-- PROD REV*-->
+<tr class="clr-litegreen"
+    ng-if="tggl.showCFRows && tggl.showSorghum">
+    <td>Prod Rev</td>
+    <td ng-class="AppFactory.gtZero(OptimizerFactory.calcProdRev(f.crops[0].sorghum))"
+        ng-repeat="f in loan.farmunits">
+        {{OptimizerFactory.calcProdRev(f.crops[0].sorghum)|flexCurrency:2}}
+    </td>
+    <td ng-class="OptimizerFactory.gtZero(AppFactory.calcProdRevCrop('sorghum', loan))">
+        {{OptimizerFactory.calcProdRevCrop('sorghum', loan)|flexNumber:1}}
+    </td>
+</tr>
+<!-- PROD REV ADJ*-->
+<tr class="clr-litegreen"
+    ng-if="tggl.showCFRows && tggl.showSorghum">
+    <td>Prod Rev Adj</td>
+    <td ng-class="AppFactory.gtZero(OptimizerFactory.calcProdRevAdj(f.crops[0].sorghum))"
+        ng-repeat="f in loan.farmunits">
+        {{OptimizerFactory.calcProdRevAdj(f.crops[0].sorghum)|flexCurrency:2}}
+    </td>
+    <td ng-class="OptimizerFactory.gtZero(AppFactory.calcProdRevAdjCrop('sorghum', loan))">
+        {{OptimizerFactory.calcProdRevAdjCrop('sorghum', loan)|flexNumber:1}}
+    </td>
+</tr>
+<!-- ARM BUDGET-->
+<tr class="clr-litegreen"
+    ng-if="tggl.showCFRows && tggl.showSorghum">
+    <td>ARM Budget</td>
+    <td ng-class="AppFactory.gtZero(loan.fins.arm_crop_commit['sorghum'])"
+        ng-repeat="f in loan.farmunits">
+        {{loan.fins.arm_crop_commit['sorghum']|flexCurrency:2}}
+    </td>
+    <td>&nbsp;</td>
+</tr>
+<!-- DIST BUDGET-->
+<tr class="clr-litegreen"
+    ng-if="tggl.showCFRows && tggl.showSorghum">
+    <td>Dist Budget</td>
+    <td ng-class="AppFactory.gtZero(loan.fins.dist_crop_commit['sorghum'])"
+        ng-repeat="f in loan.farmunits">
+        {{loan.fins.dist_crop_commit['sorghum']|flexCurrency:2}}
+    </td>
+    <td>&nbsp;</td>
+</tr>
+<!-- 3P BUDGET-->
+<tr class="clr-litegreen"
+    ng-if="tggl.showCFRows && tggl.showSorghum">
+    <td>3P Budget</td>
+    <td ng-class="AppFactory.gtZero(loan.fins.other_crop_commit['sorghum'])"
+        ng-repeat="f in loan.farmunits">
+        {{loan.fins.other_crop_commit['sorghum']|flexCurrency:2}}
+    </td>
+    <td>&nbsp;</td>
+</tr>
+<!-- ARM FEE-->
+<tr class="clr-litegreen"
+    ng-if="tggl.showCFRows && tggl.showSorghum">
+    <td>ARM Fee</td>
+    <td ng-class="AppFactory.gtZero(OptimizerFactory.calcFee('sorghum', loan))"
+        ng-repeat="f in loan.farmunits">
+        {{OptimizerFactory.calcFee('sorghum', loan)|flexCurrency:2}}
+    </td>
+    <td>&nbsp;</td>
+</tr>
+<!-- ARM COMMIT-->
+<tr class="clr-litegreen"
+    ng-if="tggl.showCFRows && tggl.showSorghum">
+    <td>ARM Commit</td>
+    <td ng-class="AppFactory.gtZero(OptimizerFactory.calcArmCommit('sorghum', loan))"
+        ng-repeat="f in loan.farmunits">
+        {{OptimizerFactory.calcArmCommit('sorghum', loan)|flexCurrency:2}}
+    </td>
+    <td>&nbsp;</td>
+</tr>
+<!-- DIST COMMIT-->
+<tr class="clr-litegreen"
+    ng-if="tggl.showCFRows && tggl.showSorghum">
+    <td>Dist Commit</td>
+    <td ng-class="AppFactory.gtZero(OptimizerFactory.calcDistCommit('sorghum', loan))"
+        ng-repeat="f in loan.farmunits">
+        {{OptimizerFactory.calcDistCommit('sorghum', loan)|flexCurrency:2}}
+    </td>
+    <td>&nbsp;</td>
+</tr>
+<!-- ARM INTEREST-->
+<tr class="clr-litegreen"
+    ng-if="tggl.showCFRows && tggl.showSorghum">
+    <td>ARM Est Int</td>
+    <td ng-class="AppFactory.gtZero(OptimizerFactory.calcInterestARM(f.crops[0].sorghum, loan))"
+        ng-repeat="f in loan.farmunits">
+        {{OptimizerFactory.calcInterestARM(f.crops[0].sorghum, loan)|flexCurrency:2}}
+    </td>
+    <td>&nbsp;</td>
+</tr>
+<!-- DIST INTEREST-->
+<tr class="clr-litegreen"
+    ng-if="tggl.showCFRows && tggl.showSorghum">
+    <td>Dist Est Int</td>
+    <td ng-class="AppFactory.gtZero(OptimizerFactory.calcInterestDist(f.crops[0].sorghum, loan))"
+        ng-repeat="f in loan.farmunits">
+        {{OptimizerFactory.calcInterestDist(f.crops[0].sorghum, loan)|flexCurrency:2}}
+    </td>
+    <td>&nbsp;</td>
+</tr>
+<!-- CASH FLOW*-->
+<tr class="clr-litegreen"
+    ng-if="tggl.showCFRows && tggl.showSorghum">
+    <td>Cash Flow</td>
+    <td class="text-right"
+        ng-repeat="f in loan.farmunits">
+        {{OptimizerFactory.calcCropCF(f.crops[0].sorghum, f, loan)|flexCurrency:2}}
+    </td>
+    <td ng-class="OptimizerFactory.gtZero(AppFactory.calcCashFlowCrop('sorghum', loan))">
+        {{OptimizerFactory.calcCashFlowCrop('sorghum', loan)|flexNumber:1}}
+    </td>
+</tr>
+
+<!-- EXPOSURE -->
+<!-- DISC PROD REV*-->
+<tr class="clr-goldenrod"
+    ng-if="tggl.showEXRows && tggl.showSorghum">
+    <td>Disc Prod Rev</td>
+    <td ng-class="AppFactory.gtZero(OptimizerFactory.calcDiscProdRev(f.crops[0].sorghum, loan))"
+        ng-repeat="f in loan.farmunits">
+        {{OptimizerFactory.calcDiscProdRev(f.crops[0].sorghum, loan)|flexCurrency:2}}
+    </td>
+    <td ng-class="OptimizerFactory.gtZero(AppFactory.calcDiscProdRevCrop('sorghum', loan))">
+        {{OptimizerFactory.calcDiscProdRevCrop('sorghum', loan)|flexNumber:1}}
+    </td>
+</tr>
+<!-- DISC PROD REV ADJ*-->
+<tr class="clr-goldenrod"
+    ng-if="tggl.showEXRows && tggl.showSorghum">
+    <td>Disc Prod Rev Adj</td>
+    <td ng-class="AppFactory.gtZero(OptimizerFactory.calcDiscProdRevAdj(f.crops[0].sorghum, loan))"
+        ng-repeat="f in loan.farmunits">
+        {{OptimizerFactory.calcDiscProdRevAdj(f.crops[0].sorghum, loan)|flexCurrency:2}}
+    </td>
+    <td ng-class="OptimizerFactory.gtZero(AppFactory.calcDiscProdRevAdjCrop('sorghum', loan))">
+        {{OptimizerFactory.calcDiscProdRevAdjCrop('sorghum', loan)|flexNumber:1}}
+    </td>
+</tr>
+<!-- INS>DISC PROD REV*-->
+<tr class="clr-goldenrod"
+    ng-if="tggl.showEXRows && tggl.showSorghum">
+    <td>Ins>Disc Prod Rev</td>
+    <td ng-class="AppFactory.gtZero(OptimizerFactory.calcDiscInsOverCrop(f.crops[0].sorghum, loan))"
+        ng-repeat="f in loan.farmunits">
+        {{OptimizerFactory.calcDiscInsOverCrop(f.crops[0].sorghum, loan)|flexCurrency:2}}
+    </td>
+    <td ng-class="OptimizerFactory.gtZero(AppFactory.calcInsDiscProdRevCrop('sorghum', loan))">
+        {{OptimizerFactory.calcInsDiscProdRevCrop('sorghum', loan)|flexNumber:1}}
+    </td>
+</tr>
+<!-- DISC INSURANCE*-->
+<tr class="clr-goldenrod"
+    ng-if="tggl.showEXRows && tggl.showSorghum">
+    <td>Disc Ins</td>
+    <td ng-class="AppFactory.gtZero(OptimizerFactory.calcDiscIns(f.crops[0].sorghum, loan))"
+        ng-repeat="f in loan.farmunits">
+        {{OptimizerFactory.calcDiscIns(f.crops[0].sorghum, loan)|flexCurrency:2}}
+    </td>
+    <td ng-class="OptimizerFactory.gtZero(AppFactory.calcDiscInsCrop('sorghum', loan))">
+        {{OptimizerFactory.calcDiscInsCrop('sorghum', loan)|flexNumber:1}}
+    </td>
+</tr>
+<!-- DISC SCO*-->
+<tr class="clr-goldenrod"
+    ng-if="tggl.showEXRows && tggl.showSorghum">
+    <td>Disc SCO</td>
+    <td ng-class="AppFactory.gtZero(OptimizerFactory.calcDiscSCO(f.crops[0].sorghum, loan))"
+        ng-repeat="f in loan.farmunits">
+        {{OptimizerFactory.calcDiscSCO(f.crops[0].sorghum, loan)|flexCurrency:2}}
+    </td>
+    <td ng-class="OptimizerFactory.gtZero(AppFactory.calcDiscSCOCrop('sorghum', loan))">
+        {{OptimizerFactory.calcDiscSCOCrop('sorghum', loan)|flexNumber:1}}
+    </td>
+</tr>
+<!-- DISC FSA*-->
+<tr class="clr-goldenrod"
+    ng-if="tggl.showEXRows && tggl.showSorghum">
+    <td>Disc FSA</td>
+    <td ng-class="AppFactory.gtZero(OptimizerFactory.calcDiscFSA(f.crops[0].sorghum, f, loan))"
+        ng-repeat="f in loan.farmunits">
+        {{OptimizerFactory.calcDiscFSA(f.crops[0].sorghum, f, loan)|flexCurrency:2}}
+    </td>
+    <td ng-class="OptimizerFactory.gtZero(AppFactory.calcDiscFSACrop('sorghum', loan))">
+        {{OptimizerFactory.calcDiscFSACrop('sorghum', loan)|flexNumber:1}}
+    </td>
+</tr>
+<!-- DISC COLLATERAL*-->
+<tr class="clr-goldenrod"
+    ng-if="tggl.showEXRows && tggl.showSorghum">
+    <td>Disc Collateral</td>
+    <td ng-class="AppFactory.gtZero(OptimizerFactory.calcDiscCollateral(f.crops[0].sorghum, f, loan))"
+        ng-repeat="f in loan.farmunits">
+        {{OptimizerFactory.calcDiscCollateral(f.crops[0].sorghum, f, loan)|flexCurrency:2}}
+    </td>
+    <td ng-class="OptimizerFactory.gtZero(AppFactory.calcDiscCollateralCrop('sorghum', loan))">
+        {{OptimizerFactory.calcDiscCollateralCrop('sorghum', loan)|flexNumber:1}}
+    </td>
+</tr>
+<!-- EXPOSURE*-->
+<tr class="clr-goldenrod"
+    ng-if="tggl.showEXRows && tggl.showSorghum">
+    <td>Exposure</td>
+    <td class="text-right"
+        ng-repeat="f in loan.farmunits">
+        {{OptimizerFactory.calcExposure(f.crops[0].sorghum, f, loan)|flexCurrency:2}}
+    </td>
+    <td ng-class="OptimizerFactory.gtZero(AppFactory.calcExposureCrop('sorghum', loan))">
+        {{OptimizerFactory.calcExposureCrop('sorghum', loan)|flexNumber:1}}
+    </td>
+</tr>

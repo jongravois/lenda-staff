@@ -1,0 +1,40 @@
+<div class="form-group">
+    <table class="table table-striped rowed table-condensed disp-sm">
+        <tr>
+            <th style="width:14%;">Applicant</th>
+            <th style="width:14%;">Farmer</th>
+            <th style="width:14%;">Distributor</th>
+            <th style="width:14%;">ARM Commit</th>
+            <th style="width:14%;">Cash Flow</th>
+            <th style="width:14%;">Exposure</th>
+            <th style="width: 60px;">&nbsp</th>
+        </tr>
+        <tr ng-repeat="x in loan.xcols">
+            <td>
+                {{x.applicant}}
+            </td>
+            <td>
+                {{x.farmer}}
+            </td>
+            <td>
+                {{x.distributor}}
+            </td>
+            <td ng-class="AppFactory.gtZero(x.arm_commit)">
+                {{x.arm_commit|flexCurrency:0}}
+            </td>
+            <td ng-class="AppFactory.gtZero(x.cash_flow)">
+                {{x.cash_flow|flexCurrency:0}}
+            </td>
+            <td ng-class="AppFactory.gtZero(x.exposure)">
+                {{x.exposure|flexCurrency:0}}
+            </td>
+            <td class="text-center"></td>
+        </tr>
+        <tr>
+            <td colspan="7">
+                <a ng-click="createCrossCollateral()" class="btn btn-xs btn-default">
+                    <span class="glyphicon glyphicon-plus-sign" style="color:#006837;"></span> Add New</a>
+            </td>
+        </tr>
+    </table>
+</div>

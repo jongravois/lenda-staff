@@ -4,9 +4,10 @@
         .module('ARM')
         .controller('ClosingsController', ClosingsController);
 
-        ClosingsController.$inject = ['$rootScope', '$scope', '$stateParams', 'AppFactory', 'LoansFactory'];
+        ClosingsController.$inject = ['$rootScope', '$scope', '$state', '$stateParams', 'AppFactory', 'LoansFactory'];
 
-        function ClosingsController($rootScope, $scope, $stateParams, AppFactory, LoansFactory){
+        function ClosingsController($rootScope, $scope, $state, $stateParams, AppFactory, LoansFactory){
+            $scope.newapplications = $state.current.data.newapplications;
             $scope.oneAtATime = true;
 
             LoansFactory.getPrerequisites($stateParams.loanID)

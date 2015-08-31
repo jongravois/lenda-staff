@@ -4,9 +4,9 @@
         .module('ARM')
         .controller('DisbursementsController', DisbursementsController);
 
-        DisbursementsController.$inject = ['$rootScope', '$scope', 'AppFactory'];
+        DisbursementsController.$inject = ['$rootScope', '$scope', '$state', 'AppFactory'];
 
-        function DisbursementsController($rootScope, $scope, AppFactory){
+        function DisbursementsController($rootScope, $scope, $state, AppFactory){
             var payouts = $scope.loan.disbursements;
             var arm_tots = 0;
             var rem_tots = 0;

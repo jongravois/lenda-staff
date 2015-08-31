@@ -1,95 +1,43 @@
+<div class="row">
+    <div class="col-md-12 text-right">
+        <button style="margin-right:10px;" class="btn btn-arm" ng-click="updateCollateral()"><span
+            class="glyphicons glyphicons-log-book"></span>&nbsp;UPDATE
+        </button>
+    </div>
+</div>
+<br>
 <fieldset>
-    <legend>Collateral Conditions</legend>
-    <div class="container-fluid row form-group">
+    <legend>
+        &nbsp;
+            <span class="pendicon glyphicon glyphicon-chevron-right"
+                  ng-click="togShowConditions()"
+                  ng-if="!showConditions"></span>
+            <span class="pendicon glyphicon glyphicon-chevron-down"
+                  ng-click="togShowConditions()"
+                  ng-if="showConditions"></span>
+        &nbsp;
+        Collateral Conditions
+    </legend>
+    <div class="container-fluid row form-group" ng-if="showConditions">
         <div class="col-md-12">
             <div ng-include="'./_modules/Loans/collateral/_collateral.conditions.html'"></div>
         </div>
     </div>
 </fieldset>
 <br/><br/>
-<fieldset ng-init="loan.discount_overrides = false">
-    <legend>Discount Rates</legend>
-    <div class="container-fluid row form-group">
-        <div class="col-md-12">
-            <div class="col-md-9">
-                <label>Change standard discounts?</label>
-            </div>
-            <div class="col-md-3">
-                <input type="radio" name="percents" ng-value="true" ng-model="loan.discount_overrides"/>
-                &nbsp;<label>Yes</label>
-                &nbsp;&nbsp;&nbsp;
-                <input type="radio" name="percents" ng-value="false" ng-model="loan.discount_overrides"/>
-                &nbsp;<label>No</label>
-            </div>
-        </div>
-    </div>
-    <div class="row form-group" ng-if="loan.discount_overrides">
-        <table class="table table-striped rowed" style="width: 30%; margin: 0 auto;">
-            <tr>
-                <th style="width: 70%;">Category</th>
-                <th style="width: 30%;">Discount</th>
-            </tr>
-            <tr>
-                <td>Crops</td>
-                <td class="text-right">
-                    <input class="form-control" type="text" value="50" style="width:60px;"/>
-                </td>
-            </tr>
-            <tr>
-                <td>FSA Assignment</td>
-                <td class="text-right">
-                    <input class="form-control" type="text" value="20" style="width:60px;"/>
-                </td>
-            </tr>
-            <tr>
-                <td>Insurance Over Discounted Yield</td>
-                <td class="text-right">
-                    <input class="form-control" type="text" value="20" style="width:60px;"/>
-                </td>
-            </tr>
-            <tr>
-                <td>Additional Non RP Discount</td>
-                <td class="text-right">
-                    <input class="form-control" type="text" value="20" style="width:60px;"/>
-                </td>
-            </tr>
-            <tr>
-                <td>Supplemental Coverage</td>
-                <td class="text-right">
-                    <input class="form-control" type="text" value="50" style="width:60px;"/>
-                </td>
-            </tr>
-            <tr>
-                <td>Equipment</td>
-                <td class="text-right">
-                    <input class="form-control" type="text" value="50" style="width:60px;"/>
-                </td>
-            </tr>
-            <tr>
-                <td>Real Estate</td>
-                <td class="text-right">
-                    <input class="form-control" type="text" value="20" style="width:60px;"/>
-                </td>
-            </tr>
-            <tr>
-                <td>Other</td>
-                <td class="text-right">
-                    <input class="form-control" type="text" value="100" style="width:60px;"/>
-                </td>
-            </tr>
-            <tr>
-                <td colspan="2">
-                    <a ng-click="createReference()" class="btn btn-xs btn-default"><span class="glyphicon glyphicon-plus-sign" style="color:#006837;"></span> Update</a>
-                </td>
-            </tr>
-        </table>
-        <br/><br/>
-    </div>
-</fieldset>
-<br/><br/>
 <fieldset>
-    <legend>Crops</legend>
-    <div class="container-fluid row form-group">
+    <legend>
+        &nbsp;
+            <span class="pendicon glyphicon glyphicon-chevron-right"
+                  ng-click="togShowCropCollateral()"
+                  ng-if="!showCropCollateral"></span>
+            <span class="pendicon glyphicon glyphicon-chevron-down"
+                  ng-click="togShowCropCollateral()"
+                  ng-if="showCropCollateral"></span>
+        &nbsp;
+        Crops
+    </legend>
+    <div class="container-fluid row form-group"ng-if="showCropCollateral">
         <div class="col-md-12">
             <div class="col-md-9">
                 <label>Prior lien on crops?</label>
@@ -103,63 +51,25 @@
             </div>
         </div>
     </div>
-    <div class="row form-group" ng-if="loan.quests.liens">
-        <table class="table table-striped rowed"
-               style="width: 96%; margin: 0 auto">
-            <tr>
-                <th>Holder</th>
-                <th>Crop</th>
-                <th>Insurance</th>
-                <th>Total</th>
-            </tr>
-            <tr ng-if="loan.priorlien.liens.length === 0">
-                <td colspan="9">
-                    <strong>No Liens Recorded!</strong>
-                </td>
-            </tr>
-            <tr ng-repeat="p in loan.priorlien">
-                <td>
-                    {{p.lien_holder}}
-                </td>
-                <td class="text-right" ng-class="gtZero(p.projected_crops)">
-                    {{p.projected_crops|flexCurrency:0}}
-                </td>
-                <td class="text-right" ng-class="gtZero(p.ins_over_discount)">
-                    {{p.ins_over_discount|flexCurrency:0}}
-                </td>
-                <td class="text-right" ng-class="gtZero(p.lientotal)">
-                    {{p.total|flexCurrency:0}}
-                </td>
-            </tr>
-            <tr class="success">
-                <td>
-                    {{loan.priorlien.total.lienholder}}
-                </td>
-                <td class="text-right" ng-class="gtZero(loan.priorlien.totals.projected_crops)">
-                    {{loan.priorlien.total.projected_crops|flexCurrency:0}}
-                </td>
-                <td class="text-right" ng-class="gtZero(loan.priorlien.total.ins_over_discount)">
-                    {{loan.priorlien.total.insurance|flexCurrency:0}}
-                </td>
-                <td class="text-right" ng-class="gtZero(loan.priorlien.total.lientotal)">
-                    {{loan.priorlien.total.lientotal|flexCurrency:0}}
-                </td>
-            </tr>
-            <tr>
-                <td colspan="9">
-                    <span>
-                        <a ng-click="createPriorLien()" class="btn btn-xs btn-default"><span class="glyphicons glyphicons-plus" style="color:#006837;"></span> Add New</a>
-                    </span>
-                </td>
-            </tr>
-        </table>
+    <div class="row form-group" ng-if="loan.quests.liens && showCropCollateral">
+        <div ng-include="'./_modules/Loans/collateral/_crop.collateral.html'"></div>
     </div>
 </fieldset>
 <br/><br/>
 <fieldset>
-    <legend>Equipment</legend>
-    <div class="container-fluid row form-group">
-        <div class="col-md-12">
+    <legend>
+        &nbsp;
+            <span class="pendicon glyphicon glyphicon-chevron-right"
+                  ng-click="togShowEquipmentCollateral()"
+                  ng-if="!showEquipmentCollateral"></span>
+            <span class="pendicon glyphicon glyphicon-chevron-down"
+                  ng-click="togShowEquipmentCollateral()"
+                  ng-if="showEquipmentCollateral"></span>
+        &nbsp;
+        Equipment
+    </legend>
+    <div class="container-fluid row form-group" ng-if="showEquipmentCollateral">
+        <div class="col-md-12" style="display: none;">
             <div class="col-md-9">
                 <label>Equipment used as collateral?</label>
             </div>
@@ -172,50 +82,25 @@
             </div>
         </div>
     </div>
-    <div class="row form-group" ng-if="loan.equipment_collateral">
-        <table class="table table-striped rowed"
-               style="width: 96%; margin: 0 auto">
-            <tr>
-                <th style="width:15%;">Holder</th>
-                <th style="width:40%;">Description</th>
-                <th style="width:15%;">Mrkt Value</th>
-                <th style="width:15%;">Prior Lien</th>
-                <th style="width:15%;">Amount</th>
-            </tr>
-            <tr ng-repeat="q in loan.collateral.equipment">
-                <td>{{q.source}}</td>
-                <td>{{q.description}}</td>
-                <td class="text-right" ng-class="gtZero(q.amount)">
-                    {{q.mkt_value|flexCurrency:0}}
-                </td>
-                <td class="text-right" ng-class="gtZero(q.amount)">
-                    {{q.prior_lien|flexCurrency:0}}
-                </td>
-                <td class="text-right" ng-class="gtZero(q.amount)">
-                    {{q.amount|flexCurrency:0}}
-                </td>
-            </tr>
-            <tr class="success">
-                <td colspan="4">Total</td>
-                <th class="text-right" ng-class="gtZero(AppFactory.calcTotalEquipmentCollateral(loan))">
-                    {{AppFactory.calcTotalEquipmentCollateral(loan)|flexCurrency:0}}
-                </th>
-            </tr>
-            <tr>
-                <td colspan="5">
-                        <span style="cursor: pointer;" ng-click="createEquipmentCollateral()">
-                            <span class="glyphicon glyphicon-plus" ng-click="createEquipmentCollateral()"></span> Add New
-                        </span>
-                </td>
-            </tr>
-        </table>
+    <div class="row form-group" ng-if="loan.equipment_collateral && showEquipmentCollateral">
+        <div ng-include="'./_modules/Loans/collateral/_equipment.collateral.html'"></div>
     </div>
 </fieldset>
 <br/><br/>
 <fieldset>
-    <legend>Real Estate</legend>
-    <div class="container-fluid row form-group">
-        <div class="col-md-12">
+    <legend>
+        &nbsp;
+            <span class="pendicon glyphicon glyphicon-chevron-right"
+                  ng-click="togShowRealEstateCollateral()"
+                  ng-if="!showRealEstateCollateral"></span>
+            <span class="pendicon glyphicon glyphicon-chevron-down"
+                  ng-click="togShowRealEstateCollateral()"
+                  ng-if="showRealEstateCollateral"></span>
+        &nbsp;
+        Real Estate
+    </legend>
+    <div class="container-fluid row form-group" ng-if="showRealEstateCollateral">
+        <div class="col-md-12" style="display: none;">
             <div class="col-md-9">
                 <label>Real Estate used as collateral?</label>
             </div>
@@ -228,50 +113,25 @@
             </div>
         </div>
     </div>
-    <div class="row form-group" ng-if="loan.realestate_collateral">
-        <table class="table table-striped rowed"
-               style="width: 96%; margin: 0 auto">
-            <tr>
-                <th style="width:15%;">Holder</th>
-                <th style="width:40%;">Description</th>
-                <th style="width:15%;">Mrkt Value</th>
-                <th style="width:15%;">Prior Lien</th>
-                <th style="width:15%;">Amount</th>
-            </tr>
-            <tr ng-repeat="q in loan.collateral.realestate">
-                <td>{{q.source}}</td>
-                <td>{{q.description}}</td>
-                <td class="text-right" ng-class="gtZero(q.mkt_value)">
-                    {{q.mkt_value|flexCurrency:0}}
-                </td>
-                <td class="text-right" ng-class="gtZero(q.prior_lien)">
-                    {{q.prior_lien|flexCurrency:0}}
-                </td>
-                <td class="text-right" ng-class="gtZero(q.amount)">
-                    {{q.amount|flexCurrency:0}}
-                </td>
-            </tr>
-            <tr class="success">
-                <td colspan="4">Total</td>
-                <th class="text-right" ng-class="gtZero(AppFactory.calcTotalRECollateral(loan))">
-                    {{AppFactory.calcTotalRECollateral(loan)|flexCurrency:0}}
-                </th>
-            </tr>
-            <tr>
-                <td colspan="5">
-                        <span style="cursor: pointer;" ng-click="createRECollateral()">
-                            <span class="glyphicon glyphicon-plus" ng-click="createRECollateral()"></span> Add New
-                        </span>
-                </td>
-            </tr>
-        </table>
+    <div class="row form-group" ng-if="loan.realestate_collateral && showRealEstateCollateral">
+        <div ng-include="'./_modules/Loans/collateral/_realestate.collateral.html'"></div>
     </div>
 </fieldset>
 <br/><br/>
 <fieldset>
-    <legend>Other Collateral</legend>
-    <div class="container-fluid row form-group">
-        <div class="col-md-12">
+    <legend>
+        &nbsp;
+            <span class="pendicon glyphicon glyphicon-chevron-right"
+                  ng-click="togShowOtherCollateral()"
+                  ng-if="!showOtherCollateral"></span>
+            <span class="pendicon glyphicon glyphicon-chevron-down"
+                  ng-click="togShowOtherCollateral()"
+                  ng-if="showOtherCollateral"></span>
+        &nbsp;
+        Other Collateral
+    </legend>
+    <div class="container-fluid row form-group" ng-if="showOtherCollateral">
+        <div class="col-md-12" style="display: none;">
             <div class="col-md-9">
                 <label>Other sources used as collateral?</label>
             </div>
@@ -284,49 +144,24 @@
             </div>
         </div>
     </div>
-    <div class="row form-group" ng-if="loan.other_collateral">
-        <table class="table table-striped rowed"
-               style="width: 96%; margin: 0 auto">
-            <tr>
-                <th style="width:15%;">Holder</th>
-                <th style="width:40%;">Description</th>
-                <th style="width:15%;">Mkt Value</th>
-                <th style="width:15%;">Prior Lien</th>
-                <th style="width:15%;">Amount</th>
-            </tr>
-            <tr ng-repeat="q in loan.collateral.other">
-                <td>{{q.source}}</td>
-                <td>{{q.description}}</td>
-                <td class="text-right" ng-class="gtZero(q.amount)">
-                    {{q.mkt_value|flexCurrency:0}}
-                </td>
-                <td class="text-right" ng-class="gtZero(q.amount)">
-                    {{q.prior_lien|flexCurrency:0}}
-                </td>
-                <td class="text-right" ng-class="gtZero(q.amount)">
-                    {{q.amount|flexCurrency:0}}
-                </td>
-            </tr>
-            <tr class="success">
-                <td colspan="4">Total</td>
-                <th class="text-right" ng-class="gtZero(AppFactory.calcTotalOtherCollateral(loan))">
-                    {{AppFactory.calcTotalOtherCollateral(loan)|flexCurrency:0}}
-                </th>
-            </tr>
-            <tr>
-                <td colspan="5">
-                        <span style="cursor: pointer;" ng-click="createOtherCollateral()">
-                            <span class="glyphicon glyphicon-plus" ng-click="createOtherCollateral()"></span> Add New
-                        </span>
-                </td>
-            </tr>
-        </table>
+    <div class="row form-group" ng-if="loan.other_collateral && showOtherCollateral">
+        <div ng-include="'./_modules/Loans/collateral/_other.collateral.html'"></div>
     </div>
 </fieldset>
 <br/><br/>
 <fieldset>
-    <legend>Cross Collateral</legend>
-    <div class="container-fluid row form-group">
+    <legend>
+        &nbsp;
+            <span class="pendicon glyphicon glyphicon-chevron-right"
+                  ng-click="togShowCrossCollateral()"
+                  ng-if="!showCrossCollateral"></span>
+            <span class="pendicon glyphicon glyphicon-chevron-down"
+                  ng-click="togShowCrossCollateral()"
+                  ng-if="showCrossCollateral"></span>
+        &nbsp;
+        Cross Collateral
+    </legend>
+    <div class="container-fluid row form-group" ng-if="showCrossCollateral">
         <div class="col-md-12">
             <div class="col-md-9">
                 <label>Cross Collateralized Loans</label>
@@ -339,14 +174,9 @@
                 &nbsp;<label>No</label>
             </div>
         </div>
-    </div>
-    <div class="container row form-group" ng-if="loan.is_xcolled">
-    </div>
-    <div>
-        <div class="form-group">
-            <label>Add an existing loan:</label>
-
+        <div class="container-fluid row form-group" ng-if="showCrossCollateral">
+            <div ng-include="'./_modules/Loans/collateral/_cross.collateral.html'"></div>
         </div>
     </div>
-
 </fieldset>
+<br><br><br><br>

@@ -1,0 +1,486 @@
+<!-- CROP NAME-->
+<tr>
+    <td>
+                <span
+                    ng-if="tggl.showSunflowers"
+                    ng-click="tggl.showSunflowers = !tggl.showSunflowers"
+                    style="cursor:pointer;">
+                    &blacktriangledown;&nbsp;
+                </span>
+                <span ng-if="!tggl.showSunflowers"
+                      ng-click="tggl.showSunflowers = !tggl.showSunflowers"
+                      style="cursor:pointer;">
+                    &blacktriangleright;&nbsp;
+                </span>
+        Sunflowers
+    </td>
+    <td class="text-right cBlue"
+        ng-repeat="f in loan.farmunits">
+        {{f.crops[0].sunflowers.acres|number:1}}
+    </td>
+    <td class="text-right">
+        {{AppFactory.calcAcresByCrop('sunflowers', loan)|number:1}}
+    </td>
+</tr>
+
+<!-- SHARE OVERRIDE* -->
+<tr class="clr-salmon"
+    ng-if="tggl.showOverRentRows && tggl.showSunflowers">
+    <td>Rent Override</td>
+    <td class="text-right cBlue"
+        ng-repeat="f in loan.farmunits">
+        {{f.crops[0].sunflowers.override|flexZeroPercent:1}}
+    </td>
+    <td ng-class="AppFactory.gtZero(OptimizerFactory.getTotalRentOvr('sunflowers', loan))">
+        {{OptimizerFactory.getTotalRentOvr('sunflowers', loan)|flexPercent:1}}
+    </td>
+</tr>
+
+<!-- INSURANCE -->
+<!-- APH*-->
+<tr class="clr-liteblue"
+    ng-if="tggl.showInsRows && tggl.showSunflowers">
+    <td>APH</td>
+    <td class="text-right cBlue"
+        ng-repeat="f in loan.farmunits">
+        {{f.crops[0].sunflowers.aph|number:1}}
+    </td>
+    <td ng-class="OptimizerFactory.gtZero(AppFactory.calcAPHCrop('sunflowers', loan))">
+        {{OptimizerFactory.calcAPHCrop('sunflowers', loan)|flexNumber:1}}
+    </td>
+</tr>
+<!-- INS TYPE-->
+<tr class="clr-liteblue"
+    ng-if="tggl.showInsRows && user.optimopts.ins_type && tggl.showSunflowers">
+    <td>Ins Type</td>
+    <td class="text-center"
+        ng-repeat="f in loan.farmunits">
+        {{f.crops[0].sunflowers.ins_type}}
+    </td>
+    <td>&nbsp;</td>
+</tr>
+<!-- INS OPTS-->
+<tr class="clr-liteblue"
+    ng-if="tggl.showInsRows && user.optimopts.ins_opts && tggl.showSunflowers">
+    <td>Ins Options</td>
+    <td class="text-center"
+        ng-repeat="f in loan.farmunits">
+        {{f.crops[0].sunflowers.ins_opts}}
+    </td>
+    <td>&nbsp;</td>
+</tr>
+<!-- INS PRICE*-->
+<tr class="clr-liteblue"
+    ng-if="tggl.showInsRows && user.optimopts.ins_price && tggl.showSunflowers">
+    <td>Ins Price</td>
+    <td ng-class="AppFactory.gtZero(f.crops[0].sunflowers.ins_price)"
+        ng-repeat="f in loan.farmunits">
+        {{f.crops[0].sunflowers.ins_price|flexCurrency:4}}
+    </td>
+    <td ng-class="OptimizerFactory.gtZero(AppFactory.calcInsPriceCrop('sunflowers', loan))">
+        {{OptimizerFactory.calcInsPriceCrop('sunflowers', loan)|flexNumber:1}}
+    </td>
+</tr>
+<!-- INS LEVEL*-->
+<tr class="clr-liteblue"
+    ng-if="tggl.showInsRows && user.optimopts.ins_level && tggl.showSunflowers">
+    <td>Ins Level</td>
+    <td ng-class="AppFactory.gtZero(f.crops[0].sunflowers.ins_level)"
+        ng-repeat="f in loan.farmunits">
+        {{f.crops[0].sunflowers.ins_level|flexPercent:1}}
+    </td>
+    <td ng-class="OptimizerFactory.gtZero(AppFactory.calcInsLevelCrop('sunflowers', loan))">
+        {{OptimizerFactory.calcInsLevelCrop('sunflowers', loan)|flexNumber:1}}
+    </td>
+</tr>
+<!-- MPCI-->
+<tr class="clr-liteblue"
+    ng-if="tggl.showInsRows && user.optimopts.ins_guarantee && tggl.showSunflowers">
+    <td>MPCI</td>
+    <td ng-class="AppFactory.gtZero(OptimizerFactory.calcMPCI(f.crops[0].sunflowers))"
+        ng-repeat="f in loan.farmunits">
+        {{OptimizerFactory.calcMPCI(f.crops[0].sunflowers)|flexCurrency:2}}
+    </td>
+    <td>&nbsp;</td>
+</tr>
+<!-- INS PREMIUM-->
+<tr class="clr-liteblue"
+    ng-if="tggl.showInsRows && user.optimopts.ins_premium && tggl.showSunflowers">
+    <td>Ins Premium</td>
+    <td ng-class="AppFactory.gtZero(f.crops[0].sunflowers.ins_premium)"
+        ng-repeat="f in loan.farmunits">
+        {{f.crops[0].sunflowers.ins_premium|flexCurrency:2}}
+    </td>
+    <td>&nbsp;</td>
+</tr>
+<!-- INS SHARE*-->
+<tr class="clr-liteblue"
+    ng-if="tggl.showInsRows && user.optimopts.ins_share && tggl.showSunflowers">
+    <td>Ins Share</td>
+    <td ng-class="AppFactory.gtZero(f.crops[0].sunflowers.ins_share)"
+        ng-repeat="f in loan.farmunits">
+        {{f.crops[0].sunflowers.ins_share|flexPercent:1}}
+    </td>
+    <td ng-class="OptimizerFactory.gtZero(AppFactory.calcInsShareCrop('sunflowers', loan))">
+        {{OptimizerFactory.calcInsShareCrop('sunflowers', loan)|flexNumber:1}}
+    </td>
+</tr>
+<!-- INS VALUE*-->
+<tr class="clr-liteblue"
+    ng-if="tggl.showInsRows && user.optimopts.ins_value && tggl.showSunflowers">
+    <td>Ins Value</td>
+    <td ng-class="AppFactory.gtZero(OptimizerFactory.calcInsValue(f.crops[0].sunflowers))"
+        ng-repeat="f in loan.farmunits">
+        {{OptimizerFactory.calcInsValue(f.crops[0].sunflowers)|flexCurrency:2}}
+    </td>
+    <td ng-class="OptimizerFactory.gtZero(AppFactory.calcInsValueCrop('sunflowers', loan))">
+        {{OptimizerFactory.calcInsValueCrop('sunflowers', loan)|flexNumber:1}}
+    </td>
+</tr>
+<!-- SUP COVERAGE-->
+<tr class="clr-liteblue"
+    ng-if="tggl.showInsRows && tggl.showSunflowers">
+    <td>Sup Coverage</td>
+    <td class="text-center"
+        ng-repeat="f in loan.farmunits">
+        {{f.crops[0].sunflowers.ins_opts}}
+    </td>
+    <td>&nbsp;</td>
+</tr>
+<!-- LOSS TRIGGER-->
+<tr class="clr-liteblue"
+    ng-if="tggl.showInsRows && tggl.showSunflowers">
+    <td>Loss Trigger</td>
+    <td ng-class="AppFactory.gtZero(f.crops[0].sunflowers.loss_trigger)"
+        ng-repeat="f in loan.farmunits">
+        {{f.crops[0].sunflowers.loss_trigger|flexPercent:0}}
+    </td>
+    <td>&nbsp;</td>
+</tr>
+<!-- COV RANGE-->
+<tr class="clr-liteblue"
+    ng-if="tggl.showInsRows && tggl.showSunflowers">
+    <td>Cov Range</td>
+    <td ng-class="AppFactory.gtZero(f.crops[0].sunflowers.cov_range)"
+        ng-repeat="f in loan.farmunits">
+        {{f.crops[0].sunflowers.cov_range|flexPercent:0}}
+    </td>
+    <td>&nbsp;</td>
+</tr>
+<!-- PROT FACTOR-->
+<tr class="clr-liteblue"
+    ng-if="tggl.showInsRows && tggl.showSunflowers">
+    <td>Prot Factor</td>
+    <td ng-class="AppFactory.gtZero(f.crops[0].sunflowers.prot_factor)"
+        ng-repeat="f in loan.farmunits">
+        {{f.crops[0].sunflowers.prot_factor|flexPercent:0}}
+    </td>
+    <td>&nbsp;</td>
+</tr>
+<!-- EXP YIELD-->
+<tr class="clr-liteblue"
+    ng-if="tggl.showInsRows && tggl.showSunflowers">
+    <td>Exp Yield</td>
+    <td ng-class="AppFactory.gtZero(f.crops[0].sunflowers.exp_yield)"
+        ng-repeat="f in loan.farmunits">
+        {{f.crops[0].sunflowers.exp_yield|number:1}}
+    </td>
+    <td>&nbsp;</td>
+</tr>
+<!-- EXP REVENUE-->
+<tr class="clr-liteblue"
+    ng-if="tggl.showInsRows && tggl.showSunflowers">
+    <td>Exp Revenue</td>
+    <td ng-class="AppFactory.gtZero(OptimizerFactory.calcExpRev(f.crops[0].sunflowers))"
+        ng-repeat="f in loan.farmunits">
+        {{OptimizerFactory.calcExpRev(f.crops[0].sunflowers)|flexCurrency:0}}
+    </td>
+    <td>&nbsp;</td>
+</tr>
+<!-- SUP MAX*-->
+<tr class="clr-liteblue"
+    ng-if="tggl.showInsRows && user.optimopts.sco_max && tggl.showSunflowers">
+    <td>Sup Max</td>
+    <td ng-class="AppFactory.gtZero(OptimizerFactory.calcSupMax(f.crops[0].sunflowers))"
+        ng-repeat="f in loan.farmunits">
+                            <span ng-if="f.crops[0].sunflowers.cov_err_check <= 90">
+                            {{OptimizerFactory.calcSupMax(f.crops[0].sunflowers)|flexCurrency:2}}
+                            </span>
+                            <span ng-if="f.crops[0].sunflowers.cov_err_check > 90" class="cRed">
+                                cov>90%
+                            </span>
+    </td>
+    <td ng-class="OptimizerFactory.gtZero(AppFactory.calcSupMaxCrop('sunflowers', loan))">
+        {{OptimizerFactory.calcSupMaxCrop('sunflowers', loan)|flexNumber:1}}
+    </td>
+</tr>
+
+<!-- CASH FLOW -->
+<!-- PROD YIELD*-->
+<tr class="clr-litegreen"
+    ng-if="tggl.showCFRows && tggl.showSunflowers">
+    <td>Prod Yield</td>
+    <td ng-class="AppFactory.gtZero(f.crops[0].sunflowers.prod_yield)"
+        ng-repeat="f in loan.farmunits">
+        {{f.crops[0].sunflowers.prod_yield|number:1}}
+    </td>
+    <td ng-class="OptimizerFactory.gtZero(AppFactory.calcProdYieldCrop('sunflowers', loan))">
+        {{OptimizerFactory.calcProdYieldCrop('sunflowers', loan)|flexNumber:1}}
+    </td>
+</tr>
+<!-- PROD SHARE*-->
+<tr class="clr-litegreen"
+    ng-if="tggl.showCFRows && tggl.showSunflowers">
+    <td>Prod Share</td>
+    <td ng-class="AppFactory.gtZero(f.crops[0].sunflowers.prod_share)"
+        ng-repeat="f in loan.farmunits">
+        {{f.crops[0].sunflowers.prod_share|flexPercent:1}}
+    </td>
+    <td ng-class="OptimizerFactory.gtZero(AppFactory.calcProdShareCrop('sunflowers', loan))">
+        {{OptimizerFactory.calcProdShareCrop('sunflowers', loan)|flexNumber:1}}
+    </td>
+</tr>
+<!-- PROD PRICE-->
+<tr class="clr-litegreen"
+    ng-if="tggl.showCFRows && tggl.showSunflowers">
+    <td>Prod Price</td>
+    <td ng-class="AppFactory.gtZero(f.crops[0].sunflowers.prod_price)"
+        ng-repeat="f in loan.farmunits">
+        {{f.crops[0].sunflowers.prod_price|flexCurrency:4}}
+    </td>
+    <td>&nbsp;</td>
+</tr>
+<!-- VAR HARVEST-->
+<tr class="clr-litegreen"
+    ng-if="tggl.showCFRows && tggl.showSunflowers">
+    <td>Var Harvest</td>
+    <td ng-class="AppFactory.gtZero(f.crops[0].sunflowers.var_harvst)"
+        ng-repeat="f in loan.farmunits">
+        {{f.crops[0].sunflowers.var_harvst|flexCurrency:4}}
+    </td>
+    <td>&nbsp;</td>
+</tr>
+<!-- REBATES-->
+<tr class="clr-litegreen"
+    ng-if="tggl.showCFRows && tggl.showSunflowers">
+    <td>Rebate</td>
+    <td ng-class="AppFactory.gtZero(f.crops[0].sunflowers.rebate)"
+        ng-repeat="f in loan.farmunits">
+        {{f.crops[0].sunflowers.rebate|flexCurrency:4}}
+    </td>
+    <td>&nbsp;</td>
+</tr>
+<!-- PROD REV*-->
+<tr class="clr-litegreen"
+    ng-if="tggl.showCFRows && tggl.showSunflowers">
+    <td>Prod Rev</td>
+    <td ng-class="AppFactory.gtZero(OptimizerFactory.calcProdRev(f.crops[0].sunflowers))"
+        ng-repeat="f in loan.farmunits">
+        {{OptimizerFactory.calcProdRev(f.crops[0].sunflowers)|flexCurrency:2}}
+    </td>
+    <td ng-class="OptimizerFactory.gtZero(AppFactory.calcProdRevCrop('sunflowers', loan))">
+        {{OptimizerFactory.calcProdRevCrop('sunflowers', loan)|flexNumber:1}}
+    </td>
+</tr>
+<!-- PROD REV ADJ*-->
+<tr class="clr-litegreen"
+    ng-if="tggl.showCFRows && tggl.showSunflowers">
+    <td>Prod Rev Adj</td>
+    <td ng-class="AppFactory.gtZero(OptimizerFactory.calcProdRevAdj(f.crops[0].sunflowers))"
+        ng-repeat="f in loan.farmunits">
+        {{OptimizerFactory.calcProdRevAdj(f.crops[0].sunflowers)|flexCurrency:2}}
+    </td>
+    <td ng-class="OptimizerFactory.gtZero(AppFactory.calcProdRevAdjCrop('sunflowers', loan))">
+        {{OptimizerFactory.calcProdRevAdjCrop('sunflowers', loan)|flexNumber:1}}
+    </td>
+</tr>
+<!-- ARM BUDGET-->
+<tr class="clr-litegreen"
+    ng-if="tggl.showCFRows && tggl.showSunflowers">
+    <td>ARM Budget</td>
+    <td ng-class="AppFactory.gtZero(loan.fins.arm_crop_commit['sunflowers'])"
+        ng-repeat="f in loan.farmunits">
+        {{loan.fins.arm_crop_commit['sunflowers']|flexCurrency:2}}
+    </td>
+    <td>&nbsp;</td>
+</tr>
+<!-- DIST BUDGET-->
+<tr class="clr-litegreen"
+    ng-if="tggl.showCFRows && tggl.showSunflowers">
+    <td>Dist Budget</td>
+    <td ng-class="AppFactory.gtZero(loan.fins.dist_crop_commit['sunflowers'])"
+        ng-repeat="f in loan.farmunits">
+        {{loan.fins.dist_crop_commit['sunflowers']|flexCurrency:2}}
+    </td>
+    <td>&nbsp;</td>
+</tr>
+<!-- 3P BUDGET-->
+<tr class="clr-litegreen"
+    ng-if="tggl.showCFRows && tggl.showSunflowers">
+    <td>3P Budget</td>
+    <td ng-class="AppFactory.gtZero(loan.fins.other_crop_commit['sunflowers'])"
+        ng-repeat="f in loan.farmunits">
+        {{loan.fins.other_crop_commit['sunflowers']|flexCurrency:2}}
+    </td>
+    <td>&nbsp;</td>
+</tr>
+<!-- ARM FEE-->
+<tr class="clr-litegreen"
+    ng-if="tggl.showCFRows && tggl.showSunflowers">
+    <td>ARM Fee</td>
+    <td ng-class="AppFactory.gtZero(OptimizerFactory.calcFee('sunflowers', loan))"
+        ng-repeat="f in loan.farmunits">
+        {{OptimizerFactory.calcFee('sunflowers', loan)|flexCurrency:2}}
+    </td>
+    <td>&nbsp;</td>
+</tr>
+<!-- ARM COMMIT-->
+<tr class="clr-litegreen"
+    ng-if="tggl.showCFRows && tggl.showSunflowers">
+    <td>ARM Commit</td>
+    <td ng-class="AppFactory.gtZero(OptimizerFactory.calcArmCommit('sunflowers', loan))"
+        ng-repeat="f in loan.farmunits">
+        {{OptimizerFactory.calcArmCommit('sunflowers', loan)|flexCurrency:2}}
+    </td>
+    <td>&nbsp;</td>
+</tr>
+<!-- DIST COMMIT-->
+<tr class="clr-litegreen"
+    ng-if="tggl.showCFRows && tggl.showSunflowers">
+    <td>Dist Commit</td>
+    <td ng-class="AppFactory.gtZero(OptimizerFactory.calcDistCommit('sunflowers', loan))"
+        ng-repeat="f in loan.farmunits">
+        {{OptimizerFactory.calcDistCommit('sunflowers', loan)|flexCurrency:2}}
+    </td>
+    <td>&nbsp;</td>
+</tr>
+<!-- ARM INTEREST-->
+<tr class="clr-litegreen"
+    ng-if="tggl.showCFRows && tggl.showSunflowers">
+    <td>ARM Est Int</td>
+    <td ng-class="AppFactory.gtZero(OptimizerFactory.calcInterestARM(f.crops[0].sunflowers, loan))"
+        ng-repeat="f in loan.farmunits">
+        {{OptimizerFactory.calcInterestARM(f.crops[0].sunflowers, loan)|flexCurrency:2}}
+    </td>
+    <td>&nbsp;</td>
+</tr>
+<!-- DIST INTEREST-->
+<tr class="clr-litegreen"
+    ng-if="tggl.showCFRows && tggl.showSunflowers">
+    <td>Dist Est Int</td>
+    <td ng-class="AppFactory.gtZero(OptimizerFactory.calcInterestDist(f.crops[0].sunflowers, loan))"
+        ng-repeat="f in loan.farmunits">
+        {{OptimizerFactory.calcInterestDist(f.crops[0].sunflowers, loan)|flexCurrency:2}}
+    </td>
+    <td>&nbsp;</td>
+</tr>
+<!-- CASH FLOW*-->
+<tr class="clr-litegreen"
+    ng-if="tggl.showCFRows && tggl.showSunflowers">
+    <td>Cash Flow</td>
+    <td class="text-right"
+        ng-repeat="f in loan.farmunits">
+        {{OptimizerFactory.calcCropCF(f.crops[0].sunflowers, f, loan)|flexCurrency:2}}
+    </td>
+    <td ng-class="OptimizerFactory.gtZero(AppFactory.calcCashFlowCrop('sunflowers', loan))">
+        {{OptimizerFactory.calcCashFlowCrop('sunflowers', loan)|flexNumber:1}}
+    </td>
+</tr>
+
+<!-- EXPOSURE -->
+<!-- DISC PROD REV*-->
+<tr class="clr-goldenrod"
+    ng-if="tggl.showEXRows && tggl.showSunflowers">
+    <td>Disc Prod Rev</td>
+    <td ng-class="AppFactory.gtZero(OptimizerFactory.calcDiscProdRev(f.crops[0].sunflowers, loan))"
+        ng-repeat="f in loan.farmunits">
+        {{OptimizerFactory.calcDiscProdRev(f.crops[0].sunflowers, loan)|flexCurrency:2}}
+    </td>
+    <td ng-class="OptimizerFactory.gtZero(AppFactory.calcDiscProdRevCrop('sunflowers', loan))">
+        {{OptimizerFactory.calcDiscProdRevCrop('sunflowers', loan)|flexNumber:1}}
+    </td>
+</tr>
+<!-- DISC PROD REV ADJ*-->
+<tr class="clr-goldenrod"
+    ng-if="tggl.showEXRows && tggl.showSunflowers">
+    <td>Disc Prod Rev Adj</td>
+    <td ng-class="AppFactory.gtZero(OptimizerFactory.calcDiscProdRevAdj(f.crops[0].sunflowers, loan))"
+        ng-repeat="f in loan.farmunits">
+        {{OptimizerFactory.calcDiscProdRevAdj(f.crops[0].sunflowers, loan)|flexCurrency:2}}
+    </td>
+    <td ng-class="OptimizerFactory.gtZero(AppFactory.calcDiscProdRevAdjCrop('sunflowers', loan))">
+        {{OptimizerFactory.calcDiscProdRevAdjCrop('sunflowers', loan)|flexNumber:1}}
+    </td>
+</tr>
+<!-- INS>DISC PROD REV*-->
+<tr class="clr-goldenrod"
+    ng-if="tggl.showEXRows && tggl.showSunflowers">
+    <td>Ins>Disc Prod Rev</td>
+    <td ng-class="AppFactory.gtZero(OptimizerFactory.calcDiscInsOverCrop(f.crops[0].sunflowers, loan))"
+        ng-repeat="f in loan.farmunits">
+        {{OptimizerFactory.calcDiscInsOverCrop(f.crops[0].sunflowers, loan)|flexCurrency:2}}
+    </td>
+    <td ng-class="OptimizerFactory.gtZero(AppFactory.calcInsDiscProdRevCrop('sunflowers', loan))">
+        {{OptimizerFactory.calcInsDiscProdRevCrop('sunflowers', loan)|flexNumber:1}}
+    </td>
+</tr>
+<!-- DISC INSURANCE*-->
+<tr class="clr-goldenrod"
+    ng-if="tggl.showEXRows && tggl.showSunflowers">
+    <td>Disc Ins</td>
+    <td ng-class="AppFactory.gtZero(OptimizerFactory.calcDiscIns(f.crops[0].sunflowers, loan))"
+        ng-repeat="f in loan.farmunits">
+        {{OptimizerFactory.calcDiscIns(f.crops[0].sunflowers, loan)|flexCurrency:2}}
+    </td>
+    <td ng-class="OptimizerFactory.gtZero(AppFactory.calcDiscInsCrop('sunflowers', loan))">
+        {{OptimizerFactory.calcDiscInsCrop('sunflowers', loan)|flexNumber:1}}
+    </td>
+</tr>
+<!-- DISC SCO*-->
+<tr class="clr-goldenrod"
+    ng-if="tggl.showEXRows && tggl.showSunflowers">
+    <td>Disc SCO</td>
+    <td ng-class="AppFactory.gtZero(OptimizerFactory.calcDiscSCO(f.crops[0].sunflowers, loan))"
+        ng-repeat="f in loan.farmunits">
+        {{OptimizerFactory.calcDiscSCO(f.crops[0].sunflowers, loan)|flexCurrency:2}}
+    </td>
+    <td ng-class="OptimizerFactory.gtZero(AppFactory.calcDiscSCOCrop('sunflowers', loan))">
+        {{OptimizerFactory.calcDiscSCOCrop('sunflowers', loan)|flexNumber:1}}
+    </td>
+</tr>
+<!-- DISC FSA*-->
+<tr class="clr-goldenrod"
+    ng-if="tggl.showEXRows && tggl.showSunflowers">
+    <td>Disc FSA</td>
+    <td ng-class="AppFactory.gtZero(OptimizerFactory.calcDiscFSA(f.crops[0].sunflowers, f, loan))"
+        ng-repeat="f in loan.farmunits">
+        {{OptimizerFactory.calcDiscFSA(f.crops[0].sunflowers, f, loan)|flexCurrency:2}}
+    </td>
+    <td ng-class="OptimizerFactory.gtZero(AppFactory.calcDiscFSACrop('sunflowers', loan))">
+        {{OptimizerFactory.calcDiscFSACrop('sunflowers', loan)|flexNumber:1}}
+    </td>
+</tr>
+<!-- DISC COLLATERAL*-->
+<tr class="clr-goldenrod"
+    ng-if="tggl.showEXRows && tggl.showSunflowers">
+    <td>Disc Collateral</td>
+    <td ng-class="AppFactory.gtZero(OptimizerFactory.calcDiscCollateral(f.crops[0].sunflowers, f, loan))"
+        ng-repeat="f in loan.farmunits">
+        {{OptimizerFactory.calcDiscCollateral(f.crops[0].sunflowers, f, loan)|flexCurrency:2}}
+    </td>
+    <td ng-class="OptimizerFactory.gtZero(AppFactory.calcDiscCollateralCrop('sunflowers', loan))">
+        {{OptimizerFactory.calcDiscCollateralCrop('sunflowers', loan)|flexNumber:1}}
+    </td>
+</tr>
+<!-- EXPOSURE*-->
+<tr class="clr-goldenrod"
+    ng-if="tggl.showEXRows && tggl.showSunflowers">
+    <td>Exposure</td>
+    <td class="text-right"
+        ng-repeat="f in loan.farmunits">
+        {{OptimizerFactory.calcExposure(f.crops[0].sunflowers, f, loan)|flexCurrency:2}}
+    </td>
+    <td ng-class="OptimizerFactory.gtZero(AppFactory.calcExposureCrop('sunflowers', loan))">
+        {{OptimizerFactory.calcExposureCrop('sunflowers', loan)|flexNumber:1}}
+    </td>
+</tr>

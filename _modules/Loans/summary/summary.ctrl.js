@@ -4,11 +4,12 @@
         .module('ARM')
         .controller('SummaryController', SummaryController);
 
-        SummaryController.$inject = ['$rootScope', '$scope', 'AppFactory'];
+        SummaryController.$inject = ['$rootScope', '$scope', '$state', 'AppFactory'];
 
-        function SummaryController($rootScope, $scope, AppFactory){
+        function SummaryController($rootScope, $scope, $state, AppFactory){
+            $scope.newapplications = $state.current.data.newapplications;
+
             $scope.comments = AppFactory.parseComments($scope.loan.comments);
-            console.log('Income', $scope.loan.loancrops[2]);
             var optimizer = AppFactory.optimized($scope.loan);
 
             $scope.getCropProdYield = function(obj) {

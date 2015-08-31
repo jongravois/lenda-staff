@@ -4,11 +4,12 @@
         .module('ARM')
         .controller('CommentsController', CommentsController);
 
-        CommentsController.$inject = ['$rootScope', '$scope', 'AppFactory'];
+        CommentsController.$inject = ['$rootScope', '$scope', '$state', 'AppFactory'];
 
         /* @ngInject */
-        function CommentsController($rootScope, $scope, AppFactory) {
+        function CommentsController($rootScope, $scope, $state, AppFactory) {
             /* jshint validthis: true */
+            $scope.newapplications = $state.current.data.newapplications;
             $scope.comments = $scope.loan.parsedComments;
             console.log('Comments', $scope.comments);
 

@@ -4,9 +4,11 @@
         .module('ARM')
         .controller('ReferencesController', ReferencesController);
 
-        ReferencesController.$inject = ['$rootScope', '$scope', '$stateParams', 'SweetAlert', 'AppFactory'];
+        ReferencesController.$inject = ['$rootScope', '$scope', '$state', '$stateParams', 'SweetAlert', 'AppFactory'];
 
-        function ReferencesController($rootScope, $scope, $stateParams, SweetAlert, AppFactory){
+        function ReferencesController($rootScope, $scope, $state, $stateParams, SweetAlert, AppFactory){
+            $scope.newapplications = $state.current.data.newapplications;
+
             $scope.showDistributor = false;
             $scope.showReference = false;
 

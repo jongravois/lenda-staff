@@ -4,9 +4,9 @@
         .module('ARM')
         .controller('FinancialsController', FinancialsController);
 
-        FinancialsController.$inject = ['$rootScope', '$scope', 'AppFactory', 'DefaultsFactory'];
+        FinancialsController.$inject = ['$rootScope', '$scope', '$state', 'AppFactory', 'DefaultsFactory'];
 
-        function FinancialsController($rootScope, $scope, AppFactory, DefaultsFactory){
+        function FinancialsController($rootScope, $scope, $state, AppFactory, DefaultsFactory){
             $scope.AppFactory = AppFactory;
             if(!$rootScope.defaults) {
                 DefaultsFactory.init();
