@@ -40,8 +40,9 @@
                 expenses: getExpenses(loan),
                 insurance: getInsurance(loan),
                 parsedComments: structureComments(loan),
-                priorlien: processPriorLien(loan.prior_liens),
-                xcols: processXCols(loan.xcols)
+                priorlien: processPriorLien(loan.prior_liens)
+                /*,
+                xcols: processXCols(loan.xcols)*/
             })
                 .then(function (updatedData) {
                     angular.extend(loan, updatedData);

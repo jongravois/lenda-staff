@@ -10,7 +10,6 @@
             $scope.newapplications = $state.current.data.newapplications;
 
             $scope.comments = AppFactory.parseComments($scope.loan.comments);
-            console.log('Income', $scope.loan.loancrops[2]);
             var optimizer = AppFactory.optimized($scope.loan);
 
             $scope.getCropProdYield = function(obj) {

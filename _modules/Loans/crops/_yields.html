@@ -1,0 +1,48 @@
+<div class="row form-group">
+    <table class="table table-striped rowed table-condensed disp-sm">
+        <tr>
+            <th style="width:12%;text-align:left;">Crop</th>
+            <th class="text-center" style="width:8%;">UoM</th>
+            <th style="width:10%;">{{globals.cropYears.PY1}}</th>
+            <th style="width:10%;">{{globals.cropYears.PY2}}</th>
+            <th style="width:10%;">{{globals.cropYears.PY3}}</th>
+            <th style="width:10%;">3yr Avg</th>
+            <th style="width:10%;">{{globals.cropYears.PY4}}</th>
+            <th style="width:10%;">{{globals.cropYears.PY5}}</th>
+            <th style="width:10%;">{{globals.cropYears.PY6}}</th>
+            <th style="width:10%;">6yr Avg</th>
+        </tr>
+        <tr ng-repeat="c in loan.loancrops">
+            <td>{{c.crop.name}}</td>
+            <td class="text-center">
+                <select style="height:18px !important;" name="uom" ng-model="c.crop.measurement" ng-options="u.abr as u.unit for u in units" ng-change="uomChanged(c.id, c.measurement)">
+                    <option value="">Please select ...</option>
+                </select>
+            </td>
+            <td class="text-right cBlue">
+                {{c.yields[0].p1|number:1}}
+            </td>
+            <td class="text-right cBlue">
+                {{c.yields[0].p2|number:1}}
+            </td>
+            <td class="text-right cBlue">
+                {{c.yields[0].p3|number:1}}
+            </td>
+            <td class="text-right">
+                {{AppFactory.getAverage([c.yields[0].p1, c.yields[0].p2, c.yields[0].p3])| number:1}}
+            </td>
+            <td class="text-right cBlue">
+                {{c.yields[0].p4|number:1}}
+            </td>
+            <td class="text-right cBlue">
+                {{c.yields[0].p5|number:1}}
+            </td>
+            <td class="text-right cBlue">
+                {{c.yields[0].p6|number:1}}
+            </td>
+            <td class="text-right">
+                {{AppFactory.getAverage([c.yields[0].p1, c.yields[0].p2, c.yields[0].p3, c.yields[0].p4, c.yields[0].p5, c.yields[0].p6])| number:1}}
+            </td>
+        </tr>
+    </table>
+</div>

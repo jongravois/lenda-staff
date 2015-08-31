@@ -28,7 +28,7 @@
                   {{ p.email || '--' }}
                 </span>
             </td>
-            <td class="text-right">
+            <td class="text-center">
                 <!-- form -->
                 <form editable-form name="rowform" onbeforesave="savePartner($data, p.id)" ng-show="rowform.$visible" class="form-buttons form-inline">
                     <button type="submit" ng-disabled="rowform.$waiting"><span class="glyphicons glyphicons-circle-ok" style="color:#006837;"></span></button>

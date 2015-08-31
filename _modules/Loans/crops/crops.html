@@ -29,6 +29,22 @@
     <fieldset>
         <legend>
             &nbsp;
+            <span class="pendicon glyphicon glyphicon-chevron-right"
+                  ng-click="togShowYields()"
+                  ng-if="!showYields"></span>
+            <span class="pendicon glyphicon glyphicon-chevron-down"
+                  ng-click="togShowYields()"
+                  ng-if="showYields"></span>
+            &nbsp;
+            Crop Historic Yields
+        </legend>
+        <div class="container-fluid" ng-include="'./_modules/Loans/crops/_yields.html'" ng-if="showYields">
+        </div>
+    </fieldset>
+    <br><br>
+    <fieldset>
+        <legend>
+            &nbsp;
         <span class="pendicon glyphicon glyphicon-chevron-right"
               ng-click="togShowIndirect()"
               ng-if="!showIndirect"></span>
