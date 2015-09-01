@@ -7,53 +7,50 @@
     OptimizerController.$inject = ['$scope', '$state', '$stateParams', 'ModalService', 'AppFactory', 'LoansFactory', 'OptimizerFactory'];
 
     function OptimizerController($scope, $state, $stateParams, ModalService, AppFactory, LoansFactory, OptimizerFactory) {
+        $scope.newapplications = $state.current.data.newapplications;
         $scope.AppFactory = AppFactory;
         $scope.OptimizerFactory = OptimizerFactory;
         //console.log('units', $scope.loan.farmunits);
-
         //////////////////////////
-
         $scope.loan.crop_totals = [
-            {crop: 'Corn', acres: AppFactory.calcAcresByCrop('corn', $scope.loan)},
-            {crop: 'Soybeans', acres: AppFactory.calcAcresByCrop('soybeans', $scope.loan)},
-            {crop: 'Soybeans FAC', acres: AppFactory.calcAcresByCrop('beansFAC', $scope.loan)},
-            {crop: 'Sorghum', acres: AppFactory.calcAcresByCrop('sorghum', $scope.loan)},
-            {crop: 'Wheat', acres: AppFactory.calcAcresByCrop('wheat', $scope.loan)},
-            {crop: 'Cotton', acres: AppFactory.calcAcresByCrop('cotton', $scope.loan)},
-            {crop: 'Rice', acres: AppFactory.calcAcresByCrop('rice', $scope.loan)},
-            {crop: 'Peanuts', acres: AppFactory.calcAcresByCrop('peanuts', $scope.loan)},
-            {crop: 'Sugar Cane', acres: AppFactory.calcAcresByCrop('sugarcane', $scope.loan)},
-            {crop: 'Sunflowers', acres: AppFactory.calcAcresByCrop('sunflowers', $scope.loan)},
+            {crop: 'Corn', acres: $scope.loan.fins.crop_acres[0].acres},
+            {crop: 'Soybeans', acres: $scope.loan.fins.crop_acres[1].acres},
+            {crop: 'Soybeans FAC', acres: $scope.loan.fins.crop_acres[2].acres},
+            {crop: 'Sorghum', acres: $scope.loan.fins.crop_acres[3].acres},
+            {crop: 'Wheat', acres: $scope.loan.fins.crop_acres[4].acres},
+            {crop: 'Cotton', acres: $scope.loan.fins.crop_acres[5].acres},
+            {crop: 'Rice', acres: $scope.loan.fins.crop_acres[6].acres},
+            {crop: 'Peanuts', acres: $scope.loan.fins.crop_acres[7].acres},
+            {crop: 'Sugar Cane', acres: $scope.loan.fins.crop_acres[8].acres},
+            {crop: 'Sunflowers', acres: $scope.loan.fins.crop_acres[9].acres},
         ];
-
         $scope.tggl = {
-            showRentRows: true, //false,
-            showOverRentRows: true, //false,
-            showInsRows: true, //false,
-            showCFRows: true, //false,
-            showEXRows: true, //false,
-            showCorn: true, //false,
-            showBeans: true, //false,
-            showFAC: true, //false,
-            showSorghum: true, //false,
-            showWheat: true, //false,
-            showCotton: true, //false,
-            showRice: true, //false,
-            showPeanuts: true, //false,
-            showCane: true, //false,
-            showSunflowers: true, //false,
-            tcropCorn: (AppFactory.calcAcresByCrop('corn', $scope.loan) > 0 ? true : false),
-            tcropSoybeans: (AppFactory.calcAcresByCrop('soybeans', $scope.loan) > 0 ? true : false),
-            tcropBeansFAC: (AppFactory.calcAcresByCrop('beansFAC', $scope.loan) > 0 ? true : false),
-            tcropSorghum: (AppFactory.calcAcresByCrop('sorghum', $scope.loan) > 0 ? true : false),
-            tcropWheat: (AppFactory.calcAcresByCrop('wheat', $scope.loan) > 0 ? true : false),
-            tcropCotton: (AppFactory.calcAcresByCrop('cotton', $scope.loan) > 0 ? true : false),
-            tcropRice: (AppFactory.calcAcresByCrop('rice', $scope.loan) > 0 ? true : false),
-            tcropPeanuts: (AppFactory.calcAcresByCrop('peanuts', $scope.loan) > 0 ? true : false),
-            tcropSugarcane: (AppFactory.calcAcresByCrop('sugarcane', $scope.loan) > 0 ? true : false),
-            tcropOther: (AppFactory.calcAcresByCrop('sunflowers', $scope.loan) > 0 ? true : false)
+            showRentRows: false,
+            showOverRentRows: false,
+            showInsRows: false,
+            showCFRows: false,
+            showEXRows: false,
+            showCorn: true,
+            showSoybeans: true,
+            showFAC: true,
+            showSorghum: true,
+            showWheat: true,
+            showCotton: true,
+            showRice: true,
+            showPeanuts: true,
+            showCane: true,
+            showSunflowers: true,
+            tcropCorn: $scope.loan.fins.crop_acres[0].acres > 0,
+            tcropSoybeans: $scope.loan.fins.crop_acres[1].acres > 0,
+            tcropBeansFAC: $scope.loan.fins.crop_acres[2].acres > 0,
+            tcropSorghum: $scope.loan.fins.crop_acres[3].acres > 0,
+            tcropWheat: $scope.loan.fins.crop_acres[4].acres > 0,
+            tcropCotton: $scope.loan.fins.crop_acres[5].acres > 0,
+            tcropRice: $scope.loan.fins.crop_acres[6].acres > 0,
+            tcropPeanuts: $scope.loan.fins.crop_acres[7].acres > 0,
+            tcropSugarcane: $scope.loan.fins.crop_acres[8].acres > 0,
+            tcropSunflowers: $scope.loan.fins.crop_acres[9].acres > 0
         };
-
         $scope.toggleAlpine = function() {
             $scope.alpine = !$scope.alpine;
             var data = {
@@ -68,7 +65,6 @@
                     // Cancel Button Clicked
                 });
         };
-
         $scope.addFarm = function() {
             alert('Adding a Farm.');
         };

@@ -5,7 +5,7 @@
       {{thiscrop.byFarm[0].name}}
     </th>
     <th class="text-left bright" colspan="4">1.0 ACRE</th>
-    <th class="text-left" colspan="4">
+    <th class="text-left" colspan="5">
       {{thisacres || 0|number:1}} ACRES
     </th>
   </tr>
@@ -24,26 +24,31 @@
     </td>
     <td class="text-center" style="width:10%;">Other</td>
     <td class="text-center" style="width:10%;">Total</td>
+    <td style="width:80px;">&nbsp;</td>
   </tr>
 
   <tr ng-if="thiscrop.length == 0">
-    <td colspan="9">
+    <td colspan="10">
       <strong>No expenses recorded.</strong>
     </td>
   </tr>
 
-  <tr ng-repeat="c in thiscrop">
-    <td>
-      {{c.expense|capitalize}}
+  <tr ng-repeat="c in thiscrop" ng-init="!rowform3.$visible" ng-dblclick="rowform3.$show()">
+    <td>{{c.expense|capitalize}}</td>
+    <td class="text-right cBlue">
+      <span editable-number="c.arm" e-name="arm" e-form="rowform3" e-style="width:100%;">
+      	{{c.arm|flexCurrency:2}}
+      </span>
     </td>
     <td class="text-right cBlue">
-      {{c.arm|flexCurrency:2}}
+      <span editable-number="c.dist" e-name="dist" e-form="rowform3" e-style="width:100%;">
+      	{{c.dist|flexCurrency:2}}
+      </span>
     </td>
     <td class="text-right cBlue">
-      {{c.dist|flexCurrency:2}}
-    </td>
-    <td class="text-right cBlue">
-      {{c.other|flexCurrency:2}}
+      <span editable-number="c.other" e-name="other" e-form="rowform3" e-style="width:100%;">
+      	{{c.other|flexCurrency:2}}
+      </span>
     </td>
     <td class="text-right bright">
       {{c.per_acre|flexCurrency:2}}
@@ -59,6 +64,20 @@
     </td>
     <td class="text-right">
       {{c.calc_total |flexCurrency:0}}
+    </td>
+    <td>
+      <!-- form -->
+      <form  name="rowform" onbeforesave="saveBudget($data, p.id)" ng-show="rowform3.$visible" class="form-buttons form-inline" editable-form="">
+      	<button type="submit" ng-disabled="rowform3.$waiting" style="border:  none !important; background-image: none !important; background-color: transparent;">
+      		<span class="glyphicons glyphicons-circle-ok" style="color:#006837;"></span>
+      	</button>
+      	<span class="btnCancel" ng-disabled="rowform3.$waiting" ng-click="rowform3.$cancel()">
+      		<span class="glyphicons glyphicons-circle-remove" style="color: #990000;"></span>
+      	</span>
+      </form>
+      <div class="buttons" ng-show="!rowform3.$visible">
+      	<span class="glyphicons glyphicons-remove-2" style="display:none; color: #990000;" ng-click="deleteBudget($index, p.id)"></span>
+      </div>
     </td>
   </tr>
 

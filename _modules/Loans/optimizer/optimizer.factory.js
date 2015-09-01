@@ -70,7 +70,7 @@
             //TODO: FIX
             var collection = [];
             _.each(loan.farmunits, function(fu){
-                _.each(fu.crops, function(fuc){
+                return _.each(fu.crops, function(fuc){
                     if(fuc[cropname]) {
                         collection.push(fuc);
                     }
@@ -671,7 +671,7 @@
                     fsa_acre: (Number(item.NI) !== 0 ? fsaPayIR / Number(item.NI) : 0),
                     crops: item.units
                 };
-                
+
                 if (item.practice === 'IR') {
                     splitIR.push(item);
                 } else if (item.practice === 'NI') {
