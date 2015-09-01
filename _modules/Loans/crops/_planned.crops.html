@@ -1,1 +1,41 @@
-<h5>Planned Crops</h5>
+<style>
+    input[type=text]{ width: 100%;}
+</style>
+<fieldset>
+    <!--TODO: Determine how to update info in database-->
+    <legend>Planned Crop Information</legend>
+    <!--<pre>{{loanCrops | json}}</pre>-->
+    <div class="row form-group col-md-12">
+        <table class="table table-striped rowed">
+            <tr>
+                <th style="width:5%;">&nbsp</th>
+                <th style="width:30%;">Crop</th>
+                <th style="width:20%;">Acres</th>
+                <th style="width:20%;">TEA</th>
+                <th style="width:25%;">Value</th>
+            </tr>
+            <tr ng-if="loanCrops.length == 0">
+                <td colspan="5">
+                    <strong>No crops have been selected.</strong>
+                </td>
+            </tr>
+            <tr ng-repeat="c in loanCrops">
+                <td class="text-center">
+                    <input type="checkbox" name="active" ng-model="c.is_active"/>
+                </td>
+                <td>{{c.name | capitalize}}</td>
+                <td class="text-center">
+                    <null-int-edit-in-place value="c.acres"></null-int-edit-in-place>
+                </td>
+                <td class="text-right">{{c.tea | currency}}</td>
+                <td class="text-right">{{c.total = c.acres * c.tea | currency}}</td>
+            </tr>
+        </table>
+    </div>
+    <div class="col-md-12 text-right">
+        <!-- TODO: create updatePlannedCrops() -->
+        <button style="margin-right:10px;" class="btn btn-primary" ng-click="updatePlannedCrops()">UPDATE</button>
+    </div>
+    </div>
+</fieldset>
+<!--<pre>{{insurance | json}}</pre>-->
