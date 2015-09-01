@@ -2,14 +2,14 @@
     label{ color: #999999; }
 </style>
 <!--<fieldset>-->
-    <legend>Loan Summary</legend>
-    <div class="container-fluid">
-        <div id="Loan Info" class="row" ng-if="!XColView">
-            <div ng-include="'./_modules/Loans/summary/_loaninfo.html'"></div>
-        </div>
+<legend>Loan Summary</legend>
+<div class="container-fluid">
+    <div id="Loan Info" class="row" ng-if="!XColView">
+        <div ng-include="'./_modules/Loans/summary/_loaninfo.html'"></div>
     </div>
-    <br>
-    <!--LOAN SUMMARY (COMMENT)-->
+</div>
+<br>
+<!--LOAN SUMMARY (COMMENT)-->
 <div ng-repeat="c in comments.Loan">
     <div class="alert alert-default" role="alert">
         <h4>

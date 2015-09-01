@@ -3,60 +3,60 @@
     .lg-text{ font-size: 16px;}
 </style>
 <div class="container-fluid">
-        <div class="row">
-            <!--LOAN EXCEPTIONS-->
-            <fieldset ng-if="!XColView">
-                <legend>Loan Exceptions</legend>
-                <div class="row">
-                    <div class="form-group col-md-10 col-md-offset-1">
-                        <div ng-include="'_modules/Loans/underwriting/_loan.exceptions.html'"></div>
-                    </div>
+    <div class="row">
+        <!--LOAN EXCEPTIONS-->
+        <fieldset ng-if="!XColView">
+            <legend>Loan Exceptions</legend>
+            <div class="row">
+                <div class="form-group col-md-10 col-md-offset-1">
+                    <div ng-include="'_modules/Loans/underwriting/_loan.exceptions.html'"></div>
                 </div>
-            </fieldset>
-            <br/><br/>
-            <!--PROJECTED INCOME-->
-            <fieldset>
-                <legend>Detailed Projected Income</legend>
-                <div class="row">
-                    <div class="form-group col-md-12">
-                        <div ng-include="'_modules/Loans/underwriting/_income.table.html'"></div>
-                    </div>
+            </div>
+        </fieldset>
+        <br/><br/>
+        <!--PROJECTED INCOME-->
+        <fieldset>
+            <legend>Detailed Projected Income</legend>
+            <div class="row">
+                <div class="form-group col-md-12">
+                    <div ng-include="'_modules/Loans/underwriting/_income.table.html'"></div>
                 </div>
-            </fieldset>
-            <!--<br/><br/>-->
-            <!--INSURANCE COVERAGE-->
-            <fieldset style="display:none;">
-                <legend>Detailed Insurance Coverage</legend>
-                <div class="row">
-                    <div class="form-group col-md-12">
-                        <div ng-include="'_modules/Loans/underwriting/_insurance.tbl.html'"></div>
-                    </div>
+            </div>
+        </fieldset>
+        <!--<br/><br/>-->
+        <!--INSURANCE COVERAGE-->
+        <fieldset style="display:none;">
+            <legend>Detailed Insurance Coverage</legend>
+            <div class="row">
+                <div class="form-group col-md-12">
+                    <div ng-include="'_modules/Loans/underwriting/_insurance.tbl.html'"></div>
                 </div>
-            </fieldset>
-            <br/><br/>
-            <!--COLLATERAL SUMMARY-->
-            <fieldset ng-if="loan.loan_type_id != 7">
-                <legend>Collateral Summary</legend>
-                <div class="row">
-                    <div class="form-group col-md-12">
-                        <div ng-include="'_modules/Loans/underwriting/_collateral.tbl.html'"></div>
-                    </div>
+            </div>
+        </fieldset>
+        <br/><br/>
+        <!--COLLATERAL SUMMARY-->
+        <fieldset ng-if="loan.loan_type_id != 7">
+            <legend>Collateral Summary</legend>
+            <div class="row">
+                <div class="form-group col-md-12">
+                    <div ng-include="'_modules/Loans/underwriting/_collateral.tbl.html'"></div>
                 </div>
-            </fieldset>
-            <br/><br/>
+            </div>
+        </fieldset>
+        <br/><br/>
 
-            <fieldset ng-if="loan.has_addendum">
-                <legend>Loan History</legend>
-                <div class="row">
-                    <div class="col-md-12">
-                        <div ng-if="loan.has_distributor"
-                             ng-include="'_modules/Loans/underwriting/_loan.history.tbl.html'"></div>
-                        <div ng-if="!loan.has_distributor"
-                             ng-include="'_modules/Loans/underwriting/_loan.history.nd.tbl.html'"></div>
-                    </div>
+        <fieldset ng-if="loan.has_addendum">
+            <legend>Loan History</legend>
+            <div class="row">
+                <div class="col-md-12">
+                    <div ng-if="loan.has_distributor"
+                         ng-include="'_modules/Loans/underwriting/_loan.history.tbl.html'"></div>
+                    <div ng-if="!loan.has_distributor"
+                         ng-include="'_modules/Loans/underwriting/_loan.history.nd.tbl.html'"></div>
                 </div>
-            </fieldset>
-            <br><br><br>
-            <!--<pre>{{addendums|json}}</pre>-->
-            <!--<pre>{{globals|json}}</pre>-->
-        </div>
+            </div>
+        </fieldset>
+        <br><br><br>
+        <!--<pre>{{addendums|json}}</pre>-->
+        <!--<pre>{{globals|json}}</pre>-->
+    </div>
