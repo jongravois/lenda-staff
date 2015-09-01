@@ -34,6 +34,7 @@
                         var user = rsp.data.data[0];
                         $http.get(API_URL + 'users/' + user.id)
                             .success(function (rsp) {
+                                console.log('rsp', rsp);
                                 $scope.user = rsp.data;
                                 var strUser = JSON.stringify(rsp.data);
                                 localStorage.setItem('user', strUser);

@@ -22,7 +22,7 @@
                 var user = $rootScope.currentUser;
             }
             $scope.user = user;
-            //console.log('user', user);
+            console.log('user', $scope.user);
 
             $scope.togShowViewOpts = function() {
                 $scope.showViewOpts = !$scope.showViewOpts;
