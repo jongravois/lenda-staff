@@ -61,7 +61,7 @@
             <td class="text-right">
                 {{AppFactory.getAverage([c.yields[0].p1, c.yields[0].p2, c.yields[0].p3, c.yields[0].p4, c.yields[0].p5, c.yields[0].p6])| number:1}}
             </td>
-            <td>
+            <td class="text-center">
                 <!-- form -->
                 <form  name="rowform" onbeforesave="save($data, p.id)" ng-show="rowform.$visible" class="form-buttons form-inline" editable-form="">
                     <button type="submit" ng-disabled="rowform.$waiting" style="border:  none !important; background-image: none !important; background-color: transparent;">
@@ -71,8 +71,9 @@
                 		<span class="glyphicons glyphicons-circle-remove" style="color: #990000;"></span>
                 	</span>
                 </form>
-                <div class="buttons" ng-show="!rowform.$visible" style="display: none;">
-                    <span class="glyphicons glyphicons-remove-2" style="color: #990000;" ng-click="delete($index, p.id)"></span>
+                <div class="buttons" ng-show="!rowform.$visible">
+                    &nbsp;-&nbsp;
+                    <span class="glyphicons glyphicons-remove-2" style="display: none;color: #990000;" ng-click="delete($index, p.id)"></span>
                 </div>
             </td>
         </tr>
