@@ -3,10 +3,19 @@
         padding: 6px 6px !important;
     }
 </style>
+<div class="row">
+    <div class="col-md-12 text-right">
+        <button style="margin-right:10px;" class="btn btn-arm" ng-click="updateFarms()"><span class="glyphicons glyphicons-log-book"></span>&nbsp;UPDATE</button>
+    </div>
+</div>
+
+<br>
+
 <fieldset>
     <legend>Farms</legend>
     <div class="container-fluid">
-        <table class="table table-striped rowed table-condensed disp-sm">
+        <div class="row">
+            <table class="table table-striped rowed table-condensed disp-sm">
             <tr>
                 <th ng-click="doSort('locale')">ST | County</th>
                 <th ng-click="doSort('fsn')">FSN</th>
@@ -19,7 +28,6 @@
                 <th ng-click="doSort('waived')">Waived</th>
                 <th ng-click="doSort('pgm')">FSA Pgm</th>
                 <th ng-click="doSort('fsa')">FSA Pymt</th>
-                <th>&nbsp;</th>
                 <th>&nbsp;</th>
             </tr>
             <tr>
@@ -84,7 +92,7 @@
                         	{{f.fsa_paid|flexCurrency:0}}
                         </span>
                     </td>
-                    <td>
+                    <td class="text-center">
                         <!-- form -->
                         <form  name="rowform" onbeforesave="saveFarm($data, p.id)" ng-show="rowform.$visible" class="form-buttons form-inline" editable-form="">
                         	<button type="submit" ng-disabled="rowform.$waiting" style="border:  none !important; background-image: none !important; background-color: transparent;">
@@ -101,9 +109,8 @@
                 </tr>
             </tbody>
         </table>
-    </div>
-    <div class=“row” style=“margin-top:-20px;">
-        <div class=“form-control”>
+        </div>
+        <div class="row" style=“margin-top:-20px;">
             <p>
                 <a ng-click="addNewFarm()" class="btn btn-xs btn-default">
                     <span class="glyphicon glyphicon-plus-sign" style="color:#006837;"></span> Add New</a>

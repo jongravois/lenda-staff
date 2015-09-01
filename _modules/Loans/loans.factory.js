@@ -485,6 +485,10 @@
 
             _.each(policies, function(item){
                 if(item.databases.length > 0) {
+                    item.fsn = item.databases[0].farms.fsn;
+                    item.owner = item.databases[0].farms.owner;
+                    item.ins_share = item.databases[0].ins_share;
+                    item.aph = item.databases[0].aph;
                     onlyPractices.push(item);
                 }
             });

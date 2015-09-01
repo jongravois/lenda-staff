@@ -18,6 +18,6 @@
                 return true;
             }
 
-            console.log('pols',$scope.loan.inspols, 'loan', $scope.loan);
+            //console.log('pols',$scope.loan.inspols, 'ins', $scope.loan.insurance);
         } // end controller
 })();

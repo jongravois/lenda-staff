@@ -1,3 +1,11 @@
+<div class="row">
+    <div class="col-md-12 text-right">
+        <button style="margin-right:10px;" class="btn btn-arm" ng-click="updateInsurance()"><span class="glyphicons glyphicons-log-book"></span>&nbsp;UPDATE</button>
+    </div>
+</div>
+
+<br>
+
 <fieldset>
     <legend>Insurance</legend>
     <div class="container-fluid">
@@ -72,10 +80,10 @@
                         <th>Price</th>
                         <th>Premium</th>
                         <th>Late</th>
-                        <th></th>
+                        <th style="width: 80px;"></th>
                     </tr>
-                    <tr ng-repeat-start="p in loan.insurance.policies | orderBy: ['county_id', 'crop', 'practice']">
-                        <td class="text-left">
+                    <tr ng-repeat-start="p in loan.insurance.policies | orderBy: ['county_id', 'crop', 'practice']" ng-init="!rowform.$visible" ng-dblclick="rowform.$show()">
+                        <td class="text-left cBlue">
                             <span
                                 ng-if="p.stax && p.showStax"
                                 ng-click="toggleStax(p.id)"
@@ -88,37 +96,73 @@
                                 &blacktriangleright;&nbsp;
                             </span>
                             <span ng-if="!p.stax">&nbsp;&nbsp;</span>
-                            {{p.agent.agent}}
+                            <span editable-text="p.agent.agent" e-name="agent.agent" e-form="rowform" e-style="width:100%;">
+                            	{{p.agent.agent}}
+                            </span>
                         </td>
-                        <td class="text-left">
-                            {{p.county.locale}}
+                        <td class="text-left cBlue">
+                            <span editable-text="p.county.locale" e-name="county.locale" e-form="rowform" e-style="width:100%;">
+                            	{{p.county.locale}}
+                            </span>
                         </td>
-                        <td class="text-left">
-                            {{p.crop.name}}
+                        <td class="text-left cBlue">
+                            <span editable-text="p.crop.name" e-name="crop.name" e-form="rowform" e-style="width:100%;">
+                            	{{p.crop.name}}
+                            </span>
                         </td>
-                        <td class="text-center">
-                            {{p.practice}}
+                        <td class="text-center cBlue">
+                            <span editable-text="p.practice" e-name="practice" e-form="rowform" e-style="width:100%;">
+                            	{{p.practice}}
+                            </span>
                         </td>
-                        <td class="text-center">
-                            {{p.type}}
+                        <td class="text-center cBlue">
+                            <span editable-text="p.type" e-name="type" e-form="rowform" e-style="width:100%;">
+                            	{{p.type}}
+                            </span>
                         </td>
-                        <td class="text-center">
-                            {{p.unit}}
+                        <td class="text-center cBlue">
+                            <span editable-text="p.unit" e-name="unit" e-form="rowform" e-style="width:100%;">
+                            	{{p.unit}}
+                            </span>
                         </td>
-                        <td class="text-center">
-                            {{p.options}}
+                        <td class="text-center cBlue">
+                            <span editable-text="p.options" e-name="options" e-form="rowform" e-style="width:100%;">
+                            	{{p.options}}
+                            </span>
                         </td>
-                        <td class="text-right">
-                            {{p.ins_level|flexPercent:0}}
+                        <td class="text-right cBlue">
+                            <span editable-number="p.ins_level" e-name="ins_level" e-form="rowform" e-style="width:100%;">
+                            	{{p.ins_level|flexPercent:0}}
+                            </span>
                         </td>
-                        <td class="text-right">
-                            {{p.ins_price|flexCurrency:4}}
+                        <td class="text-right cBlue">
+                            <span editable-number="p.ins_price" e-name="ins_price" e-form="rowform" e-style="width:100%;">
+                            	{{p.ins_price|flexCurrency:4}}
+                            </span>
                         </td>
-                        <td class="text-right">
-                            {{p.premium|flexCurrency:2}}
+                        <td class="text-right cBlue">
+                            <span editable-number="p.premium" e-name="premium" e-form="rowform" e-style="width:100%;">
+                            	{{p.premium|flexCurrency:2}}
+                            </span>
                         </td>
                         <td class="text-right cBlue" style="width:80px;">
-                            {{p.planting_days|number:0}}
+                            <span editable-number="p.planting_days" e-name="planting_days" e-form="rowform" e-style="width:100%;">
+                            	{{p.planting_days|number:0}}
+                            </span>
+                        </td>
+                        <td class="text-center" style="width:80px;">
+                            <!-- form -->
+                            <form  name="rowform" onbeforesave="saveInspol($data, p.id)" ng-show="rowform.$visible" class="form-buttons form-inline" editable-form="">
+                            	<button type="submit" ng-disabled="rowform.$waiting" style="border:  none !important; background-image: none !important; background-color: transparent;">
+                            		<span class="glyphicons glyphicons-circle-ok" style="color:#006837;"></span>
+                            	</button>
+                            	<span class="btnCancel" ng-disabled="rowform.$waiting" ng-click="rowform.$cancel()">
+                            		<span class="glyphicons glyphicons-circle-remove" style="color: #990000;"></span>
+                            	</span>
+                            </form>
+                            <div class="buttons" ng-show="!rowform.$visible">
+                            	<span class="glyphicons glyphicons-remove-2" style="color: #990000;" ng-click="deleteInspol($index, p.id)"></span>
+                            </div>
                         </td>
                     </tr>
                     <tr ng-repeat-end
@@ -133,7 +177,9 @@
                         </td>
                         <td>
                             <span class="cBlue">
-                                {{p.stax_loss_trigger|flexPercent:0}}
+                                <span editable-number="p.stax_loss_trigger" e-name="stax_loss_trigger" e-form="rowform" e-style="width:100%;">
+                                	{{p.stax_loss_trigger|flexPercent:0}}
+                                </span>
                             </span>
                         </td>
                         <td colspan="2" class="text-right">
@@ -143,7 +189,9 @@
                         </td>
                         <td>
                             <span class="cBlue">
-                                {{p.stax_desired_range|flexPercent:0}}
+                                <span editable-number="p.stax_desired_range" e-name="stax_desired_range" e-form="rowform" e-style="width:100%;">
+                                	{{p.stax_desired_range|flexPercent:0}}
+                                </span>
                             </span>
                         </td>
                         <td colspan="2" class="text-right">
@@ -153,13 +201,15 @@
                         </td>
                         <td>
                             <span class="cBlue">
-                                {{p.stax_protection_factor|flexPercent:0}}
+                                <span editable-number="p.stax_protection_factor" e-name="stax_protection_factor" e-form="rowform" e-style="width:100%;">
+                                	{{p.stax_protection_factor|flexPercent:0}}
+                                </span>
                             </span>
                         </td>
                     </tr>
                 </table>
                 <p>
-                    <a ng-click="createNewAgency()" class="btn btn-xs btn-default"><span class="glyphicon glyphicon-plus-sign" style="color:#006837;"></span> Add New</a>
+                    <a ng-click="createNewInspol()" class="btn btn-xs btn-default"><span class="glyphicon glyphicon-plus-sign" style="color:#006837;"></span> Add New</a>
                 </p>
             </tab>
             <tab heading="DATABASE">
@@ -172,8 +222,9 @@
                         <th>Landlord</th>
                         <th>Share</th>
                         <th>APH</th>
+                        <th style="width:80px;">&nbsp;</th>
                     </tr>
-                    <tr ng-repeat="d in loan.insurance.database | orderBy: ['state', 'county', 'crop', 'practice']">
+                    <tr ng-repeat="d in loan.insurance.database | orderBy: ['state', 'county', 'crop', 'practice']" ng-init="!rowform9.$visible" ng-dblclick="rowform9.$show()">
                         <td class="text-left">
                             {{d.county.locale}}
                         </td>
@@ -184,29 +235,40 @@
                             {{d.practice}}
                         </td>
                         <td class="text-left">
-                            {{d.databases.farms[0].fsn}}
+                            {{d.fsn}}
                         </td>
                         <td class="text-left">
-                            {{landlord}}
+                            {{d.owner}}
                         </td>
                         <!--TODO: test if > policies::share & show paperclip and force upload of Permission to Insure -->
-                        <td class="text-right">
-                            <percent-edit-in-place value="d.share"></percent-edit-in-place>
+                        <td class="text-right cBlue">
+                            <span editable-number="d.ins_share" e-name="ins_share" e-form="rowform9" e-style="width:100%;">
+                            	{{d.ins_share|flexPercent:1}}
+                            </span>
                         </td>
-                        <td class="text-right">
-                            <digit-edit-in-place value="d.yield"></digit-edit-in-place>
+                        <td class="text-right cBlue">
+                            <span editable-number="d.aph" e-name="aph" e-form="rowform9" e-style="width:100%;">
+                            	{{d.aph|number:1}}
+                            </span>
+                        </td>
+                        <td class="text-center" style="width:80px;">
+                            <!-- form -->
+                            <form name="rowform9" onbeforesave="saveDatabase($data, p.id)" ng-show="rowform9.$visible" class="form-buttons form-inline" editable-form="">
+                            	<button type="submit" ng-disabled="rowform9.$waiting" style="border: none !important; background-image: none !important; background-color: transparent;">
+                            		<span class="glyphicons glyphicons-circle-ok" style="color:#006837;"></span>
+                            	</button>
+                            	<span class="btnCancel" ng-disabled="rowform9.$waiting" ng-click="rowform9.$cancel()">
+                            		<span class="glyphicons glyphicons-circle-remove" style="color: #990000;"></span>
+                            	</span>
+                            </form>
+                            <div class="buttons" ng-show="!rowform9.$visible">
+                            	<span class="glyphicons glyphicons-remove-2" style="color: #990000;" ng-click="deleteDatabase($index, p.id)"></span>
+                            </div>
                         </td>
                     </tr>
                 </table>
             </tab>
         </tabset>
         <br><br>
-        <div class="row">
-            <div class="col-md-12 text-right">
-                <button style="margin-right:10px;" class="btn btn-primary"
-                        ng-click="updateLoanInsurance()">UPDATE
-                </button>
-            </div>
-        </div>
-    </div>
 </fieldset>
+<br><br><br><br>
