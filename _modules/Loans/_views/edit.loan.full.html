@@ -11,11 +11,11 @@
     <li class="list-group-item butt" ng-click="toggleSidebar()">
         <span class="menuicon glyphicons glyphicons-option-vertical" tooltip="Collapse" tooltip-append-to-body="true" tooltip-placement="right"></span>
     </li>
-    <li class="list-group-item lnk" ng-click="ngcLink('summary')">
+    <li class="list-group-item lnk" ng-click="ngcLink('summary')" ng-if="!newapplication">
         <span class="menuicon glyphicons glyphicons-money" tooltip="Summary" tooltip-append-to-body="true" tooltip-placement="right"></span>
         &nbsp;Summary
     </li>
-    <li class="list-group-item lnk" ng-click="ngcLink('underwriting')">
+    <li class="list-group-item lnk" ng-click="ngcLink('underwriting')" ng-if="!newapplication">
         <span class="menuicon glyphicons glyphicons-exit" tooltip="Underwriting" tooltip-append-to-body="true" tooltip-placement="right"></span>
         &nbsp;Underwriting
     </li>
@@ -23,11 +23,11 @@
         <span class="menuicon glyphicons glyphicons-text-underline" tooltip="Terms" tooltip-append-to-body="true" tooltip-placement="right"></span>
         &nbsp;Terms
     </li>
-    <li class="list-group-item lnk" ng-click="ngcLink('committee')">
+    <li class="list-group-item lnk" ng-click="ngcLink('committee')" ng-if="!newapplication">
         <span class="menuicon glyphicons glyphicons-group" tooltip="Committee" tooltip-append-to-body="true" tooltip-placement="right"></span>
         &nbsp;Committee
     </li>
-    <li class="list-group-item lnk" ng-click="ngcLink('comments')">
+    <li class="list-group-item lnk" ng-click="ngcLink('comments')" ng-if="!newapplication">
         <span class="menuicon glyphicons glyphicons-conversation" tooltip="Comment" tooltip-append-to-body="true" tooltip-placement="right"></span>
         &nbsp;Comment
     </li>
@@ -43,7 +43,7 @@
         <span class="menuicon glyphicons glyphicons-global" tooltip="References" tooltip-append-to-body="true" tooltip-placement="right"></span>
         &nbsp;References
     </li>
-    <li class="list-group-item lnk" ng-click="ngcLink('financials')">
+    <li class="list-group-item lnk" ng-click="ngcLink('financials')" ng-if="loan.loan_type_id !== 7">
         <span class="menuicon glyphicons glyphicons-yen" tooltip="Financial" tooltip-append-to-body="true" tooltip-placement="right"></span>
         &nbsp;Financial&nbsp;
     <span style="font-weight: normal; color: #000000;" >
@@ -54,23 +54,23 @@
         <span class="menuicon glyphicons glyphicons-flower" tooltip="Crop" tooltip-append-to-body="true" tooltip-placement="right"></span>
         &nbsp;Crop
     </li>
-    <li class="list-group-item lnk" ng-click="ngcLink('farms')">
+    <li class="list-group-item lnk" ng-click="ngcLink('farms')" ng-if="loan.crop_loan">
         <span class="menuicon glyphicons glyphicons-tractor" tooltip="Farm" tooltip-append-to-body="true" tooltip-placement="right"></span>
         &nbsp;Farm
     </li>
-    <li class="list-group-item lnk" ng-click="ngcLink('insurance')">
+    <li class="list-group-item lnk" ng-click="ngcLink('insurance')" ng-if="loan.crop_loan">
         <span class="menuicon glyphicons glyphicons-bank" tooltip="Insurance" tooltip-append-to-body="true" tooltip-placement="right"></span>
         &nbsp;Insurance
     </li>
-    <li class="list-group-item lnk" ng-click="ngcLink('budget')">
+    <li class="list-group-item lnk" ng-click="ngcLink('budget')" ng-if="loan.crop_loan">
         <span class="menuicon glyphicons glyphicons-calculator" tooltip="Budget" tooltip-append-to-body="true" tooltip-placement="right"></span>
         &nbsp;Budget
     </li>
-    <li class="list-group-item lnk" ng-click="ngcLink('optimizer')">
+    <li class="list-group-item lnk" ng-click="ngcLink('optimizer')" ng-if="loan.crop_loan">
         <span class="menuicon glyphicons glyphicons-screenshot" tooltip="Optimizer" tooltip-append-to-body="true" tooltip-placement="right"></span>
         &nbsp;Optimizer
     </li>
-    <li class="list-group-item lnk" ng-click="ngcLink('collateral')">
+    <li class="list-group-item lnk" ng-click="ngcLink('collateral')" ng-if="loan.crop_loan">
         <span class="menuicon glyphicons glyphicons-umbrella" tooltip="Collateral" tooltip-append-to-body="true" tooltip-placement="right"></span>
         &nbsp;Collateral
     </li>
@@ -82,11 +82,11 @@
         <span class="menuicon glyphicons glyphicons-handshake" tooltip="Closing" tooltip-append-to-body="true" tooltip-placement="right"></span>
         &nbsp;Closing
     </li>
-    <li class="list-group-item lnk" ng-click="ngcLink('disbursements')">
+    <li class="list-group-item lnk" ng-click="ngcLink('disbursements')" ng-if="!newapplication">
         <span class="menuicon glyphicons glyphicons-usd" tooltip="Disbursements" tooltip-append-to-body="true" tooltip-placement="right"></span>
         &nbsp;Disbursement
     </li>
-    <li class="list-group-item lnk" ng-click="ngcLink('audit')">
+    <li class="list-group-item lnk" ng-click="ngcLink('audit')" ng-if="!newapplication">
         <span class="menuicon glyphicons glyphicons-shoe-steps" tooltip="Audit" tooltip-append-to-body="true" tooltip-placement="right"></span>
         &nbsp;Audit
     </li>
