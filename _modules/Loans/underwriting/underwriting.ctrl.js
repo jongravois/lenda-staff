@@ -8,9 +8,9 @@
 
         function UnderwritingController($rootScope, $scope, $state, AppFactory){
             $scope.newapplications = $state.current.data.newapplications;
-            console.log('Loan', $scope.loan);
-            console.log('LoanCrops', $scope.loan.loancrops);
-            console.log('InsPols', $scope.loan.inspols);
+            //console.log('Loan', $scope.loan);
+            //console.log('LoanCrops', $scope.loan.loancrops);
+            //console.log('InsPols', $scope.loan.inspols);
 
         } // end controller
 })();

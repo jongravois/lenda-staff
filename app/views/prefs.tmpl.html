@@ -6,15 +6,19 @@
                        line-height: 30px">
                 My Settings
             </h5>
-            <span class="btn btn-sm btn-primary pull-right"
-                  style="display: inline;" ng-click="updateSettings()">
-                Update
-            </span>
         </div>
     </div>
 
-    <!--<pre>{{user.viewopts|json}}</pre>-->
     <div class="container" style="margin-top:10px;">
+        <div class="row">
+            <div class="col-md-12 text-right">
+                <button style="margin-right:10px;" class="btn btn-arm" ng-click="updateSettings()"><span
+                    class="glyphicons glyphicons-log-book"></span>&nbsp;UPDATE
+                </button>
+            </div>
+        </div>
+        <br>
+
         <tabset>
             <!-- VIEW -->
             <tab heading="View">
@@ -235,7 +239,7 @@
                                     <td>
                                         <input type="checkbox" name="view_acres_other"
                                                ng-model="user.viewopts.voAcresOther"/>
-                                        Acres -- Other
+                                        Acres -- Sunflowers
                                     </td>
                                 </tr>
                             </table>
@@ -1401,7 +1405,6 @@
 
                 <!--USER INFO-->
             </tab>
-
         </tabset>
     </div>
 
