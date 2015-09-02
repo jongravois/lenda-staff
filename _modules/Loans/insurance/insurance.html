@@ -220,6 +220,7 @@
                         <th>Practice</th>
                         <th>FSN</th>
                         <th>Landlord</th>
+                        <th>Perm To Ins</th>
                         <th>Share</th>
                         <th>APH</th>
                         <th style="width:80px;">&nbsp;</th>
@@ -241,6 +242,9 @@
                             {{d.owner}}
                         </td>
                         <!--TODO: test if > policies::share & show paperclip and force upload of Permission to Insure -->
+                        <td class="text-center">
+                            <input type="checkbox" ng-model="d.perm2ins">
+                        </td>
                         <td class="text-right cBlue">
                             <span editable-number="d.ins_share" e-name="ins_share" e-form="rowform9" e-style="width:100%;">
                             	{{d.ins_share|flexPercent:1}}

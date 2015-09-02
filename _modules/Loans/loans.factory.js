@@ -489,6 +489,7 @@
                     item.owner = item.databases[0].farms.owner;
                     item.ins_share = item.databases[0].ins_share;
                     item.aph = item.databases[0].aph;
+                    item.perm2ins = !!item.databases[0].farms.perm_to_insure;
                     onlyPractices.push(item);
                 }
             });

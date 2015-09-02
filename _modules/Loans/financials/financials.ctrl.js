@@ -11,7 +11,7 @@
             if(!$rootScope.defaults) {
                 DefaultsFactory.init();
                 var globs =  DefaultsFactory.getObject();
-                console.log('Globs', globs, 'Graders', globs.admingraders);
+                //console.log('Globs', globs, 'Graders', globs.admingraders);
                 $scope.grads = globs.admingraders;
             } else {
                 $scope.grads = $rootScope.defaults.admingraders;
