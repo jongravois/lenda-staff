@@ -1,29 +1,1195 @@
-<div class="col-md-12" ng-controller="AlpineController">
+<style>
+    label {display: block;}
+    th {border: 1px solid #5c5c5c; }
+</style>
+<div class="col-md-12" style="overflow-x: auto;" ng-controller="AlpineController">
     <table class="table rowed table-condensed disp-sm">
-        <tr style="background-color: black;">
-            <th class="text-left" style="color: white;" colspan="17">LENDA Equalizer</th>
-        </tr>
         <tr>
             <th>CF</th>
             <th>EX</th>
-            <th>Corn</th>
-            <th>Soybeans</th>
-            <th>Soybeans FAC</th>
-            <th>Sorghum</th>
-            <th>Wheat</th>
-            <th>Cotton</th>
-            <th>Rice</th>
-            <th>Peanuts</th>
-            <th>Sugar Cane</th>
-            <th>Sunflowers</th>
-            <th>Budgeted Expenses</th>
-            <th>Third Party</th>
-            <th>Waivers</th>
-            <th>Collateral</th>
-            <th>Discounts</th>
+            <th ng-if="!alpineCorn">
+                CN
+                &nbsp;
+                <img src="./images/open_btn.png" ng-click="alpineCorn = !alpineCorn"/>
+            </th>
+            <th colspan="8" ng-if="alpineCorn">Corn</th>
+            <th ng-if="!alpineSoybeans">SB</th>
+            <th colspan="8" ng-if="alpineSoybeans">Soybeans</th>
+            <th ng-if="!alpineBeansfac">SBF</th>
+            <th colspan="8" ng-if="alpineBeansfac">Soybeans FAC</th>
+            <th ng-if="!alpineSorghum">GS</th>
+            <th colspan="8" ng-if="alpineSorghum">Sorghum</th>
+            <th ng-if="!alpineWheat">WT</th>
+            <th colspan="8" ng-if="alpineWheat">Wheat</th>
+            <th ng-if="!alpineCotton">CT</th>
+            <th colspan="8" ng-if="alpineCotton">Cotton</th>
+            <th ng-if="!alpineRice">R</th>
+            <th colspan="8" ng-if="alpineRice">Rice</th>
+            <th ng-if="!alpinePeanuts">PN</th>
+            <th colspan="8" ng-if="alpinePeanuts">Peanuts</th>
+            <th ng-if="!alpineSugarcane">SC</th>
+            <th colspan="8" ng-if="alpineSugarcane">Sugar Cane</th>
+            <th ng-if="!alpineSunflowers">SF</th>
+            <th colspan="8" ng-if="alpineSunflowers">Sunflowers</th>
+            <th colspan="3">Budget Exps</th>
+            <th colspan="2">3Party</th>
+            <th colspan="3">Waivers</th>
+            <th colspan="3">Collateral</th>
+            <th colspan="4">Discounts</th>
         </tr>
         <tr>
-
+            <!-- Cash Flow-->
+            <td class="text-center slder">
+                <label>Max</label>
+                <slider ng-model="sliders.cf"
+                        min="0"
+                        step="1"
+                        max="2"
+                        data-slider-orientation="vertical"
+                        reversed=true></slider>
+                <label>Min</label>
+            </td>
+            <!-- Exposure-->
+            <td class="text-center slder">
+                <label>Max</label>
+                <slider ng-model="sliders.ex"
+                        min="0"
+                        step="1"
+                        max="2"
+                        data-slider-orientation="vertical"
+                        reversed=true></slider>
+                <label>Min</label>
+            </td>
+            <!-- CORN closed-->
+            <td ng-if="!alpineCorn">&nbsp;</td>
+            <!-- CORN-->
+            <td class="text-center slder" ng-if="alpineCorn">
+                <label>RP</label>
+                <slider ng-model="sliders.corn.type"
+                        min="0"
+                        step="1"
+                        max="100"
+                        data-slider-orientation="vertical"
+                        reversed=true></slider>
+                <label>YP</label>
+                <br>
+                <label>Type</label>
+            </td>
+            <td class="text-center slder" ng-if="alpineCorn">
+                <label>100%</label>
+                <slider ng-model="sliders.corn.hpe"
+                        min="0"
+                        step="1"
+                        max="100"
+                        data-slider-orientation="vertical"
+                        reversed=true></slider>
+                <label>0%</label>
+                <br>
+                <label>HPE</label>
+            </td>
+            <td class="text-center slder" ng-if="alpineCorn">
+                <label>85%</label>
+                <slider ng-model="sliders.corn.level"
+                        min="0"
+                        step="1"
+                        max="100"
+                        data-slider-orientation="vertical"
+                        reversed=true></slider>
+                <label>50%</label>
+                <br>
+                <label>Lvl</label>
+            </td>
+            <td class="text-center slder" ng-if="alpineCorn">
+                <label>OU</label>
+                <slider ng-model="sliders.corn.units"
+                        min="0"
+                        step="1"
+                        max="100"
+                        data-slider-orientation="vertical"
+                        reversed=true></slider>
+                <label>BU</label>
+                <br>
+                <label>Units</label>
+            </td>
+            <td class="text-center slder" ng-if="alpineCorn">
+                <label>86%</label>
+                <slider ng-model="sliders.corn.sco"
+                        min="0"
+                        step="1"
+                        max="100"
+                        data-slider-orientation="vertical"
+                        reversed=true></slider>
+                <label>50%</label>
+                <br>
+                <label>SCO</label>
+            </td>
+            <td class="text-center slder" ng-if="alpineCorn">
+                <label>$1000</label>
+                <slider ng-model="sliders.corn.hail"
+                        min="0"
+                        step="1"
+                        max="100"
+                        data-slider-orientation="vertical"
+                        reversed=true></slider>
+                <label>$0</label>
+                <br>
+                <label>Hail</label>
+            </td>
+            <td class="text-center slder" ng-if="alpineCorn">
+                <label>25K</label>
+                <slider ng-model="sliders.corn.book"
+                        min="0"
+                        step="1"
+                        max="100"
+                        data-slider-orientation="vertical"
+                        reversed=true></slider>
+                <label>0K</label>
+                <br>
+                <label>Book</label>
+            </td>
+            <td class="text-center slder" ng-if="alpineCorn">
+                <label>100%</label>
+                <slider ng-model="sliders.corn.hvst"
+                        min="0"
+                        step="1"
+                        max="100"
+                        data-slider-orientation="vertical"
+                        reversed=true></slider>
+                <label>0%</label>
+                <br>
+                <label>Hvst</label>
+            </td>
+            <!-- SOYBEANS closed-->
+            <td ng-if="!alpineSoybeans">&nbsp;</td>
+            <!-- SOYBEANS-->
+            <td class="text-center slder" ng-if="alpineSoybeans">
+                <label>RP</label>
+                <slider ng-model="sliders.soybeans.type"
+                        min="0"
+                        step="1"
+                        max="100"
+                        data-slider-orientation="vertical"
+                        reversed=true></slider>
+                <label>YP</label>
+                <br>
+                <label>Type</label>
+            </td>
+            <td class="text-center slder" ng-if="alpineSoybeans">
+                <label>100%</label>
+                <slider ng-model="sliders.soybeans.hpe"
+                        min="0"
+                        step="1"
+                        max="100"
+                        data-slider-orientation="vertical"
+                        reversed=true></slider>
+                <label>0%</label>
+                <br>
+                <label>HPE</label>
+            </td>
+            <td class="text-center slder" ng-if="alpineSoybeans">
+                <label>85%</label>
+                <slider ng-model="sliders.soybeans.level"
+                        min="0"
+                        step="1"
+                        max="100"
+                        data-slider-orientation="vertical"
+                        reversed=true></slider>
+                <label>50%</label>
+                <br>
+                <label>Lvl</label>
+            </td>
+            <td class="text-center slder" ng-if="alpineSoybeans">
+                <label>OU</label>
+                <slider ng-model="sliders.soybeans.units"
+                        min="0"
+                        step="1"
+                        max="100"
+                        data-slider-orientation="vertical"
+                        reversed=true></slider>
+                <label>BU</label>
+                <br>
+                <label>Units</label>
+            </td>
+            <td class="text-center slder" ng-if="alpineSoybeans">
+                <label>86%</label>
+                <slider ng-model="sliders.soybeans.sco"
+                        min="0"
+                        step="1"
+                        max="100"
+                        data-slider-orientation="vertical"
+                        reversed=true></slider>
+                <label>50%</label>
+                <br>
+                <label>SCO</label>
+            </td>
+            <td class="text-center slder" ng-if="alpineSoybeans">
+                <label>$1000</label>
+                <slider ng-model="sliders.soybeans.hail"
+                        min="0"
+                        step="1"
+                        max="100"
+                        data-slider-orientation="vertical"
+                        reversed=true></slider>
+                <label>$0</label>
+                <br>
+                <label>Hail</label>
+            </td>
+            <td class="text-center slder" ng-if="alpineSoybeans">
+                <label>25K</label>
+                <slider ng-model="sliders.soybeans.book"
+                        min="0"
+                        step="1"
+                        max="100"
+                        data-slider-orientation="vertical"
+                        reversed=true></slider>
+                <label>0K</label>
+                <br>
+                <label>Book</label>
+            </td>
+            <td class="text-center slder" ng-if="alpineSoybeans">
+                <label>100%</label>
+                <slider ng-model="sliders.soybeans.hvst"
+                        min="0"
+                        step="1"
+                        max="100"
+                        data-slider-orientation="vertical"
+                        reversed=true></slider>
+                <label>0%</label>
+                <br>
+                <label>Hvst</label>
+            </td>
+            <!-- BEANSFAC closed-->
+            <td ng-if="!alpineBeansfac">&nbsp;</td>
+            <!-- BEANSFAC-->
+            <td class="text-center slder" ng-if="alpineBeansfac">
+                <label>RP</label>
+                <slider ng-model="sliders.beansfac.type"
+                        min="0"
+                        step="1"
+                        max="100"
+                        data-slider-orientation="vertical"
+                        reversed=true></slider>
+                <label>YP</label>
+                <br>
+                <label>Type</label>
+            </td>
+            <td class="text-center slder" ng-if="alpineBeansfac">
+                <label>100%</label>
+                <slider ng-model="sliders.beansfac.hpe"
+                        min="0"
+                        step="1"
+                        max="100"
+                        data-slider-orientation="vertical"
+                        reversed=true></slider>
+                <label>0%</label>
+                <br>
+                <label>HPE</label>
+            </td>
+            <td class="text-center slder" ng-if="alpineBeansfac">
+                <label>85%</label>
+                <slider ng-model="sliders.beansfac.level"
+                        min="0"
+                        step="1"
+                        max="100"
+                        data-slider-orientation="vertical"
+                        reversed=true></slider>
+                <label>50%</label>
+                <br>
+                <label>Lvl</label>
+            </td>
+            <td class="text-center slder" ng-if="alpineBeansfac">
+                <label>OU</label>
+                <slider ng-model="sliders.beansfac.units"
+                        min="0"
+                        step="1"
+                        max="100"
+                        data-slider-orientation="vertical"
+                        reversed=true></slider>
+                <label>BU</label>
+                <br>
+                <label>Units</label>
+            </td>
+            <td class="text-center slder" ng-if="alpineBeansfac">
+                <label>86%</label>
+                <slider ng-model="sliders.beansfac.sco"
+                        min="0"
+                        step="1"
+                        max="100"
+                        data-slider-orientation="vertical"
+                        reversed=true></slider>
+                <label>50%</label>
+                <br>
+                <label>SCO</label>
+            </td>
+            <td class="text-center slder" ng-if="alpineBeansfac">
+                <label>$1000</label>
+                <slider ng-model="sliders.beansfac.hail"
+                        min="0"
+                        step="1"
+                        max="100"
+                        data-slider-orientation="vertical"
+                        reversed=true></slider>
+                <label>$0</label>
+                <br>
+                <label>Hail</label>
+            </td>
+            <td class="text-center slder" ng-if="alpineBeansfac">
+                <label>25K</label>
+                <slider ng-model="sliders.beansfac.book"
+                        min="0"
+                        step="1"
+                        max="100"
+                        data-slider-orientation="vertical"
+                        reversed=true></slider>
+                <label>0K</label>
+                <br>
+                <label>Book</label>
+            </td>
+            <td class="text-center slder" ng-if="alpineBeansfac">
+                <label>100%</label>
+                <slider ng-model="sliders.beansfac.hvst"
+                        min="0"
+                        step="1"
+                        max="100"
+                        data-slider-orientation="vertical"
+                        reversed=true></slider>
+                <label>0%</label>
+                <br>
+                <label>Hvst</label>
+            </td>
+            <!-- SORGHUM closed-->
+            <td ng-if="!alpineSorghum">&nbsp;</td>
+            <!-- SORGHUM-->
+            <td class="text-center slder" ng-if="alpineSorghum">
+                <label>RP</label>
+                <slider ng-model="sliders.sorghum.type"
+                        min="0"
+                        step="1"
+                        max="100"
+                        data-slider-orientation="vertical"
+                        reversed=true></slider>
+                <label>YP</label>
+                <br>
+                <label>Type</label>
+            </td>
+            <td class="text-center slder" ng-if="alpineSorghum">
+                <label>100%</label>
+                <slider ng-model="sliders.sorghum.hpe"
+                        min="0"
+                        step="1"
+                        max="100"
+                        data-slider-orientation="vertical"
+                        reversed=true></slider>
+                <label>0%</label>
+                <br>
+                <label>HPE</label>
+            </td>
+            <td class="text-center slder" ng-if="alpineSorghum">
+                <label>85%</label>
+                <slider ng-model="sliders.sorghum.level"
+                        min="0"
+                        step="1"
+                        max="100"
+                        data-slider-orientation="vertical"
+                        reversed=true></slider>
+                <label>50%</label>
+                <br>
+                <label>Lvl</label>
+            </td>
+            <td class="text-center slder" ng-if="alpineSorghum">
+                <label>OU</label>
+                <slider ng-model="sliders.sorghum.units"
+                        min="0"
+                        step="1"
+                        max="100"
+                        data-slider-orientation="vertical"
+                        reversed=true></slider>
+                <label>BU</label>
+                <br>
+                <label>Units</label>
+            </td>
+            <td class="text-center slder" ng-if="alpineSorghum">
+                <label>86%</label>
+                <slider ng-model="sliders.sorghum.sco"
+                        min="0"
+                        step="1"
+                        max="100"
+                        data-slider-orientation="vertical"
+                        reversed=true></slider>
+                <label>50%</label>
+                <br>
+                <label>SCO</label>
+            </td>
+            <td class="text-center slder" ng-if="alpineSorghum">
+                <label>$1000</label>
+                <slider ng-model="sliders.sorghum.hail"
+                        min="0"
+                        step="1"
+                        max="100"
+                        data-slider-orientation="vertical"
+                        reversed=true></slider>
+                <label>$0</label>
+                <br>
+                <label>Hail</label>
+            </td>
+            <td class="text-center slder" ng-if="alpineSorghum">
+                <label>25K</label>
+                <slider ng-model="sliders.sorghum.book"
+                        min="0"
+                        step="1"
+                        max="100"
+                        data-slider-orientation="vertical"
+                        reversed=true></slider>
+                <label>0K</label>
+                <br>
+                <label>Book</label>
+            </td>
+            <td class="text-center slder" ng-if="alpineSorghum">
+                <label>100%</label>
+                <slider ng-model="sliders.sorghum.hvst"
+                        min="0"
+                        step="1"
+                        max="100"
+                        data-slider-orientation="vertical"
+                        reversed=true></slider>
+                <label>0%</label>
+                <br>
+                <label>Hvst</label>
+            </td>
+            <!-- CORN closed-->
+            <td ng-if="!alpineWheat">&nbsp;</td>
+            <!-- WHEAT-->
+            <td class="text-center slder" ng-if="alpineWheat">
+                <label>RP</label>
+                <slider ng-model="sliders.wheat.type"
+                        min="0"
+                        step="1"
+                        max="100"
+                        data-slider-orientation="vertical"
+                        reversed=true></slider>
+                <label>YP</label>
+                <br>
+                <label>Type</label>
+            </td>
+            <td class="text-center slder" ng-if="alpineWheat">
+                <label>100%</label>
+                <slider ng-model="sliders.wheat.hpe"
+                        min="0"
+                        step="1"
+                        max="100"
+                        data-slider-orientation="vertical"
+                        reversed=true></slider>
+                <label>0%</label>
+                <br>
+                <label>HPE</label>
+            </td>
+            <td class="text-center slder" ng-if="alpineWheat">
+                <label>85%</label>
+                <slider ng-model="sliders.wheat.level"
+                        min="0"
+                        step="1"
+                        max="100"
+                        data-slider-orientation="vertical"
+                        reversed=true></slider>
+                <label>50%</label>
+                <br>
+                <label>Lvl</label>
+            </td>
+            <td class="text-center slder" ng-if="alpineWheat">
+                <label>OU</label>
+                <slider ng-model="sliders.wheat.units"
+                        min="0"
+                        step="1"
+                        max="100"
+                        data-slider-orientation="vertical"
+                        reversed=true></slider>
+                <label>BU</label>
+                <br>
+                <label>Units</label>
+            </td>
+            <td class="text-center slder" ng-if="alpineWheat">
+                <label>86%</label>
+                <slider ng-model="sliders.wheat.sco"
+                        min="0"
+                        step="1"
+                        max="100"
+                        data-slider-orientation="vertical"
+                        reversed=true></slider>
+                <label>50%</label>
+                <br>
+                <label>SCO</label>
+            </td>
+            <td class="text-center slder" ng-if="alpineWheat">
+                <label>$1000</label>
+                <slider ng-model="sliders.wheat.hail"
+                        min="0"
+                        step="1"
+                        max="100"
+                        data-slider-orientation="vertical"
+                        reversed=true></slider>
+                <label>$0</label>
+                <br>
+                <label>Hail</label>
+            </td>
+            <td class="text-center slder" ng-if="alpineWheat">
+                <label>25K</label>
+                <slider ng-model="sliders.wheat.book"
+                        min="0"
+                        step="1"
+                        max="100"
+                        data-slider-orientation="vertical"
+                        reversed=true></slider>
+                <label>0K</label>
+                <br>
+                <label>Book</label>
+            </td>
+            <td class="text-center slder" ng-if="alpineWheat">
+                <label>100%</label>
+                <slider ng-model="sliders.wheat.hvst"
+                        min="0"
+                        step="1"
+                        max="100"
+                        data-slider-orientation="vertical"
+                        reversed=true></slider>
+                <label>0%</label>
+                <br>
+                <label>Hvst</label>
+            </td>
+            <!-- COTTON closed-->
+            <td ng-if="!alpineCotton">&nbsp;</td>
+            <!-- COTTON-->
+            <td class="text-center slder" ng-if="alpineCotton">
+                <label>RP</label>
+                <slider ng-model="sliders.cotton.type"
+                        min="0"
+                        step="1"
+                        max="100"
+                        data-slider-orientation="vertical"
+                        reversed=true></slider>
+                <label>YP</label>
+                <br>
+                <label>Type</label>
+            </td>
+            <td class="text-center slder" ng-if="alpineCotton">
+                <label>100%</label>
+                <slider ng-model="sliders.cotton.hpe"
+                        min="0"
+                        step="1"
+                        max="100"
+                        data-slider-orientation="vertical"
+                        reversed=true></slider>
+                <label>0%</label>
+                <br>
+                <label>HPE</label>
+            </td>
+            <td class="text-center slder" ng-if="alpineCotton">
+                <label>85%</label>
+                <slider ng-model="sliders.cotton.level"
+                        min="0"
+                        step="1"
+                        max="100"
+                        data-slider-orientation="vertical"
+                        reversed=true></slider>
+                <label>50%</label>
+                <br>
+                <label>Lvl</label>
+            </td>
+            <td class="text-center slder" ng-if="alpineCotton">
+                <label>OU</label>
+                <slider ng-model="sliders.cotton.units"
+                        min="0"
+                        step="1"
+                        max="100"
+                        data-slider-orientation="vertical"
+                        reversed=true></slider>
+                <label>BU</label>
+                <br>
+                <label>Units</label>
+            </td>
+            <td class="text-center slder" ng-if="alpineCotton">
+                <label>86%</label>
+                <slider ng-model="sliders.cotton.sco"
+                        min="0"
+                        step="1"
+                        max="100"
+                        data-slider-orientation="vertical"
+                        reversed=true></slider>
+                <label>50%</label>
+                <br>
+                <label>SCO</label>
+            </td>
+            <td class="text-center slder" ng-if="alpineCotton">
+                <label>$1000</label>
+                <slider ng-model="sliders.cotton.hail"
+                        min="0"
+                        step="1"
+                        max="100"
+                        data-slider-orientation="vertical"
+                        reversed=true></slider>
+                <label>$0</label>
+                <br>
+                <label>Hail</label>
+            </td>
+            <td class="text-center slder" ng-if="alpineCotton">
+                <label>25K</label>
+                <slider ng-model="sliders.cotton.book"
+                        min="0"
+                        step="1"
+                        max="100"
+                        data-slider-orientation="vertical"
+                        reversed=true></slider>
+                <label>0K</label>
+                <br>
+                <label>Book</label>
+            </td>
+            <td class="text-center slder" ng-if="alpineCotton">
+                <label>100%</label>
+                <slider ng-model="sliders.cotton.hvst"
+                        min="0"
+                        step="1"
+                        max="100"
+                        data-slider-orientation="vertical"
+                        reversed=true></slider>
+                <label>0%</label>
+                <br>
+                <label>Hvst</label>
+            </td>
+            <!-- RICE closed-->
+            <td ng-if="!alpineRice">&nbsp;</td>
+            <!-- RICE-->
+            <td class="text-center slder" ng-if="alpineRice">
+                <label>RP</label>
+                <slider ng-model="sliders.rice.type"
+                        min="0"
+                        step="1"
+                        max="100"
+                        data-slider-orientation="vertical"
+                        reversed=true></slider>
+                <label>YP</label>
+                <br>
+                <label>Type</label>
+            </td>
+            <td class="text-center slder" ng-if="alpineRice">
+                <label>100%</label>
+                <slider ng-model="sliders.rice.hpe"
+                        min="0"
+                        step="1"
+                        max="100"
+                        data-slider-orientation="vertical"
+                        reversed=true></slider>
+                <label>0%</label>
+                <br>
+                <label>HPE</label>
+            </td>
+            <td class="text-center slder" ng-if="alpineRice">
+                <label>85%</label>
+                <slider ng-model="sliders.rice.level"
+                        min="0"
+                        step="1"
+                        max="100"
+                        data-slider-orientation="vertical"
+                        reversed=true></slider>
+                <label>50%</label>
+                <br>
+                <label>Lvl</label>
+            </td>
+            <td class="text-center slder" ng-if="alpineRice">
+                <label>OU</label>
+                <slider ng-model="sliders.rice.units"
+                        min="0"
+                        step="1"
+                        max="100"
+                        data-slider-orientation="vertical"
+                        reversed=true></slider>
+                <label>BU</label>
+                <br>
+                <label>Units</label>
+            </td>
+            <td class="text-center slder" ng-if="alpineRice">
+                <label>86%</label>
+                <slider ng-model="sliders.rice.sco"
+                        min="0"
+                        step="1"
+                        max="100"
+                        data-slider-orientation="vertical"
+                        reversed=true></slider>
+                <label>50%</label>
+                <br>
+                <label>SCO</label>
+            </td>
+            <td class="text-center slder" ng-if="alpineRice">
+                <label>$1000</label>
+                <slider ng-model="sliders.rice.hail"
+                        min="0"
+                        step="1"
+                        max="100"
+                        data-slider-orientation="vertical"
+                        reversed=true></slider>
+                <label>$0</label>
+                <br>
+                <label>Hail</label>
+            </td>
+            <td class="text-center slder" ng-if="alpineRice">
+                <label>25K</label>
+                <slider ng-model="sliders.rice.book"
+                        min="0"
+                        step="1"
+                        max="100"
+                        data-slider-orientation="vertical"
+                        reversed=true></slider>
+                <label>0K</label>
+                <br>
+                <label>Book</label>
+            </td>
+            <td class="text-center slder" ng-if="alpineRice">
+                <label>100%</label>
+                <slider ng-model="sliders.rice.hvst"
+                        min="0"
+                        step="1"
+                        max="100"
+                        data-slider-orientation="vertical"
+                        reversed=true></slider>
+                <label>0%</label>
+                <br>
+                <label>Hvst</label>
+            </td>
+            <!-- PEANUTS closed-->
+            <td ng-if="!alpinePeanuts">&nbsp;</td>
+            <!-- PEANUTS-->
+            <td class="text-center slder" ng-if="alpinePeanuts">
+                <label>RP</label>
+                <slider ng-model="sliders.peanuts.type"
+                        min="0"
+                        step="1"
+                        max="100"
+                        data-slider-orientation="vertical"
+                        reversed=true></slider>
+                <label>YP</label>
+                <br>
+                <label>Type</label>
+            </td>
+            <td class="text-center slder" ng-if="alpinePeanuts">
+                <label>100%</label>
+                <slider ng-model="sliders.peanuts.hpe"
+                        min="0"
+                        step="1"
+                        max="100"
+                        data-slider-orientation="vertical"
+                        reversed=true></slider>
+                <label>0%</label>
+                <br>
+                <label>HPE</label>
+            </td>
+            <td class="text-center slder" ng-if="alpinePeanuts">
+                <label>85%</label>
+                <slider ng-model="sliders.peanuts.level"
+                        min="0"
+                        step="1"
+                        max="100"
+                        data-slider-orientation="vertical"
+                        reversed=true></slider>
+                <label>50%</label>
+                <br>
+                <label>Lvl</label>
+            </td>
+            <td class="text-center slder" ng-if="alpinePeanuts">
+                <label>OU</label>
+                <slider ng-model="sliders.peanuts.units"
+                        min="0"
+                        step="1"
+                        max="100"
+                        data-slider-orientation="vertical"
+                        reversed=true></slider>
+                <label>BU</label>
+                <br>
+                <label>Units</label>
+            </td>
+            <td class="text-center slder" ng-if="alpinePeanuts">
+                <label>86%</label>
+                <slider ng-model="sliders.peanuts.sco"
+                        min="0"
+                        step="1"
+                        max="100"
+                        data-slider-orientation="vertical"
+                        reversed=true></slider>
+                <label>50%</label>
+                <br>
+                <label>SCO</label>
+            </td>
+            <td class="text-center slder" ng-if="alpinePeanuts">
+                <label>$1000</label>
+                <slider ng-model="sliders.peanuts.hail"
+                        min="0"
+                        step="1"
+                        max="100"
+                        data-slider-orientation="vertical"
+                        reversed=true></slider>
+                <label>$0</label>
+                <br>
+                <label>Hail</label>
+            </td>
+            <td class="text-center slder" ng-if="alpinePeanuts">
+                <label>25K</label>
+                <slider ng-model="sliders.peanuts.book"
+                        min="0"
+                        step="1"
+                        max="100"
+                        data-slider-orientation="vertical"
+                        reversed=true></slider>
+                <label>0K</label>
+                <br>
+                <label>Book</label>
+            </td>
+            <td class="text-center slder" ng-if="alpinePeanuts">
+                <label>100%</label>
+                <slider ng-model="sliders.peanuts.hvst"
+                        min="0"
+                        step="1"
+                        max="100"
+                        data-slider-orientation="vertical"
+                        reversed=true></slider>
+                <label>0%</label>
+                <br>
+                <label>Hvst</label>
+            </td>
+            <!-- SUGARCANE closed-->
+            <td ng-if="!alpineSugarcane">&nbsp;</td>
+            <!-- SUGARCANE-->
+            <td class="text-center slder" ng-if="alpineSugarcane">
+                <label>RP</label>
+                <slider ng-model="sliders.sugarcane.type"
+                        min="0"
+                        step="1"
+                        max="100"
+                        data-slider-orientation="vertical"
+                        reversed=true></slider>
+                <label>YP</label>
+                <br>
+                <label>Type</label>
+            </td>
+            <td class="text-center slder" ng-if="alpineSugarcane">
+                <label>100%</label>
+                <slider ng-model="sliders.sugarcane.hpe"
+                        min="0"
+                        step="1"
+                        max="100"
+                        data-slider-orientation="vertical"
+                        reversed=true></slider>
+                <label>0%</label>
+                <br>
+                <label>HPE</label>
+            </td>
+            <td class="text-center slder" ng-if="alpineSugarcane">
+                <label>85%</label>
+                <slider ng-model="sliders.sugarcane.level"
+                        min="0"
+                        step="1"
+                        max="100"
+                        data-slider-orientation="vertical"
+                        reversed=true></slider>
+                <label>50%</label>
+                <br>
+                <label>Lvl</label>
+            </td>
+            <td class="text-center slder" ng-if="alpineSugarcane">
+                <label>OU</label>
+                <slider ng-model="sliders.sugarcane.units"
+                        min="0"
+                        step="1"
+                        max="100"
+                        data-slider-orientation="vertical"
+                        reversed=true></slider>
+                <label>BU</label>
+                <br>
+                <label>Units</label>
+            </td>
+            <td class="text-center slder" ng-if="alpineSugarcane">
+                <label>86%</label>
+                <slider ng-model="sliders.sugarcane.sco"
+                        min="0"
+                        step="1"
+                        max="100"
+                        data-slider-orientation="vertical"
+                        reversed=true></slider>
+                <label>50%</label>
+                <br>
+                <label>SCO</label>
+            </td>
+            <td class="text-center slder" ng-if="alpineSugarcane">
+                <label>$1000</label>
+                <slider ng-model="sliders.sugarcane.hail"
+                        min="0"
+                        step="1"
+                        max="100"
+                        data-slider-orientation="vertical"
+                        reversed=true></slider>
+                <label>$0</label>
+                <br>
+                <label>Hail</label>
+            </td>
+            <td class="text-center slder" ng-if="alpineSugarcane">
+                <label>25K</label>
+                <slider ng-model="sliders.sugarcane.book"
+                        min="0"
+                        step="1"
+                        max="100"
+                        data-slider-orientation="vertical"
+                        reversed=true></slider>
+                <label>0K</label>
+                <br>
+                <label>Book</label>
+            </td>
+            <td class="text-center slder" ng-if="alpineSugarcane">
+                <label>100%</label>
+                <slider ng-model="sliders.sugarcane.hvst"
+                        min="0"
+                        step="1"
+                        max="100"
+                        data-slider-orientation="vertical"
+                        reversed=true></slider>
+                <label>0%</label>
+                <br>
+                <label>Hvst</label>
+            </td>
+            <!-- SUNFLOWERS closed-->
+            <td ng-if="!alpineSunflowers">&nbsp;</td>
+            <!-- SUNFLOWERS-->
+            <td class="text-center slder" ng-if="alpineSunflowers">
+                <label>RP</label>
+                <slider ng-model="sliders.sunflowers.type"
+                        min="0"
+                        step="1"
+                        max="100"
+                        data-slider-orientation="vertical"
+                        reversed=true></slider>
+                <label>YP</label>
+                <br>
+                <label>Type</label>
+            </td>
+            <td class="text-center slder" ng-if="alpineSunflowers">
+                <label>100%</label>
+                <slider ng-model="sliders.sunflowers.hpe"
+                        min="0"
+                        step="1"
+                        max="100"
+                        data-slider-orientation="vertical"
+                        reversed=true></slider>
+                <label>0%</label>
+                <br>
+                <label>HPE</label>
+            </td>
+            <td class="text-center slder" ng-if="alpineSunflowers">
+                <label>85%</label>
+                <slider ng-model="sliders.sunflowers.level"
+                        min="0"
+                        step="1"
+                        max="100"
+                        data-slider-orientation="vertical"
+                        reversed=true></slider>
+                <label>50%</label>
+                <br>
+                <label>Lvl</label>
+            </td>
+            <td class="text-center slder" ng-if="alpineSunflowers">
+                <label>OU</label>
+                <slider ng-model="sliders.sunflowers.units"
+                        min="0"
+                        step="1"
+                        max="100"
+                        data-slider-orientation="vertical"
+                        reversed=true></slider>
+                <label>BU</label>
+                <br>
+                <label>Units</label>
+            </td>
+            <td class="text-center slder" ng-if="alpineSunflowers">
+                <label>86%</label>
+                <slider ng-model="sliders.sunflowers.sco"
+                        min="0"
+                        step="1"
+                        max="100"
+                        data-slider-orientation="vertical"
+                        reversed=true></slider>
+                <label>50%</label>
+                <br>
+                <label>SCO</label>
+            </td>
+            <td class="text-center slder" ng-if="alpineSunflowers">
+                <label>$1000</label>
+                <slider ng-model="sliders.sunflowers.hail"
+                        min="0"
+                        step="1"
+                        max="100"
+                        data-slider-orientation="vertical"
+                        reversed=true></slider>
+                <label>$0</label>
+                <br>
+                <label>Hail</label>
+            </td>
+            <td class="text-center slder" ng-if="alpineSunflowers">
+                <label>25K</label>
+                <slider ng-model="sliders.sunflowers.book"
+                        min="0"
+                        step="1"
+                        max="100"
+                        data-slider-orientation="vertical"
+                        reversed=true></slider>
+                <label>0K</label>
+                <br>
+                <label>Book</label>
+            </td>
+            <td class="text-center slder" ng-if="alpineSunflowers">
+                <label>100%</label>
+                <slider ng-model="sliders.sunflowers.hvst"
+                        min="0"
+                        step="1"
+                        max="100"
+                        data-slider-orientation="vertical"
+                        reversed=true></slider>
+                <label>0%</label>
+                <br>
+                <label>Hvst</label>
+            </td>
+            <!-- Budget Expenses-->
+            <td class="text-center slder">
+                <slider ng-model="sliders.crpbdgt"
+                        min="0"
+                        step="1"
+                        max="100"
+                        data-slider-orientation="vertical"
+                        reversed=true></slider>
+                <label>CrpBdgt</label>
+            </td>
+            <td class="text-center slder">
+                <slider ng-model="sliders.labor"
+                        min="0"
+                        step="1"
+                        max="100"
+                        data-slider-orientation="vertical"
+                        reversed=true></slider>
+                <label>labor</label>
+            </td>
+            <td class="text-center slder">
+                <slider ng-model="sliders.living"
+                        min="0"
+                        step="1"
+                        max="100"
+                        data-slider-orientation="vertical"
+                        reversed=true></slider>
+                <label>living</label>
+            </td>
+            <!-- Third Party-->
+            <td class="text-center slder">
+                <slider ng-model="sliders.seed"
+                        min="0"
+                        step="1"
+                        max="100"
+                        data-slider-orientation="vertical"
+                        reversed=true></slider>
+                <label>seed</label>
+            </td>
+            <td class="text-center slder">
+                <slider ng-model="sliders.other"
+                        min="0"
+                        step="1"
+                        max="100"
+                        data-slider-orientation="vertical"
+                        reversed=true></slider>
+                <label>other</label>
+            </td>
+            <!-- Waivers-->
+            <td class="text-center slder">
+                <slider ng-model="sliders.permits"
+                        min="0"
+                        step="1"
+                        max="100"
+                        data-slider-orientation="vertical"
+                        reversed=true></slider>
+                <label>other</label>
+            </td>
+            <td class="text-center slder">
+                <slider ng-model="sliders.rent"
+                        min="0"
+                        step="1"
+                        max="100"
+                        data-slider-orientation="vertical"
+                        reversed=true></slider>
+                <label>other</label>
+            </td>
+            <td class="text-center slder">
+                <slider ng-model="sliders.hvst"
+                        min="0"
+                        step="1"
+                        max="100"
+                        data-slider-orientation="vertical"
+                        reversed=true></slider>
+                <label>hvst</label>
+            </td>
+            <!-- Collateral-->
+            <td class="text-center slder">
+                <slider ng-model="sliders.equip"
+                        min="0"
+                        step="1"
+                        max="100"
+                        data-slider-orientation="vertical"
+                        reversed=true></slider>
+                <label>equip</label>
+            </td>
+            <td class="text-center slder">
+                <slider ng-model="sliders.restate"
+                        min="0"
+                        step="1"
+                        max="100"
+                        data-slider-orientation="vertical"
+                        reversed=true></slider>
+                <label>r/e</label>
+            </td>
+            <td class="text-center slder">
+                <slider ng-model="sliders.othercol"
+                        min="0"
+                        step="1"
+                        max="100"
+                        data-slider-orientation="vertical"
+                        reversed=true></slider>
+                <label>other</label>
+            </td>
+            <!-- Discounts-->
+            <td class="text-center slder">
+                <slider ng-model="sliders.map"
+                        min="0"
+                        step="1"
+                        max="100"
+                        data-slider-orientation="vertical"
+                        reversed=true></slider>
+                <label>map</label>
+            </td>
+            <td class="text-center slder">
+                <slider ng-model="sliders.cropdisc"
+                        min="0"
+                        step="1"
+                        max="100"
+                        data-slider-orientation="vertical"
+                        reversed=true></slider>
+                <label>crop</label>
+            </td>
+            <td class="text-center slder">
+                <slider ng-model="sliders.insdisc"
+                        min="0"
+                        step="1"
+                        max="100"
+                        data-slider-orientation="vertical"
+                        reversed=true></slider>
+                <label>ins</label>
+            </td>
+            <td class="text-center slder">
+                <slider ng-model="sliders.fsadisc"
+                        min="0"
+                        step="1"
+                        max="100"
+                        data-slider-orientation="vertical"
+                        reversed=true></slider>
+                <label>FSA</label>
+            </td>
         </tr>
     </table>
 </div>

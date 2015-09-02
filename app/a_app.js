@@ -11,7 +11,8 @@
             'angularGrid',
             'xeditable',
             'cfp.hotkeys',
-            'angular-loading-bar'
+            'angular-loading-bar',
+            'ui.bootstrap-slider'
         ])
         .config(function(){
             function groupByMulti(obj, values, context) {
