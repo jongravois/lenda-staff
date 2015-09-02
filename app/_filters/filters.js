@@ -33,11 +33,11 @@
 
     function dateFmtFilter($filter) {
         return function (input) {
-            if (input == null) {
+            if (input === null) {
                 return '';
             }
-            var _date = $filter('date')(new Date(input), 'dd/MM/yyyy');
-            return _date.toUpperCase();
+
+            return moment(input).format('MM/DD/YYYY h:mm A');
         };
     }
 

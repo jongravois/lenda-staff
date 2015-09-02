@@ -4,14 +4,14 @@
         .module('ARM')
         .directive('commentCard', CommentCardDirective);
 
-    AddNewDirective.$inject = [];
+    CommentCardDirective.$inject = [];
 
     function CommentCardDirective() {
         return {
-            restrict: 'A',
+            restrict: 'AE',
             transclude: true,
-            controller: 'MenuController as menu',
-            templateUrl: './_modules/Loans/_comment.card.html'
+            scope: { obj: '=' },
+            templateUrl: './_modules/Loans/comments/_comment.card.html'
         };
     }
 })();

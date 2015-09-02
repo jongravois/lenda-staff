@@ -541,32 +541,21 @@
         }
         function parseComments(comms) {
             if(comms.length < 2) { return []; }
-            var Account = _.filter(comms, function(i){
-                return i.type == 'Account';
-            })
-            var Addendum = _.filter(comms, function(i){
-                return i.type == 'Addendum';
-            });
-            var Analyst = _.filter(comms, function(i){
-                return i.type == 'Analyst';
-            });
-            var Committee = _.filter(comms, function(i){
-                return i.type == 'Committee';
-            })
             var Loan = _.filter(comms, function(i){
                 return i.type == 'Loan';
             });
-            var Watch = _.filter(comms, function(i){
-                return i.type == 'Watch';
+            var Addendum = _.filter(comms, function(i){
+                return i.type == 'Addendum';
             });
 
+            var Others = _.filter(comms, function(i){
+                return i.type !== 'Addendum' && i.type !== 'Loan';
+            })
+
             return {
-                Account: Account,
-                Addendum: Addendum,
-                Analyst: Analyst,
-                Committee: Committee,
                 Loan: Loan,
-                Watch: Watch
+                Addendum: Addendum,
+                Others: Others
             };
         }
         function returnColor(val) {

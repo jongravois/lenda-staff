@@ -1,1 +1,47 @@
-<h5>Comment Card</h5>
+<div class="alert" ng-class="{Watch: 'alert-danger', Committee: 'alert-info', Analyst: 'alert-warning', Account: 'alert-success'}[obj.type]" role="alert">
+    <div style="position: relative;">
+        <h4>
+            <span ng-if="obj.type === 'Account'">
+                <span class="glyphicons glyphicons-usd"></span>
+                Disbursement Comment
+            </span>
+            <span ng-if="obj.type === 'Analyst'">
+                <span class="glyphicons glyphicons-user"></span>
+                Analyst Comment
+            </span>
+            <span ng-if="obj.type === 'Committee'">
+                <span class="glyphicons glyphicons-group"></span>
+                Committee Comment
+                <span class="ctrlButtons">
+                        <span class="glyphicons glyphicons-unshare" tooltip="reply" style="color:#000;" ng-click="btnCommentReply(c)"></span>
+                        <span ng-click="c.status = !c.status; btnCommentOk(c)" class="glyphicons glyphicons-check" style="color:#000;"  ng-if="c.status"></span>
+                        <span ng-click="c.status = !c.status; btnCommentOk(c)" class="glyphicons glyphicons-unchecked" style="color:#000;" ng-if="!c.status"></span>
+                              </span>
+                </span>
+            <span ng-if="obj.type === 'Watch'">
+                <span class="glyphicons glyphicons-sunglasses"></span>
+                Watch List
+            </span>
+        </h4>
+
+        <hr/>
+
+        <p style="font-size:11px;font-weight:bold;"><i>{{obj.user.name}}</i>
+            &nbsp;&nbsp;-&nbsp;&nbsp;
+            <i>{{obj.created_at|dateFmt}}</i>
+        </p>
+
+        <p>{{obj.comment}}</p>
+    </div>
+
+    <div ng-if="obj.responses">
+        <div class="alert alert-response" ng-repeat="res in obj.responses|orderBy:'created_at':true">
+            <p style="font-size:11px;font-weight:bold;"><i>{{res.user.name}}</i>
+                &nbsp;&nbsp;-&nbsp;&nbsp;
+                <i>{{res.created_at|dateFmt}}</i>
+            </p>
+            <hr/>
+            <p>{{res.body}}</p>
+        </div>
+    </div>
+</div>

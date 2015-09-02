@@ -11,7 +11,7 @@
             /* jshint validthis: true */
             $scope.newapplications = $state.current.data.newapplications;
             $scope.comments = $scope.loan.parsedComments;
-            console.log('Comments', $scope.comments);
+            //console.log('Comments', $scope.comments);
 
             $scope.checkCommentStatus = function(obj) {
                 if(!obj.status || obj.status.length === 0) {
