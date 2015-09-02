@@ -42,7 +42,7 @@
                 parsedComments: structureComments(loan),
                 priorlien: processPriorLien(loan.prior_liens)
                 /*,
-                xcols: processXCols(loan.xcols)*/
+                 xcols: processXCols(loan.xcols)*/
             })
                 .then(function (updatedData) {
                     angular.extend(loan, updatedData);
@@ -104,8 +104,8 @@
                 stub.calc_total = stub.per_acre * acres;
 
                 var finalpass = _.omit(stub, [
-                        'arm_adj', 'dist_adj', 'other_adj'
-                    ]);
+                    'arm_adj', 'dist_adj', 'other_adj'
+                ]);
                 //console.log('FINAL PASS', finalpass);
 
                 flattened.push(finalpass);
@@ -461,7 +461,7 @@
             var crops_in_loan = getCrops(loan);
             var counties_in_loan = getCountiesInLoan(loan);
 
-           // var farms = getCropAcresInCounty('6', '1310', loan);
+            // var farms = getCropAcresInCounty('6', '1310', loan);
 
             var gpd_crops = _.chain(crops_in_loan)
                 .groupBy('crop')
@@ -485,6 +485,10 @@
 
             _.each(policies, function(item){
                 if(item.databases.length > 0) {
+                    item.fsn = item.databases[0].farms.fsn;
+                    item.owner = item.databases[0].farms.owner;
+                    item.ins_share = item.databases[0].ins_share;
+                    item.aph = item.databases[0].aph;
                     onlyPractices.push(item);
                 }
             });
