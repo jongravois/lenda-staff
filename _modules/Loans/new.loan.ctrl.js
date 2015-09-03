@@ -42,12 +42,6 @@
             $scope.XColView = false; //true;
             $scope.showSidebar = user.full_sidebar;
 
-            if($stateParams.loanID === 0 || !$scope.loan) {
-                $scope.loan = AppFactory.makeNewLoan($stateParams.loantypeID, user, $scope.defaults);
-            }
-
-            console.log('NewloanCtrl', $scope.loan);
-
             $scope.ngcLink = function (slug) {
                 //alert(slug);
                 $state.go('arm.new.' + slug);

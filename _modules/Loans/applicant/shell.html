@@ -1,9 +1,14 @@
 <div class="row" ng-if="!newapplication">
     <div class="col-md-12 text-right">
-        <button style="margin-right:10px;" class="btn btn-arm" ng-click="updateApplicantsScreen()"><span class="glyphicons glyphicons-log-book"></span>&nbsp;UPDATE</button>
+        <button style="margin-right:10px;" class="btn btn-arm" ng-click="updateApplicantScreen()"><span class="glyphicons glyphicons-log-book"></span>&nbsp;UPDATE</button>
     </div>
 </div>
-<div class="row" ng-if="newapplication">
+<div class="row" ng-if="newapplication && !farmerSaved">
+    <div class="col-md-12 text-right">
+        <button style="margin-right:10px;" class="btn btn-arm" ng-click="createNewFarmer()"><span class="glyphicons glyphicons-log-book"></span>&nbsp;NEXT</button>
+    </div>
+</div>
+<div class="row" ng-if="newapplication && farmerSaved">
     <div class="col-md-12 text-right">
         <button style="margin-right:10px;" class="btn btn-arm" ng-click="createApplicantScreen()"><span class="glyphicons glyphicons-log-book"></span>&nbsp;NEXT</button>
     </div>
@@ -108,4 +113,14 @@
     </div>
 </fieldset>
 
+<div class="row" ng-if="newapplication && !farmerSaved">
+    <div class="col-md-12 text-right">
+        <button style="margin-right:10px;" class="btn btn-arm" ng-click="createNewFarmer()"><span class="glyphicons glyphicons-log-book"></span>&nbsp;NEXT</button>
+    </div>
+</div>
+<div class="row" ng-if="newapplication && farmerSaved">
+    <div class="col-md-12 text-right">
+        <button style="margin-right:10px;" class="btn btn-arm" ng-click="createApplicantScreen()"><span class="glyphicons glyphicons-log-book"></span>&nbsp;NEXT</button>
+    </div>
+</div>
 <br><br><br><br>

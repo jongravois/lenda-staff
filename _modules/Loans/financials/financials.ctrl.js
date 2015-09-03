@@ -18,6 +18,11 @@
             }
             $scope.afins = $scope.loan.applicant.fins;
             //console.log('Loan', $scope.loan, 'Financials', $scope.afins, 'Globs', $scope.grads);
+            AppFactory.getAll('crops')
+                .then(function(rsp){
+                    $scope.crops = rsp.data.data;
+                    console.log('CROPS', $scope.crops);
+                });
             
             $scope.updateFinancials = function() {
                 alert('working');
