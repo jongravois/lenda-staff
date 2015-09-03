@@ -1,4 +1,4 @@
-<div class="header nav_banner" style="z-index:3;">
+<div class="header nav_banner" style="z-index:3;" ng-controller="MenuController">
     <span class="navbar">
         <a ui-sref='arm.home'>
             Loan Listing
@@ -13,8 +13,8 @@
                 New Loan Application <span class="menuglyphs glyphicons glyphicons-chevron-down"></span>
             </a>
             <ul class="dropdown-menu" role="menu">
-                <li ng-repeat="l in feeder.loantypes">
-                    <a ng-click="newLoan(l.id, feeder.loantypes)">
+                <li ng-repeat="l in loantypes|orderBy:'sort_order'">
+                    <a ng-click="newLoan(l.id, loantypes)">
                         {{l.loantype}}
                     </a>
                 </li>

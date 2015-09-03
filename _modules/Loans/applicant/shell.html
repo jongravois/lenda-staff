@@ -1,12 +1,16 @@
-<div class="row">
+<div class="row" ng-if="!newapplication">
     <div class="col-md-12 text-right">
         <button style="margin-right:10px;" class="btn btn-arm" ng-click="updateApplicantsScreen()"><span class="glyphicons glyphicons-log-book"></span>&nbsp;UPDATE</button>
     </div>
 </div>
-
+<div class="row" ng-if="newapplication">
+    <div class="col-md-12 text-right">
+        <button style="margin-right:10px;" class="btn btn-arm" ng-click="createApplicantScreen()"><span class="glyphicons glyphicons-log-book"></span>&nbsp;NEXT</button>
+    </div>
+</div>
 <br>
 
-<fieldset>
+<fieldset ng-if="!newapplication">
     <legend>
         &nbsp;
         <span class="pendicon glyphicon glyphicon-chevron-right"
@@ -23,9 +27,18 @@
     </div>
 </fieldset>
 
+<fieldset ng-if="newapplication">
+    <legend>
+        Farmer
+    </legend>
+    <div class="container-fluid"
+         ng-include="'./_modules/Loans/applicant/_farmer.html'">
+    </div>
+</fieldset>
+
 <br><br>
 
-<fieldset>
+<fieldset ng-if="!newapplication">
     <legend>
         &nbsp;
         <span class="pendicon glyphicon glyphicon-chevron-right"

@@ -9,10 +9,23 @@
                     templateUrl: './_modules/Loans/_views/management.tmpl.html',
                     controller: 'ManagementController'
                 })
+                .state('arm.new', {
+                    abstract: true,
+                    url: '/new/{loantypeID:\\d+}/{loanID:\\d+}',
+                    templateUrl: './_modules/Loans/_views/_new.loan.view.html',
+                    controller: 'NewLoanController'
+                })
+                .state('arm.new.applicant', {
+                    url: '/applicant',
+                    templateUrl: './_modules/Loans/applicant/shell.html',
+                    controller: 'ApplicantsController',
+                    data: {newapplication: true},
+                    resolve: {}
+                })
                 .state('arm.edit', {
                     abstract: true,
                     url: '/edit/{loantypeID:\\d+}/{loanID:\\d+}',
-                    templateUrl: './_modules/Loans/_views/edit.loan.view.html',
+                    templateUrl: './_modules/Loans/_views/_edit.loan.view.html',
                     controller: 'EditLoanController',
                     resolve: {
                         Loan: function($stateParams, LoansFactory) {

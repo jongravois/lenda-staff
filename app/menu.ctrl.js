@@ -4,10 +4,10 @@
         .module('ARM')
         .controller('MenuController', MenuController);
 
-        MenuController.$inject = ['$rootScope', '$scope', 'MenuFactory'];
+        MenuController.$inject = ['$rootScope', '$scope', '$state', 'MenuFactory'];
 
         /* @ngInject */
-        function MenuController($rootScope, $scope, MenuFactory) {
+        function MenuController($rootScope, $scope, $state, MenuFactory) {
             /* jshint validthis: true */
             MenuFactory.getLoantypes()
                 .then(function success(rsp) {
@@ -29,5 +29,18 @@
                 $scope.status.isopen = !$scope.status.isopen;
             };
 
+            $scope.newLoan = function(id, loantypes) {
+                var types = _.find(loantypes, function(item){
+                    return item.id === id;
+                });
+
+                $rootScope.newlyCreated = {
+                    type_id: id,
+                    chosenLT: types.loantype,
+                    chosenLT_id: types.id
+                };
+
+                $state.go('arm.new.applicant', {loantypeID: types.id, loanID: 0});
+            }
         } // end controller
 })();

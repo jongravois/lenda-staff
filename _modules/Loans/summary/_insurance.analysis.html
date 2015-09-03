@@ -10,11 +10,13 @@
         <th>Share</th>
         <th>Value</th>
     </tr>
-    <tr ng-if="loan.insurance.byCrop.length === 0">
-        <td colspan="9"><strong>No Insurance Information Found.</strong></td>
+    <tr ng-if="loan.loancrops.length === 0">
+        <td colspan="9">
+            <strong>No Insurance Information Found.</strong>
+        </td>
     </tr>
-    <tr ng-repeat="c in loan.insurance.byCrop|orderBy:'crop_id'" ng-if="loan.insurance.byCrop.length !== 0">
-        <td>{{c.crop.name}}</td>
+    <tr ng-repeat="c in loan.loancrops|orderBy:'crop_id'" ng-if="loan.loancrops.length !== 0">
+        <td>{{c.crop_name}}</td>
         <td class="text-center">{{c.type}}</td>
         <td class="text-center">{{c.option}}</td>
         <td class="text-right">{{c.price|flexCurrency:2}}</td>

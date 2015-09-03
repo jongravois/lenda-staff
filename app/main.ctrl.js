@@ -20,6 +20,9 @@
         $scope.loginErrorText;
 
         init();
+        if(!$scope.feeder || !$scope.defaults) {
+            bootstrapApp();
+        }
 
         $scope.login = function (credentials) {
             $auth.login(credentials)
@@ -34,7 +37,7 @@
                         var user = rsp.data.data[0];
                         $http.get(API_URL + 'users/' + user.id)
                             .success(function (rsp) {
-                                console.log('rsp', rsp);
+                                //console.log('rsp', rsp);
                                 $scope.user = rsp.data;
                                 var strUser = JSON.stringify(rsp.data);
                                 localStorage.setItem('user', strUser);
@@ -75,9 +78,13 @@
             // FEEDER LISTS
             FeederFactory.init();
             $rootScope.feeder = FeederFactory.getObject();
+            $scope.feeder = FeederFactory.getObject();
+            //console.log('Feeder', $scope.feeder);
 
             DefaultsFactory.init();
             $rootScope.defaults = DefaultsFactory.getObject();
+            $scope.defaults = DefaultsFactory.getObject();
+            //console.log('Defaults', $scope.defaults);
         }
     } // end function
 })();

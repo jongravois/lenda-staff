@@ -498,6 +498,10 @@
         }
         function processInsByCrop(loan) {
             var policies = loan.inspols;
+            _.each(policies, function(p){
+                p.crop_name = p.crop.name;
+                p.crop_crop = p.crop.crop;
+            });
             //console.log('POLS', policies);
 
             var grped = _.chain(policies).groupBy('loancrop_id').value();

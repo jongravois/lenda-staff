@@ -49,6 +49,6 @@
 
             //TEMP
             $scope.loan.lien_letter_received = 0;
-            console.log('LOAN', $scope.loan);
+            console.log('LOAN', $scope.loan, 'LC', $scope.loan.loancrops);
         } // end controller
 })();
