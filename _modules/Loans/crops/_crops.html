@@ -2,13 +2,11 @@
     <table class="table table-striped rowed table-condensed disp-sm">
         <tr>
             <th>Crop</th>
-            <th>Buyer</th>
             <th>Bk Qty</th>
             <th>Bk Prc</th>
             <th>UoM</th>
             <th>Var Hvst</th>
             <th>UoM</th>
-            <th>Rebator</th>
             <th>Rebates</th>
             <th>UoM</th>
             <th>&nbsp;</th>
@@ -16,15 +14,16 @@
         <tr ng-if="crops.length === 0">
             <td colspan="10"><strong>No crops added!</strong></td>
         </tr>
-        <tr ng-repeat="c in crops" ng-init="!rowform.$visible" ng-dblclick="rowform.$show()">
+        <tr ng-repeat-start="c in crops" ng-init="!rowform.$visible" ng-dblclick="rowform.$show()">
             <td class="cBlue">
+                <span ng-if="c.showDetails" ng-click="toggleDetails($index)" style="cursor:pointer;">
+                    &blacktriangledown;&nbsp;
+                </span>
+                <span ng-if="!c.showDetails" ng-click="toggleDetails($index)" style="cursor:pointer;">
+                    &blacktriangleright;&nbsp;
+                </span>
                 <span editable-text="c.crop.name" e-name="crop" e-form="rowform" e-style="width:100%;" e-required>
                     {{c.crop.name}}
-                </span>
-            </td>
-            <td class="cBlue">
-                <span editable-text="c.market" e-name="market" e-form="rowform" e-style="width:100%;" e-required>
-                    {{c.market}}
                 </span>
             </td>
             <td class="text-right cBlue">
@@ -52,11 +51,6 @@
                     {{c.harvest_measure}}
                 </span>
             </td>
-            <td class="cBlue">
-                <span editable-text="c.gin_mill" e-name="gin_mill" e-form="rowform" e-style="width:100%;" e-required>
-                    {{c.gin_mill}}
-                </span>
-            </td>
             <td class="cBlue" ng-class="AppFactory.gtZero(c.rebates)">
                 <span editable-text="c.rebates" e-name="rebates" e-form="rowform" e-style="width:100%;" e-required>
                     {{c.rebates|flexCurrency:4}}
@@ -69,22 +63,118 @@
             </td>
             <td class="text-center">
                 <!-- form -->
-                <form  name="rowform" onbeforesave="saveCrop($data, p.id)" ng-show="rowform.$visible" class="form-buttons form-inline" editable-form="">
-                	<button type="submit" ng-disabled="rowform.$waiting" style="border:  none !important; background-image: none !important; background-color: transparent;">
-                		<span class="glyphicons glyphicons-circle-ok" style="color:#006837;"></span>
-                	</button>
+                <form  name="rowform" onbeforesave="saveCrop($data, p.id)" ng-show="rowform.$visible" class="form-buttons form-inline" editable-form="" style="width:80px;">
+                    <button type="submit" ng-disabled="rowform.$waiting" style="border:  none !important; background-image: none !important; background-color: transparent;">
+                        <span class="glyphicons glyphicons-circle-ok" style="color:#006837;"></span>
+                    </button>
                 	<span class="btnCancel" ng-disabled="rowform.$waiting" ng-click="rowform.$cancel()">
                 		<span class="glyphicons glyphicons-circle-remove" style="color: #990000;"></span>
                 	</span>
                 </form>
                 <div class="buttons" ng-show="!rowform.$visible">
-                	<span class="glyphicons glyphicons-remove-2" style="color: #990000;" ng-click="deleteCrop($index, p.id)"></span>
+                    <span class="glyphicons glyphicons-remove-2" style="color: #990000;" ng-click="deleteCrop($index, p.id)"></span>
                 </div>
+            </td>
+        </tr>
+        <tr ng-repeat-end ng-show="c.showDetails" ng-hide="!c.showDetails">
+            <td colspan="9" style="background-color: white !important">
+                <table class="table table-striped rowed table-condensed disp-sm">
+                    <tr>
+                        <td style="width:50%;">
+                            <table class="table table-striped rowed table-condensed disp-sm">
+                                <tr>
+                                    <th>Buyer</th>
+                                    <th>Email</th>
+                                    <th style="width:80px;">&nbsp;</th>
+                                </tr>
+                                <tr>
+                                    <td colspan="3" ng-if="c.buyers.length == 0">
+                                        No buyers found.
+                                    </td>
+                                </tr>
+                                <tr ng-repeat="b in c.buyers" ng-init="!rowform2.$visible" ng-dblclick="rowform2.$show()">
+                                    <td class="cBlue">
+                                        <span editable-text="b.buyer" e-name="buyer" e-form="rowform2" e-style="width:100%;">
+                                        	{{b.buyer}}
+                                        </span>
+                                    </td>
+                                    <td class="cBlue">
+                                        <span editable-text="b.buyer_email" e-name="buyer_email" e-form="rowform2" e-style="width:100%;">
+                                        	{{b.buyer_email}}
+                                        </span>
+                                    </td>
+                                    <td style="width:80px;">
+                                        <!-- form -->
+                                        <form  name="rowform2" onbeforesave="saveBuyer($data, p.id)" ng-show="rowform.$visible" class="form-buttons form-inline" editable-form="">
+                                        	<button type="submit" ng-disabled="rowform2.$waiting" style="border:  none !important; background-image: none !important; background-color: transparent;">
+                                        		<span class="glyphicons glyphicons-circle-ok" style="color:#006837;"></span>
+                                        	</button>
+                                        	<span class="btnCancel" ng-disabled="rowform2.$waiting" ng-click="rowform2.$cancel()">
+                                        		<span class="glyphicons glyphicons-circle-remove" style="color: #990000;"></span>
+                                        	</span>
+                                        </form>
+                                        <div class="buttons" ng-show="!rowform.$visible">
+                                        	<span class="glyphicons glyphicons-remove-2" style="color: #990000;" ng-click="deleteBuyer($index, p.id)"></span>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+                            <span style="margin-top: -10px;">
+                                <a ng-click="addNewBuyer(c)" class="btn btn-xs btn-default">
+                                <span class="glyphicon glyphicon-plus-sign" style="color:#006837;"></span> Add New</a>
+                            </span>
+                        </td>
+                        <td style="width:50%;">
+                            <table class="table table-striped rowed table-condensed disp-sm">
+                                <tr>
+                                    <th>Rebator</th>
+                                    <th>Email</th>
+                                    <th style="width:80px;">&nbsp;</th>
+                                </tr>
+                                <tr>
+                                    <td colspan="3" ng-if="c.rebators.length == 0">
+                                        No rebators found.
+                                    </td>
+                                </tr>
+                                <tr ng-repeat="r in c.rebators" ng-init="!rowform3.$visible" ng-dblclick="rowform3.$show()">
+                                    <td class="cBlue">
+                                        <span editable-text="r.rebator" e-name="rebator" e-form="rowform3" e-style="width:100%;">
+                                        	{{r.rebator}}
+                                        </span>
+                                    </td>
+                                    <td class="cBlue">
+                                        <span editable-text="r.rebator_email" e-name="rebator_email" e-form="rowform3" e-style="width:100%;">
+                                        	{{r.rebator_email}}
+                                        </span>
+                                    </td>
+                                    <td style="width:80px;">
+                                        <!-- form -->
+                                        <form  name="rowform3" onbeforesave="saveRebator($data, p.id)" ng-show="rowform3.$visible" class="form-buttons form-inline" editable-form="">
+                                        	<button type="submit" ng-disabled="rowform3.$waiting" style="border:  none !important; background-image: none !important; background-color: transparent;">
+                                        		<span class="glyphicons glyphicons-circle-ok" style="color:#006837;"></span>
+                                        	</button>
+                                        	<span class="btnCancel" ng-disabled="rowform3.$waiting" ng-click="rowform.$cancel()">
+                                        		<span class="glyphicons glyphicons-circle-remove" style="color: #990000;"></span>
+                                        	</span>
+                                        </form>
+                                        <div class="buttons" ng-show="!rowform3.$visible">
+                                        	<span class="glyphicons glyphicons-remove-2" style="color: #990000;" ng-click="deleteRebator($index, p.id)"></span>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+                            <span style="margin-top: -10px;">
+                                <a ng-click="addNewBuyer(c)" class="btn btn-xs btn-default">
+                                    <span class="glyphicon glyphicon-plus-sign" style="color:#006837;"></span> Add New</a>
+                            </span>
+                        </td>
+                    </tr>
+                </table>
             </td>
         </tr>
     </table>
 </div>
-<div class="row">
+<div class="row" style=“margin-top:-20px;">
     <div class="form-group">
         <p>
             <a ng-click="createCrop()" class="btn btn-xs btn-default">
