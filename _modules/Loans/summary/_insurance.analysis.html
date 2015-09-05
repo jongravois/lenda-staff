@@ -6,6 +6,7 @@
         <th>Price</th>
         <th>Level</th>
         <th>MPCI</th>
+        <th>Sup</th>
         <th>Premium</th>
         <th>Share</th>
         <th>Value</th>
@@ -24,6 +25,9 @@
         <td class="text-right">
             {{AppFactory.calcMPCIbyCropSummary(i)|flexCurrency:2}}
         </td>
+        <td ng-class="AppFactory.gtZero(AppFactory.calcSupInsbyCropSummary(i))">
+            {{AppFactory.calcSupInsbyCropSummary(i)|flexCurrency:2}}
+        </td>
         <td class="text-right">{{i.premium|flexCurrency:2}}</td>
         <td class="text-right">{{i.ins_share|flexPercent:1}}</td>
         <td class="text-right">{{AppFactory.calcInsValueByCropSummary(i, loan)|flexCurrency:0}}</td>
@@ -31,7 +35,7 @@
 
     <tr ng-if="loan.insurance.byCrop.length !== 0">
         <td class="success">Total Insurance</td>
-        <td class="success" colspan="7">&nbsp;</td>
+        <td class="success" colspan="8">&nbsp;</td>
         <td class="text-right success">
             {{AppFactory.calcInsuranceTotalByCropSummary(loan)|flexCurrency:0}}
         </td>

@@ -3,18 +3,11 @@
         padding: 6px 6px !important;
     }
 </style>
-<div class="row">
-    <div class="col-md-12 text-right">
-        <button style="margin-right:10px;" class="btn btn-arm" ng-click="updateFarms()"><span
-            class="glyphicons glyphicons-log-book"></span>&nbsp;UPDATE
-        </button>
-    </div>
-</div>
-<br>
 <fieldset>
     <legend>Farms</legend>
     <div class="container-fluid">
-        <table class="table table-striped rowed table-condensed disp-sm">
+        <div class="row">
+            <table class="table table-striped rowed table-condensed disp-sm">
             <tr>
                 <th ng-click="doSort('locale')">ST | County</th>
                 <th ng-click="doSort('fsn')">FSN</th>
@@ -28,56 +21,93 @@
                 <th ng-click="doSort('pgm')">FSA Pgm</th>
                 <th ng-click="doSort('fsa')">FSA Pymt</th>
                 <th>&nbsp;</th>
-                <th>&nbsp;</th>
             </tr>
             <tr>
-                <td colspan="12" ng-if="farms.length === 0">
+                <td colspan="12" ng-if="loan.farms.length === 0">
                     <strong>No farms found.</strong>
                 </td>
             </tr>
-            <tbody ng-repeat="f in loan.farms">
+            <tbody ng-repeat="f in loan.farms" ng-init="!rowform.$visible" ng-dblclick="rowform.$show()">
                 <tr>
-                    <td>
-                        {{f.county.locale}}
+                    <td class="cBlue">
+                        <span editable-text="f.county.locale" e-name="county.locale" e-form="rowform" e-style="width:100%;">
+                        	{{f.county.locale}}
+                        </span>
                     </td>
-                    <td>
-                        {{f.fsn}}
+                    <td class="cBlue">
+                        <span editable-text="f.fsn" e-name="fsn" e-form="rowform" e-style="width:100%;">
+                        	{{f.fsn}}
+                        </span>
                     </td>
-                    <td>
-                        {{f.owner}}
+                    <td class="cBlue">
+                        <span editable-text="f.owner" e-name="owner" e-form="rowform" e-style="width:100%;">
+                        	{{f.owner}}
+                        </span>
                     </td>
-                    <td ng-class="AppFactory.gtZero(f.IR)">
-                        {{f.IR|flexNumber:1}}
+                    <td class="cBlue" ng-class="AppFactory.gtZero(f.IR)">
+                        <span editable-number="f.IR" e-name="IR" e-form="rowform" e-style="width:100%;">
+                        	{{f.IR|flexNumber:1}}
+                        </span>
                     </td>
-                    <td ng-class="AppFactory.gtZero(f.NI)">
-                        {{f.NI|flexNumber:1}}
+                    <td class="cBlue" ng-class="AppFactory.gtZero(f.NI)">
+                        <span editable-number="f.NI" e-name="NI" e-form="rowform" e-style="width:100%;">
+                        	{{f.NI|flexNumber:1}}
+                        </span>
                     </td>
-                    <td ng-class="AppFactory.gtZero(f.share_rent)">
-                        {{f.share_rent|flexPercent:1}}
+                    <td class="cBlue" ng-class="AppFactory.gtZero(f.share_rent)">
+                        <span editable-number="f.share_rent" e-name="share_rent" e-form="rowform" e-style="width:100%;">
+                        	{{f.share_rent|flexPercent:1}}
+                        </span>
                     </td>
-                    <td ng-class="AppFactory.gtZero(f.cash_rent)">
-                        {{f.cash_rent|flexCurrency:0}}
+                    <td class="cBlue" ng-class="AppFactory.gtZero(f.cash_rent)">
+                        <span editable-number="f.cash_rent" e-name="cash_rent" e-form="rowform" e-style="width:100%;">
+                        	{{f.cash_rent|flexCurrency:0}}
+                        </span>
                     </td>
-                    <td>
-                        {{f.when_due}}
+                    <td class="cBlue">
+                        <span editable-text="f.when_due" e-name="when_due" e-form="rowform" e-style="width:100%;">
+                        	{{f.when_due}}
+                        </span>
                     </td>
-                    <td ng-class="AppFactory.gtZero(f.waived)">
-                        {{f.waived|flexCurrency:0}}
+                    <td class="cBlue" ng-class="AppFactory.gtZero(f.waived)">
+                        <span editable-number="f.waived" e-name="waived" e-form="rowform" e-style="width:100%;">
+                        	{{f.waived|flexCurrency:0}}
+                        </span>
                     </td>
-                    <td>
-                        <select name="pgm">
-                            <option>N/A</option>
-                            <option>ARCc</option>
-                            <option>ARCf</option>
-                            <option>PLC</option>
-                        </select>
+                    <td class="cBlue">
+                        <span editable-select="f.gov_pgm" e-name="gov_pgm" e-form="rowform" e-ng-options="p.abr as p.pgm for p in pgms" buttons="no">
+                            {{ f.gov_pgm }}
+                        </span>
                     </td>
-                    <td ng-class="AppFactory.gtZero(f.fsa_paid)">
-                        {{f.fsa_paid|flexCurrency:0}}
+                    <td class="cBlue" ng-class="AppFactory.gtZero(f.fsa_paid)">
+                        <span editable-number="f.fsa_paid" e-name="fsa_paid" e-form="rowform" e-style="width:100%;">
+                        	{{f.fsa_paid|flexCurrency:0}}
+                        </span>
                     </td>
-                    <td></td>
+                    <td class="text-center">
+                        <!-- form -->
+                        <form  name="rowform" onbeforesave="saveFarm($data, p.id)" ng-show="rowform.$visible" class="form-buttons form-inline" editable-form="">
+                        	<button type="submit" ng-disabled="rowform.$waiting" style="border:  none !important; background-image: none !important; background-color: transparent;">
+                        		<span class="glyphicons glyphicons-circle-ok" style="color:#006837;"></span>
+                        	</button>
+                        	<span class="btnCancel" ng-disabled="rowform.$waiting" ng-click="rowform.$cancel()">
+                        		<span class="glyphicons glyphicons-circle-remove" style="color: #990000;"></span>
+                        	</span>
+                        </form>
+                        <div class="buttons" ng-show="!rowform.$visible">
+                        	<span class="glyphicons glyphicons-remove-2" style="color: #990000;" ng-click="deleteFarm($index, p.id)"></span>
+                        </div>
+                    </td>
                 </tr>
             </tbody>
         </table>
+        </div>
+        <div class="row" style=“margin-top:-20px;">
+            <p>
+                <a ng-click="addNewFarm()" class="btn btn-xs btn-default">
+                    <span class="glyphicon glyphicon-plus-sign" style="color:#006837;"></span> Add New</a>
+            </p>
+        </div>
     </div>
 </fieldset>
+<br><br><br><br>

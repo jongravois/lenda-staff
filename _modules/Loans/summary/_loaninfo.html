@@ -1,6 +1,6 @@
 <!--Applicant|Partners,etc|Analyst-->
 <div class="row">
-    <div class="form-group col-md-4">
+    <div class="form-group col-md-3">
         <label>Applicant</label>
         <br/>
         <p class="display-field">
@@ -24,7 +24,7 @@
             <br/>
         </p>
     </div>
-    <div class="form-group col-md-4">
+    <div class="form-group col-md-3">
         <div ng-switch="loan.applicant.entity_id">
             <div ng-switch-when="1">
                 <label>Corporation Information</label>
@@ -44,7 +44,7 @@
                 <label>Partnership Information</label>
                 <br/>
                 <p class="display-field" ng-repeat="p in loan.partners">
-                    {{p.partner}}<br/><br/>
+                    {{p.partner}}<br/>
                 </p>
             </div>
             <div ng-switch-when="5">
@@ -56,13 +56,14 @@
             </div>
         </div>
     </div>
-    <div class="form-group col-md-4">
+
+    <div class="form-group col-md-3">
         <label>Originating Officer:</label>
         <br/>
         <p class="display-field">
             {{loan.analyst}}
         </p>
-        <br/><br/>
+        <br/>
         <label>Interest Rate</label>
         <br/>
         <table style="width:120px;">
@@ -76,18 +77,34 @@
             </tr>
         </table>
     </div>
+    <div class="form-group col-md-3">
+        <label ng-if="!loan.has_addendum">Application Date</label>
+        <label ng-if="loan.has_addendum">Addendum Date</label>
+        <br/>
+        <p class="display-field">
+            {{loan.app_date | date:'M/d/yyyy'}}
+        </p>
+        <br/>
+        <label>Loan Due Date</label>
+        <br/>
+        <p class="display-field">
+            {{loan.due_date | date:'M/d/yyyy'}}
+        </p>
+    </div>
+
 </div>
 
 <!-- Income| |Interest Rates-->
 <div class="row">
-    <div class="form-group col-md-4">
+    <div class="form-group col-md-3">
         <label>Income From Farm</label>
         <br/>
         <p class="display-field">
             {{loan.quests.income_percent|flexPercent:1}}
         </p>
     </div>
-    <div class="form-group col-md-4">
+    <div class="form-group col-md-3">&nbsp;</div>
+    <div class="form-group col-md-3">
         <label>Pesticide Number</label>
         <br/>
         <p class="display-field">
@@ -98,9 +115,7 @@
             </span>
         </p>
     </div>
-    <div class="form-group col-md-4">
-
-    </div>
+    <div class="form-group col-md-3">&nbsp;</div>
 </div>
 
 <!--Income% Explanation-->

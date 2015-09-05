@@ -39,7 +39,7 @@
                 return runner;
             }
             $scope.calcTotalRevenue = function(loan) {
-                return Number($scope.calcAgInput(loan)) + Number(loan.fins.total_fsa_pay) + Number(loan.fins.total_claims);
+                return Number($scope.calcAgInput(loan)) + Number(loan.fins.total_fsa_pay) + Number(loan.fins.total_indirect);
             };
             $scope.calcCropHailValue = function(obj) {
                 return 0;

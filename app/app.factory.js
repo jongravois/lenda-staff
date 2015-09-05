@@ -42,6 +42,7 @@
             calcRHPEDiscount: calcRHPEDiscount,
             calcAdjProd: calcAdjProd,
             calcRPbyCrop: calcRPbyCrop,
+            calcSupInsbyCropSummary: calcSupInsbyCropSummary,
             calcSuppInsMax: calcSuppInsMax,
             calcSuppInsTotal: calcSuppInsTotal,
             calcTotalArmAndFarmExpenses: calcTotalArmAndFarmExpenses,
@@ -55,7 +56,6 @@
             filterLoans: filterLoans,
             fixDollars: fixDollars,
             getAll: getAll,
-            getAcresForCropInLoan: getAcresForCropInLoan,
             getAllCrops: getAllCrops,
             getAverage: getAverage,
             getInsByType: getInsByType,
@@ -357,8 +357,9 @@
         }
         function calcInsValueByCropSummary(obj, loan) {
             var mpciLessPremium = calcMPCIbyCropSummary(obj) - Number(obj.premium);
+            var supIns = calcSupInsbyCropSummary(obj);
             var acres = Number(calcAcresCrop(obj.crop_id, loan));
-            return mpciLessPremium * acres;
+            return (mpciLessPremium + supIns) * acres;
         }
         function calcMarketValueTotal(loan) {
             if(!loan) { return 0; }
@@ -437,6 +438,13 @@
             });
             return retro;
         }
+        function calcSupInsbyCropSummary(obj) {
+            if(obj.OPTIONS === 'STAX') {
+                return (Number(obj.stax_desired_range)/100) * (Number(obj.stax_protection_factor)/100) * (Number(obj.ins_price) * Number(obj.exp_yield));
+            } else {
+                return (Number(obj.stax_desired_range)/100) * Number(obj.exp_yield) * Number(obj.ins_price);
+            }
+        }
         function calcSuppInsMax(obj) {
             //console.log('MAX', obj);
             //coverage range/100 * expected yield * price
@@ -491,7 +499,7 @@
                 var cropval = calcCropValue(item);
                 toti += cropval;
             });
-            return toti + Number(loan.fins.total_fsa_pay) + Number(loan.fins.total_claims);
+            return toti + Number(loan.fins.total_fsa_pay) + Number(loan.fins.total_indirect);
         }
         function calcTotalFarmIncome(loan) {
             return 771124;
@@ -561,7 +569,6 @@
             return parseFloat(finalResult);
 
         }
-        function getAcresForCropInLoan(loanID, cropID) {}
         function getAllCrops() {
             //TODO: Hard Coded
             return ['corn', 'soybeans', 'beansFAC', 'sorghum', 'wheat', 'cotton', 'rice', 'peanuts', 'sugarcane'];
