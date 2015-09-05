@@ -4,43 +4,51 @@
         <label>Applicant</label>
         <br/>
         <p class="display-field">
-            {{loan.applicant.applicant | displayname}}
+            {{loan.applicant.applicant|displayname}}
             <br/>
-            {{loan.applicant.address}}
+            <span style="font-size: 12px;">
+                {{loan.applicant.address}}
+            </span>
             <br/>
-            {{loan.applicant.city}}, {{loan.applicant.state_abr}} {{loan.applicant.zip}}
+            <span style="font-size: 12px;">
+                {{loan.applicant.city}}, {{loan.applicant.state.abr}} {{loan.applicant.zip}}
+            </span>
             <br/>
-            {{loan.applicant.phone | phone}}
+            <span style="font-size: 12px;">
+                {{loan.applicant.phone | phone}}
+            </span>
             <br/>
-            {{loan.applicant.email}}
+            <span style="font-size: 12px;">
+                {{loan.applicant.email}}
+            </span>
             <br/>
         </p>
     </div>
     <div class="form-group col-md-4">
         <div ng-switch="loan.applicant.entity_id">
             <div ng-switch-when="1">
-                <label>Corporation</label>
+                <label>Corporation Information</label>
                 <br/>
                 <p class="display-field" ng-repeat="c in loan.corps">
                     {{c.corporation}}
                 </p>
             </div>
             <div ng-switch-when="3">
-                <label>Joint Venture</label>
+                <label>Joint Venture Information</label>
                 <br/>
                 <p class="display-field" ng-repeat="j in loan.joints">
                     {{j.partner}}
                 </p>
             </div>
             <div ng-switch-when="4">
-                <label>Partners</label>
+                <label>Partnership Information</label>
                 <br/>
                 <p class="display-field" ng-repeat="p in loan.partners">
                     {{p.partner}}<br/><br/>
                 </p>
             </div>
             <div ng-switch-when="5">
-                <label>Spouse</label>
+                <label>Co-Applicant Information</label>
                 <br/>
                 <p class="display-field">
                     {{loan.applicant.spouse | displayname}}
@@ -54,40 +62,7 @@
         <p class="display-field">
             {{loan.analyst}}
         </p>
-    </div>
-</div>
-
-<!-- OrgType| | AppDate-->
-<div class="row">
-    <div class="form-group col-md-4">
-        <label>Organization Type</label>
-        <br/>
-        <p class="display-field">
-            {{loan.applicant.entity.entitytype}}
-        </p>
-    </div>
-    <div class="form-group col-md-4">&nbsp;</div>
-    <div class="form-group col-md-4">
-        <label ng-if="!loan.has_addendum">Application Date</label>
-        <label ng-if="loan.has_addendum">Addendum Date</label>
-        <br/>
-        <p class="display-field">
-            {{loan.app_date | date:'M/d/yy'}}
-        </p>
-    </div>
-</div>
-
-<!-- Income| |Interest Rates-->
-<div class="row">
-    <div class="form-group col-md-4">
-        <label>Income From Farm</label>
-        <br/>
-        <p class="display-field">
-            {{loan.quests.income_percent|flexPercent:1}}
-        </p>
-    </div>
-    <div class="form-group col-md-4">&nbsp;</div>
-    <div class="form-group col-md-4">
+        <br/><br/>
         <label>Interest Rate</label>
         <br/>
         <table style="width:120px;">
@@ -103,29 +78,35 @@
     </div>
 </div>
 
-<!--Income% Explanation-->
-<div class="row" ng-if="loan.quests.income_percent < 100">
-    <div class="form-group col-md-12">
-        <label>Additional Income</label>
-        <p>{{loan.quests.income_distribution_details}}</p>
-    </div>
-</div>
-
-<!--Pesticide Number| |Due Date-->
+<!-- Income| |Interest Rates-->
 <div class="row">
+    <div class="form-group col-md-4">
+        <label>Income From Farm</label>
+        <br/>
+        <p class="display-field">
+            {{loan.quests.income_percent|flexPercent:1}}
+        </p>
+    </div>
     <div class="form-group col-md-4">
         <label>Pesticide Number</label>
         <br/>
         <p class="display-field">
             {{loan.quests.pesticide_number}}
+            &nbsp;
+            <span style="font-size: 12px;">
+                [exp: {{loan.quests.pest_num_expiration}}]
+            </span>
         </p>
     </div>
-    <div class="form-group col-md-4">&nbsp;</div>
     <div class="form-group col-md-4">
-        <label>Due Date</label>
-        <br/>
-        <p class="display-field">
-            {{loan.due_date | date:'M/d/yy'}}
-        </p>
+
+    </div>
+</div>
+
+<!--Income% Explanation-->
+<div class="row" ng-if="loan.quests.income_percent < 100">
+    <div class="form-group col-md-12">
+        <label>Additional Income</label>
+        <p>{{loan.quests.income_distribution_details}}</p>
     </div>
 </div>

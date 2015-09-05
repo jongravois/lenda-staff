@@ -25,43 +25,43 @@
                     {{ c.crop.measurement }}
                 </span>
             </td>
-            <td class="text-right cBlue">
+            <td class="cBlue" ng-class="AppFactory.gtZero(c.yields[0].p1)">>
                 <span editable-number="c.yields[0].p1" e-name="p1" e-form="rowform" e-style="width:100%;">
-                	{{c.yields[0].p1|number:1}}
+                	{{c.yields[0].p1|flexNumber:1}}
                 </span>
             </td>
-            <td class="text-right cBlue">
+            <td class="cBlue" ng-class="AppFactory.gtZero(c.yields[0].p2)">
                 <span editable-number="c.yields[0].p2" e-name="p2" e-form="rowform" e-style="width:100%;">
-                	{{c.yields[0].p2|number:1}}
+                	{{c.yields[0].p2|flexNumber:1}}
                 </span>
             </td>
-            <td class="text-right cBlue">
+            <td class="cBlue" ng-class="AppFactory.gtZero(c.yields[0].p3)">
                 <span editable-number="c.yields[0].p3" e-name="p3" e-form="rowform" e-style="width:100%;">
-                	{{c.yields[0].p3|number:1}}
+                	{{c.yields[0].p3|flexNumber:1}}
                 </span>
             </td>
-            <td class="text-right">
-                {{AppFactory.getAverage([c.yields[0].p1, c.yields[0].p2, c.yields[0].p3])| number:1}}
+            <td class="cBlue" ng-class="AppFactory.gtZero(AppFactory.getAverage([c.yields[0].p1, c.yields[0].p2, c.yields[0].p3]))">
+                {{AppFactory.getAverage([c.yields[0].p1, c.yields[0].p2, c.yields[0].p3])| flexNumber:1}}
             </td>
-            <td class="text-right cBlue">
+            <td class="cBlue" ng-class="AppFactory.gtZero(c.yields[0].p4)">
                 <span editable-number="c.yields[0].p4" e-name="p4" e-form="rowform" e-style="width:100%;">
-                	{{c.yields[0].p4|number:1}}
+                	{{c.yields[0].p4|flexNumber:1}}
                 </span>
             </td>
-            <td class="text-right cBlue">
+            <td class="cBlue" ng-class="AppFactory.gtZero(c.yields[0].p5)">
                 <span editable-number="c.yields[0].p5" e-name="p5" e-form="rowform" e-style="width:100%;">
-                	{{c.yields[0].p5|number:1}}
+                	{{c.yields[0].p5|flexNumber:1}}
                 </span>
             </td>
-            <td class="text-right cBlue">
+            <td class="cBlue" ng-class="AppFactory.gtZero(c.yields[0].p6)">
                 <span editable-number="c.yields[0].p6" e-name="p6" e-form="rowform" e-style="width:100%;">
-                	{{c.yields[0].p6|number:1}}
+                	{{c.yields[0].p6|flexNumber:1}}
                 </span>
             </td>
             <td class="text-right">
                 {{AppFactory.getAverage([c.yields[0].p1, c.yields[0].p2, c.yields[0].p3, c.yields[0].p4, c.yields[0].p5, c.yields[0].p6])| number:1}}
             </td>
-            <td>
+            <td class="text-center">
                 <!-- form -->
                 <form  name="rowform" onbeforesave="save($data, p.id)" ng-show="rowform.$visible" class="form-buttons form-inline" editable-form="">
                 	<button type="submit" ng-disabled="rowform.$waiting" style="border:  none !important; background-image: none !important; background-color: transparent;">
@@ -71,9 +71,7 @@
                 		<span class="glyphicons glyphicons-circle-remove" style="color: #990000;"></span>
                 	</span>
                 </form>
-                <div class="buttons" ng-show="!rowform.$visible" style="display: none;">
-                	<span class="glyphicons glyphicons-remove-2" style="color: #990000;" ng-click="delete($index, p.id)"></span>
-                </div>
+                -
             </td>
         </tr>
     </table>

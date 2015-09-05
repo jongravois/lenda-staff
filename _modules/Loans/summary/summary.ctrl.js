@@ -4,10 +4,12 @@
         .module('ARM')
         .controller('SummaryController', SummaryController);
 
-        SummaryController.$inject = ['$rootScope', '$scope', '$state', 'AppFactory'];
+        SummaryController.$inject = ['$rootScope', '$scope', '$state', '$templateCache', 'AppFactory'];
 
-        function SummaryController($rootScope, $scope, $state, AppFactory){
+        function SummaryController($rootScope, $scope, $state, $templateCache, AppFactory){
             $scope.newapplications = $state.current.data.newapplications;
+            var view = $templateCache.get();
+            console.log('HTML', view);
 
             $scope.comments = AppFactory.parseComments($scope.loan.comments);
             var optimizer = AppFactory.optimized($scope.loan);

@@ -1,13 +1,14 @@
 <style>
     label{ color: #999999; }
 </style>
-<!--<fieldset>-->
-    <legend>Loan Summary</legend>
+<fieldset>
+    <legend>Loan Information</legend>
     <div class="container-fluid">
         <div id="Loan Info" class="row" ng-if="!XColView">
             <div ng-include="'./_modules/Loans/summary/_loaninfo.html'"></div>
         </div>
     </div>
+</fieldset>
     <br>
     <!--LOAN SUMMARY (COMMENT)-->
 <div ng-repeat="c in comments.Loan">
@@ -43,85 +44,84 @@
 </div>
 
 <!--Collateral Conditions-->
-<div class="row" ng-if="!XColView"
-     style="padding-top: 20px;">
-    <div class="form-group col-md-12 text-left">
-        <b>Collateral Conditions</b>
-
-        <div class="row">
-            <div class="form-group col-md-6 col-md-offset-1">
-                <div ng-include="'./_modules/Loans/summary/_loan.conditions.html'"></div>
-            </div>
-        </div>
+<fieldset>
+    <legend>Collateral Conditions</legend>
+    <div class="row" ng-if="!XColView" style="padding-left: 20px;">
+        <!--<div class="form-group col-md-12 text-left">-->
+                <div class="form-group">
+                    <div ng-include="'./_modules/Loans/summary/_loan.conditions.html'"></div>
+                </div>
+        <!--</div>-->
     </div>
-</div>
+</fieldset>
 
 <span ng-switch="loan.loan_type_id" ng-if="!XColView">
-      <span ng-switch-when="7">
-          <!-- GRAIN STORAGE LOANS ONLY -->
-        <div ng-include="'./_modules/Loans/summary/_storage.contract.html'"></div>
-      </span>
+  <br>
+  <span ng-switch-when="7">
+      <!-- GRAIN STORAGE LOANS ONLY -->
+    <div ng-include="'./_modules/Loans/summary/_storage.contract.html'"></div>
+  </span>
 
-      <span ng-switch-default>
-      <!-- ALL LOANS BUT GRAIN STORAGE -->
+  <span ng-switch-default>
+  <!-- ALL LOANS BUT GRAIN STORAGE -->
 
-        <!--Projected Income-->
-        <div class="row" style="padding-top: 20px;">
-            <div class="form-group col-md-12 text-left">
-                <b>Projected Income</b>
-            </div>
-            <div class="row">
-                <div class="col-md-11" style="margin-left:20px;">
-                    <div ng-include="'./_modules/Loans/summary/_income.tbl.html'"></div>
-                </div>
-            </div>
-        </div>
-
-      <!--USE OF FUNDS ANALYSIS-->
-    <div class="row" style="padding-top: 20px;">
-        <div class="form-group col-md-12 text-left">
-            <b>Use of Funds Analysis</b>
-        </div>
-        <div class="row">
-            <div class="col-md-11" style="margin-left:20px;">
-                <div ng-if="loan.has_distributor"
-                     ng-include="'./_modules/Loans/summary/_budget.tbl.html'"></div>
-                <div ng-if="!loan.has_distributor"
-                     ng-include="'./_modules/Loans/summary/_budget.nd.tbl.html'"></div>
-            </div>
-        </div>
-    </div>
-
-      <!--INSURANCE ANALYSIS-->
-      <!--TODO: hide if loantypeid < 4-->
-      <div class="row" style="padding-top: 20px;">
-          <div class="form-group col-md-12 text-left">
-              <b>Crop Insurance Analysis</b>
-          </div>
+      <!--Projected Income-->
+      <fieldset>
+          <legend>Projected Income</legend>
           <div class="row">
-              <div class="col-md-11" style="margin-left:20px;">
-                  <div ng-include="'./_modules/Loans/summary/_insurance.analysis.html'"></div>
+              <div class="row">
+                  <div class="col-md-11" style="margin-left:20px;">
+                      <div ng-include="'./_modules/Loans/summary/_income.tbl.html'"></div>
+                  </div>
               </div>
           </div>
-      </div>
-    <br/><br/>
-    <!--BREAK-EVEN ANALYSIS-->
-      <div class="row" style="padding-top: 20px;">
-          <div class="form-group col-md-12 text-left">
-              <b>Break Even Analysis for ARM<span ng-if="loan.has_distributor"> and {{loan.distributor.distributor}}</span></b>
-          </div>
+      </fieldset>
+
+      <br/>
+
+      <!--USE OF FUNDS ANALYSIS-->
+      <fieldset>
+          <legend>Use of Funds Analysis</legend>
           <div class="row">
               <div class="col-md-11" style="margin-left:20px;">
+                  <div ng-if="loan.has_distributor"
+                       ng-include="'./_modules/Loans/summary/_budget.tbl.html'"></div>
+                  <div ng-if="!loan.has_distributor"
+                       ng-include="'./_modules/Loans/summary/_budget.nd.tbl.html'"></div>
+              </div>
+          </div>
+      </fieldset>
+
+      <br/>
+
+      <!--INSURANCE ANALYSIS-->
+      <fieldset>
+          <legend>Crop Insurance Analysis</legend>
+          <div class="row" style="padding-top: 20px;">
+              <div class="row">
+                  <div class="col-md-11" style="margin-left:20px;">
+                      <div ng-include="'./_modules/Loans/summary/_insurance.analysis.html'"></div>
+                  </div>
+              </div>
+          </div>
+      </fieldset>
+
+      <br/>
+
+      <!--BREAK-EVEN ANALYSIS-->
+      <fieldset>
+          <legend>Break Even Analysis</legend>
+          <div class="row">
+              <div class="col-md-8 col-md-offset-2">
                   <div ng-include="'./_modules/Loans/summary/_break.even.analysis.html'"></div>
               </div>
           </div>
-      </div>
-
+      </fieldset>
   </span>
-    </span>
+</span>
+
 
 <!-- CROSS COLLATERAL VIEW -->
-
 <!-- PROJECTED INCOME SUMMARY-->
 <div class="row" ng-if="XColView"
      style="padding-top: 20px;">
@@ -178,5 +178,3 @@
 </div>
 <br><br><br><br>
 <!-- /CROSS COLLATERAL VIEW -->
-
-<!--</fieldset>-->

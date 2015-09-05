@@ -24,6 +24,14 @@
                   ng-class="{'cYellow': loan.has_comment, 'cGray': !loan.has_comment}"></span>
             </a>
 
+            <a href="#/edit/{{loan.loan_type_id}}/{{loan.id}}/disbursements">
+            <span tooltip="Disbursement"
+                  tooltip-append-to-body="true"
+                  tooltip-placement="bottom"
+                  class="progicon glyphicons glyphicons-usd"
+                  ng-class="{'cGreen': loan.disbursement_issue, 'cGray': !loan.disbursement_issue}"></span>
+            </a>
+
             <a href="#/edit/{{loan.loan_type_id}}/{{loan.id}}/summary">
             <span tooltip="Stale Application"
                   tooltip-append-to-body="true"
@@ -32,13 +40,6 @@
                   ng-class="{'cRed': loan.is_stale, 'cGray': !loan.is_stale}"></span>
             </a>
 
-            <a href="#/edit/{{loan.loan_type_id}}/{{loan.id}}/disbursements">
-            <span tooltip="Disbursement"
-                  tooltip-append-to-body="true"
-                  tooltip-placement="bottom"
-                  class="progicon glyphicons glyphicons-usd"
-                  ng-class="{'cGreen': loan.disbursement_issue, 'cGray': !loan.disbursement_issue}"></span>
-            </a>
         </td>
         <td>
             <span class="progicon glyphicons glyphicons-random"

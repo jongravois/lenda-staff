@@ -15,22 +15,25 @@
             <strong>No Insurance Information Found.</strong>
         </td>
     </tr>
-    <tr ng-repeat="c in loan.loancrops|orderBy:'crop_id'" ng-if="loan.loancrops.length !== 0">
-        <td>{{c.crop_name}}</td>
-        <td class="text-center">{{c.type}}</td>
-        <td class="text-center">{{c.option}}</td>
-        <td class="text-right">{{c.price|flexCurrency:2}}</td>
-        <td class="text-right">{{c.level|flexPercent:1}}</td>
-        <td class="text-right">{{c.guarantee|flexCurrency:2}}</td>
-        <td class="text-right">{{c.premium|flexCurrency:2}}</td>
-        <td class="text-right">{{c.share|flexPercent:1}}</td>
-        <td class="text-right">{{c.value|flexCurrency:0}}</td>
+    <tr ng-repeat="i in loan.ins_summary" ng-if="loan.loancrops.length !== 0">
+        <td>{{i.name}}</td>
+        <td class="text-center">{{i.TYPE}}</td>
+        <td class="text-center">{{i.OPTIONS}}</td>
+        <td class="text-right">{{i.ins_price|flexCurrency:2}}</td>
+        <td class="text-right">{{i.ins_level|flexPercent:1}}</td>
+        <td class="text-right">
+            {{AppFactory.calcMPCIbyCropSummary(i)|flexCurrency:2}}
+        </td>
+        <td class="text-right">{{i.premium|flexCurrency:2}}</td>
+        <td class="text-right">{{i.ins_share|flexPercent:1}}</td>
+        <td class="text-right">{{AppFactory.calcInsValueByCropSummary(i, loan)|flexCurrency:0}}</td>
     </tr>
+
     <tr ng-if="loan.insurance.byCrop.length !== 0">
         <td class="success">Total Insurance</td>
         <td class="success" colspan="7">&nbsp;</td>
         <td class="text-right success">
-            {{AppFactory.calcInsuranceTotalValue(loan)|flexCurrency:0}}
+            {{AppFactory.calcInsuranceTotalByCropSummary(loan)|flexCurrency:0}}
         </td>
     </tr>
 </table>
@@ -39,19 +42,19 @@
     <tr>
         <td style="width:60%;">ARM<span ng-if="loan.has_distributor"> and {{loan.distributor.distributor}} </span>Loan secured by Collateral Conditions</td>
         <td style="width:40%;" colspan="3" class="text-right">
-            {{loan.expenses.totals.byLoan.arm + loan.expenses.totals.byLoan.dist|flexCurrency:0}}
+            {{(AppFactory.calcTotalArmAndFarmExpenses(loan) + loan.expenses.totals.byLoan.dist)|flexCurrency:0}}
         </td>
     </tr>
     <tr>
-        <td>Applicant's share of crop insurance less premium</td>
+        <td>Applicant's crop insurance value less premium</td>
         <td colspan="3" class="text-right">
-            {{AppFactory.calcInsuranceTotalValue(loan) | flexCurrency:0}}
+            {{AppFactory.calcInsuranceTotalByCropSummary(loan)|flexCurrency:0}}
         </td>
     </tr>
     <tr>
-        <td>Crop Insurance coverage in excess of ARM<span ng-if="loan.has_distributor"> and {{loan.distributor.distributor}}</span> Loan</td>
+        <td>Crop insurance value in excess of ARM<span ng-if="loan.has_distributor"> and {{loan.distributor.distributor}}</span> Loan</td>
         <td colspan="3" class="text-right">
-            {{AppFactory.calcInsuranceTotalValue(loan) - (loan.expenses.totals.byLoan.arm + loan.expenses.totals.byLoan.dist) | flexCurrency:0}}
+            {{AppFactory.calcInsuranceTotalByCropSummary(loan) - (AppFactory.calcTotalArmAndFarmExpenses(loan) + loan.expenses.totals.byLoan.dist)|flexCurrency:0}}
         </td>
     </tr>
 </table>

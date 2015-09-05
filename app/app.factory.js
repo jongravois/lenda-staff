@@ -30,11 +30,14 @@
             calcInsOverDiscNonRP: calcInsOverDiscNonRP,
             calcInsOverDYield: calcInsOverDYield,
             calcInsShareCrop: calcInsShareCrop,
+            calcInsuranceTotalByCropSummary: calcInsuranceTotalByCropSummary,
             calcInsuranceTotalGuarantee: calcInsuranceTotalGuarantee,
             calcInsuranceTotalValue: calcInsuranceTotalValue,
             calcInsuranceValue: calcInsuranceValue,
+            calcInsValueByCropSummary: calcInsValueByCropSummary,
             calcMarketValueTotal: calcMarketValueTotal,
             calcMPCIbyCrop: calcMPCIbyCrop,
+            calcMPCIbyCropSummary: calcMPCIbyCropSummary,
             calcOtherCollateralByType: calcOtherCollateralByType,
             calcRHPEDiscount: calcRHPEDiscount,
             calcAdjProd: calcAdjProd,
@@ -173,14 +176,15 @@
         }
         function calcAcresCrop(cropID, loan) {
             var loanpractices = loan.loanpractices;
+            var total = 0;
 
-            var crop = _.filter(loanpractices, function(i) {
-                if (Number(i.crop_id) == Number(cropID)) {
-                    return i;
+            _.each(loanpractices, function(i) {
+                if (Number(i.crop_id) === Number(cropID)) {
+                    total += Number(i.acres);
                 }
             });
 
-            return _.sumCollection(crop, 'acres');
+            return total;
         }
         function calcAdjExposure(loan) {
             return loan.fins.adjExposure;
@@ -323,6 +327,15 @@
             }
             return (Number(obj.level) / 100) * Number(obj.price) * Number(obj.yield);
         }
+        function calcInsuranceTotalByCropSummary(loan) {
+            var total = 0;
+
+            _.each(loan.ins_summary, function(i){
+                total += Number(calcInsValueByCropSummary(i, loan));
+            });
+
+            return total;
+        }
         function calcInsuranceTotalGuarantee(loan) {
             if(!loan) { return; }
 
@@ -342,6 +355,11 @@
 
             return (Number(calcInsuranceGuaranty(obj)) - Number(obj.premium)) * (Number(obj.share) / 100) * obj.acres;
         }
+        function calcInsValueByCropSummary(obj, loan) {
+            var mpciLessPremium = calcMPCIbyCropSummary(obj) - Number(obj.premium);
+            var acres = Number(calcAcresCrop(obj.crop_id, loan));
+            return mpciLessPremium * acres;
+        }
         function calcMarketValueTotal(loan) {
             if(!loan) { return 0; }
 
@@ -355,6 +373,9 @@
             var aph = _.weighted('loancrop.practices', 'aph');
 
             return Number(level) * Number(ins_price)/100 * Number(aph);
+        }
+        function calcMPCIbyCropSummary(obj) {
+            return Number(obj.ins_level/100) * Number(obj.ins_price) * Number(obj.ins_share);
         }
         function calcOtherCollateralByType(type, loan) {
             var collateral = loan.other_collateral;

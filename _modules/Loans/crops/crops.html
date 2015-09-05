@@ -36,9 +36,45 @@
                   ng-click="togShowYields()"
                   ng-if="showYields"></span>
             &nbsp;
-            Crop Historic Yields
+            Whole Farm Production Yield
         </legend>
         <div class="container-fluid" ng-include="'./_modules/Loans/crops/_yields.html'" ng-if="showYields">
+        </div>
+    </fieldset>
+    <br><br>
+    <fieldset>
+        <legend>
+            &nbsp;
+            <span class="pendicon glyphicon glyphicon-chevron-right"
+                  ng-click="togShowBuyers()"
+                  ng-if="!showBuyers"></span>
+            <span class="pendicon glyphicon glyphicon-chevron-down"
+                  ng-click="togShowBuyers()"
+                  ng-if="showBuyers"></span>
+            &nbsp;
+            Buyers
+        </legend>
+        <div class="container-fluid"
+             ng-include="'./_modules/Loans/crops/_buyers.html'"
+             ng-if="showBuyers">
+        </div>
+    </fieldset>
+    <br><br>
+    <fieldset>
+        <legend>
+            &nbsp;
+            <span class="pendicon glyphicon glyphicon-chevron-right"
+                  ng-click="togShowRebators()"
+                  ng-if="!showRebators"></span>
+            <span class="pendicon glyphicon glyphicon-chevron-down"
+                  ng-click="togShowRebators()"
+                  ng-if="showRebators"></span>
+            &nbsp;
+            Rebators
+        </legend>
+        <div class="container-fluid"
+             ng-include="'./_modules/Loans/crops/_rebators.html'"
+             ng-if="showRebators">
         </div>
     </fieldset>
     <br><br>
