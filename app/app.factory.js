@@ -18,10 +18,14 @@
             calcCashFlow: calcCashFlow,
             calcCropAcres: calcCropAcres,
             calcCropAph: calcCropAph,
+            calcCropFee: calcCropFee,
+            calcCropIncome: calcCropIncome,
             calcCropProdPrice: calcCropProdPrice,
             calcCropProdShare: calcCropProdShare,
+            calcCropProdYield: calcCropProdYield,
             calcCropValue: calcCropValue,
             calcExposure: calcExposure,
+            calcFSACollateralValue: calcFSACollateralValue,
             calcHvstAdj: calcHvstAdj,
             calcInsCoverageExcess: calcInsCoverageExcess,
             calcInsCropValue: calcInsCropValue,
@@ -35,21 +39,38 @@
             calcInsuranceTotalValue: calcInsuranceTotalValue,
             calcInsuranceValue: calcInsuranceValue,
             calcInsValueByCropSummary: calcInsValueByCropSummary,
+            calcIODCollateralValue: calcIODCollateralValue,
             calcMarketValueTotal: calcMarketValueTotal,
             calcMPCIbyCrop: calcMPCIbyCrop,
             calcMPCIbyCropSummary: calcMPCIbyCropSummary,
+            calcOtherColByType: calcOtherColByType,
             calcOtherCollateralByType: calcOtherCollateralByType,
+            calcRHPEbyCrop: calcRHPEbyCrop,
             calcRHPEDiscount: calcRHPEDiscount,
             calcAdjProd: calcAdjProd,
+            calcInsbyCrop: calcInsbyCrop,
+            calcPlannedCropValue: calcPlannedCropValue,
+            calcProjectedCrops: calcProjectedCrops,
             calcRPbyCrop: calcRPbyCrop,
             calcSupInsbyCropSummary: calcSupInsbyCropSummary,
             calcSuppInsMax: calcSuppInsMax,
             calcSuppInsTotal: calcSuppInsTotal,
             calcTotalArmAndFarmExpenses: calcTotalArmAndFarmExpenses,
+            calcTotalBookedAdj: calcTotalBookedAdj,
+            calcTotalCommitment: calcTotalCommitment,
+            calcTotalCropValues: calcTotalCropValues,
             calcTotalExpenses: calcTotalExpenses,
             calcTotalFarmExpenses: calcTotalFarmExpenses,
+            calcTotalHarvestAdj: calcTotalHarvestAdj,
             calcTotalIncome: calcTotalIncome,
+            calcTotalInsOverDisc: calcTotalInsOverDisc,
+            calcTotalRPIns: calcTotalRPIns,
+            calcTotalRPHPEIns: calcTotalRPHPEIns,
+            calcTotalSupIns: calcTotalSupIns,
+            calcTotalYPIns: calcTotalYPIns,
             calcYieldCrop: calcYieldCrop,
+            calcYPbyCrop: calcYPbyCrop,
+            calcYPCollateralValue: calcYPCollateralValue,
             calcYPDiscount: calcYPDiscount,
             createNewFarmExpense: createNewFarmExpense,
             deleteIt: deleteIt,
@@ -237,6 +258,9 @@
                 return Number(arm_budget) * (fee_percent/100);
             }
         }
+        function calcCropIncome(loancrop) {
+            return Number(calcCropValue(loancrop)) + Number(calcBookAdj(loancrop)) - Number(calcHvstAdj(loancrop));
+        }
         function calcCropProdPrice(loancrop) {
             var practices = loancrop.practices;
             return _.weighted(practices, 'prod_price', 'acres');
@@ -245,19 +269,23 @@
             var practices = loancrop.practices;
             return _.weighted(practices, 'prod_share', 'acres');
         }
+        function calcCropProdYield(loancrop) {
+            var practices = loancrop.practices;
+            return _.weighted(practices, 'prod_share', 'acres');
+        }
         function calcCropValue(loancrop) {
-            return Number(calcCropAcres(loancrop)) * Number(calcCropAph(loancrop)) * Number(calcCropProdPrice(loancrop)) * (Number(calcCropProdShare(loancrop))/100)
+            return Number(calcCropAcres(loancrop)) * Number(calcCropProdYield(loancrop)) * Number(calcCropProdPrice(loancrop)) * (Number(calcCropProdShare(loancrop))/100);
         }
         function calcExposure(loan) {
             return Number(calcTotalCollateral(loan)) - Number(calcTotalArmDistCommitment(loan));
         }
+        function calcFSACollateralValue(loan) {
+            return Number(loan.fins.total_fsa_pay) * (100 - Number(loan.fins.discounts.percent_fsa))/100;
+        }
         function calcHvstAdj(loancrop) {
-            var hvsta = Number(calcCropAcres(loancrop)) * Number(calcCropAph(loancrop)) * Number(loancrop.var_harvest);
-            if(hvsta < 0) {
-                return 0;
-            } else {
-                return hvsta;
-            }
+            //acres*yield*-harvest
+            var hvsta = Number(calcCropAcres(loancrop)) * Number(calcCropProdYield(loancrop)) * Number(loancrop.var_harvest);
+            return hvsta;
         }
         function calcInsCoverageExcess(loan) {
             //return Number(calcInsuranceTotalValue(loan)) - (loan.expenses.totals.byLoan.arm + loan.expenses.totals.byLoan.dist);
@@ -266,10 +294,11 @@
             //(Guarantee-Premium)*(Share/100)*Acres
             return (Number(obj.guarantee) - Number(obj.premium)) * (Number(obj.share)/100) * Number(obj.acres);
         }
-        function calcInsOverDisc(obj) {
-            var insValue = Number(calcInsCropValue(obj));
+        function calcInsOverDisc(obj, loan) {
+            if(!loan.fins || !loan.fins.discounts) { return 0; }
+            var insValue = Number(calcInsbyCrop(obj));
             var cropValue = Number(calcCropValue(obj));
-            var projectedCropDiscount = Number(obj.proj_crop_discount);
+            var projectedCropDiscount = Number(loan.fins.discounts.percent_crop);
 
             var formula = insValue - (cropValue * (1 - (projectedCropDiscount/100)));
 
@@ -361,6 +390,9 @@
             var acres = Number(calcAcresCrop(obj.crop_id, loan));
             return (mpciLessPremium + supIns) * acres;
         }
+        function calcIODCollateralValue(loan) {
+            return (Number(calcTotalInsOverDisc(loan)) * (100 - Number(loan.fins.discounts.percent_insoyield))/100);
+        }
         function calcMarketValueTotal(loan) {
             if(!loan) { return 0; }
 
@@ -377,6 +409,12 @@
         }
         function calcMPCIbyCropSummary(obj) {
             return Number(obj.ins_level/100) * Number(obj.ins_price) * Number(obj.ins_share);
+        }
+        function calcOtherColByType(type, loan) {
+            var collateral = loan.fins.other_collateral;
+            return _.find(collateral, function(i){
+                return i.type === type;
+            });
         }
         function calcOtherCollateralByType(type, loan) {
             var collateral = loan.other_collateral;
@@ -396,6 +434,36 @@
             });
 
             return total;
+        }
+        function calcPlannedCropValue(loan) {
+            return (Number(calcProjectedCrops(loan)) * (100 - Number(loan.fins.discounts.percent_crop))/100) - Number(loan.fins.prior_lien_total);
+        }
+        function calcProjectedCrops(loan) {
+            var toti = 0;
+            _.each(loan.loancrops, function(item){
+                var cropval = calcCropIncome(item);
+                toti += cropval;
+            });
+            return toti;
+        }
+        function calcRHPEbyCrop(loancrop) {
+            var RIP = [];
+            _.each(loancrop.practices, function(p){
+                if(p.ins_type === 'RPHPE') {
+                    RIP.push(p);
+                }
+            });
+
+            var acres = _.sumCollection(RIP, 'acres');
+            var lvl = _.weighted(RIP, 'ins_level', 'acres');
+            var ins_level = lvl/100;
+            var ins_price = _.weighted(RIP, 'ins_price', 'acres');
+            var aph = _.weighted(RIP, 'aph', 'acres');
+            var premium = _.weighted(RIP, 'ins_premium', 'acres');
+            var shr = _.weighted(RIP, 'ins_share', 'acres');
+            var ins_share = shr/100;
+
+            return ((ins_level * ins_price * aph) - premium) * ins_share * acres;
         }
         function calcRHPEDiscount(loan) {
             var lc = loan.loancrops;
@@ -418,11 +486,30 @@
 
             return retro;
         }
+        function calcInsbyCrop(loancrop) {
+            return Number(calcRPbyCrop(loancrop)) + Number(calcRHPEbyCrop(loancrop)) + Number(calcYPbyCrop(loancrop));
+        }
         function calcRPbyCrop(loancrop) {
-            //(MPCI - premium)*acres*share///MPCI = level * price * yield
-            return Number(calcMPCIbyCrop(loancrop));
+            var RIP = [];
+            _.each(loancrop.practices, function(p){
+                if(p.ins_type === 'RP') {
+                    RIP.push(p);
+                }
+            });
+
+            var acres = _.sumCollection(RIP, 'acres');
+            var lvl = _.weighted(RIP, 'ins_level', 'acres');
+            var ins_level = lvl/100;
+            var ins_price = _.weighted(RIP, 'ins_price', 'acres');
+            var aph = _.weighted(RIP, 'aph', 'acres');
+            var premium = _.weighted(RIP, 'ins_premium', 'acres');
+            var shr = _.weighted(RIP, 'ins_share', 'acres');
+            var ins_share = shr/100;
+
+            return ((ins_level * ins_price * aph) - premium) * ins_share * acres;
         }
         function calcSuppCoverage(loan) {
+            //TODO: FIX
             var fu = loan.farmunits;
             var retro = 0;
 
@@ -439,6 +526,7 @@
             return retro;
         }
         function calcSupInsbyCropSummary(obj) {
+            console.log('SUP', obj);
             if(obj.OPTIONS === 'STAX') {
                 return (Number(obj.stax_desired_range)/100) * (Number(obj.stax_protection_factor)/100) * (Number(obj.ins_price) * Number(obj.exp_yield));
             } else {
@@ -466,16 +554,23 @@
         function calcTotalArmDistCommitment(loan) {
             return Number(loan.fins.commit_arm) + Number(loan.fins.fee_total) + Number(loan.fins.int_arm) + Number(loan.fins.commit_dist) + Number(loan.fins.int_dist);
         }
+        function calcTotalBookedAdj(loan) {
+            var total = 0;
+            _.each(loan.loancrops, function(i){
+                total += Number(calcBookAdj(i));
+            });
+            return total;
+        }
         function calcTotalCollateral(loan) {
-            var projectedCrops = Number(calcAdjProd(loan));
+            var projectedCrops = Number(calcProjectedCrops(loan));
             var fsaPaid = Number(loan.fins.total_fsa_pay);
-            var insOverDiscountedYield = Number(calcInsOverDYield(loan));
+            var insOverDiscountedYield = Number(calcTotalInsOverDisc(loan));
             var RPHPEDiscount = Number(calcRHPEDiscount(loan));
-            var YPDiscount = Number(calcYPDiscount(loan));
+            var YPDiscount = Number(calcTotalYPIns(loan));
             var supCoverage = Number(calcSuppCoverage(loan));
-            var equipment = Number(calcOtherCollateralByType('equipment', loan));
-            var realEstate = Number(calcOtherCollateralByType('realestate', loan));
-            var other = Number(calcOtherCollateralByType('other', loan));
+            var equipment = Number(calcOtherColByType('equipment', loan));
+            var realEstate = Number(calcOtherColByType('realestate', loan));
+            var other = Number(calcOtherColByType('other', loan));
 
             return projectedCrops + fsaPaid + insOverDiscountedYield + RPHPEDiscount + YPDiscount + supCoverage + equipment + realEstate + other;
         }
@@ -483,7 +578,12 @@
             return calcTotalAllCommitment(loan);
         }
         function calcTotalCropValues(loan) {
-            return calcTotalIncome(loan);
+            var toti = 0;
+            _.each(loan.loancrops, function(item){
+                var cropval = calcCropValue(item);
+                toti += cropval;
+            });
+            return toti;
         }
         function calcTotalExpenses(loan) {
             return Number(loan.expenses.totals.byLoan.arm) + Number(loan.expenses.totals.byLoan.dist) + Number(loan.expenses.totals.byLoan.other) + Number(calcTotalFarmExpenses(loan));
@@ -493,17 +593,57 @@
             var total = _.sumCollection(col, 'cost');
             return total;
         }
+        function calcTotalHarvestAdj(loan) {
+            var total = 0;
+            _.each(loan.loancrops, function(i){
+                total += Number(calcHvstAdj(i));
+            });
+            return total * -1;
+        }
         function calcTotalIncome(loan) {
             var toti = 0;
             _.each(loan.loancrops, function(item){
-                var cropval = calcCropValue(item);
+                var cropval = calcCropIncome(item);
                 toti += cropval;
             });
             return toti + Number(loan.fins.total_fsa_pay) + Number(loan.fins.total_indirect);
         }
+        function calcTotalInsOverDisc(loan) {
+            var total = 0;
+            _.each(loan.loancrops, function(i){
+                if(calcInsOverDisc(i, loan) > 0) {
+                    total += calcInsOverDisc(i, loan);
+                }
+            });
+            return total;
+        }
         function calcTotalFarmIncome(loan) {
             return 771124;
             return Number(loan.fins.commit_arm) + Number(loan.fins.commit_dist) - (Number(loan.fins.total_fsa_pay) + Number(loan.fins.total_other_income));
+        }
+        function calcTotalRPIns(loan) {
+            var total = 0;
+            _.each(loan.loancrops, function(i){
+                total += Number(calcRPbyCrop(i));
+            });
+            return total;
+        }
+        function calcTotalRPHPEIns(loan) {
+            var total = 0;
+            _.each(loan.loancrops, function(i){
+                total += Number(calcRHPEbyCrop(i));
+            });
+            return total;
+        }
+        function calcTotalSupIns(loan) {
+            return Number(calcTotalRPIns(loan)) + Number(calcTotalRPHPEIns(loan)) + Number(calcTotalYPIns(loan));
+        }
+        function calcTotalYPIns(loan) {
+            var total = 0;
+            _.each(loan.loancrops, function(i){
+                total += Number(calcYPbyCrop(i));
+            });
+            return total;
         }
         function calcYieldCrop(cropID, loan) {
             var crops = loan.loancrops;
@@ -511,6 +651,28 @@
 
             var yield_weighted = _.weighted(crop.practices, 'prod_yield', 'acres');
             return yield_weighted;
+        }
+        function calcYPbyCrop(loancrop) {
+            var RIP = [];
+            _.each(loancrop.practices, function(p){
+                if(p.ins_type === 'YP') {
+                    RIP.push(p);
+                }
+            });
+
+            var acres = _.sumCollection(RIP, 'acres');
+            var lvl = _.weighted(RIP, 'ins_level', 'acres');
+            var ins_level = lvl/100;
+            var ins_price = _.weighted(RIP, 'ins_price', 'acres');
+            var aph = _.weighted(RIP, 'aph', 'acres');
+            var premium = _.weighted(RIP, 'ins_premium', 'acres');
+            var shr = _.weighted(RIP, 'ins_share', 'acres');
+            var ins_share = shr/100;
+
+            return ((ins_level * ins_price * aph) - premium) * ins_share * acres;
+        }
+        function calcYPCollateralValue(loan) {
+            return (Number(calcTotalYPIns(loan)) * (100 - Number(loan.fins.discounts.percent_nonrp))/100);
         }
         function calcYPDiscount(loan) {
             var lc = loan.loancrops;

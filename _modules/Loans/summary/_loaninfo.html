@@ -105,7 +105,8 @@
     </div>
     <div class="form-group col-md-3">&nbsp;</div>
     <div class="form-group col-md-3">
-        <label>Pesticide Number</label>
+        <span ng-if="loan.loan_type_id === 2">
+            <label>Pesticide Number</label>
         <br/>
         <p class="display-field">
             {{loan.quests.pesticide_number}}
@@ -114,6 +115,7 @@
                 [exp: {{loan.quests.pest_num_expiration}}]
             </span>
         </p>
+        </span>
     </div>
     <div class="form-group col-md-3">&nbsp;</div>
 </div>

@@ -9,7 +9,7 @@
         function SummaryController($rootScope, $scope, $state, $templateCache, AppFactory){
             $scope.newapplications = $state.current.data.newapplications;
             var view = $templateCache.get();
-            console.log('HTML', view);
+            //console.log('HTML', view);
 
             $scope.comments = AppFactory.parseComments($scope.loan.comments);
             var optimizer = AppFactory.optimized($scope.loan);
@@ -51,6 +51,6 @@
 
             //TEMP
             $scope.loan.lien_letter_received = 0;
-            console.log('LOAN', $scope.loan, 'LC', $scope.loan.loancrops);
+            //console.log('LOAN', $scope.loan, 'LC', $scope.loan.loancrops);
         } // end controller
 })();

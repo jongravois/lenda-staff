@@ -42,8 +42,8 @@
         <td class="text-right" ng-class="c.value">
             {{c.value|flexCurrency:0}}
         </td>
-        <td class="text-right" ng-class="gtZero(AppFactory.calcInsOverDisc(c))">
-            {{AppFactory.calcInsOverDisc(c)|flexCurrency:0}}
+        <td class="text-right" ng-class="gtZero(AppFactory.calcInsOverDisc(c, loan))">
+            {{AppFactory.calcInsOverDisc(c, loan)|flexCurrency:0}}
         </td>
         <td class="text-right" ng-class="gtZero(AppFactory.calcInsOverDiscNonRP(c))">
             {{AppFactory.calcInsOverDiscNonRP(c)|flexCurrency:0}}
