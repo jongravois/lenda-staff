@@ -4,7 +4,10 @@
 <fieldset>
     <legend>Loan Information</legend>
     <div class="container-fluid">
-        <div id="Loan Info" class="row" ng-if="!XColView">
+        <div id="LoanInfo" class="row" ng-if="!XColView">
+            <button class="btn btn-arm" ng-click="makepdf()">
+                Make a PDF
+            </button>
             <div ng-include="'./_modules/Loans/summary/_loaninfo.html'"></div>
         </div>
     </div>
@@ -46,7 +49,7 @@
 <!--Collateral Conditions-->
 <fieldset>
     <legend>Collateral Conditions</legend>
-    <div class="row" ng-if="!XColView" style="padding-left: 20px;">
+    <div id="CollateralConditions" class="row" ng-if="!XColView" style="padding-left: 20px;">
         <!--<div class="form-group col-md-12 text-left">-->
                 <div class="form-group">
                     <div ng-include="'./_modules/Loans/summary/_loan.conditions.html'"></div>
@@ -68,7 +71,7 @@
       <!--Projected Income-->
       <fieldset>
           <legend>Projected Income</legend>
-          <div class="row">
+          <div id="ProjectedIncome" class="row">
               <div class="row">
                   <div class="col-md-11" style="margin-left:20px;">
                       <div ng-include="'./_modules/Loans/summary/_income.tbl.html'"></div>
@@ -82,7 +85,7 @@
       <!--USE OF FUNDS ANALYSIS-->
       <fieldset>
           <legend>Use of Funds Analysis</legend>
-          <div class="row">
+          <div id="ExpensesAnalysis" class="row">
               <div class="col-md-11" style="margin-left:20px;">
                   <div ng-if="loan.has_distributor"
                        ng-include="'./_modules/Loans/summary/_budget.tbl.html'"></div>
@@ -97,7 +100,7 @@
       <!--INSURANCE ANALYSIS-->
       <fieldset>
           <legend>Crop Insurance Analysis</legend>
-          <div class="row" style="padding-top: 20px;">
+          <div id="InsuranceAnalysis" class="row" style="padding-top: 20px;">
               <div class="row">
                   <div class="col-md-11" style="margin-left:20px;">
                       <div ng-include="'./_modules/Loans/summary/_insurance.analysis.html'"></div>
@@ -111,7 +114,7 @@
       <!--BREAK-EVEN ANALYSIS-->
       <fieldset>
           <legend>Break Even Analysis</legend>
-          <div class="row">
+          <div id="BreakevenAnalysis" class="row">
               <div class="col-md-8 col-md-offset-2">
                   <div ng-include="'./_modules/Loans/summary/_break.even.analysis.html'"></div>
               </div>

@@ -1,17 +1,17 @@
 <!-- CROP NAME-->
 <tr>
     <td>
-                            <span
-                                ng-if="tggl.showBeansfac"
-                                ng-click="tggl.showBeansfac = !tggl.showBeansfac"
-                                style="cursor:pointer;">
-                                &blacktriangledown;&nbsp;
-                            </span>
-                            <span ng-if="!tggl.showBeansfac"
-                                  ng-click="tggl.showBeansfac = !tggl.showBeansfac"
-                                  style="cursor:pointer;">
-                                &blacktriangleright;&nbsp;
-                            </span>
+        <span
+            ng-if="tggl.showBeansfac"
+            ng-click="tggl.showBeansfac = !tggl.showBeansfac"
+            style="cursor:pointer;">
+            &blacktriangledown;&nbsp;
+        </span>
+        <span ng-if="!tggl.showBeansfac"
+              ng-click="tggl.showBeansfac = !tggl.showBeansfac"
+              style="cursor:pointer;">
+            &blacktriangleright;&nbsp;
+        </span>
         Soybeans FAC
     </td>
     <td class="text-right cBlue"
@@ -45,8 +45,8 @@
         ng-repeat="f in loan.farmunits">
         {{f.crops[0].beansFAC.aph|number:1}}
     </td>
-    <td ng-class="OptimizerFactory.gtZero(AppFactory.calcAPHCrop('beansFAC', loan))">
-        {{OptimizerFactory.calcAPHCrop('beansFAC', loan)|flexNumber:1}}
+    <td ng-class="AppFactory.gtZero(OptimizerFactory.gtZero(AppFactory.calcAPHCrop('3', loan)))">
+        {{OptimizerFactory.calcAPHCrop('3', loan)|flexNumber:1}}
     </td>
 </tr>
 <!-- INS TYPE-->

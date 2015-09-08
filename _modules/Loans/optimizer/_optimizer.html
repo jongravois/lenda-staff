@@ -1,10 +1,20 @@
+<style>
+    .btn-group {
+        border: 1px solid #ccc;
+    }
+    .btn-group button{
+        width: 100px !important;
+        min-width: 100px !important;
+        max-width: 100px !important;
+    }
+</style>
 <div class="col-md-12">
     <table class="table">
         <tr>
             <td colspan="{{loan.farmunits.length + 2}}">
                 <span>
                     <a ng-click="showCrop()" class="btn btn-xs btn-default">
-                        <span class="glyphicon glyphicon-plus-sign" style="color:#006837;"></span> Add Crop</a>
+                        <span class="glyphicons glyphicons-circle-plus" style="color:#006837;"></span> Add Crop</a>
                 </span>
                     <span>&nbsp;</span>
                     <span class="pull-right">
@@ -71,9 +81,9 @@
                 ng-repeat="f in loan.farmunits"
                 style="position: relative;">
                 {{f.state}}
-                        <span class="glyphicons glyphicons-remove-2"
-                              style="color: #990000;position: absolute; top: 0;right: 0;cursor: pointer;"
-                              ng-click="deleteFarm(f.id)"></span>
+                    <span class="glyphicons glyphicons-remove-2"
+                          style="color: #990000;position: absolute; top: 0;right: 0;cursor: pointer;"
+                          ng-click="deleteFarm(f.id)"></span>
             </td>
             <td class="text-right">
                 <a ng-click="addFarm()" class="btn btn-xs btn-default">

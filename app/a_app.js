@@ -12,7 +12,8 @@
             'xeditable',
             'cfp.hotkeys',
             'angular-loading-bar',
-            'ui.bootstrap-slider'
+            'ui.bootstrap-slider',
+            'ng-pdfmake'
         ])
         .config(function(){
             function groupByMulti(obj, values, context) {

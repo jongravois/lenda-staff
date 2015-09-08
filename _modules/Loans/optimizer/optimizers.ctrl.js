@@ -68,8 +68,8 @@
         $scope.addFarm = function() {
             alert('Adding a Farm.');
         };
-        $scope.deleteFarm = function() {
-            alert('Deleting a Farm.');
+        $scope.deleteFarm = function(id) {
+            alert('Deleting the Farm Unit: ' + id);
         };
         $scope.showCrop = function() {
             alert('Showing another crop.');

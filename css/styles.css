@@ -1042,6 +1042,7 @@ fieldset[disabled] .btn-arm.active {
 }
 .btn-gray {
   background: #f2f2f2;
+  border: 1px solid #bfbfbf;
   color: #000000;
   text-align: left;
 }
@@ -1063,6 +1064,7 @@ fieldset[disabled] .btn-arm.active {
 .btn-salmon {
   background: #fee9db;
   color: #000000;
+  border: 1px solid #fbac78;
   text-align: left;
 }
 .btn-salmon:hover {
@@ -1083,6 +1085,7 @@ fieldset[disabled] .btn-arm.active {
 .btn-liteblue {
   background: #d9eef2;
   color: #000000;
+  border: 1px solid #8dccd8;
   text-align: left;
 }
 .btn-liteblue:hover {
@@ -1103,6 +1106,7 @@ fieldset[disabled] .btn-arm.active {
 .btn-litegreen {
   background: #ebf1e0;
   color: #000000;
+  border: 1px solid #bed19a;
   text-align: left;
 }
 .btn-litegreen:hover {
@@ -1123,6 +1127,7 @@ fieldset[disabled] .btn-arm.active {
 .btn-goldenrod {
   background: #fffed1;
   color: #000000;
+  border: 1px solid #fffc6b;
   text-align: left;
 }
 .btn-goldenrod:hover {

@@ -66,16 +66,15 @@
             deferred.resolve(loan);
             return deferred.promise;
         }
-        function calcAPHCrop(cropname, loan) {
-            //TODO: FIX
+        function calcAPHCrop(cropID, loan) {
             var collection = [];
-            _.each(loan.farmunits, function(fu){
-                return _.each(fu.crops, function(fuc){
-                    if(fuc[cropname]) {
-                        collection.push(fuc);
-                    }
-                });
+            //console.log('UNITS', loan.farmunits);
+            _.each(loan.databases, function(db){
+                if(db.crop_id === cropID) {
+                    collection.push(db);
+                }
             });
+            //gca console.log('collection', collection);
             return _.weighted(collection, 'aph', 'acres');
         }
         function calcArmCommit(cropname, loan) {

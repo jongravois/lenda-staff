@@ -526,7 +526,7 @@
             return retro;
         }
         function calcSupInsbyCropSummary(obj) {
-            console.log('SUP', obj);
+            //console.log('SUP', obj);
             if(obj.OPTIONS === 'STAX') {
                 return (Number(obj.stax_desired_range)/100) * (Number(obj.stax_protection_factor)/100) * (Number(obj.ins_price) * Number(obj.exp_yield));
             } else {

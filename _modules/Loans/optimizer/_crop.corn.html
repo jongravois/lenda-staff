@@ -45,8 +45,8 @@
         ng-repeat="f in loan.farmunits">
         {{f.crops[0].corn.aph|number:1}}
     </td>
-    <td ng-class="OptimizerFactory.gtZero(AppFactory.calcAPHCrop('corn', loan))">
-        {{OptimizerFactory.calcAPHCrop('corn', loan)|flexNumber:1}}
+    <td ng-class="AppFactory.gtZero(OptimizerFactory.gtZero(AppFactory.calcAPHCrop('1', loan)))">
+        {{OptimizerFactory.calcAPHCrop('1', loan)|flexNumber:1}}
     </td>
 </tr>
 <!-- INS TYPE-->
