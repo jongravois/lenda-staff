@@ -13,6 +13,11 @@
             commentReply: commentReply,
             confirm: confirm,
             confirmDelete: confirmDelete,
+            newAnalystComment: newAnalystComment,
+            newCommitteeComment: newCommitteeComment,
+            newCommitteeReply: newCommitteeReply,
+            newDisbursementComment: newDisbursementComment,
+            newWatchlistComment: newWatchlistComment,
             optionalUpload: optionalUpload,
             requestDocument: requestDocument,
             requiredUpload: requiredUpload
@@ -53,7 +58,6 @@
 
             return modalInstance.result;
         }
-
         function confirm(data) {
             var modalInstance = $modal.open({
                 templateUrl: '_modules/modals/confirm.modal.html',
@@ -72,7 +76,6 @@
 
             return modalInstance.result;
         }
-
         function confirmDelete(data) {
             var modalInstance = $modal.open({
                 templateUrl: '_modules/modals/confirm.delete.modal.html',
@@ -87,7 +90,102 @@
 
             return modalInstance.result;
         }
+        function newAnalystComment(data) {
+            var modalInstance = $modal.open({
+                templateUrl: '_modules/modals/_comment.modal.html',
+                controller: 'ModalController',
+                resolve: {
+                    data: function(){
+                        return {
+                            loanID: data.loanID,
+                            title: data.title,
+                            message: data.message,
+                            buttons: data.buttons
+                        };
+                    }
+                },
+                size: 'lg'
+            });
 
+            return modalInstance.result;
+        }
+        function newCommitteeComment(data) {
+            var modalInstance = $modal.open({
+                templateUrl: '_modules/modals/_comment.modal.html',
+                controller: 'ModalController',
+                resolve: {
+                    data: function(){
+                        return {
+                            loanID: data.loanID,
+                            title: data.title,
+                            message: data.message,
+                            buttons: data.buttons
+                        };
+                    }
+                },
+                size: 'lg'
+            });
+
+            return modalInstance.result;
+        }
+        function newCommitteeReply(data) {
+            var modalInstance = $modal.open({
+                templateUrl: '_modules/modals/_comment.modal.html',
+                controller: 'ModalController',
+                resolve: {
+                    data: function(){
+                        return {
+                            loanID: data.loanID,
+                            title: data.title,
+                            message: data.message,
+                            buttons: data.buttons
+                        };
+                    }
+                },
+                size: 'lg'
+            });
+
+            return modalInstance.result;
+        }
+        function newDisbursementComment(data) {
+            var modalInstance = $modal.open({
+                templateUrl: '_modules/modals/_comment.modal.html',
+                controller: 'ModalController',
+                resolve: {
+                    data: function(){
+                        return {
+                            loanID: data.loanID,
+                            title: data.title,
+                            message: data.message,
+                            buttons: data.buttons
+                        };
+                    }
+                },
+                size: 'lg'
+            });
+
+            return modalInstance.result;
+        }
+        function newWatchlistComment(data) {
+            var modalInstance = $modal.open({
+                templateUrl: '_modules/modals/_watchlist.modal.html',
+                controller: 'ModalController',
+                resolve: {
+                    data: function(){
+                        return {
+                            loanID: data.loanID,
+                            title: data.title,
+                            message: data.message,
+                            is_watched: data.is_watched,
+                            buttons: data.buttons
+                        };
+                    }
+                },
+                size: 'lg'
+            });
+
+            return modalInstance.result;
+        }
         function optionalUpload(data) {
             var modalInstance = $modal.open({
                 templateUrl: '_modules/modals/upload.optional.modal.html',
@@ -108,7 +206,6 @@
 
             return modalInstance.result;
         }
-
         function requestDocument(data) {
             var modalInstance = $modal.open({
                 templateUrl: '_modules/modals/request.document.html',
@@ -129,7 +226,6 @@
 
             return modalInstance.result;
         }
-
         function requiredUpload(data) {
             var modalInstance = $modal.open({
                 templateUrl: '_modules/modals/upload.required.modal.html',

@@ -1,13 +1,13 @@
 <table class="table table-striped rowed disp-sm">
     <tbody>
     <tr>
-        <td colspan="5" style="width: 50%;">&nbsp</td>
-        <td class="text-center" style="width:10%;">ARM</td>
-        <td class="text-center" style="width:10%;" ng-if="loan.has_distributor">
+        <th colspan="5" style="width: 50%;">&nbsp</th>
+        <th class="text-center" style="width:10%;">ARM</th>
+        <th class="text-center" style="width:10%;" ng-if="loan.has_distributor">
             {{loan.distributor.distributor}}
-        </td>
-        <td class="text-center" style="width:10%;">Other</td>
-        <td class="text-center" style="width:10%;">Total</td>
+        </th>
+        <th class="text-center" style="width:10%;">3rd Party</th>
+        <th class="text-center" style="width:10%;">Total</th>
     </tr>
 
     <tr ng-repeat="e in loan.expenses.totals.byCat|orderBy: 'cat_id'" ng-if="e.expense != 'Total'">
@@ -51,8 +51,8 @@
         <td class="text-right">
             {{fe.cost|flexCurrency:0}}
         </td>
-        <td class="text-center"> -</td>
-        <td class="text-center"> -</td>
+        <td class="text-center">-</td>
+        <td class="text-center">-</td>
         <td class="text-right">
             {{fe.cost|flexCurrency:0}}
         </td>
@@ -89,7 +89,7 @@
     <!-- PRINCIPAL -->
     <tr class="warning">
         <td colspan="5" class="text-left">
-            <strong>Total Committed Funds</strong>
+            <strong>Commitment</strong>
         </td>
         <td class="text-right">
             {{AppFactory.calcTotalArmAndFarmExpenses(loan)|flexCurrency:0}}
@@ -106,7 +106,7 @@
     </tr>
 
     <!-- INTEREST -->
-    <tr> <!-- style="display:none;"-->
+    <tr>
         <td colspan="5">Estimated Interest</td>
         <td class="text-right">
             {{loan.fins.int_arm|flexCurrency:0}}
@@ -121,8 +121,8 @@
     </tr>
 
     <!-- CASH FLOW/DEFICIT -->
-    <tr class="success"> <!-- style="display:none;"-->
-        <td colspan="8">Cash Flow (Deficit)</td>
+    <tr class="success">
+        <td colspan="8">Cash Flow</td>
         <td class="text-right">
             {{AppFactory.calcCashFlow(loan) | flexCurrency:0 }}
         </td>

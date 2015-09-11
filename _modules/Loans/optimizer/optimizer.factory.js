@@ -74,7 +74,7 @@
                     collection.push(db);
                 }
             });
-            //gca console.log('collection', collection);
+            //console.log('collection', collection);
             return _.weighted(collection, 'aph', 'acres');
         }
         function calcArmCommit(cropname, loan) {

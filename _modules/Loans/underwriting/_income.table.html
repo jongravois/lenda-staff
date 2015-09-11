@@ -51,17 +51,17 @@
         <td ng-class="AppFactory.gtZero(AppFactory.calcYPbyCrop(c))">
             {{AppFactory.calcYPbyCrop(c) | flexCurrency:0}}
         </td>
-        <td ng-class="AppFactory.gtZero(AppFactory.calcSupInsbyCropSummary(c))">
-            {{AppFactory.calcSupInsbyCropSummary(c) | flexCurrency:0}}
+        <td ng-class="AppFactory.gtZero(AppFactory.calcSupInsbyCropSummary(c, loan))">
+            {{AppFactory.calcSupInsbyCropSummary(c, loan) | flexCurrency:0}}
         </td>
-        <td class="bright" ng-class="AppFactory.gtZero(AppFactory.calcInsbyCrop(c))">
-            {{AppFactory.calcInsbyCrop(c) | flexCurrency:0}}
+        <td class="bright" ng-class="AppFactory.gtZero(AppFactory.calcInsbyCrop(c, loan))">
+            {{AppFactory.calcInsbyCrop(c, loan) | flexCurrency:0}}
         </td>
         <td ng-class="AppFactory.gtZero(AppFactory.calcInsOverDisc(c, loan))">
             {{AppFactory.calcInsOverDisc(c, loan)|flexCurrency:0}}
         </td>
     </tr>
-    <tr>
+    <tr style="display: none;">
         <td colspan="6" class="bright">FSA Payment</td>
         <td colspan="2" class="bright">&nbsp;</td>
         <td class="bright" ng-class="AppFactory.gtZero(loan.fins.total_fsa_pay)">
@@ -109,7 +109,7 @@
         <td ng-class="AppFactory.gtZero(AppFactory.calcTotalSupIns(loan))">
             {{AppFactory.calcTotalSupIns(loan)|flexCurrency:0}}
         </td>
-        <td class="bright" ng-class="AppFactory.gtZero(AppFactory.calcTotalSupIns(loan))">
+        <td class="bright" ng-class="AppFactory.gtZero(AppFactory.calcInsuranceTotalValue(loan))">
             {{AppFactory.calcInsuranceTotalValue(loan)|flexCurrency:0}}
         </td>
         <td ng-class="AppFactory.gtZero(AppFactory.calcTotalInsOverDisc(loan))">

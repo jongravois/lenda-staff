@@ -19,7 +19,7 @@
                 <th ng-click="doSort('when_due')">When Due</th>
                 <th ng-click="doSort('waived')">Waived</th>
                 <th ng-click="doSort('pgm')">FSA Pgm</th>
-                <th ng-click="doSort('fsa')">FSA Pymt</th>
+                <th style="display: none;">FSA Pymt</th>
                 <th>&nbsp;</th>
             </tr>
             <tr>
@@ -79,7 +79,7 @@
                             {{ f.gov_pgm }}
                         </span>
                     </td>
-                    <td class="cBlue" ng-class="AppFactory.gtZero(f.fsa_paid)">
+                    <td style="display: none;">
                         <span editable-number="f.fsa_paid" e-name="fsa_paid" e-form="rowform" e-style="width:100%;">
                         	{{f.fsa_paid|flexCurrency:0}}
                         </span>

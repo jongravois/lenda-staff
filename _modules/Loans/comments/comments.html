@@ -22,23 +22,27 @@
             <div class="col-md-12">
                 <div class="btn-group btn-group-sm pull-right" role="group">
                     <button type="button"
-                            class="btn btn-warning">
+                            class="btn btn-warning"
+                            ng-click="newComment('analyst')">
                         <span class="glyphicons glyphicons-user"></span>
                         Analyst
                     </button>
                     <button type="button"
-                            class="btn btn-primary">
+                            class="btn btn-primary"
+                            ng-click="newComment('committee')">
                         <span class="glyphicons glyphicons-group"></span>
                         Committee
                     </button>
                     <button type="button"
-                            class="btn btn-arm">
+                            class="btn btn-arm"
+                            ng-click="newComment('disbursement')">
                         <span class="glyphicons glyphicons-usd"></span>
                         Disbursements
                     </button>
                     <button type="button"
-                            class="btn btn-danger">
-                        <span class="glyphicons glyphicons-sunglasses"></span>
+                            class="btn btn-danger"
+                            ng-click="newComment('watchlist')">
+                        <span class="glyphicons glyphicons-sunglasses" ng-class="{cBlack: loan.is_watched, cWhite: !loan.is_watched}"></span>
                         Watchlist
                     </button>
                 </div>

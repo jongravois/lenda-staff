@@ -17,7 +17,7 @@
                 })
                 .state('arm.new.applicant', {
                     url: '/applicant',
-                    templateUrl: './_modules/Loans/applicant/shell.html',
+                    templateUrl: './_modules/Loans/applicant/new_shell.html',
                     controller: 'ApplicantsController',
                     data: {newapplication: true},
                     resolve: {}
@@ -86,6 +86,13 @@
                     url: '/crops',
                     templateUrl: './_modules/Loans/crops/crops.html',
                     controller: 'CropsController',
+                    data: {newapplication: false},
+                    resolve: {}
+                })
+                .state('arm.edit.crosscollateral', {
+                    url: '/crosscollateral',
+                    templateUrl: './_modules/Loans/xcollateral/xcollateral.html',
+                    controller: 'XcollateralsController',
                     data: {newapplication: false},
                     resolve: {}
                 })

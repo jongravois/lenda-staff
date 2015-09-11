@@ -109,6 +109,7 @@
                 <!-- NEWLOAN: CHOOSE OR CREATE APPLICANT-->
                 <div class="row" style="width:80%;margin:0 auto;"
                      ng-if="newapplication && loan.farmer.showApplicants">
+
                     <table class="table table-striped rowed table-condensed disp-sm">
                         <tr>
                             <th>Applicant</th>
@@ -117,7 +118,7 @@
                         </tr>
                         <tr ng-repeat="a in loan.farmer.applicants">
                             <td>
-                                <span class="cBlue" style="text-decoration: underline;" ng-click="useApplicant(a.id)">
+                                <span class="cBlue" style="text-decoration: underline;cursor: pointer;" ng-click="useApplicant(a.id)">
                                     {{a.applicant}}
                                 </span>
                             </td>

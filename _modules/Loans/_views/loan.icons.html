@@ -11,6 +11,9 @@
     <li class="list-group-item butt" ng-click="toggleSidebar()">
         <span class="menuicon glyphicons glyphicons-option-horizontal" tooltip="Full Menu" tooltip-append-to-body="true" tooltip-placement="right"></span>
     </li>
+    <li class="list-group-item" ng-if="loan.is_xcolled">
+        <span class="menuicon glyphicons glyphicons-random" tooltip="Cross Collateral" tooltip-append-to-body="true" tooltip-placement="right" ng-click="ngcLink('crosscollateral')"></span>
+    </li>
     <li class="list-group-item" ng-if="!newapplication">
         <span class="menuicon glyphicons glyphicons-money" tooltip="Summary" tooltip-append-to-body="true" tooltip-placement="right" ng-click="ngcLink('summary')"></span>
     </li>

@@ -6,10 +6,10 @@
         <th>Price</th>
         <th>Level</th>
         <th>MPCI</th>
-        <th>Sup</th>
+        <th>Stax/SCO</th>
         <th>Premium</th>
-        <th>Share</th>
-        <th>Value</th>
+        <th>Ins Share</th>
+        <th>Ins Value</th>
     </tr>
     <tr ng-if="loan.loancrops.length === 0">
         <td colspan="9">
@@ -18,15 +18,15 @@
     </tr>
     <tr ng-repeat="i in loan.ins_summary" ng-if="loan.loancrops.length !== 0">
         <td>{{i.name}}</td>
-        <td class="text-center">{{i.TYPE}}</td>
-        <td class="text-center">{{i.OPTIONS}}</td>
+        <td class="text-center">{{i.ins_type}}</td>
+        <td class="text-center">{{i.ins_opts}}</td>
         <td class="text-right">{{i.ins_price|flexCurrency:2}}</td>
         <td class="text-right">{{i.ins_level|flexPercent:1}}</td>
         <td class="text-right">
             {{AppFactory.calcMPCIbyCropSummary(i)|flexCurrency:2}}
         </td>
-        <td ng-class="AppFactory.gtZero(AppFactory.calcSupInsbyCropSummary(i))">
-            {{AppFactory.calcSupInsbyCropSummary(i)|flexCurrency:2}}
+        <td ng-class="AppFactory.gtZero(AppFactory.calcSupInsbyCropSummary(i, loan))">
+            {{AppFactory.calcSupInsbyCropSummary(i, loan)|flexCurrency:2}}
         </td>
         <td class="text-right">{{i.premium|flexCurrency:2}}</td>
         <td class="text-right">{{i.ins_share|flexPercent:1}}</td>

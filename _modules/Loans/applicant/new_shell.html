@@ -1,47 +1,23 @@
-<div class="row">
+<div class="row" ng-if="newapplication && !farmerSaved">
     <div class="col-md-12 text-right">
-        <button style="margin-right:10px;" class="btn btn-arm" ng-click="updateApplicantScreen()"><span class="glyphicons glyphicons-log-book"></span>&nbsp;UPDATE</button>
+        <button style="margin-right:10px;" class="btn btn-arm" ng-click="createNewFarmer()"><span class="glyphicons glyphicons-log-book"></span>&nbsp;NEXT</button>
     </div>
 </div>
-
-<fieldset>
+<div class="row" ng-if="newapplication && farmerSaved">
+    <div class="col-md-12 text-right">
+        <button style="margin-right:10px;" class="btn btn-arm" ng-click="createApplicantScreen()"><span class="glyphicons glyphicons-log-book"></span>&nbsp;NEXT</button>
+    </div>
+</div>
+<br>
+<fieldset ng-if="newapplication">
     <legend>
-        &nbsp;
-        <span class="pendicon glyphicon glyphicon-chevron-right"
-              ng-click="togShowFarmer()"
-              ng-if="!showFarmer"></span>
-        <span class="pendicon glyphicon glyphicon-chevron-down"
-              ng-click="togShowFarmer()"
-              ng-if="showFarmer"></span>
-        &nbsp;Farmer
+        Farmer
     </legend>
     <div class="container-fluid"
-         ng-include="'./_modules/Loans/applicant/_farmer.html'"
-         ng-if="showFarmer">
+         ng-include="'./_modules/Loans/applicant/_farmer.html'">
     </div>
 </fieldset>
-
 <br><br>
-
-<fieldset>
-    <legend>
-        &nbsp;
-        <span class="pendicon glyphicon glyphicon-chevron-right"
-              ng-click="togShowApplicant()"
-              ng-if="!showApplicant"></span>
-        <span class="pendicon glyphicon glyphicon-chevron-down"
-              ng-click="togShowApplicant()"
-              ng-if="showApplicant"></span>
-        &nbsp;Applicant
-    </legend>
-    <div class="container-fluid"
-         ng-include="'./_modules/Loans/applicant/_applicant.html'"
-         ng-if="showApplicant">
-    </div>
-</fieldset>
-
-<br><br>
-
 <fieldset ng-show="loan.applicant.entity_id === '4'">
     <legend>
         &nbsp;
@@ -88,8 +64,19 @@
         &nbsp;Corporation
     </legend>
     <span class="container-fluid"
-         ng-include="'./_modules/Loans/applicant/_corps.html'"
-         ng-if="showCorps"></span>
+          ng-include="'./_modules/Loans/applicant/_corps.html'"
+          ng-if="showCorps"></span>
     </div>
 </fieldset>
+
+<div class="row" ng-if="newapplication && !farmerSaved">
+    <div class="col-md-12 text-right">
+        <button style="margin-right:10px;" class="btn btn-arm" ng-click="createNewFarmer()"><span class="glyphicons glyphicons-log-book"></span>&nbsp;NEXT</button>
+    </div>
+</div>
+<div class="row" ng-if="newapplication && farmerSaved">
+    <div class="col-md-12 text-right">
+        <button style="margin-right:10px;" class="btn btn-arm" ng-click="createApplicantScreen()"><span class="glyphicons glyphicons-log-book"></span>&nbsp;NEXT</button>
+    </div>
+</div>
 <br><br><br><br>

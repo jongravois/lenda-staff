@@ -1,44 +1,6 @@
 <div class="frmFull_Page">
-    <div class="row view-page-header-bar">
-        <div class="col-md-6" style="color:white;line-height:38px;">
-            <h6>
-                {{loan.loan_type}} <span ng-if="!newapplication && loan.has_distributor">&nbsp;[{{loan.distributor.distributor}}]&nbsp;</span>- {{loan.crop_year}} - {{loan.full_season}}<span ng-if="!newapplication">: {{loan.applicant.applicant|displayname}} ({{loan.farmer.farmer|displayname}} )</span>
-            </h6>
-        </div>
-
-        <!--<div class="col-md-6 text-right" style="color:white;line-height:38px;">
-            <h6 style="display: inline;" ng-if="loan.loan_type_id !== 7">
-                CF: {{AppFactory.calcCashFlow(loan)|flexCurrency:0}}
-            </h6>
-            <h6 style="display: inline;" ng-if="loan.loan_type_id !== 3 && loan.loan_type_id !== 4">
-                &nbsp;&nbsp;|&nbsp;&nbsp;
-                EX: {{AppFactory.calcExposure(loan)|flexCurrency:0}}
-            </h6>
-            <h6 style="display: inline;" ng-if="loan.loan_type_id === 3 || loan.loan_type_id === 4">
-                &nbsp;&nbsp;|&nbsp;&nbsp;
-                <sub>adj</sub>EX: {{AppFactory.calcAdjExposure(loan)|flexCurrency:0}}
-            </h6>
-        </div>-->
-    </div>
-
     <div class="row">
-        <div class="form-group col-md-12" style="margin-bottom: -20px;">
-            <div ng-include="'./_modules/Loans/_views/loanProgress.html'"></div>
-        </div>
-    </div>
-
-    <hr style="margin-top: 5px;"/>
-
-    <div class="row">
-        <div id="colIcon" class="col-xs-1" ng-if="!showSidebar">
-            <div ng-include="'./_modules/Loans/_views/loan.icons.html'"></div>
-        </div>
-
-        <div id="colPush" ng-class="showSidebar ? 'col-xs-2' : 'hidden'">
-            <div ng-include="'./_modules/Loans/_views/loan.full.html'"></div>
-        </div>
-
-        <div ng-class="showSidebar ? 'col-xs-10' : 'col-xs-11'"  id="colMain" style="margin: -18px 0 0 -44px;" >
+        <div class="col-xs-12" id="colMain">
             <div style="padding:0 5px;" ng-cloak ui-view></div>
         </div>
 

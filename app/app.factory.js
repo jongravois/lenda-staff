@@ -43,7 +43,6 @@
             calcMarketValueTotal: calcMarketValueTotal,
             calcMPCIbyCrop: calcMPCIbyCrop,
             calcMPCIbyCropSummary: calcMPCIbyCropSummary,
-            calcOtherColByType: calcOtherColByType,
             calcOtherCollateralByType: calcOtherCollateralByType,
             calcRHPEbyCrop: calcRHPEbyCrop,
             calcRHPEDiscount: calcRHPEDiscount,
@@ -241,7 +240,11 @@
             return BE;
         }
         function calcCashFlow(loan) {
-            return Number(calcTotalIncome(loan)) - Number(calcTotalAllCommitment(loan));
+            var total_income = Number(calcTotalIncome(loan));
+            var total_commitment = Number(calcTotalExpenses(loan));
+            var est_interest = Number(loan.fins.int_total);
+
+            return  total_income - total_commitment - est_interest;
         }
         function calcCropAcres(loancrop) {
             var practices = loancrop.practices;
@@ -274,10 +277,19 @@
             return _.weighted(practices, 'prod_share', 'acres');
         }
         function calcCropValue(loancrop) {
-            return Number(calcCropAcres(loancrop)) * Number(calcCropProdYield(loancrop)) * Number(calcCropProdPrice(loancrop)) * (Number(calcCropProdShare(loancrop))/100);
+            var acres = Number(calcCropAcres(loancrop));
+            var prod_yld = Number(calcCropProdYield(loancrop));
+            var prod_price = Number(calcCropProdPrice(loancrop));
+            var prod_share = (Number(calcCropProdShare(loancrop))/100);
+
+            //console.log('CalcCropValue', acres, prod_yld, prod_price, prod_share);
+            return acres * prod_yld * prod_price * prod_share;
         }
         function calcExposure(loan) {
-            return Number(calcTotalCollateral(loan)) - Number(calcTotalArmDistCommitment(loan));
+            var total_collateral = Number(calcTotalCollateral(loan));
+            var total_arm_and_dist = Number(calcTotalArmDistCommitment(loan));
+
+            return total_collateral - total_arm_and_dist;
         }
         function calcFSACollateralValue(loan) {
             return Number(loan.fins.total_fsa_pay) * (100 - Number(loan.fins.discounts.percent_fsa))/100;
@@ -290,13 +302,16 @@
         function calcInsCoverageExcess(loan) {
             //return Number(calcInsuranceTotalValue(loan)) - (loan.expenses.totals.byLoan.arm + loan.expenses.totals.byLoan.dist);
         }
+        function calcInsbyCrop(loancrop, loan) {
+            return Number(calcRPbyCrop(loancrop)) + Number(calcRHPEbyCrop(loancrop)) + Number(calcYPbyCrop(loancrop)) + Number(calcSupInsbyCropSummary(loancrop, loan));
+        }
         function calcInsCropValue(obj) {
             //(Guarantee-Premium)*(Share/100)*Acres
             return (Number(obj.guarantee) - Number(obj.premium)) * (Number(obj.share)/100) * Number(obj.acres);
         }
         function calcInsOverDisc(obj, loan) {
             if(!loan.fins || !loan.fins.discounts) { return 0; }
-            var insValue = Number(calcInsbyCrop(obj));
+            var insValue = Number(calcInsbyCrop(obj, loan));
             var cropValue = Number(calcCropValue(obj));
             var projectedCropDiscount = Number(loan.fins.discounts.percent_crop);
 
@@ -357,6 +372,7 @@
             return (Number(obj.level) / 100) * Number(obj.price) * Number(obj.yield);
         }
         function calcInsuranceTotalByCropSummary(loan) {
+            if(!loan.ins_summary) {return 0; }
             var total = 0;
 
             _.each(loan.ins_summary, function(i){
@@ -373,9 +389,11 @@
         }
         function calcInsuranceTotalValue(loan) {
             if(!loan) { return; }
-
-            var policies = loan.insurance.byCrop;
-            return _.sumCollection(policies, 'value');
+            var total = 0;
+            _.each(loan.loancrops, function(lc){
+                total += calcInsbyCrop(lc, loan);
+            });
+            return total;
         }
         function calcInsuranceValue(obj) {
             if(!obj.yield){
@@ -386,7 +404,7 @@
         }
         function calcInsValueByCropSummary(obj, loan) {
             var mpciLessPremium = calcMPCIbyCropSummary(obj) - Number(obj.premium);
-            var supIns = calcSupInsbyCropSummary(obj);
+            var supIns = calcSupInsbyCropSummary(obj, loan);
             var acres = Number(calcAcresCrop(obj.crop_id, loan));
             return (mpciLessPremium + supIns) * acres;
         }
@@ -409,12 +427,6 @@
         }
         function calcMPCIbyCropSummary(obj) {
             return Number(obj.ins_level/100) * Number(obj.ins_price) * Number(obj.ins_share);
-        }
-        function calcOtherColByType(type, loan) {
-            var collateral = loan.fins.other_collateral;
-            return _.find(collateral, function(i){
-                return i.type === type;
-            });
         }
         function calcOtherCollateralByType(type, loan) {
             var collateral = loan.other_collateral;
@@ -486,9 +498,6 @@
 
             return retro;
         }
-        function calcInsbyCrop(loancrop) {
-            return Number(calcRPbyCrop(loancrop)) + Number(calcRHPEbyCrop(loancrop)) + Number(calcYPbyCrop(loancrop));
-        }
         function calcRPbyCrop(loancrop) {
             var RIP = [];
             _.each(loancrop.practices, function(p){
@@ -525,12 +534,28 @@
             });
             return retro;
         }
-        function calcSupInsbyCropSummary(obj) {
-            //console.log('SUP', obj);
-            if(obj.OPTIONS === 'STAX') {
-                return (Number(obj.stax_desired_range)/100) * (Number(obj.stax_protection_factor)/100) * (Number(obj.ins_price) * Number(obj.exp_yield));
+        function calcSupInsbyCropSummary(obj, loan) {
+            if(!loan) {return 0; }
+            var policies = [];
+            if(!loan.inspols) {
+                return 0;
             } else {
-                return (Number(obj.stax_desired_range)/100) * Number(obj.exp_yield) * Number(obj.ins_price);
+                policies = _.filter(loan.inspols, {crop_id: obj.crop_id});
+                var stax = 0;
+                var sco = 0;
+
+                _.each(policies, function(p){
+                    if(p.options === 'STAX') {
+                        stax += (Number(p.stax_desired_range)/100) * (Number(p.exp_yield) * Number(p.ins_price)) * (Number(p.stax_protection_factor)/100);
+                    } else {
+                        if(p.aph && p.options === 'SCO') {
+                            sco += (Number(p.stax_desired_range)/100) * (Number(p.aph) * Number(p.ins_price));
+
+                        }
+                    }
+                });
+
+                return stax + sco;
             }
         }
         function calcSuppInsMax(obj) {
@@ -549,7 +574,16 @@
             return Number(loan.expenses.totals.byLoan.arm) + Number(calcTotalFarmExpenses(loan));
         }
         function calcTotalAllCommitment(loan) {
-            return Number(loan.fins.commit_arm) + Number(loan.fins.fee_total) + Number(loan.fins.int_arm) + Number(loan.fins.commit_dist) + Number(loan.fins.int_dist) + Number(loan.fins.commit_other);
+            var commit_arm = Number(loan.fins.commit_arm);
+            var fee_total = Number(loan.fins.fee_total);
+            var int_arm = Number(loan.fins.int_arm);
+            var commit_dist = Number(loan.fins.commit_dist);
+            var int_dist = Number(loan.fins.int_dist);
+            var commit_other = Number(loan.fins.commit_other);
+
+            //console.log('AllCommittment', commit_arm, fee_total, int_arm, commit_dist, int_dist, commit_other);
+
+            return commit_arm + fee_total + int_arm + commit_dist + int_dist + commit_other;
         }
         function calcTotalArmDistCommitment(loan) {
             return Number(loan.fins.commit_arm) + Number(loan.fins.fee_total) + Number(loan.fins.int_arm) + Number(loan.fins.commit_dist) + Number(loan.fins.int_dist);
@@ -568,9 +602,11 @@
             var RPHPEDiscount = Number(calcRHPEDiscount(loan));
             var YPDiscount = Number(calcTotalYPIns(loan));
             var supCoverage = Number(calcSuppCoverage(loan));
-            var equipment = Number(calcOtherColByType('equipment', loan));
-            var realEstate = Number(calcOtherColByType('realestate', loan));
-            var other = Number(calcOtherColByType('other', loan));
+            var equipment = Number(calcOtherCollateralByType('equipment', loan));
+            var realEstate = Number(calcOtherCollateralByType('realestate', loan));
+            var other = Number(calcOtherCollateralByType('other', loan));
+
+            //console.log('EXPOSURE', projectedCrops, fsaPaid, insOverDiscountedYield, RPHPEDiscount, YPDiscount, supCoverage, equipment, realEstate, other);
 
             return projectedCrops + fsaPaid + insOverDiscountedYield + RPHPEDiscount + YPDiscount + supCoverage + equipment + realEstate + other;
         }
@@ -636,7 +672,11 @@
             return total;
         }
         function calcTotalSupIns(loan) {
-            return Number(calcTotalRPIns(loan)) + Number(calcTotalRPHPEIns(loan)) + Number(calcTotalYPIns(loan));
+            var total = 0;
+            _.each(loan.loancrops, function(lc){
+                total += calcSupInsbyCropSummary(lc, loan);
+            })
+            return total;
         }
         function calcTotalYPIns(loan) {
             var total = 0;
@@ -814,734 +854,128 @@
             switch(Number(loanid)) {
                 case 1:
                     return {
-                        account_classification: "-",
-                        added_land: false,
-                        added_land_verified: 0,
-                        agencies: '',
-                        agent: [],
-                        analyst: user.name,
-                        analyst_can_approve: false,
-                        analyst_can_submit: false,
-                        analyst_abr: user.nick,
-                        analyst_email: user.email,
-                        analyst_id: user.id,
-                        aoi_received: 0,
-                        app_date: moment(),
+                        app_date: moment().format('MM/DD/YYYY'),
+                        default_due_date: "12/15/" + globals.globvars[0].crop_year,
+                        due_date: "12/15/" + globals.globvars[0].crop_year,
+                        loan_type_id: 1,
+                        status_id: 1,
+                        crop_year: globals.globvars[0].crop_year,
+                        season: globals.globvars[0].season,
+                        loc_id: user.loc_id,
+                        region_id: user.location.region_id,
+                        user_id: user.id,
                         applicant: {},
-                        arm_approved: 0,
-                        arm_ucc_received: 0,
-                        attachments: [],
-                        bankruptcy_history: false,
-                        bankruptcy_order_received: 0,
-                        ccc_received: 0,
-                        committee: [],
-                        committee_vote: {},
-                        comments: [],
-                        conditions_aci: true,
-                        conditions_adis: true,
-                        conditions_afsa: true,
-                        conditions_areb: true,
-                        conditions_asa: true,
-                        conditions_cd: false,
-                        conditions_ccl: false,
-                        conditions_pg: true,
-                        controlled_disbursement: false,
-                        corps: [],
-                        crop_certified: 0,
-                        crophail: [],
-                        crop_inspection: 0,
-                        crop_loan: true,
-                        crop_year: 2015,
-                        decision_date: "08/17/2015",
-                        default_due_date: "12/15/2015",
-                        dist_approved: 0,
-                        disbursement_issue: false,
-                        disbursements: [],
-                        distributor: {},
-                        dist_ucc_received: 0,
-                        due_date: "12/15/2015",
-                        equipment_collateral: true,
-                        exceptions: [],
-                        expenses: [],
+                        applicant_id: null,
                         farmer: {},
-                        farmexpenses: [],
-                        farms: [],
-                        farmunits: [],
-                        financials: {},
-                        fsa_compliant: 0,
-                        full_season: "Spring",
-                        grade: "-",
-                        has_addendum: true,
-                        has_attachments: true,
-                        has_distributor: true,
-                        indyinc: [],
-                        inspols: [],
-                        is_active: true,
-                        is_xcolled: true,
-                        is_fast_tracked: false,
-                        is_stale: false,
-                        is_watched: true,
-                        its_list: 0,
-                        leases_valid: 0,
-                        lien_letter_received: 0,
-                        limit_warning: 0,
-                        limit_warning_message: null,
-                        loan_closed: 0,
-                        loan_closed_date: "",
-                        loanconditions: [],
-                        loandistributor: {},
-                        loan_type: "Ag-Input",
-                        loan_type_id: 2,
-                        loantype_abr: "AGI",
-                        location: {},
-                        loc_abr: "RAY",
-                        joints: [ ],
-                        other_collateral: [],
-                        partners: [],
-                        past_due: 0,
-                        permission_to_insure_verified: 0,
-                        prev_lien_verified: 0,
-                        prior_liens: [],
-                        quests: {},
-                        references: [],
-                        realestate_collateral: true,
-                        rebate_assignment: 0,
-                        received_3party: 0,
-                        recommended: 0,
-                        reconciliation: 3,
-                        region: "West",
-                        required_3party: false,
-                        season: "S",
-                        status: {
-                            id: 1,
-                            status: "In-Progress",
-                            iconClass: "glyphicon-wrench",
-                            iconColor: "#000099"
-                        },
-                        transactions: []
+                        farmer_id: null
                     };
                     break;
                 case 3:
                     return {
-                        account_classification: "-",
-                        added_land: false,
-                        added_land_verified: 0,
-                        agencies: '',
-                        agent: [],
-                        analyst: user.name,
-                        analyst_can_approve: false,
-                        analyst_can_submit: false,
-                        analyst_abr: user.nick,
-                        analyst_email: user.email,
-                        analyst_id: user.id,
-                        aoi_received: 0,
-                        app_date: moment(),
+                        app_date: moment().format('MM/DD/YYYY'),
+                        default_due_date: "12/15/" + globals.globvars[0].crop_year,
+                        due_date: "12/15/" + globals.globvars[0].crop_year,
+                        loan_type_id: 3,
+                        status_id: 1,
+                        crop_year: globals.globvars[0].crop_year,
+                        season: globals.globvars[0].season,
+                        loc_id: user.loc_id,
+                        region_id: user.location.region_id,
+                        user_id: user.id,
                         applicant: {},
-                        arm_approved: 0,
-                        arm_ucc_received: 0,
-                        attachments: [],
-                        bankruptcy_history: false,
-                        bankruptcy_order_received: 0,
-                        ccc_received: 0,
-                        committee: [],
-                        committee_vote: {},
-                        comments: [],
-                        conditions_aci: true,
-                        conditions_adis: true,
-                        conditions_afsa: true,
-                        conditions_areb: true,
-                        conditions_asa: true,
-                        conditions_cd: false,
-                        conditions_ccl: false,
-                        conditions_pg: true,
-                        controlled_disbursement: false,
-                        corps: [],
-                        crop_certified: 0,
-                        crophail: [],
-                        crop_inspection: 0,
-                        crop_loan: true,
-                        crop_year: 2015,
-                        decision_date: "08/17/2015",
-                        default_due_date: "12/15/2015",
-                        dist_approved: 0,
-                        disbursement_issue: false,
-                        disbursements: [],
-                        distributor: {},
-                        dist_ucc_received: 0,
-                        due_date: "12/15/2015",
-                        equipment_collateral: true,
-                        exceptions: [],
-                        expenses: [],
+                        applicant_id: null,
                         farmer: {},
-                        farmexpenses: [],
-                        farms: [],
-                        farmunits: [],
-                        financials: {},
-                        fsa_compliant: 0,
-                        full_season: "Spring",
-                        grade: "-",
-                        has_addendum: true,
-                        has_attachments: true,
-                        has_distributor: true,
-                        indyinc: [],
-                        inspols: [],
-                        is_active: true,
-                        is_xcolled: true,
-                        is_fast_tracked: false,
-                        is_stale: false,
-                        is_watched: true,
-                        its_list: 0,
-                        leases_valid: 0,
-                        lien_letter_received: 0,
-                        limit_warning: 0,
-                        limit_warning_message: null,
-                        loan_closed: 0,
-                        loan_closed_date: "",
-                        loanconditions: [],
-                        loandistributor: {},
-                        loan_type: "Ag-Input",
-                        loan_type_id: 2,
-                        loantype_abr: "AGI",
-                        location: {},
-                        loc_abr: "RAY",
-                        joints: [ ],
-                        other_collateral: [],
-                        partners: [],
-                        past_due: 0,
-                        permission_to_insure_verified: 0,
-                        prev_lien_verified: 0,
-                        prior_liens: [],
-                        quests: {},
-                        references: [],
-                        realestate_collateral: true,
-                        rebate_assignment: 0,
-                        received_3party: 0,
-                        recommended: 0,
-                        reconciliation: 3,
-                        region: "West",
-                        required_3party: false,
-                        season: "S",
-                        status: {
-                            id: 1,
-                            status: "In-Progress",
-                            iconClass: "glyphicon-wrench",
-                            iconColor: "#000099"
-                        },
-                        transactions: []
+                        farmer_id: null
                     };
                     break;
                 case 4:
                     return {
-                        account_classification: "-",
-                        added_land: false,
-                        added_land_verified: 0,
-                        agencies: '',
-                        agent: [],
-                        analyst: user.name,
-                        analyst_can_approve: false,
-                        analyst_can_submit: false,
-                        analyst_abr: user.nick,
-                        analyst_email: user.email,
-                        analyst_id: user.id,
-                        aoi_received: 0,
-                        app_date: moment(),
+                        app_date: moment().format('MM/DD/YYYY'),
+                        default_due_date: "12/15/" + globals.globvars[0].crop_year,
+                        due_date: "12/15/" + globals.globvars[0].crop_year,
+                        loan_type_id: 4,
+                        status_id: 1,
+                        crop_year: globals.globvars[0].crop_year,
+                        season: globals.globvars[0].season,
+                        loc_id: user.loc_id,
+                        region_id: user.location.region_id,
+                        user_id: user.id,
                         applicant: {},
-                        arm_approved: 0,
-                        arm_ucc_received: 0,
-                        attachments: [],
-                        bankruptcy_history: false,
-                        bankruptcy_order_received: 0,
-                        ccc_received: 0,
-                        committee: [],
-                        committee_vote: {},
-                        comments: [],
-                        conditions_aci: true,
-                        conditions_adis: true,
-                        conditions_afsa: true,
-                        conditions_areb: true,
-                        conditions_asa: true,
-                        conditions_cd: false,
-                        conditions_ccl: false,
-                        conditions_pg: true,
-                        controlled_disbursement: false,
-                        corps: [],
-                        crop_certified: 0,
-                        crophail: [],
-                        crop_inspection: 0,
-                        crop_loan: true,
-                        crop_year: 2015,
-                        decision_date: "08/17/2015",
-                        default_due_date: "12/15/2015",
-                        dist_approved: 0,
-                        disbursement_issue: false,
-                        disbursements: [],
-                        distributor: {},
-                        dist_ucc_received: 0,
-                        due_date: "12/15/2015",
-                        equipment_collateral: true,
-                        exceptions: [],
-                        expenses: [],
+                        applicant_id: null,
                         farmer: {},
-                        farmexpenses: [],
-                        farms: [],
-                        farmunits: [],
-                        financials: {},
-                        fsa_compliant: 0,
-                        full_season: "Spring",
-                        grade: "-",
-                        has_addendum: true,
-                        has_attachments: true,
-                        has_distributor: true,
-                        indyinc: [],
-                        inspols: [],
-                        is_active: true,
-                        is_xcolled: true,
-                        is_fast_tracked: false,
-                        is_stale: false,
-                        is_watched: true,
-                        its_list: 0,
-                        leases_valid: 0,
-                        lien_letter_received: 0,
-                        limit_warning: 0,
-                        limit_warning_message: null,
-                        loan_closed: 0,
-                        loan_closed_date: "",
-                        loanconditions: [],
-                        loandistributor: {},
-                        loan_type: "Ag-Input",
-                        loan_type_id: 2,
-                        loantype_abr: "AGI",
-                        location: {},
-                        loc_abr: "RAY",
-                        joints: [ ],
-                        other_collateral: [],
-                        partners: [],
-                        past_due: 0,
-                        permission_to_insure_verified: 0,
-                        prev_lien_verified: 0,
-                        prior_liens: [],
-                        quests: {},
-                        references: [],
-                        realestate_collateral: true,
-                        rebate_assignment: 0,
-                        received_3party: 0,
-                        recommended: 0,
-                        reconciliation: 3,
-                        region: "West",
-                        required_3party: false,
-                        season: "S",
-                        status: {
-                            id: 1,
-                            status: "In-Progress",
-                            iconClass: "glyphicon-wrench",
-                            iconColor: "#000099"
-                        },
-                        transactions: []
+                        farmer_id: null
                     };
                     break;
                 case 5:
                     return {
-                        account_classification: "-",
-                        added_land: false,
-                        added_land_verified: 0,
-                        agencies: '',
-                        agent: [],
-                        analyst: user.name,
-                        analyst_can_approve: false,
-                        analyst_can_submit: false,
-                        analyst_abr: user.nick,
-                        analyst_email: user.email,
-                        analyst_id: user.id,
-                        aoi_received: 0,
-                        app_date: moment(),
+                        app_date: moment().format('MM/DD/YYYY'),
+                        default_due_date: "03/15/" + Number(globals.globvars[0].crop_year) + 1,
+                        due_date: "03/15/" + Number(globals.globvars[0].crop_year) + 1,
+                        loan_type_id: 5,
+                        status_id: 1,
+                        crop_year: globals.globvars[0].crop_year,
+                        season: globals.globvars[0].season,
+                        loc_id: user.loc_id,
+                        region_id: user.location.region_id,
+                        user_id: user.id,
                         applicant: {},
-                        arm_approved: 0,
-                        arm_ucc_received: 0,
-                        attachments: [],
-                        bankruptcy_history: false,
-                        bankruptcy_order_received: 0,
-                        ccc_received: 0,
-                        committee: [],
-                        committee_vote: {},
-                        comments: [],
-                        conditions_aci: true,
-                        conditions_adis: true,
-                        conditions_afsa: true,
-                        conditions_areb: true,
-                        conditions_asa: true,
-                        conditions_cd: false,
-                        conditions_ccl: false,
-                        conditions_pg: true,
-                        controlled_disbursement: false,
-                        corps: [],
-                        crop_certified: 0,
-                        crophail: [],
-                        crop_inspection: 0,
-                        crop_loan: true,
-                        crop_year: 2015,
-                        decision_date: "08/17/2015",
-                        default_due_date: "12/15/2015",
-                        dist_approved: 0,
-                        disbursement_issue: false,
-                        disbursements: [],
-                        distributor: {},
-                        dist_ucc_received: 0,
-                        due_date: "12/15/2015",
-                        equipment_collateral: true,
-                        exceptions: [],
-                        expenses: [],
+                        applicant_id: null,
                         farmer: {},
-                        farmexpenses: [],
-                        farms: [],
-                        farmunits: [],
-                        financials: {},
-                        fsa_compliant: 0,
-                        full_season: "Spring",
-                        grade: "-",
-                        has_addendum: true,
-                        has_attachments: true,
-                        has_distributor: true,
-                        indyinc: [],
-                        inspols: [],
-                        is_active: true,
-                        is_xcolled: true,
-                        is_fast_tracked: false,
-                        is_stale: false,
-                        is_watched: true,
-                        its_list: 0,
-                        leases_valid: 0,
-                        lien_letter_received: 0,
-                        limit_warning: 0,
-                        limit_warning_message: null,
-                        loan_closed: 0,
-                        loan_closed_date: "",
-                        loanconditions: [],
-                        loandistributor: {},
-                        loan_type: "Ag-Input",
-                        loan_type_id: 2,
-                        loantype_abr: "AGI",
-                        location: {},
-                        loc_abr: "RAY",
-                        joints: [ ],
-                        other_collateral: [],
-                        partners: [],
-                        past_due: 0,
-                        permission_to_insure_verified: 0,
-                        prev_lien_verified: 0,
-                        prior_liens: [],
-                        quests: {},
-                        references: [],
-                        realestate_collateral: true,
-                        rebate_assignment: 0,
-                        received_3party: 0,
-                        recommended: 0,
-                        reconciliation: 3,
-                        region: "West",
-                        required_3party: false,
-                        season: "S",
-                        status: {
-                            id: 1,
-                            status: "In-Progress",
-                            iconClass: "glyphicon-wrench",
-                            iconColor: "#000099"
-                        },
-                        transactions: []
-                    };
+                        farmer_id: null
+                    };;
                     break;
                 case 6:
                     return {
-                        account_classification: "-",
-                        added_land: false,
-                        added_land_verified: 0,
-                        agencies: '',
-                        agent: [],
-                        analyst: user.name,
-                        analyst_can_approve: false,
-                        analyst_can_submit: false,
-                        analyst_abr: user.nick,
-                        analyst_email: user.email,
-                        analyst_id: user.id,
-                        aoi_received: 0,
-                        app_date: moment(),
+                        app_date: moment().format('MM/DD/YYYY'),
+                        default_due_date: "03/15/" + Number(globals.globvars[0].crop_year) + 1,
+                        due_date: "03/15/" + Number(globals.globvars[0].crop_year) + 1,
+                        loan_type_id: 6,
+                        status_id: 1,
+                        crop_year: globals.globvars[0].crop_year,
+                        season: globals.globvars[0].season,
+                        loc_id: user.loc_id,
+                        region_id: user.location.region_id,
+                        user_id: user.id,
                         applicant: {},
-                        arm_approved: 0,
-                        arm_ucc_received: 0,
-                        attachments: [],
-                        bankruptcy_history: false,
-                        bankruptcy_order_received: 0,
-                        ccc_received: 0,
-                        committee: [],
-                        committee_vote: {},
-                        comments: [],
-                        conditions_aci: true,
-                        conditions_adis: true,
-                        conditions_afsa: true,
-                        conditions_areb: true,
-                        conditions_asa: true,
-                        conditions_cd: false,
-                        conditions_ccl: false,
-                        conditions_pg: true,
-                        controlled_disbursement: false,
-                        corps: [],
-                        crop_certified: 0,
-                        crophail: [],
-                        crop_inspection: 0,
-                        crop_loan: true,
-                        crop_year: 2015,
-                        decision_date: "08/17/2015",
-                        default_due_date: "12/15/2015",
-                        dist_approved: 0,
-                        disbursement_issue: false,
-                        disbursements: [],
-                        distributor: {},
-                        dist_ucc_received: 0,
-                        due_date: "12/15/2015",
-                        equipment_collateral: true,
-                        exceptions: [],
-                        expenses: [],
+                        applicant_id: null,
                         farmer: {},
-                        farmexpenses: [],
-                        farms: [],
-                        farmunits: [],
-                        financials: {},
-                        fsa_compliant: 0,
-                        full_season: "Spring",
-                        grade: "-",
-                        has_addendum: true,
-                        has_attachments: true,
-                        has_distributor: true,
-                        indyinc: [],
-                        inspols: [],
-                        is_active: true,
-                        is_xcolled: true,
-                        is_fast_tracked: false,
-                        is_stale: false,
-                        is_watched: true,
-                        its_list: 0,
-                        leases_valid: 0,
-                        lien_letter_received: 0,
-                        limit_warning: 0,
-                        limit_warning_message: null,
-                        loan_closed: 0,
-                        loan_closed_date: "",
-                        loanconditions: [],
-                        loandistributor: {},
-                        loan_type: "Ag-Input",
-                        loan_type_id: 2,
-                        loantype_abr: "AGI",
-                        location: {},
-                        loc_abr: "RAY",
-                        joints: [ ],
-                        other_collateral: [],
-                        partners: [],
-                        past_due: 0,
-                        permission_to_insure_verified: 0,
-                        prev_lien_verified: 0,
-                        prior_liens: [],
-                        quests: {},
-                        references: [],
-                        realestate_collateral: true,
-                        rebate_assignment: 0,
-                        received_3party: 0,
-                        recommended: 0,
-                        reconciliation: 3,
-                        region: "West",
-                        required_3party: false,
-                        season: "S",
-                        status: {
-                            id: 1,
-                            status: "In-Progress",
-                            iconClass: "glyphicon-wrench",
-                            iconColor: "#000099"
-                        },
-                        transactions: []
+                        farmer_id: null
                     };
                     break;
                 case 7:
                     return {
-                        account_classification: "-",
-                        added_land: false,
-                        added_land_verified: 0,
-                        agencies: '',
-                        agent: [],
-                        analyst: user.name,
-                        analyst_can_approve: false,
-                        analyst_can_submit: false,
-                        analyst_abr: user.nick,
-                        analyst_email: user.email,
-                        analyst_id: user.id,
-                        aoi_received: 0,
-                        app_date: moment(),
+                        app_date: moment().format('MM/DD/YYYY'),
+                        default_due_date: "03/15/" + Number(globals.globvars[0].crop_year) + 1,
+                        due_date: "03/15/" + Number(globals.globvars[0].crop_year) + 1,
+                        loan_type_id: 7,
+                        status_id: 1,
+                        crop_year: globals.globvars[0].crop_year,
+                        season: globals.globvars[0].season,
+                        loc_id: user.loc_id,
+                        region_id: user.location.region_id,
+                        user_id: user.id,
                         applicant: {},
-                        arm_approved: 0,
-                        arm_ucc_received: 0,
-                        attachments: [],
-                        bankruptcy_history: false,
-                        bankruptcy_order_received: 0,
-                        ccc_received: 0,
-                        committee: [],
-                        committee_vote: {},
-                        comments: [],
-                        conditions_aci: true,
-                        conditions_adis: true,
-                        conditions_afsa: true,
-                        conditions_areb: true,
-                        conditions_asa: true,
-                        conditions_cd: false,
-                        conditions_ccl: false,
-                        conditions_pg: true,
-                        controlled_disbursement: false,
-                        corps: [],
-                        crop_certified: 0,
-                        crophail: [],
-                        crop_inspection: 0,
-                        crop_loan: true,
-                        crop_year: 2015,
-                        decision_date: "08/17/2015",
-                        default_due_date: "12/15/2015",
-                        dist_approved: 0,
-                        disbursement_issue: false,
-                        disbursements: [],
-                        distributor: {},
-                        dist_ucc_received: 0,
-                        due_date: "12/15/2015",
-                        equipment_collateral: true,
-                        exceptions: [],
-                        expenses: [],
+                        applicant_id: null,
                         farmer: {},
-                        farmexpenses: [],
-                        farms: [],
-                        farmunits: [],
-                        financials: {},
-                        fsa_compliant: 0,
-                        full_season: "Spring",
-                        grade: "-",
-                        has_addendum: true,
-                        has_attachments: true,
-                        has_distributor: true,
-                        indyinc: [],
-                        inspols: [],
-                        is_active: true,
-                        is_xcolled: true,
-                        is_fast_tracked: false,
-                        is_stale: false,
-                        is_watched: true,
-                        its_list: 0,
-                        leases_valid: 0,
-                        lien_letter_received: 0,
-                        limit_warning: 0,
-                        limit_warning_message: null,
-                        loan_closed: 0,
-                        loan_closed_date: "",
-                        loanconditions: [],
-                        loandistributor: {},
-                        loan_type: "Ag-Input",
-                        loan_type_id: 2,
-                        loantype_abr: "AGI",
-                        location: {},
-                        loc_abr: "RAY",
-                        joints: [ ],
-                        other_collateral: [],
-                        partners: [],
-                        past_due: 0,
-                        permission_to_insure_verified: 0,
-                        prev_lien_verified: 0,
-                        prior_liens: [],
-                        quests: {},
-                        references: [],
-                        realestate_collateral: true,
-                        rebate_assignment: 0,
-                        received_3party: 0,
-                        recommended: 0,
-                        reconciliation: 3,
-                        region: "West",
-                        required_3party: false,
-                        season: "S",
-                        status: {
-                            id: 1,
-                            status: "In-Progress",
-                            iconClass: "glyphicon-wrench",
-                            iconColor: "#000099"
-                        },
-                        transactions: []
+                        farmer_id: null
                     };
                     break;
                 default:
                     return {
-                        account_classification: "-",
-                        added_land: false,
-                        added_land_verified: 0,
-                        //agencies: '',
-                        //agent: [],
-                        analyst: user.name,
-                        analyst_can_approve: false,
-                        analyst_can_submit: false,
-                        analyst_abr: user.nick,
-                        analyst_email: user.email,
-                        analyst_id: user.id,
-                        aoi_received: 0,
                         app_date: moment().format('MM/DD/YYYY'),
+                        default_due_date: "12/15/" + globals.globvars[0].crop_year,
+                        due_date: "12/15/" + globals.globvars[0].crop_year,
+                        loan_type_id: 2,
+                        status_id: 1,
+                        crop_year: globals.globvars[0].crop_year,
+                        season: globals.globvars[0].season,
+                        loc_id: user.loc_id,
+                        region_id: user.location.region_id,
+                        user_id: user.id,
                         applicant: {},
                         applicant_id: null,
-                        arm_approved: 0,
-                        arm_ucc_received: 0,
-                        attachments: [],
-                        bankruptcy_history: false,
-                        bankruptcy_order_received: 0,
-                        ccc_received: 0,
-                        controlled_disbursement: false,
-                        crop_certified: 0,
-                        crop_inspection: 0,
-                        crop_loan: true, //1,2,3
-                        crop_year: globals.globvars[0].crop_year,
-                        decision_date: null,
-                        default_due_date: "12/15/" + globals.globvars[0].crop_year,
-                        dist_approved: 0,
-                        disbursement_issue: false,
-                        dist_ucc_received: 0,
-                        due_date: "12/15/" + globals.globvars[0].crop_year,
-                        equipment_collateral: false,
                         farmer: {},
-                        farmer_id: null,
-                        fsa_compliant: 0,
-                        full_season: (globals.globvars[0].season == 'S' ? 'Sping' : 'Fall'),
-                        grade: "-",
-                        has_addendum: false,
-                        has_attachments: false,
-                        has_distributor: true,
-                        is_active: true,
-                        is_xcolled: false,
-                        is_fast_tracked: false,
-                        is_stale: false,
-                        is_watched: false,
-                        its_list: 0,
-                        leases_valid: 0,
-                        lien_letter_received: 0,
-                        limit_warning: 0,
-                        loan_closed: 0,
-                        loan_closed_date: "",
-                        loan_type: "Ag-Input",
-                        loan_type_id: 2,
-                        loantype_abr: "AGI",
-                        loc_abr: user.loc_abr,
-                        location_id: user.location.location_id,
-                        past_due: 0,
-                        permission_to_insure_verified: 0,
-                        prev_lien_verified: 0,
-                        realestate_collateral: false,
-                        rebate_assignment: 0,
-                        received_3party: 0,
-                        recommended: 0,
-                        reconciliation: 0,
-                        region_id: user.location.region_id,
-                        required_3party: false,
-                        season: globals.globvars[0].season,
-                        status: {
-                            id: 1,
-                            status: "In-Progress",
-                            iconClass: "glyphicon-wrench",
-                            iconColor: "#000099"
-                        }
+                        farmer_id: null
                     };
                     break;
             }

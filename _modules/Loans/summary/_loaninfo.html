@@ -5,6 +5,8 @@
         <br/>
         <p class="display-field">
             {{loan.applicant.applicant|displayname}}
+            &nbsp;
+            <span class="glyphicons glyphicons-envelope"></span>
             <br/>
             <span style="font-size: 12px;">
                 {{loan.applicant.address}}
@@ -44,7 +46,10 @@
                 <label>Partnership Information</label>
                 <br/>
                 <p class="display-field" ng-repeat="p in loan.partners">
-                    {{p.partner}}<br/>
+                    {{p.partner}}
+                    &nbsp;
+                    <span class="glyphicons glyphicons-envelope"></span>
+                    <br/>
                 </p>
             </div>
             <div ng-switch-when="5">
@@ -62,6 +67,8 @@
         <br/>
         <p class="display-field">
             {{loan.analyst}}
+            &nbsp;
+            <span class="glyphicons glyphicons-envelope"></span>
         </p>
         <br/>
         <label>Interest Rate</label>
@@ -103,7 +110,6 @@
             {{loan.quests.income_percent|flexPercent:1}}
         </p>
     </div>
-    <div class="form-group col-md-3">&nbsp;</div>
     <div class="form-group col-md-3">
         <span ng-if="loan.loan_type_id === 2">
             <label>Pesticide Number</label>
@@ -117,7 +123,28 @@
         </p>
         </span>
     </div>
-    <div class="form-group col-md-3">&nbsp;</div>
+    <div class="form-group col-md-3">
+        <span ng-if="loan.has_distributor">
+            <label>Participating Distributor</label>
+        <br/>
+        <p class="display-field">
+            {{loan.distributor.distributor}}
+            &nbsp;
+            <span class="glyphicons glyphicons-envelope"></span>
+        </p>
+        </span>
+    </div>
+    <div class="form-group col-md-3">
+        <span ng-if="loan.quests.insInPlace">
+            <label>Crop Insurance Agency</label>
+        <br/>
+        <p class="display-field">
+            {{loan.agencies}}
+            &nbsp;
+            <span class="glyphicons glyphicons-envelope"></span>
+        </p>
+        </span>
+    </div>
 </div>
 
 <!--Income% Explanation-->

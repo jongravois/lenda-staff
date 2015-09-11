@@ -17,12 +17,8 @@
 
 <br>
 
-<fieldset id="loanQuestions">
-    <legend>Questions</legend>
-    <div class="container-fluid">
-        <div class="alert alert-success" role="alert">
-            <h4>Borrower</h4>
-        </div>
+    <fieldset class="container-fluid">
+        <legend>Borrower</legend>
 
         <!-- [10] LEGAL DEFENDANT [legalDefendant] -->
         <div class="row form-group">
@@ -41,7 +37,7 @@
                 </div>
             </div>
         </div>
-        <div class="row form-group" ng-show="loan.quests.legal_defendant || loan.quests.legal_defendant === '1'" ng-hide="loan.quests.legal_defendant === '0'">
+        <div class="row form-group" ng-show="loan.quests.legal_defendant" ng-hide="!loan.quests.legal_defendant">
             <div class="col-md-10 col-md-offset-2">
                 <div class="col-md-12">
                     <label class="inner">Details</label>
@@ -66,7 +62,7 @@
                 </div>
             </div>
         </div>
-        <div class="row form-group" ng-show="loan.quests.judgements || loan.quests.judgements == '1'" ng-hide="loan.quests.judgements === '0'">
+        <div class="row form-group" ng-show="loan.quests.judgements" ng-hide="!loan.quests.judgements">
             <div class="col-md-10 col-md-offset-2">
                 <div class="col-md-12">
                     <label class="inner">Details</label>
@@ -92,7 +88,7 @@
                 </div>
             </div>
         </div>
-        <div class="row form-group" ng-show="loan.quests.bankruptcy || loan.quests.bankruptcy == '1'" ng-hide="loan.quests.bankruptcy === '0'">
+        <div class="row form-group" ng-show="loan.quests.bankruptcy" ng-hide="!loan.quests.bankruptcy">
             <div class="col-md-10 col-md-offset-2">
                 <div class="col-md-12">
                     <label class="inner">Details</label>
@@ -100,7 +96,7 @@
                 </div>
             </div>
         </div>
-        <div class="row form-group" ng-show="loan.quests.bankruptcy || loan.quests.bankruptcy == '1'" ng-hide="loan.quests.bankruptcy === '0'">
+        <div class="row form-group" ng-show="loan.quests.bankruptcy" ng-hide="!loan.quests.bankruptcy">
             <div class="col-md-10 col-md-offset-2">
                 <div class="col-md-9">
                     <label style="color:#000099;">I must have a Court Order to Incur Debt?</label>
@@ -175,16 +171,16 @@
                     <input type="text" name="pesticide_number" ng_model="loan.quests.pesticide_number" class="form-control" style="width:90px"/>
                 </div>
                 <div class="col-md-2">
-                    <input type="text" name="pest_num_expiration" ng_model="loan.quests.pest_num_expiration" class="form-control" style="width:120px"/>
+                    <input type="text" name="pest_num_expiration" ng_model="loan.quests.pest_num_expiration" class="form-control" style="width:160px"/>
                 </div>
                 <div class="col-md-2">&nbsp;</div>
             </div>
         </div>
         <!-- RESTRICTED USE PESTICIDE [pesticide_number] {} -->
-        
-        <div class="alert alert-success" role="alert">
-            <h4>Collateral</h4>
-        </div>
+    </fieldset>
+    <br>
+        <fieldset>
+            <legend>Collateral</legend>
 
         <!-- [5] FSA STANDING [fsaGood] {APPLICANT or FARMER} -->
         <div class="row form-group" ng-if="loan.loan_type_id !== 7">
@@ -363,11 +359,10 @@
             </div>
         </div>
         <!-- [14] OUTSTANDING/FUTURE LIABILITIES [future_liabilities] -->
-
+    </fieldset>
         <br>
-        <div class="alert alert-success" role="alert">
-            <h4>Operational</h4>
-        </div>
+        <fieldset>
+            <legend>Operational</legend>
 
         <!-- [1] PLANT OWN CROPS [plantOwn] {APPLICANT or FARMER} -->
         <div class="row form-group" ng-if="loan.loan_type_id === 1 || loan.loan_type_id === 2 || loan.loan_type_id === 3">
@@ -493,7 +488,5 @@
             </div>
         </div>
         <!-- [15] THIRD PARTY CREDIT [third_party_credit_available] -->
-
-    </div>
 </fieldset>
 <br><br><br><br>

@@ -14,8 +14,8 @@
                 Committee Comment
                 <span class="ctrlButtons">
                         <span class="glyphicons glyphicons-unshare" tooltip="reply" style="color:#000;" ng-click="btnCommentReply(c)"></span>
-                        <span ng-click="c.status = !c.status; btnCommentOk(c)" class="glyphicons glyphicons-check" style="color:#000;"  ng-if="c.status"></span>
-                        <span ng-click="c.status = !c.status; btnCommentOk(c)" class="glyphicons glyphicons-unchecked" style="color:#000;" ng-if="!c.status"></span>
+                        <span class="glyphicons glyphicons-ok-2 cGreen" ng-if="c.status"></span>
+                        <span ng-click="btnCommentOk(c)" class="glyphicons glyphicons-ok-2 cYellow" ng-if="!c.status"></span>
                               </span>
                 </span>
             <span ng-if="obj.type === 'Watch'">

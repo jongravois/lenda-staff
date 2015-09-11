@@ -12,6 +12,12 @@
         <span class="menuicon glyphicons glyphicons-option-vertical" tooltip="Collapse" tooltip-append-to-body="true" tooltip-placement="right"></span>
     </li>
     <li class="list-group-item lnk"
+        ng-click="ngcLink('crosscollateral')"
+        ng-if="loan.is_xcolled">
+        <span class="menuicon glyphicons glyphicons-random" tooltip="Cross Collateral" tooltip-append-to-body="true" tooltip-placement="right"></span>
+        &nbsp;Cross Collateral
+    </li>
+    <li class="list-group-item lnk"
         ng-click="ngcLink('summary')"
         ng-if="!newapplication">
         <span class="menuicon glyphicons glyphicons-money" tooltip="Summary" tooltip-append-to-body="true" tooltip-placement="right"></span>

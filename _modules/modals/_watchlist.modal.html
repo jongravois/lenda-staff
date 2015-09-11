@@ -1,0 +1,22 @@
+<div class="modal-header">
+    <h2>{{properties.title}}</h2>
+</div>
+
+<div class="modal-body">
+    <textarea class="form-control" ng-model="properties.message"></textarea>
+    <br>
+    <label>
+        <input type="checkbox" name="is_watched" ng-model="properties.is_watched">
+        &nbsp;
+        Watch Loan
+    </label>
+</div>
+
+<div class="modal-footer">
+    <button class="btn btn-primary" ng-click="ok()">
+        {{properties.buttons[0]}}
+    </button>
+    <button class="btn btn-default" ng-click="cancel()">
+        {{properties.buttons[1]}}
+    </button>
+</div>

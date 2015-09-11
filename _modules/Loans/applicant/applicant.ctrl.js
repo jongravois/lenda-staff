@@ -53,7 +53,6 @@
                 if($stateParams.loanID === 0 || !$scope.loan) {
                     $scope.loan = AppFactory.makeNewLoan($stateParams.loantypeID, user, $scope.defaults);
                 }
-
                 console.log('NewloanCtrl', $scope.loan);
             }
 
@@ -74,19 +73,15 @@
             };
             $scope.createApplicantScreen = function() {
                 // check for partners and joints with loan_id of 0 and update loan_id
-                if(! $scope.loan.applicant_id) {
-                    AppFactory.postIt('applicants', $scope.loan.applicant)
-                        .then(function (res) {
-                            $scope.loan.applicant_id = res.data;
-                            //AppFactory.postIt('loans', $scope.loan).then(function(newloaned){
-                                $state.go('arm.edit.questions', {loantypeID:$scope.loan.loan_type_id, loanID: newloaned.data});
-                            //});
+                AppFactory.postIt('applicants', $scope.loan.applicant)
+                    .then(function (res) {
+                        $scope.loan.applicant_id = res.data;
+                        AppFactory.postIt('loans', $scope.loan)
+                            .then(function(newloaned){
+                                $timeout(($scope.loan.loan_type_id, res.data), 3000);
+                                $state.go('arm.edit.quests', {loantypeID:$scope.loan.loan_type_id, loanID: newloaned.data});
                         });
-                } else {
-                    AppFactory.postIt('loans', $scope.loan).then(function(newloaned){
-                        $state.go('arm.edit.questions', {loantypeID:$scope.loan.loan_type_id, loanID: newloaned.data});
                     });
-                }
             };
             $scope.updateApplicantScreen = function() {
                 alert('working');
@@ -152,28 +147,25 @@
             };
 
             $scope.createNewFarmer = function() {
-                alert('new farmer');
-            }
-            $scope.createNewApplicant = function() {
-                if($scope.loan.farmer.newbie) {
-                    AppFactory.postIt('farmers', $scope.loan.farmer).then(function(didit){
+                AppFactory.postIt('farmers', $scope.loan.farmer)
+                    .then(function(didit){
                         $scope.loan.farmer_id = didit.data;
                         $scope.loan.applicant.entity_id = 2;
                         $scope.farmerSaved = true;
                         $scope.newApplicantForm = true;
                     });
-                } else {
-                    $scope.loan.applicant.entity_id = 2;
-                    $scope.newApplicantForm = true;
-                }
+            }
+            $scope.createNewApplicant = function() {
+                $scope.loan.applicant.entity_id = 2;
+                $scope.newApplicantForm = true;
             }
             $scope.useApplicant = function(id) {
                 $scope.loan.applicant_id = id;
-                //AppFactory.postIt('loans', $scope.loan)
-                    //.then(function(response){
-                        //$timeout(($scope.loan.loan_type_id, response.data), 3000);
+                AppFactory.postIt('loans', $scope.loan)
+                    .then(function(response){
+                        $timeout(($scope.loan.loan_type_id, response.data), 3000);
                         $state.go('arm.edit.quests', {loantypeID: $scope.loan.loan_type_id, loanID: response.data});
-                    //});
+                    });
             };
 
             $scope.onFarmerSelect = function ($item, $model, $label) {
