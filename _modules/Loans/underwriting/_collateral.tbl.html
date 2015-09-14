@@ -17,7 +17,7 @@
     </tr>
     <!--PROJECTED CROPS-->
     <tr>
-        <td>Projected Crops</td>
+        <td>Crops</td>
         <td class="text-right" ng-class="AppFactory.gtZero(AppFactory.calcProjectedCrops(loan))">
             {{AppFactory.calcProjectedCrops(loan)|flexCurrency:0}}
         </td>
@@ -30,6 +30,85 @@
         <td class="text-right" ng-class="AppFactory.gtZero(AppFactory.calcPlannedCropValue(loan))">
             {{AppFactory.calcPlannedCropValue(loan)|flexCurrency:0}}
         </td>
+    </tr>
+    <!--INS OVER DISCOUNTED YIELD-->
+    <tr>
+        <td>MPCI>Crop</td>
+        <td class="text-right">
+            {{AppFactory.calcTotalInsOverDisc(loan)|flexCurrency:0}}
+        </td>
+        <td class="text-right" ng-class="AppFactory.gtZero(loan.fins.discounts.percent_insoyield)">
+            {{loan.fins.discounts.percent_insoyield|flexPercent:1}}
+        </td>
+        <td class="text-center">
+            {{0|flexCurrency:0}}
+        </td>
+        <td class="text-right">
+            {{AppFactory.calcIODCollateralValue(loan)|flexCurrency:0}}
+        </td>
+    </tr>
+    <!--SUPPLEMENTAL COVERAGE-->
+    <tr>
+        <td>Stax/SCO</td>
+        <td class="text-right" ng-class="AppFactory.gtZero(AppFactory.calcSuppCoverage(loan))">
+            {{AppFactory.calcSuppCoverage(loan)|flexCurrency:0}}
+        </td>
+        <td class="text-right" ng-class="AppFactory.gtZero(loan.fins.discounts.percent_suppins)">
+            {{loan.fins.discounts.percent_suppins|flexPercent:1}}
+        </td>
+        <td class="text-center">-</td>
+        <td class="text-right">
+            {{AppFactory.calcTotalSupIns(loan)|flexCurrency:0}}
+        </td>
+    </tr>
+    <!--EQUIPMENT-->
+    <tr>
+        <td>Equipment</td>
+        <td class="text-right" ng-class="AppFactory.gtZero(AppFactory.calcOCMVbyType('equipment', loan))">
+            {{AppFactory.calcOCMVbyType('equipment', loan)|flexCurrency:0}}
+        </td>
+        <td class="text-right" ng-class="AppFactory.gtZero(AppFactory.calcOCDbyType('equipment', loan))">
+            {{AppFactory.calcOCDbyType('equipment', loan)|flexPercent:1}}
+        </td>
+        <td class="text-right" ng-class="AppFactory.gtZero(AppFactory.calcOCPLbyType('equipment', loan))">
+            {{AppFactory.calcOCPLbyType('equipment', loan)|flexCurrency:0}}
+        </td>
+        <td class="text-right" ng-class="AppFactory.gtZero(AppFactory.calcOtherColByType('equipment', loan))">
+            {{AppFactory.calcOtherCollateralByType('equipment', loan)|flexCurrency:0}}
+        </td>
+    </tr>
+    <!--REAL ESTATE-->
+    <tr>
+        <td>Real Estate</td>
+        <td class="text-right" ng-class="AppFactory.gtZero(AppFactory.calcOCMVbyType('realestate', loan))">
+            {{AppFactory.calcOCMVbyType('realestate', loan)|flexCurrency:0}}
+        </td>
+        <td class="text-right" ng-class="AppFactory.gtZero(AppFactory.calcOCDbyType('realestate', loan))">
+            {{AppFactory.calcOCDbyType('realestate', loan)|flexPercent:1}}
+        </td>
+        <td class="text-right" ng-class="AppFactory.gtZero(AppFactory.calcOCPLbyType('realestate', loan))">
+            {{AppFactory.calcOCPLbyType('realestate', loan)|flexCurrency:0}}
+        </td>
+        <td class="text-right" ng-class="AppFactory.gtZero(AppFactory.calcOtherCollateralByType('realestate', loan))">
+            {{AppFactory.calcOtherCollateralByType('realestate', loan)|flexCurrency:0}}
+        </td>
+    </tr>
+    <!--OTHER COLLATERAL-->
+    <tr>
+        <td>Other</td>
+        <td class="text-right" ng-class="AppFactory.gtZero(AppFactory.calcOCMVbyType('other', loan))">
+            {{AppFactory.calcOCMVbyType('other', loan)|flexCurrency:0}}
+        </td>
+        <td class="text-right" ng-class="AppFactory.gtZero(AppFactory.calcOCDbyType('other', loan))">
+            {{AppFactory.calcOCDbyType('other', loan)|flexPercent:1}}
+        </td>
+        <td class="text-right" ng-class="AppFactory.gtZero(AppFactory.calcOCPLbyType('other', loan))">
+            {{AppFactory.calcOCPLbyType('other', loan)|flexCurrency:0}}
+        </td>
+        <td class="text-right">
+            {{AppFactory.calcOtherCollateralByType('other', loan)|flexCurrency:0}}
+        </td>
+
     </tr>
     <!--FSA ASSIGNMENT-->
     <tr style="display: none;">
@@ -45,101 +124,6 @@
             {{AppFactory.calcFSACollateralValue(loan)|flexCurrency:0}}
         </td>
     </tr>
-    <!--INS OVER DISCOUNTED YIELD-->
-    <tr>
-        <td>Ins Over Discounted Yield</td>
-        <td class="text-right">
-            {{AppFactory.calcTotalInsOverDisc(loan)|flexCurrency:0}}
-        </td>
-        <td class="text-right" ng-class="AppFactory.gtZero(loan.fins.discounts.percent_insoyield)">
-            {{loan.fins.discounts.percent_insoyield|flexPercent:1}}
-        </td>
-        <td class="text-center">
-            {{0|flexCurrency:0}}
-        </td>
-        <td class="text-right">
-            {{AppFactory.calcIODCollateralValue(loan)|flexCurrency:0}}
-        </td>
-    </tr>
-    <!--YP DISCOUNT-->
-    <tr>
-        <td>
-            YP Discount
-        </td>
-        <td class="text-right" ng-class="AppFactory.gtZero(AppFactory.calcTotalYPIns(loan))">
-            {{AppFactory.calcTotalYPIns(loan)|flexCurrency:0}}
-        </td>
-        <td class="text-right" ng-class="AppFactory.gtZero(loan.fins.discounts.percent_nonrp)">
-            {{loan.fins.discounts.percent_nonrp|flexPercent:1}}
-        </td>
-        <td class="text-center">-</td>
-        <td class="text-right">
-            {{AppFactory.calcYPCollateralValue(loan)|flexCurrency:0}}
-        </td>
-    </tr>
-    <!--SUPPLEMENTAL COVERAGE-->
-    <tr>
-        <td>Supplemental Coverage</td>
-        <td class="text-right" ng-class="AppFactory.gtZero(AppFactory.calcSuppCoverage(loan))">
-            {{AppFactory.calcSuppCoverage(loan)|flexCurrency:0}}
-        </td>
-        <td class="text-right" ng-class="AppFactory.gtZero(loan.fins.discounts.percent_suppins)">
-            {{loan.fins.discounts.percent_suppins|flexPercent:1}}
-        </td>
-        <td class="text-center">-</td>
-        <td class="text-right">
-            {{167410|flexCurrency:0}}
-        </td>
-    </tr>
-    <!--EQUIPMENT-->
-    <tr>
-        <td>Equipment</td>
-        <td class="text-right" ng-class="AppFactory.gtZero(AppFactory.calcOtherColByType('equipment', loan).marketval)">
-            {{AppFactory.calcOtherColByType('equipment', loan).marketval|flexCurrency:0}}
-        </td>
-        <td class="text-right" ng-class="AppFactory.gtZero(loan.fins.discounts.percent_equipment)">
-            {{loan.fins.discounts.percent_equipment|flexPercent:1}}
-        </td>
-        <td class="text-right" ng-class="AppFactory.gtZero(AppFactory.calcOtherColByType('equipment', loan).discounted)">
-            {{AppFactory.calcOtherColByType('equipment', loan).discounted|flexCurrency:0}}
-        </td>
-        <td class="text-right" ng-class="AppFactory.gtZero(AppFactory.calcOtherColByType('equipment', loan).discounted)">
-            {{AppFactory.calcOtherColByType('equipment', loan).marketval - AppFactory.calcOtherColByType('equipment', loan).discounted|flexCurrency:0}}
-        </td>
-    </tr>
-    <!--REAL ESTATE-->
-    <tr>
-        <td>Real Estate</td>
-        <td class="text-right" ng-class="AppFactory.gtZero(AppFactory.calcOtherColByType('realestate', loan).marketval)">
-            {{AppFactory.calcOtherColByType('realestate', loan).marketval|flexCurrency:0}}
-        </td>
-        <td class="text-right" ng-class="AppFactory.gtZero(loan.fins.discounts.percent_realestate)">
-            {{loan.fins.discounts.percent_realestate|flexPercent:1}}
-        </td>
-        <td class="text-right" ng-class="AppFactory.gtZero(AppFactory.calcOtherColByType('realestate', loan).discounted)">
-            {{AppFactory.calcOtherColByType('realestate', loan).discounted|flexCurrency:0}}
-        </td>
-        <td class="text-right" ng-class="AppFactory.gtZero(loan.priorlien.totals.realestate)">
-            {{AppFactory.calcOtherColByType('realestate', loan).marketval - AppFactory.calcOtherColByType('realestate', loan).discounted|flexCurrency:0}}
-        </td>
-    </tr>
-    <!--OTHER COLLATERAL-->
-    <tr>
-        <td>Other</td>
-        <td class="text-right" ng-class="AppFactory.gtZero(AppFactory.calcOtherColByType('other', loan).marketval)">
-            {{AppFactory.calcOtherColByType('other', loan).marketval|flexCurrency:0}}
-        </td>
-        <td class="text-right" ng-class="AppFactory.gtZero(loan.fins.discounts.percent_other)">
-            {{loan.fins.discounts.percent_other|flexPercent:1}}
-        </td>
-        <td class="text-right" ng-class="AppFactory.gtZero(AppFactory.calcOtherColByType('other', loan).discounted)">
-            {{AppFactory.calcOtherColByType('other', loan).discounted|flexCurrency:0}}
-        </td>
-        <td class="text-right">
-            {{AppFactory.calcOtherColByType('other', loan).marketval - AppFactory.calcOtherColByType('other', loan).discounted|flexCurrency:0}}
-        </td>
-
-    </tr>
     <!--TOTALS-->
     <tr class="success">
         <td>Total</td>
@@ -147,11 +131,11 @@
             {{AppFactory.calcTotalCollateral(loan)|flexCurrency:0}}
         </td>
         <td class="text-center"> - </td>
-        <td class="text-right" ng-class="AppFactory.gtZero(loan.priorlien.totals.lientotal)">
-            {{loan.priorlien.totals.lientotal|flexCurrency:0}}
+        <td class="text-right" ng-class="AppFactory.gtZero(AppFactory.calcTotalCollateralLiens(loan))">
+            {{AppFactory.calcTotalCollateralLiens(loan)|flexCurrency:0}}
         </td>
-        <td class="text-right" ng-class="AppFactory.gtZero(AppFactory.calcTotalCollateral(loan))">
-            {{4071027|flexCurrency:0}}
+        <td class="text-right" ng-class="AppFactory.gtZero(AppFactory.calcTotalCropValues(loan))">
+            {{AppFactory.calcTotalCropValues(loan)|flexCurrency:0}}
         </td>
     </tr>
 </table>

@@ -43,7 +43,7 @@
 
             $scope.XColView = false; //true;
             $scope.showSidebar = user.full_sidebar;
-            //console.log('EditloansCtrl', $scope.loan);
+            console.log('EditloansCtrl', $scope.loan);
 
             $scope.ngcLink = function (slug) {
                 //alert(slug);

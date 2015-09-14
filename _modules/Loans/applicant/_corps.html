@@ -1,6 +1,29 @@
 <div class="row">
-    <div ng-repeat="c in loan.corps" style="width:94%; margin: 0 auto;">
-        <div class="row">
+    <div ng-repeat="c in loan.applicant.corps" style="width:94%; margin: 0 auto;">
+        <div class="form-group row">
+            <div class="form-group col-md-3">
+                <label>Name:</label>
+                <br/>
+                <input type="text" class="form-control" ng-model="c.corporation"/>
+            </div>
+            <div class="form-group col-md-3">
+                <label>TID:</label>
+                <br/>
+                <input type="text" class="form-control" ng-model="c.ssn"/>
+            </div>
+            <div class="form-group col-md-3">
+                <label>Email:</label>
+                <br/>
+                <input type="text" class="form-control" ng-model="c.email"/>
+            </div>
+            <div class="form-group col-md-3">
+                <label>Phone:</label>
+                <br/>
+                <input type="text" class="form-control" ng-model="c.phone"/>
+            </div>
+        </div>
+
+        <div class="form-group row">
             <div class="form-group col-md-3">
                 <label>President (Last, First, MI):</label>
                 <br/>

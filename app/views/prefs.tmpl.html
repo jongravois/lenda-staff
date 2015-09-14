@@ -344,33 +344,85 @@
                                     <td colspan="2">
                                         <label>Status:</label>
                                         <br>
-                                        <input type="checkbox" name="In-Progress"
-                                               ng-model="user.viewfilters.vfStatusInProgress"> <span
-                                        class="glyphicon glyphicon-wrench" tooltip="In_Progress"
-                                        style="color: #000099;"></span>
-                                        &nbsp;&nbsp;&nbsp;
-                                        <input type="checkbox" name="Recommended"
-                                               ng-model="user.viewfilters.vfStatusRecommended"> <span
-                                        class="glyphicon glyphicon-share-alt" tooltip="Recommended"></span>
-                                        &nbsp;&nbsp;&nbsp;
-                                        <input type="checkbox" name="Withdrawn"
-                                               ng-model="user.viewfilters.vfStatusWithdrawn"> <span
-                                        class="glyphicon glyphicon-person-walking" tooltip="Withdrawn"
-                                        style="color: #E0A02D;"></span>
-                                        &nbsp;&nbsp;&nbsp;
-                                        <input type="checkbox" name="Approved"
-                                               ng-model="user.viewfilters.vfStatusApproved"> <span
-                                        class="glyphicon glyphicon-thumbs-up" tooltip="Approved"
-                                        style="color: #009900;"></span>
-                                        &nbsp;&nbsp;&nbsp;
-                                        <input type="checkbox" name="Denied"
-                                               ng-model="user.viewfilters.vfStatusDenied">
-                                        <span class="glyphicon glyphicon-thumbs-down" tooltip="Denied"
-                                              style="color: #990000;"></span>
-                                        &nbsp;&nbsp;&nbsp;
-                                        <input type="checkbox" name="Paid"
-                                               ng-model="user.viewfilters.vfStatusPaid"> <span
-                                        class="glyphicon glyphicon-ok" tooltip="Paid" style="color: #009900;"></span>
+                                        <table style="width: 90%;">
+                                            <tr>
+                                                <td style="width: 10%;">
+                                                    <label>Only</label><br>
+                                                    <label>All</label><br>
+                                                    <label>No Fltr</label>
+                                                </td>
+                                                <!-- IN-PROGRESS-->
+                                                <td style="width: 10%;">
+                                                    <input type="radio" ng-model="user.viewfilters.vfStatusInProgress" value="only">
+                                                    <span class="glyphicons glyphicons-wrench cBlue" tooltip="In-Progress"></span>
+                                                    <br>
+                                                    <input type="radio" ng-model="user.viewfilters.vfStatusInProgress" value="all">
+                                                    <span class="glyphicons glyphicons-wrench" tooltip="In-Progress" style="color: #ccc;"></span>
+                                                    <br>
+                                                    <input type="radio" ng-model="user.viewfilters.vfStatusInProgress" value="none">
+                                                    <span class="glyphicons glyphicons-ban" tooltip="In-Progress" style="color: #ccc;"></span>
+                                                </td>
+                                                <!-- RECOMMENDED-->
+                                                <td style="width: 10%;">
+                                                    <input type="radio" ng-model="user.viewfilters.vfStatusRecommended" value="only"> <span class="glyphicons glyphicons-share cGreen" tooltip="Recommended"></span>
+                                                    <br>
+                                                    <input type="radio" ng-model="user.viewfilters.vfStatusRecommended" value="all"> <span class="glyphicons glyphicons-share" tooltip="Recommended" style="color: #ccc;"></span>
+                                                    <br>
+                                                    <input type="radio" ng-model="user.viewfilters.vfStatusRecommended" value="none"> <span class="glyphicons glyphicons-ban" tooltip="Recommended" style="color: #ccc;"></span>
+                                                </td>
+                                                <!-- WITHDRAWN -->
+                                                <td style="width: 10%;">
+                                                    <input type="radio" ng-model="user.viewfilters.vfStatusWithdrawn" value="only"> <span class="glyphicons glyphicons-person-walking cOrange" tooltip="Withdrawn"></span>
+                                                    <br>
+                                                    <input type="radio" ng-model="user.viewfilters.vfStatusWithdrawn" value="all"> <span class="glyphicons glyphicons-person-walking" tooltip="Withdrawn" style="color: #ccc;"></span>
+                                                    <br>
+                                                    <input type="radio" ng-model="user.viewfilters.vfStatusWithdrawn" value="none"> <span class="glyphicons glyphicons-ban" tooltip="Withdrawn" style="color: #ccc;"></span>
+                                                </td>
+                                                <!-- APPROVED-->
+                                                <td style="width: 10%;">
+                                                    <input type="radio" ng-model="user.viewfilters.vfStatusApproved" value="only"> <span
+                                                    class="glyphicons glyphicons-thumbs-up cGreen" tooltip="Approved"></span>
+                                                    <br>
+                                                    <input type="radio" ng-model="user.viewfilters.vfStatusApproved" value="all"> <span class="glyphicons glyphicons-thumbs-up" tooltip="Approved" style="color: #ccc;"></span>
+                                                    <br>
+                                                    <input type="radio" ng-model="user.viewfilters.vfStatusApproved" value="none"> <span class="glyphicons glyphicons-ban" tooltip="Approved" style="color: #ccc;"></span>
+                                                </td>
+                                                <!-- DENIED-->
+                                                <td style="width: 10%;">
+                                                    <input type="radio" ng-model="user.viewfilters.vfStatusDenied" value="only"> <span
+                                                    class="glyphicons glyphicons-thumbs-down cRed" tooltip="Denied"></span>
+                                                    <br>
+                                                    <input type="radio" ng-model="user.viewfilters.vfStatusDenied" value="all"> <span class="glyphicons glyphicons-thumbs-down" tooltip="Denied" style="color: #ccc;"></span>
+                                                    <br>
+                                                    <input type="radio" ng-model="user.viewfilters.vfStatusDenied" value="none"> <span class="glyphicons glyphicons-ban" tooltip="Denied" style="color: #ccc;"></span>
+                                                </td>
+                                                <!-- PAID-->
+                                                <td style="width: 10%;">
+                                                    <input type="radio" ng-model="user.viewfilters.vfStatusPaid" value="only"> <span class="glyphicons glyphicons-ok-2 cBlue" tooltip="Paid"></span>
+                                                    <br>
+                                                    <input type="radio" ng-model="user.viewfilters.vfStatusPaid" value="all"> <span class="glyphicons glyphicons-ok-2" tooltip="Paid" style="color: #ccc;"></span>
+                                                    <br>
+                                                    <input type="radio" ng-model="user.viewfilters.vfStatusPaid" value="none"> <span
+                                                    class="glyphicons glyphicons-ban" tooltip="Paid" style="color: #ccc;"></span>
+                                                </td>
+                                                <!-- LIMIT CLOSE-->
+                                                <td style="width: 10%;">
+                                                    <input type="radio" ng-model="user.viewfilters.vfStatusLimitClose" value="only"> <span class="glyphicons glyphicons-warning-sign cYellow" tooltip="Limit Close"></span>
+                                                    <br>
+                                                    <input type="radio" ng-model="user.viewfilters.vfStatusLimitClose" value="all"> <span class="glyphicons glyphicons-warning-sign" tooltip="Limit Close" style="color: #ccc;"></span>
+                                                    <br>
+                                                    <input type="radio" ng-model="user.viewfilters.vfStatusLimitClose" value="none"> <span class="glyphicons glyphicons-ban" tooltip="Limit Close" style="color: #ccc;"></span>
+                                                </td>
+                                                <!-- LIMIT WARNING-->
+                                                <td style="width: 10%;">
+                                                    <input type="radio" ng-model="user.viewfilters.vfStatusLimitExceeded" value="only"> <span class="glyphicons glyphicons-warning-sign cRed" tooltip="Limit Warning"></span>
+                                                    <br>
+                                                    <input type="radio" ng-model="user.viewfilters.vfStatusLimitExceeded" value="all"> <span class="glyphicons glyphicons-warning-sign" tooltip="Limit Warning" style="color: #ccc;"></span>
+                                                    <br>
+                                                    <input type="radio" ng-model="user.viewfilters.vfStatusLimitExceeded" value="none"> <span class="glyphicons glyphicons-ban" tooltip="Limit Warning" style="color: #ccc;"></span>
+                                                </td>
+                                            </tr>
+                                        </table>
                                     </td>
                                 </tr>
                                 <tr>
@@ -697,18 +749,7 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td>
-                                        <label>Addendums:</label>
-                                    </td>
-                                    <td>
-                                        <input type="radio" name="vfAddendums"
-                                               ng-model="user.viewfilters.vfAddendums"
-                                               value="1"> Yes
-                                        &nbsp;&nbsp;
-                                        <input type="radio" name="vfAddendums"
-                                               ng-model="user.viewfilters.vfAddendums"
-                                               value="0"> No
-                                    </td>
+                                    <td colspan="2">&nbsp;</td>
                                     <td>
                                         <label>Rate - Distributor:</label>
                                     </td>
@@ -739,18 +780,7 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td>
-                                        <label>Limit Close:</label>
-                                    </td>
-                                    <td>
-                                        <input type="radio" name="vfLimitClose"
-                                               ng-model="user.viewfilters.vfLimitClose"
-                                               value="1"> Yes
-                                        &nbsp;&nbsp;
-                                        <input type="radio" name="vfLimitClose"
-                                               ng-model="user.viewfilters.vfLimitClose"
-                                               value="0"> No
-                                    </td>
+                                    <td colspan="2">&nbsp;</td>
                                     <td>
                                         <label>Acres: Total</label>
                                     </td>
@@ -781,16 +811,7 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td>
-                                        <label>Limit Exceeded:</label>
-                                    </td>
-                                    <td>
-                                        <input type="radio" name="vfLimitExceeded"
-                                               ng-model="user.viewfilters.vfLimitExceeded" value="1"> Yes
-                                        &nbsp;&nbsp;
-                                        <input type="radio" name="vfLimitExceeded"
-                                               ng-model="user.viewfilters.vfLimitExceeded" value="0"> No
-                                    </td>
+                                    <td colspan="2">&nbsp;</td>
                                     <td>
                                         <label>
                                             <span style="width:18px;">

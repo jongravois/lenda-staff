@@ -34,7 +34,6 @@
 
         LoansFactory.getLoans()
             .then(function (rsp) {
-                //console.log('LoansFactory', rsp);
                 $scope.loans = rsp;
                 $scope.indWid = AppFactory.getIndicatorWidth($scope.user);
                 var LoansBySettings = AppFactory.filterLoans($scope.loans, 'settings');

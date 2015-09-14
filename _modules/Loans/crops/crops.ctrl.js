@@ -16,6 +16,12 @@
             });
         }
 
+        AppFactory.getAll('crops')
+            .then(function(rsp){
+                $scope.crops = rsp.data.data;
+                console.log('CROPS', $scope.crops);
+            });
+
         DefaultsFactory.init();
         var globals = DefaultsFactory.getObject();
         $scope.globals = globals.globvars[0];
@@ -71,6 +77,10 @@
             alert('working');
         };
         $scope.deleteRebator = function(obj) {
+            alert('working');
+        };
+
+        $scope.updatePlannedCrops = function() {
             alert('working');
         };
     } // end controller

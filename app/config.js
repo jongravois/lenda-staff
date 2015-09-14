@@ -58,11 +58,11 @@
                 average: average
             });
         })
-        .run(function($window) {
+        /*.run(function($window) {
             $window.onbeforeunload = function($window) {
                 return 'You have requested a browser refresh. Any unsaved or unconfirmed changes will be lost.';
             };
-        })
+        })*/
         .run(function ($rootScope, $location, $anchorScroll) {
             $rootScope.$on('$stateChangeSuccess', function() {
                 document.body.scrollTop = document.documentElement.scrollTop = 0;

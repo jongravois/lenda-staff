@@ -39,6 +39,7 @@
                 crops: getCrops(loan),
                 expenses: getExpenses(loan),
                 insurance: getInsurance(loan),
+                loancrops: processLoanCrops(loan),
                 parsedComments: structureComments(loan),
                 priorlien: processPriorLien(loan.prior_liens)
                 /*,
@@ -557,6 +558,13 @@
                 lci.push(newbie);
             });
             return lci;
+        }
+        function processLoanCrops(loan) {
+            var loancrops = loan.loancrops;
+            _.each(loancrops, function(lc){
+                lc.insurance = [];
+            });
+            return loancrops;
         }
         function processNonRPInsurance(obj) {
             var nonrp = _.filter(obj, function (item) {

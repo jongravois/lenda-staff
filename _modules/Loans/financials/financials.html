@@ -11,7 +11,7 @@
     .ngHeaderContainer .ngHeaderCell{
         text-align: center;
     }
-    .red{ color: red; }
+    .armer { background-color: #990000 !important; color: white !important;}
 </style>
 <div class="row">
     <div class="col-md-12 text-right">
@@ -27,6 +27,7 @@
         <div>
             <div class="row">
                 <div class="col-md-12">
+                    <!-- CUSTOMER INFO-->
                     <table class="table table-striped rowed table-condensed disp-sm" style="width: 70%;">
                         <tr>
                             <th colspan="5">Customer Info</th>
@@ -54,7 +55,7 @@
                             <td>&nbsp;</td>
                             <td>Credit Points</td>
                             <td class="text-right">
-                                <strong>{{33|number:0}}</strong>
+                                <strong>{{creditPoints.total|number:0}}</strong>
                             </td>
                         </tr>
                         <tr>
@@ -65,7 +66,7 @@
                             <td>&nbsp;</td>
                             <td>Debts/Assets</td>
                             <td class="text-right">
-                                <strong>{{43|flexPercent:0}}</strong>
+                                <strong>{{getDebtToAssets()|flexPercent:0}}</strong>
                             </td>
                         </tr>
                         <tr>
@@ -76,7 +77,7 @@
                             <td>&nbsp;</td>
                             <td>Loan / Net Worth</td>
                             <td class="text-right">
-                                <strong>{{6|flexPercent:0}}</strong>
+                                <strong>{{getLoanNetworth()|flexPercent:0}}</strong>
                             </td>
                         </tr>
                         <tr>
@@ -87,7 +88,7 @@
                             <td>&nbsp;</td>
                             <td>Ag Pro Fast Track</td>
                             <td class="text-right">
-                                <strong>{{750000|flexCurrency:0}}</strong>
+                                <strong>{{1000000|flexCurrency:0}}</strong>
                             </td>
                         </tr>
                         <tr>
@@ -98,7 +99,7 @@
                             <td>&nbsp;</td>
                             <td>Capital Bridge</td>
                             <td class="text-right">
-                                <strong>{{262500|flexCurrency:0}}</strong>
+                                <strong>{{350000|flexCurrency:0}}</strong>
                             </td>
                         </tr>
                         <tr>
@@ -109,43 +110,16 @@
                             <td>&nbsp;</td>
                             <td>Ag-Vest</td>
                             <td class="text-right">
-                                <strong>{{262500|flexCurrency:0}}</strong>
+                                <strong>{{350000|flexCurrency:0}}</strong>
                             </td>
                         </tr>
                     </table>
                     <br><br>
-                    <table class="table table-striped rowed table-condensed disp-sm" style="width:85%;">
-                        <tr>
-                            <th style="width:50%;">Planned Crop Constraints</th>
-                            <th style="width:10%;">Acres</th>
-                            <th style="width:10%;">Total Exp/Ac</th>
-                            <th style="width:10%;">100% Ag-Pro F</th>
-                            <th style="width:10%;">35% Cap-Bridge</th>
-                            <th style="width:10%;">35% Ag-Vest</th>
-                        </tr>
-                        <tr ng-repeat="c in loan.planned_crops">
-                            <td>{{c.name}}</td>
-                            <td class="cBlue" ng-class="AppFactory.gtZero(c.acres)">
-                                <strong>{{c.acres|flexNumber:1}}</strong>
-                            </td>
-                            <td ng-class="AppFactory.gtZero(c.tea)">
-                                <strong>{{c.tea|flexCurrency:2}}</strong>
-                            </td>
-                            <td ng-class="AppFactory.gtZero(c.tea * c.acres)">
-                                <strong>{{c.tea * c.acres|flexCurrency:0}}</strong>
-                            </td>
-                            <td ng-class="AppFactory.gtZero((c.tea * c.acres) * .35)">
-                                <strong>{{(c.tea * c.acres) * .35|flexCurrency:0}}</strong>
-                            </td>
-                            <td ng-class="AppFactory.gtZero((c.tea * c.acres) * .35)">
-                                <strong>{{(c.tea * c.acres) * .35|flexCurrency:0}}</strong>
-                            </td>
-                        </tr>
-                    </table>
-                    <br><br>
+
+                    <!-- BALANCE SHEET-->
                     <table class="table table-striped rowed table-condensed disp-sm">
                         <tr>
-                            <th>Balance Sheet Constraints</th>
+                            <th>Balance Sheet</th>
                             <th>Asset</th>
                             <th>Discount</th>
                             <th>Adj Value</th>
@@ -154,79 +128,80 @@
                         </tr>
                         <tr>
                             <td>Current</td>
-                            <td class="cBlue" ng-class="AppFactory.gtZero(loan.applicant.fins.current_assets)">
-                                <strong>{{loan.applicant.fins.current_assets|flexCurrency:0}}</strong>
+                            <td class="cBlue" ng-class="AppFactory.gtZero(afins.current_assets)">
+                                <strong>{{afins.current_assets|flexCurrency:0}}</strong>
                             </td>
-                            <td class="cBlue" ng-class="AppFactory.gtZero(loan.applicant.fins.current_assets_factor)">
-                                <strong>{{loan.applicant.fins.current_assets_factor|flexPercent:0}}</strong>
+                            <td class="cBlue" ng-class="AppFactory.gtZero(afins.current_assets_factor)">
+                                <strong>{{afins.current_assets_factor|flexPercent:0}}</strong>
                             </td>
-                            <td ng-class="AppFactory.gtZero()">
-                                <strong>{{loan.applicant.fins.current_assets_factor * ((100-loan.applicant.fins.current_assets_factor)/100)|flexCurrency:0}}</strong>
+                            <td ng-class="AppFactory.gtZero(getCurrentVal())">
+                                <strong>{{getCurrentVal()|flexCurrency:0}}</strong>
                             </td>
-                            <td class="cBlue" ng-class="AppFactory.gtZero(loan.applicant.fins.current_assets_liability)">
-                                <strong>{{loan.applicant.fins.current_assets_liability|flexCurrency:0}}</strong>
+                            <td class="cBlue" ng-class="AppFactory.gtZero(afins.current_assets_liability)">
+                                <strong>{{afins.current_assets_liability|flexCurrency:0}}</strong>
                             </td>
-                            <td  ng-class="AppFactory.gtZero((loan.applicant.fins.current_assets_factor * ((100-loan.applicant.fins.current_assets_factor)/100)) - loan.applicant.fins.current_assets_liability)">
-                                <strong>{{(loan.applicant.fins.current_assets_factor * ((100-loan.applicant.fins.current_assets_factor)/100)) - loan.applicant.fins.current_assets_liability|flexCurrency:0}}</strong>
+                            <td  ng-class="AppFactory.gtZero(getCurrentReserve())">
+                                <strong>{{getCurrentReserve()|flexCurrency:0}}</strong>
                             </td>
                         </tr>
                         <tr>
                             <td>Intermediate</td>
-                            <td class="cBlue" ng-class="AppFactory.gtZero(loan.applicant.fins.intermediate_assets)">
-                                <strong>{{loan.applicant.fins.intermediate_assets|flexCurrency:0}}</strong>
+                            <td class="cBlue" ng-class="AppFactory.gtZero(afins.intermediate_assets)">
+                                <strong>{{afins.intermediate_assets|flexCurrency:0}}</strong>
                             </td>
-                            <td class="cBlue" ng-class="AppFactory.gtZero(loan.applicant.fins.intermediate_assets_factor)">
-                                <strong>{{loan.applicant.fins.intermediate_assets_factor|flexPercent:0}}</strong>
+                            <td class="cBlue" ng-class="AppFactory.gtZero(afins.intermediate_assets_factor)">
+                                <strong>{{afins.intermediate_assets_factor|flexPercent:0}}</strong>
                             </td>
-                            <td ng-class="AppFactory.gtZero()">
-                                <strong>{{loan.applicant.fins.intermediate_assets_factor * ((100-loan.applicant.fins.intermediate_assets_factor)/100)|flexCurrency:0}}</strong>
+                            <td ng-class="AppFactory.gtZero(getIntermediateVal())">
+                                <strong>{{getIntermediateVal()|flexCurrency:0}}</strong>
                             </td>
-                            <td class="cBlue" ng-class="AppFactory.gtZero(loan.applicant.fins.intermediate_assets_liability)">
-                                <strong>{{loan.applicant.fins.intermediate_assets_liability|flexCurrency:0}}</strong>
+                            <td class="cBlue" ng-class="AppFactory.gtZero(afins.intermediate_assets_liability)">
+                                <strong>{{afins.intermediate_assets_liability|flexCurrency:0}}</strong>
                             </td>
-                            <td  ng-class="AppFactory.gtZero((loan.applicant.fins.intermediate_assets_factor * ((100-loan.applicant.fins.intermediate_assets_factor)/100)) - loan.applicant.fins.intermediate_assets_liability)">
-                                <strong>{{(loan.applicant.fins.intermediate_assets_factor * ((100-loan.applicant.fins.intermediate_assets_factor)/100)) - loan.applicant.fins.intermediate_assets_liability|flexCurrency:0}}</strong>
-                            </td>
+                            <td  ng-class="AppFactory.gtZero(getIntermediateReserve())">
+                                <strong>{{getIntermediateReserve()|flexCurrency:0}}</strong>
                             </td>
                         </tr>
                         <tr>
                             <td>Fixed</td>
-                            <td class="cBlue" ng-class="AppFactory.gtZero(loan.applicant.fins.fixed_assets)">
-                                <strong>{{loan.applicant.fins.fixed_assets|flexCurrency:0}}</strong>
+                            <td class="cBlue" ng-class="AppFactory.gtZero(afins.fixed_assets)">
+                                <strong>{{afins.fixed_assets|flexCurrency:0}}</strong>
                             </td>
-                            <td class="cBlue" ng-class="AppFactory.gtZero(loan.applicant.fins.fixed_assets_factor)">
-                                <strong>{{loan.applicant.fins.fixed_assets_factor|flexPercent:0}}</strong>
+                            <td class="cBlue" ng-class="AppFactory.gtZero(afins.fixed_assets_factor)">
+                                <strong>{{afins.fixed_assets_factor|flexPercent:0}}</strong>
                             </td>
-                            <td ng-class="AppFactory.gtZero()">
-                                <strong>{{loan.applicant.fins.fixed_assets_factor * ((100-loan.applicant.fins.fixed_assets_factor)/100)|flexCurrency:0}}</strong>
+                            <td ng-class="AppFactory.gtZero(getFixedVal())">
+                                <strong>{{getFixedVal()|flexCurrency:0}}</strong>
                             </td>
-                            <td class="cBlue" ng-class="AppFactory.gtZero(loan.applicant.fins.fixed_assets_liability)">
-                                <strong>{{loan.applicant.fins.fixed_assets_liability|flexCurrency:0}}</strong>
+                            <td class="cBlue" ng-class="AppFactory.gtZero(afins.fixed_assets_liability)">
+                                <strong>{{afins.fixed_assets_liability|flexCurrency:0}}</strong>
                             </td>
-                            <td  ng-class="AppFactory.gtZero((loan.applicant.fins.fixed_assets_factor * ((100-loan.applicant.fins.fixed_assets_factor)/100)) - loan.applicant.fins.fixed_assets_liability)">
-                                <strong>{{(loan.applicant.fins.fixed_assets_factor * ((100-loan.applicant.fins.fixed_assets_factor)/100)) - loan.applicant.fins.fixed_assets_liability|flexCurrency:0}}</strong>
+                            <td  ng-class="AppFactory.gtZero(getFixedReserve())">
+                                <strong>{{getFixedReserve()|flexCurrency:0}}</strong>
                             </td>
                         </tr>
                         <tr class="success">
                             <td>Total</td>
                             <td class="text-right">
-                                <strong>{{7977504|flexCurrency:0}}</strong>
+                                <strong>{{getTotalAssets()|flexCurrency:0}}</strong>
                             </td>
                             <td class="text-center">
                                 <strong>-</strong>
                             </td>
                             <td class="text-right">
-                                <strong>{{5713873|flexCurrency:0}}</strong>
+                                <strong>{{getTotalAssetAdj()|flexCurrency:0}}</strong>
                             </td>
                             <td class="text-right">
-                                <strong>{{2433535|flexCurrency:0}}</strong>
+                                <strong>{{getTotalLiabilities()|flexCurrency:0}}</strong>
                             </td>
                             <td class="text-right">
-                                <strong>{{3280338|flexCurrency:0}}</strong>
+                                <strong>{{getTotalReserve()|flexCurrency:0}}</strong>
                             </td>
                         </tr>
                     </table>
                     <br><br>
+
+                    <!-- INCOME HISTORY-->
                     <table class="table table-striped rowed table-condensed disp-sm" style="width: 70%;">
                         <tr>
                             <th>Income History</th>
@@ -236,54 +211,56 @@
                         </tr>
                         <tr>
                             <td>Year 1</td>
-                            <td class="text-center">
+                            <td class="text-right cBlue">
                                 <strong>{{loan.applicant.fins.year_1_revenue|flexCurrency:0}}</strong>
                             </td>
-                            <td class="text-center">
+                            <td class="text-right cBlue">
                                 <strong>{{loan.applicant.fins.year_1_expenses|flexCurrency:0}}</strong>
                             </td>
-                            <td class="text-center">
-                                <strong>{{0|flexCurrency:0}}</strong>
+                            <td class="text-right">
+                                <strong>{{loan.applicant.fins.year_1_revenue - loan.applicant.fins.year_1_expenses|flexCurrency:0}}</strong>
                             </td>
                         </tr>
                         <tr>
                             <td>Year 2</td>
-                            <td class="text-center">
+                            <td class="text-right cBlue">
                                 <strong>{{loan.applicant.fins.year_2_revenue|flexCurrency:0}}</strong>
                             </td>
-                            <td class="text-center">
+                            <td class="text-right cBlue">
                                 <strong>{{loan.applicant.fins.year_2_expenses|flexCurrency:0}}</strong>
                             </td>
-                            <td class="text-center">
-                                <strong>{{0|flexCurrency:0}}</strong>
+                            <td class="text-right">
+                                <strong>{{loan.applicant.fins.year_2_revenue - loan.applicant.fins.year_2_expenses|flexCurrency:0}}</strong>
                             </td>
                         </tr>
                         <tr>
                             <td>Year 3</td>
-                            <td class="text-center">
-                                <strong>{{2845790|flexCurrency:0}}</strong>
+                            <td class="text-right cBlue">
+                                <strong>{{loan.applicant.fins.year_3_revenue|flexCurrency:0}}</strong>
                             </td>
-                            <td class="text-center">
-                                <strong>{{800000|flexCurrency:0}}</strong>
+                            <td class="text-right cBlue">
+                                <strong>{{loan.applicant.fins.year_3_expenses|flexCurrency:0}}</strong>
                             </td>
-                            <td class="text-center">
-                                <strong>{{2045790|flexCurrency:0}}</strong>
+                            <td class="text-right">
+                                <strong>{{loan.applicant.fins.year_3_revenue - loan.applicant.fins.year_3_expenses|flexCurrency:0}}</strong>
                             </td>
                         </tr>
                         <tr class="success">
                             <td>Total</td>
-                            <td class="text-center">
-                                <strong>{{2845790|flexCurrency:0}}</strong>
+                            <td class="text-right">
+                                <strong>{{(1*loan.applicant.fins.year_1_revenue) + (1*loan.applicant.fins.year_2_revenue) + (1*loan.applicant.fins.year_3_revenue)|flexCurrency:0}}</strong>
                             </td>
-                            <td class="text-center">
-                                <strong>{{800000|flexCurrency:0}}</strong>
+                            <td class="text-right">
+                                <strong>{{(1*loan.applicant.fins.year_1_expenses) + (1*loan.applicant.fins.year_2_expenses) + (1*loan.applicant.fins.year_3_expenses)|flexCurrency:0}}</strong>
                             </td>
-                            <td class="text-center">
-                                <strong>{{2045790|flexCurrency:0}}</strong>
+                            <td class="text-right">
+                                <strong>{{((1*loan.applicant.fins.year_1_revenue) + (1*loan.applicant.fins.year_2_revenue) + (1*loan.applicant.fins.year_3_revenue)) - ((1*loan.applicant.fins.year_1_expenses) + (1*loan.applicant.fins.year_2_expenses) + (1*loan.applicant.fins.year_3_expenses))|flexCurrency:0}}</strong>
                             </td>
                         </tr>
                     </table>
                     <br><br>
+
+                    <!-- CREDIT POINTS-->
                     <table class="table table-striped rowed table-condensed disp-sm">
                         <tr>
                             <th>Credit Points</th>
@@ -292,186 +269,207 @@
                         </tr>
                         <tr>
                             <td>Credit Score</td>
-                            <td><strong>680</strong></td>
-                            <td>750</td>
-                            <td>725</td>
-                            <td>700</td>
-                            <td>680</td>
-                            <td>665</td>
-                            <td>650</td>
-                            <td>630</td>
-                            <td>610</td>
-                            <td></td>
-                            <td></td>
+                            <td class="text-center bright cGreen">
+                                <strong>{{loan.applicant.fins.credit_score|number:0}}</strong>
+                            </td>
+                            <td class="text-center">750</td>
+                            <td class="text-center armer">725</td>
+                            <td class="text-center">700</td>
+                            <td class="text-center">680</td>
+                            <td class="text-center">665</td>
+                            <td class="text-center">650</td>
+                            <td class="text-center">630</td>
+                            <td class="text-center">610</td>
+                            <td class="text-center">&nbsp;</td>
+                            <td class="text-center">&nbsp;</td>
                         </tr>
                         <tr>
                             <td>Points</td>
-                            <td>17</td>
-                            <td>25</td>
-                            <td>22</td>
-                            <td>20</td>
-                            <td>17</td>
-                            <td>15</td>
-                            <td>13</td>
-                            <td>10</td>
-                            <td>7</td>
-                            <td></td>
-                            <td></td>
+                            <td class="text-center bright">
+                                <strong>{{creditPoints.credit_score}}</strong>
+                            </td>
+                            <td class="text-center">25</td>
+                            <td class="text-center armer">22</td>
+                            <td class="text-center">20</td>
+                            <td class="text-center">17</td>
+                            <td class="text-center">15</td>
+                            <td class="text-center">13</td>
+                            <td class="text-center">10</td>
+                            <td class="text-center">7</td>
+                            <td class="text-center">&nbsp;</td>
+                            <td class="text-center">&nbsp;</td>
                         </tr>
                         <tr>
                             <td>Debt / Assets</td>
-                            <td><strong>43%</strong></td>
-                            <td>25%</td>
-                            <td>30%</td>
-                            <td>35%</td>
-                            <td>40%</td>
-                            <td>45%</td>
-                            <td>50%</td>
-                            <td>55%</td>
-                            <td>60%</td>
-                            <td>65%</td>
-                            <td>70%</td>
+                            <td class="text-center bright cGreen">
+                                <strong>{{getDebtToAssets()|flexPercent:0}}</strong>
+                            </td>
+                            <td class="text-center">25%</td>
+                            <td class="text-center">30%</td>
+                            <td class="text-center">35%</td>
+                            <td class="text-center armer">40%</td>
+                            <td class="text-center">45%</td>
+                            <td class="text-center">50%</td>
+                            <td class="text-center">55%</td>
+                            <td class="text-center">60%</td>
+                            <td class="text-center">65%</td>
+                            <td class="text-center">70%</td>
                         </tr>
                         <tr>
                             <td>Points</td>
-                            <td>6</td>
-                            <td>10</td>
-                            <td>9</td>
-                            <td>8</td>
-                            <td>7</td>
-                            <td>6</td>
-                            <td>5</td>
-                            <td>4</td>
-                            <td>3</td>
-                            <td>2</td>
-                            <td>1</td>
+                            <td class="text-center bright">
+                                <strong>{{creditPoints.debt_assets}}</strong>
+                            </td>
+                            <td class="text-center">10</td>
+                            <td class="text-center">9</td>
+                            <td class="text-center">8</td>
+                            <td class="text-center armer">7</td>
+                            <td class="text-center">6</td>
+                            <td class="text-center">5</td>
+                            <td class="text-center">4</td>
+                            <td class="text-center">3</td>
+                            <td class="text-center">2</td>
+                            <td class="text-center">1</td>
                         </tr>
                         <tr>
                             <td>Loan / Net Worth</td>
-                            <td><strong>6%</strong></td>
-                            <td>5%</td>
-                            <td>8%</td>
-                            <td>10%</td>
-                            <td>13%</td>
-                            <td>15%</td>
-                            <td>18%</td>
-                            <td>20%</td>
-                            <td>23%</td>
-                            <td>25%</td>
-                            <td>28%</td>
+                            <td class="text-center bright cGreen">
+                                <strong>{{getLoanNetworth()|flexPercent:0}}</strong>
+                            </td>
+                            <td class="text-center">5%</td>
+                            <td class="text-center">8%</td>
+                            <td class="text-center">10%</td>
+                            <td class="text-center">13%</td>
+                            <td class="text-center">15%</td>
+                            <td class="text-center">18%</td>
+                            <td class="text-center">20%</td>
+                            <td class="text-center">23%</td>
+                            <td class="text-center">25%</td>
+                            <td class="text-center">28%</td>
                         </tr>
                         <tr>
                             <td>Points</td>
-                            <td>9</td>
-                            <td>10</td>
-                            <td>9</td>
-                            <td>8</td>
-                            <td>7</td>
-                            <td>6</td>
-                            <td>5</td>
-                            <td>4</td>
-                            <td>3</td>
-                            <td>2</td>
-                            <td>1</td>
+                            <td class="text-center bright">
+                                <strong>{{creditPoints.loan_networth}}</strong>
+                            </td>
+                            <td class="text-center">10</td>
+                            <td class="text-center">9</td>
+                            <td class="text-center">8</td>
+                            <td class="text-center">7</td>
+                            <td class="text-center">6</td>
+                            <td class="text-center">5</td>
+                            <td class="text-center">4</td>
+                            <td class="text-center">3</td>
+                            <td class="text-center">2</td>
+                            <td class="text-center">1</td>
                         </tr>
                         <tr>
                             <td>Years Farming</td>
-                            <td><strong>3</strong></td>
-                            <td>20</td>
-                            <td>15</td>
-                            <td>10</td>
-                            <td>5</td>
-                            <td>3</td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
+                            <td class="text-center bright cGreen">
+                                <strong>{{loan.farmer.farm_exp|number:0}}</strong>
+                            </td>
+                            <td class="text-center armer">20</td>
+                            <td class="text-center">15</td>
+                            <td class="text-center">10</td>
+                            <td class="text-center">5</td>
+                            <td class="text-center">3</td>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
                         </tr>
                         <tr>
                             <td>Points</td>
-                            <td>1</td>
-                            <td>5</td>
-                            <td>4</td>
-                            <td>3</td>
-                            <td>2</td>
-                            <td>1</td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
+                            <td class="text-center bright">
+                                <strong>{{creditPoints.years_farming}}</strong>
+                            </td>
+                            <td class="text-center armer">5</td>
+                            <td class="text-center">4</td>
+                            <td class="text-center">3</td>
+                            <td class="text-center">2</td>
+                            <td class="text-center">1</td>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
                         </tr>
                         <tr class="success">
                             <td>Total Credit Points</td>
-                            <td colspan="11">33</td>
+                            <td class="text-center">
+                                {{creditPoints.total|number:0}}
+                            </td>
+                            <td colspan="10">&nbsp;</td>
                         </tr>
                     </table>
                     <br><br>
+
+                    <!-- BORROWER CONSTRAINT-->
                     <table class="table table-striped rowed table-condensed disp-sm" style="width: 70%">
                         <tr>
-                            <th>Borrower Constraints</th>
-                            <th>A</th>
-                            <th>A</th>
-                            <th>B</th>
-                            <th>C</th>
-                            <th>D</th>
+                            <th style="width:25%;">Borrower Evaluation</th>
+                            <th style="width:15%;" class="text-center bright">A</th>
+                            <th style="width:15%;">A</th>
+                            <th style="width:15%;">B</th>
+                            <th style="width:15%;">C</th>
+                            <th style="width:15%;">D</th>
                         </tr>
                         <tr>
                             <td>CPA Financials</td>
-                            <td>Yes</td>
-                            <td>Yes</td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
+                            <td class="text-center bright">Yes</td>
+                            <td class="text-center armer">Yes</td>
+                            <td class="text-center"></td>
+                            <td class="text-center"></td>
+                            <td class="text-center"></td>
                         </tr>
                         <tr>
                             <td>Bankruptcy</td>
-                            <td>No</td>
-                            <td>No</td>
-                            <td>No</td>
-                            <td></td>
-                            <td></td>
+                            <td class="text-center bright">No</td>
+                            <td class="text-center armer">No</td>
+                            <td class="text-center">No</td>
+                            <td class="text-center"></td>
+                            <td class="text-center"></td>
                         </tr>
                         <tr>
                             <td>Judgement</td>
-                            <td>No</td>
-                            <td>No</td>
-                            <td>No</td>
-                            <td></td>
-                            <td></td>
+                            <td class="text-center bright">No</td>
+                            <td class="text-center armer">No</td>
+                            <td class="text-center">No</td>
+                            <td class="text-center"></td>
+                            <td class="text-center"></td>
                         </tr>
                         <tr>
                             <td>Credit Points</td>
-                            <td>33</td>
-                            <td>30</td>
-                            <td>28</td>
-                            <td>25</td>
-                            <td>22</td>
+                            <td class="text-center bright ">33</td>
+                            <td class="text-center armer">30</td>
+                            <td class="text-center">28</td>
+                            <td class="text-center">25</td>
+                            <td class="text-center">22</td>
                         </tr>
                         <tr>
                             <td>Ag-Pro Max</td>
-                            <td>-</td>
-                            <td>1000000</td>
-                            <td>500000</td>
-                            <td>-</td>
-                            <td>-</td>
+                            <td class="text-center bright">-</td>
+                            <td class="text-right armer">{{1000000|flexCurrency:0}}</td>
+                            <td class="text-right">{{500000|flexCurrency:0}}</td>
+                            <td class="text-center">-</td>
+                            <td class="text-center">-</td>
                         </tr>
                         <tr>
                             <td>Capital Bridge Max</td>
-                            <td>-</td>
-                            <td>1000000</td>
-                            <td>500000</td>
-                            <td>100000</td>
-                            <td>-</td>
+                            <td class="text-center bright">-</td>
+                            <td class="text-right armer">{{1000000|flexCurrency:0}}</td>
+                            <td class="text-right">{{500000|flexCurrency:0}}</td>
+                            <td class="text-right">{{100000|flexCurrency:0}}</td>
+                            <td class="text-center">-</td>
                         </tr>
                         <tr>
                             <td>Ag-Vest Max</td>
-                            <td>-</td>
-                            <td>1000000</td>
-                            <td>500000</td>
-                            <td>100000</td>
-                            <td>-</td>
+                            <td class="text-center bright">-</td>
+                            <td class="text-right armer">{{1000000|flexCurrency:0}}</td>
+                            <td class="text-right">{{500000|flexCurrency:0}}</td>
+                            <td class="text-right">{{100000|flexCurrency:0}}</td>
+                            <td class="text-center">-</td>
                         </tr>
                     </table>
                 </div>
@@ -479,3 +477,4 @@
         </div>
     </div>
 </fieldset>
+<br><br><br><br>

@@ -6,7 +6,7 @@
         <p class="display-field">
             {{loan.applicant.applicant|displayname}}
             &nbsp;
-            <span class="glyphicons glyphicons-envelope"></span>
+            <email-icon email="loan.applicant.email"></email-icon>
             <br/>
             <span style="font-size: 12px;">
                 {{loan.applicant.address}}
@@ -31,24 +31,28 @@
             <div ng-switch-when="1">
                 <label>Corporation Information</label>
                 <br/>
-                <p class="display-field" ng-repeat="c in loan.corps">
+                <p class="display-field" ng-repeat="c in loan.applicant.corps">
                     {{c.corporation}}
+                    &nbsp;
+                    <email-icon email="c.email"></email-icon>
                 </p>
             </div>
             <div ng-switch-when="3">
                 <label>Joint Venture Information</label>
                 <br/>
-                <p class="display-field" ng-repeat="j in loan.joints">
+                <p class="display-field" ng-repeat="j in loan.applicant.joints">
                     {{j.partner}}
+                    &nbsp;
+                    <email-icon email="j.email"></email-icon>
                 </p>
             </div>
             <div ng-switch-when="4">
                 <label>Partnership Information</label>
                 <br/>
-                <p class="display-field" ng-repeat="p in loan.partners">
+                <p class="display-field" ng-repeat="p in loan.applicant.partners">
                     {{p.partner}}
                     &nbsp;
-                    <span class="glyphicons glyphicons-envelope"></span>
+                    <email-icon email="p.email"></email-icon>
                     <br/>
                 </p>
             </div>
@@ -57,6 +61,8 @@
                 <br/>
                 <p class="display-field">
                     {{loan.applicant.spouse | displayname}}
+                    &nbsp;
+                    <email-icon email="loan.applicant.spouse_email"></email-icon>
                 </p>
             </div>
         </div>
@@ -68,7 +74,7 @@
         <p class="display-field">
             {{loan.analyst}}
             &nbsp;
-            <span class="glyphicons glyphicons-envelope"></span>
+            <email-icon email="loan.analyst.email"></email-icon>
         </p>
         <br/>
         <label>Interest Rate</label>
@@ -130,7 +136,7 @@
         <p class="display-field">
             {{loan.distributor.distributor}}
             &nbsp;
-            <span class="glyphicons glyphicons-envelope"></span>
+            <email-icon email="loan.loandistributor.email"></email-icon>
         </p>
         </span>
     </div>
@@ -141,7 +147,7 @@
         <p class="display-field">
             {{loan.agencies}}
             &nbsp;
-            <span class="glyphicons glyphicons-envelope"></span>
+            <email-icon email="loan.agent.agent_email"></email-icon>
         </p>
         </span>
     </div>

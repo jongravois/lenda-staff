@@ -7,8 +7,8 @@
             <!--LOAN EXCEPTIONS-->
             <fieldset ng-if="!XColView">
                 <legend>Loan Exceptions</legend>
-                <div class="row">
-                    <div class="form-group col-md-10 col-md-offset-1">
+                <div class="row" style="padding-left: 20px;">
+                    <div class="form-group">
                         <div ng-include="'_modules/Loans/underwriting/_loan.exceptions.html'"></div>
                     </div>
                 </div>
@@ -16,17 +16,17 @@
             <br/><br/>
             <!--PROJECTED INCOME-->
             <fieldset>
-                <legend>Detailed Projected Income</legend>
+                <legend>Projected Crop Income</legend>
                 <div class="row">
                     <div class="form-group col-md-12">
                         <div ng-include="'_modules/Loans/underwriting/_income.table.html'"></div>
                     </div>
                 </div>
             </fieldset>
-            <!--<br/><br/>-->
+            <br/><br/>
             <!--INSURANCE COVERAGE-->
-            <fieldset style="display:none;">
-                <legend>Detailed Insurance Coverage</legend>
+            <fieldset>
+                <legend>Insurance and Discounted Crop</legend>
                 <div class="row">
                     <div class="form-group col-md-12">
                         <div ng-include="'_modules/Loans/underwriting/_insurance.tbl.html'"></div>

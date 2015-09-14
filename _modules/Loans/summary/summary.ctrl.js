@@ -4,13 +4,23 @@
         .module('ARM')
         .controller('SummaryController', SummaryController);
 
-        SummaryController.$inject = ['$rootScope', '$scope', '$state', '$templateCache', 'AppFactory', 'pdfMake'];
+        SummaryController.$inject = ['$rootScope', '$scope', '$state', '$stateParams', '$templateCache', 'AppFactory', 'LoansFactory', 'pdfMake'];
 
-        function SummaryController($rootScope, $scope, $state, $templateCache, AppFactory, pdfMake){
+        function SummaryController($rootScope, $scope, $state, $stateParams, $templateCache, AppFactory, LoansFactory, pdfMake){
             $scope.newapplications = $state.current.data.newapplications;
 
-            $scope.comments = AppFactory.parseComments($scope.loan.comments);
-            var optimizer = AppFactory.optimized($scope.loan);
+            if(!$scope.loan) {
+                LoansFactory.getLoan($stateParams.loanID)
+                    .then(function(rsp){
+                        $scope.loan = rsp;
+                    });
+            }
+            if($scope.loan.comments.length < 1) {
+                $scope.comments = [];
+            } else {
+                $scope.comments = AppFactory.parseComments($scope.loan.comments);
+            }
+            //var optimizer = AppFactory.optimized($scope.loan);
 
             $scope.getCropProdYield = function(obj) {
                 return _.weighted(obj.practices, 'prod_yield', 'acres');
@@ -64,9 +74,6 @@
                 //TOTAL ACRES OF PRACTICE IN COUNTY x AMOUNT
                 return 0;
             };
-
-            //TEMP
-            $scope.loan.lien_letter_received = 0;
 
             $scope.makepdf = function() {
                 var docDefinition = {

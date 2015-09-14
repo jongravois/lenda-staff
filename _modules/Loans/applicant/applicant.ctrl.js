@@ -93,7 +93,7 @@
                     .then(function (rsp) {
                         var id = rsp.data;
                         angular.extend(newb, {id: id});
-                        $scope.loan.partners.push(newb);
+                        $scope.loan.applicant.partners.push(newb);
                     });
             };
             $scope.savePartner = function(data, id) {
@@ -122,7 +122,7 @@
                     .then(function (rsp) {
                         var id = rsp.data;
                         angular.extend(newb, {id: id});
-                        $scope.loan.joints.push(newb);
+                        $scope.loan.applicant.joints.push(newb);
                     });
             };
             $scope.saveJoint = function(data, id) {
@@ -145,6 +145,35 @@
                         _.remove($scope.loan.joints, {id: id});
                     });
             };
+            $scope.createNewCorp = function() {
+                var newb = getNewCorp();
+                AppFactory.postIt('corps', newb)
+                    .then(function (rsp) {
+                        var id = rsp.data;
+                        angular.extend(newb, {id: id});
+                        $scope.loan.applicant.corps.push(newb);
+                    });
+            }
+            $scope.saveCorp = function(data, id) {
+                AppFactory.putIt('corps', id, data)
+                    .then(function(rsp){
+                        toastr.success('Updated corporate information', 'Success!');
+                    });
+            }
+            $scope.deleteCorp = function(index, id) {
+                SweetAlert.swal({
+                        title: "Are you sure?",
+                        text: "You will not be able to undo this operation.",
+                        type: "warning",
+                        showCancelButton: true,
+                        confirmButtonColor: "#006837",
+                        confirmButtonText: "Delete",
+                        closeOnConfirm: true},
+                    function(){
+                        AppFactory.deleteIt('corps', id);
+                        _.remove($scope.loan.corps, {id: id});
+                    });
+            }
 
             $scope.createNewFarmer = function() {
                 AppFactory.postIt('farmers', $scope.loan.farmer)
@@ -184,7 +213,7 @@
             //////////
             function getNewPartner() {
                 return {
-                    loan_id: $scope.loan.id,
+                    applicant_id: $scope.loan.applicant.id,
                     partner: '',
                     ssn: '',
                     email: '',
@@ -193,11 +222,29 @@
             }
             function getNewJoint() {
                 return {
-                    loan_id: $scope.loan.id,
+                    applicant_id: $scope.loan.applicant.id,
                     partner: '',
                     ssn: '',
                     email: '',
                     phone: ''
+                };
+            }
+            function getNewCorp() {
+                return {
+                    applicant_id: $scope.loan.applicant.id,
+                    corporation: '',
+                    ssn: '',
+                    adress: '',
+                    city: '',
+                    state_id: '',
+                    zip: '',
+                    email: '',
+                    phone: '',
+                    president: '',
+                    vicepresident: '',
+                    secretary: '',
+                    treasurer: '',
+                    description: ''
                 };
             }
 

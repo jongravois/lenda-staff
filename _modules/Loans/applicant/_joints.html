@@ -7,7 +7,7 @@
             <th style="width:10%;" data-ng-click="doSort('Email')">Email</th>
             <th style="width:5%;">&nbsp;</th>
         </tr>
-        <tr ng-repeat="p in loan.joints" ng-init="!rowform.$visible" ng-dblclick="rowform.$show()">
+        <tr ng-repeat="p in loan.applicant.joints" ng-init="!rowform.$visible" ng-dblclick="rowform.$show()">
             <td class="cBlue">
                 <span editable-text="p.partner" e-name="partner" e-form="rowform" e-style="width:100%;" e-required>
                   {{p.partner }}
@@ -43,7 +43,7 @@
                 </div>
             </td>
         </tr>
-        <tr ng-if="!loan.joints || loan.joints.length == 0">
+        <tr ng-if="!loan.applicant.joints || loan.applicant.joints.length == 0">
             <td colspan="6"><b>No Joint Ventures found!</b></td>
         </tr>
     </table>

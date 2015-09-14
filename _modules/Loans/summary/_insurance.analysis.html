@@ -16,10 +16,10 @@
             <strong>No Insurance Information Found.</strong>
         </td>
     </tr>
-    <tr ng-repeat="i in loan.ins_summary" ng-if="loan.loancrops.length !== 0">
+    <tr ng-repeat="i in loan.ins_summary" ng-if="loan.ins_summary.length !== 0">
         <td>{{i.name}}</td>
         <td class="text-center">{{i.ins_type}}</td>
-        <td class="text-center">{{i.ins_opts}}</td>
+        <td class="text-center">{{i.unit}}</td>
         <td class="text-right">{{i.ins_price|flexCurrency:2}}</td>
         <td class="text-right">{{i.ins_level|flexPercent:1}}</td>
         <td class="text-right">
