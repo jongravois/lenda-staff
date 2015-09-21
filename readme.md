@@ -5,7 +5,9 @@
 ## Installation
 
 * Clone repo to local environment.
+* Run from the webroot: ```npm install -g bower-installer```
 * Run from the webroot: ```npm install```  
+* Run from the webroot: ```bower install```  
 * Run from the webroot: ```bower-installer```
 * Run from the /app: ```touch constants.js```
 * Edit /app/constants.js as
