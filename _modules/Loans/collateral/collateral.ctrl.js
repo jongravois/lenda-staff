@@ -4,9 +4,9 @@
         .module('ARM')
         .controller('CollateralsController', CollateralsController);
 
-        CollateralsController.$inject = ['$rootScope', '$scope', '$state', 'AppFactory'];
+        CollateralsController.$inject = ['$rootScope', '$scope', '$state', 'AppFactory', 'LoansFactory'];
 
-        function CollateralsController($rootScope, $scope, $state, AppFactory){
+        function CollateralsController($rootScope, $scope, $state, AppFactory, LoansFactory){
             $scope.newapplications = $state.current.data.newapplications;
             $scope.AppFactory = AppFactory;
 
@@ -21,7 +21,18 @@
             //temp
             $scope.loan.fsa_col = true;
 
-            //console.log('XCOL', $scope.loan.xcols);
+            if(!$scope.loans) {
+                if($rootScope.loans) {
+                    $scope.loans = $rootScope.loans;
+                    console.log('XCOL', $scope.loan.xcols, $scope.loans);
+                } else {
+                    LoansFactory.getLoans()
+                        .then(function (rsp) {
+                            $scope.loans = rsp;
+                            console.log('XCOL Reload', $scope.loan.xcols, $scope.loans);
+                        });
+                }
+            }
 
             $scope.togShowConditions = function() {
                 $scope.showConditions = !$scope.showConditions;

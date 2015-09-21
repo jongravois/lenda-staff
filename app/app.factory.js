@@ -145,7 +145,11 @@
             submitLoanSolo: submitLoanSolo,
             submitToDist: submitToDist,
             sumThese: sumThese,
-            withdrawLoan: withdrawLoan
+            withdrawLoan: withdrawLoan,
+            xCashFlow: xCashFlow,
+            xArmCommit: xArmCommit,
+            xDistCommit: xDistCommit,
+            xExposure: xExposure
         };
         return publicAPI;
 
@@ -1393,6 +1397,42 @@
         }
         function withdrawLoan(loan) {
             alert('Withdraw loan id #' + loan.id);
+        }
+        function xArmCommit(xc, loans) {
+            var retro = 0;
+            _.filter(loans, function(l){
+                if(Number(l.id) === Number(xc.id)) {
+                    retro += Number(l.fins.principal_arm);
+                }
+            });
+            return retro;
+        }
+        function xCashFlow(xc, loans) {
+            var retro = 0;
+            _.filter(loans, function(l){
+                if(Number(l.id) === Number(xc.id)) {
+                    retro += Number(l.fins.cash_flow);
+                }
+            });
+            return retro;
+        }
+        function xDistCommit(xc, loans) {
+            var retro = 0;
+            _.filter(loans, function(l){
+                if(Number(l.id) === Number(xc.id)) {
+                    retro += Number(l.fins.principal_dist);
+                }
+            });
+            return retro;
+        }
+        function xExposure(xc, loans) {
+            var retro = 0;
+            _.filter(loans, function(l){
+                if(Number(l.id) === Number(xc.id)) {
+                    retro += Number(l.fins.exposure);
+                }
+            });
+            return retro;
         }
     } // end factory
 

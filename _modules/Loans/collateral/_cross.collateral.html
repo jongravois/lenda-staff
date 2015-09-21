@@ -1,36 +1,28 @@
 <div class="form-group">
     <table class="table table-striped rowed table-condensed disp-sm">
         <tr>
-            <th style="width:14%;">Farmer</th>
-            <th style="width:14%;">Applicant</th>
-            <th style="width:14%;">App Date</th>
-            <th style="width:14%;">Distributor</th>
-            <th style="width:14%;">ARM Commit</th>
-            <th style="width:14%;">Cash Flow</th>
-            <th style="width:14%;">Exposure</th>
+            <th style="width:50%;">Loan</th>
+            <th style="width:12%;">ARM Commit</th>
+            <th style="width:12%;">Dist Commit</th>
+            <th style="width:12%;">Cash Flow</th>
+            <th style="width:12%;">Exposure</th>
             <th style="width:80px;">&nbsp</th>
         </tr>
         <tr ng-repeat="x in loan.xcols">
             <td>
-                {{x.farmer}}
+                {{x.slug}}
             </td>
-            <td>
-                {{x.applicant}}
+            <td ng-class="AppFactory.gtZero(AppFactory.xArmCommit(x, loans))">
+                {{AppFactory.xArmCommit(x, loans)|flexCurrency:0}}
             </td>
-            <td>
-                {{x.app_date|date:'M/d/yyyy'}}
+            <td ng-class="AppFactory.gtZero(AppFactory.xDistCommit(x, loans))">
+                {{AppFactory.xDistCommit(x, loans)|flexCurrency:0}}
             </td>
-            <td>
-                {{x.distributor}}
+            <td ng-class="AppFactory.gtZero(AppFactory.xCashFlow(x, loans))">
+                {{AppFactory.xCashFlow(x, loans)|flexCurrency:0}}
             </td>
-            <td ng-class="AppFactory.gtZero(x.arm_commit)">
-                {{x.arm_commit|flexCurrency:0}}
-            </td>
-            <td ng-class="AppFactory.gtZero(x.cash_flow)">
-                {{x.cash_flow|flexCurrency:0}}
-            </td>
-            <td ng-class="AppFactory.gtZero(x.exposure)">
-                {{x.exposure|flexCurrency:0}}
+            <td ng-class="AppFactory.gtZero(AppFactory.xExposure(x, loans))">
+                {{AppFactory.xExposure(x, loans)|flexCurrency:0}}
             </td>
             <td class="text-center">
                 <span style="font-size: 16px; color: #990000;"
