@@ -1,0 +1,32 @@
+<div class="row">
+    <table class="table table-striped rowed" style="width:70%;">
+        <!-- OPTIONAL Modification Date LINE-->
+        <tr ng-dblclick="editFSAInfo()">
+            <td>Government Program</td>
+            <td class="text-left">
+                {{PLC}}
+            </td>
+        </tr>
+
+        <tr ng-dblclick="editFSAInfo()">
+            <td>Base Acres</td>
+            <td class="text-left">
+                {{4000|flexNumber:1}}
+            </td>
+        </tr>
+
+        <tr ng-dblclick="editFSAInfo()">
+            <td>FSA Yield</td>
+            <td class="text-left">
+                {{200|flexNumber:1}}
+            </td>
+        </tr>
+    </table>
+</div>
+<br>
+<div class="row">
+    <div class="col-md-12 text-right">
+        <button style="margin-right:10px;" class="btn btn-arm" ng-click="updateFSAInfo()"><span class="glyphicons glyphicons-log-book"></span>&nbsp;UPDATE</button>
+    </div>
+</div>
+<br><br><br><br>

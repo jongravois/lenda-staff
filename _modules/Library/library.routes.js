@@ -20,6 +20,11 @@
                     templateUrl: './_modules/Library/_views/userguide/guide.html',
                     controller: 'LibraryController as library'
                 })
+                .state('arm.library.home', {
+                    url: '/home',
+                    templateUrl: './_modules/Library/home/shell.html',
+                    controller: 'LibraryController'
+                })
                 .state('arm.library.legaldocs', {
                     url: '/legaldocs',
                     templateUrl: './_modules/Library/_views/legaldocs/legaldocs.html',

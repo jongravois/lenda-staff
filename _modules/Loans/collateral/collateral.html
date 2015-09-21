@@ -1,11 +1,4 @@
-<div class="row">
-    <div class="col-md-12 text-right">
-        <button style="margin-right:10px;" class="btn btn-arm" ng-click="updateCollateral()"><span
-            class="glyphicons glyphicons-log-book"></span>&nbsp;UPDATE
-        </button>
-    </div>
-</div>
-<br>
+<!-- COLLATERAL CONDITIONS -->
 <fieldset>
     <legend>
         &nbsp;
@@ -25,6 +18,7 @@
     </div>
 </fieldset>
 <br/><br/>
+<!-- CROPS -->
 <fieldset>
     <legend>
         &nbsp;
@@ -37,18 +31,30 @@
         &nbsp;
         Crops
     </legend>
-    <div class="container-fluid row form-group"ng-if="showCropCollateral">
+    <div class="container-fluid row form-group" ng-if="showCropCollateral">
         <div class="col-md-12">
-            <div class="col-md-9">
-                <label>Prior lien on crops?</label>
-            </div>
-            <div class="col-md-3">
-                <input type="radio" name="liens" ng-value="true" ng-model="loan.quests.liens"/>
-                &nbsp;<label>Yes</label>
-                &nbsp;&nbsp;&nbsp;
-                <input type="radio" name="liens" ng-value="false" ng-model="loan.quests.liens"/>
-                &nbsp;<label>No</label>
-            </div>
+            <label>Crop Discount</label>
+            <input type="number" class="form-control" name="percent_crop" ng-model="loan.fins.discounts.percent_crop" style="width:100px;">
+            <br>
+            <label>MPCI Discount</label>
+            <input type="number" class="form-control" name="percent_mpci" ng-model="loan.fins.discounts.percent_insoyield" style="width:100px;">
+            <br>
+            <label>RPHPE Discount</label>
+            <input type="number" class="form-control" name="percent_rphpe" ng-model="loan.fins.discounts.percent_rphpe" style="width:100px;">
+            <br>
+            <label>YP Discount</label>
+            <input type="number" class="form-control" name="percent_yp" ng-model="loan.fins.discounts.percent_nonrp" style="width:100px;">
+            <br>
+            <label>Stax/SCO Discount</label>
+            <input type="number" class="form-control" name="percent_suppins" ng-model="loan.fins.discounts.percent_suppins" style="width:100px;">
+            <br>
+            <label>Prior lien on crops?</label>
+            &nbsp;&nbsp;&nbsp;
+            <input type="radio" name="liens" ng-value="true" ng-model="loan.quests.liens"/>
+            &nbsp;<label>Yes</label>
+            &nbsp;&nbsp;&nbsp;
+            <input type="radio" name="liens" ng-value="false" ng-model="loan.quests.liens"/>
+            &nbsp;<label>No</label>
         </div>
     </div>
     <div class="row form-group" ng-if="loan.quests.liens && showCropCollateral">
@@ -56,6 +62,7 @@
     </div>
 </fieldset>
 <br/><br/>
+<!-- EQUIPMENT -->
 <fieldset>
     <legend>
         &nbsp;
@@ -87,6 +94,7 @@
     </div>
 </fieldset>
 <br/><br/>
+<!--REAL ESTATE -->
 <fieldset>
     <legend>
         &nbsp;
@@ -118,6 +126,25 @@
     </div>
 </fieldset>
 <br/><br/>
+<!--FSA -->
+<fieldset>
+    <legend>
+        &nbsp;
+            <span class="pendicon glyphicon glyphicon-chevron-right"
+                  ng-click="togShowFSACollateral()"
+                  ng-if="!showFSACollateral"></span>
+            <span class="pendicon glyphicon glyphicon-chevron-down"
+                  ng-click="togShowFSACollateral()"
+                  ng-if="showFSACollateral"></span>
+        &nbsp;
+        FSA
+    </legend>
+    <div class="row form-group" ng-if="showFSACollateral">
+        <div ng-include="'./_modules/Loans/collateral/_fsa.collateral.html'"></div>
+    </div>
+</fieldset>
+<br/><br/>
+<!-- OTHER -->
 <fieldset>
     <legend>
         &nbsp;
@@ -149,6 +176,7 @@
     </div>
 </fieldset>
 <br/><br/>
+<!-- CROSS COLLATERAL -->
 <fieldset>
     <legend>
         &nbsp;
@@ -179,4 +207,12 @@
         </div>
     </div>
 </fieldset>
+<br>
+<div class="row">
+    <div class="col-md-12 text-right">
+        <button style="margin-right:10px;" class="btn btn-arm" ng-click="updateCollateral()"><span
+            class="glyphicons glyphicons-log-book"></span>&nbsp;UPDATE
+        </button>
+    </div>
+</div>
 <br><br><br><br>

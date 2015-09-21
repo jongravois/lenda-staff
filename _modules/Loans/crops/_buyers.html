@@ -2,6 +2,9 @@
     <table class="table table-striped rowed table-condensed disp-sm" style="width: 60%;">
         <tr>
             <th>Buyer</th>
+            <th>Contact</th>
+            <th>Location</th>
+            <th>Phone</th>
             <th>Email</th>
             <th style="width:80px;">&nbsp;</th>
         </tr>
@@ -12,13 +15,28 @@
         </tr>
         <tr ng-repeat=" b in loan.buyers" ng-init="!rowform.$visible" ng-dblclick="rowform.$show()">
             <td class="cBlue">
-                                            <span editable-text="b.buyer" e-name="buyer" e-form="rowform" e-style="width:100%;">
-                                                {{b.buyer}}
-                                            </span>
+                <span editable-text="b.buyer" e-name="buyer" e-form="rowform" e-style="width:100%;">
+                    {{b.buyer}}
+                </span>
             </td>
             <td class="cBlue">
-                    <span editable-text="b.buyer_email" e-name="buyer_email" e-form="rowform" e-style="width:100%;">
-                        {{b.buyer_email}}
+                <span editable-text="b.contact" e-name="contact" e-form="rowform" e-style="width:100%;">
+                    {{b.contact}}
+                </span>
+            </td>
+            <td class="cBlue">
+                <span editable-text="b.location" e-name="location" e-form="rowform" e-style="width:100%;">
+                    {{b.location}}
+                </span>
+            </td>
+            <td class="cBlue">
+                <span editable-text="b.phone" e-name="phone" e-form="rowform" e-style="width:100%;">
+                    {{b.phone}}
+                </span>
+            </td>
+            <td class="cBlue">
+                    <span editable-text="b.email" e-name="email" e-form="rowform" e-style="width:100%;">
+                        {{b.email}}
                     </span>
             </td>
             <td style="width:80px;">
@@ -32,7 +50,8 @@
                                                 </span>
                 </form>
                 <div class="buttons" ng-show="!rowform.$visible">
-                    <span class="glyphicons glyphicons-remove-2" style="color: #990000;" ng-click="deleteBuyer($index, p.id)"></span>
+                    <span style="font-size: 16px; color: #990000;"
+                          ng-click="deleteBuyer($index, p.id)">&cross;</span>
                 </div>
             </td>
         </tr>
@@ -41,6 +60,6 @@
 <div class="row" style="margin-top:-28px;">
         <span style="margin-top: -10px;">
             <a ng-click="addNewBuyer(c)" class="btn btn-xs btn-default">
-                <span class="glyphicon glyphicon-plus-sign" style="color:#006837;"></span> Add New</a>
+                <span class="glyphicons glyphicons-circle-plus" style="color:#006837;"></span> Add New</a>
         </span>
 </div>

@@ -42,8 +42,6 @@
                 loancrops: processLoanCrops(loan),
                 parsedComments: structureComments(loan),
                 priorlien: processPriorLien(loan.prior_liens)
-                /*,
-                 xcols: processXCols(loan.xcols)*/
             })
                 .then(function (updatedData) {
                     angular.extend(loan, updatedData);
@@ -170,7 +168,6 @@
             //console.log('Policies', policyList);
 
             var ins = {
-                agencies: processAgencies(policyList),
                 byCrop: processInsByCrop(loan),
                 database: processForInsDB(policyList),
                 //not Working
@@ -272,52 +269,6 @@
                 c_share_rent: 0,
                 c_var_harv: 0
             };
-        }
-        function processAgencies(policies) {
-            var result = [];
-            var exists = {};
-            var arrayOfFinalProduct = [];
-            var agentExists = {};
-
-            var firstPass = _.forEach(policies, function (policy) {
-                if (!exists[policy.agent_id]) {
-                    result.push(policy);
-                    exists[policy.agent_id] = true;
-                }
-            });
-            //console.log('RESULT', result);
-
-            var secondPass = _.forEach(result, function (policy) {
-                var idealProduct = {};
-                var allreadyHappend = _.find(arrayOfFinalProduct, {'id': policy.agency_id});
-                if (!_.isUndefined(allreadyHappend)) {
-                    allreadyHappend.agents.push({
-                        id: policy.agent_id,
-                        agent: policy.agent.agent,
-                        agent_email: policy.agent_email,
-                        agent_phone: policy.agent_phone
-                    });
-                } else if (!agentExists[policy.agent_id]) {
-                    idealProduct.agents = [];
-                    idealProduct.id = policy.agent.agency_id;
-                    idealProduct.agency = policy.agent.agency;
-                    idealProduct.agency_address = policy.agency_address;
-                    idealProduct.agency_city = policy.agency_city;
-                    idealProduct.agency_state = policy.agency_state;
-                    idealProduct.agency_zip = policy.agency_zip;
-                    idealProduct.agency_email = policy.agency_email;
-                    idealProduct.agency_phone = policy.agency_phone;
-                    idealProduct.agents.push({
-                        id: policy.agent_id,
-                        agent: policy.agent,
-                        agent_email: policy.agent_email,
-                        agent_phone: policy.agent_phone
-                    });
-                    arrayOfFinalProduct.push(idealProduct);
-                    agentExists[policy.agent_id] = true;
-                }
-            });
-            return arrayOfFinalProduct;
         }
         function processCollateral(obj) {
             var all = _.chain(obj).groupBy('type').value();
@@ -597,18 +548,6 @@
             liens.total = merged;
             return liens;
         }
-        function processXCols(xcols) {
-            _.each(xcols, function(x){
-                getLoan(x.id)
-                    .then(function(rsp){
-                        var loan = rsp;
-                        x.arm_commit = loan.fins.commit_arm;
-                        x.cash_flow = loan.fins.cash_flow;
-                        x.exposure = loan.fins.exposure;
-                    });
-            });
-            return xcols;
-        }
         function structureComments(loan) {
             if(!loan.comments) {return []; }
             var parsed = AppFactory.parseComments(loan.comments);
@@ -616,12 +555,13 @@
         }
         function testComments(loan, user) {
             if(loan.comments.length === 0) { return 0; }
-
             var result = 0;
 
             _.each(loan.comments, function(it){
+                it.accepted = true;
                 return _.each(it.status, function(i){
                     if(i.recipient_id === user.id && i.status === 'pending') {
+                        it.accepted = false;
                         result = 1;
                     }
                 });

@@ -14,8 +14,14 @@
             $scope.showCropCollateral = false;
             $scope.showEquipmentCollateral = false;
             $scope.showRealEstateCollateral = false;
+            $scope.showFSACollateral = false;
             $scope.showOtherCollateral = false;
             $scope.showCrossCollateral = false;
+
+            //temp
+            $scope.loan.fsa_col = true;
+
+            //console.log('XCOL', $scope.loan.xcols);
 
             $scope.togShowConditions = function() {
                 $scope.showConditions = !$scope.showConditions;
@@ -28,6 +34,9 @@
             };
             $scope.togShowRealEstateCollateral = function() {
                 $scope.showRealEstateCollateral = !$scope.showRealEstateCollateral;
+            };
+            $scope.togShowFSACollateral = function() {
+                $scope.showFSACollateral = !$scope.showFSACollateral;
             };
             $scope.togShowOtherCollateral = function() {
                 $scope.showOtherCollateral = !$scope.showOtherCollateral;
@@ -59,6 +68,5 @@
                 return _.sumCollection(liens, 'lien_amount');
             }
 
-            console.log('COLLATERAL', $scope.loan.xcols);
         } // end controller
 })();

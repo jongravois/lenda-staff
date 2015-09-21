@@ -3,21 +3,27 @@
         <table class="table table-striped rowed table-condensed disp-sm"
            style="width:80%;">
         <tr>
-            <th style="width:40%;" data-ng-click="doSort('name')">Name</th>
-            <th style="width:15%;" data-ng-click="doSort('SSN')">SSN</th>
+            <th style="width:40%;" data-ng-click="doSort('partner')">Name</th>
+            <th style="width:15%;" data-ng-click="doSort('contact')">Title</th>
+            <th style="width:15%;" data-ng-click="doSort('location')">Location</th>
             <th style="width:15%;" data-ng-click="doSort('Phone')">Phone</th>
             <th style="width:15%;" data-ng-click="doSort('Email')">Email</th>
             <th style="width:60px;">&nbsp;</th>
         </tr>
         <tr ng-repeat="p in loan.applicant.partners" ng-init="!rowform.$visible" ng-dblclick="rowform.$show()">
-            <td class="cBlue">
+            <td class="cBlue" style="width:300px;">
                 <span editable-text="p.partner" e-name="partner" e-form="rowform" e-style="width:100%;" e-required>
                   {{p.partner}}
                 </span>
             </td>
             <td class="cBlue">
-                <span editable-text="p.ssn" e-name="ssn" e-form="rowform" e-style="width:100%;" e-required>
-                  {{ p.ssn }}
+                <span editable-text="p.title" e-name="title" e-form="rowform" e-style="width:100%;" e-required>
+                  {{p.title}}
+                </span>
+            </td>
+            <td class="cBlue">
+                <span editable-text="p.location" e-name="location" e-form="rowform" e-style="width:100%;" e-required>
+                  {{p.location}}
                 </span>
             </td>
             <td class="cBlue">
@@ -30,7 +36,7 @@
                   {{p.email}}
                 </span>
             </td>
-            <td class="text-center">
+            <td class="text-center" style="width: 80px;">
                 <!-- form -->
                 <form editable-form name="rowform" onbeforesave="savePartner($data, p.id)" ng-show="rowform.$visible" class="form-buttons form-inline">
                     <button type="submit" ng-disabled="rowform.$waiting"
@@ -47,9 +53,8 @@
                     </span>
                 </form>
                 <div class="buttons" ng-show="!rowform.$visible">
-                    <span class="glyphicons glyphicons-remove-2"
-                          style="color: #990000;"
-                          ng-click="deletePartner($index, p.id)"></span>
+                    <span style="font-size: 16px; color: #990000;"
+                          ng-click="deletePartner($index, p.id)">&cross;</span>
                 </div>
             </td>
         </tr>

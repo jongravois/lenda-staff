@@ -4,13 +4,14 @@
         .module('ARM')
         .controller('MainController', MainController);
 
-    MainController.$inject = ['$rootScope', '$scope', '$http', '$auth', '$state', 'API_URL', 'DefaultsFactory', 'FeederFactory'];
+    MainController.$inject = ['$rootScope', '$scope', '$http', '$auth', '$state', '$location', 'API_URL', 'DefaultsFactory', 'FeederFactory'];
 
     /* @ngInject */
-    function MainController($rootScope, $scope, $http, $auth, $state, API_URL, DefaultsFactory, FeederFactory) {
+    function MainController($rootScope, $scope, $http, $auth, $state, $location, API_URL, DefaultsFactory, FeederFactory) {
         /* jshint validthis: true */
         /*jshint -W030 */
         $scope.authenticated = ($rootScope.authenticated ? true : false);
+
         $scope.user;
         $scope.users;
         $scope.feeder;
@@ -64,7 +65,6 @@
             //TODO: create table sorter
             alert('working');
         }
-
 
         //////////
         function init() {

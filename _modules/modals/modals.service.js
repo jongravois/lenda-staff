@@ -20,7 +20,8 @@
             newWatchlistComment: newWatchlistComment,
             optionalUpload: optionalUpload,
             requestDocument: requestDocument,
-            requiredUpload: requiredUpload
+            requiredUpload: requiredUpload,
+            terms: terms
         };
 
         return service;
@@ -237,6 +238,26 @@
                             document: data.document,
                             filename: data.filename,
                             title: data.title,
+                            buttons: data.buttons
+                        };
+                    }
+                },
+                size: 'sm'
+            });
+
+            return modalInstance.result;
+        }
+        function terms(data) {
+            var modalInstance = $modal.open({
+                templateUrl: '_modules/modals/terms.modal.html',
+                controller: 'ModalController',
+                resolve: {
+                    data: function(){
+                        return {
+                            loan_terms: data.loan_terms,
+                            loan_type: data.loan_type,
+                            title: data.title,
+                            message: data.message,
                             buttons: data.buttons
                         };
                     }

@@ -7,323 +7,141 @@
         min-width: 100px !important;
         max-width: 100px !important;
     }
+    /*#optim {
+        table-layout: fixed;
+        width: 3000px;
+        white-space: nowrap;
+    }
+    #optim td {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    #optim .row-locale { width: 60px !important; }
+    #optim .row-fsn { width: 30px !important; }
+    #optim .row-prac { width: 30px !important; }*/
 </style>
 <div class="col-md-12">
-    <table class="table">
+    <table id="optim" class="table rowed table-condensed disp-sm" style="width:2700px;">
         <tr>
-            <td colspan="{{loan.farmunits.length + 2}}">
-                <span>
-                    <a ng-click="showCrop()" class="btn btn-xs btn-default">
-                        <span class="glyphicons glyphicons-circle-plus" style="color:#006837;"></span> Add Crop</a>
-                </span>
-                    <span>&nbsp;</span>
-                    <span class="pull-right">
-                        <div class="btn-group btn-group-sm pull-right" role="group">
-                            <button type="button"
-                                    class="btn btn-gray"
-                                    ng-click="tggl.showRentRows = !tggl.showRentRows">
-                                <span class="glyphicons glyphicons-check"
-                                      ng-if="tggl.showRentRows"></span>
-                                <span class="glyphicons glyphicons-unchecked"
-                                      ng-if="!tggl.showRentRows"></span>
-                                Rent
-                            </button>
-                            <button type="button"
-                                    class="btn btn-salmon"
-                                    ng-click="tggl.showOverRentRows = !tggl.showOverRentRows">
-                                <span class="glyphicons glyphicons-check"
-                                      ng-if="tggl.showOverRentRows"></span>
-                                <span class="glyphicons glyphicons-unchecked"
-                                      ng-if="!tggl.showOverRentRows"></span>
-                                Override
-                            </button>
-                            <button type="button"
-                                    class="btn btn-liteblue"
-                                    ng-click="tggl.showInsRows = !tggl.showInsRows">
-                                <span class="glyphicons glyphicons-check"
-                                      ng-if="tggl.showInsRows"></span>
-                                <span class="glyphicons glyphicons-unchecked"
-                                      ng-if="!tggl.showInsRows"></span>
-                                Insurance
-                            </button>
-                            <button type="button"
-                                    class="btn btn-litegreen"
-                                    ng-click="tggl.showCFRows = !tggl.showCFRows">
-                                <span class="glyphicons glyphicons-check"
-                                      ng-if="tggl.showCFRows"></span>
-                                <span class="glyphicons glyphicons-unchecked"
-                                      ng-if="!tggl.showCFRows"></span>
-                                Cash Flow
-                            </button>
-                            <button type="button"
-                                    class="btn btn-goldenrod"
-                                    ng-click="tggl.showEXRows = !tggl.showEXRows">
-                                <span class="glyphicons glyphicons-check"
-                                      ng-if="tggl.showEXRows"></span>
-                                <span class="glyphicons glyphicons-unchecked"
-                                      ng-if="!tggl.showEXRows"></span>
-                                Exposure
-                            </button>
-                        </div>
-                    </span>
+            <th colspan="10">&nbsp;</th>
+            <th colspan="5" class="clr-goldenrod">Corn</th>
+            <th colspan="5" class="clr-litegreen">Soybeans</th>
+            <th colspan="5" class="clr-litegray">Cotton</th>
+            <th>&nbsp;</th>
+        </tr>
+        <tr>
+            <th style="width:120px;">St|Cnty</th>
+            <th style="width:40px;">FSN</th>
+            <th style="width:50px;">Prac</th>
+            <th style="width:50px;">Shr</th>
+            <th style="width:40px;">Perm</th>
+            <th style="width:80px;">Cash Rent</th>
+            <th style="width:100px;">Due</th>
+            <th style="width:80px;">Waived</th>
+            <th style="width:80px;">Rent/Ac</th>
+            <th style="width:80px;">Wvd/Ac</th>
+            <th style="width:50px;">Shr</th>
+            <th style="width:80px;">Acres</th>
+            <th style="width:80px;">APH</th>
+            <th style="width:100px;">CF</th>
+            <th style="width:100px;">EX</th>
+            <th style="width:50px;">Shr</th>
+            <th style="width:80px;">Acres</th>
+            <th style="width:80px;">APH</th>
+            <th style="width:100px;">CF</th>
+            <th style="width:100px;">EX</th>
+            <th style="width:50px;">Shr</th>
+            <th style="width:80px;">Acres</th>
+            <th style="width:80px;">APH</th>
+            <th style="width:100px;">CF</th>
+            <th style="width:100px;">EX</th>
+            <th>&nbsp;</th>
+        </tr>
+        <tr ng-repeat="u in loan.farmunits">
+            <td class="text-left">
+                {{u.state}} | {{u.county}}
+            </td>
+            <td class="text-center">
+                {{u.fsn}}
+            </td>
+            <td class="text-center">
+                {{u.practice}}
+            </td>
+            <td class="cBlue" ng-class="AppFactory.gtZero(u.rent_ovr)">
+                {{u.rent_ovr|flexPercent:1}}
+            </td>
+            <td class="text-center cBlue">
+                {{u.perm2ins}}
+            </td>
+            <td class="cBlue" ng-class="AppFactory.gtZero(u.cash_rent)">
+                {{u.cash_rent|flexCurrency:0}}
+            </td>
+            <td class="text-left cBlue">
+                {{u.when_due}}
+            </td>
+            <td class="cBlue" ng-class="AppFactory.gtZero(u.waived)">
+                {{u.waived|flexCurrency:0}}
+            </td>
+            <td ng-class="AppFactory.gtZero(u.cash_rent_acre_ARM)">
+                {{u.cash_rent_acre_ARM|flexCurrency:0}}
+            </td>
+            <td ng-class="AppFactory.gtZero(u.waived_acre)">
+                {{u.waived_acre|flexCurrency:0}}
+            </td>
+            <td class="cBlue" ng-class="AppFactory.gtZero(u.crops[0].corn.override)">
+                {{u.crops[0].corn.override|flexPercent:0}}
+            </td>
+            <td class="cBlue" ng-class="AppFactory.gtZero(u.crops[0].corn.acres)">
+                {{u.crops[0].corn.acres|flexNumber:1}}
+            </td>
+            <td class="cBlue" ng-class="AppFactory.gtZero(u.crops[0].corn.aph)">
+                {{u.crops[0].corn.aph|flexNumber:0}}
+            </td>
+            <td class="cBlue" ng-class="AppFactory.gtZero(calcUnitCropCF('corn', u, loan))">
+                {{calcUnitCropCF('corn', u, loan)|flexCurrency:0}}
+            </td>
+            <td class="cBlue" ng-class="AppFactory.gtZero(calcUnitCropEX('corn', u, loan))">
+                {{calcUnitCropEX('corn', u, loan)|flexCurrency:0}}
+            </td>
+
+            <td class="cBlue" ng-class="AppFactory.gtZero(u.crops[0].soybeans.override)">
+                {{u.crops[0].soybeans.override|flexPercent:0}}
+            </td>
+            <td class="cBlue" ng-class="AppFactory.gtZero(u.crops[0].soybeans.acres)">
+                {{u.crops[0].soybeans.acres|flexNumber:1}}
+            </td>
+            <td class="cBlue" ng-class="AppFactory.gtZero(u.crops[0].soybeans.aph)">
+                {{u.crops[0].soybeans.aph|flexNumber:0}}
+            </td>
+            <td class="cBlue" ng-class="AppFactory.gtZero(calcUnitCropCF('soybeans', u, loan))">
+                {{calcUnitCropCF('soybeans', u, loan)|flexCurrency:0}}
+            </td>
+            <td class="cBlue" ng-class="AppFactory.gtZero(calcUnitCropEX('soybeans', u, loan))">
+                {{calcUnitCropEX('soybeans', u, loan)|flexCurrency:0}}
+            </td>
+
+            <td class="cBlue" ng-class="AppFactory.gtZero(u.crops[0].cotton.override)">
+                {{u.crops[0].cotton.override|flexPercent:0}}
+            </td>
+            <td class="cBlue" ng-class="AppFactory.gtZero(u.crops[0].cotton.acres)">
+                {{u.crops[0].cotton.acres|flexNumber:1}}
+            </td>
+            <td class="cBlue" ng-class="AppFactory.gtZero(u.crops[0].cotton.aph)">
+                {{u.crops[0].cotton.aph|flexNumber:0}}
+            </td>
+            <td class="cBlue" ng-class="AppFactory.gtZero(calcUnitCropCF('cotton', u, loan))">
+                {{calcUnitCropCF('cotton', u, loan)|flexCurrency:0}}
+            </td>
+            <td class="cBlue" ng-class="AppFactory.gtZero(calcUnitCropEX('cotton', u, loan))">
+                {{calcUnitCropEX('cotton', u, loan)|flexCurrency:0}}
             </td>
         </tr>
     </table>
-
-    <table class="table rowed disp-sm">
-        <tbody id="farms">
-        <!-- STATE-->
-        <tr>
-            <td style="width:140px;">
-                State
-            </td>
-            <td class="text-center"
-                ng-repeat="f in loan.farmunits"
-                style="position: relative;">
-                {{f.state}}
-                    <span class="glyphicons glyphicons-remove-2"
-                          style="color: #990000;position: absolute; top: 0;right: 0;cursor: pointer;"
-                          ng-click="deleteFarm(f.id)"></span>
-            </td>
-            <td class="text-right">
-                <a ng-click="addFarm()" class="btn btn-xs btn-default">
-                    <span class="glyphicon glyphicon-plus-sign" style="color:#006837;"></span> Add Farm</a>
-                    <!--<br>
-                    <span>
-                        <select name="selector">
-                            <option>FSN# 456 - IR</option>
-                            <option>FSN# 567 - NI</option>
-                            <option>FSN# 789 - NI</option>
-                            <option>New FSN</option>
-                        </select>
-                    </span>-->
-            </td>
-        </tr>
-        <!-- COUNTY-->
-        <tr>
-            <td>County</td>
-            <td class="text-center"
-                ng-repeat="f in loan.farmunits">
-                {{f.county}}
-            </td>
-            <td>&nbsp;</td>
-        </tr>
-        <!-- FSN-->
-        <tr>
-            <td>FSN</td>
-            <td class="text-center"
-                ng-repeat="f in loan.farmunits">
-                {{f.fsn}}
-            </td>
-            <td>&nbsp;</td>
-        </tr>
-        <!-- PRACTICE-->
-        <tr>
-            <td>Practice</td>
-            <td class="text-center"
-                ng-repeat="f in loan.farmunits">
-                {{f.practice}}
-            </td>
-            <td>&nbsp;</td>
-        </tr>
-        <!-- LANDLORD-->
-        <tr>
-            <td>Landlord</td>
-            <td class="text-center"
-                ng-repeat="f in loan.farmunits">
-                {{f.owner}}
-            </td>
-            <td>&nbsp;</td>
-        </tr>
-        <!-- TOTAL ACRES-->
-        <tr>
-            <td>Total Acres</td>
-            <td class="text-center"
-                ng-repeat="f in loan.farmunits">
-                {{f.total_acres|number:1}}
-            </td>
-            <td class="text-right">
-                {{loan.fins.total_acres|number:1}}
-            </td>
-        </tr>
-        <!-- SHARE RENT-->
-        <tr class="clr-litegray"
-            ng-if="tggl.showRentRows">
-            <td>Share Rent</td>
-            <td class="text-right cBlue"
-                ng-repeat="f in loan.farmunits">
-                {{f.share_rent|flexZeroPercent:1}}
-            </td>
-            <td>&nbsp;</td>
-        </tr>
-        <!-- PERM2INSURE-->
-        <tr class="clr-litegray"
-            ng-if="tggl.showRentRows">
-            <td>Perm to Ins</td>
-            <td class="text-center cBlue"
-                ng-repeat="f in loan.farmunits">
-                {{f.perm2ins}}
-            </td>
-            <td class="text-right">&nbsp;</td>
-        </tr>
-        <!-- CASH RENT-->
-        <tr class="clr-litegray"
-            ng-if="tggl.showRentRows">
-            <td>Cash Rent</td>
-            <td class="cBlue" ng-class="AppFactory.gtZero(f.cash_rent)"
-                ng-repeat="f in loan.farmunits">
-                {{f.cash_rent|flexCurrency:0}}
-            </td>
-            <td ng-class="AppFactory.gtZero(OptimizerFactory.getTotalCashRent(loan.farmunits))">
-                {{OptimizerFactory.getTotalCashRent(loan.farmunits)|flexCurrency:0}}
-            </td>
-        </tr>
-        <!-- WAIVED-->
-        <tr class="clr-litegray"
-            ng-if="tggl.showRentRows">
-            <td>Waived</td>
-            <td class="cBlue" ng-class="AppFactory.gtZero(f.waived)"
-                ng-repeat="f in loan.farmunits">
-                {{f.waived|flexCurrency:0}}
-            </td>
-            <td ng-class="AppFactory.gtZero(OptimizerFactory.getTotalWaived(loan.farmunits))">
-                {{OptimizerFactory.getTotalWaived(loan.farmunits)|flexCurrency:0}}
-            </td>
-        </tr>
-        <!-- WHEN DUE-->
-        <tr class="clr-litegray"
-            ng-if="tggl.showRentRows">
-            <td>When Due</td>
-            <td class="text-right cBlue"
-                ng-repeat="f in loan.farmunits">
-                {{f.when_due}}
-            </td>
-            <td class="text-right">&nbsp;</td>
-        </tr>
-        <!-- FSA PAID-->
-        <tr class="clr-litegray"
-            ng-if="tggl.showRentRows">
-            <td>FSA Pymt</td>
-            <td class="cBlue" ng-class="AppFactory.gtZero(f.fsa_paid)"
-                ng-repeat="f in loan.farmunits">
-                {{f.fsa_paid|flexCurrency:0}}
-            </td>
-            <td ng-class="AppFactory.gtZero(loan.fins.total_fsa_pay)">
-                {{loan.fins.total_fsa_pay|flexCurrency:0}}
-            </td>
-        </tr>
-        <!-- ARM RENT/ACRE-->
-        <tr class="clr-litegray"
-            ng-if="tggl.showRentRows && user.optimopts.rent_per_acre_ARM">
-            <td>ARM Rent/Ac</td>
-            <td ng-class="AppFactory.gtZero(f.cash_rent_acre_ARM)"
-                ng-repeat="f in loan.farmunits">
-                {{f.cash_rent_acre_ARM|flexCurrency:2}}
-            </td>
-            <td class="text-right">&nbsp;</td>
-        </tr>
-        <!-- DIST RENT/ACRE-->
-        <tr class="clr-litegray"
-            ng-if="tggl.showRentRows && user.optimopts.rent_per_acre_dist">
-            <td>Dist Rent/Ac</td>
-            <td ng-class="AppFactory.gtZero(f.cash_rent_acre_dist)"
-                ng-repeat="f in loan.farmunits">
-                {{f.cash_rent_acre_dist|flexCurrency:2}}
-            </td>
-            <td class="text-right">&nbsp;</td>
-        </tr>
-        <!-- 3P RENT/ACRE-->
-        <tr class="clr-litegray"
-            ng-if="tggl.showRentRows && user.optimopts.rent_per_acre_other">
-            <td>3P Rent/Ac</td>
-            <td ng-class="AppFactory.gtZero(f.cash_rent_acre_other)"
-                ng-repeat="f in loan.farmunits">
-                {{f.cash_rent_acre_other|flexCurrency:2}}
-            </td>
-            <td class="text-right">&nbsp;</td>
-        </tr>
-        <!-- FSA/ACRE-->
-        <tr class="clr-litegray"
-            ng-if="tggl.showRentRows">
-            <td>FSA/Ac</td>
-            <td ng-class="AppFactory.gtZero(f.fsa_acre)"
-                ng-repeat="f in loan.farmunits">
-                {{f.fsa_acre|flexCurrency:2}}
-            </td>
-            <td class="text-right">&nbsp;</td>
-        </tr>
-        </tbody>
-
-        <!-- CROP DIVIDER-->
-        <tr>
-            <td colspan="{{loan.farmunits.length + 2}}">
-                <strong>CROPS</strong>
-            </td>
-        </tr>
-
-        <tbody id="corn"
-               ng-if="tggl.tcropCorn"
-               ng-include="'./_modules/Loans/optimizer/_crop.corn.html'">
-        </tbody>
-
-        <tbody id="soybeans"
-               ng-if="tggl.tcropSoybeans"
-               ng-include="'./_modules/Loans/optimizer/_crop.soybeans.html'">
-        </tbody>
-
-        <tbody id="beansFAC"
-               ng-if="tggl.tcropBeansFAC"
-               ng-include="'./_modules/Loans/optimizer/_crop.beansfac.html'">
-        </tbody>
-
-        <tbody id="sorghum"
-               ng-if="tggl.tcropSorghum"
-               ng-include="'./_modules/Loans/optimizer/_crop.sorghum.html'">
-        </tbody>
-
-        <tbody id="wheat"
-               ng-if="tggl.tcropWheat"
-               ng-include="'./_modules/Loans/optimizer/_crop.wheat.html'">
-
-        </tbody>
-
-        <tbody id="cotton"
-               ng-if="tggl.tcropCotton"
-               ng-include="'./_modules/Loans/optimizer/_crop.cotton.html'">
-        </tbody>
-
-        <tbody id="rice"
-               ng-if="tggl.tcropRice"
-               ng-include="'./_modules/Loans/optimizer/_crop.rice.html'">
-        </tbody>
-
-        <tbody id="peanuts"
-               ng-if="tggl.tcropPeanuts"
-               ng-include="'./_modules/Loans/optimizer/_crop.peanuts.html'">
-        </tbody>
-
-        <tbody id="sugarcane"
-               ng-if="tggl.tcropSugarcane"
-               ng-include="'./_modules/Loans/optimizer/_crop.sugarcane.html'">
-        </tbody>
-
-        <tbody id="sunflowers"
-               ng-if="tggl.tcropSunflowers"
-               ng-include="'./_modules/Loans/optimizer/_crop.sunflowers.html'">
-        </tbody>
-
-        <tbody id="grandTotal">
-        <tr>
-            <td>TOTAL</td>
-            <td class="text-right"
-                ng-repeat="f in loan.farmunits">
-                {{f.total_acres|number:1}}
-            </td>
-            <td class="text-right">
-                {{loan.fins.total_acres|number:1}}
-            </td>
-        </tr>
-        </tbody>
-    </table>
-    <br/><br/>
+</div>
+<div class="row" style="margin-left: 20px;">
+    <p>
+        <a ng-click="createNewUnit()" class="btn btn-xs btn-default">
+            <span class="glyphicons glyphicons-circle-plus" style="color:#006837;"></span> Add New</a>
+    </p>
 </div>

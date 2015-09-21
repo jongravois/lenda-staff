@@ -1,12 +1,4 @@
-<div class="row">
-    <div class="col-md-12 text-right">
-        <button style="margin-right:10px;" class="btn btn-arm" ng-click="updateReferences()"><span class="glyphicons glyphicons-log-book"></span>&nbsp;UPDATE</button>
-    </div>
-</div>
-
-<br>
-
-<fieldset>
+<fieldset ng-if="loan.has_distributor">
     <legend>
         &nbsp;
         <span class="pendicon glyphicon glyphicon-chevron-right"
@@ -20,6 +12,18 @@
     <div class="container-fluid" ng-if="showDistributor">
         <div ng-include="'./_modules/Loans/references/_distributor.html'"></div>
     </div>
+    <p style="margin-top: 3px;" ng-if="loan.has_distributor" ng-show="showDistributor">
+    <span>
+        <input type="checkbox" ng-model="loan.applicant.rup"/>
+        &nbsp;<span class="small_txt">I use restricted use pesticides.</span>
+    </span>
+        &nbsp;
+    <span class="small_txt" ng-if="loan.applicant.rup">
+        RUP#:&nbsp;<input type="text" class="form-control" name="rup_num" ng-model="loan.applicant.rup_num" style="display:inline; width:100px" />
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        Expiration:&nbsp;<input type="date" class="form-control" name="rup_exp" ng-model="loan.applicant.rup_exp" style="display:inline; width:160px" />
+    </span>
+    </p>
 </fieldset>
 <br><br>
 <fieldset>
@@ -37,4 +41,11 @@
         <div ng-include="'./_modules/Loans/references/_references.html'"></div>
     </div>
 </fieldset>
+<br>
+<div class="row">
+    <div class="col-md-12 text-right">
+        <button style="margin-right:10px;" class="btn btn-arm" ng-click="updateReferences()"><span class="glyphicons glyphicons-log-book"></span>&nbsp;UPDATE</button>
+    </div>
+</div>
+
 <br><br><br><br>

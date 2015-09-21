@@ -64,5 +64,11 @@
                 weighted: weighted,
                 average: average
             });
+        })
+        .run(function ($rootScope, $location) {
+            $rootScope.$on('$stateChangeSuccess', function(event, toState) {
+                $rootScope.path = toState.url.substr(1);
+                //console.log($rootScope.path);
+            });
         });
 })();

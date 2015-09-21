@@ -9,6 +9,9 @@
         /* @ngInject */
         function MenuController($rootScope, $scope, $state, MenuFactory) {
             /* jshint validthis: true */
+            $scope.path = $rootScope.path;
+            //console.log('PATH', $scope.path);
+
             MenuFactory.getLoantypes()
                 .then(function success(rsp) {
                     $scope.loantypes = rsp.data.data;

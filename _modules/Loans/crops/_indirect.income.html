@@ -4,7 +4,7 @@
             <th style="width:19%;">Source</th>
             <th style="width:40%;">Description</th>
             <th style="width:19%;">Amount</th>
-            <th style="width:19%;">As Collateral?</th>
+            <th style="width:19%;">Collateral?</th>
             <th style="width:80px;">&nbsp;</th>
         </tr>
         <tr ng-if="loan.indyinc.length === 0">
@@ -40,7 +40,8 @@
                 	</span>
                 </form>
                 <div class="buttons" ng-show="!rowform.$visible">
-                	<span class="glyphicons glyphicons-remove-2" style="color: #990000;" ng-click="deleteIndirect($index, p.id)"></span>
+                    <span style="font-size: 16px; color: #990000;"
+                          ng-click="deleteIndirect($index, p.id)">&cross;</span>
                 </div>
             </td>
         </tr>
@@ -50,7 +51,7 @@
     <div class="form-group">
         <p>
             <a ng-click="addNewIndirect()" class="btn btn-xs btn-default">
-                <span class="glyphicon glyphicon-plus-sign" style="color:#006837;"></span> Add New</a>
+                <span class="glyphicons glyphicons-circle-plus" style="color:#006837;"></span> Add New</a>
         </p>
     </div>
 </div>

@@ -1,75 +1,23 @@
-<div class="row">
-    <div class="col-md-12 text-right">
-        <button style="margin-right:10px;" class="btn btn-arm" ng-click="updateInsurance()"><span class="glyphicons glyphicons-log-book"></span>&nbsp;UPDATE</button>
-    </div>
-</div>
-
-<br>
-
 <fieldset>
     <legend>Insurance</legend>
     <div class="container-fluid">
         <tabset>
-            <tab heading="AGENT/AGENCY">
-                <br/>
-                <div class="col-md-8 col-md-offset-1">
-                    <accordion close-others="true">
-                        <!--<accordion close-others="false">-->
-                        <accordion-group heading="No Agencies Found" ng-if="loan.insurance.agencies.length == 0">
-                            There are no insurance agencies associated with this loan.
-                        </accordion-group>
-                        <accordion-group ng-repeat="a in loan.insurance.agencies" is-open="a.is_open">
-                            <accordion-heading class="col-md-12">
-                                {{a.agency.agency}}
-                                <span>
-                                    <i class="pull-right glyphicon glyphicon-chevron-down" ng-if="a.is_open"></i>
-                                </span>
-                                <span>
-                                    <i class="pull-right glyphicon glyphicon-chevron-right" ng-if="!a.is_open"></i>
-                                </span>
-                            </accordion-heading>
-                            <div class="col-md-6">
-                                {{a.agency.agency}}
-                                <br/>
-                                {{a.agency.address}}
-                                <br/>
-                                {{a.agency.city}}, {{a.agency.state}}  {{a.agency.zip}}
-                                <br/>
-                                {{a.agency.phone|phone}}
-                                <br/>
-                                {{a.agency.email}}
-                            </div>
-                            <div class="col-md-6">
-                                {{a.agents[0].agent.agent}}
-                                <br/>
-                                {{a.agents[0].agent.agent_phone|phone}}
-                                <br/>
-                                {{a.agents[0].agent.agent_email}}
-                            </div>
-                        </accordion-group>
-                    </accordion>
-                </div>
-                <br/>
+            <tab heading="AGENT">
                 <div class="row">
-                    <div class="col-md-8 col-md-offset-1" style="margin:0 18px;">
-                        <a ng-click="createNewAgency()" class="btn btn-xs btn-default"><span class="glyphicon glyphicon-plus-sign" style="color:#006837;"></span> Add New</a>
-                        </p>
+                    <div class="form-group" style="margin-left: 15px;">
+                        <div ng-include="'./_modules/Loans/insurance/_agents.html'"></div>
                     </div>
-                </div>
-                <br/>
-                <div class="row" ng-if="addNewOne">
-                    <div class="col-md-10 col-md-offset-1">
-                        <form>
-                            <label>Agency</label>
-                            <input type="text" class="form-control" name="agency" ng-model="newAgency.agency"/>
-                        </form>
+                    <div class="row" style="margin-left: 15px;">
+                        <p>
+                            <a ng-click="createNewAgent()" class="btn btn-xs btn-default">
+                                <span class="glyphicons glyphicons-circle-plus" style="color:#006837;"></span> Add New</a>
+                        </p>
                     </div>
                 </div>
             </tab>
             <tab heading="POLICIES">
                 <table class="table table-striped rowed" style="width:100% !important;">
                     <tr>
-                        <th>Agent</th>
                         <th>ST | County</th>
                         <th>Crop</th>
                         <th>Practice</th>
@@ -78,6 +26,8 @@
                         <th>Options</th>
                         <th>Level</th>
                         <th>Price</th>
+                        <th>MPCI</th>
+                        <th>Stax/SCO</th>
                         <th>Premium</th>
                         <th>Late</th>
                         <th style="width: 80px;"></th>
@@ -96,17 +46,12 @@
                                 &blacktriangleright;&nbsp;
                             </span>
                             <span ng-if="!p.stax">&nbsp;&nbsp;</span>
-                            <span editable-text="p.agent.agent" e-name="agent.agent" e-form="rowform" e-style="width:100%;">
-                            	{{p.agent.agent}}
-                            </span>
-                        </td>
-                        <td class="text-left cBlue">
                             <span editable-text="p.county.locale" e-name="county.locale" e-form="rowform" e-style="width:100%;">
                             	{{p.county.locale}}
                             </span>
                         </td>
                         <td class="text-left cBlue">
-                            <span editable-text="p.crop.name" e-name="crop.name" e-form="rowform" e-style="width:100%;">
+                            <span editable-text="p.crop.name" e-name="crop.name" e-form="rowform" e-style="width:100%;" tooltip="Agent: {{p.agent.agent}}" tooltip-append-to-body="true" tooltip-placement="bottom">
                             	{{p.crop.name}}
                             </span>
                         </td>
@@ -141,6 +86,18 @@
                             </span>
                         </td>
                         <td class="text-right cBlue">
+                            <!--<span editable-number="p.mpci" e-name="mpci" e-form="rowform" e-style="width:100%;">-->
+                                <!-- TODO: MPCI calculation-->
+                            	{{285|flexCurrency:2}}
+                            <!--</span>-->
+                        </td>
+                        <td class="text-right cBlue">
+                            <!--<span editable-number="p.stax_sco" e-name="stax_sco" e-form="rowform" e-style="width:100%;">-->
+                            	<!--{{p.stax_sco|flexCurrency:2}}-->
+                                {{83.90|flexCurrency:2}}
+                            <!--</span>-->
+                        </td>
+                        <td class="text-right cBlue">
                             <span editable-number="p.premium" e-name="premium" e-form="rowform" e-style="width:100%;">
                             	{{p.premium|flexCurrency:2}}
                             </span>
@@ -161,7 +118,8 @@
                             	</span>
                             </form>
                             <div class="buttons" ng-show="!rowform.$visible">
-                            	<span class="glyphicons glyphicons-remove-2" style="color: #990000;" ng-click="deleteInspol($index, p.id)"></span>
+                                <span style="font-size: 16px; color: #990000;"
+                                      ng-click="deleteInspol($index, p.id)">&cross;</span>
                             </div>
                         </td>
                     </tr>
@@ -169,7 +127,7 @@
                         ng-if="p.stax"
                         ng-show="p.showStax"
                         ng-hide="!p.showStax">
-                        <td colspan="3">&nbsp;</td>
+                        <td colspan="2">&nbsp;</td>
                         <td colspan="2" class="text-right">
                             <label style="font-weight: normal;">
                                 STAX Loss Trigger:
@@ -209,7 +167,7 @@
                     </tr>
                 </table>
                 <p>
-                    <a ng-click="createNewInspol()" class="btn btn-xs btn-default"><span class="glyphicon glyphicon-plus-sign" style="color:#006837;"></span> Add New</a>
+                    <a ng-click="createNewInspol()" class="btn btn-xs btn-default"><span class="glyphicons glyphicons-circle-plus" style="color:#006837;"></span> Add New</a>
                 </p>
             </tab>
             <tab heading="DATABASE">
@@ -221,7 +179,7 @@
                         <th>FSN</th>
                         <th>Landlord</th>
                         <th>Perm To Ins</th>
-                        <th>Share</th>
+                        <th>Ins Share</th>
                         <th>APH</th>
                         <th style="width:80px;">&nbsp;</th>
                     </tr>
@@ -266,13 +224,28 @@
                             	</span>
                             </form>
                             <div class="buttons" ng-show="!rowform9.$visible">
-                            	<span class="glyphicons glyphicons-remove-2" style="color: #990000;" ng-click="deleteDatabase($index, p.id)"></span>
+                                <span style="font-size: 16px; color: #990000;"
+                                      ng-click="deleteDatabase($index, p.id)">&cross;</span>
                             </div>
                         </td>
                     </tr>
                 </table>
+                <p>
+                    <!-- TODO: Able to add new aphdb but if no match, turn red-->
+                    <a ng-click="createNewAphDatabase()" class="btn btn-xs btn-default">
+                        <span class="glyphicons glyphicons-circle-plus" style="color:#006837;"></span> Add New</a>
+                </p>
             </tab>
         </tabset>
         <br><br>
 </fieldset>
+
+<br>
+
+<div class="row">
+    <div class="col-md-12 text-right">
+        <button style="margin-right:10px;" class="btn btn-arm" ng-click="updateInsurance()"><span class="glyphicons glyphicons-log-book"></span>&nbsp;UPDATE</button>
+    </div>
+</div>
+
 <br><br><br><br>

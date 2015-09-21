@@ -10,15 +10,15 @@
         <th style="width:12%;">Net Value</th>
         <th style="width: 80px;">&nbsp;</th>
     </tr>
-    <tr ng-repeat="q in loan.collateral.equipment" ng-init="!rowform.$visible" ng-dblclick="rowform.$show()">
+    <tr ng-repeat="q in loan.collateral.fsa" ng-init="!rowform.$visible" ng-dblclick="rowform.$show()">
         <td class="cBlue">
             <span editable-text="q.description" e-name="description" e-form="rowform" e-style="width:100%;" e-required>
-                {{q.description || 'empty'}}
+                {{q.description}}
             </span>
         </td>
         <td class="cBlue">
             <span editable-text="q.source" e-name="source" e-form="rowform" e-style="width:100%;" e-required>
-                {{q.source || 'empty'}}
+                {{q.source}}
             </span>
         </td>
         <td class="cBlue" ng-class="AppFactory.gtZero(q.mkt_value)">
@@ -57,14 +57,14 @@
     </tr>
     <tr class="success">
         <td colspan="6">Total</td>
-        <td class="text-right" ng-class="AppFactory.gtZero(AppFactory.calcOtherCollateralByType('equipment', loan))">
-            {{AppFactory.calcOtherCollateralByType('equipment', loan)|flexCurrency:0}}
+        <td class="text-right" ng-class="AppFactory.gtZero(AppFactory.calcOtherCollateralByType('fsa', loan))">
+            {{AppFactory.calcOtherCollateralByType('fsa', loan)|flexCurrency:0}}
         </td>
         <td>&nbsp;</td>
     </tr>
     <tr>
         <td colspan="8">
-            <a ng-click="createOtherCollateral('equipment')" class="btn btn-xs btn-default">
+            <a ng-click="createOtherCollateral('fsa')" class="btn btn-xs btn-default">
                 <span class="glyphicons glyphicons-circle-plus" style="color:#006837;"></span> Add New</a>
         </td>
     </tr>

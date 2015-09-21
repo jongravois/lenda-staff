@@ -9,6 +9,10 @@
         function ReferencesController($rootScope, $scope, $state, $stateParams, SweetAlert, AppFactory){
             $scope.newapplications = $state.current.data.newapplications;
 
+            if($scope.loan.applicant.rup_exp) {
+                $scope.loan.applicant.rup_exp = new Date($scope.loan.applicant.rup_exp);
+            }
+
             $scope.showDistributor = false;
             $scope.showReference = false;
 

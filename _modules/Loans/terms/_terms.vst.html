@@ -1,176 +1,113 @@
 <div class="row">
-    <form editable-form name="editableForm" onaftersave="saveTerms()">
-        <table class="table table-striped rowed" style="width:70%;">
-            <!-- DUE DATE-->
-            <tr ng-dblclick="editableForm.$show()">
-                <td style="width:22%;">Loan Due Date</td>
-                <td class="text-right cblue">
-                    <a href="#" editable-bsdate="loan.due_date" e-datepicker-popup="dd-MMMM-yyyy">
-                        {{loan.due_date|date:'MM/dd/yyyy'}}
-                    </a>
-                </td>
-                <td>&nbsp;</td>
-            </tr>
+    <table class="table table-striped rowed" style="width:70%;">
+        <!-- OPTIONAL Modification Date LINE-->
+        <tr ng-if="loan.terms.length > 1">
+            <td>Loan Modification Date</td>
+            <td class="text-right" ng-repeat="t in loan.terms">
+                {{t.modification_date|date:'MM/d/yyyy'}}
+            </td>
+            <td class="text-center">Totals</td>
+        </tr>
 
-            <!-- ORIGINATION FEE-->
-            <tr ng-dblclick="editableForm.$show()">
-                <td style="width:22%;">Loan Origination Fee</td>
-                <td class="text-right" style="width:10%;">
-                    <a href="#" editable-text="loan.fins.fee_processing">
-                        {{loan.fins.fee_processing|flexPercent:1}}
-                    </a>
-                </td>
-                <td class="text-right" style="width:8%;">
-                            <span ng-if="loan.fins.fee_onTotal">
-                              {{loan.fins.proc_fee | flexCurrency:0}}
-                            </span>
-                            <span ng-if="!loan.fins.fee_onTotal">
-                              {{loan.fins.proc_fee_arm_only | flexCurrency:0}}
-                            </span>
-                </td>
-            </tr>
+        <!-- DUE DATE-->
+        <tr>
+            <td style="width:200px;">Loan Due Date</td>
+            <td class="text-right" ng-repeat="t in loan.terms">
+                {{t.due_date|date:'MM/dd/yyyy'}}
+            </td>
+            <td style="width: 200px !important;">&nbsp;</td>
+        </tr>
 
-            <!-- SVC FEE-->
-            <tr ng-dblclick="editableForm.$show()">
-                <td>Loan Service Fee</td>
-                <td class="text-right">
-                    <a href="#" editable-text="loan.fins.fee_service">
-                        {{loan.fins.fee_service|flexPercent:1}}
-                    </a>
-                </td>
-                <td class="text-right">
-                            <span ng-if="loan.fins.fee_service_onTotal">
-                              {{loan.fins.srvc_fee|flexCurrency:0}}
-                            </span>
-                            <span ng-if="!loan.fins.fee_service_onTotal">
-                              {{loan.fins.srvc_fee_arm_only | flexCurrency:0}}
-                            </span>
-                </td>
-            </tr>
-
-            <!-- ARM INTEREST-->
-            <tr ng-dblclick="editableForm.$show()">
-                <td>ARM Interest Rate</td>
-                <td class="text-right">
-                    <a href="#" editable-text="loan.fins.int_percent_arm">
-                        {{loan.fins.int_percent_arm|flexPercent:1}}
-                    </a>
-                </td>
-                <td class="text-right">
-                    {{loan.fins.int_arm|flexCurrency:0}}*
-                </td>
-            </tr>
-
-            <!-- DIST INTEREST (only AGI)-->
-            <tr ng-dblclick="editableForm.$show()"
-                ng-if="loan.has_distributor">
-                <td>Distributor Interest Rate</td>
-                <td class="text-right">
-                    <a href="#" editable-text="loan.fins.int_percent_dist">
-                        {{loan.fins.int_percent_dist|flexPercent:1}}
-                    </a>
-                </td>
-                <td class="text-right">
-                    {{loan.fins.int_dist|flexCurrency:0}}*
-                </td>
-            </tr>
-
-            <tr ng-show="editableForm.$visible">
-                <td colspan="3">
-                    <button type="submit" class="btn btn-primary" ng-disabled="editableForm.$waiting">
-                        Save
-                    </button>
-                    <button type="button" class="btn btn-default" ng-disabled="editableForm.$waiting" ng-click="editableForm.$cancel()">
-                        Cancel
-                    </button>
-                </td>
-            </tr>
-        </table>
-    </form>
-    <p style="margin-top: -18px;">
-        <span class="small_txt">* Interest amounts are best estimates</span>
-        <br>
-                <span class="small_txt" ng-if="loan.loan_type_id === 2">
-                    <span ng-if="loan.loan_type_id === 2">
-                        <input type="checkbox" ng-model="loan.financials.dist_buyDown"/>
-                    </span>
-                    &nbsp;Distributor Buy Down
+        <!-- ORIGINATION FEE-->
+        <tr>
+            <td>Loan Origination Fee</td>
+            <td class="text-right" ng-repeat="t in loan.terms">
+                {{t.fee_processing_arm|flexPercent:1}}
+            </td>
+            <td class="text-right">
+                <span ng-if="loan.fins.fee_onTotal">
+                  {{AppFactory.calcArmDistProcFee(loan)|flexCurrency:0}}
                 </span>
+                <span ng-if="!loan.fins.fee_onTotal">
+                  {{AppFactory.calcArmProcFee(loan)|flexCurrency:0}}
+                </span>
+            </td>
+        </tr>
+
+        <!-- SVC FEE-->
+        <tr>
+            <td>Loan Service Fee</td>
+            <td class="text-right" ng-repeat="t in loan.terms">
+                {{t.fee_service_arm|flexPercent:1}}
+            </td>
+            <td class="text-right">
+                <span ng-if="loan.fins.fee_onTotal">
+                  {{AppFactory.calcArmDistSrvcFee(loan)|flexCurrency:0}}
+                </span>
+                <span ng-if="!loan.fins.fee_onTotal">
+                  {{AppFactory.calcArmSrvcFee(loan)|flexCurrency:0}}
+                </span>
+            </td>
+        </tr>
+
+        <!-- ARM INTEREST-->
+        <tr>
+            <td>ARM Interest Rate</td>
+            <td class="text-right" ng-repeat="t in loan.terms">
+                {{t.int_percent_arm|flexPercent:1}}
+            </td>
+            <td class="text-right">
+                {{AppFactory.calcArmInterest(loan)|flexCurrency:0}}*
+            </td>
+        </tr>
+    </table>
+    <p style="margin-top: -18px;">
+        <span class="small_txt">* Interest amounts are best estimates for {{loan.est_days}} estimated days</span>
+        <br>
+        <span class="small_txt">
+            <input type="checkbox" ng-model="loan.fins.dist_buyDown"/>
+            &nbsp;Distributor Buy Down
+        </span>
     </p>
 </div>
-<div class="row" ng-if="loan.financials.dist_buyDown">
-    <form editable-form name="editableForm2" onaftersave="saveTerms()">
-        <table class="table table-striped rowed" style="width:70%;">
-            <!-- Svc Buy Down (not greater than Loan Service Fee)-->
-            <tr ng-dblclick="editableForm.$show()">
-                <td style="width:22%;">Service Fee Buy Down</td>
-                <td class="text-right cblue">
-                    <a href="#" editable-bsdate="loan.due_date" e-datepicker-popup="dd-MMMM-yyyy">
-                        {{loan.due_date|date:'MM/dd/yyyy'}}
-                    </a>
-                </td>
-                <td>&nbsp;</td>
-            </tr>
+<div class="row" ng-if="loan.fins.dist_buyDown">
+    <table class="table table-striped rowed" style="width:70%;">
+        <!-- Svc Buy Down (not greater than Loan Service Fee)-->
+        <tr>
+            <td style="width:200px;">Fee Buy Down</td>
+            <td class="text-right" ng-repeat="t in loan.terms">
+                <a href="#" editable-text="loan.fins.fee_processing">
+                    {{loan.fins.fee_processing|flexPercent:1}}
+                </a>
+            </td>
+            <td class="text-right" style="width: 200px !important;">
+                    <span ng-if="loan.fins.fee_onTotal">
+                      {{loan.fins.proc_fee | flexCurrency:0}}
+                    </span>
+                    <span ng-if="!loan.fins.fee_onTotal">
+                      {{loan.fins.proc_fee_arm_only | flexCurrency:0}}
+                    </span>
+            </td>
+        </tr>
 
-            <!-- Int Rate Buy Down (not greater than ARM Int Rate)-->
-            <tr ng-dblclick="editableForm.$show()">
-                <td style="width:22%;">Interest Rate Buy Down</td>
-                <td class="text-right" style="width:10%;">
-                    <a href="#" editable-text="loan.fins.fee_processing">
-                        {{loan.fins.fee_processing|flexPercent:1}}
-                    </a>
-                </td>
-                <td class="text-right" style="width:8%;">
-                            <span ng-if="loan.fins.fee_onTotal">
-                              {{loan.fins.proc_fee | flexCurrency:0}}
-                            </span>
-                            <span ng-if="!loan.fins.fee_onTotal">
-                              {{loan.fins.proc_fee_arm_only | flexCurrency:0}}
-                            </span>
-                </td>
-            </tr>
-
-            <!-- SRV FEE To Distributor-->
-            <tr ng-dblclick="editableForm.$show()">
-                <td>Service Fee to Distributor</td>
-                <td class="text-right">
-                    <a href="#" editable-text="loan.fins.fee_service">
-                        {{loan.fins.fee_service|flexPercent:1}}
-                    </a>
-                </td>
-                <td class="text-right">
-                            <span ng-if="loan.fins.fee_service_onTotal">
-                              {{loan.fins.srvc_fee|flexCurrency:0}}
-                            </span>
-                            <span ng-if="!loan.fins.fee_service_onTotal">
-                              {{loan.fins.srvc_fee_arm_only | flexCurrency:0}}
-                            </span>
-                </td>
-            </tr>
-
-            <!-- SVC FEE To Borrower-->
-            <tr ng-dblclick="editableForm.$show()">
-                <td>Service Fee to Borrower</td>
-                <td class="text-right">
-                    <a href="#" editable-text="loan.fins.int_percent_arm">
-                        {{loan.fins.int_percent_arm|flexPercent:1}}
-                    </a>
-                </td>
-                <td class="text-right">
-                    {{loan.fins.int_arm|flexCurrency:0}}*
-                </td>
-            </tr>
-
-            <tr ng-show="editableForm.$visible">
-                <td colspan="3">
-                    <button type="submit" class="btn btn-primary" ng-disabled="editableForm.$waiting">
-                        Save
-                    </button>
-                    <button type="button" class="btn btn-default" ng-disabled="editableForm.$waiting" ng-click="editableForm.$cancel()">
-                        Cancel
-                    </button>
-                </td>
-            </tr>
-        </table>
-    </form>
+        <!-- Int Rate Buy Down (not greater than ARM Int Rate)-->
+        <tr>
+            <td>Interest Rate Buy Down</td>
+            <td class="text-right" ng-repeat="t in loan.terms">
+                <a href="#" editable-text="loan.fins.fee_processing">
+                    {{loan.fins.fee_processing|flexPercent:1}}
+                </a>
+            </td>
+            <td class="text-right">
+                <span ng-if="loan.fins.fee_onTotal">
+                  {{loan.fins.proc_fee | flexCurrency:0}}
+                </span>
+                <span ng-if="!loan.fins.fee_onTotal">
+                  {{loan.fins.proc_fee_arm_only | flexCurrency:0}}
+                </span>
+            </td>
+        </tr>
+    </table>
+    <p><a ng-click="editTerms()" class="btn btn-xs btn-default">
+        <span class="glyphicons glyphicons-circle-exclamation-mark" style="color:#006837;"></span> Modify</a></p>
 </div>

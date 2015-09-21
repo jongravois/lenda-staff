@@ -4,12 +4,25 @@
     </a>
     <span class="sp_controls">
         <notificator counts="user.notificator" ng-if="user.notifications.length > 0"></notificator>
-        Welcome, {{user.name}}
+        <span class="glyphicons glyphicons-user cGreen" style="margin-top:6px;"></span>
+        {{user.name}}
         &nbsp;&nbsp;|&nbsp;&nbsp;
-        Location: {{user.loc_abr}}
+        <span class="glyphicons glyphicons-cluster cGreen" style="margin-top:6px;"></span>
+        {{user.loc_abr}}
         &nbsp;&nbsp;|&nbsp;&nbsp;
-        <a ui-sref="arm.prefs">My Settings</a>
+        <a ui-sref="arm.library.home">
+            <span class="glyphicons glyphicons-book-open cGreen" style="margin-top:6px;"></span>
+            Library
+        </a>
         &nbsp;&nbsp;|&nbsp;&nbsp;
-        <a href="#" ng-click="logout()">Logout</a>
+        <a ui-sref="arm.prefs">
+            <span class="glyphicons glyphicons-settings cGreen" style="margin-top:6px;"></span>
+            My Settings
+        </a>
+        &nbsp;&nbsp;|&nbsp;&nbsp;
+        <a href="#" ng-click="logout()">
+            <span class="glyphicons glyphicons-log-out cGreen" style="margin-top:6px;"></span>
+            Logout
+        </a>
     </span>
 </div>

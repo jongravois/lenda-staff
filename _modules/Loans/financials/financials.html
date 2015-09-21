@@ -11,113 +11,61 @@
     .ngHeaderContainer .ngHeaderCell{
         text-align: center;
     }
-    .armer { background-color: #990000 !important; color: white !important;}
+    .armer { background-color: #FFFF66 !important; color: black !important;}
+    .dividerCol {width:2px !important; background-color: #006837 !important; border: none !important;}
 </style>
-<div class="row">
-    <div class="col-md-12 text-right">
-        <button style="margin-right:10px;" class="btn btn-arm" ng-click="updateFinancials()"><span class="glyphicons glyphicons-log-book"></span>&nbsp;UPDATE</button>
-    </div>
-</div>
-
-<br>
-
 <fieldset>
     <legend>Financials</legend>
     <div class="container-fluid">
         <div>
             <div class="row">
+                <span style="position:absolute;top:58px;right:54px;font-size:18px;">
+                    <strong>
+                        {{loan.applicant.fins.grade}}-{{loan.applicant.fins.credit_score|number:0}}
+                    </strong>
+                </span>
                 <div class="col-md-12">
                     <!-- CUSTOMER INFO-->
-                    <table class="table table-striped rowed table-condensed disp-sm" style="width: 70%;">
+                    <table class="table table-striped rowed table-condensed disp-sm" style="width: 80%;">
                         <tr>
-                            <th colspan="5">Customer Info</th>
+                            <th colspan="2" class="bright">Customer Info</th>
+                            <th colspan="2">Financial Ratios</th>
                         </tr>
                         <tr>
-                            <td style="width: 20%;">
-                                Customer
-                            </td>
-                            <td style="width: 25%;" class="cBlue">
-                                <strong>{{loan.applicant.applicant}}</strong>
-                            </td>
-                            <td style="width: 10%;">&nbsp;</td>
-                            <td style="width: 20%;">
-                                Borrower Rating
-                            </td>
-                            <td style="width: 25%;" class="text-center">
-                                <strong>{{loan.applicant.fins.grade}}</strong>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Credit Score</td>
-                            <td class="text-right cBlue">
+                            <td style="width:25%;">Credit Score</td>
+                            <td class="text-right cBlue bright" style="width:25%;">
                                 <strong>{{loan.applicant.fins.credit_score|number:0}}</strong>
                             </td>
-                            <td>&nbsp;</td>
-                            <td>Credit Points</td>
-                            <td class="text-right">
+                            <td style="width:25%;">Credit Points</td>
+                            <td class="text-right" style="width:25%;">
                                 <strong>{{creditPoints.total|number:0}}</strong>
                             </td>
                         </tr>
                         <tr>
-                            <td>Years Farming</td>
-                            <td class="text-right cBlue">
-                                <strong>{{loan.farmer.farm_exp}}</strong>
+                            <td>Requested Credit</td>
+                            <td class="text-right cBlue bright">
+                                <strong>{{loan.applicant.fins.amount_requested|flexCurrency:0}}</strong>
                             </td>
-                            <td>&nbsp;</td>
                             <td>Debts/Assets</td>
                             <td class="text-right">
                                 <strong>{{getDebtToAssets()|flexPercent:0}}</strong>
                             </td>
                         </tr>
                         <tr>
-                            <td>Requested Credit</td>
-                            <td class="text-right cBlue">
-                                <strong>{{loan.applicant.fins.amount_requested|flexCurrency:0}}</strong>
+                            <td>CPA Financials</td>
+                            <td class="text-center bright">
+                                <input type="checkbox" ng-model="loan.applicant.fins.cpa_financials">
                             </td>
-                            <td>&nbsp;</td>
                             <td>Loan / Net Worth</td>
                             <td class="text-right">
                                 <strong>{{getLoanNetworth()|flexPercent:0}}</strong>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>CPA Financials</td>
-                            <td class="text-center">
-                                <input type="checkbox" ng-model="loan.applicant.fins.cpa_financials">
-                            </td>
-                            <td>&nbsp;</td>
-                            <td>Ag Pro Fast Track</td>
-                            <td class="text-right">
-                                <strong>{{1000000|flexCurrency:0}}</strong>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Bankruptcy</td>
-                            <td class="text-center">
-                                <input type="checkbox" ng-model="loan.applicant.fins.bankruptcy">
-                            </td>
-                            <td>&nbsp;</td>
-                            <td>Capital Bridge</td>
-                            <td class="text-right">
-                                <strong>{{350000|flexCurrency:0}}</strong>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Judgement</td>
-                            <td class="text-center">
-                                <input type="checkbox" ng-model="loan.applicant.fins.judgements">
-                            </td>
-                            <td>&nbsp;</td>
-                            <td>Ag-Vest</td>
-                            <td class="text-right">
-                                <strong>{{350000|flexCurrency:0}}</strong>
                             </td>
                         </tr>
                     </table>
                     <br><br>
 
                     <!-- BALANCE SHEET-->
-                    <table class="table table-striped rowed table-condensed disp-sm">
+                    <table class="table table-striped rowed table-condensed disp-sm" style="width: 80%;">
                         <tr>
                             <th>Balance Sheet</th>
                             <th>Asset</th>
@@ -202,12 +150,12 @@
                     <br><br>
 
                     <!-- INCOME HISTORY-->
-                    <table class="table table-striped rowed table-condensed disp-sm" style="width: 70%;">
+                    <table class="table table-striped rowed table-condensed disp-sm" style="width: 80%;">
                         <tr>
-                            <th>Income History</th>
-                            <th>Revenue</th>
-                            <th>Expenses</th>
-                            <th>Income</th>
+                            <th style="width:25%;">Income History</th>
+                            <th style="width:25%;">Revenue</th>
+                            <th style="width:25%;">Expenses</th>
+                            <th style="width:25%;">Income</th>
                         </tr>
                         <tr>
                             <td>Year 1</td>
@@ -406,10 +354,9 @@
                     <br><br>
 
                     <!-- BORROWER CONSTRAINT-->
-                    <table class="table table-striped rowed table-condensed disp-sm" style="width: 70%">
+                    <table class="table table-striped rowed table-condensed disp-sm" style="width: 80%;">
                         <tr>
                             <th style="width:25%;">Borrower Evaluation</th>
-                            <th style="width:15%;" class="text-center bright">A</th>
                             <th style="width:15%;">A</th>
                             <th style="width:15%;">B</th>
                             <th style="width:15%;">C</th>
@@ -417,7 +364,6 @@
                         </tr>
                         <tr>
                             <td>CPA Financials</td>
-                            <td class="text-center bright">Yes</td>
                             <td class="text-center armer">Yes</td>
                             <td class="text-center"></td>
                             <td class="text-center"></td>
@@ -425,7 +371,6 @@
                         </tr>
                         <tr>
                             <td>Bankruptcy</td>
-                            <td class="text-center bright">No</td>
                             <td class="text-center armer">No</td>
                             <td class="text-center">No</td>
                             <td class="text-center"></td>
@@ -433,7 +378,6 @@
                         </tr>
                         <tr>
                             <td>Judgement</td>
-                            <td class="text-center bright">No</td>
                             <td class="text-center armer">No</td>
                             <td class="text-center">No</td>
                             <td class="text-center"></td>
@@ -441,31 +385,27 @@
                         </tr>
                         <tr>
                             <td>Credit Points</td>
-                            <td class="text-center bright ">33</td>
                             <td class="text-center armer">30</td>
                             <td class="text-center">28</td>
                             <td class="text-center">25</td>
                             <td class="text-center">22</td>
                         </tr>
-                        <tr>
+                        <tr ng-if="loan.loan_type_id === 3 || loan.loan_type_id === 4">
                             <td>Ag-Pro Max</td>
-                            <td class="text-center bright">-</td>
                             <td class="text-right armer">{{1000000|flexCurrency:0}}</td>
                             <td class="text-right">{{500000|flexCurrency:0}}</td>
                             <td class="text-center">-</td>
                             <td class="text-center">-</td>
                         </tr>
-                        <tr>
+                        <tr ng-if="loan.loan_type_id === 5">
                             <td>Capital Bridge Max</td>
-                            <td class="text-center bright">-</td>
                             <td class="text-right armer">{{1000000|flexCurrency:0}}</td>
                             <td class="text-right">{{500000|flexCurrency:0}}</td>
                             <td class="text-right">{{100000|flexCurrency:0}}</td>
                             <td class="text-center">-</td>
                         </tr>
-                        <tr>
+                        <tr ng-if="loan.loan_type_id === 6">
                             <td>Ag-Vest Max</td>
-                            <td class="text-center bright">-</td>
                             <td class="text-right armer">{{1000000|flexCurrency:0}}</td>
                             <td class="text-right">{{500000|flexCurrency:0}}</td>
                             <td class="text-right">{{100000|flexCurrency:0}}</td>
@@ -477,4 +417,13 @@
         </div>
     </div>
 </fieldset>
+
+<br>
+
+<div class="row">
+    <div class="col-md-12 text-right">
+        <button style="margin-right:10px;" class="btn btn-arm" ng-click="updateFinancials()"><span class="glyphicons glyphicons-log-book"></span>&nbsp;UPDATE</button>
+    </div>
+</div>
+
 <br><br><br><br>

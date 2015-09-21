@@ -86,12 +86,16 @@
                 return true;
             };
 
-            $scope.btnCommentOk = function(comm) {
-                alert('clicked');
-                return comm.status = true;
+            $scope.btnAcceptComment = function(comm) {
+                alert(comm.accepted);
+                console.log(comm);
+            }
+            $scope.btnCommentAccepted = function(comm) {
+                alert('You have already accepted this comment.');
             }
             $scope.btnCommentReply = function(comm) {
-                alert('Replying');
+                alert(comm.accepted);
+                console.log(comm);
             }
             //////////
 

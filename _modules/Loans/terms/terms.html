@@ -1,26 +1,58 @@
 <style>
-    .editable-click, a.editable-click {
-        color: #000099 !important;
-        border: none !important;
+    .voteicon{ cursor: pointer; }
+    .btn-group button{
+        width: 100px !important;
+        min-width: 100px !important;
+        max-width: 100px !important;
+    }
+    table{
+        -moz-user-select: -moz-none;
+        -webkit-user-select: none;
+        user-select: none;
     }
 </style>
+
+<fieldset>
+    <legend>Terms</legend>
+    <div class="row" style="margin-right: 20px;">
+        <div class="btn-group btn-group-sm pull-right" role="group">
+            <button type="button"
+                    class="btn btn-arm" ng-click="useAll()">
+                <span class="glyphicons glyphicons-check" ng-if="showALL"></span>
+                <span class="glyphicons glyphicons-unchecked" ng-if="!showALL"></span>
+                ALL
+            </button>
+            <button type="button"
+                    class="btn btn-arm" ng-click="useAgi()">
+                <span class="glyphicons glyphicons-check" ng-if="showAGI"></span>
+                <span class="glyphicons glyphicons-unchecked" ng-if="!showAGI"></span>
+                AGI
+            </button>
+            <button type="button"
+                    class="btn btn-arm" ng-click="useVst()">
+                <span class="glyphicons glyphicons-check" ng-if="showVST"></span>
+                <span class="glyphicons glyphicons-unchecked" ng-if="!showVST"></span>
+                VST
+            </button>
+        </div>
+    </div>
+    <br>
+    <div> <!--ng-switch="loan.loan_type_id">-->
+        <div class="container-fluid" ng-if="showAGI"> <!-- ng-switch-when="2"-->
+             <div ng-include="'./_modules/Loans/terms/_terms.agi.html'"></div>
+        </div>
+        <div class="container-fluid" ng-if="showVST"> <!-- ng-switch-when="6"-->
+             <div ng-include="'./_modules/Loans/terms/_terms.vst.html'"></div>
+        </div>
+        <div class="container-fluid" ng-if="showALL"> <!-- ng-switch-default-->
+             <div ng-include="'./_modules/Loans/terms/_terms.def.html'"></div>
+        </div>
+    </div>
+</fieldset>
+<br>
 <div class="row">
     <div class="col-md-12 text-right">
         <button style="margin-right:10px;" class="btn btn-arm" ng-click="updateTerms()"><span class="glyphicons glyphicons-log-book"></span>&nbsp;UPDATE</button>
     </div>
 </div>
-<br>
-<fieldset>
-    <legend>Terms</legend>
-    <div ng-switch="loan.loan_type_id">
-        <div class="container-fluid" ng-switch-when="2">
-             <div ng-include="'./_modules/Loans/terms/_terms.agi.html'"></div>
-        </div>
-        <div class="container-fluid" ng-switch-when="6">
-             <div ng-include="'./_modules/Loans/terms/_terms.vst.html'"></div>
-        </div>
-        <div class="container-fluid" ng-switch-default>
-             <div ng-include="'./_modules/Loans/terms/_terms.def.html'"></div>
-        </div>
-    </div>
-</fieldset>
+<br><br><br><br>

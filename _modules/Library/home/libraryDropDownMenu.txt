@@ -1,0 +1,27 @@
+&nbsp;&nbsp;|&nbsp;&nbsp;
+        <span class="dropdown" dropdown on-toggle="toggled(open)">
+            <a href class="dropdown-toggle" dropdown-toggle>Library <span class="menuglyphs glyphicons glyphicons-chevron-down"></span></a>
+            <ul class="dropdown-menu" role="menu">
+                <li>
+                    <a ui-sref="arm.library.classroom">Classroom</a>
+                </li>
+                <li>
+                    <a ui-sref="arm.library.resources">Employee Resources</a>
+                </li>
+                <li>
+                    <a  ui-sref="arm.library.legaldocs">Legal Documents</a>
+                </li>
+                <li>
+                    <a  ui-sref="arm.library.loanproducts">Loan Products</a>
+                </li>
+                <li>
+                    <a  ui-sref="arm.library.polsprocs">Policies &amp; Procedures</a>
+                </li>
+                <li>
+                    <a  ui-sref="arm.library.matrix">Responsibility Matrix</a>
+                </li>
+                <li>
+                    <a  ui-sref="arm.library.guide">User Guide</a>
+                </li>
+            </ul>
+        </span>

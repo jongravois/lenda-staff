@@ -22,7 +22,7 @@
         $scope.landing_view = 'settings';
         $scope.returnColor = AppFactory.returnColor;
 
-        if(!$rootScope.currentUser) {
+        if (!$rootScope.currentUser) {
             try {
                 var user = JSON.parse(localStorage.getItem('user'));
             } catch (exception) {
@@ -34,26 +34,30 @@
         $scope.user = user;
         //console.log('user', user);
 
-        LoansFactory.getLoans()
-            .then(function(rsp){
-                //console.log(rsp);
-                $scope.loans = rsp;
-                $scope.indWid = AppFactory.getIndicatorWidth($scope.user);
-                var LoansBySettings = AppFactory.filterLoans($scope.loans, 'settings');
-                var settingsLoans = $scope.sortLoans(LoansBySettings, 1);
-                $scope.sortedLoanList = settingsLoans;
-                $rootScope.loans = settingsLoans;
-                $scope.hgt = $scope.sortedLoanList.length * 38;
-                if($scope.hgt < 300) { $scope.hgt = 300; }
+        if (!$rootScope.loans) {
+            LoansFactory.getLoans()
+                .then(function (rsp) {
+                    //console.log(rsp);
+                    $scope.loans = rsp;
+                    $scope.indWid = AppFactory.getIndicatorWidth($scope.user);
+                    var LoansBySettings = AppFactory.filterLoans($scope.loans, 'settings');
+                    var settingsLoans = $scope.sortLoans(LoansBySettings, 1);
+                    $scope.sortedLoanList = settingsLoans;
+                    $rootScope.loans = settingsLoans;
+                    $scope.hgt = $scope.sortedLoanList.length * 38;
+                    if ($scope.hgt < 300) {
+                        $scope.hgt = 300;
+                    }
 
-                var data = AppFactory.getSortedData($scope.pendingView, $scope.sortedLoanList);
+                    var data = AppFactory.getSortedData($scope.pendingView, $scope.sortedLoanList);
 
-                $scope.gridOptions.rowData = data;
-                if ($scope.gridOptions.api) {
-                    $scope.gridOptions.api.onNewRows();
-                }
-                console.log('Loans', $scope.loans);
-            });
+                    $scope.gridOptions.rowData = data;
+                    if ($scope.gridOptions.api) {
+                        $scope.gridOptions.api.onNewRows();
+                    }
+                    console.log('Loans', $scope.loans);
+                });
+        }
 
         var columnDefs = [
             {

@@ -2,6 +2,7 @@
     <tr>
         <th>Loan Covenants and Agreements</th>
         <th style="width:100px;">Fulfilled</th>
+        <th style="width:40px !important;">&nbsp;</th>
     </tr>
     <tr ng-repeat="c in loan.loanconditions|filter:{category: 'loan'}">
         <td ng-class="{'red': c.status == 'pending'}">
@@ -11,6 +12,7 @@
         <td ng-show="c.status == 'pending'" class="text-center">
             <button class="btn btn-xs btn-error" ng-click="verifyCondition($index)">Fulfill</button>
         </td>
+        <td>&nbsp;</td>
     </tr>
 </table>
 <br/>
@@ -18,6 +20,7 @@
     <tr>
         <th>Personal Guarantees</th>
         <th style="width:100px;">Fulfilled</th>
+        <th style="width:40px !important;">&nbsp;</th>
     </tr>
     <tr ng-repeat="c in loan.loanconditions|filter:{category: 'guar'}">
         <td ng-class="{'red': c.status == 'pending'}">
@@ -27,10 +30,14 @@
         <td ng-show="c.status == 'pending'" class="text-center">
             <span class="glyphicon glyphicon-paperclip"></span>
         </td>
+        <td class="text-center">
+            <span style="font-size: 16px; color: #990000;"
+                  ng-click="deleteLoanCondition(c)">&cross;</span>
+        </td>
     </tr>
-    <tr><td colspan="2">
+    <tr><td colspan="3">
         <a ng-click="" class="btn btn-xs btn-default">
-            <span class="glyphicon glyphicon-plus-sign" style="color:#006837;"></span> Add New</a>
+            <span class="glyphicons glyphicons-circle-plus" style="color:#006837;"></span> Add New</a>
     </td></tr>
 </table>
 <br/>
@@ -38,6 +45,7 @@
     <tr>
         <th>Additional Conditions</th>
         <th style="width:100px;">Fulfilled</th>
+        <th style="width:40px !important;">&nbsp;</th>
     </tr>
     <tr ng-repeat="c in loan.loanconditions|filter:{category: 'free'}">
         <td ng-class="{'red': c.status == 'pending'}">
@@ -47,11 +55,15 @@
         <td ng-show="c.status == 'pending'" class="text-center">
             <button class="btn btn-xs btn-error" ng-click="verifyCondition($index)">Fulfill</button>
         </td>
+        <td class="text-center">
+            <span style="font-size: 16px; color: #990000;"
+                  ng-click="deleteLoanCondition(c)">&cross;</span>
+        </td>
     </tr>
     <tr>
-        <td colspan="2">
+        <td colspan="3">
             <a ng-click="" class="btn btn-xs btn-default">
-                <span class="glyphicon glyphicon-plus-sign" style="color:#006837;"></span> Add New</a>
+                <span class="glyphicons glyphicons-circle-plus" style="color:#006837;"></span> Add New</a>
         </td>
     </tr>
 </table>

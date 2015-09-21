@@ -5,8 +5,8 @@
         <th style="width:10%;">MPCI</th>
         <th style="width:10%;">Stax/SCO</th>
         <th style="width:10%;">Ins Value</th>
+        <th style="width:10%;">Type</th>
         <th style="width:10%;">Crop</th>
-        <th style="width:10%;">MPCI>Crop</th>
         <th style="width:10%;">MPCI</th>
         <th style="width:10%;">Stax/SCO</th>
         <th style="width:10%;">Total</th>
@@ -26,14 +26,14 @@
         <td class="bright" ng-class="AppFactory.gtZero(AppFactory.calcCropInsValBySummary(c, loan))">
             {{AppFactory.calcCropInsValBySummary(c, loan)|flexCurrency:0}}
         </td>
+        <td class="text-center">
+            {{c.ins_type}}
+        </td>
         <td ng-class="AppFactory.gtZero(AppFactory.calcCropDiscCrop(c, loan))">
             {{AppFactory.calcCropDiscCrop(c, loan)|flexCurrency:0}}
         </td>
-        <td ng-class="AppFactory.gtZero(AppFactory.calcCropDiscOver(c, loan))">
-            {{AppFactory.calcCropDiscOver(c, loan)|flexCurrency:0}}
-        </td>
-        <td ng-class="AppFactory.gtZero(AppFactory.calcCropDiscOverD(c, loan))">
-            {{AppFactory.calcCropDiscOverD(c, loan)|flexCurrency:0}}
+        <td ng-class="AppFactory.gtZero(AppFactory.calcMPCIbyCropSummary(c, loan))">
+            {{AppFactory.calcMPCIbyCropSummary(c, loan)|flexCurrency:0}}
         </td>
         <td ng-class="AppFactory.gtZero(AppFactory.calcCropSco(c, loan))">
             {{AppFactory.calcCropSco(c, loan)|flexCurrency:0}}
@@ -54,14 +54,12 @@
         <td class="bright" ng-class="AppFactory.gtZero(AppFactory.calcCropTotsInsVal(loan))">
             {{AppFactory.calcCropTotsInsVal(loan)|flexCurrency:0}}
         </td>
+        <td class="text-center">&nbsp;</td>
         <td ng-class="AppFactory.gtZero(AppFactory.calcCropTotsCrop(loan))">
             {{AppFactory.calcCropTotsCrop(loan)|flexCurrency:0}}
         </td>
-        <td ng-class="AppFactory.gtZero(AppFactory.calcCropTotsMOC(loan))">
-            {{AppFactory.calcCropTotsMOC(loan)|flexCurrency:0}}
-        </td>
         <td ng-class="AppFactory.gtZero(AppFactory.calcCropTotsMPCII(loan))">
-            {{AppFactory.calcCropTotsMPCII(loan)|flexCurrency:0}}
+            {{AppFactory.calcCropTotsMPCIBySummary(loan)|flexCurrency:0}}
         </td>
         <td ng-class="AppFactory.gtZero(AppFactory.calcCropTotsSco(loan))">
             {{AppFactory.calcCropTotsSco(loan)|flexCurrency:0}}

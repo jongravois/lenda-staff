@@ -3,6 +3,10 @@
         background-color: #006837;
         color: white;
     }
+    #icon-only .list-group-item.active {
+        background-color: #000000;
+        color: white;
+    }
     .list-group .list-group-item .glyphicons, .list-group .list-group-item .halflings, .list-group .list-group-item .filetypes, .list-group .list-group-item .social{
         margin-right: 0 !important;
     }
@@ -11,66 +15,73 @@
     <li class="list-group-item butt" ng-click="toggleSidebar()">
         <span class="menuicon glyphicons glyphicons-option-horizontal" tooltip="Full Menu" tooltip-append-to-body="true" tooltip-placement="right"></span>
     </li>
-    <li class="list-group-item" ng-if="loan.is_xcolled">
+    <li class="list-group-item" ng-class="{active: path == 'crosscollateral'}" ng-if="loan.is_xcolled">
         <span class="menuicon glyphicons glyphicons-random" tooltip="Cross Collateral" tooltip-append-to-body="true" tooltip-placement="right" ng-click="ngcLink('crosscollateral')"></span>
     </li>
-    <li class="list-group-item" ng-if="!newapplication">
+    <li class="list list-group-item" ng-class="{active: path === 'summary'}" ng-if="!newapplication">
         <span class="menuicon glyphicons glyphicons-money" tooltip="Summary" tooltip-append-to-body="true" tooltip-placement="right" ng-click="ngcLink('summary')"></span>
     </li>
-    <li class="list-group-item" ng-if="!newapplication">
+    <li class="list-group-item" ng-class="{active: path === 'underwriting'}" ng-if="!newapplication">
         <span class="menuicon glyphicons glyphicons-exit" tooltip="Underwriting" tooltip-append-to-body="true" tooltip-placement="right" ng-click="ngcLink('underwriting')"></span>
     </li>
-    <li class="list-group-item">
+    <li class="list-group-item" ng-class="{active: path === 'terms'}">
         <span class="menuicon glyphicons glyphicons-text-underline" tooltip="Terms" tooltip-append-to-body="true" tooltip-placement="right" ng-click="ngcLink('terms')"></span>
     </li>
-    <li class="list-group-item" ng-if="!newapplication">
+    <li class="list-group-item" ng-class="{active: path === 'committee'}" ng-if="!newapplication">
         <span class="menuicon glyphicons glyphicons-group" tooltip="Committee" tooltip-append-to-body="true" tooltip-placement="right" ng-click="ngcLink('committee')"></span>
     </li>
-    <li class="list-group-item" ng-if="!newapplication">
+    <li class="list-group-item" ng-class="{active: path === 'comments'}" ng-if="!newapplication">
         <span class="menuicon glyphicons glyphicons-conversation" tooltip="Comments" tooltip-append-to-body="true" tooltip-placement="right" ng-click="ngcLink('comments')"></span>
     </li>
 
-    <li class="list-group-item">
+    <li class="list-group-item" ng-class="{active: path === 'applicant'}">
         <span class="menuicon glyphicons glyphicons-star" tooltip="Applicant" tooltip-append-to-body="true" tooltip-placement="right" ng-click="ngcLink('applicant')"></span>
     </li>
-    <li class="list-group-item">
+    <li class="list-group-item" ng-class="{active: path === 'quests'}">
         <span class="menuicon glyphicons glyphicons-circle-question-mark" tooltip="Questions" tooltip-append-to-body="true" tooltip-placement="right" ng-click="ngcLink('quests')"></span>
     </li>
-    <li class="list-group-item">
+    <li class="list-group-item" ng-class="{active: path === 'references'}">
         <span class="menuicon glyphicons glyphicons-global" tooltip="References" tooltip-append-to-body="true" tooltip-placement="right" ng-click="ngcLink('references')"></span>
     </li>
-    <li class="list-group-item" ng-if="loan.loan_type_id !== 7">
+    <li class="list-group-item" ng-class="{active: path === 'financials'}" ng-if="loan.loan_type_id !== 7">
         <span class="menuicon glyphicons glyphicons-yen" tooltip="Financial" tooltip-append-to-body="true" tooltip-placement="right" ng-click="ngcLink('financials')"></span>
     </li>
-    <li class="list-group-item">
+    <li class="list-group-item" ng-class="{active: path === 'crops'}">
         <span class="menuicon glyphicons glyphicons-flower" tooltip="Crop" tooltip-append-to-body="true" tooltip-placement="right" ng-click="ngcLink('crops')"></span>
     </li>
-    <li class="list-group-item" ng-if="loan.crop_loan">
+    <li class="list-group-item" ng-class="{active: path === 'farms'}" ng-if="loan.crop_loan">
         <span class="menuicon glyphicons glyphicons-tractor" tooltip="Farm" tooltip-append-to-body="true" tooltip-placement="right" ng-click="ngcLink('farms')"></span>
     </li>
-    <li class="list-group-item" ng-if="loan.crop_loan">
+    <li class="list-group-item" ng-class="{active: path === 'fsa'}" ng-if="loan.crop_loan">
+        <span class="menuicon glyphicons glyphicons-home" tooltip="FSA" tooltip-append-to-body="true" tooltip-placement="right" ng-click="ngcLink('fsa')"></span>
+    </li>
+    <li class="list-group-item" ng-class="{active: path === 'insurance'}" ng-if="loan.crop_loan">
         <span class="menuicon glyphicons glyphicons-bank" tooltip="Insurance" tooltip-append-to-body="true" tooltip-placement="right" ng-click="ngcLink('insurance')"></span>
     </li>
-    <li class="list-group-item" ng-if="loan.crop_loan">
+    <li class="list-group-item" ng-class="{active: path === 'budget'}" ng-if="loan.crop_loan">
         <span class="menuicon glyphicons glyphicons-calculator" tooltip="Budget" tooltip-append-to-body="true" tooltip-placement="right" ng-click="ngcLink('budget')"></span>
     </li>
-    <li class="list-group-item" ng-if="loan.crop_loan">
+
+    <li class="list-group-item" ng-class="{active: path === 'optimizer'}" ng-if="loan.crop_loan">
         <span class="menuicon glyphicons glyphicons-screenshot" tooltip="Optimizer" tooltip-append-to-body="true" tooltip-placement="right" ng-click="ngcLink('optimizer')"></span>
     </li>
-    <li class="list-group-item" ng-if="loan.crop_loan">
+
+    <li class="list-group-item" ng-class="{active: path === 'collateral'}" ng-if="loan.crop_loan">
         <span class="menuicon glyphicons glyphicons-umbrella" tooltip="Collateral" tooltip-append-to-body="true" tooltip-placement="right" ng-click="ngcLink('collateral')"></span>
     </li>
-    <li class="list-group-item">
+
+    <li class="list-group-item" ng-class="{active: path === 'prereqs'}">
         <span class="menuicon glyphicons glyphicons-sort" tooltip="Prerequisite" tooltip-append-to-body="true" tooltip-placement="right" ng-click="ngcLink('prereqs')"></span>
     </li>
-    <li class="list-group-item">
+
+    <li class="list-group-item" ng-class="{active: path === 'closing'}">
         <span class="menuicon glyphicons glyphicons-handshake" tooltip="Closing" tooltip-append-to-body="true" tooltip-placement="right" ng-click="ngcLink('closing')"></span>
     </li>
 
-    <li class="list-group-item" ng-if="!newapplication">
+    <li class="list-group-item" ng-class="{active: path === 'disbursements'}" ng-if="!newapplication">
         <span class="menuicon glyphicons glyphicons-usd" tooltip="Disbursement" tooltip-append-to-body="true" tooltip-placement="right" ng-click="ngcLink('disbursements')"></span>
     </li>
-    <li class="list-group-item" ng-if="!newapplication">
+    <li class="list-group-item" ng-class="{active: path === 'audit'}" ng-if="!newapplication">
         <span class="menuicon glyphicons glyphicons-shoe-steps" tooltip="Audit" tooltip-append-to-body="true" tooltip-placement="right" ng-click="ngcLink('audit')"></span>
     </li>
 </ul>

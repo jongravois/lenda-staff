@@ -1,13 +1,5 @@
 <!-- CROPS & INDIRECT INCOME-->
 <span ng-if="loan.loan_type_id !== 7 && loan.crop_loan">
-    <div class="row">
-        <div class="col-md-12 text-right">
-            <button style="margin-right:10px;" class="btn btn-arm" ng-click="updateCrops()"><span
-                class="glyphicons glyphicons-log-book"></span>&nbsp;UPDATE
-            </button>
-        </div>
-    </div>
-    <br>
     <fieldset>
         <legend>
             &nbsp;
@@ -95,6 +87,14 @@
              ng-if="showIndirect">
         </div>
     </fieldset>
+    <br>
+    <div class="row">
+        <div class="col-md-12 text-right">
+            <button style="margin-right:10px;" class="btn btn-arm" ng-click="updateCrops()"><span
+                class="glyphicons glyphicons-log-book"></span>&nbsp;UPDATE
+            </button>
+        </div>
+    </div>
 </span>
 
 <!-- PLANNED CROPS -->

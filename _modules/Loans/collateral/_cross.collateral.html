@@ -1,20 +1,24 @@
 <div class="form-group">
     <table class="table table-striped rowed table-condensed disp-sm">
         <tr>
-            <th style="width:14%;">Applicant</th>
             <th style="width:14%;">Farmer</th>
+            <th style="width:14%;">Applicant</th>
+            <th style="width:14%;">App Date</th>
             <th style="width:14%;">Distributor</th>
             <th style="width:14%;">ARM Commit</th>
             <th style="width:14%;">Cash Flow</th>
             <th style="width:14%;">Exposure</th>
-            <th style="width: 60px;">&nbsp</th>
+            <th style="width:80px;">&nbsp</th>
         </tr>
         <tr ng-repeat="x in loan.xcols">
+            <td>
+                {{x.farmer}}
+            </td>
             <td>
                 {{x.applicant}}
             </td>
             <td>
-                {{x.farmer}}
+                {{x.app_date|date:'M/d/yyyy'}}
             </td>
             <td>
                 {{x.distributor}}
@@ -28,12 +32,15 @@
             <td ng-class="AppFactory.gtZero(x.exposure)">
                 {{x.exposure|flexCurrency:0}}
             </td>
-            <td class="text-center"></td>
+            <td class="text-center">
+                <span style="font-size: 16px; color: #990000;"
+                      ng-click="deleteCrossCollateral(x)">&cross;</span>
+            </td>
         </tr>
         <tr>
-            <td colspan="7">
+            <td colspan="8">
                 <a ng-click="createCrossCollateral()" class="btn btn-xs btn-default">
-                    <span class="glyphicon glyphicon-plus-sign" style="color:#006837;"></span> Add New</a>
+                    <span class="glyphicons glyphicons-circle-plus" style="color:#006837;"></span> Add New</a>
             </td>
         </tr>
     </table>

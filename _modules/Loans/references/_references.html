@@ -62,9 +62,8 @@
                     </form>
                     <div class="buttons"
                          ng-show="!rowform.$visible">
-                                <span class="glyphicons glyphicons-remove-2"
-                                      style="color: #990000;"
-                                      ng-click="deleteReference($index, p.id)"></span>
+                                <span style="font-size: 16px; color: #990000;"
+                                      ng-click="deleteReference($index, p.id)">&cross;</span>
                 </td>
             </tr>
             <tr ng-if="loan.references.length == 0">
@@ -75,7 +74,7 @@
     <div class="row" style="margin-left: 0;">
         <p>
             <a ng-click="createNew()" class="btn btn-xs btn-default">
-                <span class="glyphicon glyphicon-plus-sign" style="color:#006837;"></span> Add New</a>
+                <span class="glyphicons glyphicons-circle-plus" style="color:#006837;"></span> Add New</a>
         </p>
     </div>
 </div>

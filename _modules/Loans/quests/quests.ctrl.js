@@ -10,6 +10,20 @@
             $scope.newapplications = ($state.current ? $state.current.data.newapplications : false);
             //console.log('Loan', $scope.loan);
             //console.log('Quests', $scope.loan.quests);
+            $scope.showBorrower = false;
+            $scope.showCollateral = false;
+            $scope.showOperational = false;
+
+            $scope.togShowBorrower = function() {
+                $scope.showBorrower = !$scope.showBorrower;
+            };
+            $scope.togShowCollateral = function() {
+                $scope.showCollateral = !$scope.showCollateral;
+            };
+            $scope.togShowOperational = function() {
+                $scope.showOperational = !$scope.showOperational;
+            };
+
             $scope.updateLoanQuestions = function() {
                 var q = $scope.loan.quests;
                 var doit = AppFactory.putIt('loanquestions', $scope.loan.id, q);

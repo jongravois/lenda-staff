@@ -8,7 +8,7 @@
         </td>
         <td class="text-center" style="width:10%;">Other</td>
         <td class="text-center" style="width:10%;">Total</td>
-        <td style="width:80px;max-width:80px;">&nbsp;</td>
+        <td style="width:80px !important;max-width:80px !important;">&nbsp;</td>
     </tr>
 
     <tr ng-repeat="e in cropuse" ng-init="!rowform.$visible" ng-dblclick="rowform.$show()">
@@ -31,7 +31,7 @@
         <td class="text-right" ng-class=AppFactory.gtZero(e[0].calc_total)>
             {{e[0].calc_total | flexCurrency:0 }}
         </td>
-        <td class="text-center" style="width: 80px;">
+        <td class="text-center"  style="width:80px;max-width:80px !important;">
             <!-- form -->
             <form  name="rowform" onbeforesave="saveFullFarm($data, p.id)" ng-show="rowform.$visible" class="form-buttons form-inline" editable-form="">
             	<button type="submit" ng-disabled="rowform.$waiting" style="border:  none !important; background-image: none !important; background-color: transparent;">
@@ -42,8 +42,7 @@
             	</span>
             </form>
             <div class="buttons" ng-show="!rowform.$visible">
-                <!--&nbsp;-&nbsp;-->
-            	<span class="glyphicons glyphicons-remove-2" style="display:none;color: #990000;" ng-click="deleteFullFarm($index, p.id)"></span>
+                &nbsp;-&nbsp;
             </div>
         </td>
     </tr>
@@ -82,7 +81,7 @@
         <td class="text-right">
             {{fe.cost|flexCurrency:0}}
         </td>
-        <td class="text-center" style="width:80px;">
+        <td class="text-center"  style="width:80px !important;max-width:80px;">
             <!-- form -->
             <form  name="rowform2" onbeforesave="saveFarmExpense($data, p.id)" ng-show="rowform2.$visible" class="form-buttons form-inline" editable-form="">
             	<button type="submit" ng-disabled="rowform2.$waiting" style="border:  none !important; background-image: none !important; background-color: transparent;">
@@ -93,7 +92,8 @@
             	</span>
             </form>
             <div class="buttons" ng-show="!rowform2.$visible">
-            	<span class="glyphicons glyphicons-remove-2" style="color: #990000;" ng-click="deleteFarmExpense($index, p.id)"></span>
+                <span style="font-size: 16px; color: #990000;"
+                      ng-click="deleteFarmExpense($index, p.id)">&cross;</span>
             </div>
         </td>
     </tr>
@@ -173,5 +173,5 @@
     </tbody>
 </table>
     <p><a ng-click="AppFactory.createNewFarmExpense()" class="btn btn-xs btn-default">
-        <span class="glyphicon glyphicon-plus-sign" style="color:#006837;"></span> Add New</a></p>
+        <span class="glyphicons glyphicons-circle-plus" style="color:#006837;"></span> Add New</a></p>
 <!--<pre>{{cropuse|json}}</pre>-->

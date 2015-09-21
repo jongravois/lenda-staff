@@ -117,6 +117,13 @@
                     data: {newapplication: false},
                     resolve: {}
                 })
+                .state('arm.edit.fsa', {
+                    url: '/fsa',
+                    templateUrl: './_modules/Loans/fsa/fsa.html',
+                    controller: 'FsaController',
+                    data: {newapplication: false},
+                    resolve: {}
+                })
                 .state('arm.edit.insurance', {
                     url: '/insurance',
                     templateUrl: './_modules/Loans/insurance/insurance.html',

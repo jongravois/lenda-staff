@@ -10,7 +10,12 @@
         return {
             restrict: 'AE',
             transclude: true,
-            scope: { obj: '=' },
+            scope: {
+                obj: '=',
+                accept: '&',
+                accepted: '&',
+                reply: '&'
+            },
             templateUrl: './_modules/Loans/comments/_comment.card.html'
         };
     }

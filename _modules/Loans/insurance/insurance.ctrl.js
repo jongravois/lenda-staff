@@ -9,10 +9,6 @@
         function InsuranceController($rootScope, $scope, $state, AppFactory){
             $scope.newapplications = $state.current.data.newapplications;
 
-            if($scope.loan.insurance.agencies.length !== 0){
-                $scope.loan.insurance.agencies[0].is_open = true;
-            }
-
             $scope.toggleStax = function(id) {
                 var rowid = Number(id) - 1;
 
@@ -20,6 +16,10 @@
                 return true;
             }
 
-            console.log('pols',$scope.loan.inspols, 'loan', $scope.loan);
+            $scope.createNewAgent = function() {
+                alert('Create new agent')
+            };
+
+            //console.log('pols',$scope.loan.inspols, 'loan', $scope.loan);
         } // end controller
 })();

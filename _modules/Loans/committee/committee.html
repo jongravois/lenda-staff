@@ -51,7 +51,7 @@
                     <th style="width:15%;">Added</th>
                     <th style="width:15%;">Voted</th>
                     <th style="width:15%;">Vote</th>
-                    <th style="width:100px;">&nbsp;</th>
+                    <th style="width:80px;">&nbsp;</th>
                 </tr>
                 <tr ng-repeat="c in loan.committee|orderBy:'role_id'" ng-init="!rowform.$visible" ng-dblclick="rowform.$show()">
                     <td>
@@ -99,15 +99,14 @@
                             <button type="button" class="btnCancel" ng-disabled="rowform.$waiting" ng-click="rowform.$cancel()"><span class="glyphicons glyphicons-unshare" style="color: #990000;"></span></button>
                         </form>
                         <div class="buttons" ng-show="!rowform.$visible">
-                            <span class="glyphicons glyphicons-remove-2"
-                                  style="color: #990000;"
-                                  ng-click="deleteCommittee($index, p.id)"></span>
+                            <span style="font-size: 16px; color: #990000;"
+                                  ng-click="deleteCommittee($index, p.id)">&cross;</span>
                     </td>
                     </td>
                 </tr>
                 <tr>
                     <td colspan="8">
-                        <a ng-click="createCommittee()" class="btn btn-xs btn-default"><span class="glyphicon glyphicon-plus-sign" style="color:#006837;"></span> Add New</a>
+                        <a ng-click="createCommittee()" class="btn btn-xs btn-default"><span class="glyphicons glyphicons-circle-plus" style="color:#006837;"></span> Add New</a>
                     </td>
                 </tr>
             </table>

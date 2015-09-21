@@ -9,18 +9,16 @@
         <div class="row">
             <table class="table table-striped rowed table-condensed disp-sm">
             <tr>
-                <th ng-click="doSort('locale')">ST | County</th>
-                <th ng-click="doSort('fsn')">FSN</th>
-                <th ng-click="doSort('owner')">Landlord</th>
-                <th ng-click="doSort('ac_ir')">AC-IR</th>
-                <th ng-click="doSort('ac_ni')">AC-NI</th>
-                <th ng-click="doSort('share')">Share</th>
-                <th ng-click="doSort('cash_rent')">Cash Rent</th>
-                <th ng-click="doSort('when_due')">When Due</th>
-                <th ng-click="doSort('waived')">Waived</th>
-                <th ng-click="doSort('pgm')">FSA Pgm</th>
-                <th style="display: none;">FSA Pymt</th>
-                <th>&nbsp;</th>
+                <th style="width:11%;" ng-click="doSort('locale')">ST | County</th>
+                <th style="width:11%;" ng-click="doSort('fsn')">FSN</th>
+                <th style="width:11%;" ng-click="doSort('owner')">Landlord</th>
+                <th style="width:11%;" ng-click="doSort('ac_ir')">AC-IR</th>
+                <th style="width:11%;" ng-click="doSort('ac_ni')">AC-NI</th>
+                <th style="width:11%;" ng-click="doSort('share')">Share</th>
+                <th style="width:11%;" ng-click="doSort('cash_rent')">Cash Rent</th>
+                <th style="width:11%;" ng-click="doSort('when_due')">When Due</th>
+                <th style="width:11%;" ng-click="doSort('waived')">Waived</th>
+                <th style="width:80px;min-width:80px;max-width:80px">&nbsp;</th>
             </tr>
             <tr>
                 <td colspan="12" ng-if="loan.farms.length === 0">
@@ -64,7 +62,7 @@
                         	{{f.cash_rent|flexCurrency:0}}
                         </span>
                     </td>
-                    <td class="cBlue">
+                    <td class="text-center cBlue">
                         <span editable-text="f.when_due" e-name="when_due" e-form="rowform" e-style="width:100%;">
                         	{{f.when_due}}
                         </span>
@@ -72,16 +70,6 @@
                     <td class="cBlue" ng-class="AppFactory.gtZero(f.waived)">
                         <span editable-number="f.waived" e-name="waived" e-form="rowform" e-style="width:100%;">
                         	{{f.waived|flexCurrency:0}}
-                        </span>
-                    </td>
-                    <td class="cBlue">
-                        <span editable-select="f.gov_pgm" e-name="gov_pgm" e-form="rowform" e-ng-options="p.abr as p.pgm for p in pgms" buttons="no">
-                            {{ f.gov_pgm }}
-                        </span>
-                    </td>
-                    <td style="display: none;">
-                        <span editable-number="f.fsa_paid" e-name="fsa_paid" e-form="rowform" e-style="width:100%;">
-                        	{{f.fsa_paid|flexCurrency:0}}
                         </span>
                     </td>
                     <td class="text-center">
@@ -95,7 +83,8 @@
                         	</span>
                         </form>
                         <div class="buttons" ng-show="!rowform.$visible">
-                        	<span class="glyphicons glyphicons-remove-2" style="color: #990000;" ng-click="deleteFarm($index, p.id)"></span>
+                            <span style="font-size: 16px; color: #990000;"
+                                  ng-click="deleteFarm($index, p.id)">&cross;</span>
                         </div>
                     </td>
                 </tr>
@@ -105,9 +94,17 @@
         <div class="row" style=“margin-top:-20px;">
             <p>
                 <a ng-click="addNewFarm()" class="btn btn-xs btn-default">
-                    <span class="glyphicon glyphicon-plus-sign" style="color:#006837;"></span> Add New</a>
+                    <span class="glyphicons glyphicons-circle-plus" style="color:#006837;"></span> Add New</a>
             </p>
         </div>
     </div>
 </fieldset>
+<br>
+
+<div class="row">
+    <div class="col-md-12 text-right">
+        <button style="margin-right:10px;" class="btn btn-arm" ng-click="updateFarms()"><span class="glyphicons glyphicons-log-book"></span>&nbsp;UPDATE</button>
+    </div>
+</div>
+
 <br><br><br><br>

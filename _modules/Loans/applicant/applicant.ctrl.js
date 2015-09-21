@@ -8,6 +8,7 @@
 
         function ApplicantsController($rootScope, $scope, $state, $stateParams, $timeout, SweetAlert, toastr, AppFactory){
             $scope.newapplications = $state.current.data.newapplications;
+
             $scope.farmerSaved = false;
 
             $scope.newApplicantForm = false;

@@ -1,0 +1,47 @@
+<div class="modal-header">
+    <h2>{{properties.title}}</h2>
+</div>
+
+<div class="modal-body">
+    <table class="table table-striped rowed table-condensed disp-sm">
+        <tr>
+            <td>
+                <label>Loan Due Date</label>
+                <input type="date" class="form-control" ng-model="properties.loan_terms.due_date">
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label>Loan Origination Fee</label>
+                <input type="number" class="form-control" ng-model="properties.loan_terms.fee_processing_arm">
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label>Loan Service Fee</label>
+                <input type="number" class="form-control" ng-model="properties.loan_terms.fee_service_arm">
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label>Interest Rate: ARM</label>
+                <input type="number" class="form-control" ng-model="properties.loan_terms.int_percent_arm">
+            </td>
+        </tr>
+        <tr ng-if="properties.loan_type === 2">
+            <td>
+                <label>Interest Rate: Dist</label>
+                <input type="number" class="form-control" ng-model="properties.loan_terms.int_percent_dist">
+            </td>
+        </tr>
+    </table>
+</div>
+
+<div class="modal-footer">
+    <button class="btn btn-primary" ng-click="ok()">
+        {{properties.buttons[0]}}
+    </button>
+    <button class="btn btn-default" ng-click="cancel()">
+        {{properties.buttons[1]}}
+    </button>
+</div>

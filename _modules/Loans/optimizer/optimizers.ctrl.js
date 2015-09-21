@@ -51,6 +51,43 @@
             tcropSugarcane: $scope.loan.fins.crop_acres[8].acres > 0,
             tcropSunflowers: $scope.loan.fins.crop_acres[9].acres > 0
         };
+
+        $scope.calcUnitCropCF = function(cropname, obj, loan) {
+            if(Number(obj.acres) === 0) { return 0; }
+
+            var total_crop_acres = Number(obj.crops[0][cropname].acres);
+            var prod_share = Number(obj.crops[0][cropname].prod_share)/100;
+            var rent_acre = Number(obj.cash_rent_acre_ARM);
+            var crop_budget_arm = Number(loan.fins.arm_crop_commit[cropname]);
+            var crop_budget_dist = Number(loan.fins.dist_crop_commit[cropname]);
+            var arm_budget_acre = crop_budget_arm/total_crop_acres;
+            var points = Number(calcPoints(cropname, obj, loan));
+
+            if(arm_budget_acre = 0) {return 0; }
+            return (arm_budget_acre * prod_share) - ((total_crop_acres + rent_acre) * (1+points));
+        }
+        $scope.calcUnitCropEX = function(cropname, obj, loan) {
+            //console.log('CF', obj.crops[0][cropname]);
+            var prod_yield = Number(obj.prod_yield);
+            var prod_price = Number(obj.prod_price);
+            var bkprice = Number(obj.bkprice);
+            var bkqty = Number(obj.bkqty);
+            var hvst = Number(obj.var_harvst);
+            var rebateadj = 0;
+
+            var total_crop_acres = Number(obj.crops[0][cropname].acres);
+            var crop_income = ((prod_yield*prod_price) + (((bkprice-prod_price)*bkqty)+(total_crop_acres*prod_yield*hvst*-1)+rebateadj))/total_crop_acres
+            var disc_crop = Number(loan.fins.discounts.percent_crop)/100;
+            var dMPCI = 47.76;
+            var dStaxSCO = 9552;
+            var rent_acre = Number(obj.cash_rent_acre_ARM);
+            var waived_acre = Number(obj.waived_acre);
+            var crop_budget_arm = Number(loan.fins.arm_crop_commit[cropname]);
+            var crop_budget_dist = Number(loan.fins.dist_crop_commit[cropname]);
+            var points = Number(calcPoints(cropname, obj, loan));
+            return (((crop_income*(1-disc_crop))+dMPCI+dStaxSCO)-((crop_budget_arm+crop_budget_dist+rent_acre-waived_acre)*(1+points)));
+        }
+
         $scope.toggleAlpine = function() {
             $scope.alpine = !$scope.alpine;
             var data = {
@@ -74,6 +111,16 @@
         $scope.showCrop = function() {
             alert('Showing another crop.');
         };
+        //////////
+        function calcPoints(cropname, obj, loan) {
+            var proc_fee_arm = Number(loan.fins.proc_fee);
+            var svc_fee_arm = Number(loan.fins.srvc_fee);
+            var int_arm = Number(loan.fins.int_arm);
+            var int_dist = Number(loan.fins.int_dist);
+            var crop_budget_arm = Number(loan.fins.arm_crop_commit[cropname]);
+            var crop_budget_dist = Number(loan.fins.dist_crop_commit[cropname]);
 
+            return (proc_fee_arm+svc_fee_arm+int_arm+int_dist)/(crop_budget_arm+crop_budget_dist);
+        }
     } // end function
 })();

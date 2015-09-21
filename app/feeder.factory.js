@@ -23,13 +23,6 @@
             ]
         };
 
-        function getAgencies() {
-            return $http.get(API_URL + 'agencies')
-                .then(function (response) {
-                    data.agencies = response.data.data;
-                });
-        }
-
         function getCrops() {
             return $http.get(API_URL + 'crops')
                 .then(function success(response) {
@@ -156,7 +149,6 @@
 
         function init() {
             // trigger http calls to get data.
-            getAgencies();
             getCounties();
             getCrops();
             getDistributors();
@@ -194,8 +186,7 @@
             getInsOpts: getInsOpts,
             getEntityTypes: getEntityTypes,
             getDistributors: getDistributors,
-            getCounties: getCounties,
-            getAgencies: getAgencies
+            getCounties: getCounties
         };
     } // end factory
 })();
