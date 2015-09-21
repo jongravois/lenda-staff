@@ -11,6 +11,13 @@
         $scope.AppFactory = AppFactory;
         $scope.OptimizerFactory = OptimizerFactory;
         //console.log('units', $scope.loan.farmunits);
+
+        //TODO: calculate width of visible columns and set table to said width
+        $scope.getTableWidth = function() {
+            var retro = 210;
+            if($scope.tggl.showOvr) { retro += 50; }
+            return retro;
+        }
         //////////////////////////
         $scope.loan.crop_totals = [
             {crop: 'Corn', acres: $scope.loan.fins.crop_acres[0].acres},
@@ -25,6 +32,20 @@
             {crop: 'Sunflowers', acres: $scope.loan.fins.crop_acres[9].acres},
         ];
         $scope.tggl = {
+            showFSN: true,
+            showPrac: true,
+            showOvr: false,
+            showPerm: false,
+            showCRent: false,
+            showDue: false,
+            showWvd: false,
+            showRnta: false,
+            showWvda: false,
+            showShr: false,
+            showAcres: true,
+            showAPH: true,
+            showCF: false,
+            showEX: false,
             showRentRows: false,
             showOverRentRows: false,
             showInsRows: false,

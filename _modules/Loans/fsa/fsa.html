@@ -1,32 +1,92 @@
-<div class="row">
-    <table class="table table-striped rowed" style="width:70%;">
-        <!-- OPTIONAL Modification Date LINE-->
-        <tr ng-dblclick="editFSAInfo()">
-            <td>Government Program</td>
-            <td class="text-left">
-                {{PLC}}
-            </td>
-        </tr>
-
-        <tr ng-dblclick="editFSAInfo()">
-            <td>Base Acres</td>
-            <td class="text-left">
-                {{4000|flexNumber:1}}
-            </td>
-        </tr>
-
-        <tr ng-dblclick="editFSAInfo()">
-            <td>FSA Yield</td>
-            <td class="text-left">
-                {{200|flexNumber:1}}
-            </td>
-        </tr>
-    </table>
-</div>
+<style>
+    .form-control {
+        padding: 6px 6px !important;
+    }
+</style>
+<fieldset>
+    <legend>FSA Payments</legend>
+    <div class="container-fluid">
+        <div class="row">
+            <table class="table table-striped rowed table-condensed disp-sm" style="width:80%;">
+                <tr>
+                    <th style="width:16%;" ng-click="doSort('locale')">ST | County</th>
+                    <th style="width:16%;" ng-click="doSort('fsn')">FSN</th>
+                    <th style="width:16%;" ng-click="doSort('pgm')">Gov't Pgm</th>
+                    <th style="width:16%;" ng-click="doSort('base_acres')">Base Acres</th>
+                    <th style="width:16%;" ng-click="doSort('fsa_yield')">FSA Yield</th>
+                    <th style="width:16%;" ng-click="doSort('amount')">Amount</th>
+                    <th style="width:80px;min-width:80px;max-width:80px">&nbsp;</th>
+                </tr>
+                <tr>
+                    <td colspan="12" ng-if="loan.fsa_payments.length === 0">
+                        <strong>No FSA payments found.</strong>
+                    </td>
+                </tr>
+                <tbody ng-repeat="f in loan.fsa_payments" ng-init="!rowform.$visible" ng-dblclick="rowform.$show()">
+                <tr>
+                    <td class="cBlue">
+                        <span editable-text="f.locale" e-name="county" e-form="rowform" e-style="width:100%;">
+                        	{{f.locale}}
+                        </span>
+                    </td>
+                    <td class="cBlue">
+                        <span editable-text="f.farms.fsn" e-name="fsn" e-form="rowform" e-style="width:100%;">
+                        	{{f.fsn}}
+                        </span>
+                    </td>
+                    <td class="text-center cBlue" ng-class="AppFactory.gtZero(f.pgm)">
+                        <span editable-text="f.pgm" e-name="pgm" e-form="rowform" e-style="width:100%;">
+                        	{{f.pgm}}
+                        </span>
+                    </td>
+                    <td class="cBlue" ng-class="AppFactory.gtZero(f.base_acres)">
+                        <span editable-text="f.base_acres" e-name="base_acres" e-form="rowform" e-style="width:100%;">
+                        	{{f.base_acres|flexNumber:1}}
+                        </span>
+                    </td>
+                    <td class="cBlue" ng-class="AppFactory.gtZero(f.fsa_yield)">
+                        <span editable-number="f.fsa_yield" e-name="fsa_yield" e-form="rowform" e-style="width:100%;">
+                        	{{f.fsa_yield|flexNumber:1}}
+                        </span>
+                    </td>
+                    <td class="cBlue" ng-class="AppFactory.gtZero(f.amount)">
+                        <span editable-number="f.amount" e-name="amount" e-form="rowform" e-style="width:100%;">
+                        	{{f.amount|flexNumber:1}}
+                        </span>
+                    </td>
+                    <td class="text-center">
+                        <!-- form -->
+                        <form  name="rowform" onbeforesave="saveFSA($data, p.id)" ng-show="rowform.$visible" class="form-buttons form-inline" editable-form="">
+                            <button type="submit" ng-disabled="rowform.$waiting" style="border:  none !important; background-image: none !important; background-color: transparent;">
+                                <span class="glyphicons glyphicons-circle-ok" style="color:#006837;"></span>
+                            </button>
+                        	<span class="btnCancel" ng-disabled="rowform.$waiting" ng-click="rowform.$cancel()">
+                        		<span class="glyphicons glyphicons-circle-remove" style="color: #990000;"></span>
+                        	</span>
+                        </form>
+                        <div class="buttons" ng-show="!rowform.$visible">
+                            <span style="font-size: 16px; color: #990000;"
+                                  ng-click="deleteFSA($index, p.id)">&cross;</span>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="row" style=“margin-top:-20px;">
+            <p>
+                <a ng-click="addNewFSA()" class="btn btn-xs btn-default">
+                    <span class="glyphicons glyphicons-circle-plus" style="color:#006837;"></span> Add New</a>
+            </p>
+        </div>
+    </div>
+</fieldset>
 <br>
+
 <div class="row">
     <div class="col-md-12 text-right">
-        <button style="margin-right:10px;" class="btn btn-arm" ng-click="updateFSAInfo()"><span class="glyphicons glyphicons-log-book"></span>&nbsp;UPDATE</button>
+        <button style="margin-right:10px;" class="btn btn-arm" ng-click="updateFarms()"><span class="glyphicons glyphicons-log-book"></span>&nbsp;UPDATE</button>
     </div>
 </div>
+
 <br><br><br><br>

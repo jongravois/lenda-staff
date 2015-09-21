@@ -38,6 +38,7 @@
                 collateral: processCollateral(loan.other_collateral),
                 crops: getCrops(loan),
                 expenses: getExpenses(loan),
+                fsa_payments: processFSA(loan),
                 insurance: getInsurance(loan),
                 loancrops: processLoanCrops(loan),
                 parsedComments: structureComments(loan),
@@ -447,6 +448,19 @@
             });
 
             return onlyPractices;
+        }
+        function processFSA(loan) {
+            var farms = loan.farms;
+            var fp = loan.fsapayments;
+            _.each(fp, function(f){
+                return _.each(farms, function(farm){
+                    if(Number(farm.id) === Number(f.farm_id)) {
+                        f.fsn = farm.fsn;
+                        f.locale = farm.county.locale;
+                    }
+                });
+            });
+            return fp;
         }
         function processInsByCrop(loan) {
             var policies = loan.inspols;
