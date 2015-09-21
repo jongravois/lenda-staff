@@ -12,10 +12,20 @@
         $scope.OptimizerFactory = OptimizerFactory;
         //console.log('units', $scope.loan.farmunits);
 
-        //TODO: calculate width of visible columns and set table to said width
         $scope.getTableWidth = function() {
             var retro = 210;
             if($scope.tggl.showOvr) { retro += 50; }
+            if($scope.tggl.showPerm) { retro += 40; }
+            if($scope.tggl.showCRent) { retro += 80; }
+            if($scope.tggl.showDue) { retro += 100; }
+            if($scope.tggl.showWvd) { retro += 80; }
+            if($scope.tggl.showRnta) { retro += 80; }
+            if($scope.tggl.showWvda) { retro += 80; }
+            if($scope.tggl.showShr) { retro += 50 * $scope.loan.loancrops.length; }
+            if($scope.tggl.showAcres) { retro += 80 * $scope.loan.loancrops.length; }
+            if($scope.tggl.showAPH) { retro += 80 * $scope.loan.loancrops.length; }
+            if($scope.tggl.showCF) { retro += 100 * $scope.loan.loancrops.length; }
+            if($scope.tggl.showEX) { retro += 100 * $scope.loan.loancrops.length; }
             return retro;
         }
         //////////////////////////
