@@ -5,7 +5,8 @@
 ## Installation
 
 * Clone repo to local environment.
-* Run from the webroot: ```npm install -g bower-installer```
+* Run from anywhere: ```npm install --global gulp```
+* Run from anywhere: ```npm install -g bower-installer```
 * Run from the webroot: ```npm install```  
 * Run from the webroot: ```bower install```  
 * Run from the webroot: ```bower-installer```
@@ -24,6 +25,8 @@
         .constant('LEGAL_NAME', 'Ag Resource Management');
 })();
 ```
+* Run from the webroot: ```gulp newjs```
+* Run from the webroot: ```gulp styles```
 
 ## Developing Tasks
 
