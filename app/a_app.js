@@ -10,7 +10,6 @@
             'oitozero.ngSweetAlert',
             'angularGrid',
             'xeditable',
-            'cfp.hotkeys',
             'angular-loading-bar',
             'ui.bootstrap-slider',
             'ng-pdfmake'

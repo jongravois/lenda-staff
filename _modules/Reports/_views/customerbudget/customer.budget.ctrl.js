@@ -4,9 +4,9 @@
         .module('ARM')
         .controller('CustomerBudgetController', CustomerBudgetController);
 
-    CustomerBudgetController.$inject = ['$scope', '$http', '$filter', '$timeout', 'AppFactory', 'Loans', 'hotkeys'];
+    CustomerBudgetController.$inject = ['$scope', '$http', '$filter', '$timeout', 'AppFactory', 'Loans'];
 
-    function CustomerBudgetController($scope, $http, $filter, $timeout, AppFactory, Loans, hotkeys) {
+    function CustomerBudgetController($scope, $http, $filter, $timeout, AppFactory, Loans) {
         $scope.AppFactory = AppFactory;
         $scope.loans = Loans;
 
@@ -395,54 +395,6 @@
             $scope.gridOptions.api.hideColumns(['fins.balance_total', 'fins.balance_spent', 'fins.balance_remaining'], !$scope.dollarsPercent);
             $scope.gridOptions.api.setSortModel($scope.sortKeys);
         }
-
-        hotkeys.bindTo($scope).add({
-            combo: 'fn+c',
-            description: 'Opens Angular Grid Control Panel',
-            callback: $scope.showToolPanel
-        });
-
-        hotkeys.bindTo($scope).add({
-            combo: 'fn+d',
-            description: 'PDF Document of Report',
-            callback: $scope.pdf
-        });
-
-        hotkeys.bindTo($scope).add({
-            combo: 'fn+e',
-            description: 'Send Report by Email',
-            callback: $scope.email
-        });
-
-        hotkeys.bindTo($scope).add({
-            combo: 'fn+h',
-            description: 'Help',
-            callback: $scope.help
-        });
-
-        hotkeys.bindTo($scope).add({
-            combo: 'fn+p',
-            description: 'Send Report to Printer',
-            callback: $scope.print
-        });
-
-        hotkeys.bindTo($scope).add({
-            combo: 'fn+x',
-            description: 'Send Report to Excel',
-            callback: $scope.excel
-        });
-
-        hotkeys.bindTo($scope).add({
-            combo: 'fn+w',
-            description: 'Toggle Detailed Window',
-            callback: $scope.toggleDetail
-        });
-
-        hotkeys.bindTo($scope).add({
-            combo: 'fn+r',
-            description: 'Toggle Dollars/Percent Columns',
-            callback: $scope.toggleDollarsPercent
-        });
 
         $scope.gridOptions = {
             columnDefs: columnDefs,

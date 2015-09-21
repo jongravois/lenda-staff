@@ -4,9 +4,9 @@
         .module('ARM')
         .controller('RequiredController', RequiredController);
 
-    RequiredController.$inject = ['$rootScope', '$scope', '$http', '$filter', '$timeout', 'AppFactory', 'Loans', 'Trackers', 'RequiredFactory', 'hotkeys'];
+    RequiredController.$inject = ['$rootScope', '$scope', '$http', '$filter', '$timeout', 'AppFactory', 'Loans', 'Trackers', 'RequiredFactory'];
 
-    function RequiredController($rootScope, $scope, $http, $filter, $timeout, AppFactory, Loans, Trackers, RequiredFactory, hotkeys) {
+    function RequiredController($rootScope, $scope, $http, $filter, $timeout, AppFactory, Loans, Trackers, RequiredFactory) {
         $scope.AppFactory = AppFactory;
         //console.log('RequiredController.Trackers', Trackers);
 
@@ -268,42 +268,6 @@
             $scope.tools = !$scope.tools;
             $scope.gridOptions.api.showToolPanel($scope.tools);
         }
-
-        hotkeys.bindTo($scope).add({
-            combo: 'fn+c',
-            description: 'Opens Angular Grid Control Panel',
-            callback: $scope.showToolPanel
-        });
-
-        hotkeys.bindTo($scope).add({
-            combo: 'fn+d',
-            description: 'PDF Document of Report',
-            callback: $scope.pdf
-        });
-
-        hotkeys.bindTo($scope).add({
-            combo: 'fn+e',
-            description: 'Send Report by Email',
-            callback: $scope.email
-        });
-
-        hotkeys.bindTo($scope).add({
-            combo: 'fn+h',
-            description: 'Help',
-            callback: $scope.help
-        });
-
-        hotkeys.bindTo($scope).add({
-            combo: 'fn+p',
-            description: 'Send Report to Printer',
-            callback: $scope.print
-        });
-
-        hotkeys.bindTo($scope).add({
-            combo: 'fn+x',
-            description: 'Send Report to Excel',
-            callback: $scope.excel
-        });
 
         $scope.gridOptions = {
             columnDefs: columnDefs,
