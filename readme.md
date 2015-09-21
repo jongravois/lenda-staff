@@ -18,7 +18,7 @@
         .constant('_', window._)
         .constant('APP_URL', 'http://path_to_backend_app')
         .constant('API_URL', 'http://path_to_backend_app/api/')
-        .constant('FILE_URL', 'http://path_to_backend_app/files_loans/')
+        .constant('FILE_URL', 'https://s3.amazonaws.com/')
         .constant('LEGAL_NAME', 'Ag Resource Management');
 })();
 ```
