@@ -1,0 +1,54 @@
+<table class="table table-striped rowed disp-sm">
+    <tbody>
+    <tr>
+        <th style="min-width:100px;">&nbsp;</th>
+        <th style="min-width:100px;">
+            {{loan.applicant.applicant}}
+        </th>
+        <th style="min-width:100px;" ng-repeat="x in loan.xcols">
+            {{x.applicant}}
+        </th>
+        <th style="min-width:100px;">
+            Total
+        </th>
+    </tr>
+    <tr ng-if="tggl.showInsSummary">
+        <td>MPCI</td>
+        <td class="text-right">
+            {{436487|flexCurrency:0}}
+        </td>
+        <td class="text-right" ng-repeat="x in loan.xcols">
+            {{x.mpci_value|flexCurrency:0}}
+        </td>
+        <td class="text-right">
+            {{436487+1280083|flexCurrency:0}}
+        </td>
+    </tr>
+    <tr ng-if="tggl.showInsSummary">
+        <td>Stax/SCO</td>
+        <td class="text-right">
+            {{215040|flexCurrency:0}}
+        </td>
+        <td class="text-right" ng-repeat="x in loan.xcols">
+            {{x.stax_sco_value|flexCurrency:0}}
+        </td>
+        <td class="text-right">
+            {{215040+187635|flexCurrency:0}}
+        </td>
+    </tr>
+    <tr class="warning">
+        <td style="min-width:100px;">
+            Total
+        </td>
+        <td class="text-right">
+            {{651527|flexCurrency:0}}
+        </td>
+        <td class="text-right" ng-repeat="x in loan.xcols">
+            {{x.ins_net_value|flexCurrency:0}}
+        </td>
+        <td class="text-right">
+            {{651527+1467718|flexCurrency:0}}
+        </td>
+    </tr>
+    </tbody>
+</table>

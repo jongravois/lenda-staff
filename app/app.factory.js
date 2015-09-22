@@ -95,6 +95,7 @@
             calcSupInsbyCropSummary: calcSupInsbyCropSummary,
             calcSuppInsMax: calcSuppInsMax,
             calcSuppInsTotal: calcSuppInsTotal,
+            calcTotalAcres: calcTotalAcres,
             calcTotalArmAndFarmExpenses: calcTotalArmAndFarmExpenses,
             calcTotalBookedAdj: calcTotalBookedAdj,
             calcTotalCollateral: calcTotalCollateral,
@@ -871,6 +872,14 @@
 
             var max = calcSuppInsMax(obj);
             return 999999;
+        }
+        function calcTotalAcres(loan) {
+            if(!loan) { return 0; }
+            var retro = 0;
+            _.each(loan.loanpractices, function(lp){
+                retro += Number(lp.acres);
+            });
+            return retro;
         }
         function calcTotalArmAndFarmExpenses(loan) {
             if(!loan) { return 0; }

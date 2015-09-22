@@ -10,7 +10,7 @@
             $scope.newapplications = $state.current.data.newapplications;
             $scope.AppFactory = AppFactory;
             $scope.comments = AppFactory.parseComments($scope.loan.comments);
-            console.log($scope.loan.committee, 'comments', $scope.comments.Committee);
+            console.log($scope.loan.committee);
 
             $scope.alertChosen = function(id) {
                 if(id === 0 || id === '0') {
@@ -27,5 +27,14 @@
             $scope.createCommittee = function() {
                 alert('working');
             };
+            $scope.voteApprove = function(obj) {
+                alert('I approve');
+            }
+            $scope.voteReject = function(obj) {
+                alert('I reject');
+            }
+            $scope.createComment = function(obj) {
+                alert("Where's my modal");
+            }
         } // end controller
 })();

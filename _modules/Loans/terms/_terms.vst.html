@@ -4,7 +4,10 @@
         <tr ng-if="loan.terms.length > 1">
             <td>Loan Modification Date</td>
             <td class="text-right" ng-repeat="t in loan.terms">
-                {{t.modification_date|date:'MM/d/yyyy'}}
+                <span class="staticon glyphicons glyphicons-record pull-left" style="color: #555;" ng-if="t.mod_type == 'orig'"></span>
+                <span class="staticon glyphicons glyphicons-wrench pull-left" style="color: #009;" ng-if="t.mod_type == 'prog'"></span>
+                <span class="staticon glyphicons glyphicons-plus pull-left" style="color: #555;" ng-if="t.mod_type == 'add'"></span>
+                {{t.mod_date|date:'MM/d/yyyy'}}
             </td>
             <td class="text-center">Totals</td>
         </tr>
@@ -108,6 +111,4 @@
             </td>
         </tr>
     </table>
-    <p><a ng-click="editTerms()" class="btn btn-xs btn-default">
-        <span class="glyphicons glyphicons-circle-exclamation-mark" style="color:#006837;"></span> Modify</a></p>
 </div>

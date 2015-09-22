@@ -37,7 +37,7 @@
             }
 
             $scope.editTerms = function() {
-                //TODO: Determine loan type and options
+                //TODO: Determine loan type and options (properties.loan_type)
                 //TODO: Only Add Modification column if loan is submitted
                 var loan = $scope.loan;
                 var terms = loan.terms;

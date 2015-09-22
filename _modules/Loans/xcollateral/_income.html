@@ -3,7 +3,7 @@
     <tr>
         <th style="min-width:100px;">&nbsp;</th>
         <th style="min-width:100px;">
-            Expense
+            {{loan.applicant.applicant}}
         </th>
         <th style="min-width:100px;" ng-repeat="x in loan.xcols">
             {{x.applicant}}
@@ -12,74 +12,56 @@
             Total
         </th>
     </tr>
-    <tr ng-if="tggl.showArmExp">
-        <td>Fertilizer</td>
+    <tr ng-if="tggl.showIncome">
+        <td>Corn</td>
         <td></td>
         <td ng-repeat="x in loan.xcols"></td>
         <td></td>
     </tr>
-    <tr ng-if="tggl.showArmExp">
-        <td>Seed</td>
+    <tr ng-if="tggl.showIncome">
+        <td>Soybeans</td>
         <td></td>
         <td ng-repeat="x in loan.xcols"></td>
         <td></td>
     </tr>
-    <tr ng-if="tggl.showArmExp">
-        <td>Fungicide</td>
+    <tr ng-if="tggl.showIncome">
+        <td>Sorghum</td>
         <td></td>
         <td ng-repeat="x in loan.xcols"></td>
         <td></td>
     </tr>
-    <tr ng-if="tggl.showArmExp">
-        <td>Herbicide</td>
+    <tr ng-if="tggl.showIncome">
+        <td>Wheat</td>
         <td></td>
         <td ng-repeat="x in loan.xcols"></td>
         <td></td>
     </tr>
-    <tr ng-if="tggl.showArmExp">
-        <td>Insecticide</td>
+    <tr ng-if="tggl.showIncome">
+        <td>Cotton</td>
         <td></td>
         <td ng-repeat="x in loan.xcols"></td>
         <td></td>
     </tr>
-    <tr ng-if="tggl.showArmExp">
-        <td>Custom</td>
+    <tr ng-if="tggl.showIncome">
+        <td>Rice</td>
         <td></td>
         <td ng-repeat="x in loan.xcols"></td>
         <td></td>
     </tr>
-    <tr ng-if="tggl.showArmExp">
-        <td>Fuel</td>
+    <tr ng-if="tggl.showIncome">
+        <td>Peanuts</td>
         <td></td>
         <td ng-repeat="x in loan.xcols"></td>
         <td></td>
     </tr>
-    <tr ng-if="tggl.showArmExp">
-        <td>Labor</td>
+    <tr ng-if="tggl.showIncome">
+        <td>Sugar Cane</td>
         <td></td>
         <td ng-repeat="x in loan.xcols"></td>
         <td></td>
     </tr>
-    <tr ng-if="tggl.showArmExp">
-        <td>Repairs</td>
-        <td></td>
-        <td ng-repeat="x in loan.xcols"></td>
-        <td></td>
-    </tr>
-    <tr ng-if="tggl.showArmExp">
-        <td>Insurance</td>
-        <td></td>
-        <td ng-repeat="x in loan.xcols"></td>
-        <td></td>
-    </tr>
-    <tr ng-if="tggl.showArmExp">
-        <td>Harvesting</td>
-        <td></td>
-        <td ng-repeat="x in loan.xcols"></td>
-        <td></td>
-    </tr>
-    <tr ng-if="tggl.showArmExp">
-        <td>Misc Per Acre</td>
+    <tr ng-if="tggl.showIncome">
+        <td>Sunflowers</td>
         <td></td>
         <td ng-repeat="x in loan.xcols"></td>
         <td></td>
@@ -88,14 +70,14 @@
         <td style="min-width:100px;">
             Total
         </td>
-        <td class="text-right" style="min-width:100px;">
-            {{loan.fins.commit_arm|flexCurrency:0}}
+        <td ng-class="AppFactory.gtZero(AppFactory.calcTotalCropValues(loan))" style="min-width:100px;">
+            {{AppFactory.calcTotalCropValues(loan)|flexCurrency:0}}
         </td>
         <td class="text-right" style="min-width:100px;" ng-repeat="x in loan.xcols">
-            {{x.commit_arm|flexCurrency:0}}
+            {{x.crop_total|flexCurrency:0}}
         </td>
         <td class="text-right" style="min-width:100px;">
-            {{745696+147651|flexCurrency:0}}
+            {{1106787+1204300|flexCurrency:0}}
         </td>
     </tr>
     </tbody>

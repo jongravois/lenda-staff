@@ -54,52 +54,52 @@
             <th style="width:80px;" ng-if="tggl.showRnta">
                 <span class="opticon" ng-class="{clrOn: tggl.showWvd, clrOff: !tggl.showWvd}" ng-click="tggl.showWvd = !tggl.showWvd;">&lt;</span>Rent/Ac<span class="opticon" ng-class="{clrOn: tggl.showWvda, clrOff: !tggl.showWvda}" ng-click="tggl.showWvda = !tggl.showWvda;">&gt;</span>
             </th>
-            <th style="width:80px;" ng-if="tggl.showWvda">
+            <th style="width:80px;" class="bright" ng-if="tggl.showWvda">
                 <span class="opticon" ng-class="{clrOn: tggl.showRnta, clrOff: !tggl.showRnta}" ng-click="tggl.showRnta = !tggl.showRnta;">&lt;</span>Wvd/Ac<span class="opticon" ng-class="{clrOn: tggl.showShr, clrOff: !tggl.showShr}" ng-click="tggl.showShr = !tggl.showShr;">&gt;</span>
             </th>
-            <th style="width:50px;" class="clr-goldenrod" ng-if="tggl.showShr">
-                <span class="opticon" ng-class="{clrOn: tggl.showWvda, clrOff: !tggl.showWvda}" ng-click="tggl.showWvda = !tggl.showWvda;">&lt;</span>C Shr<span class="opticon" ng-class="{clrOn: tggl.showAcres, clrOff: !tggl.showAcres}" ng-click="tggl.showAcres = !tggl.showAcres;">&gt;</span>
+            <th style="width:50px;" ng-if="tggl.showShr">
+                <span class="opticon" ng-class="{clrOn: tggl.showWvda, clrOff: !tggl.showWvda}" ng-click="tggl.showWvda = !tggl.showWvda;">&lt;</span>Ovr<span class="opticon" ng-class="{clrOn: tggl.showAcres, clrOff: !tggl.showAcres}" ng-click="tggl.showAcres = !tggl.showAcres;">&gt;</span>
             </th>
-            <th style="width:80px;" class="clr-goldenrod" ng-if="tggl.showAcres">
+            <th style="width:80px;" ng-if="tggl.showAcres">
                 <span class="opticon" ng-class="{clrOn: tggl.showShr, clrOff: !tggl.showShr}" ng-click="tggl.showShr = !tggl.showShr;">&lt;</span>C Acres<span class="opticon" ng-class="{clrOn: tggl.showAPH, clrOff: !tggl.showAPH}" ng-click="tggl.showAPH = !tggl.showAPH;">&gt;</span>
             </th>
-            <th style="width:80px;" class="clr-goldenrod" ng-if="tggl.showAPH">
+            <th style="width:80px;" ng-if="tggl.showAPH">
                 <span class="opticon" ng-class="{clrOn: tggl.showAcres, clrOff: !tggl.showAcres}" ng-click="tggl.showAcres = !tggl.showAcres;">&lt;</span>C APH<span class="opticon" ng-class="{clrOn: tggl.showCF, clrOff: !tggl.showCF}" ng-click="tggl.showCF = !tggl.showCF;">&gt;</span>
             </th>
-            <th style="width:100px;" class="clr-goldenrod" ng-if="tggl.showCF">
+            <th style="width:100px;" ng-if="tggl.showCF">
                 <span class="opticon" ng-class="{clrOn: tggl.showAPH, clrOff: !tggl.showAPH}" ng-click="tggl.showAPH = !tggl.showAPH;">&lt;</span>C CF<span class="opticon" ng-class="{clrOn: tggl.showEX, clrOff: !tggl.showEX}" ng-click="tggl.showEX = !tggl.showEX;">&gt;</span>
             </th>
-            <th style="width:100px;" class="clr-goldenrod" ng-if="tggl.showEX">
+            <th style="width:100px;" class="bright" ng-if="tggl.showEX">
                 <span class="opticon" ng-class="{clrOn: tggl.showCF, clrOff: !tggl.showCF}" ng-click="tggl.showCF = !tggl.showCF;">&lt;</span>C EX
             </th>
-            <th style="width:50px;" class="clr-green" ng-if="tggl.showShr">
-                <span class="opticon" ng-class="{clrOn: tggl.showWvda, clrOff: !tggl.showWvda}" ng-click="tggl.showWvda = !tggl.showWvda;">&lt;</span>SB Shr<span class="opticon" ng-class="{clrOn: tggl.showAcres, clrOff: !tggl.showAcres}" ng-click="tggl.showAcres = !tggl.showAcres;">&gt;</span>
+            <th style="width:50px;" ng-if="tggl.showShr">
+                <span class="opticon" ng-class="{clrOn: tggl.showWvda, clrOff: !tggl.showWvda}" ng-click="tggl.showWvda = !tggl.showWvda;">&lt;</span>Ovr<span class="opticon" ng-class="{clrOn: tggl.showAcres, clrOff: !tggl.showAcres}" ng-click="tggl.showAcres = !tggl.showAcres;">&gt;</span>
             </th>
-            <th style="width:80px;" class="clr-green" ng-if="tggl.showAcres">
+            <th style="width:80px;" ng-if="tggl.showAcres">
                 <span class="opticon" ng-class="{clrOn: tggl.showShr, clrOff: !tggl.showShr}" ng-click="tggl.showShr = !tggl.showShr;">&lt;</span>SB Acres<span class="opticon" ng-class="{clrOn: tggl.showAPH, clrOff: !tggl.showAPH}" ng-click="tggl.showAPH = !tggl.showAPH;">&gt;</span>
             </th>
-            <th style="width:80px;" class="clr-green" ng-if="tggl.showAPH">
+            <th style="width:80px;" ng-if="tggl.showAPH">
                 <span class="opticon" ng-class="{clrOn: tggl.showAcres, clrOff: !tggl.showAcres}" ng-click="tggl.showAcres = !tggl.showAcres;">&lt;</span>SB APH<span class="opticon" ng-class="{clrOn: tggl.showCF, clrOff: !tggl.showCF}" ng-click="tggl.showCF = !tggl.showCF;">&gt;</span>
             </th>
-            <th style="width:100px;" class="clr-green" ng-if="tggl.showCF">
+            <th style="width:100px;" ng-if="tggl.showCF">
                 <span class="opticon" ng-class="{clrOn: tggl.showAPH, clrOff: !tggl.showAPH}" ng-click="tggl.showAPH = !tggl.showAPH;">&lt;</span>SB CF<span class="opticon" ng-class="{clrOn: tggl.showEX, clrOff: !tggl.showEX}" ng-click="tggl.showEX = !tggl.showEX;">&gt;</span>
             </th>
-            <th style="width:100px;" class="clr-green" ng-if="tggl.showEX">
+            <th style="width:100px;" class="bright" ng-if="tggl.showEX">
                 <span class="opticon" ng-class="{clrOn: tggl.showCF, clrOff: !tggl.showCF}" ng-click="tggl.showCF = !tggl.showCF;">&lt;</span>SB EX
             </th>
-            <th style="width:50px;" class="clr-litegray" ng-if="tggl.showShr">
-                <span class="opticon" ng-class="{clrOn: tggl.showWvda, clrOff: !tggl.showWvda}" ng-click="tggl.showWvda = !tggl.showWvda;">&lt;</span>CT Shr<span class="opticon" ng-class="{clrOn: tggl.showAcres, clrOff: !tggl.showAcres}" ng-click="tggl.showAcres = !tggl.showAcres;">&gt;</span>
+            <th style="width:50px;" ng-if="tggl.showShr">
+                <span class="opticon" ng-class="{clrOn: tggl.showWvda, clrOff: !tggl.showWvda}" ng-click="tggl.showWvda = !tggl.showWvda;">&lt;</span>Ovr<span class="opticon" ng-class="{clrOn: tggl.showAcres, clrOff: !tggl.showAcres}" ng-click="tggl.showAcres = !tggl.showAcres;">&gt;</span>
             </th>
-            <th style="width:80px;" class="clr-litegray" ng-if="tggl.showAcres">
+            <th style="width:80px;" ng-if="tggl.showAcres">
                 <span class="opticon" ng-class="{clrOn: tggl.showShr, clrOff: !tggl.showShr}" ng-click="tggl.showShr = !tggl.showShr;">&lt;</span>CT Acres<span class="opticon" ng-class="{clrOn: tggl.showAPH, clrOff: !tggl.showAPH}" ng-click="tggl.showAPH = !tggl.showAPH;">&gt;</span>
             </th>
-            <th style="width:80px;" class="clr-litegray" ng-if="tggl.showAPH">
+            <th style="width:80px;" ng-if="tggl.showAPH">
                 <span class="opticon" ng-class="{clrOn: tggl.showAcres, clrOff: !tggl.showAcres}" ng-click="tggl.showAcres = !tggl.showAcres;">&lt;</span>CT APH<span class="opticon" ng-class="{clrOn: tggl.showCF, clrOff: !tggl.showCF}" ng-click="tggl.showCF = !tggl.showCF;">&gt;</span>
             </th>
-            <th style="width:100px;" class="clr-litegray" ng-if="tggl.showCF">
+            <th style="width:100px;" ng-if="tggl.showCF">
                 <span class="opticon" ng-class="{clrOn: tggl.showAPH, clrOff: !tggl.showAPH}" ng-click="tggl.showAPH = !tggl.showAPH;">&lt;</span>CT CF<span class="opticon" ng-class="{clrOn: tggl.showEX, clrOff: !tggl.showEX}" ng-click="tggl.showEX = !tggl.showEX;">&gt;</span>
             </th>
-            <th style="width:100px;" class="clr-litegray" ng-if="tggl.showEX">
+            <th style="width:100px;" class="bright" ng-if="tggl.showEX">
                 <span class="opticon" ng-class="{clrOn: tggl.showCF, clrOff: !tggl.showCF}" ng-click="tggl.showCF = !tggl.showCF;">&lt;</span>CT EX
             </th>
             <th style="width: 20px !important">&nbsp;</th>
@@ -132,54 +132,54 @@
             <td ng-class="AppFactory.gtZero(u.cash_rent_acre_ARM)" ng-if="tggl.showRnta">
                 {{u.cash_rent_acre_ARM|flexCurrency:0}}
             </td>
-            <td ng-class="AppFactory.gtZero(u.waived_acre)" ng-if="tggl.showWvda">
+            <td class="bright" ng-class="AppFactory.gtZero(u.waived_acre)" ng-if="tggl.showWvda">
                 {{u.waived_acre|flexCurrency:0}}
             </td>
-            <td class="clr-goldenrod cBlue" ng-class="AppFactory.gtZero(u.crops[0].corn.override)" ng-if="tggl.showShr">
+            <td class="cBlue" ng-class="AppFactory.gtZero(u.crops[0].corn.override)" ng-if="tggl.showShr">
                 {{u.crops[0].corn.override|flexPercent:0}}
             </td>
-            <td class="clr-goldenrod cBlue" ng-class="AppFactory.gtZero(u.crops[0].corn.acres)" ng-if="tggl.showAcres">
+            <td class="cBlue" ng-class="AppFactory.gtZero(u.crops[0].corn.acres)" ng-if="tggl.showAcres">
                 {{u.crops[0].corn.acres|flexNumber:1}}
             </td>
-            <td class="clr-goldenrod cBlue" ng-class="AppFactory.gtZero(u.crops[0].corn.aph)" ng-if="tggl.showAPH">
+            <td class="cBlue" ng-class="AppFactory.gtZero(u.crops[0].corn.aph)" ng-if="tggl.showAPH">
                 {{u.crops[0].corn.aph|flexNumber:0}}
             </td>
-            <td class="clr-goldenrod cBlue" ng-class="AppFactory.gtZero(calcUnitCropCF('corn', u, loan))" ng-if="tggl.showCF">
+            <td ng-class="AppFactory.gtZero(calcUnitCropCF('corn', u, loan))" ng-if="tggl.showCF">
                 {{calcUnitCropCF('corn', u, loan)|flexCurrency:0}}
             </td>
-            <td class="clr-goldenrod cBlue" ng-class="AppFactory.gtZero(calcUnitCropEX('corn', u, loan))" ng-if="tggl.showEX">
+            <td class="bright" ng-class="AppFactory.gtZero(calcUnitCropEX('corn', u, loan))" ng-if="tggl.showEX">
                 {{calcUnitCropEX('corn', u, loan)|flexCurrency:0}}
             </td>
 
-            <td class="clr-green cBlue" ng-class="AppFactory.gtZero(u.crops[0].soybeans.override)" ng-if="tggl.showShr">
+            <td class="cBlue" ng-class="AppFactory.gtZero(u.crops[0].soybeans.override)" ng-if="tggl.showShr">
                 {{u.crops[0].soybeans.override|flexPercent:0}}
             </td>
-            <td class="clr-green cBlue" ng-class="AppFactory.gtZero(u.crops[0].soybeans.acres)" ng-if="tggl.showAcres">
+            <td class="cBlue" ng-class="AppFactory.gtZero(u.crops[0].soybeans.acres)" ng-if="tggl.showAcres">
                 {{u.crops[0].soybeans.acres|flexNumber:1}}
             </td>
-            <td class="clr-green cBlue" ng-class="AppFactory.gtZero(u.crops[0].soybeans.aph)" ng-if="tggl.showAPH">
+            <td class="cBlue" ng-class="AppFactory.gtZero(u.crops[0].soybeans.aph)" ng-if="tggl.showAPH">
                 {{u.crops[0].soybeans.aph|flexNumber:0}}
             </td>
-            <td class="clr-green cBlue" ng-class="AppFactory.gtZero(calcUnitCropCF('soybeans', u, loan))" ng-if="tggl.showCF">
+            <td ng-class="AppFactory.gtZero(calcUnitCropCF('soybeans', u, loan))" ng-if="tggl.showCF">
                 {{calcUnitCropCF('soybeans', u, loan)|flexCurrency:0}}
             </td>
-            <td class="clr-green cBlue" ng-class="AppFactory.gtZero(calcUnitCropEX('soybeans', u, loan))" ng-if="tggl.showEX">
+            <td class="bright" ng-class="AppFactory.gtZero(calcUnitCropEX('soybeans', u, loan))" ng-if="tggl.showEX">
                 {{calcUnitCropEX('soybeans', u, loan)|flexCurrency:0}}
             </td>
 
-            <td class="clr-litegray cBlue" ng-class="AppFactory.gtZero(u.crops[0].cotton.override)" ng-if="tggl.showShr">
+            <td class="cBlue" ng-class="AppFactory.gtZero(u.crops[0].cotton.override)" ng-if="tggl.showShr">
                 {{u.crops[0].cotton.override|flexPercent:0}}
             </td>
-            <td class="clr-litegray cBlue" ng-class="AppFactory.gtZero(u.crops[0].cotton.acres)" ng-if="tggl.showAcres">
+            <td class="cBlue" ng-class="AppFactory.gtZero(u.crops[0].cotton.acres)" ng-if="tggl.showAcres">
                 {{u.crops[0].cotton.acres|flexNumber:1}}
             </td>
-            <td class="clr-litegray cBlue" ng-class="AppFactory.gtZero(u.crops[0].cotton.aph)" ng-if="tggl.showAPH">
+            <td class="cBlue" ng-class="AppFactory.gtZero(u.crops[0].cotton.aph)" ng-if="tggl.showAPH">
                 {{u.crops[0].cotton.aph|flexNumber:0}}
             </td>
-            <td class="clr-litegray cBlue" ng-class="AppFactory.gtZero(calcUnitCropCF('cotton', u, loan))" ng-if="tggl.showCF">
+            <td ng-class="AppFactory.gtZero(calcUnitCropCF('cotton', u, loan))" ng-if="tggl.showCF">
                 {{calcUnitCropCF('cotton', u, loan)|flexCurrency:0}}
             </td>
-            <td class="clr-litegray cBlue" ng-class="AppFactory.gtZero(calcUnitCropEX('cotton', u, loan))" ng-if="tggl.showEX">
+            <td class="bright" ng-class="AppFactory.gtZero(calcUnitCropEX('cotton', u, loan))" ng-if="tggl.showEX">
                 {{calcUnitCropEX('cotton', u, loan)|flexCurrency:0}}
             </td>
             <td class="text-center">

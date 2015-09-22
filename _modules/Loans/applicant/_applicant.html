@@ -25,7 +25,7 @@
         </div>
         <!-- APPLICANT / SSN / DOB -->
 
-        <!-- ADDRESS / PHONE -->
+        <!-- ADDRESS -->
         <div class="row">
             <div class="form-group col-md-5">
                 <label>Mailing Address:</label>
@@ -50,9 +50,9 @@
                 <input type="text" name="zip" ng-model="loan.applicant.zip" class="form-control"/>
             </div>
         </div>
-        <!-- ADDRESS / PHONE -->
+        <!-- ADDRESS -->
 
-        <!-- PHONE / EMAIL / SSN / DOB -->
+        <!-- PHONE / EMAIL / DOB -->
         <div class="row">
             <div class="form-group col-md-5">
                 <label>Phone:</label>
@@ -72,10 +72,10 @@
             <div class="form-group col-md-2">
                 <label>DOB or Incorporation:</label>
                 <br/>
-                <input type="text" name="dob" ui-mask="99/99/9999" ng-model="loan.applicant.dob" class="form-control" style="width: 120px;"/>
+                <input type="date" name="dob" ng-model="loan.applicant.dob" class="form-control" style="width: 150px;"/>
             </div>
         </div>
-        <!-- PHONE / EMAIL / SSN / DOB -->
+        <!-- PHONE / EMAIL / DOB -->
 
         <!-- SPOUSE / SSN -->
         <div class="row" ng-if="loan.applicant.entity_id === '5'">

@@ -65,6 +65,7 @@
                             <span class="cBlack" ng-class="alertChosen(c.user_id)">
                                 <b>{{c.role.abr}}</b>
                             </span>
+                        </span>
                     </td>
                     <td class="cBlue">
                         <span editable-text="c.user.name" e-name="name" e-form="rowform" e-style="width:100%;" e-required>
@@ -81,14 +82,18 @@
                     </td>
                     <td class="text-center">
                         <span ng-if="c.vote">
-                            <span class="glyphicons glyphicons-thumbs-up cGreen" style="font-size:16px;" ng-if=c.vote == '1'></span><span class="glyphicons glyphicons-thumbs-down cRed" style="font-size:16px;" ng-if="c.vote == '0'"></span>
+                            <span class="glyphicons glyphicons-thumbs-up cGreen" style="font-size:16px;" tooltip="Voted to approve" tooltip-append-to-body="true" tooltip-placement="bottom" ng-if="c.vote == '1'"></span>
+                            <span class="glyphicons glyphicons-thumbs-down cRed" style="font-size:16px;" tooltip="Voted to reject" tooltip-append-to-body="true" tooltip-placement="bottom" ng-if="c.vote == '0'"></span>
                         </span>
-                        <span ng-if="!c.vote && c.user_id !== '0'">
-                            <span class="voteicon glyphicons glyphicons-thumbs-up cGreen" style="font-size:16px;" tooltip="Approve" tooltip-append-to-body="true" tooltip-placement="bottom"></span>
+                        <span ng-if="!c.vote && c.user_id !== user.id">
+                            <span class="voteicon glyphicons glyphicons-group cBlue" style="font-size:16px;" tooltip="Pending Vote" tooltip-append-to-body="true" tooltip-placement="bottom"></span>
+                        </span>
+                        <span ng-if="!c.vote && c.user_id == user.id">
+                            <span class="voteicon glyphicons glyphicons-thumbs-up cGreen" style="font-size:16px;" tooltip="Approve" tooltip-append-to-body="true" tooltip-placement="bottom" ng-click="voteApprove(c)"></span>
                             &nbsp;
-                            <span class="voteicon glyphicons glyphicons-thumbs-down cRed" style="font-size:16px;"tooltip="Reject" tooltip-append-to-body="true" tooltip-placement="bottom"></span>
+                            <span class="voteicon glyphicons glyphicons-thumbs-down cRed" style="font-size:16px;"tooltip="Reject" tooltip-append-to-body="true" tooltip-placement="bottom" ng-click="voteReject(c)"></span>
                             &nbsp;
-                            <span class="voteicon glyphicons glyphicons-comments cBlue" style="font-size:16px;"tooltip="Comment" tooltip-append-to-body="true" tooltip-placement="bottom"></span>
+                            <span class="voteicon glyphicons glyphicons-comments cBlue" style="font-size:16px;"tooltip="Comment" tooltip-append-to-body="true" tooltip-placement="bottom" ng-click="createComment(c)"></span>
                         </span>
                     </td>
                    <td style="width:120px;" class="text-center">
@@ -101,6 +106,7 @@
                         <div class="buttons" ng-show="!rowform.$visible">
                             <span style="font-size: 16px; color: #990000;"
                                   ng-click="deleteCommittee($index, p.id)">&cross;</span>
+                        </div>
                     </td>
                     </td>
                 </tr>

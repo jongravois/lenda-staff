@@ -209,9 +209,8 @@
 
     function ssnumFilter() {
         return function (input) {
-            if (!input) {
-                return '';
-            }
+            if (!input) { return ''; }
+
             if (input.length !== 9) {
                 return input;
             }

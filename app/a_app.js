@@ -9,6 +9,7 @@
             'toastr',
             'oitozero.ngSweetAlert',
             'angularGrid',
+            'ui.mask',
             'xeditable',
             'angular-loading-bar',
             'ui.bootstrap-slider',

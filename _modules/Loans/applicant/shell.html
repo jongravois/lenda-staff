@@ -2,16 +2,16 @@
     <legend>
         &nbsp;
         <span class="pendicon glyphicon glyphicon-chevron-right"
-              ng-click="togShowFarmer()"
-              ng-if="!showFarmer"></span>
+              ng-click="tggl.showFarmer = !tggl.showFarmer"
+              ng-if="!tggl.showFarmer"></span>
         <span class="pendicon glyphicon glyphicon-chevron-down"
-              ng-click="togShowFarmer()"
-              ng-if="showFarmer"></span>
+              ng-click="tggl.showFarmer = !tggl.showFarmer"
+              ng-if="tggl.showFarmer"></span>
         &nbsp;Farmer
     </legend>
     <div class="container-fluid"
          ng-include="'./_modules/Loans/applicant/_farmer.html'"
-         ng-if="showFarmer">
+         ng-if="tggl.showFarmer">
     </div>
 </fieldset>
 
@@ -21,16 +21,16 @@
     <legend>
         &nbsp;
         <span class="pendicon glyphicon glyphicon-chevron-right"
-              ng-click="togShowApplicant()"
-              ng-if="!showApplicant"></span>
+              ng-click="tggl.showApplicant = !tggl.showApplicant"
+              ng-if="!tggl.showApplicant"></span>
         <span class="pendicon glyphicon glyphicon-chevron-down"
-              ng-click="togShowApplicant()"
-              ng-if="showApplicant"></span>
+              ng-click="tggl.showApplicant = !tggl.showApplicant"
+              ng-if="tggl.showApplicant"></span>
         &nbsp;Applicant
     </legend>
     <div class="container-fluid"
          ng-include="'./_modules/Loans/applicant/_applicant.html'"
-         ng-if="showApplicant">
+         ng-if="tggl.showApplicant">
     </div>
 </fieldset>
 
@@ -39,34 +39,34 @@
 <fieldset ng-show="loan.applicant.entity_id === '4'">
     <legend>
         &nbsp;
-                <span class="pendicon glyphicon glyphicon-chevron-right"
-                      ng-click="togShowPartner()"
-                      ng-if="!showPartner"></span>
-                <span class="pendicon glyphicon glyphicon-chevron-down"
-                      ng-click="togShowPartner()"
-                      ng-if="showPartner"></span>
+        <span class="pendicon glyphicon glyphicon-chevron-right"
+              ng-click="tggl.showPartner = !tggl.showPartner"
+              ng-if="!tggl.showPartner"></span>
+        <span class="pendicon glyphicon glyphicon-chevron-down"
+              ng-click="tggl.showPartner = !tggl.showPartner"
+              ng-if="tggl.showPartner"></span>
         &nbsp;Partners
     </legend>
     <div class="container-fluid"
          ng-include="'./_modules/Loans/applicant/_partner.html'"
-         ng-if="showPartner">
+         ng-if="tggl.showPartner">
     </div>
 </fieldset>
 
 <fieldset ng-show="loan.applicant.entity_id === '3'">
     <legend>
         &nbsp;
-                <span class="pendicon glyphicon glyphicon-chevron-right"
-                      ng-click="togShowJoints()"
-                      ng-if="!showJoints"></span>
-                <span class="pendicon glyphicon glyphicon-chevron-down"
-                      ng-click="togShowJoints()"
-                      ng-if="showJoints"></span>
+        <span class="pendicon glyphicon glyphicon-chevron-right"
+              ng-click="tggl.showJoints = !tggl.showJoints"
+              ng-if="!tggl.showJoints"></span>
+        <span class="pendicon glyphicon glyphicon-chevron-down"
+              ng-click="tggl.showJoints = !tggl.showJoints"
+              ng-if="tggl.showJoints"></span>
         &nbsp;Joint Ventures
     </legend>
     <div class="container-fluid"
          ng-include="'./_modules/Loans/applicant/_joints.html'"
-         ng-if="showJoints">
+         ng-if="tggl.showJoints">
     </div>
 </fieldset>
 
@@ -74,16 +74,16 @@
     <legend>
         &nbsp;
         <span class="pendicon glyphicon glyphicon-chevron-right"
-              ng-click="togShowCorps()"
-              ng-if="!showCorps"></span>
+              ng-click="tggl.showCorps = !tggl.showCorps"
+              ng-if="!tggl.showCorps"></span>
         <span class="pendicon glyphicon glyphicon-chevron-down"
-              ng-click="togShowCorps()"
-              ng-if="showCorps"></span>
+              ng-click="tggl.showCorps = !tggl.showCorps"
+              ng-if="tggl.showCorps"></span>
         &nbsp;Corporation
     </legend>
     <span class="container-fluid"
          ng-include="'./_modules/Loans/applicant/_corps.html'"
-         ng-if="showCorps"></span>
+         ng-if="tggl.showCorps"></span>
     </div>
 </fieldset>
 

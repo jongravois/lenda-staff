@@ -14,7 +14,6 @@
                     <th style="width:16%;" ng-click="doSort('pgm')">Gov't Pgm</th>
                     <th style="width:16%;" ng-click="doSort('base_acres')">Base Acres</th>
                     <th style="width:16%;" ng-click="doSort('fsa_yield')">FSA Yield</th>
-                    <th style="width:16%;" ng-click="doSort('amount')">Amount</th>
                     <th style="width:80px;min-width:80px;max-width:80px">&nbsp;</th>
                 </tr>
                 <tr>
@@ -47,11 +46,6 @@
                     <td class="cBlue" ng-class="AppFactory.gtZero(f.fsa_yield)">
                         <span editable-number="f.fsa_yield" e-name="fsa_yield" e-form="rowform" e-style="width:100%;">
                         	{{f.fsa_yield|flexNumber:1}}
-                        </span>
-                    </td>
-                    <td class="cBlue" ng-class="AppFactory.gtZero(f.amount)">
-                        <span editable-number="f.amount" e-name="amount" e-form="rowform" e-style="width:100%;">
-                        	{{f.amount|flexNumber:1}}
                         </span>
                     </td>
                     <td class="text-center">

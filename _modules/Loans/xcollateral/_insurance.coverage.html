@@ -1,0 +1,120 @@
+<table class="table table-striped rowed disp-sm">
+    <tbody>
+    <tr>
+        <th style="min-width:100px;">&nbsp;</th>
+        <th style="min-width:100px;">
+            {{loan.applicant.applicant}}
+        </th>
+        <th style="min-width:100px;" ng-repeat="x in loan.xcols">
+            Applicant
+        </th>
+        <th style="min-width:100px;">
+            Total
+        </th>
+    </tr>
+    <tr ng-if="tggl.showInsurance">
+        <td>Corn</td>
+        <td></td>
+        <td ng-repeat="x in loan.xcols"></td>
+        <td></td>
+    </tr>
+    <tr ng-if="tggl.showInsurance">
+        <td>Soybeans</td>
+        <td></td>
+        <td ng-repeat="x in loan.xcols"></td>
+        <td></td>
+    </tr>
+    <tr ng-if="tggl.showInsurance">
+        <td>Sorghum</td>
+        <td></td>
+        <td ng-repeat="x in loan.xcols"></td>
+        <td></td>
+    </tr>
+    <tr ng-if="tggl.showInsurance">
+        <td>Wheat</td>
+        <td></td>
+        <td ng-repeat="x in loan.xcols"></td>
+        <td></td>
+    </tr>
+    <tr ng-if="tggl.showInsurance">
+        <td>Cotton</td>
+        <td></td>
+        <td ng-repeat="x in loan.xcols"></td>
+        <td></td>
+    </tr>
+    <tr ng-if="tggl.showInsurance">
+        <td>Rice</td>
+        <td></td>
+        <td ng-repeat="x in loan.xcols"></td>
+        <td></td>
+    </tr>
+    <tr ng-if="tggl.showInsurance">
+        <td>Peanuts</td>
+        <td></td>
+        <td ng-repeat="x in loan.xcols"></td>
+        <td></td>
+    </tr>
+    <tr ng-if="tggl.showInsurance">
+        <td>Sugar Cane</td>
+        <td></td>
+        <td ng-repeat="x in loan.xcols"></td>
+        <td></td>
+    </tr>
+    <tr ng-if="tggl.showInsurance">
+        <td>Sunflowers</td>
+        <td></td>
+        <td ng-repeat="x in loan.xcols"></td>
+        <td></td>
+    </tr>
+    <tr class="warning">
+        <td style="max-width:100px;">
+            Total
+        </td>
+        <td ng-class="AppFactory.gtZero(AppFactory.calcCropTotsInsVal(loan))" style="max-width:100px;">
+            {{AppFactory.calcCropTotsInsVal(loan)|flexCurrency:0}}
+        </td>
+        <td class="text-right" style="max-width:100px;" ng-repeat="x in loan.xcols">
+            {{x.ins_total_value|flexCurrency:0}}
+        </td>
+        <td class="text-right" style="max-width:100px;">
+            {{966952+1600104|flexCurrency:0}}
+        </td>
+    </tr>
+    <tr><td colspan="4">&nbsp;</td></tr>
+    <tr>
+        <td style="max-width:100px;">*** ARM and {{loan.distributor.distributor}} Loan</td>
+        <td class="text-right">{{745696+1122320|flexCurrency:0}}</td>
+        <td class="text-right" ng-repeat="x in loan.xcols">
+            {{x.armAndDist|flexCurrency:0}}
+        </td>
+        <td class="text-right">
+            {{1868016+408556|flexCurrency:0}}
+        </td>
+    </tr>
+    <tr>
+        <td style="max-width:100px;">*** Net Crop Insurance Coverage</td>
+        <td class="text-right">
+            {{AppFactory.calcCropTotsInsVal(loan)|flexCurrency:0}}
+        </td>
+        <td class="text-right" ng-repeat="x in loan.xcols">
+            {{x.ins_total_value|flexCurrency:0}}
+        </td>
+        <td class="text-right">
+            {{966952+1600104|flexCurrency:0}}
+        </td>
+    </tr>
+    <tr>
+        <td style="max-width:100px;">*** Crop Insurance above/below loan</td>
+        <td class="text-right">
+            {{1868016-966952|flexCurrency:0}}
+        </td>
+        <td class="text-right" ng-repeat="x in loan.xcols">
+            {{x.ins_total_diff|flexCurrency:0}}
+        </td>
+        <td class="text-right">
+            {{2276572-2567056|flexCurrency:0}}
+        </td>
+    </tr>
+    </tbody>
+</table>
+

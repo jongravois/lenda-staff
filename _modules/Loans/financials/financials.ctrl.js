@@ -17,7 +17,15 @@
                 $scope.grads = $rootScope.defaults.admingraders;
             }
             $scope.afins = $scope.loan.applicant.fins;
-            console.log('AFINS', $scope.afins);
+            //console.log('AFINS', $scope.afins);
+
+            $scope.tggl = {
+                showBorrowerInfo: true,
+                showBalanceSheet: false,
+                showIncomeHistory: false,
+                showCreditPoints: false,
+                showBorrowerRating: false
+            };
 
             $scope.creditPoints = {
                 credit_score: 22, //loan.applicant.fins.credit_score

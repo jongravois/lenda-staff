@@ -12,11 +12,13 @@
             $scope.farmerSaved = false;
 
             $scope.newApplicantForm = false;
-            $scope.showFarmer = false;
-            $scope.showApplicant = false;
-            $scope.showPartner = false;
-            $scope.showJoints = false;
-            $scope.showCorps = false;
+            $scope.tggl = {
+                showFarmer: false,
+                showApplicant: false,
+                showPartner: false,
+                showJoints: false,
+                showCorps: false
+            };
 
             if (!$rootScope.currentUser) {
                 try {
@@ -57,21 +59,9 @@
                 console.log('NewloanCtrl', $scope.loan);
             }
 
-            $scope.togShowFarmer = function() {
-                $scope.showFarmer = !$scope.showFarmer;
-            };
-            $scope.togShowApplicant = function() {
-                $scope.showApplicant = !$scope.showApplicant;
-            };
-            $scope.togShowPartner = function() {
-                $scope.showPartner = !$scope.showPartner;
-            };
-            $scope.togShowJoints = function() {
-                $scope.showJoints = !$scope.showJoints;
-            };
-            $scope.togShowCorps = function() {
-                $scope.showCorps = !$scope.showCorps;
-            };
+            $scope.loan.farmer.dob = new Date($scope.loan.farmer.dob);
+            $scope.loan.applicant.dob = new Date($scope.loan.applicant.dob);
+
             $scope.createApplicantScreen = function() {
                 // check for partners and joints with loan_id of 0 and update loan_id
                 AppFactory.postIt('applicants', $scope.loan.applicant)

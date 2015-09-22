@@ -1,0 +1,27 @@
+<div class="row">
+    <div class="col-md-12">
+        <!-- CUSTOMER INFO-->
+        <table class="table table-striped rowed table-condensed disp-sm" style="width: 80%;">
+            <tr>
+                <td style="width:25%;">Credit Score</td>
+                <td class="text-right cBlue bright" style="width:25%;">
+                    <strong>{{loan.applicant.fins.credit_score|number:0}}</strong>
+                </td>
+                <td>Debts / Assets</td>
+                <td class="text-right">
+                    <strong>{{getDebtToAssets()|flexPercent:0}}</strong>
+                </td>
+            </tr>
+            <tr>
+                <td>Requested Credit</td>
+                <td class="text-right cBlue bright">
+                    <strong>{{loan.applicant.fins.amount_requested|flexCurrency:0}}</strong>
+                </td>
+                <td>Loan / Net Worth</td>
+                <td class="text-right">
+                    <strong>{{getLoanNetworth()|flexPercent:0}}</strong>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>

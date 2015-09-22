@@ -1,0 +1,78 @@
+<table class="table table-striped rowed disp-sm">
+    <tbody>
+    <tr>
+        <th style="min-width:100px;">&nbsp;</th>
+        <th style="min-width:100px;">
+            {{loan.applicant.applicant}}
+        </th>
+        <th style="min-width:100px;" ng-repeat="x in loan.xcols">
+            {{x.applicant}}
+        </th>
+        <th style="min-width:100px;">
+            Total
+        </th>
+    </tr>
+    <tr ng-if="tggl.showTerms">
+        <td>ARM Origination Fee</td>
+        <td class="text-right">
+            {{AppFactory.calcArmDistProcFee(loan)/100|flexCurrency:0}}
+        </td>
+        <td class="text-right" ng-repeat="x in loan.xcols">
+            {{x.origination_fee|flexCurrency:0}}
+        </td>
+        <td class="text-right">
+            {{37360+29899|flexCurrency:0}}
+        </td>
+    </tr>
+    <tr ng-if="tggl.showTerms">
+        <td>ARM Service Fee</td>
+        <td class="text-right">
+            {{AppFactory.calcArmDistSrvcFee(loan)/100|flexCurrency:0}}
+        </td>
+        <td class="text-right" ng-repeat="x in loan.xcols">
+            {{x.service_fee|flexCurrency:0}}
+        </td>
+        <td class="text-right">
+            {{28020+21080|flexCurrency:0}}
+        </td>
+    </tr>
+    <tr ng-if="tggl.showTerms">
+        <td>ARM Est Interest</td>
+        <td class="text-right">
+            {{AppFactory.calcArmInterest(loan)|flexCurrency:0}}
+        </td>
+        <td class="text-right" ng-repeat="x in loan.xcols">
+            {{x.interest_arm|flexCurrency:0}}
+        </td>
+        <td class="text-right">
+            {{51828+47656|flexCurrency:0}}
+        </td>
+    </tr>
+    <tr ng-if="tggl.showTerms">
+        <td>{{loan.distributor.distributor}} Est Interest</td>
+        <td class="text-right">
+            {{AppFactory.calcDistInterest(loan)|flexCurrency:0}}
+        </td>
+        <td class="text-right" ng-repeat="x in loan.xcols">
+            {{x.interest_dist|flexCurrency:0}}
+        </td>
+        <td class="text-right">
+            {{62266+39990|flexCurrency:0}}
+        </td>
+    </tr>
+    <tr class="warning">
+        <td style="min-width:100px;">
+            Total
+        </td>
+        <td class="text-right">
+            {{179474|flexCurrency:0}}
+        </td>
+        <td class="text-right" ng-repeat="x in loan.xcols">
+            {{x.total_fee_interest|flexCurrency:0}}
+        </td>
+        <td class="text-right">
+            {{179474+138625|flexCurrency:0}}
+        </td>
+    </tr>
+    </tbody>
+</table>

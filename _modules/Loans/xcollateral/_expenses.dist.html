@@ -1,101 +1,101 @@
 <table class="table table-striped rowed disp-sm">
     <tbody>
     <tr>
-        <th style="min-width:100px;">&nbsp;</th>
-        <th style="min-width:100px;">
+        <th style="max-width:100px;">&nbsp;</th>
+        <th style="max-width:100px;">
             Expense
         </th>
-        <th style="min-width:100px;" ng-repeat="x in loan.xcols">
+        <th style="max-width:100px;" ng-repeat="x in loan.xcols">
             {{x.applicant}}
         </th>
-        <th style="min-width:100px;">
+        <th style="max-width:100px;">
             Total
         </th>
     </tr>
-    <tr ng-if="tggl.showArmExp">
+    <tr ng-if="tggl.showDistExp">
         <td>Fertilizer</td>
         <td></td>
         <td ng-repeat="x in loan.xcols"></td>
         <td></td>
     </tr>
-    <tr ng-if="tggl.showArmExp">
+    <tr ng-if="tggl.showDistExp">
         <td>Seed</td>
         <td></td>
         <td ng-repeat="x in loan.xcols"></td>
         <td></td>
     </tr>
-    <tr ng-if="tggl.showArmExp">
+    <tr ng-if="tggl.showDistExp">
         <td>Fungicide</td>
         <td></td>
         <td ng-repeat="x in loan.xcols"></td>
         <td></td>
     </tr>
-    <tr ng-if="tggl.showArmExp">
+    <tr ng-if="tggl.showDistExp">
         <td>Herbicide</td>
         <td></td>
         <td ng-repeat="x in loan.xcols"></td>
         <td></td>
     </tr>
-    <tr ng-if="tggl.showArmExp">
+    <tr ng-if="tggl.showDistExp">
         <td>Insecticide</td>
         <td></td>
         <td ng-repeat="x in loan.xcols"></td>
         <td></td>
     </tr>
-    <tr ng-if="tggl.showArmExp">
+    <tr ng-if="tggl.showDistExp">
         <td>Custom</td>
         <td></td>
         <td ng-repeat="x in loan.xcols"></td>
         <td></td>
     </tr>
-    <tr ng-if="tggl.showArmExp">
+    <tr ng-if="tggl.showDistExp">
         <td>Fuel</td>
         <td></td>
         <td ng-repeat="x in loan.xcols"></td>
         <td></td>
     </tr>
-    <tr ng-if="tggl.showArmExp">
+    <tr ng-if="tggl.showDistExp">
         <td>Labor</td>
         <td></td>
         <td ng-repeat="x in loan.xcols"></td>
         <td></td>
     </tr>
-    <tr ng-if="tggl.showArmExp">
+    <tr ng-if="tggl.showDistExp">
         <td>Repairs</td>
         <td></td>
         <td ng-repeat="x in loan.xcols"></td>
         <td></td>
     </tr>
-    <tr ng-if="tggl.showArmExp">
+    <tr ng-if="tggl.showDistExp">
         <td>Insurance</td>
         <td></td>
         <td ng-repeat="x in loan.xcols"></td>
         <td></td>
     </tr>
-    <tr ng-if="tggl.showArmExp">
+    <tr ng-if="tggl.showDistExp">
         <td>Harvesting</td>
         <td></td>
         <td ng-repeat="x in loan.xcols"></td>
         <td></td>
     </tr>
-    <tr ng-if="tggl.showArmExp">
+    <tr ng-if="tggl.showDistExp">
         <td>Misc Per Acre</td>
         <td></td>
         <td ng-repeat="x in loan.xcols"></td>
         <td></td>
     </tr>
     <tr class="warning">
-        <td style="min-width:100px;">
+        <td style="max-width:100px;">
             Total
         </td>
-        <td class="text-right" style="min-width:100px;">
-            {{loan.fins.commit_arm|flexCurrency:0}}
+        <td class="text-right" style="max-width:100px;">
+            {{loan.fins.commit_dist|flexCurrency:0}}
         </td>
-        <td class="text-right" style="min-width:100px;" ng-repeat="x in loan.xcols">
-            {{x.commit_arm|flexCurrency:0}}
+        <td class="text-right" style="max-width:100px;" ng-repeat="x in loan.xcols">
+            {{x.commit_dist|flexCurrency:0}}
         </td>
-        <td class="text-right" style="min-width:100px;">
-            {{745696+147651|flexCurrency:0}}
+        <td class="text-right" style="max-width:100px;">
+            {{1122320+260905|flexCurrency:0}}
         </td>
     </tr>
     </tbody>

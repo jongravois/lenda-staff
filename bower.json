@@ -28,6 +28,7 @@
     "angular-sanitize": "~1.3.4",
     "angular-toastr": "~0.5.2",
     "angular-ui-grid": "~3.0.1",
+    "angular-ui-mask": "~1.4.5",
     "angular-ui-router": "~0.2.15",
     "angular-ui-sortable": "~0.13.3",
     "angular-ui-utils": "~0.1.1",

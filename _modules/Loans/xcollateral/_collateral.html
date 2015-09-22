@@ -1,0 +1,112 @@
+<table class="table table-striped rowed disp-sm">
+    <tbody>
+    <tr>
+        <th style="min-width:100px;">&nbsp;</th>
+        <th style="min-width:100px;">
+            {{loan.applicant.applicant}}
+        </th>
+        <th style="min-width:100px;" ng-repeat="x in loan.xcols">
+            {{x.applicant}}
+        </th>
+        <th style="min-width:100px;">
+            Total
+        </th>
+    </tr>
+    <tr ng-if="tggl.showCollateral">
+        <td>Crops</td>
+        <td class="text-right">
+            {{AppFactory.calcPlannedCropValue(loan)|flexCurrency:0}}
+        </td>
+        <td class="text-right" ng-repeat="x in loan.xcols">
+            {{x.collateral_crops|flexCurrency:0}}
+        </td>
+        <td class="text-right">
+            {{AppFactory.calcPlannedCropValue(loan)+602150|flexCurrency:0}}
+        </td>
+    </tr>
+    <tr ng-if="tggl.showCollateral">
+        <td>FSA</td>
+        <td class="text-right">
+            {{AppFactory.calcOCDTByType('fsa', loan)|flexCurrency:0}}
+        </td>
+        <td class="text-right" ng-repeat="x in loan.xcols">
+            {{0|flexCurrency:0}}
+        </td>
+        <td class="text-right">
+            {{AppFactory.calcOCDTByType('fsa', loan)|flexCurrency:0}}
+        </td>
+    </tr>
+    <tr ng-if="tggl.showCollateral">
+        <td>MPCI</td>
+        <td class="text-right">
+            {{AppFactory.calcTotalDiscMPCI(loan)|flexCurrency:0}}
+        </td>
+        <td class="text-right" ng-repeat="x in loan.xcols">
+            {{x.collateral_mpci|flexCurrency:0}}
+        </td>
+        <td class="text-right">
+            {{AppFactory.calcTotalDiscMPCI(loan)+487564|flexCurrency:0}}
+        </td>
+    </tr>
+    <tr ng-if="tggl.showCollateral">
+        <td>Stax/SCO</td>
+        <td class="text-right">
+            {{AppFactory.calcTotalDiscSuppCoverage(loan)|flexCurrency:0}}
+        </td>
+        <td class="text-right" ng-repeat="x in loan.xcols">
+            {{x.collateral_stax_sco|flexCurrency:0}}
+        </td>
+        <td class="text-right">
+            {{AppFactory.calcTotalDiscSuppCoverage(loan)+10499|flexCurrency:0}}
+        </td>
+    </tr>
+    <tr ng-if="tggl.showCollateral">
+        <td>Equipment</td>
+        <td class="text-right">
+            {{AppFactory.calcOCDTByType('equipment', loan)|flexCurrency:0}}
+        </td>
+        <td class="text-right" ng-repeat="x in loan.xcols">
+            {{x.collateral_equipment|flexCurrency:0}}
+        </td>
+        <td class="text-right">
+            {{AppFactory.calcOCDTByType('equipment', loan)|flexCurrency:0}}
+        </td>
+    </tr>
+    <tr ng-if="tggl.showCollateral">
+        <td>Real Estate</td>
+        <td class="text-right">
+            {{AppFactory.calcOCDTByType('realestate', loan)|flexCurrency:0}}
+        </td>
+        <td class="text-right" ng-repeat="x in loan.xcols">
+            {{x.collateral_realestate|flexCurrency:0}}
+        </td>
+        <td class="text-right">
+            {{AppFactory.calcOCDTByType('realestate', loan)|flexCurrency:0}}
+        </td>
+    </tr>
+    <tr ng-if="tggl.showCollateral">
+        <td>Other</td>
+        <td class="text-right">
+            {{AppFactory.calcOCDTByType('other', loan)|flexCurrency:0}}
+        </td>
+        <td class="text-right" ng-repeat="x in loan.xcols">
+            {{x.collateral_other|flexCurrency:0}}
+        </td>
+        <td class="text-right">
+            {{AppFactory.calcOCDTByType('other', loan)|flexCurrency:0}}
+        </td>
+    </tr>
+    <tr class="warning">
+        <td>Total</td>
+        <td class="text-right">
+            {{1163082|flexCurrency:0}}
+        </td>
+        <td class="text-right" ng-repeat="x in loan.xcols">
+            {{1100213|flexCurrency:0}}
+        </td>
+        <td class="text-right">
+            {{2263295|flexCurrency:0}}
+        </td>
+    </tr>
+    </tbody>
+</table>

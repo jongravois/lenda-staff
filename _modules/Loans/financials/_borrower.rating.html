@@ -1,0 +1,59 @@
+<!-- BORROWER CONSTRAINT-->
+<table class="table table-striped rowed table-condensed disp-sm" style="width: 80%;">
+    <tr>
+        <th style="width:25%;">Borrower Rating</th>
+        <th style="width:15%;">A</th>
+        <th style="width:15%;">B</th>
+        <th style="width:15%;">C</th>
+        <th style="width:15%;">D</th>
+    </tr>
+    <tr ng-if="tggl.showBorrowerRating">
+        <td>CPA Financials</td>
+        <td class="text-center armer">Yes</td>
+        <td class="text-center"></td>
+        <td class="text-center"></td>
+        <td class="text-center"></td>
+    </tr>
+    <tr ng-if="tggl.showBorrowerRating">
+        <td>Bankruptcy</td>
+        <td class="text-center armer">No</td>
+        <td class="text-center">No</td>
+        <td class="text-center"></td>
+        <td class="text-center"></td>
+    </tr>
+    <tr ng-if="tggl.showBorrowerRating">
+        <td>Judgement</td>
+        <td class="text-center armer">No</td>
+        <td class="text-center">No</td>
+        <td class="text-center"></td>
+        <td class="text-center"></td>
+    </tr>
+    <tr>
+        <td>Credit Points</td>
+        <td class="text-center armer">30</td>
+        <td class="text-center">28</td>
+        <td class="text-center">25</td>
+        <td class="text-center">22</td>
+    </tr>
+    <tr ng-if="loan.loan_type_id === 3 || loan.loan_type_id === 4">
+        <td>Ag-Pro Max</td>
+        <td class="text-right armer">{{1000000|flexCurrency:0}}</td>
+        <td class="text-right">{{500000|flexCurrency:0}}</td>
+        <td class="text-center">-</td>
+        <td class="text-center">-</td>
+    </tr>
+    <tr ng-if="loan.loan_type_id === 5">
+        <td>Capital Bridge Max</td>
+        <td class="text-right armer">{{1000000|flexCurrency:0}}</td>
+        <td class="text-right">{{500000|flexCurrency:0}}</td>
+        <td class="text-right">{{100000|flexCurrency:0}}</td>
+        <td class="text-center">-</td>
+    </tr>
+    <tr ng-if="loan.loan_type_id === 6">
+        <td>Ag-Vest Max</td>
+        <td class="text-right armer">{{1000000|flexCurrency:0}}</td>
+        <td class="text-right">{{500000|flexCurrency:0}}</td>
+        <td class="text-right">{{100000|flexCurrency:0}}</td>
+        <td class="text-center">-</td>
+    </tr>
+</table>

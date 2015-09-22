@@ -1,24 +1,27 @@
 <div class="row">
     <table class="table table-striped rowed" style="width:70%;">
-            <!-- OPTIONAL Modification Date LINE-->
-            <tr>
-                <td>Loan Modification Date</td>
-                <td class="text-right" ng-repeat="t in loan.terms">
-                    {{t.modification_date|date:'MM/d/yyyy'}}
-                </td>
-                <td class="text-center">Totals</td>
-            </tr>
+        <!-- OPTIONAL Modification Date LINE-->
+        <tr>
+            <td>Loan Modification Date</td>
+            <td class="text-right" ng-repeat="t in loan.terms">
+                <span class="staticon glyphicons glyphicons-record pull-left" style="color: #555;" ng-if="t.mod_type == 'orig'"></span>
+                <span class="staticon glyphicons glyphicons-wrench pull-left" style="color: #009;" ng-if="t.mod_type == 'prog'"></span>
+                <span class="staticon glyphicons glyphicons-plus pull-left" style="color: #555;" ng-if="t.mod_type == 'add'"></span>
+                {{t.mod_date|date:'MM/d/yyyy'}}
+            </td>
+            <td class="text-center">Totals</td>
+        </tr>
 
-            <!-- DUE DATE-->
-            <tr>
-                <td style="width:22%;">Loan Due Date</td>
-                <td class="text-right" ng-repeat="t in loan.terms">
-                    {{t.due_date|date:'MM/dd/yyyy'}}
-                </td>
-                <td>&nbsp;</td>
-            </tr>
+        <!-- DUE DATE-->
+        <tr>
+            <td style="width:22%;">Loan Due Date</td>
+            <td class="text-right" ng-repeat="t in loan.terms">
+                {{t.due_date|date:'MM/dd/yyyy'}}
+            </td>
+            <td>&nbsp;</td>
+        </tr>
 
-            <!-- ORIGINATION FEE-->
+        <!-- ORIGINATION FEE-->
         <tr>
             <td style="width:22%;">Loan Origination Fee</td>
             <td class="text-right" style="width:10%;" ng-repeat="t in loan.terms">
@@ -34,7 +37,7 @@
             </td>
         </tr>
 
-            <!-- SVC FEE-->
+        <!-- SVC FEE-->
         <tr>
             <td>Loan Service Fee</td>
             <td class="text-right" ng-repeat="t in loan.terms">
@@ -50,16 +53,7 @@
             </td>
         </tr>
 
-        <!-- FEE ON TOTAL -->
-        <tr>
-            <td>Fee On Total</td>
-            <td class="text-center" ng-repeat="t in loan.terms">
-                {{t.fee_onTotal|booleanYN}}
-            </td>
-            <td>&nbsp;</td>
-        </tr>
-
-            <!-- ARM INTEREST-->
+        <!-- ARM INTEREST-->
         <tr>
             <td>ARM Interest Rate</td>
             <td class="text-right" ng-repeat="t in loan.terms">
@@ -80,18 +74,18 @@
                 {{AppFactory.calcDistInterest(loan)|flexCurrency:0}}*
             </td>
         </tr>
+
+        <!-- FEE ON TOTAL -->
+        <tr>
+            <td>Fee On Total</td>
+            <td class="text-right" ng-repeat="t in loan.terms">
+                {{t.fee_onTotal|booleanYN}}
+            </td>
+            <td>&nbsp;</td>
+        </tr>
     </table>
 
     <p style="margin-top: -18px;">
         <span class="small_txt">* Interest amounts are best estimates for {{loan.est_days}} estimated days</span>
-        <br>
-                <span class="small_txt">
-                    <span>
-                        <input type="checkbox" ng-model="loan.fins.fee_onTotal"/>
-                    </span>
-                    &nbsp;Fee On Total
-                </span>
     </p>
-    <p><a ng-click="editTerms()" class="btn btn-xs btn-default">
-        <span class="glyphicons glyphicons-circle-exclamation-mark" style="color:#006837;"></span> Modify</a></p>
 </div>

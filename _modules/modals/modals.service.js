@@ -249,7 +249,7 @@
         }
         function terms(data) {
             var modalInstance = $modal.open({
-                templateUrl: '_modules/modals/terms.modal.html',
+                templateUrl: '_modules/Loans/terms/_terms.modal.html',
                 controller: 'ModalController',
                 resolve: {
                     data: function(){

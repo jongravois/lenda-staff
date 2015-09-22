@@ -1,0 +1,54 @@
+<table class="table table-striped rowed disp-sm">
+    <tbody>
+    <tr>
+        <th style="min-width:100px;">&nbsp;</th>
+        <th style="min-width:100px;">
+            {{loan.applicant.applicant}}
+        </th>
+        <th style="min-width:100px;" ng-repeat="x in loan.xcols">
+            {{x.applicant}}
+        </th>
+        <th style="min-width:100px;">
+            Total
+        </th>
+    </tr>
+    <tr ng-if="tggl.showCommitment">
+        <td>ARM</td>
+        <td class="text-right">
+            {{loan.fins.commit_arm|flexCurrency:0}}
+        </td>
+        <td class="text-right" ng-repeat="x in loan.xcols">
+            {{x.commit_arm|flexCurrency:0}}
+        </td>
+        <td class="text-right">
+            {{loan.fins.commit_arm+147651|flexCurrency:0}}
+        </td>
+    </tr>
+    <tr ng-if="tggl.showCommitment">
+        <td>{{loan.distributor.distributor}}</td>
+        <td class="text-right">
+            {{loan.fins.commit_dist|flexCurrency:0}}
+        </td>
+        <td class="text-right" ng-repeat="x in loan.xcols">
+            {{x.commit_dist|flexCurrency:0}}
+        </td>
+        <td class="text-right">
+            {{loan.fins.commit_dist+260905|flexCurrency:0}}
+        </td>
+    </tr>
+    <tr class="warning">
+        <td style="min-width:100px;">
+            Total
+        </td>
+        <td class="text-right" style="min-width:100px;">
+            {{loan.fins.commit_arm+loan.fins.commit_dist|flexCurrency:0}}
+        </td>
+        <td class="text-right" style="min-width:100px;" ng-repeat="x in loan.xcols">
+            {{147651+260905|flexCurrency:0}}
+        </td>
+        <td class="text-right" style="min-width:100px;">
+            {{893347+1383225|flexCurrency:0}}
+        </td>
+    </tr>
+    </tbody>
+</table>
