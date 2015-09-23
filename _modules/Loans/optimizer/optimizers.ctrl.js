@@ -13,7 +13,7 @@
         //console.log('units', $scope.loan.farmunits);
 
         $scope.getTableWidth = function() {
-            var retro = 210;
+            var retro = 260;
             if($scope.tggl.showOvr) { retro += 50; }
             if($scope.tggl.showPerm) { retro += 40; }
             if($scope.tggl.showCRent) { retro += 80; }
@@ -42,16 +42,17 @@
             {crop: 'Sunflowers', acres: $scope.loan.fins.crop_acres[9].acres},
         ];
         $scope.tggl = {
+            showLocale: true,
             showFSN: true,
             showPrac: true,
-            showOvr: false,
+            showShr: true,
             showPerm: false,
             showCRent: false,
             showDue: false,
             showWvd: false,
             showRnta: false,
             showWvda: false,
-            showShr: false,
+            showOvr: false,
             showAcres: true,
             showAPH: true,
             showCF: false,
@@ -81,6 +82,9 @@
             tcropPeanuts: $scope.loan.fins.crop_acres[7].acres > 0,
             tcropSugarcane: $scope.loan.fins.crop_acres[8].acres > 0,
             tcropSunflowers: $scope.loan.fins.crop_acres[9].acres > 0
+        };
+        $scope.spanner = {
+            farm: getSpansFarm()
         };
 
         $scope.calcUnitCropCF = function(cropname, obj, loan) {
@@ -152,6 +156,20 @@
             var crop_budget_dist = Number(loan.fins.dist_crop_commit[cropname]);
 
             return (proc_fee_arm+svc_fee_arm+int_arm+int_dist)/(crop_budget_arm+crop_budget_dist);
+        }
+        function getSpansFarm() {
+            var cnt = 0;
+            if($scope.tggl.showLocale) { cnt += 1; }
+            if($scope.tggl.showFSN) { cnt += 1; }
+            if($scope.tggl.showPrac) { cnt += 1; }
+            if($scope.tggl.showShr) { cnt += 1; }
+            if($scope.tggl.showPerm) { cnt += 1; }
+            if($scope.tggl.showCRent) { cnt += 1; }
+            if($scope.tggl.showDue) { cnt += 1; }
+            if($scope.tggl.showWvd) { cnt += 1; }
+            if($scope.tggl.showRnta) { cnt += 1; }
+            if($scope.tggl.showWvda) { cnt += 1; }
+            return cnt;
         }
     } // end function
 })();

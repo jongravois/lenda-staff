@@ -1413,6 +1413,12 @@ fieldset[disabled] .btn-success.active {
 .progidisc {
   cursor: pointer;
 }
+table.table.table160 {
+  width: inherit !important;
+}
+table.table.table160 th {
+  width: 160px !important;
+}
 #reports .tbl-header-container-blue {
   background: -webkit-linear-gradient(#ffffff, #ec502a);
   background: -moz-linear-gradient(#ffffff, #ec502a);

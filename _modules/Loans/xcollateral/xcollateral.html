@@ -1,221 +1,137 @@
-<fieldset>
-    <legend>Cross Collateral View</legend>
-    <tabset>
-        <tab heading="Summary">
-            <br>
-            <fieldset>
-                <legend>
-                    &nbsp;
-                    <span class="pendicon glyphicon glyphicon-chevron-right"
-                          ng-click="tggl.showCropTotals = !tggl.showCropTotals"
-                          ng-if="!tggl.showCropTotals"></span>
-                    <span class="pendicon glyphicon glyphicon-chevron-down"
-                          ng-click="tggl.showCropTotals = !tggl.showCropTotals"
-                          ng-if="tggl.showCropTotals"></span>
-                          &nbsp;Crop Acres
-                </legend>
-                <div ng-include="'./_modules/Loans/xcollateral/_crop.totals.html'"></div>
-            </fieldset>
-            <br><br>
-            <fieldset>
-                <legend>
-                    &nbsp;
-        <span class="pendicon glyphicon glyphicon-chevron-right"
-              ng-click="tggl.showIncome = !tggl.showIncome"
-              ng-if="!tggl.showIncome"></span>
-        <span class="pendicon glyphicon glyphicon-chevron-down"
-              ng-click="tggl.showIncome = !tggl.showIncome"
-              ng-if="tggl.showIncome"></span>
-                    &nbsp;Projected Income
-                </legend>
-                <div ng-include="'./_modules/Loans/xcollateral/_income.html'"></div>
-            </fieldset>
-            <br><br>
-            <fieldset>
-                <legend>
-                    &nbsp;
-        <span class="pendicon glyphicon glyphicon-chevron-right"
-              ng-click="tggl.showArmExp = !tggl.showArmExp"
-              ng-if="!tggl.showArmExp"></span>
-        <span class="pendicon glyphicon glyphicon-chevron-down"
-              ng-click="tggl.showArmExp = !tggl.showArmExp"
-              ng-if="tggl.showArmExp"></span>
-                    &nbsp;ARM Expenses
-                </legend>
-                <div ng-include="'./_modules/Loans/xcollateral/_expenses.arm.html'"></div>
-            </fieldset>
-            <br><br>
-            <fieldset ng-if="loan.has_distributor">
-                <legend>
-                    &nbsp;
-        <span class="pendicon glyphicon glyphicon-chevron-right"
-              ng-click="tggl.showDistExp = !tggl.showDistExp"
-              ng-if="!tggl.showDistExp"></span>
-        <span class="pendicon glyphicon glyphicon-chevron-down"
-              ng-click="tggl.showDistExp = !tggl.showDistExp"
-              ng-if="tggl.showDistExp"></span>
-                    &nbsp;{{loan.distributor.distributor}} Expenses
-                </legend>
-                <div ng-include="'./_modules/Loans/xcollateral/_expenses.dist.html'"></div>
-            </fieldset>
-            <br><br>
-            <fieldset>
-                <legend>
-                    &nbsp;
-        <span class="pendicon glyphicon glyphicon-chevron-right"
-              ng-click="tggl.showOtherExp = !tggl.showOtherExp"
-              ng-if="!tggl.showOtherExp"></span>
-        <span class="pendicon glyphicon glyphicon-chevron-down"
-              ng-click="tggl.showOtherExp = !tggl.showOtherExp"
-              ng-if="tggl.showOtherExp"></span>
-                    &nbsp;Third Party Expenses
-                </legend>
-                    <div ng-include="'./_modules/Loans/xcollateral/_expenses.other.html'"></div>
-            </fieldset>
-            <br><br>
-            <fieldset>
-                <legend>Cash Flow</legend>
-                <table class="table table-striped rowed disp-sm">
-                    <tbody>
-                    <tr>
-                        <th style="min-width:100px;">&nbsp;</th>
-                        <th style="min-width:100px;">
-                            ARM
-                        </th>
-                        <th style="min-width:100px;" ng-repeat="x in loan.xcols">
-                            {{x.applicant}}
-                        </th>
-                        <th style="min-width:100px;">
-                            Total
-                        </th>
-                    </tr>
-                    <tr class="success">
-                        <td>Cash Flow</td>
-                        <td class="text-right">
-                            {{loan.fins.cash_flow|flexCurrency:0}}
-                        </td>
-                        <td class="text-right" ng-repeat="x in loan.xcols">
-                            {{x.cash_flow|flexCurrency:0}}
-                        </td>
-                        <td class="text-right">
-                            {{2093973+12450|flexCurrency:0}}
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
-            </fieldset>
-            <br><br>
-            <fieldset>
-                <legend>
-                    &nbsp;
-                    <span class="pendicon glyphicon glyphicon-chevron-right"
-                          ng-click="tggl.showInsurance = !tggl.showInsurance"
-                          ng-if="!tggl.showInsurance"></span>
-                    <span class="pendicon glyphicon glyphicon-chevron-down"
-                          ng-click="tggl.showInsurance = !tggl.showInsurance"
-                          ng-if="tggl.showInsurance"></span>
-                    &nbsp;Insurance Coverage
-                </legend>
-                <div ng-include="'./_modules/Loans/xcollateral/_insurance.coverage.html'"></div>
-            </fieldset>
-            <br><br>
-        </tab>
+<tabset>
+    <tab heading="Summary">
+        <br>
+        <fieldset>
+            <legend>
+                &nbsp;
+                <span class="pendicon glyphicon glyphicon-chevron-right"
+                      ng-click="tggl.showCropTotals = !tggl.showCropTotals"
+                      ng-if="!tggl.showCropTotals"></span>
+                <span class="pendicon glyphicon glyphicon-chevron-down"
+                      ng-click="tggl.showCropTotals = !tggl.showCropTotals"
+                      ng-if="tggl.showCropTotals"></span>
+                      &nbsp;Crop Acres
+            </legend>
+            <div ng-include="'./_modules/Loans/xcollateral/_crop.totals.html'" ng-if="tggl.showCropTotals"></div>
+        </fieldset>
+        <br>
+        <fieldset>
+            <legend>
+                &nbsp;
+    <span class="pendicon glyphicon glyphicon-chevron-right"
+          ng-click="tggl.showIncome = !tggl.showIncome"
+          ng-if="!tggl.showIncome"></span>
+    <span class="pendicon glyphicon glyphicon-chevron-down"
+          ng-click="tggl.showIncome = !tggl.showIncome"
+          ng-if="tggl.showIncome"></span>
+                &nbsp;Projected Income
+            </legend>
+            <div ng-include="'./_modules/Loans/xcollateral/_income.html'" ng-if="tggl.showIncome"></div>
+        </fieldset>
+        <br>
+        <fieldset>
+            <legend>
+                &nbsp;
+                <span class="pendicon glyphicon glyphicon-chevron-right"
+                      ng-click="tggl.showInsurance = !tggl.showInsurance"
+                      ng-if="!tggl.showInsurance"></span>
+                <span class="pendicon glyphicon glyphicon-chevron-down"
+                      ng-click="tggl.showInsurance = !tggl.showInsurance"
+                      ng-if="tggl.showInsurance"></span>
+                &nbsp;Insurance Coverage
+            </legend>
+            <div ng-include="'./_modules/Loans/xcollateral/_insurance.coverage.html'" ng-if="tggl.showInsurance"></div>
+        </fieldset>
+        <br><br>
+    </tab>
 
-        <tab heading="Underwriting">
-            <br>
-            <fieldset>
-                <legend>
-                    &nbsp;
-                    <span class="pendicon glyphicon glyphicon-chevron-right"
-                          ng-click="tggl.showCommitment = !tggl.showCommitment"
-                          ng-if="!tggl.showCommitment"></span>
-                    <span class="pendicon glyphicon glyphicon-chevron-down"
-                          ng-click="tggl.showCommitment = !tggl.showCommitment"
-                          ng-if="tggl.showCommitment"></span>
-                    &nbsp;Commitment
-                </legend>
-                <div ng-include="'./_modules/Loans/xcollateral/_commitment.html'"></div>
-            </fieldset>
-            <br>
-            <fieldset>
-                <legend>
-                    &nbsp;
-                    <span class="pendicon glyphicon glyphicon-chevron-right"
-                          ng-click="tggl.showInsSummary = !tggl.showInsSummary"
-                          ng-if="!tggl.showInsSummary"></span>
-                    <span class="pendicon glyphicon glyphicon-chevron-down"
-                          ng-click="tggl.showInsSummary = !tggl.showInsSummary"
-                          ng-if="tggl.showInsSummary"></span>
-                    &nbsp;Insurance Summary
-                </legend>
-                <div ng-include="'./_modules/Loans/xcollateral/_ins.summary.html'"></div>
-            </fieldset>
-            <br>
-            <fieldset>
-                <legend>
-                    &nbsp;
-                    <span class="pendicon glyphicon glyphicon-chevron-right"
-                          ng-click="tggl.showCollateral = !tggl.showCollateral"
-                          ng-if="!tggl.showCollateral"></span>
-                    <span class="pendicon glyphicon glyphicon-chevron-down"
-                          ng-click="tggl.showCollateral = !tggl.showCollateral"
-                          ng-if="tggl.showCollateral"></span>
-                    &nbsp;Discounted Collateral
-                </legend>
-                <div ng-include="'./_modules/Loans/xcollateral/_collateral.html'"></div>
-            </fieldset>
-            <br>
-            <fieldset>
-                <legend>Exposure</legend>
-                <table class="table table-striped rowed disp-sm">
-                    <tbody>
-                    <tr>
-                        <th style="min-width:100px;">&nbsp;</th>
-                        <th style="min-width:100px;">
-                            ARM
-                        </th>
-                        <th style="min-width:100px;" ng-repeat="x in loan.xcols">
-                            {{x.applicant}}
-                        </th>
-                        <th style="min-width:100px;">
-                            Total
-                        </th>
-                    </tr>
-                    <tr class="success">
-                        <td>Exposure</td>
-                        <td class="text-right">
-                            {{loan.fins.exposure|flexCurrency:0}}
-                        </td>
-                        <td class="text-right" ng-repeat="x in loan.xcols">
-                            {{x.exposure|flexCurrency:0}}
-                        </td>
-                        <td class="text-right">
-                            {{loan.fins.exposure+-321658|flexCurrency:0}}
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
-            </fieldset>
-            <br><br>
-        </tab>
+    <tab heading="Underwriting">
+        <br>
+        <fieldset>
+            <legend>
+                &nbsp;
+                <span class="pendicon glyphicon glyphicon-chevron-right"
+                      ng-click="tggl.showCommitment = !tggl.showCommitment"
+                      ng-if="!tggl.showCommitment"></span>
+                <span class="pendicon glyphicon glyphicon-chevron-down"
+                      ng-click="tggl.showCommitment = !tggl.showCommitment"
+                      ng-if="tggl.showCommitment"></span>
+                &nbsp;Commitment
+            </legend>
+            <div ng-include="'./_modules/Loans/xcollateral/_commitment.html'"></div>
+        </fieldset>
+        <br>
+        <fieldset>
+            <legend>
+                &nbsp;
+                <span class="pendicon glyphicon glyphicon-chevron-right"
+                      ng-click="tggl.showInsSummary = !tggl.showInsSummary"
+                      ng-if="!tggl.showInsSummary"></span>
+                <span class="pendicon glyphicon glyphicon-chevron-down"
+                      ng-click="tggl.showInsSummary = !tggl.showInsSummary"
+                      ng-if="tggl.showInsSummary"></span>
+                &nbsp;Insurance Summary
+            </legend>
+            <div ng-include="'./_modules/Loans/xcollateral/_ins.summary.html'"></div>
+        </fieldset>
+        <br>
+        <fieldset>
+            <legend>
+                &nbsp;
+                <span class="pendicon glyphicon glyphicon-chevron-right"
+                      ng-click="tggl.showCollateral = !tggl.showCollateral"
+                      ng-if="!tggl.showCollateral"></span>
+                <span class="pendicon glyphicon glyphicon-chevron-down"
+                      ng-click="tggl.showCollateral = !tggl.showCollateral"
+                      ng-if="tggl.showCollateral"></span>
+                &nbsp;Discounted Collateral
+            </legend>
+            <div ng-include="'./_modules/Loans/xcollateral/_collateral.html'"></div>
+        </fieldset>
+        <br>
+        <fieldset>
+            <legend>Exposure</legend>
+            <table class="table table-striped rowed disp-sm">
+                <tbody>
+                <tr>
+                    <th style="min-width:100px;">&nbsp;</th>
+                    <th style="min-width:100px;">
+                        ARM
+                    </th>
+                    <th style="min-width:100px;" ng-repeat="x in loan.xcols">
+                        {{x.applicant}}
+                    </th>
+                    <th style="min-width:100px;">
+                        Total
+                    </th>
+                </tr>
+                <tr class="success">
+                    <td>Exposure</td>
+                    <td class="text-right">
+                        {{loan.fins.exposure|flexCurrency:0}}
+                    </td>
+                    <td class="text-right" ng-repeat="x in loan.xcols">
+                        {{x.exposure|flexCurrency:0}}
+                    </td>
+                    <td class="text-right">
+                        {{loan.fins.exposure+-321658|flexCurrency:0}}
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </fieldset>
+        <br><br>
+    </tab>
 
-        <tab heading="Terms">
-            <br>
-            <fieldset>
-                <legend>
-                    &nbsp;
-                    <span class="pendicon glyphicon glyphicon-chevron-right"
-                          ng-click="tggl.showTerms = !tggl.showTerms"
-                          ng-if="!tggl.showTerms"></span>
-                    <span class="pendicon glyphicon glyphicon-chevron-down"
-                          ng-click="tggl.tggl.showTerms = !tggl.showTerms"
-                          ng-if="tggl.tggl.showTerms"></span>
-                    &nbsp;Terms
-                </legend>
-                <div ng-include="'./_modules/Loans/xcollateral/_terms.html'"></div>
-            </fieldset>
-            <br><br>
-        </tab>
-    </tabset>
-</fieldset>
+    <tab heading="Terms">
+        <br>
+        <fieldset>
+            <legend>
+                Terms
+            </legend>
+            <div ng-include="'./_modules/Loans/xcollateral/_terms.html'"></div>
+        </fieldset>
+        <br><br>
+    </tab>
+</tabset>
 <br><br><br><br>

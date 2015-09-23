@@ -1,83 +1,137 @@
-<table class="table table-striped rowed disp-sm">
+<table class="table table160 table-striped rowed disp-sm">
     <tbody>
     <tr>
-        <th style="min-width:100px;">&nbsp;</th>
-        <th style="min-width:100px;">
+        <th>&nbsp;</th>
+        <th>
             {{loan.applicant.applicant}}
         </th>
-        <th style="min-width:100px;" ng-repeat="x in loan.xcols">
+        <th ng-repeat="x in xcols">
             {{x.applicant}}
         </th>
-        <th style="min-width:100px;">
+        <th>
             Total
         </th>
     </tr>
-    <tr ng-if="tggl.showCropTotals">
+    <tr ng-if="getXColCropAcres(0) > 0">
         <td>Corn</td>
-        <td></td>
-        <td ng-repeat="x in loan.xcols"></td>
-        <td></td>
+        <td ng-class="AppFactory.gtZero(loan.fins.crop_acres[0].acres)">
+            {{loan.fins.crop_acres[0].acres|flexNumber:1}}
+        </td>
+        <td ng-class="AppFactory.gtZero(x.crop_acres[0].acres)" ng-repeat="x in xcols">
+            {{x.crop_acres[0].acres|flexNumber:1}}
+        </td>
+        <td class="text-right">
+            {{getXColCropAcres(0)|flexNumber:1}}
+        </td>
     </tr>
-    <tr ng-if="tggl.showCropTotals">
+    <tr ng-if="getXColCropAcres(1) > 0">
         <td>Soybeans</td>
-        <td></td>
-        <td ng-repeat="x in loan.xcols"></td>
-        <td></td>
+        <td ng-class="AppFactory.gtZero(loan.fins.crop_acres[1].acres)">
+            {{loan.fins.crop_acres[1].acres|flexNumber:1}}
+        </td>
+        <td ng-class="AppFactory.gtZero(x.crop_acres[1].acres)" ng-repeat="x in xcols">
+            {{x.crop_acres[1].acres|flexNumber:1}}
+        </td>
+        <td class="text-right">
+            {{getXColCropAcres(1)|flexNumber:1}}
+        </td>
     </tr>
-    <tr ng-if="tggl.showCropTotals">
+    <tr ng-if="getXColCropAcres(3) > 0">
         <td>Sorghum</td>
-        <td></td>
-        <td ng-repeat="x in loan.xcols"></td>
-        <td></td>
+        <td ng-class="AppFactory.gtZero(loan.fins.crop_acres[3].acres)">
+            {{loan.fins.crop_acres[3].acres|flexNumber:1}}
+        </td>
+        <td ng-class="AppFactory.gtZero(x.crop_acres[3].acres)" ng-repeat="x in xcols">
+            {{x.crop_acres[3].acres|flexNumber:1}}
+        </td>
+        <td class="text-right">
+            {{getXColCropAcres(3)|flexNumber:1}}
+        </td>
     </tr>
-    <tr ng-if="tggl.showCropTotals">
+    <tr ng-if="getXColCropAcres(4) > 0">
         <td>Wheat</td>
-        <td></td>
-        <td ng-repeat="x in loan.xcols"></td>
-        <td></td>
+        <td ng-class="AppFactory.gtZero(loan.fins.crop_acres[4].acres)">
+            {{loan.fins.crop_acres[4].acres|flexNumber:1}}
+        </td>
+        <td ng-class="AppFactory.gtZero(x.crop_acres[4].acres)" ng-repeat="x in xcols">
+            {{x.crop_acres[4].acres|flexNumber:1}}
+        </td>
+        <td class="text-right">
+            {{getXColCropAcres(4)|flexNumber:1}}
+        </td>
     </tr>
-    <tr ng-if="tggl.showCropTotals">
+    <tr ng-if="getXColCropAcres(5) > 0">
         <td>Cotton</td>
-        <td></td>
-        <td ng-repeat="x in loan.xcols"></td>
-        <td></td>
+        <td ng-class="AppFactory.gtZero(loan.fins.crop_acres[5].acres)">
+            {{loan.fins.crop_acres[5].acres|flexNumber:1}}
+        </td>
+        <td ng-class="AppFactory.gtZero(x.crop_acres[5].acres)" ng-repeat="x in xcols">
+            {{x.crop_acres[5].acres|flexNumber:1}}
+        </td>
+        <td class="text-right">
+            {{getXColCropAcres(5)|flexNumber:1}}
+        </td>
     </tr>
-    <tr ng-if="tggl.showCropTotals">
+    <tr ng-if="getXColCropAcres(6) > 0">
         <td>Rice</td>
-        <td></td>
-        <td ng-repeat="x in loan.xcols"></td>
-        <td></td>
+        <td ng-class="AppFactory.gtZero(loan.fins.crop_acres[6].acres)">
+            {{loan.fins.crop_acres[6].acres|flexNumber:1}}
+        </td>
+        <td ng-class="AppFactory.gtZero(x.crop_acres[6].acres)" ng-repeat="x in xcols">
+            {{x.crop_acres[6].acres|flexNumber:1}}
+        </td>
+        <td class="text-right">
+            {{getXColCropAcres(6)|flexNumber:1}}
+        </td>
     </tr>
-    <tr ng-if="tggl.showCropTotals">
+    <tr ng-if="getXColCropAcres(7) > 0">
         <td>Peanuts</td>
-        <td></td>
-        <td ng-repeat="x in loan.xcols"></td>
-        <td></td>
+        <td ng-class="AppFactory.gtZero(loan.fins.crop_acres[7].acres)">
+            {{loan.fins.crop_acres[7].acres|flexNumber:1}}
+        </td>
+        <td ng-class="AppFactory.gtZero(x.crop_acres[7].acres)" ng-repeat="x in xcols">
+            {{x.crop_acres[7].acres|flexNumber:1}}
+        </td>
+        <td class="text-right">
+            {{getXColCropAcres(7)|flexNumber:1}}
+        </td>
     </tr>
-    <tr ng-if="tggl.showCropTotals">
+    <tr ng-if="getXColCropAcres(8) > 0">
         <td>Sugar Cane</td>
-        <td></td>
-        <td ng-repeat="x in loan.xcols"></td>
-        <td></td>
+        <td ng-class="AppFactory.gtZero(loan.fins.crop_acres[8].acres)">
+            {{loan.fins.crop_acres[8].acres|flexNumber:1}}
+        </td>
+        <td ng-class="AppFactory.gtZero(x.crop_acres[8].acres)" ng-repeat="x in xcols">
+            {{x.crop_acres[8].acres|flexNumber:1}}
+        </td>
+        <td class="text-right">
+            {{getXColCropAcres(8)|flexNumber:1}}
+        </td>
     </tr>
-    <tr ng-if="tggl.showCropTotals">
+    <tr ng-if="getXColCropAcres(9) > 0">
         <td>Sunflowers</td>
-        <td></td>
-        <td ng-repeat="x in loan.xcols"></td>
-        <td></td>
+        <td ng-class="AppFactory.gtZero(loan.fins.crop_acres[9].acres)">
+            {{loan.fins.crop_acres[9].acres|flexNumber:1}}
+        </td>
+        <td ng-class="AppFactory.gtZero(x.crop_acres[9].acres)" ng-repeat="x in xcols">
+            {{x.crop_acres[9].acres|flexNumber:1}}
+        </td>
+        <td class="text-right">
+            {{getXColCropAcres(9)|flexNumber:1}}
+        </td>
     </tr>
-    <tr class="warning">
+    <tr class="success">
         <td style="min-width:100px;">
             Total
         </td>
         <td ng-class="AppFactory.gtZero(AppFactory.calcTotalAcres(loan))" style="min-width:100px;">
             {{AppFactory.calcTotalAcres(loan)|flexNumber:1}}
         </td>
-        <td class="text-right" style="min-width:100px;" ng-repeat="x in loan.xcols">
+        <td class="text-right" style="min-width:100px;" ng-repeat="x in xcols">
             {{x.total_acres|flexNumber:1}}
         </td>
         <td class="text-right" style="min-width:100px;">
-            {{4000+1200|flexNumber:1}}
+            {{getXColAcreTotal()|flexNumber:1}}
         </td>
     </tr>
     </tbody>

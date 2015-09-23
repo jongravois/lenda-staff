@@ -28,7 +28,7 @@
     </legend>
     <span class="pull-right" style="margin-top: -20px;font-size:18px;">
                     <strong>
-                        {{loan.applicant.fins.grade}}-{{loan.applicant.fins.credit_score|number:0}}-{{creditPoints.total|number:0}}
+                        {{loan.applicant.fins.grade}}-{{loan.applicant.fins.credit_score|number:0}}
                     </strong>
                 </span>
     <div class="container-fluid"
@@ -36,7 +36,7 @@
          ng-if="tggl.showBorrowerInfo">
     </div>
 </fieldset>
-<br><br>
+<br>
 <!-- Balance Sheet -->
 <fieldset>
     <legend>
@@ -53,7 +53,7 @@
          ng-include="'./_modules/Loans/financials/_balance.sheet.html'">
     </div>
 </fieldset>
-<br><br>
+<br>
 <!-- Income History -->
 <fieldset>
     <legend>
@@ -70,7 +70,7 @@
          ng-include="'./_modules/Loans/financials/_income.history.html'">
     </div>
 </fieldset>
-<br><br>
+<br>
 <!-- Credit Points -->
 <fieldset>
     <legend>
@@ -87,7 +87,7 @@
          ng-include="'./_modules/Loans/financials/_credit.points.html'">
     </div>
 </fieldset>
-<br><br>
+<br>
 <!-- Borrower Rating -->
 <fieldset>
     <legend>

@@ -1,8 +1,8 @@
 <!-- CREDIT POINTS-->
-<table class="table table-striped rowed table-condensed disp-sm">
-    <tr>
-        <th style="width:120px;">Credit Points</th>
-        <th style="width:80px;">Rating</th>
+<table class="table table-striped rowed table-condensed disp-sm" style="width:80%;">
+    <tr ng-if="tggl.showCreditPoints">
+        <th style="width:120px;">&nbsp;</th>
+        <th style="width:80px;">Results</th>
         <th colspan="10">Scale</th>
     </tr>
     <tr ng-if="tggl.showCreditPoints">
@@ -133,7 +133,7 @@
         <td>&nbsp;</td>
         <td>&nbsp;</td>
     </tr>
-    <tr class="success">
+    <tr class="success" ng-if="tggl.showCreditPoints">
         <td>Total Credit Points</td>
         <td class="text-center">
             <strong>{{creditPoints.total|number:0}}</strong>

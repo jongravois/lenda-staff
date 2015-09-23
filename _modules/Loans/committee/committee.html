@@ -82,11 +82,11 @@
                     </td>
                     <td class="text-center">
                         <span ng-if="c.vote">
-                            <span class="glyphicons glyphicons-thumbs-up cGreen" style="font-size:16px;" tooltip="Voted to approve" tooltip-append-to-body="true" tooltip-placement="bottom" ng-if="c.vote == '1'"></span>
-                            <span class="glyphicons glyphicons-thumbs-down cRed" style="font-size:16px;" tooltip="Voted to reject" tooltip-append-to-body="true" tooltip-placement="bottom" ng-if="c.vote == '0'"></span>
+                            <span class="glyphicons glyphicons-thumbs-up cGray" style="font-size:16px;" tooltip="Voted to approve" tooltip-append-to-body="true" tooltip-placement="bottom" ng-if="c.vote == '1'"></span>
+                            <span class="glyphicons glyphicons-thumbs-down cGray" style="font-size:16px;" tooltip="Voted to reject" tooltip-append-to-body="true" tooltip-placement="bottom" ng-if="c.vote == '0'"></span>
                         </span>
                         <span ng-if="!c.vote && c.user_id !== user.id">
-                            <span class="voteicon glyphicons glyphicons-group cBlue" style="font-size:16px;" tooltip="Pending Vote" tooltip-append-to-body="true" tooltip-placement="bottom"></span>
+                            &nbsp;
                         </span>
                         <span ng-if="!c.vote && c.user_id == user.id">
                             <span class="voteicon glyphicons glyphicons-thumbs-up cGreen" style="font-size:16px;" tooltip="Approve" tooltip-append-to-body="true" tooltip-placement="bottom" ng-click="voteApprove(c)"></span>

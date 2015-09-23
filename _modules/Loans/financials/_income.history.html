@@ -1,6 +1,6 @@
 <!-- INCOME HISTORY-->
 <table class="table table-striped rowed table-condensed disp-sm" style="width: 80%;">
-    <tr>
+    <tr ng-if="tggl.showIncomeHistory">
         <th style="width:25%;">Income History</th>
         <th style="width:25%;">Revenue</th>
         <th style="width:25%;">Expenses</th>
@@ -42,7 +42,7 @@
             <strong>{{loan.applicant.fins.year_3_revenue - loan.applicant.fins.year_3_expenses|flexCurrency:0}}</strong>
         </td>
     </tr>
-    <tr class="success">
+    <tr class="success"  ng-if="tggl.showIncomeHistory">
         <td>Total</td>
         <td class="text-right">
             <strong>{{(1*loan.applicant.fins.year_1_revenue) + (1*loan.applicant.fins.year_2_revenue) + (1*loan.applicant.fins.year_3_revenue)|flexCurrency:0}}</strong>

@@ -135,10 +135,13 @@
             gtZero: gtZero,
             inArray: inArray,
             makeNewLoan: makeNewLoan,
+            makeXCropvals: makeXCropvals,
+            makeXInsVals: makeXInsVals,
             nullOrNot: nullOrNot,
             parseComments: parseComments,
             patchIt: patchIt,
             postIt: postIt,
+            processXCols: processXCols,
             putIt: putIt,
             returnColor: returnColor,
             sortLoans: sortLoans,
@@ -1355,6 +1358,148 @@
                     break;
             }
         }
+        function makeXCropvals(loan) {
+            var lc = loan.loancrops;
+            var corn = _.find(lc, function(c){
+                if(Number(c.crop_id) === 1) {
+                    return calcCropValue(c);
+                } else {
+                    return 0;
+                }
+            });
+            var beans =  _.find(lc, function(c){
+                if(Number(c.crop_id) === 2) {
+                    return calcCropValue(c);
+                } else {
+                    return 0;
+                }
+            });
+            var sorghum = _.find(lc, function(c){
+                if(Number(c.crop_id) === 4) {
+                    return calcCropValue(c);
+                } else {
+                    return 0;
+                }
+            });
+            var wheat = _.find(lc, function(c){
+                if(Number(c.crop_id) === 5) {
+                    return calcCropValue(c);
+                } else {
+                    return 0;
+                }
+            });
+            var cotton = _.find(lc, function(c){
+                if(Number(c.crop_id) === 6) {
+                    return calcCropValue(c);
+                } else {
+                    return 0;
+                }
+            });
+            var rice = _.find(lc, function(c){
+                if(Number(c.crop_id) === 7) {
+                    return calcCropValue(c);
+                } else {
+                    return 0;
+                }
+            });
+            var peanuts = _.find(lc, function(c){
+                if(Number(c.crop_id) === 8) {
+                    return calcCropValue(c);
+                } else {
+                    return 0;
+                }
+            });
+            var cane = _.find(lc, function(c){
+                if(Number(c.crop_id) === 9) {
+                    return calcCropValue(c);
+                } else {
+                    return 0;
+                }
+            });
+            var sunflowers = _.find(lc, function(c){
+                if(Number(c.crop_id) === 10) {
+                    return calcCropValue(c);
+                } else {
+                    return 0;
+                }
+            });
+
+            var cropvals = {
+                corn: (!corn ? 0 : calcCropValue(corn)),
+                soybeans: (!beans ? 0 : calcCropValue(beans)),
+                sorghum: (!sorghum ? 0 : calcCropValue(sorghum)),
+                wheat: (!wheat ? 0 : calcCropValue(wheat)),
+                cotton: (!cotton ? 0 : calcCropValue(cotton)),
+                rice: (!rice ? 0 : calcCropValue(rice)),
+                peanuts: (!peanuts ? 0 : calcCropValue(peanuts)),
+                sugarcane: (!cane ? 0 : calcCropValue(cane)),
+                sunflowers: (!sunflowers ? 0 : calcCropValue(sunflowers))
+            };
+
+            return cropvals;
+        }
+        function makeXInsVals(loan) {
+            var iv = loan.ins_summary;
+            var corn = _.find(iv, function(v){
+                if(Number(v.crop_id) === 1) {
+                    return v;
+                }
+            });
+            var beans =  _.find(iv, function(v){
+                if(Number(v.crop_id) === 2) {
+                    return v;
+                }
+            });
+            var sorghum = _.find(iv, function(v){
+                if(Number(v.crop_id) === 4) {
+                    return v;
+                }
+            });
+            var wheat = _.find(iv, function(v){
+                if(Number(v.crop_id) === 5) {
+                    return v;
+                }
+            });
+            var cotton = _.find(iv, function(v){
+                if(Number(v.crop_id) === 6) {
+                    return v;
+                }
+            });
+            var rice = _.find(iv, function(v){
+                if(Number(v.crop_id) === 7) {
+                    return v;
+                }
+            });
+            var peanuts = _.find(iv, function(v){
+                if(Number(v.crop_id) === 8) {
+                    return v;
+                }
+            });
+            var cane = _.find(iv, function(v){
+                if(Number(v.crop_id) === 9) {
+                    return v;
+                }
+            });
+            var sunflowers = _.find(iv, function(v){
+                if(Number(v.crop_id) === 10) {
+                    return v;
+                }
+            });
+
+            var insvals = {
+                corn: (!corn ? 0 : calcInsValueByCropSummary(corn, loan)),
+                soybeans: (!beans ? 0 : calcInsValueByCropSummary(beans, loan)),
+                sorghum: (!sorghum ? 0 : calcInsValueByCropSummary(sorghum, loan)),
+                wheat: (!wheat ? 0 : calcInsValueByCropSummary(wheat, loan)),
+                cotton: (!cotton ? 0 : calcInsValueByCropSummary(cotton, loan)),
+                rice: (!rice ? 0 : calcInsValueByCropSummary(rice, loan)),
+                peanuts: (!peanuts ? 0 : calcInsValueByCropSummary(peanuts, loan)),
+                sugarcane: (!cane ? 0 : calcInsValueByCropSummary(cane, loan)),
+                sunflowers: (!sunflowers ? 0 : calcInsValueByCropSummary(sunflowers, loan))
+            };
+
+            return insvals;
+        }
         function nullOrNot(obj) {
             return !angular.isDefined(obj) || obj===null;
         }
@@ -1376,6 +1521,48 @@
                 Addendum: Addendum,
                 Others: Others
             };
+        }
+        function processXCols(loan, loans) {
+            //console.log('LOAN', loan);
+            var xcols = [];
+            _.each(loan.xcols, function(x){
+                _.each(loans, function(l){
+                    if(Number(l.id) === Number(x.id)) {
+                        var newbie = {
+                            id: Number(l.id),
+                            applicant: l.applicant.applicant,
+                            armAndDist: 408556,
+                            cash_flow: l.fins.cash_flow,
+                            collateral_crops: 1204300/2,
+                            collateral_equipment: 0,
+                            collateral_mpci: 487564,
+                            collateral_other: 0,
+                            collateral_realestate: 0,
+                            collateral_stax_sco: 10499,
+                            commit_dist: 999999,
+                            commit_other: 6000,
+                            crop_acres: l.fins.crop_acres,
+                            crop_values: makeXCropvals(l),
+                            exposure: l.fins.exposure,
+                            expenses: l.expenses,
+                            ins_net_value: 1467718,
+                            ins_total_diff: -1191548,
+                            ins_value: makeXInsVals(l),
+                            interest_arm: 47656,
+                            interest_dist: 39990,
+                            mpci_value: 1280083,
+                            origination_fee: 29899,
+                            service_fee: 21080,
+                            stax_sco_value: 187635,
+                            total_acres: Number(l.fins.total_acres),
+                            total_fee_interest: 138625
+                        };
+                        xcols.push(newbie);
+                    }
+                });
+            });
+            console.log('XCOLS', xcols);
+            return xcols;
         }
         function returnColor(val) {
             //console.log('returnColor', val);

@@ -4,9 +4,20 @@
         .module('ARM')
         .controller('XcollateralsController', XcollateralsController);
 
-        XcollateralsController.$inject = ['$rootScope', '$scope', 'AppFactory'];
+        XcollateralsController.$inject = ['$rootScope', '$scope', 'AppFactory', 'LoansFactory'];
 
-        function XcollateralsController($rootScope, $scope, AppFactory){
+        function XcollateralsController($rootScope, $scope, AppFactory, LoansFactory){
+            if(!$rootScope.loans){
+                LoansFactory.getLoans()
+                    .then(function (rsp) {
+                        $scope.loans = rsp;
+                        $rootScope.loans = rsp;
+                        $scope.xcols = AppFactory.processXCols($scope.loan, $scope.loans);
+                    });
+            } else {
+                $scope.xcols = AppFactory.processXCols($scope.loan, $scope.loans);
+            }
+
             $scope.tggl = {
                 showCropTotals: false,
                 showIncome: false,
@@ -17,37 +28,109 @@
                 showCommitment: false,
                 showInsSummary: false,
                 showCollateral: false,
-                showTerms: false
+                showTerms: true
             };
+            $scope.crops = AppFactory.makeXCropvals($scope.loan);
+            $scope.ins = AppFactory.makeXInsVals($scope.loan);
+            //console.log('INS', $scope.ins);
 
-            $scope.loan.xcols = [
-                {
-                    applicant: 'Blind Justice',
-                    total_acres: 1200,
-                    crop_total: 1204300,
-                    commit_arm: 147651,
-                    commit_dist: 260905,
-                    commit_other: 6000,
-                    cash_flow: 12450,
-                    ins_total_value: 1600104,
-                    mpci_value: 1280083,
-                    stax_sco_value: 187635,
-                    ins_net_value: 1467718,
-                    armAndDist: 408556,
-                    ins_total_diff: -1191548,
-                    collateral_crops: 1204300/2,
-                    collateral_mpci: 487564,
-                    collateral_stax_sco: 10499,
-                    collateral_equipment: 0,
-                    collateral_realestate: 0,
-                    collateral_other: 0,
-                    exposure: -321658,
-                    origination_fee: 29899,
-                    service_fee: 21080,
-                    interest_arm: 47656,
-                    interest_dist: 39990,
-                    total_fee_interest: 138625
+            $scope.getXColCropAcres = function(cID) {
+                var crossed = 0;
+                _.each($scope.xcols, function(x){
+                    crossed += Number(x.crop_acres[cID].acres);
+                });
+                var curr = $scope.loan.fins.crop_acres[cID].acres;
+                return crossed + Number(curr);
+            };
+            $scope.getXColAcreTotal = function() {
+                var crossed = 0;
+                _.each($scope.xcols, function(x){
+                    crossed += Number(x.total_acres);
+                });
+                var loanAcres = AppFactory.calcTotalAcres($scope.loan);
+                return crossed + Number(loanAcres);
+            };
+            $scope.getXArmTotalExpenses = function(xcols) {
+                var retro = 0;
+                for(var x=0; x<12; x++) {
+                    retro += Number(xcols.expenses.totals.byCat[x][0].calc_arm);
                 }
-            ];
+                return retro;
+            };
+            $scope.getXTotalArmExpenses = function(xcols) {
+                var current = Number($scope.loan.fins.commit_arm);
+                var exed = 0;
+                _.each(xcols, function(x){
+                    exed += Number($scope.getXArmTotalExpenses(x));
+                });
+                return current+exed;
+            };
+            $scope.getXDistTotalExpenses = function(xcols) {
+                var retro = 0;
+                for(var x=0; x<12; x++) {
+                    retro += Number(xcols.expenses.totals.byCat[x][0].calc_dist);
+                }
+                return retro;
+            };
+            $scope.getXTotalDistExpenses = function(xcols) {
+                var current = Number($scope.loan.fins.commit_dist);
+                var exed = 0;
+                _.each(xcols, function(x){
+                    exed += Number($scope.getXDistTotalExpenses(x));
+                });
+                return current+exed;
+            };
+            $scope.getXOtherTotalExpenses = function(xcols) {
+                var retro = 0;
+                for(var x=0; x<12; x++) {
+                    retro += Number(xcols.expenses.totals.byCat[x][0].calc_other);
+                }
+                return retro;
+            };
+            $scope.getXTotalOtherExpenses = function(xcols) {
+                var current = Number($scope.loan.fins.commit_other);
+                var exed = 0;
+                _.each(xcols, function(x){
+                    exed += Number($scope.getXOtherTotalExpenses(x));
+                });
+                return current+exed;
+            };
+            $scope.getXCropTotalValue = function(xcols) {
+                return Number(xcols.crop_values.corn) + Number(xcols.crop_values.soybeans) + Number(xcols.crop_values.sorghum) + Number(xcols.crop_values.wheat) + Number(xcols.crop_values.cotton) + Number(xcols.crop_values.rice) + Number(xcols.crop_values.peanuts) + Number(xcols.crop_values.sugarcane) + Number(xcols.crop_values.sunflowers);
+            }
+            $scope.getTotalCropValue = function(crop) {
+                var curr = $scope.crops[crop];
+                var xco = 0;
+                _.each($scope.xcols, function(x){
+                    xco += Number(x.crop_values[crop]);
+                });
+                return curr+xco;
+            }
+            $scope.getGrandTotalCropValue = function() {
+                return Number($scope.getTotalCropValue('corn')) + Number($scope.getTotalCropValue('soybeans')) + Number($scope.getTotalCropValue('sorghum')) + Number($scope.getTotalCropValue('wheat')) + Number($scope.getTotalCropValue('cotton')) + Number($scope.getTotalCropValue('rice')) + Number($scope.getTotalCropValue('peanuts')) + Number($scope.getTotalCropValue('sugarcane')) + Number($scope.getTotalCropValue('sunflowers'));
+            }
+            $scope.getXTotalCashFlow = function() {
+                var curr = $scope.loan.fins.cash_flow;
+                var xco = 0;
+                _.each($scope.xcols, function(x){
+                    xco += Number(x.cash_flow);
+                });
+                return curr+xco;
+            }
+            $scope.getXInsTotalValue = function(xcols) {
+                return Number(xcols.ins_value.corn) + Number(xcols.ins_value.soybeans) + Number(xcols.ins_value.sorghum) + Number(xcols.ins_value.wheat) + Number(xcols.ins_value.cotton) + Number(xcols.ins_value.rice) + Number(xcols.ins_value.peanuts) + Number(xcols.ins_value.sugarcane) + Number(xcols.ins_value.sunflowers);
+            }
+            $scope.getTotalInsValue = function(crop) {
+                var curr = $scope.ins[crop];
+                var xco = 0;
+                _.each($scope.xcols, function(x){
+                    xco += Number(x.ins_value[crop]);
+                });
+                return curr+xco;
+            }
+            $scope.getGrandTotalInsValue = function() {
+                return Number($scope.getTotalInsValue('corn')) + Number($scope.getTotalInsValue('soybeans')) + Number($scope.getTotalInsValue('sorghum')) + Number($scope.getTotalInsValue('wheat')) + Number($scope.getTotalInsValue('cotton')) + Number($scope.getTotalInsValue('rice')) + Number($scope.getTotalInsValue('peanuts')) + Number($scope.getTotalInsValue('sugarcane')) + Number($scope.getTotalInsValue('sunflowers'));
+            }
+            ////////////
         } // end controller
 })();

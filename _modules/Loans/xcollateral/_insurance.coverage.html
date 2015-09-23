@@ -1,90 +1,142 @@
-<table class="table table-striped rowed disp-sm">
+<table class="table table160 table-striped rowed disp-sm">
     <tbody>
     <tr>
-        <th style="min-width:100px;">&nbsp;</th>
-        <th style="min-width:100px;">
+        <th>&nbsp;</th>
+        <th>
             {{loan.applicant.applicant}}
         </th>
-        <th style="min-width:100px;" ng-repeat="x in loan.xcols">
-            Applicant
+        <th ng-repeat="x in xcols">
+            {{x.applicant}}
         </th>
-        <th style="min-width:100px;">
-            Total
-        </th>
+        <th>Total</th>
     </tr>
-    <tr ng-if="tggl.showInsurance">
+    <tr ng-if="getTotalInsValue('corn') > 0">
         <td>Corn</td>
-        <td></td>
-        <td ng-repeat="x in loan.xcols"></td>
-        <td></td>
+        <td ng-class="AppFactory.gtZero(ins.corn)">
+            {{ins.corn|flexCurrency:0}}
+        </td>
+        <td ng-class="AppFactory.gtZero(x.ins_value.corn)" ng-repeat="x in xcols">
+            {{x.ins_value.corn|flexCurrency:0}}
+        </td>
+        <td ng-class="AppFactory.gtZero(getTotalInsValue('corn'))">
+            {{getTotalInsValue('corn')|flexCurrency:0}}
+        </td>
     </tr>
-    <tr ng-if="tggl.showInsurance">
+    <tr ng-if="getTotalInsValue('soybeans') > 0">
         <td>Soybeans</td>
-        <td></td>
-        <td ng-repeat="x in loan.xcols"></td>
-        <td></td>
+        <td ng-class="AppFactory.gtZero(ins.soybeans)">
+            {{ins.soybeans|flexCurrency:0}}
+        </td>
+        <td ng-class="AppFactory.gtZero(x.ins_value.soybeans)" ng-repeat="x in xcols">
+            {{x.ins_value.soybeans|flexCurrency:0}}
+        </td>
+        <td ng-class="AppFactory.gtZero(getTotalInsValue('soybeans'))">
+            {{getTotalInsValue('soybeans')|flexCurrency:0}}
+        </td>
     </tr>
-    <tr ng-if="tggl.showInsurance">
+    <tr ng-if="getTotalInsValue('sorghum') > 0">
         <td>Sorghum</td>
-        <td></td>
-        <td ng-repeat="x in loan.xcols"></td>
-        <td></td>
+        <td ng-class="AppFactory.gtZero(ins.sorghum)">
+            {{ins.sorghum|flexCurrency:0}}
+        </td>
+        <td ng-class="AppFactory.gtZero(x.ins_value.sorghum)" ng-repeat="x in xcols">
+            {{x.ins_value.sorghum|flexCurrency:0}}
+        </td>
+        <td ng-class="AppFactory.gtZero(getTotalInsValue('sorghum'))">
+            {{getTotalInsValue('sorghum')|flexCurrency:0}}
+        </td>
     </tr>
-    <tr ng-if="tggl.showInsurance">
+    <tr ng-if="getTotalInsValue('wheat') > 0">
         <td>Wheat</td>
-        <td></td>
-        <td ng-repeat="x in loan.xcols"></td>
-        <td></td>
+        <td ng-class="AppFactory.gtZero(ins.wheat)">
+            {{ins.wheat|flexCurrency:0}}
+        </td>
+        <td ng-class="AppFactory.gtZero(x.ins_value.wheat)" ng-repeat="x in xcols">
+            {{x.ins_value.wheat|flexCurrency:0}}
+        </td>
+        <td ng-class="AppFactory.gtZero(getTotalInsValue('wheat'))">
+            {{getTotalInsValue('wheat')|flexCurrency:0}}
+        </td>
     </tr>
-    <tr ng-if="tggl.showInsurance">
+    <tr ng-if="getTotalInsValue('cotton') > 0">
         <td>Cotton</td>
-        <td></td>
-        <td ng-repeat="x in loan.xcols"></td>
-        <td></td>
+        <td ng-class="AppFactory.gtZero(ins.cotton)">
+            {{ins.cotton|flexCurrency:0}}
+        </td>
+        <td ng-class="AppFactory.gtZero(x.ins_value.cotton)" ng-repeat="x in xcols">
+            {{x.ins_value.cotton|flexCurrency:0}}
+        </td>
+        <td ng-class="AppFactory.gtZero(getTotalInsValue('cotton'))">
+            {{getTotalInsValue('cotton')|flexCurrency:0}}
+        </td>
     </tr>
-    <tr ng-if="tggl.showInsurance">
+    <tr ng-if="getTotalInsValue('rice') > 0">
         <td>Rice</td>
-        <td></td>
-        <td ng-repeat="x in loan.xcols"></td>
-        <td></td>
+        <td ng-class="AppFactory.gtZero(ins.rice)">
+            {{ins.rice|flexCurrency:0}}
+        </td>
+        <td ng-class="AppFactory.gtZero(x.ins_value.rice)" ng-repeat="x in xcols">
+            {{x.ins_value.rice|flexCurrency:0}}
+        </td>
+        <td ng-class="AppFactory.gtZero(getTotalInsValue('rice'))">
+            {{getTotalInsValue('rice')|flexCurrency:0}}
+        </td>
     </tr>
-    <tr ng-if="tggl.showInsurance">
+    <tr ng-if="getTotalInsValue('peanuts') > 0">
         <td>Peanuts</td>
-        <td></td>
-        <td ng-repeat="x in loan.xcols"></td>
-        <td></td>
+        <td ng-class="AppFactory.gtZero(ins.peanuts)">
+            {{ins.peanuts|flexCurrency:0}}
+        </td>
+        <td ng-class="AppFactory.gtZero(x.ins_value.peanuts)" ng-repeat="x in xcols">
+            {{x.ins_value.peanuts|flexCurrency:0}}
+        </td>
+        <td ng-class="AppFactory.gtZero(getTotalInsValue('peanuts'))">
+            {{getTotalInsValue('peanuts')|flexCurrency:0}}
+        </td>
     </tr>
-    <tr ng-if="tggl.showInsurance">
+    <tr ng-if="getTotalInsValue('sugarcane') > 0">
         <td>Sugar Cane</td>
-        <td></td>
-        <td ng-repeat="x in loan.xcols"></td>
-        <td></td>
+        <td ng-class="AppFactory.gtZero(ins.sugarcane)">
+            {{ins.sugarcane|flexCurrency:0}}
+        </td>
+        <td ng-class="AppFactory.gtZero(x.ins_value.sugarcane)" ng-repeat="x in xcols">
+            {{x.ins_value.sugarcane|flexCurrency:0}}
+        </td>
+        <td ng-class="AppFactory.gtZero(getTotalInsValue('sugarcane'))">
+            {{getTotalInsValue('sugarcane')|flexCurrency:0}}
+        </td>
     </tr>
-    <tr ng-if="tggl.showInsurance">
+    <tr ng-if="getTotalInsValue('sunflowers') > 0">
         <td>Sunflowers</td>
-        <td></td>
-        <td ng-repeat="x in loan.xcols"></td>
-        <td></td>
+        <td ng-class="AppFactory.gtZero(ins.sunflowers)">
+            {{ins.sunflowers|flexCurrency:0}}
+        </td>
+        <td ng-class="AppFactory.gtZero(x.ins_value.sunflowers)" ng-repeat="x in xcols">
+            {{x.ins_value.sunflowers|flexCurrency:0}}
+        </td>
+        <td ng-class="AppFactory.gtZero(getTotalInsValue('sunflowers'))">
+            {{getTotalInsValue('sunflowers')|flexCurrency:0}}
+        </td>
     </tr>
-    <tr class="warning">
-        <td style="max-width:100px;">
+    <tr class="success">
+        <td>
             Total
         </td>
-        <td ng-class="AppFactory.gtZero(AppFactory.calcCropTotsInsVal(loan))" style="max-width:100px;">
+        <td ng-class="AppFactory.gtZero(AppFactory.calcCropTotsInsVal(loan))">
             {{AppFactory.calcCropTotsInsVal(loan)|flexCurrency:0}}
         </td>
-        <td class="text-right" style="max-width:100px;" ng-repeat="x in loan.xcols">
-            {{x.ins_total_value|flexCurrency:0}}
+        <td class="text-right" ng-repeat="x in xcols">
+            {{getXInsTotalValue(x)|flexCurrency:0}}
         </td>
-        <td class="text-right" style="max-width:100px;">
-            {{966952+1600104|flexCurrency:0}}
+        <td class="text-right">
+            {{getGrandTotalInsValue()|flexCurrency:0}}
         </td>
     </tr>
     <tr><td colspan="4">&nbsp;</td></tr>
     <tr>
-        <td style="max-width:100px;">*** ARM and {{loan.distributor.distributor}} Loan</td>
+        <td style="max-width:100px;">ARM and {{loan.distributor.distributor}} Loan</td>
         <td class="text-right">{{745696+1122320|flexCurrency:0}}</td>
-        <td class="text-right" ng-repeat="x in loan.xcols">
+        <td class="text-right" ng-repeat="x in xcols">
             {{x.armAndDist|flexCurrency:0}}
         </td>
         <td class="text-right">
@@ -92,11 +144,11 @@
         </td>
     </tr>
     <tr>
-        <td style="max-width:100px;">*** Net Crop Insurance Coverage</td>
+        <td style="max-width:100px;">Net Crop Insurance Coverage</td>
         <td class="text-right">
             {{AppFactory.calcCropTotsInsVal(loan)|flexCurrency:0}}
         </td>
-        <td class="text-right" ng-repeat="x in loan.xcols">
+        <td class="text-right" ng-repeat="x in xcols">
             {{x.ins_total_value|flexCurrency:0}}
         </td>
         <td class="text-right">
@@ -104,11 +156,11 @@
         </td>
     </tr>
     <tr>
-        <td style="max-width:100px;">*** Crop Insurance above/below loan</td>
+        <td style="max-width:100px;">Crop Insurance above/below loan</td>
         <td class="text-right">
             {{1868016-966952|flexCurrency:0}}
         </td>
-        <td class="text-right" ng-repeat="x in loan.xcols">
+        <td class="text-right" ng-repeat="x in xcols">
             {{x.ins_total_diff|flexCurrency:0}}
         </td>
         <td class="text-right">

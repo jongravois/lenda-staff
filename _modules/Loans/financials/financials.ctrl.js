@@ -24,7 +24,7 @@
                 showBalanceSheet: false,
                 showIncomeHistory: false,
                 showCreditPoints: false,
-                showBorrowerRating: false
+                showBorrowerRating: true
             };
 
             $scope.creditPoints = {

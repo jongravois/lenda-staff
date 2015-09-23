@@ -1,83 +1,699 @@
-<table class="table table-striped rowed disp-sm">
+<table class="table table160 table-striped rowed disp-sm">
+    <tbody>
+    <tr ng-if="getTotalCropValue('corn') > 0">
+        <th>
+            Projected Income
+        </th>
+        <th>
+            {{loan.applicant.applicant}}
+        </th>
+        <th ng-repeat="x in xcols">
+            {{x.applicant}}
+        </th>
+        <th>
+            Total
+        </th>
+    </tr>
+    <tr ng-if="getTotalCropValue('corn') > 0">
+        <td>Corn</td>
+        <td ng-class="AppFactory.gtZero(crops.corn)">
+            {{crops.corn|flexCurrency:0}}
+        </td>
+        <td ng-class="AppFactory.gtZero(x.crop_values.corn)" ng-repeat="x in xcols">
+            {{x.crop_values.corn|flexCurrency:0}}
+        </td>
+        <td ng-class="AppFactory.gtZero(getTotalCropValue('corn'))">
+            {{getTotalCropValue('corn')|flexCurrency:0}}
+        </td>
+    </tr>
+    <tr ng-if="getTotalCropValue('soybeans') > 0">
+        <td>Soybeans</td>
+        <td ng-class="AppFactory.gtZero(crops.soybeans)">
+            {{crops.soybeans|flexCurrency:0}}
+        </td>
+        <td ng-class="AppFactory.gtZero(x.crop_values.soybeans)" ng-repeat="x in xcols">
+            {{x.crop_values.soybeans|flexCurrency:0}}
+        </td>
+        <td ng-class="AppFactory.gtZero(getTotalCropValue('soybeans'))">
+            {{getTotalCropValue('soybeans')|flexCurrency:0}}
+        </td>
+    </tr>
+    <tr ng-if="getTotalCropValue('sorghum') > 0">
+        <td>Sorghum</td>
+        <td ng-class="AppFactory.gtZero(crops.sorghum)">
+            {{crops.sorghum|flexCurrency:0}}
+        </td>
+        <td ng-class="AppFactory.gtZero(x.crop_values.sorghum)" ng-repeat="x in xcols">
+            {{x.crop_values.sorghum|flexCurrency:0}}
+        </td>
+        <td ng-class="AppFactory.gtZero(getTotalCropValue('sorghum'))">
+            {{getTotalCropValue('sorghum')|flexCurrency:0}}
+        </td>
+    </tr>
+    <tr ng-if="getTotalCropValue('wheat') > 0">
+        <td>Wheat</td>
+        <td ng-class="AppFactory.gtZero(crops.wheat)">
+            {{crops.wheat|flexCurrency:0}}
+        </td>
+        <td ng-class="AppFactory.gtZero(x.crop_values.wheat)" ng-repeat="x in xcols">
+            {{x.crop_values.wheat|flexCurrency:0}}
+        </td>
+        <td ng-class="AppFactory.gtZero(getTotalCropValue('wheat'))">
+            {{getTotalCropValue('wheat')|flexCurrency:0}}
+        </td>
+    </tr>
+    <tr ng-if="getTotalCropValue('cotton') > 0">
+        <td>Cotton</td>
+        <td ng-class="AppFactory.gtZero(crops.cotton)">
+            {{crops.cotton|flexCurrency:0}}
+        </td>
+        <td ng-class="AppFactory.gtZero(x.crop_values.cotton)" ng-repeat="x in xcols">
+            {{x.crop_values.cotton|flexCurrency:0}}
+        </td>
+        <td ng-class="AppFactory.gtZero(getTotalCropValue('cotton'))">
+            {{getTotalCropValue('cotton')|flexCurrency:0}}
+        </td>
+    </tr>
+    <tr ng-if="getTotalCropValue('rice') > 0">
+        <td>Rice</td>
+        <td ng-class="AppFactory.gtZero(crops.rice)">
+            {{crops.rice|flexCurrency:0}}
+        </td>
+        <td ng-class="AppFactory.gtZero(x.crop_values.rice)" ng-repeat="x in xcols">
+            {{x.crop_values.rice|flexCurrency:0}}
+        </td>
+        <td ng-class="AppFactory.gtZero(getTotalCropValue('rice'))">
+            {{getTotalCropValue('rice')|flexCurrency:0}}
+        </td>
+    </tr>
+    <tr ng-if="getTotalCropValue('peanuts') > 0">
+        <td>Peanuts</td>
+        <td ng-class="AppFactory.gtZero(crops.peanuts)">
+            {{crops.peanuts|flexCurrency:0}}
+        </td>
+        <td ng-class="AppFactory.gtZero(x.crop_values.peanuts)" ng-repeat="x in xcols">
+            {{x.crop_values.peanuts|flexCurrency:0}}
+        </td>
+        <td ng-class="AppFactory.gtZero(getTotalCropValue('peanuts'))">
+            {{getTotalCropValue('peanuts')|flexCurrency:0}}
+        </td>
+    </tr>
+    <tr ng-if="getTotalCropValue('sugarcane') > 0">
+        <td>Sugar Cane</td>
+        <td ng-class="AppFactory.gtZero(crops.sugarcane)">
+            {{crops.sugarcane|flexCurrency:0}}
+        </td>
+        <td ng-class="AppFactory.gtZero(x.crop_values.sugarcane)" ng-repeat="x in xcols">
+            {{x.crop_values.sugarcane|flexCurrency:0}}
+        </td>
+        <td ng-class="AppFactory.gtZero(getTotalCropValue('sugarcane'))">
+            {{getTotalCropValue('sugarcane')|flexCurrency:0}}
+        </td>
+    </tr>
+    <tr ng-if="getTotalCropValue('sunflowers') > 0">
+        <td>Sunflowers</td>
+        <td ng-class="AppFactory.gtZero(crops.sunflowers)">
+            {{crops.sunflowers|flexCurrency:0}}
+        </td>
+        <td ng-class="AppFactory.gtZero(x.crop_values.sunflowers)" ng-repeat="x in xcols">
+            {{x.crop_values.sunflowers|flexCurrency:0}}
+        </td>
+        <td ng-class="AppFactory.gtZero(getTotalCropValue('sunflowers'))">
+            {{getTotalCropValue('sunflowers')|flexCurrency:0}}
+        </td>
+    </tr>
+    <tr class="warning">
+        <td style="min-width:100px;">
+            Total Crop Value
+        </td>
+        <td ng-class="AppFactory.gtZero(AppFactory.calcTotalCropValues(loan))">
+            {{AppFactory.calcTotalCropValues(loan)|flexCurrency:0}}
+        </td>
+        <td class="text-right"" ng-repeat="x in xcols">
+            {{getXCropTotalValue(x)|flexCurrency:0}}
+        </td>
+        <td class="text-right">
+            {{getGrandTotalCropValue()|flexCurrency:0}}
+        </td>
+    </tr>
+    </tbody>
+</table>
+<br>
+<table class="table table160 table-striped rowed disp-sm">
     <tbody>
     <tr>
-        <th style="min-width:100px;">&nbsp;</th>
+        <th style="min-width:100px;">
+            ARM Expenses
+        </th>
         <th style="min-width:100px;">
             {{loan.applicant.applicant}}
         </th>
-        <th style="min-width:100px;" ng-repeat="x in loan.xcols">
+        <th style="min-width:100px;" ng-repeat="x in xcols">
             {{x.applicant}}
         </th>
         <th style="min-width:100px;">
             Total
         </th>
     </tr>
-    <tr ng-if="tggl.showIncome">
-        <td>Corn</td>
-        <td></td>
-        <td ng-repeat="x in loan.xcols"></td>
-        <td></td>
+    <tr ng-if="loan.expenses.totals.byCat[0][0].calc_arm+x.expenses.totals.byCat[0][0].calc_arm > 0">
+        <td>Fertilizer</td>
+        <td ng-class="AppFactory.gtZero(loan.expenses.totals.byCat[0][0].calc_arm)">
+            {{loan.expenses.totals.byCat[0][0].calc_arm|flexCurrency:0}}
+        </td>
+        <td ng-class="AppFactory.gtZero(x.expenses.totals.byCat[0][0].calc_arm)" ng-repeat="x in xcols">
+            {{x.expenses.totals.byCat[0][0].calc_arm|flexCurrency:0}}
+        </td>
+        <td ng-class="AppFactory.gtZero(loan.expenses.totals.byCat[0][0].calc_arm+x.expenses.totals.byCat[0][0].calc_arm)">
+            {{loan.expenses.totals.byCat[0][0].calc_arm+x.expenses.totals.byCat[0][0].calc_arm|flexCurrency:0}}
+        </td>
     </tr>
-    <tr ng-if="tggl.showIncome">
-        <td>Soybeans</td>
-        <td></td>
-        <td ng-repeat="x in loan.xcols"></td>
-        <td></td>
+    <tr ng-if="loan.expenses.totals.byCat[1][0].calc_arm+x.expenses.totals.byCat[1][0].calc_arm > 0">
+        <td>Seed</td>
+        <td ng-class="AppFactory.gtZero(loan.expenses.totals.byCat[1][0].calc_arm)">
+            {{loan.expenses.totals.byCat[1][0].calc_arm|flexCurrency:0}}
+        </td>
+        <td ng-class="AppFactory.gtZero(x.expenses.totals.byCat[1][0].calc_arm)" ng-repeat="x in xcols">
+            {{x.expenses.totals.byCat[1][0].calc_arm|flexCurrency:0}}
+        </td>
+        <td ng-class="AppFactory.gtZero(loan.expenses.totals.byCat[1][0].calc_arm+x.expenses.totals.byCat[1][0].calc_arm)">
+            {{loan.expenses.totals.byCat[1][0].calc_arm+x.expenses.totals.byCat[1][0].calc_arm|flexCurrency:0}}
+        </td>
     </tr>
-    <tr ng-if="tggl.showIncome">
-        <td>Sorghum</td>
-        <td></td>
-        <td ng-repeat="x in loan.xcols"></td>
-        <td></td>
+    <tr ng-if="loan.expenses.totals.byCat[2][0].calc_arm+x.expenses.totals.byCat[2][0].calc_arm > 0">
+        <td>Fungicide</td>
+        <td ng-class="AppFactory.gtZero(loan.expenses.totals.byCat[2][0].calc_arm)">
+            {{loan.expenses.totals.byCat[2][0].calc_arm|flexCurrency:0}}
+        </td>
+        <td ng-class="AppFactory.gtZero(x.expenses.totals.byCat[2][0].calc_arm)" ng-repeat="x in xcols">
+            {{x.expenses.totals.byCat[2][0].calc_arm|flexCurrency:0}}
+        </td>
+        <td ng-class="AppFactory.gtZero(loan.expenses.totals.byCat[2][0].calc_arm+x.expenses.totals.byCat[2][0].calc_arm)">
+            {{loan.expenses.totals.byCat[2][0].calc_arm+x.expenses.totals.byCat[2][0].calc_arm|flexCurrency:0}}
+        </td>
     </tr>
-    <tr ng-if="tggl.showIncome">
-        <td>Wheat</td>
-        <td></td>
-        <td ng-repeat="x in loan.xcols"></td>
-        <td></td>
+    <tr ng-if="loan.expenses.totals.byCat[3][0].calc_arm+x.expenses.totals.byCat[3][0].calc_arm > 0">
+        <td>Herbicide</td>
+        <td ng-class="AppFactory.gtZero(loan.expenses.totals.byCat[3][0].calc_arm)">
+            {{loan.expenses.totals.byCat[3][0].calc_arm|flexCurrency:0}}
+        </td>
+        <td ng-class="AppFactory.gtZero(x.expenses.totals.byCat[3][0].calc_arm)" ng-repeat="x in xcols">
+            {{x.expenses.totals.byCat[3][0].calc_arm|flexCurrency:0}}
+        </td>
+        <td ng-class="AppFactory.gtZero(loan.expenses.totals.byCat[3][0].calc_arm+x.expenses.totals.byCat[3][0].calc_arm)">
+            {{loan.expenses.totals.byCat[3][0].calc_arm+x.expenses.totals.byCat[3][0].calc_arm|flexCurrency:0}}
+        </td>
     </tr>
-    <tr ng-if="tggl.showIncome">
-        <td>Cotton</td>
-        <td></td>
-        <td ng-repeat="x in loan.xcols"></td>
-        <td></td>
+    <tr ng-if="loan.expenses.totals.byCat[4][0].calc_arm+x.expenses.totals.byCat[4][0].calc_arm > 0">
+        <td>Insecticide</td>
+        <td ng-class="AppFactory.gtZero(loan.expenses.totals.byCat[4][0].calc_arm)">
+            {{loan.expenses.totals.byCat[4][0].calc_arm|flexCurrency:0}}
+        </td>
+        <td ng-class="AppFactory.gtZero(x.expenses.totals.byCat[4][0].calc_arm)" ng-repeat="x in xcols">
+            {{x.expenses.totals.byCat[4][0].calc_arm|flexCurrency:0}}
+        </td>
+        <td ng-class="AppFactory.gtZero(loan.expenses.totals.byCat[4][0].calc_arm+x.expenses.totals.byCat[4][0].calc_arm)">
+            {{loan.expenses.totals.byCat[4][0].calc_arm+x.expenses.totals.byCat[4][0].calc_arm|flexCurrency:0}}
+        </td>
     </tr>
-    <tr ng-if="tggl.showIncome">
-        <td>Rice</td>
-        <td></td>
-        <td ng-repeat="x in loan.xcols"></td>
-        <td></td>
+    <tr ng-if="loan.expenses.totals.byCat[5][0].calc_arm+x.expenses.totals.byCat[5][0].calc_arm > 0">
+        <td>Custom</td>
+        <td ng-class="AppFactory.gtZero(loan.expenses.totals.byCat[5][0].calc_arm)">
+            {{loan.expenses.totals.byCat[5][0].calc_arm|flexCurrency:0}}
+        </td>
+        <td ng-class="AppFactory.gtZero(x.expenses.totals.byCat[5][0].calc_arm)" ng-repeat="x in xcols">
+            {{x.expenses.totals.byCat[5][0].calc_arm|flexCurrency:0}}
+        </td>
+        <td ng-class="AppFactory.gtZero(loan.expenses.totals.byCat[5][0].calc_arm+x.expenses.totals.byCat[5][0].calc_arm)">
+            {{loan.expenses.totals.byCat[5][0].calc_arm+x.expenses.totals.byCat[5][0].calc_arm|flexCurrency:0}}
+        </td>
     </tr>
-    <tr ng-if="tggl.showIncome">
-        <td>Peanuts</td>
-        <td></td>
-        <td ng-repeat="x in loan.xcols"></td>
-        <td></td>
+    <tr ng-if="loan.expenses.totals.byCat[6][0].calc_arm+x.expenses.totals.byCat[6][0].calc_arm > 0">
+        <td>Fuel</td>
+        <td ng-class="AppFactory.gtZero(loan.expenses.totals.byCat[6][0].calc_arm)">
+            {{loan.expenses.totals.byCat[6][0].calc_arm|flexCurrency:0}}
+        </td>
+        <td ng-class="AppFactory.gtZero(x.expenses.totals.byCat[6][0].calc_arm)" ng-repeat="x in xcols">
+            {{x.expenses.totals.byCat[6][0].calc_arm|flexCurrency:0}}
+        </td>
+        <td ng-class="AppFactory.gtZero(loan.expenses.totals.byCat[6][0].calc_arm+x.expenses.totals.byCat[6][0].calc_arm)">
+            {{loan.expenses.totals.byCat[6][0].calc_arm+x.expenses.totals.byCat[6][0].calc_arm|flexCurrency:0}}
+        </td>
     </tr>
-    <tr ng-if="tggl.showIncome">
-        <td>Sugar Cane</td>
-        <td></td>
-        <td ng-repeat="x in loan.xcols"></td>
-        <td></td>
+    <tr ng-if="loan.expenses.totals.byCat[7][0].calc_arm+x.expenses.totals.byCat[7][0].calc_arm > 0">
+        <td>Labor</td>
+        <td ng-class="AppFactory.gtZero(loan.expenses.totals.byCat[7][0].calc_arm)">
+            {{loan.expenses.totals.byCat[7][0].calc_arm|flexCurrency:0}}
+        </td>
+        <td ng-class="AppFactory.gtZero(x.expenses.totals.byCat[7][0].calc_arm)" ng-repeat="x in xcols">
+            {{x.expenses.totals.byCat[7][0].calc_arm|flexCurrency:0}}
+        </td>
+        <td ng-class="AppFactory.gtZero(loan.expenses.totals.byCat[7][0].calc_arm+x.expenses.totals.byCat[7][0].calc_arm)">
+            {{loan.expenses.totals.byCat[7][0].calc_arm+x.expenses.totals.byCat[7][0].calc_arm|flexCurrency:0}}
+        </td>
     </tr>
-    <tr ng-if="tggl.showIncome">
-        <td>Sunflowers</td>
-        <td></td>
-        <td ng-repeat="x in loan.xcols"></td>
-        <td></td>
+    <tr ng-if="loan.expenses.totals.byCat[8][0].calc_arm+x.expenses.totals.byCat[8][0].calc_arm > 0">
+        <td>Repairs</td>
+        <td ng-class="AppFactory.gtZero(loan.expenses.totals.byCat[8][0].calc_arm)">
+            {{loan.expenses.totals.byCat[8][0].calc_arm|flexCurrency:0}}
+        </td>
+        <td ng-class="AppFactory.gtZero(x.expenses.totals.byCat[8][0].calc_arm)" ng-repeat="x in xcols">
+            {{x.expenses.totals.byCat[8][0].calc_arm|flexCurrency:0}}
+        </td>
+        <td ng-class="AppFactory.gtZero(loan.expenses.totals.byCat[8][0].calc_arm+x.expenses.totals.byCat[8][0].calc_arm)">
+            {{loan.expenses.totals.byCat[8][0].calc_arm+x.expenses.totals.byCat[8][0].calc_arm|flexCurrency:0}}
+        </td>
+    </tr>
+    <tr ng-if="loan.expenses.totals.byCat[9][0].calc_arm+x.expenses.totals.byCat[9][0].calc_arm > 0">
+        <td>Insurance</td>
+        <td ng-class="AppFactory.gtZero(loan.expenses.totals.byCat[9][0].calc_arm)">
+            {{loan.expenses.totals.byCat[9][0].calc_arm|flexCurrency:0}}
+        </td>
+        <td ng-class="AppFactory.gtZero(x.expenses.totals.byCat[9][0].calc_arm)" ng-repeat="x in xcols">
+            {{x.expenses.totals.byCat[9][0].calc_arm|flexCurrency:0}}
+        </td>
+        <td ng-class="AppFactory.gtZero(loan.expenses.totals.byCat[9][0].calc_arm+x.expenses.totals.byCat[9][0].calc_arm)">
+            {{loan.expenses.totals.byCat[9][0].calc_arm+x.expenses.totals.byCat[9][0].calc_arm|flexCurrency:0}}
+        </td>
+    </tr>
+    <tr ng-if="loan.expenses.totals.byCat[10][0].calc_arm+x.expenses.totals.byCat[10][0].calc_arm > 0">
+        <td>Harvesting</td>
+        <td ng-class="AppFactory.gtZero(loan.expenses.totals.byCat[10][0].calc_arm)">
+            {{loan.expenses.totals.byCat[10][0].calc_arm|flexCurrency:0}}
+        </td>
+        <td ng-class="AppFactory.gtZero(x.expenses.totals.byCat[10][0].calc_arm)" ng-repeat="x in xcols">
+            {{x.expenses.totals.byCat[10][0].calc_arm|flexCurrency:0}}
+        </td>
+        <td ng-class="AppFactory.gtZero(loan.expenses.totals.byCat[10][0].calc_arm+x.expenses.totals.byCat[10][0].calc_arm)">
+            {{loan.expenses.totals.byCat[10][0].calc_arm+x.expenses.totals.byCat[10][0].calc_arm|flexCurrency:0}}
+        </td>
+    </tr>
+    <tr ng-if="loan.expenses.totals.byCat[11][0].calc_arm+x.expenses.totals.byCat[11][0].calc_arm > 0">
+        <td>Misc Per Acre</td>
+        <td ng-class="AppFactory.gtZero(loan.expenses.totals.byCat[11][0].calc_arm)">
+            {{loan.expenses.totals.byCat[11][0].calc_arm|flexCurrency:0}}
+        </td>
+        <td ng-class="AppFactory.gtZero(x.expenses.totals.byCat[11][0].calc_arm)" ng-repeat="x in xcols">
+            {{x.expenses.totals.byCat[11][0].calc_arm|flexCurrency:0}}
+        </td>
+        <td ng-class="AppFactory.gtZero(loan.expenses.totals.byCat[11][0].calc_arm+x.expenses.totals.byCat[11][0].calc_arm)">
+            {{loan.expenses.totals.byCat[11][0].calc_arm+x.expenses.totals.byCat[11][0].calc_arm|flexCurrency:0}}
+        </td>
     </tr>
     <tr class="warning">
         <td style="min-width:100px;">
-            Total
-        </td>
-        <td ng-class="AppFactory.gtZero(AppFactory.calcTotalCropValues(loan))" style="min-width:100px;">
-            {{AppFactory.calcTotalCropValues(loan)|flexCurrency:0}}
-        </td>
-        <td class="text-right" style="min-width:100px;" ng-repeat="x in loan.xcols">
-            {{x.crop_total|flexCurrency:0}}
+            Total ARM Expenses
         </td>
         <td class="text-right" style="min-width:100px;">
-            {{1106787+1204300|flexCurrency:0}}
+            {{loan.fins.commit_arm|flexCurrency:0}}
+        </td>
+        <td class="text-right" style="min-width:100px;" ng-repeat="x in xcols">
+            {{getXArmTotalExpenses(x)|flexCurrency:0}}
+        </td>
+        <td class="text-right" style="min-width:100px;">
+            {{getXTotalArmExpenses(xcols)|flexCurrency:0}}
+        </td>
+    </tr>
+    </tbody>
+</table>
+<br>
+<table class="table table160 table-striped rowed disp-sm">
+    <tbody>
+    <tr>
+        <th>
+            {{loan.distributor.distributor}} Expenses
+        </th>
+        <th>
+            {{loan.applicant.applicant}}
+        </th>
+        <th ng-repeat="x in xcols">
+            {{x.applicant}}
+        </th>
+        <th>
+            Total ARM Expenses
+        </th>
+    </tr>
+    <tr ng-if="loan.expenses.totals.byCat[0][0].calc_dist+x.expenses.totals.byCat[0][0].calc_dist > 0">
+        <td>Fertilizer</td>
+        <td ng-class="AppFactory.gtZero(loan.expenses.totals.byCat[0][0].calc_dist)">
+            {{loan.expenses.totals.byCat[0][0].calc_dist|flexCurrency:0}}
+        </td>
+        <td ng-class="AppFactory.gtZero(x.expenses.totals.byCat[0][0].calc_dist)" ng-repeat="x in xcols">
+            {{x.expenses.totals.byCat[0][0].calc_dist|flexCurrency:0}}
+        </td>
+        <td ng-class="AppFactory.gtZero(loan.expenses.totals.byCat[0][0].calc_dist+x.expenses.totals.byCat[0][0].calc_dist)">
+            {{loan.expenses.totals.byCat[0][0].calc_dist+x.expenses.totals.byCat[0][0].calc_dist|flexCurrency:0}}
+        </td>
+    </tr>
+    <tr ng-if="loan.expenses.totals.byCat[1][0].calc_dist+x.expenses.totals.byCat[1][0].calc_dist > 0">
+        <td>Seed</td>
+        <td ng-class="AppFactory.gtZero(loan.expenses.totals.byCat[1][0].calc_dist)">
+            {{loan.expenses.totals.byCat[1][0].calc_dist|flexCurrency:0}}
+        </td>
+        <td ng-class="AppFactory.gtZero(x.expenses.totals.byCat[1][0].calc_dist)" ng-repeat="x in xcols">
+            {{x.expenses.totals.byCat[1][0].calc_dist|flexCurrency:0}}
+        </td>
+        <td ng-class="AppFactory.gtZero(loan.expenses.totals.byCat[1][0].calc_dist+x.expenses.totals.byCat[1][0].calc_dist)">
+            {{loan.expenses.totals.byCat[1][0].calc_dist+x.expenses.totals.byCat[1][0].calc_dist|flexCurrency:0}}
+        </td>
+    </tr>
+    <tr ng-if="loan.expenses.totals.byCat[2][0].calc_dist+x.expenses.totals.byCat[2][0].calc_dist > 0">
+        <td>Fungicide</td>
+        <td ng-class="AppFactory.gtZero(loan.expenses.totals.byCat[2][0].calc_dist)">
+            {{loan.expenses.totals.byCat[2][0].calc_dist|flexCurrency:0}}
+        </td>
+        <td ng-class="AppFactory.gtZero(x.expenses.totals.byCat[2][0].calc_dist)" ng-repeat="x in xcols">
+            {{x.expenses.totals.byCat[2][0].calc_dist|flexCurrency:0}}
+        </td>
+        <td ng-class="AppFactory.gtZero(loan.expenses.totals.byCat[2][0].calc_dist+x.expenses.totals.byCat[2][0].calc_dist)">
+            {{loan.expenses.totals.byCat[2][0].calc_dist+x.expenses.totals.byCat[2][0].calc_dist|flexCurrency:0}}
+        </td>
+    </tr>
+    <tr ng-if="loan.expenses.totals.byCat[3][0].calc_dist+x.expenses.totals.byCat[3][0].calc_dist > 0">
+        <td>Herbicide</td>
+        <td ng-class="AppFactory.gtZero(loan.expenses.totals.byCat[3][0].calc_dist)">
+            {{loan.expenses.totals.byCat[3][0].calc_dist|flexCurrency:0}}
+        </td>
+        <td ng-class="AppFactory.gtZero(x.expenses.totals.byCat[3][0].calc_dist)" ng-repeat="x in xcols">
+            {{x.expenses.totals.byCat[3][0].calc_dist|flexCurrency:0}}
+        </td>
+        <td ng-class="AppFactory.gtZero(loan.expenses.totals.byCat[3][0].calc_dist+x.expenses.totals.byCat[3][0].calc_dist)">
+            {{loan.expenses.totals.byCat[3][0].calc_dist+x.expenses.totals.byCat[3][0].calc_dist|flexCurrency:0}}
+        </td>
+    </tr>
+    <tr ng-if="loan.expenses.totals.byCat[4][0].calc_dist+x.expenses.totals.byCat[4][0].calc_dist > 0">
+        <td>Insecticide</td>
+        <td ng-class="AppFactory.gtZero(loan.expenses.totals.byCat[4][0].calc_dist)">
+            {{loan.expenses.totals.byCat[4][0].calc_dist|flexCurrency:0}}
+        </td>
+        <td ng-class="AppFactory.gtZero(x.expenses.totals.byCat[4][0].calc_dist)" ng-repeat="x in xcols">
+            {{x.expenses.totals.byCat[4][0].calc_dist|flexCurrency:0}}
+        </td>
+        <td ng-class="AppFactory.gtZero(loan.expenses.totals.byCat[4][0].calc_dist+x.expenses.totals.byCat[4][0].calc_dist)">
+            {{loan.expenses.totals.byCat[4][0].calc_dist+x.expenses.totals.byCat[4][0].calc_dist|flexCurrency:0}}
+        </td>
+    </tr>
+    <tr ng-if="loan.expenses.totals.byCat[5][0].calc_dist+x.expenses.totals.byCat[5][0].calc_dist > 0">
+        <td>Custom</td>
+        <td ng-class="AppFactory.gtZero(loan.expenses.totals.byCat[5][0].calc_dist)">
+            {{loan.expenses.totals.byCat[5][0].calc_dist|flexCurrency:0}}
+        </td>
+        <td ng-class="AppFactory.gtZero(x.expenses.totals.byCat[5][0].calc_dist)" ng-repeat="x in xcols">
+            {{x.expenses.totals.byCat[5][0].calc_dist|flexCurrency:0}}
+        </td>
+        <td ng-class="AppFactory.gtZero(loan.expenses.totals.byCat[5][0].calc_dist+x.expenses.totals.byCat[5][0].calc_dist)">
+            {{loan.expenses.totals.byCat[5][0].calc_dist+x.expenses.totals.byCat[5][0].calc_dist|flexCurrency:0}}
+        </td>
+    </tr>
+    <tr ng-if="loan.expenses.totals.byCat[6][0].calc_dist+x.expenses.totals.byCat[6][0].calc_dist > 0">
+        <td>Fuel</td>
+        <td ng-class="AppFactory.gtZero(loan.expenses.totals.byCat[6][0].calc_dist)">
+            {{loan.expenses.totals.byCat[6][0].calc_dist|flexCurrency:0}}
+        </td>
+        <td ng-class="AppFactory.gtZero(x.expenses.totals.byCat[6][0].calc_dist)" ng-repeat="x in xcols">
+            {{x.expenses.totals.byCat[6][0].calc_dist|flexCurrency:0}}
+        </td>
+        <td ng-class="AppFactory.gtZero(loan.expenses.totals.byCat[6][0].calc_dist+x.expenses.totals.byCat[6][0].calc_dist)">
+            {{loan.expenses.totals.byCat[6][0].calc_dist+x.expenses.totals.byCat[6][0].calc_dist|flexCurrency:0}}
+        </td>
+    </tr>
+    <tr ng-if="loan.expenses.totals.byCat[7][0].calc_dist+x.expenses.totals.byCat[7][0].calc_dist > 0">
+        <td>Labor</td>
+        <td ng-class="AppFactory.gtZero(loan.expenses.totals.byCat[7][0].calc_dist)">
+            {{loan.expenses.totals.byCat[7][0].calc_dist|flexCurrency:0}}
+        </td>
+        <td ng-class="AppFactory.gtZero(x.expenses.totals.byCat[7][0].calc_dist)" ng-repeat="x in xcols">
+            {{x.expenses.totals.byCat[7][0].calc_dist|flexCurrency:0}}
+        </td>
+        <td ng-class="AppFactory.gtZero(loan.expenses.totals.byCat[7][0].calc_dist+x.expenses.totals.byCat[7][0].calc_dist)">
+            {{loan.expenses.totals.byCat[7][0].calc_dist+x.expenses.totals.byCat[7][0].calc_dist|flexCurrency:0}}
+        </td>
+    </tr>
+    <tr ng-if="loan.expenses.totals.byCat[8][0].calc_dist+x.expenses.totals.byCat[8][0].calc_dist > 0">
+        <td>Repairs</td>
+        <td ng-class="AppFactory.gtZero(loan.expenses.totals.byCat[8][0].calc_dist)">
+            {{loan.expenses.totals.byCat[8][0].calc_dist|flexCurrency:0}}
+        </td>
+        <td ng-class="AppFactory.gtZero(x.expenses.totals.byCat[8][0].calc_dist)" ng-repeat="x in xcols">
+            {{x.expenses.totals.byCat[8][0].calc_dist|flexCurrency:0}}
+        </td>
+        <td ng-class="AppFactory.gtZero(loan.expenses.totals.byCat[8][0].calc_dist+x.expenses.totals.byCat[8][0].calc_dist)">
+            {{loan.expenses.totals.byCat[8][0].calc_dist+x.expenses.totals.byCat[8][0].calc_dist|flexCurrency:0}}
+        </td>
+    </tr>
+    <tr ng-if="loan.expenses.totals.byCat[9][0].calc_dist+x.expenses.totals.byCat[9][0].calc_dist > 0">
+        <td>Insurance</td>
+        <td ng-class="AppFactory.gtZero(loan.expenses.totals.byCat[9][0].calc_dist)">
+            {{loan.expenses.totals.byCat[9][0].calc_dist|flexCurrency:0}}
+        </td>
+        <td ng-class="AppFactory.gtZero(x.expenses.totals.byCat[9][0].calc_dist)" ng-repeat="x in xcols">
+            {{x.expenses.totals.byCat[9][0].calc_dist|flexCurrency:0}}
+        </td>
+        <td ng-class="AppFactory.gtZero(loan.expenses.totals.byCat[9][0].calc_dist+x.expenses.totals.byCat[9][0].calc_dist)">
+            {{loan.expenses.totals.byCat[9][0].calc_dist+x.expenses.totals.byCat[9][0].calc_dist|flexCurrency:0}}
+        </td>
+    </tr>
+    <tr ng-if="loan.expenses.totals.byCat[10][0].calc_dist+x.expenses.totals.byCat[10][0].calc_dist > 0">
+        <td>Harvesting</td>
+        <td ng-class="AppFactory.gtZero(loan.expenses.totals.byCat[10][0].calc_dist)">
+            {{loan.expenses.totals.byCat[10][0].calc_dist|flexCurrency:0}}
+        </td>
+        <td ng-class="AppFactory.gtZero(x.expenses.totals.byCat[10][0].calc_dist)" ng-repeat="x in xcols">
+            {{x.expenses.totals.byCat[10][0].calc_dist|flexCurrency:0}}
+        </td>
+        <td ng-class="AppFactory.gtZero(loan.expenses.totals.byCat[10][0].calc_dist+x.expenses.totals.byCat[10][0].calc_dist)">
+            {{loan.expenses.totals.byCat[10][0].calc_dist+x.expenses.totals.byCat[10][0].calc_dist|flexCurrency:0}}
+        </td>
+    </tr>
+    <tr ng-if="loan.expenses.totals.byCat[11][0].calc_dist+x.expenses.totals.byCat[11][0].calc_dist > 0">
+        <td>Misc Per Acre</td>
+        <td ng-class="AppFactory.gtZero(loan.expenses.totals.byCat[11][0].calc_dist)">
+            {{loan.expenses.totals.byCat[11][0].calc_dist|flexCurrency:0}}
+        </td>
+        <td ng-class="AppFactory.gtZero(x.expenses.totals.byCat[11][0].calc_dist)" ng-repeat="x in xcols">
+            {{x.expenses.totals.byCat[11][0].calc_dist|flexCurrency:0}}
+        </td>
+        <td ng-class="AppFactory.gtZero(loan.expenses.totals.byCat[11][0].calc_dist+x.expenses.totals.byCat[11][0].calc_dist)">
+            {{loan.expenses.totals.byCat[11][0].calc_dist+x.expenses.totals.byCat[11][0].calc_dist|flexCurrency:0}}
+        </td>
+    </tr>
+    <tr class="warning">
+        <td style="min-width:100px;">
+            Total {{loan.distributor.distributor}} Expenses
+        </td>
+        <td class="text-right" style="min-width:100px;">
+            {{loan.fins.commit_dist|flexCurrency:0}}
+        </td>
+        <td class="text-right" style="min-width:100px;" ng-repeat="x in xcols">
+            {{getXDistTotalExpenses(x)|flexCurrency:0}}
+        </td>
+        <td class="text-right" style="min-width:100px;">
+            {{getXTotalDistExpenses(xcols)|flexCurrency:0}}
+        </td>
+    </tr>
+    </tbody>
+</table>
+<br>
+<table class="table table160 table-striped rowed disp-sm">
+    <tbody>
+    <tr>
+        <th style="min-width:100px;">
+            Third Party Expenses
+        </th>
+        <th style="min-width:100px;">
+            {{loan.applicant.applicant}}
+        </th>
+        <th style="min-width:100px;" ng-repeat="x in xcols">
+            {{x.applicant}}
+        </th>
+        <th style="min-width:100px;">
+            Total
+        </th>
+    </tr>
+    <tr ng-if="loan.expenses.totals.byCat[0][0].calc_other+x.expenses.totals.byCat[0][0].calc_other > 0">
+        <td>Fertilizer</td>
+        <td ng-class="AppFactory.gtZero(loan.expenses.totals.byCat[0][0].calc_other)">
+            {{loan.expenses.totals.byCat[0][0].calc_other|flexCurrency:0}}
+        </td>
+        <td ng-class="AppFactory.gtZero(x.expenses.totals.byCat[0][0].calc_other)" ng-repeat="x in xcols">
+            {{x.expenses.totals.byCat[0][0].calc_other|flexCurrency:0}}
+        </td>
+        <td ng-class="AppFactory.gtZero(loan.expenses.totals.byCat[0][0].calc_other+x.expenses.totals.byCat[0][0].calc_other)">
+            {{loan.expenses.totals.byCat[0][0].calc_other+x.expenses.totals.byCat[0][0].calc_other|flexCurrency:0}}
+        </td>
+    </tr>
+    <tr ng-if="loan.expenses.totals.byCat[1][0].calc_other+x.expenses.totals.byCat[1][0].calc_other > 0">
+        <td>Seed</td>
+        <td ng-class="AppFactory.gtZero(loan.expenses.totals.byCat[1][0].calc_other)">
+            {{loan.expenses.totals.byCat[1][0].calc_other|flexCurrency:0}}
+        </td>
+        <td ng-class="AppFactory.gtZero(x.expenses.totals.byCat[1][0].calc_other)" ng-repeat="x in xcols">
+            {{x.expenses.totals.byCat[1][0].calc_other|flexCurrency:0}}
+        </td>
+        <td ng-class="AppFactory.gtZero(loan.expenses.totals.byCat[1][0].calc_other+x.expenses.totals.byCat[1][0].calc_other)">
+            {{loan.expenses.totals.byCat[1][0].calc_other+x.expenses.totals.byCat[1][0].calc_other|flexCurrency:0}}
+        </td>
+    </tr>
+    <tr ng-if="loan.expenses.totals.byCat[2][0].calc_other+x.expenses.totals.byCat[2][0].calc_other > 0">
+        <td>Fungicide</td>
+        <td ng-class="AppFactory.gtZero(loan.expenses.totals.byCat[2][0].calc_other)">
+            {{loan.expenses.totals.byCat[2][0].calc_other|flexCurrency:0}}
+        </td>
+        <td ng-class="AppFactory.gtZero(x.expenses.totals.byCat[2][0].calc_other)" ng-repeat="x in xcols">
+            {{x.expenses.totals.byCat[2][0].calc_other|flexCurrency:0}}
+        </td>
+        <td ng-class="AppFactory.gtZero(loan.expenses.totals.byCat[2][0].calc_other+x.expenses.totals.byCat[2][0].calc_other)">
+            {{loan.expenses.totals.byCat[2][0].calc_other+x.expenses.totals.byCat[2][0].calc_other|flexCurrency:0}}
+        </td>
+    </tr>
+    <tr ng-if="loan.expenses.totals.byCat[3][0].calc_other+x.expenses.totals.byCat[3][0].calc_other > 0">
+        <td>Herbicide</td>
+        <td ng-class="AppFactory.gtZero(loan.expenses.totals.byCat[3][0].calc_other)">
+            {{loan.expenses.totals.byCat[3][0].calc_other|flexCurrency:0}}
+        </td>
+        <td ng-class="AppFactory.gtZero(x.expenses.totals.byCat[3][0].calc_other)" ng-repeat="x in xcols">
+            {{x.expenses.totals.byCat[3][0].calc_other|flexCurrency:0}}
+        </td>
+        <td ng-class="AppFactory.gtZero(loan.expenses.totals.byCat[3][0].calc_other+x.expenses.totals.byCat[3][0].calc_other)">
+            {{loan.expenses.totals.byCat[3][0].calc_other+x.expenses.totals.byCat[3][0].calc_other|flexCurrency:0}}
+        </td>
+    </tr>
+    <tr ng-if="loan.expenses.totals.byCat[4][0].calc_other+x.expenses.totals.byCat[4][0].calc_other > 0">
+        <td>Insecticide</td>
+        <td ng-class="AppFactory.gtZero(loan.expenses.totals.byCat[4][0].calc_other)">
+            {{loan.expenses.totals.byCat[4][0].calc_other|flexCurrency:0}}
+        </td>
+        <td ng-class="AppFactory.gtZero(x.expenses.totals.byCat[4][0].calc_other)" ng-repeat="x in xcols">
+            {{x.expenses.totals.byCat[4][0].calc_other|flexCurrency:0}}
+        </td>
+        <td ng-class="AppFactory.gtZero(loan.expenses.totals.byCat[4][0].calc_other+x.expenses.totals.byCat[4][0].calc_other)">
+            {{loan.expenses.totals.byCat[4][0].calc_other+x.expenses.totals.byCat[4][0].calc_other|flexCurrency:0}}
+        </td>
+    </tr>
+    <tr ng-if="loan.expenses.totals.byCat[5][0].calc_other+x.expenses.totals.byCat[5][0].calc_other > 0">
+        <td>Custom</td>
+        <td ng-class="AppFactory.gtZero(loan.expenses.totals.byCat[5][0].calc_other)">
+            {{loan.expenses.totals.byCat[5][0].calc_other|flexCurrency:0}}
+        </td>
+        <td ng-class="AppFactory.gtZero(x.expenses.totals.byCat[5][0].calc_other)" ng-repeat="x in xcols">
+            {{x.expenses.totals.byCat[5][0].calc_other|flexCurrency:0}}
+        </td>
+        <td ng-class="AppFactory.gtZero(loan.expenses.totals.byCat[5][0].calc_other+x.expenses.totals.byCat[5][0].calc_other)">
+            {{loan.expenses.totals.byCat[5][0].calc_other+x.expenses.totals.byCat[5][0].calc_other|flexCurrency:0}}
+        </td>
+    </tr>
+    <tr ng-if="loan.expenses.totals.byCat[6][0].calc_other+x.expenses.totals.byCat[6][0].calc_other > 0">
+        <td>Fuel</td>
+        <td ng-class="AppFactory.gtZero(loan.expenses.totals.byCat[6][0].calc_other)">
+            {{loan.expenses.totals.byCat[6][0].calc_other|flexCurrency:0}}
+        </td>
+        <td ng-class="AppFactory.gtZero(x.expenses.totals.byCat[6][0].calc_other)" ng-repeat="x in xcols">
+            {{x.expenses.totals.byCat[6][0].calc_other|flexCurrency:0}}
+        </td>
+        <td ng-class="AppFactory.gtZero(loan.expenses.totals.byCat[6][0].calc_other+x.expenses.totals.byCat[6][0].calc_other)">
+            {{loan.expenses.totals.byCat[6][0].calc_other+x.expenses.totals.byCat[6][0].calc_other|flexCurrency:0}}
+        </td>
+    </tr>
+    <tr ng-if="loan.expenses.totals.byCat[7][0].calc_other+x.expenses.totals.byCat[7][0].calc_other > 0">
+        <td>Labor</td>
+        <td ng-class="AppFactory.gtZero(loan.expenses.totals.byCat[7][0].calc_other)">
+            {{loan.expenses.totals.byCat[7][0].calc_other|flexCurrency:0}}
+        </td>
+        <td ng-class="AppFactory.gtZero(x.expenses.totals.byCat[7][0].calc_other)" ng-repeat="x in xcols">
+            {{x.expenses.totals.byCat[7][0].calc_other|flexCurrency:0}}
+        </td>
+        <td ng-class="AppFactory.gtZero(loan.expenses.totals.byCat[7][0].calc_other+x.expenses.totals.byCat[7][0].calc_other)">
+            {{loan.expenses.totals.byCat[7][0].calc_other+x.expenses.totals.byCat[7][0].calc_other|flexCurrency:0}}
+        </td>
+    </tr>
+    <tr ng-if="loan.expenses.totals.byCat[8][0].calc_other+x.expenses.totals.byCat[8][0].calc_other > 0">
+        <td>Repairs</td>
+        <td ng-class="AppFactory.gtZero(loan.expenses.totals.byCat[8][0].calc_other)">
+            {{loan.expenses.totals.byCat[8][0].calc_other|flexCurrency:0}}
+        </td>
+        <td ng-class="AppFactory.gtZero(x.expenses.totals.byCat[8][0].calc_other)" ng-repeat="x in xcols">
+            {{x.expenses.totals.byCat[8][0].calc_other|flexCurrency:0}}
+        </td>
+        <td ng-class="AppFactory.gtZero(loan.expenses.totals.byCat[8][0].calc_other+x.expenses.totals.byCat[8][0].calc_other)">
+            {{loan.expenses.totals.byCat[8][0].calc_other+x.expenses.totals.byCat[8][0].calc_other|flexCurrency:0}}
+        </td>
+    </tr>
+    <tr ng-if="loan.expenses.totals.byCat[9][0].calc_other+x.expenses.totals.byCat[9][0].calc_other > 0">
+        <td>Insurance</td>
+        <td ng-class="AppFactory.gtZero(loan.expenses.totals.byCat[9][0].calc_other)">
+            {{loan.expenses.totals.byCat[9][0].calc_other|flexCurrency:0}}
+        </td>
+        <td ng-class="AppFactory.gtZero(x.expenses.totals.byCat[9][0].calc_other)" ng-repeat="x in xcols">
+            {{x.expenses.totals.byCat[9][0].calc_other|flexCurrency:0}}
+        </td>
+        <td ng-class="AppFactory.gtZero(loan.expenses.totals.byCat[9][0].calc_other+x.expenses.totals.byCat[9][0].calc_other)">
+            {{loan.expenses.totals.byCat[9][0].calc_other+x.expenses.totals.byCat[9][0].calc_other|flexCurrency:0}}
+        </td>
+    </tr>
+    <tr ng-if="loan.expenses.totals.byCat[10][0].calc_other+x.expenses.totals.byCat[10][0].calc_other > 0">
+        <td>Harvesting</td>
+        <td ng-class="AppFactory.gtZero(loan.expenses.totals.byCat[10][0].calc_other)">
+            {{loan.expenses.totals.byCat[10][0].calc_other|flexCurrency:0}}
+        </td>
+        <td ng-class="AppFactory.gtZero(x.expenses.totals.byCat[10][0].calc_other)" ng-repeat="x in xcols">
+            {{x.expenses.totals.byCat[10][0].calc_other|flexCurrency:0}}
+        </td>
+        <td ng-class="AppFactory.gtZero(loan.expenses.totals.byCat[10][0].calc_other+x.expenses.totals.byCat[10][0].calc_other)">
+            {{loan.expenses.totals.byCat[10][0].calc_other+x.expenses.totals.byCat[10][0].calc_other|flexCurrency:0}}
+        </td>
+    </tr>
+    <tr ng-if="loan.expenses.totals.byCat[11][0].calc_other+x.expenses.totals.byCat[11][0].calc_other > 0">
+        <td>Misc Per Acre</td>
+        <td ng-class="AppFactory.gtZero(loan.expenses.totals.byCat[11][0].calc_other)">
+            {{loan.expenses.totals.byCat[11][0].calc_other|flexCurrency:0}}
+        </td>
+        <td ng-class="AppFactory.gtZero(x.expenses.totals.byCat[11][0].calc_other)" ng-repeat="x in xcols">
+            {{x.expenses.totals.byCat[11][0].calc_other|flexCurrency:0}}
+        </td>
+        <td ng-class="AppFactory.gtZero(loan.expenses.totals.byCat[11][0].calc_other+x.expenses.totals.byCat[11][0].calc_other)">
+            {{loan.expenses.totals.byCat[11][0].calc_other+x.expenses.totals.byCat[11][0].calc_other|flexCurrency:0}}
+        </td>
+    </tr>
+    <tr class="warning">
+        <td style="min-width:100px;">
+            Total 3P Expenses
+        </td>
+        <td class="text-right" style="min-width:100px;">
+            {{loan.fins.commit_other|flexCurrency:0}}
+        </td>
+        <td class="text-right" style="min-width:100px;" ng-repeat="x in xcols">
+            {{getXOtherTotalExpenses(x)|flexCurrency:0}}
+        </td>
+        <td class="text-right" style="min-width:100px;">
+            {{getXTotalOtherExpenses(xcols)|flexCurrency:0}}
+        </td>
+    </tr>
+    </tbody>
+</table>
+<br>
+<table class="table table160 table-striped rowed disp-sm">
+    <tbody>
+    <tr>
+        <th style="min-width:100px;">&nbsp;</th>
+        <th style="min-width:100px;">
+            {{loan.applicant.applicant}}
+        </th>
+        <th style="min-width:100px;" ng-repeat="x in xcols">
+            {{x.applicant}}
+        </th>
+        <th style="min-width:100px;">
+            Total
+        </th>
+    </tr>
+    <tr class="success">
+        <td>Cash Flow</td>
+        <td class="text-right">
+            {{loan.fins.cash_flow|flexCurrency:0}}
+        </td>
+        <td class="text-right" ng-repeat="x in xcols">
+            {{x.cash_flow|flexCurrency:0}}
+        </td>
+        <td class="text-right">
+            {{getXTotalCashFlow()|flexCurrency:0}}
         </td>
     </tr>
     </tbody>

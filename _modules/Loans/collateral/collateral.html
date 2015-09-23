@@ -17,7 +17,7 @@
         </div>
     </div>
 </fieldset>
-<br/><br/>
+<br/>
 <!-- CROPS -->
 <fieldset>
     <legend>
@@ -35,16 +35,21 @@
         <div class="col-md-12">
             <label>Crop Discount</label>
             <input type="number" class="form-control" name="percent_crop" ng-model="loan.fins.discounts.percent_crop" style="width:100px;">
-            <br>
+        </div>
+        <div class="col-md-2">
             <label>MPCI Discount</label>
             <input type="number" class="form-control" name="percent_mpci" ng-model="loan.fins.discounts.percent_insoyield" style="width:100px;">
-            <br>
+        </div>
+        <div class="col-md-2">
             <label>RPHPE Discount</label>
             <input type="number" class="form-control" name="percent_rphpe" ng-model="loan.fins.discounts.percent_rphpe" style="width:100px;">
-            <br>
+        </div>
+        <div class="col-md-2">
             <label>YP Discount</label>
             <input type="number" class="form-control" name="percent_yp" ng-model="loan.fins.discounts.percent_nonrp" style="width:100px;">
-            <br>
+        </div>
+        <div class="col-md-6">&nbsp;</div>
+        <div class="col-md-12">
             <label>Stax/SCO Discount</label>
             <input type="number" class="form-control" name="percent_suppins" ng-model="loan.fins.discounts.percent_suppins" style="width:100px;">
             <br>
@@ -61,7 +66,7 @@
         <div ng-include="'./_modules/Loans/collateral/_crop.collateral.html'"></div>
     </div>
 </fieldset>
-<br/><br/>
+<br/>
 <!-- EQUIPMENT -->
 <fieldset>
     <legend>
@@ -93,7 +98,7 @@
         <div ng-include="'./_modules/Loans/collateral/_equipment.collateral.html'"></div>
     </div>
 </fieldset>
-<br/><br/>
+<br/>
 <!--REAL ESTATE -->
 <fieldset>
     <legend>
@@ -125,7 +130,7 @@
         <div ng-include="'./_modules/Loans/collateral/_realestate.collateral.html'"></div>
     </div>
 </fieldset>
-<br/><br/>
+<br/>
 <!--FSA -->
 <fieldset>
     <legend>
@@ -143,7 +148,7 @@
         <div ng-include="'./_modules/Loans/collateral/_fsa.collateral.html'"></div>
     </div>
 </fieldset>
-<br/><br/>
+<br/>
 <!-- OTHER -->
 <fieldset>
     <legend>
@@ -190,19 +195,6 @@
         Cross Collateral
     </legend>
     <div class="container-fluid row form-group" ng-if="showCrossCollateral">
-        <div class="col-md-12">
-            <div class="col-md-9">
-                <label>Cross Collateralized Loans</label>
-            </div>
-            <div class="col-md-3">
-                <input type="radio" name="xcol" ng-value="true" ng-model="loan.is_xcolled"/>
-                &nbsp;<label>Yes</label>
-                &nbsp;&nbsp;&nbsp;
-                <input type="radio" name="xcol" ng-value="false" ng-model="loan.is_xcolled"/>
-                &nbsp;<label>No</label>
-            </div>
-        </div>
-        <div class="container-fluid row form-group" ng-if="showCrossCollateral">
             <div ng-include="'./_modules/Loans/collateral/_cross.collateral.html'"></div>
         </div>
     </div>

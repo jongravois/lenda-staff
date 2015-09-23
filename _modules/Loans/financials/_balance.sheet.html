@@ -1,8 +1,8 @@
 <!-- BALANCE SHEET-->
 <table class="table table-striped rowed table-condensed disp-sm" style="width: 80%;">
-    <tr>
+    <tr ng-if="tggl.showBalanceSheet">
         <th>Balance Sheet</th>
-        <th>Asset</th>
+        <th>Assets</th>
         <th>Discount</th>
         <th>Adj Value</th>
         <th>Liability</th>
@@ -62,7 +62,7 @@
             <strong>{{getFixedReserve()|flexCurrency:0}}</strong>
         </td>
     </tr>
-    <tr class="success">
+    <tr class="success" ng-if="tggl.showBalanceSheet">
         <td>Total</td>
         <td class="text-right">
             <strong>{{getTotalAssets()|flexCurrency:0}}</strong>
