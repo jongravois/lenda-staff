@@ -33,7 +33,7 @@
             {{x.service_fee|flexCurrency:0}}
         </td>
         <td class="text-right">
-            {{28020+21080|flexCurrency:0}}
+            {{getTotalXServiceFee()|flexCurrency:0}}
         </td>
     </tr>
     <tr>
@@ -45,7 +45,7 @@
             {{x.interest_arm|flexCurrency:0}}
         </td>
         <td class="text-right">
-            {{51828+47656|flexCurrency:0}}
+            {{getTotalXInterestArm()|flexCurrency:0}}
         </td>
     </tr>
     <tr>
@@ -57,21 +57,21 @@
             {{x.interest_dist|flexCurrency:0}}
         </td>
         <td class="text-right">
-            {{62266+39990|flexCurrency:0}}
+            {{getTotalXInterestDist()|flexCurrency:0}}
         </td>
     </tr>
     <tr class="success">
-        <td style="min-width:100px;">
+        <td>
             Total
         </td>
         <td class="text-right">
-            {{179474|flexCurrency:0}}
+            {{getCurrentTotalFeeInterest()|flexCurrency:0}}
         </td>
-        <td class="text-right" ng-repeat="x in loan.xcols">
-            {{x.total_fee_interest|flexCurrency:0}}
+        <td class="text-right" ng-repeat="x in xcols">
+            {{getCurrentTotalXFeeInterest()|flexCurrency:0}}
         </td>
         <td class="text-right">
-            {{179474+138625|flexCurrency:0}}
+            {{getGrandTotalFeeInterest()|flexCurrency:0}}
         </td>
     </tr>
     </tbody>

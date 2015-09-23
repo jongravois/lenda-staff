@@ -1558,7 +1558,7 @@
                     }
                 });
             });
-            console.log('XCOLS', xcols);
+            //console.log('XCOLS', xcols);
             return xcols;
         }
         function returnColor(val) {

@@ -301,7 +301,49 @@
                     xco += Number(x.origination_fee);
                 });
                 return curr + xco;
-            }
+            };
+            $scope.getTotalXServiceFee = function() {
+                var curr = Number(AppFactory.calcArmDistSrvcFee($scope.loan))/100;
+                var xco = 0;
+                _.each($scope.xcols, function(x){
+                    xco += Number(x.service_fee);
+                });
+                return curr + xco;
+            };
+            $scope.getTotalXInterestArm = function() {
+                var curr = Number(AppFactory.calcArmInterest($scope.loan));
+                var xco = 0;
+                _.each($scope.xcols, function(x){
+                    xco += Number(x.interest_arm);
+                });
+                return curr + xco;
+            };
+            $scope.getTotalXInterestDist = function() {
+                var curr = Number(AppFactory.calcDistInterest($scope.loan));
+                var xco = 0;
+                _.each($scope.xcols, function(x){
+                    xco += Number(x.interest_dist);
+                });
+                return curr + xco;
+            };
+            $scope.getCurrentTotalFeeInterest = function() {
+                var loan = $scope.loan;
+                return Number(AppFactory.calcArmDistProcFee(loan))/100 + Number(AppFactory.calcArmDistSrvcFee(loan))/100 + Number(AppFactory.calcArmInterest(loan)) + Number(AppFactory.calcDistInterest(loan));
+            };
+            $scope.getCurrentTotalXFeeInterest = function() {
+                var xc = $scope.xcols;
+                var xco = 0;
+                _.each(xc, function(x){
+                    xco += Number(x.origination_fee);
+                    xco += Number(x.service_fee);
+                    xco += Number(x.interest_arm);
+                    xco += Number(x.interest_dist);
+                });
+                return xco;
+            };
+            $scope.getGrandTotalFeeInterest = function() {
+                return Number($scope.getCurrentTotalFeeInterest()) + Number($scope.getCurrentTotalXFeeInterest());
+            };
             ////////////
         } // end controller
 })();

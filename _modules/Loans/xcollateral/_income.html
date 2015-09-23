@@ -1,3 +1,4 @@
+<!-- PROJECTED INCOME -->
 <table class="table table160 table-striped rowed disp-sm">
     <tbody>
     <tr ng-if="getTotalCropValue('corn') > 0">
@@ -129,7 +130,7 @@
         <td ng-class="AppFactory.gtZero(AppFactory.calcTotalCropValues(loan))">
             {{AppFactory.calcTotalCropValues(loan)|flexCurrency:0}}
         </td>
-        <td class="text-right"" ng-repeat="x in xcols">
+        <td class="text-right" ng-repeat="x in xcols">
             {{getXCropTotalValue(x)|flexCurrency:0}}
         </td>
         <td class="text-right">
@@ -139,6 +140,7 @@
     </tbody>
 </table>
 <br>
+<!-- ARM EXPENSES -->
 <table class="table table160 table-striped rowed disp-sm">
     <tbody>
     <tr>
@@ -313,9 +315,22 @@
             {{getXTotalArmExpenses(xcols)|flexCurrency:0}}
         </td>
     </tr>
+    <tr>
+        <td>Estimated Interest</td>
+        <td class="text-right">
+            {{loan.fins.int_arm|flexCurrency:0}}
+        </td>
+        <td class="text-right" ng-repeat="x in xcols">
+            {{x.interest_arm|flexCurrency:0}}
+        </td>
+        <td class="text-right">
+            {{getTotalXInterestArm()|flexCurrency:0}}
+        </td>
+    </tr>
     </tbody>
 </table>
 <br>
+<!-- DIST EXPENSES -->
 <table class="table table160 table-striped rowed disp-sm">
     <tbody>
     <tr>
@@ -490,9 +505,22 @@
             {{getXTotalDistExpenses(xcols)|flexCurrency:0}}
         </td>
     </tr>
+    <tr>
+        <td>Estimated Interest</td>
+        <td class="text-right" >
+            {{loan.fins.int_dist|flexCurrency:0}}
+        </td>
+        <td class="text-right" ng-repeat="x in xcols">
+            {{x.interest_dist|flexCurrency:0}}
+        </td>
+        <td class="text-right">
+            {{getTotalXInterestDist()|flexCurrency:0}}
+        </td>
+    </tr>
     </tbody>
 </table>
 <br>
+<!-- OTHER EXPENSES -->
 <table class="table table160 table-striped rowed disp-sm">
     <tbody>
     <tr>
@@ -667,9 +695,16 @@
             {{getXTotalOtherExpenses(xcols)|flexCurrency:0}}
         </td>
     </tr>
+    <tr>
+        <td>Estimated Interest</td>
+        <td class="text-center">-</td>
+        <td class="text-center" ng-repeat="x in xcols">-</td>
+        <td class="text-center">-</td>
+    </tr>
     </tbody>
 </table>
 <br>
+<!-- CASH FLOW -->
 <table class="table table160 table-striped rowed disp-sm">
     <tbody>
     <tr>
