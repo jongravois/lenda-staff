@@ -1,39 +1,39 @@
-<table class="table table-striped rowed disp-sm">
+<table class="table table160 table-striped rowed disp-sm">
     <tbody>
     <tr>
-        <th style="min-width:100px;">&nbsp;</th>
-        <th style="min-width:100px;">
+        <th>&nbsp;</th>
+        <th>
             {{loan.applicant.applicant}}
         </th>
-        <th style="min-width:100px;" ng-repeat="x in loan.xcols">
+        <th ng-repeat="x in xcols">
             {{x.applicant}}
         </th>
-        <th style="min-width:100px;">
+        <th>
             Total
         </th>
     </tr>
-    <tr ng-if="tggl.showInsSummary">
+    <tr>
         <td>MPCI</td>
         <td class="text-right">
-            {{436487|flexCurrency:0}}
+            {{AppFactory.calcCropTotsMPCIBySummary(loan)|flexCurrency:0}}
         </td>
-        <td class="text-right" ng-repeat="x in loan.xcols">
+        <td class="text-right" ng-repeat="x in xcols">
             {{x.mpci_value|flexCurrency:0}}
         </td>
         <td class="text-right">
-            {{436487+1280083|flexCurrency:0}}
+            {{getTotalMPCI()|flexCurrency:0}}
         </td>
     </tr>
-    <tr ng-if="tggl.showInsSummary">
+    <tr>
         <td>Stax/SCO</td>
         <td class="text-right">
-            {{215040|flexCurrency:0}}
+            {{AppFactory.calcCropTotsSco(loan)|flexCurrency:0}}
         </td>
-        <td class="text-right" ng-repeat="x in loan.xcols">
+        <td class="text-right" ng-repeat="x in xcols">
             {{x.stax_sco_value|flexCurrency:0}}
         </td>
         <td class="text-right">
-            {{215040+187635|flexCurrency:0}}
+            {{getTotalStaxSco()|flexCurrency:0}}
         </td>
     </tr>
     <tr class="warning">
@@ -41,13 +41,13 @@
             Total
         </td>
         <td class="text-right">
-            {{651527|flexCurrency:0}}
+            {{getTotalInsSummary()|flexCurrency:0}}
         </td>
-        <td class="text-right" ng-repeat="x in loan.xcols">
-            {{x.ins_net_value|flexCurrency:0}}
+        <td class="text-right" ng-repeat="x in xcols">
+            {{x.mpci_value+x.stax_sco_value|flexCurrency:0}}
         </td>
         <td class="text-right">
-            {{651527+1467718|flexCurrency:0}}
+            {{getGrandTotalInsSummary()|flexCurrency:0}}
         </td>
     </tr>
     </tbody>

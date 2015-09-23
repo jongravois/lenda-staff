@@ -58,7 +58,7 @@
                       ng-if="tggl.showCommitment"></span>
                 &nbsp;Commitment
             </legend>
-            <div ng-include="'./_modules/Loans/xcollateral/_commitment.html'"></div>
+            <div ng-include="'./_modules/Loans/xcollateral/_commitment.html'" ng-if="tggl.showCommitment"></div>
         </fieldset>
         <br>
         <fieldset>
@@ -72,7 +72,7 @@
                       ng-if="tggl.showInsSummary"></span>
                 &nbsp;Insurance Summary
             </legend>
-            <div ng-include="'./_modules/Loans/xcollateral/_ins.summary.html'"></div>
+            <div ng-include="'./_modules/Loans/xcollateral/_ins.summary.html'" ng-if="tggl.showInsSummary"></div>
         </fieldset>
         <br>
         <fieldset>
@@ -86,17 +86,26 @@
                       ng-if="tggl.showCollateral"></span>
                 &nbsp;Discounted Collateral
             </legend>
-            <div ng-include="'./_modules/Loans/xcollateral/_collateral.html'"></div>
+            <div ng-include="'./_modules/Loans/xcollateral/_collateral.html'" ng-if="tggl.showCollateral"></div>
         </fieldset>
         <br>
         <fieldset>
-            <legend>Exposure</legend>
-            <table class="table table-striped rowed disp-sm">
+            <legend>
+                &nbsp;
+                <span class="pendicon glyphicon glyphicon-chevron-right"
+                      ng-click="tggl.showExposure = !tggl.showExposure"
+                      ng-if="!tggl.showExposure"></span>
+                <span class="pendicon glyphicon glyphicon-chevron-down"
+                      ng-click="tggl.showExposure = !tggl.showExposure"
+                      ng-if="tggl.showExposure"></span>
+                &nbsp;Exposure
+            </legend>
+            <table class="table table160 table-striped rowed disp-sm" ng-if="tggl.showExposure">
                 <tbody>
                 <tr>
-                    <th style="min-width:100px;">&nbsp;</th>
-                    <th style="min-width:100px;">
-                        ARM
+                    <th>&nbsp;</th>
+                    <th>
+                        {{loan.applicant.applicant}}
                     </th>
                     <th style="min-width:100px;" ng-repeat="x in loan.xcols">
                         {{x.applicant}}
@@ -114,7 +123,7 @@
                         {{x.exposure|flexCurrency:0}}
                     </td>
                     <td class="text-right">
-                        {{loan.fins.exposure+-321658|flexCurrency:0}}
+                        {{getTotalExposure()|flexCurrency:0}}
                     </td>
                 </tr>
                 </tbody>

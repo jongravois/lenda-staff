@@ -134,37 +134,39 @@
     </tr>
     <tr><td colspan="4">&nbsp;</td></tr>
     <tr>
-        <td style="max-width:100px;">ARM and {{loan.distributor.distributor}} Loan</td>
-        <td class="text-right">{{745696+1122320|flexCurrency:0}}</td>
+        <td>ARM and {{loan.distributor.distributor}} Loan</td>
+        <td class="text-right">
+            {{getArmAndDistTotal()|flexCurrency:0}}
+        </td>
         <td class="text-right" ng-repeat="x in xcols">
-            {{x.armAndDist|flexCurrency:0}}
+            {{getXArmAndDistTotal(x)|flexCurrency:0}}
         </td>
         <td class="text-right">
-            {{1868016+408556|flexCurrency:0}}
+            {{getArmAndDistGrandTotal()|flexCurrency:0}}
         </td>
     </tr>
     <tr>
-        <td style="max-width:100px;">Net Crop Insurance Coverage</td>
+        <td style="max-width:100px;">Net Crop Ins Cov</td>
         <td class="text-right">
-            {{AppFactory.calcCropTotsInsVal(loan)|flexCurrency:0}}
+            {{getNetCropInsCov()|flexCurrency:0}}
         </td>
         <td class="text-right" ng-repeat="x in xcols">
-            {{x.ins_total_value|flexCurrency:0}}
+            {{getXNetCropInsCov(x)|flexCurrency:0}}
         </td>
         <td class="text-right">
-            {{966952+1600104|flexCurrency:0}}
+            {{getNetCropInsCovTotal()|flexCurrency:0}}
         </td>
     </tr>
     <tr>
-        <td style="max-width:100px;">Crop Insurance above/below loan</td>
+        <td style="max-width:100px;">Crop Ins +/-</td>
         <td class="text-right">
-            {{1868016-966952|flexCurrency:0}}
+            {{getInsTotalDiff()|flexCurrency:0}}
         </td>
         <td class="text-right" ng-repeat="x in xcols">
-            {{x.ins_total_diff|flexCurrency:0}}
+            {{getXInsTotalDiff(x)|flexCurrency:0}}
         </td>
         <td class="text-right">
-            {{2276572-2567056|flexCurrency:0}}
+            {{getInsGrandTotalDiff()|flexCurrency:0}}
         </td>
     </tr>
     </tbody>

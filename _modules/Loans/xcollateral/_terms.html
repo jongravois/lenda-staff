@@ -1,59 +1,59 @@
-<table class="table table-striped rowed disp-sm">
+<table class="table table160 table-striped rowed disp-sm">
     <tbody>
     <tr>
-        <th style="min-width:100px;">&nbsp;</th>
-        <th style="min-width:100px;">
+        <th>&nbsp;</th>
+        <th>
             {{loan.applicant.applicant}}
         </th>
-        <th style="min-width:100px;" ng-repeat="x in loan.xcols">
+        <th ng-repeat="x in xcols">
             {{x.applicant}}
         </th>
-        <th style="min-width:100px;">
+        <th>
             Total
         </th>
     </tr>
-    <tr ng-if="tggl.showTerms">
+    <tr>
         <td>ARM Origination Fee</td>
         <td class="text-right">
             {{AppFactory.calcArmDistProcFee(loan)/100|flexCurrency:0}}
         </td>
-        <td class="text-right" ng-repeat="x in loan.xcols">
+        <td class="text-right" ng-repeat="x in xcols">
             {{x.origination_fee|flexCurrency:0}}
         </td>
         <td class="text-right">
-            {{37360+29899|flexCurrency:0}}
+            {{getTotalXOriginationFee()|flexCurrency:0}}
         </td>
     </tr>
-    <tr ng-if="tggl.showTerms">
+    <tr>
         <td>ARM Service Fee</td>
         <td class="text-right">
             {{AppFactory.calcArmDistSrvcFee(loan)/100|flexCurrency:0}}
         </td>
-        <td class="text-right" ng-repeat="x in loan.xcols">
+        <td class="text-right" ng-repeat="x in xcols">
             {{x.service_fee|flexCurrency:0}}
         </td>
         <td class="text-right">
             {{28020+21080|flexCurrency:0}}
         </td>
     </tr>
-    <tr ng-if="tggl.showTerms">
+    <tr>
         <td>ARM Est Interest</td>
         <td class="text-right">
             {{AppFactory.calcArmInterest(loan)|flexCurrency:0}}
         </td>
-        <td class="text-right" ng-repeat="x in loan.xcols">
+        <td class="text-right" ng-repeat="x in xcols">
             {{x.interest_arm|flexCurrency:0}}
         </td>
         <td class="text-right">
             {{51828+47656|flexCurrency:0}}
         </td>
     </tr>
-    <tr ng-if="tggl.showTerms">
+    <tr>
         <td>{{loan.distributor.distributor}} Est Interest</td>
         <td class="text-right">
             {{AppFactory.calcDistInterest(loan)|flexCurrency:0}}
         </td>
-        <td class="text-right" ng-repeat="x in loan.xcols">
+        <td class="text-right" ng-repeat="x in xcols">
             {{x.interest_dist|flexCurrency:0}}
         </td>
         <td class="text-right">

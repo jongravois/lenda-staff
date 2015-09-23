@@ -1,39 +1,39 @@
-<table class="table table-striped rowed disp-sm">
+<table class="table table160 table-striped rowed disp-sm">
     <tbody>
     <tr>
-        <th style="min-width:100px;">&nbsp;</th>
-        <th style="min-width:100px;">
+        <th >&nbsp;</th>
+        <th>
             {{loan.applicant.applicant}}
         </th>
-        <th style="min-width:100px;" ng-repeat="x in loan.xcols">
+        <th ng-repeat="x in xcols">
             {{x.applicant}}
         </th>
-        <th style="min-width:100px;">
+        <th>
             Total
         </th>
     </tr>
-    <tr ng-if="tggl.showCommitment">
+    <tr>
         <td>ARM</td>
         <td class="text-right">
             {{loan.fins.commit_arm|flexCurrency:0}}
         </td>
-        <td class="text-right" ng-repeat="x in loan.xcols">
+        <td class="text-right" ng-repeat="x in xcols">
             {{x.commit_arm|flexCurrency:0}}
         </td>
         <td class="text-right">
-            {{loan.fins.commit_arm+147651|flexCurrency:0}}
+            {{getTotalCommitArm()|flexCurrency:0}}
         </td>
     </tr>
-    <tr ng-if="tggl.showCommitment">
+    <tr>
         <td>{{loan.distributor.distributor}}</td>
         <td class="text-right">
             {{loan.fins.commit_dist|flexCurrency:0}}
         </td>
-        <td class="text-right" ng-repeat="x in loan.xcols">
+        <td class="text-right" ng-repeat="x in xcols">
             {{x.commit_dist|flexCurrency:0}}
         </td>
         <td class="text-right">
-            {{loan.fins.commit_dist+260905|flexCurrency:0}}
+            {{getTotalCommitDist()|flexCurrency:0}}
         </td>
     </tr>
     <tr class="warning">
@@ -43,7 +43,7 @@
         <td class="text-right" style="min-width:100px;">
             {{loan.fins.commit_arm+loan.fins.commit_dist|flexCurrency:0}}
         </td>
-        <td class="text-right" style="min-width:100px;" ng-repeat="x in loan.xcols">
+        <td class="text-right" style="min-width:100px;" ng-repeat="x in xcols">
             {{147651+260905|flexCurrency:0}}
         </td>
         <td class="text-right" style="min-width:100px;">
