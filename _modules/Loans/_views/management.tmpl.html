@@ -1,5 +1,18 @@
 <style>
     .pendicon, .indicon {padding: 1px 0;}
+    #loanManager a{ display: inline; }
+    .input-xs {
+        height: 26px;
+        padding: 2px 10px;
+        font-size: 11px;
+        line-height: 1.2;
+        border-radius: 3px;
+    }
+    .input-group-addon {
+        height: 24px;
+        padding: 2px 10px;
+        font-size: 11px;
+    }
 </style>
 <div class="frmFull_Page" style="z-index: 10;">
     <div class="row view-page-header-bar">
@@ -11,8 +24,8 @@
                 Management
             </h5>
             <span class="pull-right"
-                  style="display: inline; margin-top:-3px; z-index: 1000;">
-                <form>
+                  style="display: inline; margin-top:-3px; z-index: 10000;">
+                <form style="z-index: 100000">
                     <select class="form-control"
                             name="landing_view"
                             style="z-index: 10000;"
@@ -28,11 +41,255 @@
         </div>
     </div>
 
-        <div class="row" ng-cloak>
+        <div class="row">
             <div class="col-sm-12">
-                <!-- AG Grid -->
-                <div style="margin-top: 10px; width: 100%; height:{{hgt}}px;" ag-grid="gridOptions" class="ag-arm"></div>
-                <!-- AG Grid -->
+                <div class="input-group pull-right" style="width:300px;">
+                    <input type="text" class="form-control input-xs" placeholder="Filter Loans" ng-model="fltrBox">
+                    <span class="input-group-addon">
+                        <span class="glyphicons glyphicons-filter"></span>
+                    </span>
+                </div>
+                <br>
+                <table id="loanManager" class="table table-striped rowed table-condensed disp-sm">
+                    <thead>
+                    <tr class="clr-arm">
+                        <th style="width: 90px !important;">
+                            <span ng-show="pending_view" ng-click="pending_view = 0; filterLoans(0)" class="headicon glyphicon glyphicon-exclamation-sign" style="color:#000000;;" tooltip="On/Off" tooltip-append-to-body="true" tooltip-placement="bottom"></span>
+                            <span ng-show="!pending_view" ng-click="pending_view = 1;filterLoans(1)" class="headicon glyphicon glyphicon-exclamation-sign" style="color:#CCCCCC;;" tooltip="On/Off" tooltip-append-to-body="true" tooltip-placement="bottom"></span>
+                        </th>
+                        <th style="width: 124px !important;">
+                            &nbsp;
+                        </th>
+                        <th style="width:130px !important;">
+                            Farmer
+                        </th>
+                        <th style="width:150px !important;">
+                            Applicant
+                        </th>
+                        <th style="width:60px !important;">
+                            Type
+                        </th>
+                        <th style="width:60px !important;">
+                            Year
+                        </th>
+                        <th style="width:60px !important;">
+                            Loc
+                        </th>
+                        <th style="width:50px !important;">
+                            Status
+                        </th>
+                        <th style="width:18px !important;">
+                            <div style="text-align:center !important;"><span class="pendicon glyphicons glyphicons-list-alt" tooltip="ITS List" tooltip-append-to-body="true" tooltip-placement="bottom"></span></div>
+                        </th>
+                        <th style="width:18px !important;">
+                            <div style="text-align:center !important;"><span class="pendicon glyphicons glyphicons-home" tooltip="FSA Eligible" tooltip-append-to-body="true" tooltip-placement="bottom"></span></div>
+                        </th>
+                        <th style="width:18px !important;">
+                            <div style="text-align:center !important;"><span class="pendicon glyphicons glyphicons-history" tooltip="Prior liens verified" tooltip-append-to-body="true" tooltip-placement="bottom"></span></div>
+                        </th>
+                        <th style="width:18px !important;">
+                            <div style="text-align:center !important;"><span class="pendicon glyphicons glyphicons-leaf" tooltip="Leases verified" tooltip-append-to-body="true" tooltip-placement="bottom"></span></div>
+                        </th>
+                        <th style="width:18px !important;">
+                            <div style="text-align:center !important;"><span class="pendicon glyphicons glyphicons-fire" tooltip="Bankruptcy Order Rcvd" tooltip-append-to-body="true" tooltip-placement="bottom"></span></div>
+                        </th>
+                        <th style="width:18px !important;">
+                            <div style="text-align:center !important;"><span class="pendicon glyphicons glyphicons-charts" tooltip="Third Party Credit" tooltip-append-to-body="true" tooltip-placement="bottom"></span></div>
+                        </th>
+                        <th style="width:18px !important;">
+                            <div style="text-align:center !important;"><span class="pendicon glyphicons glyphicons-share" tooltip="Recommended" tooltip-append-to-body="true" tooltip-placement="bottom"></span></div>
+                        </th>
+                        <th style="width:18px !important;">
+                            <div style="text-align:center !important;"><span class="pendicon glyphicons glyphicons-hand-up" tooltip="Distributor Approved" tooltip-append-to-body="true" tooltip-placement="bottom"></span></div>
+                        </th>
+                        <th style="width:18px !important;">
+                            <div style="text-align:center !important;"><span class="pendicon glyphicons glyphicons-thumbs-up" tooltip="ARM Approved" tooltip-append-to-body="true" tooltip-placement="bottom"></span></div>
+                        </th>
+                        <th style="width:18px !important;">
+                            <div style="text-align:center !important;"><span class="pendicon glyphicons glyphicons-folder-closed" tooltip="Loan Closed" tooltip-append-to-body="true" tooltip-placement="bottom"></span></div>
+                        </th>
+                        <th style="width:18px !important;">
+                            <div style="text-align:center !important;"><span class="pendicon glyphicons glyphicons-flag" tooltip="Added land verified" tooltip-append-to-body="true" tooltip-placement="bottom"></span></div>
+                        </th>
+                        <th style="width:18px !important;">
+                            <div style="text-align:center !important;"><span class="pendicon glyphicons glyphicons-gift" tooltip="Permission to Insure verified" tooltip-append-to-body="true" tooltip-placement="bottom"></span></div>
+                        </th>
+                        <th style="width:18px !important;">
+                            <div style="text-align:center !important;"><span class="pendicon glyphicons glyphicons-king" tooltip="ARM UCC" tooltip-append-to-body="true" tooltip-placement="bottom"></span></div>
+                        </th>
+                        <th style="width:18px !important;">
+                            <div style="text-align:center !important;"><span class="pendicon glyphicons glyphicons-queen" tooltip="Dist UCC" tooltip-append-to-body="true" tooltip-placement="bottom"></span></div>
+                        </th>
+                        <th style="width:18px !important;">
+                            <div style="text-align:center !important;"><span class="pendicon glyphicons glyphicons-edit" tooltip="Lien Letter" tooltip-append-to-body="true" tooltip-placement="bottom"></span></div>
+                        </th>
+                        <th style="width:18px !important;">
+                            <div style="text-align:center !important;"><span class="pendicon glyphicons glyphicons-shield" tooltip="AOI Rcvd" tooltip-append-to-body="true" tooltip-placement="bottom"></span></div>
+                        </th>
+                        <th style="width:18px !important;">
+                            <div style="text-align:center !important;"><span class="pendicon glyphicons glyphicons-knight" tooltip="CCC Rcvd" tooltip-append-to-body="true" tooltip-placement="bottom"></span></div>
+                        </th>
+                        <th style="width:18px !important;">
+                            <div style="text-align:center !important;"><span class="pendicon glyphicons glyphicons-piggy-bank" tooltip="Rebate Assignment" tooltip-append-to-body="true" tooltip-placement="bottom"></span></div>
+                        </th>
+                        <th style="width:18px !important;">
+                            <div style="text-align:center !important;"><span class="pendicon glyphicons glyphicons-map" tooltip="Crops Certified" tooltip-append-to-body="true" tooltip-placement="bottom"></span></div>
+                        </th>
+                        <th class="bright" style="width:18px !important;">
+                            <div style="text-align:center !important;"><span class="pendicon glyphicons glyphicons-flower" tooltip="Inspection requested" tooltip-append-to-body="true" tooltip-placement="bottom"></span></div>
+                        </th>
+                        <th style="width:18px !important;">
+                            <div style="text-align:center !important;"><span class="pendicon glyphicons glyphicons-alert" tooltip="Limits Warning" tooltip-append-to-body="true" tooltip-placement="bottom"></span></div>
+                        </th>
+                        <th style="width:18px !important;">
+                            <div style="text-align:center !important;"><span class="pendicon glyphicons glyphicons-scale-classic" tooltip="Account Reconciliation" tooltip-append-to-body="true" tooltip-placement="bottom"></span></div>
+                        </th>
+                        <th>
+                            <div style="text-align:center !important;">&nbsp;</div>
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-if="sortedLoanList.length === 0">
+                        <td colspan="31"><strong>No Loans Found!</strong></td>
+                    </tr>
+                    <tr ng-repeat="loan in sortedLoanList | filter:fltrBox">
+                        <td>
+                            <a href="#/arm/edit/{{loan.loan_type_id}}/{{loan.id}}/comments">
+                                <span tooltip="WatchList" tooltip-append-to-body="true" tooltip-placement="bottom" class="pendicon glyphicons glyphicons-sunglasses" ng-class="{cBlack: loan.is_watched, cGray: !loan.is_watched}"></span>
+                            </a>
+                            <a href="#/arm/edit/{{loan.loan_type_id}}/{{loan.id}}/committee">
+                                <span tooltip="Vote Needed" tooltip-append-to-body="true" tooltip-placement="bottom" class="pendicon glyphicons glyphicons-group" ng-class="{cBlue: loan.vote_pending, cGray: !loan.vote_pending}"></span>
+                            </a>
+                            <a href="#/arm/edit/{{loan.loan_type_id}}/{{loan.id}}/comments">
+                                <span tooltip="Comments" tooltip-append-to-body="true" tooltip-placement="bottom" class="pendicon glyphicons glyphicons-comments" ng-class="{cYellow: loan.has_comment, cGray: !loan.has_comment}"></span>
+                            </a>
+                            <a href="#/arm/edit/{{loan.loan_type_id}}/{{dat.id}}/disbursements">
+                                <span tooltip="Disbursement Issue" tooltip-append-to-body="true" tooltip-placement="bottom" class="pendicon glyphicons glyphicons-usd" ng-class="{cGreen: loan.disbursement_issue, cGray: !loan.disbursement_issue}"></span>
+                            </a>
+                            <a href="#">
+                                <span tooltip="Stale Application" tooltip-append-to-body="true" tooltip-placement="bottom" class="pendicon glyphicons glyphicons-clock" ng-class="{cRed: loan.is_stale, cGray: !loan.is_stale}"></span>
+                            </a>
+                        </td>
+                        <td>
+                            <span ng-if="user.viewopts.voIconAddendum">
+                                <span class="glyphicons glyphicons-plus" tooltip="Addendum" tooltip-append-to-body="true" tooltip-placement="bottom" ng-class="{ clrOn : loan.has_addendum, clrOff: !loan.has_addendum }"></span>
+                            </span>
+                            <span ng-if="user.viewopts.voIconCross">
+                                <span class="glyphicons glyphicons-random" tooltip="Cross Collateral" tooltip-append-to-body="true" tooltip-placement="bottom" ng-class="{ clrOn : loan.is_xcolled, clrOff: !loan.is_xcolled }"></span>
+                            </span>
+                            <span ng-if="user.viewopts.voIconBankruptcy">
+                                <span class="glyphicons glyphicons-fire" tooltip="Bankruptcy History" tooltip-append-to-body="true" tooltip-placement="bottom" ng-class="{ clrOn : loan.bankruptcy_history, clrOff: !loan.bankruptcy_history }"></span>
+                            </span>
+                            <span ng-if="user.viewopts.voIcon3pcredit">
+                                <span class="glyphicons glyphicons-charts" tooltip="Third Party Credit Required" tooltip-append-to-body="true" tooltip-placement="bottom" ng-class="{ clrOn : loan.required_3party, clrOff: !loan.required_3party }"></span>
+                            </span>
+                            <span ng-if="user.viewopts.voIconAddedland">
+                                <span class="glyphicons glyphicons-flag" tooltip="Added Land in Database" tooltip-append-to-body="true" tooltip-placement="bottom" ng-class="{ clrOn : loan.added_land, clrOff: !loan.added_land }"></span>
+                            </span>
+                            <span ng-if="user.viewopts.voIconDisbursement">
+                                <span class="glyphicons glyphicons-lock" tooltip="Controlled Disbursement" tooltip-append-to-body="true" tooltip-placement="bottom" ng-class="{ clrOn : loan.controlled_disbursement, clrOff: !loan.controlled_disbursement }"></span>
+                            </span>
+                            <span ng-if="user.viewopts.voIconAttachments">
+                                <span class="glyphicons glyphicons-paperclip" tooltip="Attachments" tooltip-append-to-body="true" tooltip-placement="bottom" ng-class="{ clrOn : loan.has_attachments, clrOff: !loan.has_attachments }"></span>
+                            </span>
+                        </td>
+                        <td>
+                            {{loan.farmer.farmer}}
+                        </td>
+                        <td>
+                            <a href="#/arm/edit/{{data.loan_type_id}}/{{data.id}}/summary">
+                                {{loan.applicant.applicant}}
+                            </a>
+                        </td>
+                        <td class="text-center">
+                            {{loan.loantype_abr}}
+                        </td>
+                        <td class="text-center">
+                            {{loan.crop_year}}
+                        </td>
+                        <td class="text-center">
+                            {{loan.loc_abr}}
+                        </td>
+                        <td class="text-center">
+                            <span loan-status-icon status="{{loan.status.id}}" ></span>
+                        </td>
+                        <td class="text-center">
+                            <img class="progidisc" ng-src="images/dot_{{returnColor(loan.its_list)}}.png" alt="" ng-click="ManFactory.clickManagement(loan.id, loan.its_list, 'ITS')"/>
+                        </td>
+                        <td class="text-center">
+                            <img class="progidisc" ng-src="images/dot_{{returnColor(loan.fsa_compliant)}}.png" alt="" ng-click="ManFactory.clickManagement(loan.id, loan.fsa_compliant, 'FSA')"/>
+                        </td>
+                        <td class="text-center">
+                            <img class="progidisc" ng-src="images/dot_{{returnColor(loan.prev_lien_verified)}}.png" alt="" ng-click="ManFactory.clickManagement(loan.id, loan.prev_lien_verified, 'PLV')"/>
+                        </td>
+                        <td class="text-center">
+                            <img class="progidisc" ng-src="images/dot_{{returnColor(loan.leases_valid)}}.png" alt="" ng-click="ManFactory.clickManagement(loan.id, loan.leases_valid, 'LSV')"/>
+                        </td>
+                        <td class="text-center">
+                            <img class="progidisc" ng-src="images/dot_{{returnColor(loan.bankruptcy_order_received)}}.png" alt="" ng-click="ManFactory.clickManagement(loan.id, loan.bankruptcy_order_received, 'BOR')"/>
+                        </td>
+                        <td class="text-center">
+                            <img class="progidisc" ng-src="images/dot_{{returnColor(loan.received_3party)}}.png" alt="" ng-click="ManFactory.clickManagement(loan.id, loan.received_3party, 'C3V')"/>
+                        </td>
+                        <td class="text-center">
+                            <img class="progidisc" ng-src="images/dot_{{returnColor(loan.recommended)}}.png" alt="" ng-click="ManFactory.clickManagement(loan.id, loan.recommended, 'REC')"/>
+                        </td>
+                        <td class="text-center">
+                            <img class="progidisc" ng-src="images/dot_{{returnColor(loan.dist_approved)}}.png" alt="" ng-click="ManFactory.clickManagement(loan.id, loan.dist_approved, 'DIS')"/>
+                        </td>
+                        <td class="text-center">
+                            <img ng-src="images/dot_{{returnColor(loan.arm_approved)}}.png" alt=""/>
+                        </td>
+                        <td class="text-center">
+                            <div style="width: 100%; height: 4px;">
+                                <img ng-src="images/dot_{{returnColor(loan.loan_closed)}}.png" alt=""/>
+                            </div>
+                        </td>
+                        <td class="text-center">
+                            <img class="progidisc" ng-src="images/dot_{{returnColor(loan.added_land_verified)}}.png" alt="" ng-click="ManFactory.clickManagement(loan.id, loan.added_land_verified, 'ADD')"/>
+                        </td>
+                        <td class="text-center">
+                            <img class="progidisc" ng-src="images/dot_{{returnColor(loan.permission_to_insure_verified)}}.png" alt="" ng-click="ManFactory.clickManagement(loan.id, loan.permission_to_insure_verified, 'P2I')"/>
+                        </td>
+                        <td class="text-center">
+                            <img class="progidisc" ng-src="images/dot_{{returnColor(loan.arm_ucc_received)}}.png" alt="" ng-click="ManFactory.clickManagement(loan.id, loan.arm_ucc_received, 'UCC')"/>
+                        </td>
+                        <td class="text-center">
+                            <img class="progidisc" ng-src="images/dot_{{returnColor(loan.dist_ucc_received)}}.png" alt="" ng-click="ManFactory.clickManagement(loan.id, loan.dist_ucc_received, 'DCC')"/>
+                        </td>
+                        <td class="text-center">
+                            <img class="progidisc" ng-src="images/dot_{{returnColor(loan.lien_letter_received)}}.png" alt="" ng-click="ManFactory.clickManagement(loan.id, loan.lien_letter_received, 'LLR')"/>
+                        </td>
+                        <td class="text-center">
+                            <img class="progidisc" ng-src="images/dot_{{returnColor(loan.aoi_received)}}.png" alt="" ng-click="ManFactory.clickManagement(loan.id, loan.aoi_received, 'AOI')"/>
+                        </td>
+                        <td class="text-center">
+                            <img class="progidisc" ng-src="images/dot_{{returnColor(loan.ccc_received)}}.png" alt="" ng-click="ManFactory.clickManagement(loan.id, loan.ccc_received, 'CCC')"/>
+                        </td>
+                        <td class="text-center">
+                            <img class="progidisc" ng-src="images/dot_{{returnColor(loan.rebate_assignment)}}.png" alt="" ng-click="ManFactory.clickManagement(loan.id, loan.rebate_assignment, 'REB')"/>
+                        </td>
+                        <td class="text-center">
+                            <img class="progidisc" ng-src="images/dot_{{returnColor(loan.crop_certified)}}.png" alt="" ng-click="ManFactory.clickManagement(loan.id, loan.crop_certified, 'CER')"/>
+                        </td>
+                        <td class="text-center bright">
+                            <img class="progidisc" ng-src="images/dot_{{returnColor(loan.crop_inspection)}}.png" alt="" ng-click="ManFactory.clickManagement(loan.id, loan.crop_inspection, 'INS')"/>
+                        </td>
+                        <td class="text-center">
+                            <span class="pendicon glyphicons glyphicons-alert cRed" ng-click="ManFactory.clickManagement(loan.id, loan.limit_warning, 'LWN')" ng-if="loan.limit_warning > 2"></span>
+                            <span class="pendicon glyphicons glyphicons-alert cYellow" ng-click="ManFactory.clickManagement(loan.id, loan.limit_warning, 'LWN')" ng-if="loan.limit_warning === 2"></span>
+                            <span class="pendicon glyphicons glyphicons-alert cGray" ng-click="ManFactory.clickManagement(loan.id, loan.limit_warning, 'LWN')" ng-if="loan.limit_warning < 2"></span>
+                        </td>
+                        <td class="text-center">
+                            <img class="progidisc" ng-src="images/dot_{{returnColor(loan.reconciliation)}}.png" alt="" ng-click="ManFactory.clickManagement(loan.id, loan.reconciliation, 'RCL')"/>
+                        </td>
+                        <td class="text-center">
+                            {{loan.account_classification}}
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>

@@ -1127,12 +1127,12 @@
                     break;
                 case 'fall':
                     return _.filter(loans, function (i) {
-                        return i.status.id === '1' && i.season === 'F';
+                        return Number(i.status.id) === 1 && i.season === 'F';
                     });
                     break;
                 case 'spring':
                     return _.filter(loans, function (i) {
-                        return i.status.id === '1' && i.season === 'S';
+                        return Number(i.status.id) === 1 && i.season === 'S';
                     });
                     break;
             } // end switch
@@ -1205,11 +1205,11 @@
             var ds = [];
             if(state) {
                 ds = _.sortByAll(collection, ['is_watched', 'vote_pending', 'has_comment', 'is_stale', 'disbursement_issue']).reverse();
-                //console.log('true', ds);
+                console.log('sorted data: true', ds);
                 return ds;
             } else {
                 ds = _.sortByAll(collection, ['farmer']);
-                //console.log('false', ds);
+                console.log('sorted data: false', ds);
                 return ds;
             }
         }
@@ -1570,7 +1570,7 @@
         }
         function sortLoans(loans, order) {
             if(order === 1 || order === '1') {
-                var sorted = _(loans).chain().sortByAll('vote_pending', 'has_comment').reverse().value();
+                var sorted = _(loans).chain().sortByAll('is_watched', 'vote_pending', 'has_comment', 'disbursement_issue', 'is_stale').reverse().value();
             } else {
                 var sorted = _(loans).chain().sortByAll('farmer', 'applicant').value();
             }

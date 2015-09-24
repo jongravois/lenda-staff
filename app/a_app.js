@@ -11,6 +11,7 @@
             'angularGrid',
             'ui.mask',
             'xeditable',
+            'tableSort',
             'angular-loading-bar',
             'ui.bootstrap-slider',
             'ng-pdfmake'
