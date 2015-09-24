@@ -4,38 +4,37 @@
         .module('ARM')
         .controller('Admin_DistributorsController', Admin_DistributorsController);
 
-        Admin_DistributorsController.$inject = ['$filter', '$location', 'SweetAlert', 'AppFactory', 'List', 'States'];
+        Admin_DistributorsController.$inject = ['$rootScope', '$scope', '$filter', '$location', 'SweetAlert', 'AppFactory', 'List', 'States'];
 
         /* @ngInject */
-        function Admin_DistributorsController($filter, $location, SweetAlert, AppFactory, List, States ) {
+        function Admin_DistributorsController($rootScope, $scope, $filter, $location, SweetAlert, AppFactory, List, States ) {
             /* jshint validthis: true */
-            var vm = this;
             init();
+            $scope.dirty = false;
 
-            vm.distributors = List.data.data;
-            vm.hgt = vm.distributors.length * 38;
-            vm.states = States.data.data;
-            //console.log(vm.distributors);
-            //console.log(vm.states);
+            $scope.distributors = List.data.data;
+            $scope.states = States.data.data;
+            //console.log($scope.distributors);
+            //console.log($scope.states);
 
-            vm.createNew = function () {
+            $scope.createNew = function () {
                 var newb = getNewRecord();
                 AppFactory.postIt('distributors', newb)
                     .then(function(rsp){
                         var id = rsp.data;
                         angular.extend(newb, {id: id});
-                        vm.distributors.push(newb);
-                        //console.log(vm.distributors);
+                        $scope.distributors.push(newb);
+                        //console.log($scope.distributors);
                     });
             };
-            vm.saveRecord = function(data, id){
+            $scope.saveRecord = function(data, id){
                 AppFactory.putIt('distributors', id, data)
                     .then(function(rsp){
                         var record = rsp.data;
                         AppFactory.getOne('states', record.state_id)
                             .then(function(rsp){
                                 var state_abr = rsp.data.data.abr;
-                                _.each(vm.distributors, function(i){
+                                _.each($scope.distributors, function(i){
                                     if(i.id === id) {
                                         i.state_abr = state_abr;
                                     }
@@ -43,12 +42,12 @@
                             });
                     });
             };
-            vm.saveAll = function () {
-                _.each(vm.distributors, function(i){
+            $scope.saveAll = function () {
+                _.each($scope.distributors, function(i){
                     AppFactory.putIt('distributors', i.id, i);
                 });
             };
-            vm.deleteOne = function(index, id) {
+            $scope.deleteOne = function(index, id) {
                 SweetAlert.swal({
                         title: "Are you sure?",
                         text: "You will not be able to undo this operation.",
@@ -59,17 +58,161 @@
                         closeOnConfirm: true},
                     function(){
                         AppFactory.deleteIt('distributors', id);
-                        _.remove(vm.distributors, {id: id});
+                        _.remove($scope.distributors, {id: id});
                     });
             }
 
+            $scope.gridOpts = {
+                enableCellEditOnFocus: true,
+                rowTemplate: '<div ng-repeat="(colRenderIndex, col) in colContainer.renderedColumns track by col.uid" ' +
+                'ui-grid-one-bind-id-grid="rowRenderIndex + \'-\' + col.uid + \'-cell\'" ' +
+                'class="ui-grid-cell" ng-class="{ \'ui-grid-row-header-cell\': col.isRowHeader , \'row-dirty\': row.entity.isDirty}" ' + 'role="{{col.isRowHeader ? \'rowheader\' : \'gridcell\'}}" ui-grid-cell></div>',
+                columnDefs: [
+                    {
+                        name: 'name',
+                        enableCellEdit: true,
+                        displayName: 'Distributor',
+                        cellClass: 'text-left cBlue',
+                        headerCellClass: 'text-center bGreen',
+                        enableColumnMenu: false,
+                        width: '200'
+                    },
+                    {
+                        name: 'distributor',
+                        enableCellEdit: true,
+                        displayName: 'ABR',
+                        cellClass: 'text-left cBlue',
+                        headerCellClass: 'text-center bGreen',
+                        enableColumnMenu: false,
+                        width: '50'
+                    },
+                    {
+                        name: 'address',
+                        enableCellEdit: true,
+                        displayName: 'Address',
+                        cellClass: 'text-left cBlue',
+                        headerCellClass: 'text-center bGreen',
+                        enableColumnMenu: false,
+                        width: '200'
+                    },
+                    {
+                        name: 'city',
+                        enableCellEdit: true,
+                        displayName: 'City',
+                        cellClass: 'text-left cBlue',
+                        headerCellClass: 'text-center bGreen',
+                        enableColumnMenu: false,
+                        width: '120'
+                    },
+                    {
+                        name: 'state',
+                        enableCellEdit: true,
+                        displayName: 'ST',
+                        cellClass: 'text-left cBlue',
+                        headerCellClass: 'text-center bGreen',
+                        enableColumnMenu: false,
+                        editableCellTemplate: 'ui-grid/dropdownEditor',
+                        editDropdownValueLabel: 'abr',
+                        editDropdownOptionsArray: $scope.states,
+                        cellFilter: 'stateabr',
+                        width: '40'
+                    },
+                    {
+                        name: 'zip',
+                        enableCellEdit: true,
+                        displayName: 'Zip',
+                        cellClass: 'text-left cBlue',
+                        headerCellClass: 'text-center bGreen',
+                        enableColumnMenu: false,
+                        width: '80'
+                    },
+                    {
+                        name: 'phone',
+                        enableCellEdit: true,
+                        displayName: 'Phone',
+                        cellClass: 'text-left cBlue',
+                        headerCellClass: 'text-center bGreen',
+                        enableColumnMenu: false,
+                        width: '100'
+                    },
+                    {
+                        name: 'email',
+                        enableCellEdit: true,
+                        displayName: 'Email',
+                        cellClass: 'text-left cBlue',
+                        headerCellClass: 'text-center bGreen',
+                        enableColumnMenu: false,
+                        width: '120'
+                    },
+                    {
+                        name: 'del',
+                        enableCellEdit: false,
+                        displayName: ' ',
+                        cellClass: 'text-center',
+                        enableColumnMenu: false,
+                        width: '30',
+                        maxWidth: '30',
+                        cellTemplate: '<span style="font-size: 16px; color: #990000;" ng-click="deleteRecord($index, p.id)">&cross;</span>',
+                        headerCellTemplate: '<div class="text-center padd bGreen" style="width:30px;">&nbsp;</div>'
+                    }
+                ],
+                data: $scope.distributors
+            };
+
+            $scope.msg = {};
+            var records = [];
+            angular.forEach($scope.distributors, function (rawdata) {
+                var record = {};
+                record.changedAttrs = {};
+
+                Object.defineProperty(record, 'isDirty', {
+                    get: function () {
+                        return Object.getOwnPropertyNames(record.changedAttrs).length > 0;
+                    }
+                });
+
+                angular.forEach(rawdata, function (value, key) {
+                    Object.defineProperty(record, key, {
+                        get: function () {
+                            return rawdata[key];
+                        },
+
+                        set: function (value) {
+                            var origValue = record.changedAttrs[key] ? record.changedAttrs[key][0] : rawdata[key];
+
+                            if(value !== origValue) {
+                                record.changedAttrs[key] = [origValue, value];
+                            } else {
+                                delete record.changedAttrs[key];
+                            }
+                            rawdata[key] = value;
+                        }
+                    })
+                });
+                records.push(record);
+            });
+
+            $scope.gridOpts.onRegisterApi = function(gridApi) {
+                //set gridApi on scope
+                $scope.$scope = $scope;
+                $scope.gridApi = gridApi;
+                $scope.hgt = $scope.distributors.length * 35;
+                $scope.wdt = 940;
+                $scope.gridApi.gridHeight = $scope.hgt;
+                $scope.gridApi.gridWidth = $scope.wdt;
+                gridApi.edit.on.afterCellEdit($scope, function(rowEntity, colDef, newValue, oldValue) {
+                    $scope.$apply(function(scope) {
+                        scope.dirty = true;
+                    });
+                });
+            };
             //////////
             function init() {
                 //console.log($location.path());
                 var feeders = ['/admin/agents', '/admin/crops', '/admin/distributors', '/admin/entitytypes', '/admin/instypes', '/admin/loantypes', '/admin/locations', '/admin/measures', '/admin/regions', '/admin/roles'];
 
                 if( AppFactory.inArray($location.path(), feeders) ) {
-                    vm.feeders_section = true;
+                    $scope.feeders_section = true;
                 }
             }
             function getNewRecord() {

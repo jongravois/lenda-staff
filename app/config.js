@@ -60,6 +60,9 @@
         })
         /*.run(function($window) {
             $window.onbeforeunload = function($window) {
+                if ($scope.dirty) {
+                    return "The form is dirty, do you want to stay on the page?";
+                }
                 return 'You have requested a browser refresh. Any unsaved or unconfirmed changes will be lost.';
             };
         })*/

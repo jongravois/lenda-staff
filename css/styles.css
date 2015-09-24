@@ -73,6 +73,34 @@
 .cYellow {
   color: #e0a02d;
 }
+.bBlack {
+  background-color: #000000;
+  color: #ffffff;
+}
+.bBlue {
+  background-color: #000099;
+  color: #ffffff;
+}
+.bGray {
+  background-color: #cccccc;
+  color: #000000;
+}
+.bGreen {
+  background-color: #006837;
+  color: #ffffff;
+}
+.bOrange {
+  background-color: #ff4500;
+  color: #ffffff;
+}
+.bRed {
+  background-color: #990000;
+  color: #ffffff;
+}
+.bYellow {
+  background-color: #e0a02d;
+  color: #000000;
+}
 .clrOn {
   color: #000000;
 }
@@ -849,6 +877,9 @@ table .tablesort-desc:after {
 }
 .showIfLast td:after {
   content: "No data";
+}
+.ui-grid-cell.row-dirty {
+  background-color: #fffed1 !important;
 }
 .dropdown-submenu {
   position: relative;

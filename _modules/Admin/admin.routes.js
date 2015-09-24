@@ -73,7 +73,7 @@
                 .state('arm.admin.distributors', {
                     url: '/distributors',
                     templateUrl: '_modules/Admin/distributors/distributors.html',
-                    controller: 'Admin_DistributorsController as vm',
+                    controller: 'Admin_DistributorsController',
                     resolve: {
                         List: function(AppFactory) {
                             return AppFactory.getAll('distributors');

@@ -1205,11 +1205,11 @@
             var ds = [];
             if(state) {
                 ds = _.sortByAll(collection, ['is_watched', 'vote_pending', 'has_comment', 'is_stale', 'disbursement_issue']).reverse();
-                console.log('sorted data: true', ds);
+                //console.log('sorted data: true', ds);
                 return ds;
             } else {
                 ds = _.sortByAll(collection, ['farmer']);
-                console.log('sorted data: false', ds);
+                //console.log('sorted data: false', ds);
                 return ds;
             }
         }
