@@ -1,5 +1,5 @@
 <style>
-    .pendicon, .indicon {padding: 1px 0;}
+    .pendicon, .indicon {padding: 1px 0; font-size: 12px;}
     #loanManager a{ display: inline; }
     .input-xs {
         height: 26px;
@@ -53,26 +53,26 @@
                 <table id="loanManager" class="table table-striped rowed table-condensed disp-sm">
                     <thead>
                     <tr class="clr-arm">
-                        <th style="width: 90px !important;">
+                        <th style="width:100px !important;">
                             <span ng-show="pending_view" ng-click="pending_view = 0; filterLoans(0)" class="headicon glyphicon glyphicon-exclamation-sign" style="color:#000000;;" tooltip="On/Off" tooltip-append-to-body="true" tooltip-placement="bottom"></span>
                             <span ng-show="!pending_view" ng-click="pending_view = 1;filterLoans(1)" class="headicon glyphicon glyphicon-exclamation-sign" style="color:#CCCCCC;;" tooltip="On/Off" tooltip-append-to-body="true" tooltip-placement="bottom"></span>
                         </th>
-                        <th style="width: 124px !important;">
+                        <th style="width:140px !important;">
                             &nbsp;
                         </th>
                         <th style="width:130px !important;">
                             Farmer
                         </th>
-                        <th style="width:150px !important;">
+                        <th style="width:135px !important;">
                             Applicant
                         </th>
-                        <th style="width:60px !important;">
+                        <th style="width:35px !important;">
                             Type
                         </th>
-                        <th style="width:60px !important;">
+                        <th style="width:35px !important;">
                             Year
                         </th>
-                        <th style="width:60px !important;">
+                        <th style="width:35px !important;">
                             Loc
                         </th>
                         <th style="width:50px !important;">
@@ -173,25 +173,25 @@
                         </td>
                         <td>
                             <span ng-if="user.viewopts.voIconAddendum">
-                                <span class="glyphicons glyphicons-plus" tooltip="Addendum" tooltip-append-to-body="true" tooltip-placement="bottom" ng-class="{ clrOn : loan.has_addendum, clrOff: !loan.has_addendum }"></span>
+                                <span class="indicon glyphicons glyphicons-plus" tooltip="Addendum" tooltip-append-to-body="true" tooltip-placement="bottom" ng-class="{ clrOn : loan.has_addendum, clrOff: !loan.has_addendum }"></span>
                             </span>
                             <span ng-if="user.viewopts.voIconCross">
-                                <span class="glyphicons glyphicons-random" tooltip="Cross Collateral" tooltip-append-to-body="true" tooltip-placement="bottom" ng-class="{ clrOn : loan.is_xcolled, clrOff: !loan.is_xcolled }"></span>
+                                <span class="indicon glyphicons glyphicons-random" tooltip="Cross Collateral" tooltip-append-to-body="true" tooltip-placement="bottom" ng-class="{ clrOn : loan.is_xcolled, clrOff: !loan.is_xcolled }"></span>
                             </span>
                             <span ng-if="user.viewopts.voIconBankruptcy">
-                                <span class="glyphicons glyphicons-fire" tooltip="Bankruptcy History" tooltip-append-to-body="true" tooltip-placement="bottom" ng-class="{ clrOn : loan.bankruptcy_history, clrOff: !loan.bankruptcy_history }"></span>
+                                <span class="indicon glyphicons glyphicons-fire" tooltip="Bankruptcy History" tooltip-append-to-body="true" tooltip-placement="bottom" ng-class="{ clrOn : loan.bankruptcy_history, clrOff: !loan.bankruptcy_history }"></span>
                             </span>
                             <span ng-if="user.viewopts.voIcon3pcredit">
-                                <span class="glyphicons glyphicons-charts" tooltip="Third Party Credit Required" tooltip-append-to-body="true" tooltip-placement="bottom" ng-class="{ clrOn : loan.required_3party, clrOff: !loan.required_3party }"></span>
+                                <span class="indicon glyphicons glyphicons-charts" tooltip="Third Party Credit Required" tooltip-append-to-body="true" tooltip-placement="bottom" ng-class="{ clrOn : loan.required_3party, clrOff: !loan.required_3party }"></span>
                             </span>
                             <span ng-if="user.viewopts.voIconAddedland">
-                                <span class="glyphicons glyphicons-flag" tooltip="Added Land in Database" tooltip-append-to-body="true" tooltip-placement="bottom" ng-class="{ clrOn : loan.added_land, clrOff: !loan.added_land }"></span>
+                                <span class="indicon glyphicons glyphicons-flag" tooltip="Added Land in Database" tooltip-append-to-body="true" tooltip-placement="bottom" ng-class="{ clrOn : loan.added_land, clrOff: !loan.added_land }"></span>
                             </span>
                             <span ng-if="user.viewopts.voIconDisbursement">
-                                <span class="glyphicons glyphicons-lock" tooltip="Controlled Disbursement" tooltip-append-to-body="true" tooltip-placement="bottom" ng-class="{ clrOn : loan.controlled_disbursement, clrOff: !loan.controlled_disbursement }"></span>
+                                <span class="indicon glyphicons glyphicons-lock" tooltip="Controlled Disbursement" tooltip-append-to-body="true" tooltip-placement="bottom" ng-class="{ clrOn : loan.controlled_disbursement, clrOff: !loan.controlled_disbursement }"></span>
                             </span>
                             <span ng-if="user.viewopts.voIconAttachments">
-                                <span class="glyphicons glyphicons-paperclip" tooltip="Attachments" tooltip-append-to-body="true" tooltip-placement="bottom" ng-class="{ clrOn : loan.has_attachments, clrOff: !loan.has_attachments }"></span>
+                                <span class="indicon glyphicons glyphicons-paperclip" tooltip="Attachments" tooltip-append-to-body="true" tooltip-placement="bottom" ng-class="{ clrOn : loan.has_attachments, clrOff: !loan.has_attachments }"></span>
                             </span>
                         </td>
                         <td>
