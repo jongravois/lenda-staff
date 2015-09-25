@@ -154,51 +154,13 @@
                         <td colspan="31"><strong>No Loans Found!</strong></td>
                     </tr>
                     <tr ng-repeat="loan in sortedLoanList | filter:fltrBox">
-                        <td>
-                            <a href="#/arm/edit/{{loan.loan_type_id}}/{{loan.id}}/comments">
-                                <span tooltip="WatchList" tooltip-append-to-body="true" tooltip-placement="bottom" class="pendicon glyphicons glyphicons-sunglasses" ng-class="{cBlack: loan.is_watched, cGray: !loan.is_watched}"></span>
-                            </a>
-                            <a href="#/arm/edit/{{loan.loan_type_id}}/{{loan.id}}/committee">
-                                <span tooltip="Vote Needed" tooltip-append-to-body="true" tooltip-placement="bottom" class="pendicon glyphicons glyphicons-group" ng-class="{cBlue: loan.vote_pending, cGray: !loan.vote_pending}"></span>
-                            </a>
-                            <a href="#/arm/edit/{{loan.loan_type_id}}/{{loan.id}}/comments">
-                                <span tooltip="Comments" tooltip-append-to-body="true" tooltip-placement="bottom" class="pendicon glyphicons glyphicons-comments" ng-class="{cYellow: loan.has_comment, cGray: !loan.has_comment}"></span>
-                            </a>
-                            <a href="#/arm/edit/{{loan.loan_type_id}}/{{dat.id}}/disbursements">
-                                <span tooltip="Disbursement Issue" tooltip-append-to-body="true" tooltip-placement="bottom" class="pendicon glyphicons glyphicons-usd" ng-class="{cGreen: loan.disbursement_issue, cGray: !loan.disbursement_issue}"></span>
-                            </a>
-                            <a href="#">
-                                <span tooltip="Stale Application" tooltip-append-to-body="true" tooltip-placement="bottom" class="pendicon glyphicons glyphicons-clock" ng-class="{cRed: loan.is_stale, cGray: !loan.is_stale}"></span>
-                            </a>
-                        </td>
-                        <td>
-                            <span ng-if="user.viewopts.voIconAddendum">
-                                <span class="indicon glyphicons glyphicons-plus" tooltip="Addendum" tooltip-append-to-body="true" tooltip-placement="bottom" ng-class="{ clrOn : loan.has_addendum, clrOff: !loan.has_addendum }"></span>
-                            </span>
-                            <span ng-if="user.viewopts.voIconCross">
-                                <span class="indicon glyphicons glyphicons-random" tooltip="Cross Collateral" tooltip-append-to-body="true" tooltip-placement="bottom" ng-class="{ clrOn : loan.is_xcolled, clrOff: !loan.is_xcolled }"></span>
-                            </span>
-                            <span ng-if="user.viewopts.voIconBankruptcy">
-                                <span class="indicon glyphicons glyphicons-fire" tooltip="Bankruptcy History" tooltip-append-to-body="true" tooltip-placement="bottom" ng-class="{ clrOn : loan.bankruptcy_history, clrOff: !loan.bankruptcy_history }"></span>
-                            </span>
-                            <span ng-if="user.viewopts.voIcon3pcredit">
-                                <span class="indicon glyphicons glyphicons-charts" tooltip="Third Party Credit Required" tooltip-append-to-body="true" tooltip-placement="bottom" ng-class="{ clrOn : loan.required_3party, clrOff: !loan.required_3party }"></span>
-                            </span>
-                            <span ng-if="user.viewopts.voIconAddedland">
-                                <span class="indicon glyphicons glyphicons-flag" tooltip="Added Land in Database" tooltip-append-to-body="true" tooltip-placement="bottom" ng-class="{ clrOn : loan.added_land, clrOff: !loan.added_land }"></span>
-                            </span>
-                            <span ng-if="user.viewopts.voIconDisbursement">
-                                <span class="indicon glyphicons glyphicons-lock" tooltip="Controlled Disbursement" tooltip-append-to-body="true" tooltip-placement="bottom" ng-class="{ clrOn : loan.controlled_disbursement, clrOff: !loan.controlled_disbursement }"></span>
-                            </span>
-                            <span ng-if="user.viewopts.voIconAttachments">
-                                <span class="indicon glyphicons glyphicons-paperclip" tooltip="Attachments" tooltip-append-to-body="true" tooltip-placement="bottom" ng-class="{ clrOn : loan.has_attachments, clrOff: !loan.has_attachments }"></span>
-                            </span>
-                        </td>
+                        <td ng-include="'./_modules/Loans/_views/_pendicons.html'"></td>
+                        <td ng-include="'./_modules/Loans/_views/_indicons.html'"></td>
                         <td>
                             {{loan.farmer.farmer}}
                         </td>
                         <td>
-                            <a href="#/arm/edit/{{data.loan_type_id}}/{{data.id}}/summary">
+                            <a href="#/arm/edit/{{loan.loan_type_id}}/{{loan.id}}/summary">
                                 {{loan.applicant.applicant}}
                             </a>
                         </td>

@@ -4,6 +4,10 @@
 <fieldset>
     <legend>Distributors</legend>
     <div ui-grid="gridOpts" ui-grid-edit ui-grid-cellnav ng-style="{ 'height': hgt, 'width': wdt }"></div>
+    <p>
+        <a ng-click="createNew()" class="btn btn-xs btn-default">
+            <span class="glyphicons glyphicons-circle-plus" style="color:#006837;"></span> Add New</a>
+    </p>
 </fieldset>
 <br>
 <div class="row" ng-if="dirty">

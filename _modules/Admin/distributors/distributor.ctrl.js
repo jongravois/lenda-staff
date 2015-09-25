@@ -24,6 +24,8 @@
                         var id = rsp.data;
                         angular.extend(newb, {id: id});
                         $scope.distributors.push(newb);
+                        $scope.hgt = $scope.hgt + 40;
+                        $scope.gridApi.gridHeight = $scope.hgt;
                         //console.log($scope.distributors);
                     });
             };
@@ -44,10 +46,15 @@
             };
             $scope.saveAll = function () {
                 _.each($scope.distributors, function(i){
+                    if(!i.state || Number(i.state) === 0) {
+                        i.state = 52;
+                    }
                     AppFactory.putIt('distributors', i.id, i);
                 });
+                $scope.dirty = false;
             };
-            $scope.deleteOne = function(index, id) {
+            $scope.deleteOne = function(id) {
+                //alert(id);
                 SweetAlert.swal({
                         title: "Are you sure?",
                         text: "You will not be able to undo this operation.",
@@ -64,9 +71,7 @@
 
             $scope.gridOpts = {
                 enableCellEditOnFocus: true,
-                rowTemplate: '<div ng-repeat="(colRenderIndex, col) in colContainer.renderedColumns track by col.uid" ' +
-                'ui-grid-one-bind-id-grid="rowRenderIndex + \'-\' + col.uid + \'-cell\'" ' +
-                'class="ui-grid-cell" ng-class="{ \'ui-grid-row-header-cell\': col.isRowHeader , \'row-dirty\': row.entity.isDirty}" ' + 'role="{{col.isRowHeader ? \'rowheader\' : \'gridcell\'}}" ui-grid-cell></div>',
+                rowTemplate: './_modules/Admin/_views/_row.tmpl.html',
                 columnDefs: [
                     {
                         name: 'name',
@@ -152,7 +157,7 @@
                         enableColumnMenu: false,
                         width: '30',
                         maxWidth: '30',
-                        cellTemplate: '<span style="font-size: 16px; color: #990000;" ng-click="deleteRecord($index, p.id)">&cross;</span>',
+                        cellTemplate: '<span style="font-size:16px; color:#990000; cursor:pointer;" ng-click="grid.appScope.deleteOne(row.entity.id)">&cross;</span>',
                         headerCellTemplate: '<div class="text-center padd bGreen" style="width:30px;">&nbsp;</div>'
                     }
                 ],
@@ -196,8 +201,8 @@
                 //set gridApi on scope
                 $scope.$scope = $scope;
                 $scope.gridApi = gridApi;
-                $scope.hgt = $scope.distributors.length * 35;
-                $scope.wdt = 940;
+                $scope.hgt = $scope.distributors.length * 40;
+                $scope.wdt = 940; //TODO: calculate
                 $scope.gridApi.gridHeight = $scope.hgt;
                 $scope.gridApi.gridWidth = $scope.wdt;
                 gridApi.edit.on.afterCellEdit($scope, function(rowEntity, colDef, newValue, oldValue) {
@@ -217,14 +222,14 @@
             }
             function getNewRecord() {
                 return {
-                    distributor: '',
-                    name: '',
-                    address: '',
-                    city: '',
-                    state_id: 1,
-                    zip: '',
-                    phone: '',
-                    email: ''
+                    distributor: '---',
+                    name: 'Distributor',
+                    address: 'Address',
+                    city: 'City',
+                    state: 1,
+                    zip: '99999',
+                    phone: '9999999999',
+                    email: 'email'
                 };
             }
         } // end function

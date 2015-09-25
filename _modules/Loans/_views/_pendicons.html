@@ -1,0 +1,15 @@
+<a href="#/arm/edit/{{loan.loan_type_id}}/{{loan.id}}/comments">
+    <span tooltip="WatchList" tooltip-append-to-body="true" tooltip-placement="bottom" class="pendicon glyphicons glyphicons-sunglasses" ng-class="{cBlack: loan.is_watched, cGray: !loan.is_watched}"></span>
+</a>
+<a href="#/arm/edit/{{loan.loan_type_id}}/{{loan.id}}/committee">
+    <span tooltip="Vote Needed" tooltip-append-to-body="true" tooltip-placement="bottom" class="pendicon glyphicons glyphicons-group" ng-class="{cBlue: loan.vote_pending, cGray: !loan.vote_pending}"></span>
+</a>
+<a href="#/arm/edit/{{loan.loan_type_id}}/{{loan.id}}/comments">
+    <span tooltip="Comments" tooltip-append-to-body="true" tooltip-placement="bottom" class="pendicon glyphicons glyphicons-comments" ng-class="{cYellow: loan.has_comment, cGray: !loan.has_comment}"></span>
+</a>
+<a href="#/arm/edit/{{loan.loan_type_id}}/{{dat.id}}/disbursements">
+    <span tooltip="Disbursement Issue" tooltip-append-to-body="true" tooltip-placement="bottom" class="pendicon glyphicons glyphicons-usd" ng-class="{cGreen: loan.disbursement_issue, cGray: !loan.disbursement_issue}"></span>
+</a>
+<a href="#">
+    <span tooltip="Stale Application" tooltip-append-to-body="true" tooltip-placement="bottom" class="pendicon glyphicons glyphicons-clock" ng-class="{cRed: loan.is_stale, cGray: !loan.is_stale}"></span>
+</a>

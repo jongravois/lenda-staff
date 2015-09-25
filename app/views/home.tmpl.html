@@ -1,5 +1,18 @@
 <style>
-    .pendicon, .indicon {padding: 1px 0;}
+    .pendicon, .indicon {padding: 1px 0; font-size: 12px;}
+    #loanListing a{ display: inline; }
+    .input-xs {
+        height: 26px;
+        padding: 2px 10px;
+        font-size: 11px;
+        line-height: 1.2;
+        border-radius: 3px;
+    }
+    .input-group-addon {
+        height: 24px;
+        padding: 2px 10px;
+        font-size: 11px;
+    }
 </style>
 <div class="frmFull_Page" style="z-index: 10;">
     <!-- APPLICATIONS -->
@@ -12,8 +25,8 @@
                 Loans
             </h5>
             <span class="pull-right"
-                  style="display: inline; margin-top:-3px; z-index: 1000;">
-                <form>
+                  style="display: inline; margin-top:-3px; z-index: 10000;">
+                <form style="z-index: 100000">
                     <select class="form-control"
                             name="landing_view"
                             style="z-index: 10000;"
@@ -31,9 +44,223 @@
 
     <div class="row">
         <div class="col-sm-12">
-            <!-- AG Grid -->
-            <div style="margin-top: 10px; width: 100%; height:{{hgt}}px;" ag-grid="gridOptions" class="ag-arm"></div>
-            <!-- AG Grid -->
+            <div class="input-group pull-right" style="width:300px;">
+                <input type="text" class="form-control input-xs" placeholder="Filter Loans" ng-model="filterBox">
+                    <span class="input-group-addon">
+                        <span class="glyphicons glyphicons-filter"></span>
+                    </span>
+            </div>
+            <br>
+            <table id="loanListing" class="table table-striped rowed table-condensed disp-sm">
+                <thead>
+                <tr class="clr-arm">
+                    <th style="width:85px !important;">
+                        <span ng-show="pending_view" ng-click="pending_view = 0; filterLoans(0)" class="headicon glyphicon glyphicon-exclamation-sign" style="color:#000000;;" tooltip="On/Off" tooltip-append-to-body="true" tooltip-placement="bottom"></span>
+                        <span ng-show="!pending_view" ng-click="pending_view = 1;filterLoans(1)" class="headicon glyphicon glyphicon-exclamation-sign" style="color:#CCCCCC;;" tooltip="On/Off" tooltip-append-to-body="true" tooltip-placement="bottom"></span>
+                    </th>
+                    <th style="width:110px !important;">
+                        &nbsp;
+                    </th>
+                    <th style="width:140px !important;">
+                        Farmer
+                    </th>
+                    <th style="width:140px !important;">
+                        Applicant
+                    </th>
+                    <th style="width:60px !important;">
+                        Type
+                    </th>
+                    <th style="width:60px !important;">
+                        Year
+                    </th>
+                    <th style="width:90px !important;">
+                        App Date
+                    </th>
+                    <th style="width:60px !important;">
+                        Loc
+                    </th>
+                    <th style="width:60px !important;">
+                        Status
+                    </th>
+                    <th style="width:85px !important;" ng-if="user.viewopts.voDueDate">
+                        Due Date
+                    </th>
+                    <th style="width:85px !important;" ng-if="user.viewopts.voRegion">
+                        Region
+                    </th>
+                    <th style="width:85px !important;" ng-if="user.viewopts.voSeason">
+                        Season
+                    </th>
+                    <th style="width:85px !important;" ng-if="user.viewopts.voDistributor">
+                        Dist
+                    </th>
+                    <th style="width:85px !important;" ng-if="user.viewopts.voAgency">
+                        Agency
+                    </th>
+                    <th style="width:85px !important;" ng-if="user.viewopts.voCommitTotal">
+                        Total Commit
+                    </th>
+                    <th style="width:85px !important;" ng-if="user.viewopts.voCommitArm">
+                        ARM Commit
+                    </th>
+                    <th style="width:85px !important;" ng-if="user.viewopts.voCommitDistributor">
+                        Dist Commit
+                    </th>
+                    <th style="width:85px !important;" ng-if="user.viewopts.voCommitOther">
+                        3P Commit
+                    </th>
+                    <th style="width:85px !important;" ng-if="user.viewopts.voFeePercentage">
+                        Fee %
+                    </th>
+                    <th style="width:85px !important;" ng-if="user.viewopts.voFeeTotal">
+                        Fee Total
+                    </th>
+                    <th style="width:85px !important;" ng-if="user.viewopts.voRateArm">
+                        ARM Rate %
+                    </th>
+                    <th style="width:85px !important;" ng-if="user.viewopts.voRateDist">
+                        Dist Rate %
+                    </th>
+                    <th style="width:85px !important;" ng-if="user.viewopts.voBalanceDue">
+                        Balance
+                    </th>
+                    <th style="width:85px !important;" ng-if="user.viewopts.voAcresTotal">
+                        Acres: Total
+                    </th>
+                    <th style="width:85px !important;" ng-if="user.viewopts.voAcresCorn">
+                        Acres: Corn
+                    </th>
+                    <th style="width:85px !important;" ng-if="user.viewopts.voAcresSoybeans">
+                        Acres: Soybeans
+                    </th>
+                    <th style="width:85px !important;" ng-if="user.viewopts.voAcresSorghum">
+                        Acres: Sorghum
+                    </th>
+                    <th style="width:85px !important;" ng-if="user.viewopts.voAcresWheat">
+                        Acres: Wheat
+                    </th>
+                    <th style="width:85px !important;" ng-if="user.viewopts.voAcresCotton">
+                        Acres: Cotton
+                    </th>
+                    <th style="width:85px !important;" ng-if="user.viewopts.voAcresRice">
+                        Acres: Rice
+                    </th>
+                    <th style="width:85px !important;" ng-if="user.viewopts.voAcresPeanuts">
+                        Acres: Peanuts
+                    </th>
+                    <th style="width:85px !important;" ng-if="user.viewopts.voAcresSugarcane">
+                        Acres: Sugar Cane
+                    </th>
+                    <th style="width:85px !important;" ng-if="user.viewopts.voAcresOther">
+                        Acres: Sunflowers
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-if="sortedLoanList.length === 0">
+                    <td colspan="31"><strong>No Loans Found!</strong></td>
+                </tr>
+                <tr ng-repeat="loan in sortedLoanList | filter:filterBox">
+                    <td ng-include="'./_modules/Loans/_views/_pendicons.html'"></td>
+                    <td ng-include="'./_modules/Loans/_views/_indicons.html'"></td>
+                    <td>
+                        {{loan.farmer.farmer}}
+                    </td>
+                    <td>
+                        <a href="#/arm/edit/{{loan.loan_type_id}}/{{loan.id}}/summary">
+                            {{loan.applicant.applicant}}
+                        </a>
+                    </td>
+                    <td class="text-center">
+                        {{loan.loantype_abr}}
+                    </td>
+                    <td class="text-center">
+                        {{loan.crop_year}}
+                    </td>
+                    <td class="text-center">
+                        {{loan.app_date|date:'M/d/yyyy'}}
+                    </td>
+                    <td class="text-center">
+                        {{loan.loc_abr}}
+                    </td>
+                    <td class="text-center">
+                        <span loan-status-icon status="{{loan.status.id}}" ></span>
+                    </td>
+                    <td class="text-center" ng-if="user.viewopts.voDueDate">
+                        {{loan.due_date|date:'M/d/yyyy'}}
+                    </td>
+                    <td class="text-center" ng-if="user.viewopts.voRegion">
+                        {{loan.region}}
+                    </td>
+                    <td class="text-center" ng-if="user.viewopts.voSeason">
+                        {{loan.full_season}}
+                    </td>
+                    <td class="text-center" ng-if="user.viewopts.voDistributor">
+                        {{loan.distributor.distributor}}
+                    </td>
+                    <td class="text-center" ng-if="user.viewopts.voAgency">
+                        {{loan.agencies}}
+                    </td>
+                    <td class="text-right" ng-if="user.viewopts.voCommitTotal">
+                        {{loan.fins.commit_total|flexCurrency:0}}
+                    </td>
+                    <td class="text-right" ng-if="user.viewopts.voCommitArm">
+                        {{loan.fins.commit_arm|flexCurrency:0}}
+                    </td>
+                    <td class="text-right" ng-if="user.viewopts.voCommitDistributor">
+                        {{loan.fins.commit_dist|flexCurrency:0}}
+                    </td>
+                    <td class="text-right" ng-if="user.viewopts.voCommitOther">
+                        {{loan.fins.commit_other|flexCurrency:0}}
+                    </td>
+                    <td class="text-right" ng-if="user.viewopts.voFeePercentage">
+                        {{loan.fins.total_fee_percent|flexPercent:1}}
+                    </td>
+                    <td class="text-right" ng-if="user.viewopts.voFeeTotal">
+                        {{loan.fins.fee_total|flexCurrency:0}}
+                    </td>
+                    <td class="text-right" ng-if="user.viewopts.voRateArm">
+                        {{loan.fins.int_percent_arm|flexPercent:1}}
+                    </td>
+                    <td class="text-right" ng-if="user.viewopts.voRateDist">
+                        {{loan.fins.int_percent_dist|flexNumber:1}}
+                    </td>
+                    <td class="text-right" ng-if="user.viewopts.voBalanceDue">
+                        {{loan.fins.balance_remaining|flexCurrency:0}}
+                    </td>
+                    <td class="text-right" ng-if="user.viewopts.voAcresTotal">
+                        {{loan.fins.total_acres|flexNumber:1}}
+                    </td>
+                    <td class="text-right" ng-if="user.viewopts.voAcresCorn">
+                        {{loan.fins.crop_acres.corn|flexNumber:1}}
+                    </td>
+                    <td class="text-right" ng-if="user.viewopts.voAcresSoybeans">
+                        {{loan.fins.crop_acres.soybeans|flexNumber:1}}
+                    </td>
+                    <td class="text-right" ng-if="user.viewopts.voAcresSorghum">
+                        {{loan.fins.crop_acres.sorghum|flexNumber:1}}
+                    </td>
+                    <td class="text-right" ng-if="user.viewopts.voAcresWheat">
+                        {{loan.fins.crop_acres.wheat|flexNumber:1}}
+                    </td>
+                    <td class="text-right" ng-if="user.viewopts.voAcresCotton">
+                        {{loan.fins.crop_acres.cotton|flexNumber:1}}
+                    </td>
+                    <td class="text-right" ng-if="user.viewopts.voAcresRice">
+                        {{loan.fins.crop_acres.rice|flexNumber:1}}
+                    </td>
+                    <td class="text-right" ng-if="user.viewopts.voAcresPeanuts">
+                        {{loan.fins.crop_acres.peanuts|flexNumber:1}}
+                    </td>
+                    <td class="text-right" ng-if="user.viewopts.voAcresSugarcane">
+                        {{loan.fins.crop_acres.sugarcane|flexNumber:1}}
+                    </td>
+                    <td class="text-right" ng-if="user.viewopts.voAcresOther">
+                        {{loan.fins.crop_acres.sunflowers|flexNumber:1}}
+                    </td>
+                </tr>
+                </tbody>
+            </table>
         </div>
     </div>
 </div>
