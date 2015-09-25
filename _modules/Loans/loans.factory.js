@@ -59,6 +59,14 @@
                         loan.vote_pending = false;
                     }
 
+                    //convert dates
+                    loan.app_date = moment(loan.app_date).toDate();
+                    loan.decision_date = moment(loan.decision_date).toDate();
+                    loan.default_due_date = moment(loan.default_due_date).toDate();
+                    loan.due_date = moment(loan.due_date).toDate();
+                    loan.farmer.dob = moment(loan.farmer.dob).toDate();
+                    loan.applicant.dob = moment(loan.applicant.dob).toDate();
+
                     //console.log('FromLoanFactory', loan);
                     return loan;
                 });

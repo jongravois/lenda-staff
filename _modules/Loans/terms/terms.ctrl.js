@@ -13,6 +13,8 @@
                 i.due_date = new Date(i.due_date);
             });
 
+            console.log('TERMS', $scope.loan.terms);
+
             $scope.showAGI = false;
             $scope.showALL = true;
             $scope.showVST = false;

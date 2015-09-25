@@ -56,7 +56,7 @@
                 if($stateParams.loanID === 0 || !$scope.loan) {
                     $scope.loan = AppFactory.makeNewLoan($stateParams.loantypeID, user, $scope.defaults);
                 }
-                console.log('NewloanCtrl', $scope.loan);
+                //console.log('NewloanCtrl', $scope.loan);
             }
 
             $scope.loan.farmer.dob = new Date($scope.loan.farmer.dob);
@@ -193,6 +193,7 @@
                     $scope.farmerID = $item.id;
                     $scope.loan.farmer_id = $item.id;
                     $scope.loan.farmer = $item;
+                    $scope.loan.farmer.dob = moment($item.dob).toDate();
                     $scope.loan.farmer.new_client = false;
                     $scope.loan.farmer.applicants = $item.applicants;
                     $scope.loan.farmer.showApplicants = true;

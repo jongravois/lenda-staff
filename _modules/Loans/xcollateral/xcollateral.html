@@ -18,15 +18,45 @@
         <fieldset>
             <legend>
                 &nbsp;
-    <span class="pendicon glyphicon glyphicon-chevron-right"
-          ng-click="tggl.showIncome = !tggl.showIncome"
-          ng-if="!tggl.showIncome"></span>
-    <span class="pendicon glyphicon glyphicon-chevron-down"
-          ng-click="tggl.showIncome = !tggl.showIncome"
-          ng-if="tggl.showIncome"></span>
-                &nbsp;Projected Income
+                <span class="pendicon glyphicon glyphicon-chevron-right"
+                      ng-click="tggl.showIncome = !tggl.showIncome"
+                      ng-if="!tggl.showIncome"></span>
+                <span class="pendicon glyphicon glyphicon-chevron-down"
+                      ng-click="tggl.showIncome = !tggl.showIncome"
+                      ng-if="tggl.showIncome"></span>
+                &nbsp;Income &amp; Exposure Details
             </legend>
             <div ng-include="'./_modules/Loans/xcollateral/_income.html'" ng-if="tggl.showIncome"></div>
+            <br>
+            <!-- CASH FLOW -->
+            <table class="table table160 table-striped rowed disp-sm">
+                <tbody>
+                <tr>
+                    <th style="min-width:100px;">&nbsp;</th>
+                    <th style="min-width:100px;">
+                        {{loan.applicant.applicant}}
+                    </th>
+                    <th style="min-width:100px;" ng-repeat="x in xcols">
+                        {{x.applicant}}
+                    </th>
+                    <th style="min-width:100px;">
+                        Total
+                    </th>
+                </tr>
+                <tr class="success">
+                    <td>Cash Flow</td>
+                    <td class="text-right">
+                        {{loan.fins.cash_flow|flexCurrency:0}}
+                    </td>
+                    <td class="text-right" ng-repeat="x in xcols">
+                        {{x.cash_flow|flexCurrency:0}}
+                    </td>
+                    <td class="text-right">
+                        {{getXTotalCashFlow()|flexCurrency:0}}
+                    </td>
+                </tr>
+                </tbody>
+            </table>
         </fieldset>
         <br>
         <fieldset>
@@ -56,9 +86,38 @@
                 <span class="pendicon glyphicon glyphicon-chevron-down"
                       ng-click="tggl.showCommitment = !tggl.showCommitment"
                       ng-if="tggl.showCommitment"></span>
-                &nbsp;Commitment
+                &nbsp;Commitment &amp; Exposure
             </legend>
             <div ng-include="'./_modules/Loans/xcollateral/_commitment.html'" ng-if="tggl.showCommitment"></div>
+            <br>
+            <table class="table table160 table-striped rowed disp-sm">
+                <tbody>
+                <tr>
+                    <th>&nbsp;</th>
+                    <th>
+                        {{loan.applicant.applicant}}
+                    </th>
+                    <th style="min-width:100px;" ng-repeat="x in loan.xcols">
+                        {{x.applicant}}
+                    </th>
+                    <th style="min-width:100px;">
+                        Total
+                    </th>
+                </tr>
+                <tr class="success">
+                    <td>Exposure</td>
+                    <td class="text-right">
+                        {{loan.fins.exposure|flexCurrency:0}}
+                    </td>
+                    <td class="text-right" ng-repeat="x in loan.xcols">
+                        {{x.exposure|flexCurrency:0}}
+                    </td>
+                    <td class="text-right">
+                        {{getTotalExposure()|flexCurrency:0}}
+                    </td>
+                </tr>
+                </tbody>
+            </table>
         </fieldset>
         <br>
         <fieldset>
@@ -89,47 +148,6 @@
             <div ng-include="'./_modules/Loans/xcollateral/_collateral.html'" ng-if="tggl.showCollateral"></div>
         </fieldset>
         <br>
-        <fieldset>
-            <legend>
-                &nbsp;
-                <span class="pendicon glyphicon glyphicon-chevron-right"
-                      ng-click="tggl.showExposure = !tggl.showExposure"
-                      ng-if="!tggl.showExposure"></span>
-                <span class="pendicon glyphicon glyphicon-chevron-down"
-                      ng-click="tggl.showExposure = !tggl.showExposure"
-                      ng-if="tggl.showExposure"></span>
-                &nbsp;Exposure
-            </legend>
-            <table class="table table160 table-striped rowed disp-sm" ng-if="tggl.showExposure">
-                <tbody>
-                <tr>
-                    <th>&nbsp;</th>
-                    <th>
-                        {{loan.applicant.applicant}}
-                    </th>
-                    <th style="min-width:100px;" ng-repeat="x in loan.xcols">
-                        {{x.applicant}}
-                    </th>
-                    <th style="min-width:100px;">
-                        Total
-                    </th>
-                </tr>
-                <tr class="success">
-                    <td>Exposure</td>
-                    <td class="text-right">
-                        {{loan.fins.exposure|flexCurrency:0}}
-                    </td>
-                    <td class="text-right" ng-repeat="x in loan.xcols">
-                        {{x.exposure|flexCurrency:0}}
-                    </td>
-                    <td class="text-right">
-                        {{getTotalExposure()|flexCurrency:0}}
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-        </fieldset>
-        <br><br>
     </tab>
 
     <tab heading="Terms">

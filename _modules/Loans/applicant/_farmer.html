@@ -86,12 +86,12 @@
                                class="form-control"/>
                     </div>
                     <div class="form-group col-sm-2">
-                        <label>DOB:</label>
+                        <label>DOB (mm/dd/yyyy):</label>
                         <input type="date"
                                name="dob"
                                ng-model="loan.farmer.dob"
                                class="form-control"
-                               style="width: 150px;"/>
+                               style="width: 160px;"/>
                     </div>
                     <div class="form-group col-sm-3">
                         <label>Year Began Farming:</label>
@@ -103,44 +103,7 @@
                     </div>
                 </div>
                 <!-- PHONE / EMAIL / INFO -->
-
-                <!-- NEWLOAN: CHOOSE OR CREATE APPLICANT-->
-                <div class="row" style="width:80%;margin:0 auto;"
-                     ng-if="newapplication && loan.farmer.showApplicants">
-
-                    <table class="table table-striped rowed table-condensed disp-sm">
-                        <tr>
-                            <th>Applicant</th>
-                            <th>Address</th>
-                            <th>Entity</th>
-                        </tr>
-                        <tr ng-repeat="a in loan.farmer.applicants">
-                            <td>
-                                <span class="cBlue" style="text-decoration: underline;cursor: pointer;" ng-click="useApplicant(a.id)">
-                                    {{a.applicant}}
-                                </span>
-                            </td>
-                            <td>{{a.address}}, {{a.city}}, {{a.state.abr}} {{a.zip}}</td>
-                            <td>{{a.entity.entitytype}}</td>
-                        </tr>
-                        <tr>
-                            <td colspan="3">
-                                <a ng-click="createNewApplicant()" class="btn btn-xs btn-default">
-                                    <span class="glyphicons glyphicons-circle-plus" style="color:#006837;"></span> Add New</a>
-                            </td>
-                        </tr>
-                    </table>
-                </div>
-
-                <div class="row" style="width:98%;margin:0 auto;"
-                     ng-if="newApplicantForm">
-                    <div class="container-fluid"
-                         ng-include="'./_modules/Loans/applicant/_applicant.html'">
-                    </div>
-                </div>
-                <!-- NEWLOAN: CHOOSE OR CREATE APPLICANT-->
             </div>
-
         </div>
     </form>
 </div>

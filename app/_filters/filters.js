@@ -2,6 +2,7 @@
     angular.module('ARM')
         .filter('asDate', asDateFilter)
         .filter('booleanYN', booleanYNFilter)
+        .filter('booleanYesNo', booleanYesNoFilter)
         .filter('dateFmt', dateFmtFilter)
         .filter('capitalize', capitalizeFilter)
         .filter('capitalizeFirst', capitalizeFirstFilter)
@@ -40,6 +41,17 @@
                 return 'Y';
             } else {
                 return 'N';
+            }
+        };
+    }
+
+    function booleanYesNoFilter() {
+        return function(input) {
+            if(!_.isBoolean(input)) { return input; }
+            if(input) {
+                return 'Yes';
+            } else {
+                return 'No';
             }
         };
     }

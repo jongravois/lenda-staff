@@ -704,32 +704,4 @@
     </tbody>
 </table>
 <br>
-<!-- CASH FLOW -->
-<table class="table table160 table-striped rowed disp-sm">
-    <tbody>
-    <tr>
-        <th style="min-width:100px;">&nbsp;</th>
-        <th style="min-width:100px;">
-            {{loan.applicant.applicant}}
-        </th>
-        <th style="min-width:100px;" ng-repeat="x in xcols">
-            {{x.applicant}}
-        </th>
-        <th style="min-width:100px;">
-            Total
-        </th>
-    </tr>
-    <tr class="success">
-        <td>Cash Flow</td>
-        <td class="text-right">
-            {{loan.fins.cash_flow|flexCurrency:0}}
-        </td>
-        <td class="text-right" ng-repeat="x in xcols">
-            {{x.cash_flow|flexCurrency:0}}
-        </td>
-        <td class="text-right">
-            {{getXTotalCashFlow()|flexCurrency:0}}
-        </td>
-    </tr>
-    </tbody>
-</table>
+

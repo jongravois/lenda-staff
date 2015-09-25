@@ -1,4 +1,5 @@
 <style>
+    .sumline td{ border-bottom:1px solid #000 !important; }
     .totaline td{
         border-top:1px solid #333333 !important;
         border-bottom:1px solid #333333 !important;
@@ -27,10 +28,10 @@
         &nbsp;Borrower Info
     </legend>
     <span class="pull-right" style="margin-top: -20px;font-size:18px;">
-                    <strong>
-                        {{loan.applicant.fins.grade}}-{{loan.applicant.fins.credit_score|number:0}}
-                    </strong>
-                </span>
+        <strong>
+            {{loan.applicant.fins.grade}}-{{loan.applicant.fins.credit_score|number:0}}
+        </strong>
+    </span>
     <div class="container-fluid"
          ng-include="'./_modules/Loans/financials/_borrower.info.html'"
          ng-if="tggl.showBorrowerInfo">
@@ -83,8 +84,7 @@
               ng-if="tggl.showCreditPoints"></span>
         &nbsp;Credit Points
     </legend>
-    <div class="container-fluid"
-         ng-include="'./_modules/Loans/financials/_credit.points.html'">
+    <div class="container-fluid" ng-include="'./_modules/Loans/financials/_credit.points.html'" ng-if="tggl.showCreditPoints">
     </div>
 </fieldset>
 <br>

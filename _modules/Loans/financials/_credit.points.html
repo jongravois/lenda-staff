@@ -5,128 +5,72 @@
         <th style="width:80px;">Results</th>
         <th colspan="10">Scale</th>
     </tr>
-    <tr ng-if="tggl.showCreditPoints">
-        <td>Credit Score</td>
+    <tr>
+        <td>Credit Score<br>Points</td>
         <td class="text-center bright cGreen">
-            <strong>{{loan.applicant.fins.credit_score|number:0}}</strong>
-        </td>
-        <td class="text-center">750</td>
-        <td class="text-center armer">725</td>
-        <td class="text-center">700</td>
-        <td class="text-center">680</td>
-        <td class="text-center">665</td>
-        <td class="text-center">650</td>
-        <td class="text-center">630</td>
-        <td class="text-center">610</td>
-        <td class="text-center">&nbsp;</td>
-        <td class="text-center">&nbsp;</td>
-    </tr>
-    <tr ng-if="tggl.showCreditPoints">
-        <td>Points</td>
-        <td class="text-center bright">
+            <strong>{{afins.credit_score|number:0}}</strong>
+            <br>
             <strong>{{creditPoints.credit_score}}</strong>
         </td>
-        <td class="text-center">25</td>
-        <td class="text-center armer">22</td>
-        <td class="text-center">20</td>
-        <td class="text-center">17</td>
-        <td class="text-center">15</td>
-        <td class="text-center">13</td>
-        <td class="text-center">10</td>
-        <td class="text-center">7</td>
+        <td class="text-center" ng-class="{armer:creditPoints.credit_score === 25}">750<br>25</td>
+        <td class="text-center" ng-class="{armer:creditPoints.credit_score === 22}">725<br>22</td>
+        <td class="text-center" ng-class="{armer:creditPoints.credit_score === 20}">700<br>20</td>
+        <td class="text-center" ng-class="{armer:creditPoints.credit_score === 17}">680<br>17</td>
+        <td class="text-center" ng-class="{armer:creditPoints.credit_score === 15}">665<br>15</td>
+        <td class="text-center" ng-class="{armer:creditPoints.credit_score === 13}">650<br>13</td>
+        <td class="text-center" ng-class="{armer:creditPoints.credit_score === 10}">630<br>10</td>
+        <td class="text-center" ng-class="{armer:creditPoints.credit_score === 7}">610<br>7</td>
         <td class="text-center">&nbsp;</td>
         <td class="text-center">&nbsp;</td>
     </tr>
-    <tr ng-if="tggl.showCreditPoints">
-        <td>Debt / Assets</td>
+    <tr>
+        <td>Debt / Assets<br>Points</td>
         <td class="text-center bright cGreen">
             <strong>{{getDebtToAssets()|flexPercent:0}}</strong>
-        </td>
-        <td class="text-center">25%</td>
-        <td class="text-center">30%</td>
-        <td class="text-center">35%</td>
-        <td class="text-center armer">40%</td>
-        <td class="text-center">45%</td>
-        <td class="text-center">50%</td>
-        <td class="text-center">55%</td>
-        <td class="text-center">60%</td>
-        <td class="text-center">65%</td>
-        <td class="text-center">70%</td>
-    </tr>
-    <tr ng-if="tggl.showCreditPoints">
-        <td>Points</td>
-        <td class="text-center bright">
+            <br>
             <strong>{{creditPoints.debt_assets}}</strong>
         </td>
-        <td class="text-center">10</td>
-        <td class="text-center">9</td>
-        <td class="text-center">8</td>
-        <td class="text-center armer">7</td>
-        <td class="text-center">6</td>
-        <td class="text-center">5</td>
-        <td class="text-center">4</td>
-        <td class="text-center">3</td>
-        <td class="text-center">2</td>
-        <td class="text-center">1</td>
+        <td class="text-center" ng-class="{armer:creditPoints.debt_assets === 10}">25%<br>10</td>
+        <td class="text-center" ng-class="{armer:creditPoints.debt_assets === 9}">30%<br>9</td>
+        <td class="text-center" ng-class="{armer:creditPoints.debt_assets === 8}">35%<br>8</td>
+        <td class="text-center" ng-class="{armer:creditPoints.debt_assets === 7}">40%<br>7</td>
+        <td class="text-center" ng-class="{armer:creditPoints.debt_assets === 6}">45%<br>6</td>
+        <td class="text-center" ng-class="{armer:creditPoints.debt_assets === 5}">50%<br>5</td>
+        <td class="text-center" ng-class="{armer:creditPoints.debt_assets === 4}">55%<br>4</td>
+        <td class="text-center" ng-class="{armer:creditPoints.debt_assets === 3}">60%<br>3</td>
+        <td class="text-center" ng-class="{armer:creditPoints.debt_assets === 2}">65%<br>2</td>
+        <td class="text-center" ng-class="{armer:creditPoints.debt_assets === 1}">70%<br>1</td>
     </tr>
-    <tr ng-if="tggl.showCreditPoints">
-        <td>Loan / Net Worth</td>
+    <tr>
+        <td>Loan / Net Worth<br>Points</td>
         <td class="text-center bright cGreen">
             <strong>{{getLoanNetworth()|flexPercent:0}}</strong>
-        </td>
-        <td class="text-center">5%</td>
-        <td class="text-center">8%</td>
-        <td class="text-center">10%</td>
-        <td class="text-center">13%</td>
-        <td class="text-center">15%</td>
-        <td class="text-center">18%</td>
-        <td class="text-center">20%</td>
-        <td class="text-center">23%</td>
-        <td class="text-center">25%</td>
-        <td class="text-center">28%</td>
-    </tr>
-    <tr ng-if="tggl.showCreditPoints">
-        <td>Points</td>
-        <td class="text-center bright">
+            <br>
             <strong>{{creditPoints.loan_networth}}</strong>
         </td>
-        <td class="text-center">10</td>
-        <td class="text-center">9</td>
-        <td class="text-center">8</td>
-        <td class="text-center">7</td>
-        <td class="text-center">6</td>
-        <td class="text-center">5</td>
-        <td class="text-center">4</td>
-        <td class="text-center">3</td>
-        <td class="text-center">2</td>
-        <td class="text-center">1</td>
+        <td class="text-center" ng-class="{armer:creditPoints.loan_networth === 10}">5%<br>10</td>
+        <td class="text-center" ng-class="{armer:creditPoints.loan_networth === 9}">8%<br>9</td>
+        <td class="text-center" ng-class="{armer:creditPoints.loan_networth === 8}">10%<br>8</td>
+        <td class="text-center" ng-class="{armer:creditPoints.loan_networth === 7}">13%<br>7</td>
+        <td class="text-center" ng-class="{armer:creditPoints.loan_networth === 6}">15%<br>6</td>
+        <td class="text-center" ng-class="{armer:creditPoints.loan_networth === 5}">18%<br>5</td>
+        <td class="text-center" ng-class="{armer:creditPoints.loan_networth === 4}">20%<br>4</td>
+        <td class="text-center" ng-class="{armer:creditPoints.loan_networth === 3}">23%<br>3</td>
+        <td class="text-center" ng-class="{armer:creditPoints.loan_networth === 2}">25%<br>2</td>
+        <td class="text-center" ng-class="{armer:creditPoints.loan_networth === 1}">28%<br>1</td>
     </tr>
-    <tr ng-if="tggl.showCreditPoints">
-        <td>Years Farming</td>
+    <tr>
+        <td>Years Farming<br>Points</td>
         <td class="text-center bright cGreen">
             <strong>{{loan.farmer.farm_exp|number:0}}</strong>
-        </td>
-        <td class="text-center armer">20</td>
-        <td class="text-center">15</td>
-        <td class="text-center">10</td>
-        <td class="text-center">5</td>
-        <td class="text-center">3</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-    </tr>
-    <tr ng-if="tggl.showCreditPoints">
-        <td>Points</td>
-        <td class="text-center bright">
+            <br>
             <strong>{{creditPoints.years_farming}}</strong>
         </td>
-        <td class="text-center armer">5</td>
-        <td class="text-center">4</td>
-        <td class="text-center">3</td>
-        <td class="text-center">2</td>
-        <td class="text-center">1</td>
+        <td class="text-center" ng-class="{armer:creditPoints.years_farming === 5}">20<br>5</td>
+        <td class="text-center" ng-class="{armer:creditPoints.years_farming === 4}">15<br>4</td>
+        <td class="text-center" ng-class="{armer:creditPoints.years_farming === 3}">10<br>3</td>
+        <td class="text-center" ng-class="{armer:creditPoints.years_farming === 2}">5<br>2</td>
+        <td class="text-center" ng-class="{armer:creditPoints.years_farming === 1}">3<br>1</td>
         <td>&nbsp;</td>
         <td>&nbsp;</td>
         <td>&nbsp;</td>
