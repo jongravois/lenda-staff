@@ -42,16 +42,18 @@
             {crop: 'Sunflowers', acres: $scope.loan.fins.crop_acres[9].acres},
         ];
         $scope.tggl = {
+            showFarm: true,
             showLocale: true,
             showFSN: true,
             showPrac: true,
+            showOwner: true,
             showShr: true,
-            showPerm: false,
-            showCRent: false,
-            showDue: false,
-            showWvd: false,
-            showRnta: false,
-            showWvda: false,
+            showPerm: true,
+            showCRent: true,
+            showDue: true,
+            showWvd: true,
+            showRnta: true,
+            showWvda: true,
             showOvr: false,
             showAcres: true,
             showAPH: true,
@@ -64,14 +66,14 @@
             showEXRows: false,
             showCorn: true,
             showSoybeans: true,
-            showFAC: true,
-            showSorghum: true,
-            showWheat: true,
+            showFAC: false,
+            showSorghum: false,
+            showWheat: false,
             showCotton: true,
-            showRice: true,
-            showPeanuts: true,
-            showCane: true,
-            showSunflowers: true,
+            showRice: false,
+            showPeanuts: false,
+            showCane: false,
+            showSunflowers: false,
             tcropCorn: $scope.loan.fins.crop_acres[0].acres > 0,
             tcropSoybeans: $scope.loan.fins.crop_acres[1].acres > 0,
             tcropBeansFAC: $scope.loan.fins.crop_acres[2].acres > 0,
@@ -84,7 +86,73 @@
             tcropSunflowers: $scope.loan.fins.crop_acres[9].acres > 0
         };
         $scope.spanner = {
-            farm: getSpansFarm()
+            farm: getSpansFarm(),
+            crops: getSpansCrop()
+        };
+
+        $scope.showFarmCols = function() {
+            $scope.spanner.farm = 11;
+            $scope.tggl.showFarm = true;
+            $scope.tggl.showLocale = true;
+            $scope.tggl.showFSN = true;
+            $scope.tggl.showPrac = true;
+            $scope.tggl.showOwner = true;
+            $scope.tggl.showShr = true;
+            $scope.tggl.showPerm = true;
+            $scope.tggl.showCRent = true;
+            $scope.tggl.showDue = true;
+            $scope.tggl.showWvd = true;
+            $scope.tggl.showRnta = true;
+            $scope.tggl.showWvda = true;
+        };
+        $scope.hideFarmCols = function() {
+            $scope.spanner.farm = 0;
+            $scope.tggl.showFarm = false;
+            $scope.tggl.showLocale = false;
+            $scope.tggl.showFSN = false;
+            $scope.tggl.showPrac = false;
+            $scope.tggl.showOwner = false;
+            $scope.tggl.showShr = false;
+            $scope.tggl.showPerm = false;
+            $scope.tggl.showCRent = false;
+            $scope.tggl.showDue = false;
+            $scope.tggl.showWvd = false;
+            $scope.tggl.showRnta = false;
+            $scope.tggl.showWvda = false;
+        };
+        $scope.showCropCols = function() {
+            $scope.spanner.crops = 5;
+            $scope.tggl.showCorn = true;
+            $scope.tggl.showSoybeans = true;
+            $scope.tggl.showSorghum = true;
+            $scope.tggl.showWheat = true;
+            $scope.tggl.showCotton = true;
+            $scope.tggl.showRice = true;
+            $scope.tggl.showPeanuts = true;
+            $scope.tggl.showCane = true;
+            $scope.tggl.showSunflowers = true;
+            $scope.tggl.showAcres = true;
+            $scope.tggl.showAph = true;
+            $scope.tggl.showCF = true;
+            $scope.tggl.showEX = true;
+            $scope.tggl.showOvr = true;
+        };
+        $scope.hideCropCols = function() {
+            $scope.spanner.crops = 0;
+            $scope.tggl.showCorn = false;
+            $scope.tggl.showSoybeans = false;
+            $scope.tggl.showSorghum = false;
+            $scope.tggl.showWheat = false;
+            $scope.tggl.showCotton = false;
+            $scope.tggl.showRice = false;
+            $scope.tggl.showPeanuts = false;
+            $scope.tggl.showCane = false;
+            $scope.tggl.showSunflowers = false;
+            $scope.tggl.showAcres = false;
+            $scope.tggl.showAph = false;
+            $scope.tggl.showCF = false;
+            $scope.tggl.showEX = false;
+            $scope.tggl.showOvr = false;
         };
 
         $scope.calcUnitCropCF = function(cropname, obj, loan) {
@@ -143,9 +211,26 @@
         $scope.deleteFarm = function(id) {
             alert('Deleting the Farm Unit: ' + id);
         };
+
+        $scope.getTableWidth = function() {
+            var wdth = 400;
+            if($scope.tggl.showLocale) { wdth += 200; }
+            if($scope.tggl.showFSN) { wdth += 40; }
+            if($scope.tggl.showPrac) { wdth += 40; }
+            if($scope.tggl.showOwner) { wdth += 80; }
+            if($scope.tggl.showShr) { wdth += 50; }
+            if($scope.tggl.showPerm) { wdth += 40; }
+            if($scope.tggl.showCRent) { wdth += 80; }
+            if($scope.tggl.showDue) { wdth += 120; }
+            if($scope.tggl.showWvd) { wdth += 80; }
+            if($scope.tggl.showRnta) { wdth += 60; }
+            if($scope.tggl.showWvda) { wdth += 60; }
+            return wdth;
+        };
         $scope.showCrop = function() {
             alert('Showing another crop.');
         };
+        console.log('FARM UNITS', $scope.loan.farmunits);
         //////////
         function calcPoints(cropname, obj, loan) {
             var proc_fee_arm = Number(loan.fins.proc_fee);
@@ -162,6 +247,7 @@
             if($scope.tggl.showLocale) { cnt += 1; }
             if($scope.tggl.showFSN) { cnt += 1; }
             if($scope.tggl.showPrac) { cnt += 1; }
+            if($scope.tggl.showOwner) { cnt += 1; }
             if($scope.tggl.showShr) { cnt += 1; }
             if($scope.tggl.showPerm) { cnt += 1; }
             if($scope.tggl.showCRent) { cnt += 1; }
@@ -171,5 +257,15 @@
             if($scope.tggl.showWvda) { cnt += 1; }
             return cnt;
         }
+        function getSpansCrop() {
+            var cnt = 0;
+            if($scope.tggl.showAcres) { cnt += 1; }
+            if($scope.tggl.showAph) { cnt += 1; }
+            if($scope.tggl.showCF) { cnt += 1; }
+            if($scope.tggl.showEX) { cnt += 1; }
+            if($scope.tggl.showOvr) { cnt += 1; }
+            return cnt;
+        }
+
     } // end function
 })();

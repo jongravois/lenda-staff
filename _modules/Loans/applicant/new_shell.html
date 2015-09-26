@@ -5,9 +5,9 @@
     </div>
 </fieldset>
 <br>
-<fieldset ng-if="newapplication && loan.farmer.showApplicants">
-    <!-- NEWLOAN: CHOOSE OR CREATE APPLICANT-->
-    <div class="row" style="width:80%;margin:0 auto;">
+<fieldset ng-if="newapplication && farmerSaved">
+    <legend>Applicant</legend>
+    <div class="row" style="width:80%;margin:0 auto;" ng-if="loan.farmer.showApplicants">
         <table class="table table-striped rowed table-condensed disp-sm">
             <tr>
                 <th>Applicant</th>
@@ -38,7 +38,6 @@
              ng-include="'./_modules/Loans/applicant/_applicant.html'">
         </div>
     </div>
-    <!-- NEWLOAN: CHOOSE OR CREATE APPLICANT-->
 </fieldset>
 <br>
 <fieldset ng-show="loan.applicant.entity_id === '4'">

@@ -64,12 +64,17 @@
 
             $scope.createApplicantScreen = function() {
                 // check for partners and joints with loan_id of 0 and update loan_id
+                $scope.loan.applicant.loc_id = $scope.loan.loc_id;
+                $scope.loan.applicant.farmer_id = $scope.loan.farmer_id;
                 AppFactory.postIt('applicants', $scope.loan.applicant)
                     .then(function (res) {
                         $scope.loan.applicant_id = res.data;
+                        toastr.info('Creating new loan ...', 'Please wait');
+                        console.log('New Applicant', $scope.loan.applicant, 'New Loan', $scope.loan);
+
                         AppFactory.postIt('loans', $scope.loan)
                             .then(function(newloaned){
-                                $timeout(($scope.loan.loan_type_id, res.data), 3000);
+                                $timeout(($scope.loan.loan_type_id, res.data), 5000);
                                 $state.go('arm.edit.quests', {loantypeID:$scope.loan.loan_type_id, loanID: newloaned.data});
                         });
                     });
@@ -167,13 +172,24 @@
             }
 
             $scope.createNewFarmer = function() {
-                AppFactory.postIt('farmers', $scope.loan.farmer)
-                    .then(function(didit){
-                        $scope.loan.farmer_id = didit.data;
-                        $scope.loan.applicant.entity_id = 2;
-                        $scope.farmerSaved = true;
-                        $scope.newApplicantForm = true;
-                    });
+                if (!$scope.loan.farmer.ssn) {
+                    toastr.warning('A Social Security Number or Tax Identification Number is required.', 'Failure');
+                    return false;
+                } else if (!$scope.loan.farmer.email) {
+                    toastr.warning('An Email Address is required.', 'Failure');
+                    return false;
+                } else if (!$scope.loan.farmer.dob) {
+                    toastr.warning('A Date of Birth or Date of Incorporation is required.', 'Failure');
+                    return false;
+                } else {
+                    AppFactory.postIt('farmers', $scope.loan.farmer)
+                        .then(function(didit){
+                            $scope.loan.farmer_id = didit.data;
+                            $scope.loan.applicant.entity_id = 2;
+                            $scope.farmerSaved = true;
+                            $scope.newApplicantForm = true;
+                        });
+                }
             }
             $scope.createNewApplicant = function() {
                 $scope.loan.applicant.entity_id = 2;
@@ -181,9 +197,10 @@
             }
             $scope.useApplicant = function(id) {
                 $scope.loan.applicant_id = id;
+                toastr.info('Creating new loan ...', 'Please wait');
                 AppFactory.postIt('loans', $scope.loan)
                     .then(function(response){
-                        $timeout(($scope.loan.loan_type_id, response.data), 3000);
+                        $timeout(($scope.loan.loan_type_id, response.data), 5000);
                         $state.go('arm.edit.quests', {loantypeID: $scope.loan.loan_type_id, loanID: response.data});
                     });
             };
@@ -239,9 +256,5 @@
                     description: ''
                 };
             }
-
-            /*function moveOn(loantypeID, loanID) {
-                $state.go('arm.edit.questions', {loantypeID: loantypeID, loanID: loanID});
-            }*/
         } // end controller
 })();

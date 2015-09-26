@@ -10,7 +10,10 @@
         &nbsp;Distributor
     </legend>
     <div class="container-fluid" ng-if="showDistributor">
-        <div ng-include="'./_modules/Loans/references/_distributor.html'"></div>
+        <div ng-if="loan.has_distributor && !loan.distributor">
+            <h3>Please select a distributor</h3>
+        </div>
+        <div ng-include="'./_modules/Loans/references/_distributor.html'" ng-if="loan.has_distributor && loan.distributor"></div>
     </div>
     <p style="margin-top: 3px;" ng-if="loan.has_distributor" ng-show="showDistributor">
     <span>

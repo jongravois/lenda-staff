@@ -1204,7 +1204,7 @@
         function getSortedData(state, collection) {
             var ds = [];
             if(state) {
-                ds = _.sortByAll(collection, ['is_watched', 'vote_pending', 'has_comment', 'is_stale', 'disbursement_issue']).reverse();
+                ds = _.sortByAll(collection, ['is_watched', 'vote_pending', 'has_comment', 'is_stale', 'disbursement_issue', 'applicant']).reverse();
                 //console.log('sorted data: true', ds);
                 return ds;
             } else {

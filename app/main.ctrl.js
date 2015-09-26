@@ -11,6 +11,7 @@
         /* jshint validthis: true */
         /*jshint -W030 */
         $scope.authenticated = ($rootScope.authenticated ? true : false);
+        $scope.CY = moment().format('YYYY');
 
         $scope.user;
         $scope.users;
