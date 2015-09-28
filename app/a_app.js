@@ -17,7 +17,8 @@
             'tableSort',
             'angular-loading-bar',
             'ui.bootstrap-slider',
-            'ng-pdfmake'
+            'ng-pdfmake',
+            'angularTreeview'
         ])
         .config(function(){
             function groupByMulti(obj, values, context) {

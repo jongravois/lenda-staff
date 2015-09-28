@@ -9,71 +9,126 @@
     }*/
 </style>
 <fieldset>
-    <legend>Closing</legend>
+    <legend>
+        &nbsp;
+        <span class="pendicon glyphicon glyphicon-chevron-right"
+              ng-click="tggl.showConditions = !tggl.showConditions"
+              ng-if="!tggl.showConditions"></span>
+        <span class="pendicon glyphicon glyphicon-chevron-down"
+              ng-click="tggl.showConditions = !tggl.showConditions"
+              ng-if="tggl.showConditions"></span>
+        &nbsp;Collateral Conditions [2 of 7]
+    </legend>
     <div class="container-fluid">
-        <div class="row">
-            <div class="col-md-10 col-lg-offset-1">
-                <div class="row">
-                    <accordion close-others="oneAtATime">
-                        <accordion-group
-                            is-open="status.isFirstOpen"
-                            is-disabled="status.isFirstDisabled">
-                            <accordion-heading>
-                                Collateral Condition(s)
-                                <span class="pull-right badge">{{missingConditions.length}}</span>
-                            </accordion-heading>
-                            <ul class="list-unstyled" style="margin-left:20px;" ng-repeat="c in missingConditions">
-                                <li>{{c.condition}}</li>
-                            </ul>
-                        </accordion-group>
-
-                        <accordion-group>
-                            <accordion-heading>
-                                Prerequisite Documents
-                            <span class="pull-right badge">
-                                {{docs.length - missingDocs.length}} of {{docs.length}}
-                            </span>
-                            </accordion-heading>
-                            <ul class="rqdoc list-unstyled" style="margin-left:20px;">
-                                <li ng-repeat="d in docs">
-                                    <input type="checkbox" ng-model="d.received"/>&nbsp;{{d.document}}
-                                </li>
-                            </ul>
-                            <p ng-if="loan.has_addendum">With my initials, I certify that only the above documents are required to process this addendum&nbsp;<input type="text" style="width:75px;"/></p>
-                        </accordion-group>
-                        <accordion-group>
-                            <accordion-heading>
-                                Closing Documents
-                            </accordion-heading>
-                            <ul class="rqdoc list-unstyled" style="margin-left:20px;">
-                                <li><input type="checkbox"/>&nbsp;Promissory Note</li>
-                                <li><input type="checkbox"/>&nbsp;Agriculture Security Agreement</li>
-                                <li><input type="checkbox"/>&nbsp;UCC Security Agreement</li>
-                                <li><input type="checkbox"/>&nbsp;Assignment of Indemnity of Crop Insurance</li>
-                                <li><input type="checkbox"/>&nbsp;Assignment of FSA Payment</li>
-                                <li><input type="checkbox"/>&nbsp;Bo Gwin Guarantor Agreement</li>
-                                <li><input type="checkbox" checked="checked"/>&nbsp;Sharon Gwin Guarantor Agreement</li>
-                                <li><input type="checkbox"/>&nbsp;Cross Collateral Documents</li>
-                                <li><input type="checkbox"/>&nbsp;ARM Fees Invoice</li>
-                                <li><input type="checkbox" ng-if="loan.has_distributor"/>&nbsp;Distributor Documents</li>
-
-                            </ul>
-                        </accordion-group>
-                    </accordion>
-                </div>
-
-                <div class="row"></div>
-
-                <div class="row">
-                    <div class="col-md-12 text-right">
-                        <button style="margin-right:10px;"
-                                class="btn btn-primary" ng-disabled="!canClose">
-                            CLOSE
-                        </button>
-                    </div>
-                </div>
-                <br/>
-            </div>
+        <div class="row" ng-if="tggl.showConditions">
+            <table class="table table-striped rowed table-condensed disp-sm">
+                <tr>
+                    <th style="background-color: #006837 !important;color: white !important;">Condition</th>
+                </tr>
+                <tr>
+                    <td>Agricultural Security Agreement on Crops and Equipment</td>
+                </tr>
+                <tr>
+                    <td class="cRed">Assignment of Crop Insurance</td>
+                </tr>
+                <tr>
+                    <td>Approval by Participating Distributor - JSI</td>
+                </tr>
+                <tr>
+                    <td>Personal Guarantee by Bo Guin</td>
+                </tr>
+                <tr>
+                    <td>Personal Guarantee by Sharon Guin</td>
+                </tr>
+                <tr>
+                    <td class="cRed">Assignment of FSA Direct and LDP Payment</td>
+                </tr>
+                <tr>
+                    <td>JSI Credit Limit of 82K</td>
+                </tr>
+            </table>
         </div>
     </div>
 </fieldset>
+<br>
+<fieldset>
+    <legend>
+        &nbsp;
+        <span class="pendicon glyphicon glyphicon-chevron-right"
+              ng-click="tggl.showPrereqs = !tggl.showPrereqs"
+              ng-if="!tggl.showPrereqs"></span>
+        <span class="pendicon glyphicon glyphicon-chevron-down"
+              ng-click="tggl.showPrereqs = !tggl.showPrereqs"
+              ng-if="tggl.showPrereqs"></span>
+        &nbsp;Prerequisite Documents [1 of 5]
+    </legend>
+    <div class="container-fluid">
+        <div class="row" ng-if="tggl.showPrereqs">
+            <table class="table table-striped rowed table-condensed disp-sm">
+                <tr>
+                    <th style="background-color: #006837 !important;color: white !important;">Document</th>
+                </tr>
+                <tr>
+                    <td>Driver's License</td>
+                </tr>
+                <tr>
+                    <td>Equipment Inventory</td>
+                </tr>
+                <tr>
+                    <td>CPA Financials</td>
+                </tr>
+                <tr>
+                    <td>Leases</td>
+                </tr>
+                <tr>
+                    <td class="cRed">Crop Insurance APH Database</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</fieldset>
+<br>
+<fieldset>
+    <legend>
+        &nbsp;
+        <span class="pendicon glyphicon glyphicon-chevron-right"
+              ng-click="tggl.showDocs = !tggl.showDocs"
+              ng-if="!tggl.showDocs"></span>
+        <span class="pendicon glyphicon glyphicon-chevron-down"
+              ng-click="tggl.showDocs = !tggl.showDocs"
+              ng-if="tggl.showDocs"></span>
+        &nbsp;Closing Documents
+    </legend>
+    <div class="container-fluid">
+        <div class="row" ng-if="tggl.showDocs">
+            <table class="table table-striped rowed table-condensed disp-sm">
+                <tr>
+                    <th style="background-color: #006837 !important;color: white !important;">Closing Documents</th>
+                </tr>
+                <tr><td><input type="checkbox" checked="checked"/>&nbsp;Promissory Note</td></tr>
+                <tr><td><input type="checkbox" checked="checked"/>&nbsp;Agriculture Security Agreement</td></tr>
+                <tr><td><input type="checkbox" checked="checked"/>&nbsp;UCC Security Agreement</td></tr>
+                <tr><td><input type="checkbox" checked="checked"/>&nbsp;Assignment of Indemnity of Crop Insurance</td></tr>
+                <tr><td><input type="checkbox" checked="checked"/>&nbsp;Assignment of FSA Payment</td></tr>
+                <tr><td><input type="checkbox" checked="checked"/>&nbsp;Bo Gwin Guarantor Agreement</td></tr>
+                <tr><td><input type="checkbox" checked="checked"/>&nbsp;Sharon Gwin Guarantor Agreement</td></tr>
+                <tr><td><input type="checkbox" checked="checked"/>&nbsp;Cross Collateral Documents</td></tr>
+                <tr><td><input type="checkbox" checked="checked"/>&nbsp;ARM Fees Invoice</td></tr>
+                <tr><td><input type="checkbox" ng-if="loan.has_distributor"/>&nbsp;Distributor Documents</td></tr>
+            </table>
+            <p>
+                ng-if="!loan.has_addendum">With my initials, I certify that only the above documents are required to process this loan.&nbsp;<input type="text" style="width:75px;"/>
+            </p>
+            <p ng-if="loan.has_addendum">With my initials, I certify that only the above documents are required to process this addendum.&nbsp;<input type="text" style="width:75px;"/></p>
+        </div>
+    </div>
+</fieldset>
+<br>
+<div class="row">
+    <div class="col-md-12 text-right">
+        <button style="margin-right:10px;" class="btn btn-arm" ng-click="closeLoan()" ng-disabled="!canClose">
+            <span class="glyphicons glyphicons-print"></span>&nbsp;CLOSE
+        </button>
+    </div>
+</div>
+<br><br><br><br>

@@ -8,7 +8,11 @@
 
         function ClosingsController($rootScope, $scope, $state, $stateParams, AppFactory, LoansFactory){
             $scope.newapplications = $state.current.data.newapplications;
-            $scope.oneAtATime = true;
+            $scope.tggl = {
+                showConditions: false,
+                showPrereqs: false,
+                showDocs: false
+            };
 
             LoansFactory.getPrerequisites($stateParams.loanID)
                 .then(function success(rsp) {
@@ -31,7 +35,7 @@
                             });
                     } // end if
 
-                    console.log('closing', $scope.loan);
+                    //console.log('closing', $scope.loan);
                     $scope.missingConditions = [];
                     $scope.missingDocs = [];
                     _.each($scope.loan.loanconditions, function(i){
@@ -54,34 +58,12 @@
                 $scope.missingDocs = [];
             }
 
-            if($scope.missingConditions.length === 0 && $scope.missingDocs.length === 0) {
+            /*if($scope.missingConditions.length === 0 && $scope.missingDocs.length === 0) {
                 $scope.canClose = true;
             } else {
                 $scope.canClose = false;
-            }
+            }*/
+            $scope.canClose = false;
 
-
-            $scope.groups = [
-                {
-                    title: 'Dynamic Group Header - 1',
-                    content: 'Dynamic Group Body - 1'
-                },
-                {
-                    title: 'Dynamic Group Header - 2',
-                    content: 'Dynamic Group Body - 2'
-                }
-            ];
-
-            $scope.items = ['Item 1', 'Item 2', 'Item 3'];
-
-            $scope.addItem = function() {
-                var newItemNo = $scope.items.length + 1;
-                $scope.items.push('Item ' + newItemNo);
-            };
-
-            $scope.status = {
-                isFirstOpen: true,
-                isFirstDisabled: false
-            };
         } // end controller
 })();
