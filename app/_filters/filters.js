@@ -20,6 +20,7 @@
         .filter('stateabr', stateAbrFilter)
         .filter('justtext', justtextFilter)
         .filter('flexNumber', flexNumberFilter)
+        .filter('flexZeroNumber', flexZeroNumberFilter)
         .filter('flexCurrency', flexCurrencyFilter)
         .filter('flexZeroCurrency', flexZeroCurrencyFilter)
         .filter('flexNACurrency', flexNACurrencyFilter)
@@ -247,6 +248,33 @@
                 return input;
             }
             if (input === '' || input === null || input === 0 || input === -0) {
+                return ' - ';
+            }
+            var out = input;
+
+            //Deal with the minus (negative numbers)
+            var minus = input < 0;
+            out = Math.abs(out);
+            out = $filter('number')(out, decPlaces);
+
+            // Add the minus and the symbol
+            if (minus) {
+                return '( ' + out + ')';
+            } else {
+                return out;
+            }
+        };
+    }
+
+    function flexZeroNumberFilter($filter) {
+        return function (input, decPlaces) {
+            decPlaces = decPlaces || 0;
+
+            // Check for invalid inputs
+            if (isNaN(input)) {
+                return input;
+            }
+            if (input === '' || input === null) {
                 return ' - ';
             }
             var out = input;

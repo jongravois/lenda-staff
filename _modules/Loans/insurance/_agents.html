@@ -1,37 +1,13 @@
-<table class="table table-striped rowed table-condensed disp-sm" style="width:85%;">
-    <tr>
-        <th style="width:25%;" ng-click="doSort('Agency')">Agency</th>
-        <th style="width:20%;" ng-click="doSort('Agent')">Agent</th>
-        <th style="width:20%;" ng-click="doSort('city_state')">Location</th>
-        <th style="width:15%;" ng-click="doSort('phone')">Phone</th>
-        <th style="width:15%;" ng-click="doSort('email')">Email</th>
-        <th style="width:140px;">&nbsp;</th>
-    </tr>
-    <tr ng-repeat="a in loan.agents | orderBy:sortBy:reverse">
-        <td class="cBlue">
-            {{ a.agency }}
-        </td>
-        <td class="cBlue">
-            {{ a.agent }}
-        </td>
-        <td class="cBlue">
-            {{ a.city_state }}
-        </td>
-        <td class="cBlue">
-            {{ a.phone|phone }}
-            </span>
-        </td>
-        <td class="cBlue">
-            {{ a.email }}
-        </td>
-        <td class="text-center">
-            <div class="buttons"
-                 ng-show="!rowform.$visible">
-                                <span style="font-size: 16px; color: #990000;"
-                                      ng-click="deleteAgent(a.id)">&cross;</span>
-        </td>
-    </tr>
-    <tr ng-if="loan.references.length == 0">
-        <td colspan="6"><b>No agents found!</b></td>
-    </tr>
-</table>
+<div class="row">
+    <div class="form-group">
+        <div ui-grid="gridOptsAgents" ui-grid-edit ui-grid-cellnav ng-style="{ 'height': hgt, 'width': wdt }">
+            <div class="watermark" ng-show="gridOptsAgents.data.length === 0">
+                No data available
+            </div>
+        </div>
+        <p>
+            <a ng-click="createNewAgent()" class="btn btn-xs btn-default">
+                <span class="glyphicons glyphicons-circle-plus" style="color:#006837;"></span> Add New</a>
+        </p>
+    </div>
+</div>

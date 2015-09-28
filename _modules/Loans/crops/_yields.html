@@ -1,67 +1,9 @@
-<style>
-    .editable-wrap .editable-controls>select {
-        height: 1em !important;
-    }
-</style>
-<div class="row form-group">
-    <table class="table table-striped rowed table-condensed disp-sm">
-        <tr>
-            <th class="text-left;">Crop</th>
-            <th class="text-center" style="width:8%;">UoM</th>
-            <th style="width:8%;">{{globals.cropYears.PY1}}</th>
-            <th style="width:8%;">{{globals.cropYears.PY2}}</th>
-            <th class="bright" style="width:8%;">{{globals.cropYears.PY3}}</th>
-            <th class="bright" style="width:8%;">3yr Avg</th>
-            <th style="width:8%;">{{globals.cropYears.PY4}}</th>
-            <th style="width:8%;">{{globals.cropYears.PY5}}</th>
-            <th class="bright" style="width:8%;">{{globals.cropYears.PY6}}</th>
-            <th class="bright" style="width:8%;">6yr Avg</th>
-            <th style="width:8%;">APH</th>
-        </tr>
-        <tr ng-repeat="c in loan.loancrops" ng-init="!rowform.$visible" ng-dblclick="rowform.$show()">
-            <td>{{c.crop.name}}</td>
-            <td class="text-center cBlue">
-                <span editable-select="c.crop.measurement" e-name="measurement" e-form="rowform" e-ng-options="u.abr as u.unit for u in units" e-ng-change="uomChanged(c.id, c.measurement)" buttons="no">
-                    {{ c.crop.measurement }}
-                </span>
-            </td>
-            <td class="cBlue" ng-class="AppFactory.gtZero(c.yields[0].p1)">
-                <span editable-number="c.yields[0].p1" e-name="p1" e-form="rowform" e-style="width:100%;">
-                	{{c.yields[0].p1|flexNumber:1}}
-                </span>
-            </td>
-            <td class="cBlue" ng-class="AppFactory.gtZero(c.yields[0].p2)">
-                <span editable-number="c.yields[0].p2" e-name="p2" e-form="rowform" e-style="width:100%;">
-                	{{c.yields[0].p2|flexNumber:1}}
-                </span>
-            </td>
-            <td class="cBlue bright" ng-class="AppFactory.gtZero(c.yields[0].p3)">
-                <span editable-number="c.yields[0].p3" e-name="p3" e-form="rowform" e-style="width:100%;">
-                	{{c.yields[0].p3|flexNumber:1}}
-                </span>
-            </td>
-            <td class="text-right bright">
-                {{AppFactory.getAverage([c.yields[0].p1, c.yields[0].p2, c.yields[0].p3])| flexNumber:1}}
-            </td>
-            <td class="cBlue" ng-class="AppFactory.gtZero(c.yields[0].p4)">
-                <span editable-number="c.yields[0].p4" e-name="p4" e-form="rowform" e-style="width:100%;">
-                	{{c.yields[0].p4|flexNumber:1}}
-                </span>
-            </td>
-            <td class="cBlue" ng-class="AppFactory.gtZero(c.yields[0].p5)">
-                <span editable-number="c.yields[0].p5" e-name="p5" e-form="rowform" e-style="width:100%;">
-                	{{c.yields[0].p5|flexNumber:1}}
-                </span>
-            </td>
-            <td class="cBlue bright" ng-class="AppFactory.gtZero(c.yields[0].p6)">
-                <span editable-number="c.yields[0].p6" e-name="p6" e-form="rowform" e-style="width:100%;">
-                	{{c.yields[0].p6|flexNumber:1}}
-                </span>
-            </td>
-            <td class="text-right bright">
-                {{AppFactory.getAverage([c.yields[0].p1, c.yields[0].p2, c.yields[0].p3, c.yields[0].p4, c.yields[0].p5, c.yields[0].p6])| number:1}}
-            </td>
-            <td class="text-right">APH</td>
-        </tr>
-    </table>
+<div class="row">
+    <div class="form-group">
+        <div ui-grid="gridOptsYields" ui-grid-edit ui-grid-cellnav ng-style="{ 'height': yld_hgt, 'width': yld_wdt }">
+            <div class="watermark" ng-show="gridOptsYields.data.length === 0">
+                No data available
+            </div>
+        </div>
+    </div>
 </div>

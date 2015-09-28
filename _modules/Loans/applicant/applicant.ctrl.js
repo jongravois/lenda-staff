@@ -76,71 +76,62 @@
                             .then(function(newloaned){
                                 $timeout(($scope.loan.loan_type_id, res.data), 5000);
                                 $state.go('arm.edit.quests', {loantypeID:$scope.loan.loan_type_id, loanID: newloaned.data});
-                        });
+                            });
                     });
             };
             $scope.updateApplicantScreen = function() {
                 alert('working');
                 //update farmer, applicant and corp if applicable
             };
-            $scope.createNewPartner = function() {
-                var newb = getNewPartner();
-                AppFactory.postIt('partners', newb)
-                    .then(function (rsp) {
-                        var id = rsp.data;
-                        angular.extend(newb, {id: id});
-                        $scope.loan.applicant.partners.push(newb);
+            $scope.createNewApplicant = function() {
+                $scope.loan.applicant.entity_id = 2;
+                $scope.newApplicantForm = true;
+            }
+            $scope.createNewFarmer = function() {
+                if (!$scope.loan.farmer.ssn) {
+                    toastr.warning('A Social Security Number or Tax Identification Number is required.', 'Failure');
+                    return false;
+                } else if (!$scope.loan.farmer.email) {
+                    toastr.warning('An Email Address is required.', 'Failure');
+                    return false;
+                } else if (!$scope.loan.farmer.dob) {
+                    toastr.warning('A Date of Birth or Date of Incorporation is required.', 'Failure');
+                    return false;
+                } else {
+                    AppFactory.postIt('farmers', $scope.loan.farmer)
+                        .then(function(didit){
+                            $scope.loan.farmer_id = didit.data;
+                            $scope.loan.applicant.entity_id = 2;
+                            $scope.farmerSaved = true;
+                            $scope.newApplicantForm = true;
+                        });
+                }
+            }
+            $scope.useApplicant = function(id) {
+                $scope.loan.applicant_id = id;
+                toastr.info('Creating new loan ...', 'Please wait');
+                AppFactory.postIt('loans', $scope.loan)
+                    .then(function(response){
+                        $timeout(($scope.loan.loan_type_id, response.data), 5000);
+                        $state.go('arm.edit.quests', {loantypeID: $scope.loan.loan_type_id, loanID: response.data});
                     });
             };
-            $scope.savePartner = function(data, id) {
-                AppFactory.putIt('partners', id, data)
-                    .then(function(rsp){
-                        toastr.success('Updated partner information', 'Success!');
-                    });
+            $scope.onFarmerSelect = function ($item, $model, $label) {
+                if ($item) {
+                    $scope.farmerID = $item.id;
+                    $scope.loan.farmer_id = $item.id;
+                    $scope.loan.farmer = $item;
+                    $scope.loan.farmer.dob = moment($item.dob).toDate();
+                    $scope.loan.farmer.new_client = false;
+                    $scope.loan.farmer.applicants = $item.applicants;
+                    $scope.loan.farmer.showApplicants = true;
+                    $scope.loan.farmer.newbie = false;
+
+                    $scope.farmerSaved = true;
+                }
             };
-            $scope.deletePartner = function(index, id) {
-                SweetAlert.swal({
-                        title: "Are you sure?",
-                        text: "You will not be able to undo this operation.",
-                        type: "warning",
-                        showCancelButton: true,
-                        confirmButtonColor: "#006837",
-                        confirmButtonText: "Delete",
-                        closeOnConfirm: true},
-                    function(){
-                        AppFactory.deleteIt('partners', id);
-                        _.remove($scope.loan.partners, {id: id});
-                    });
-            };
-            $scope.createNewJoint = function() {
-                var newb = getNewJoint();
-                AppFactory.postIt('joints', newb)
-                    .then(function (rsp) {
-                        var id = rsp.data;
-                        angular.extend(newb, {id: id});
-                        $scope.loan.applicant.joints.push(newb);
-                    });
-            };
-            $scope.saveJoint = function(data, id) {
-                AppFactory.putIt('joints', id, data)
-                    .then(function(rsp){
-                        toastr.success('Updated joint venture information', 'Success!');
-                    });
-            };
-            $scope.deleteJoint = function(index,id) {
-                SweetAlert.swal({
-                        title: "Are you sure?",
-                        text: "You will not be able to undo this operation.",
-                        type: "warning",
-                        showCancelButton: true,
-                        confirmButtonColor: "#006837",
-                        confirmButtonText: "Delete",
-                        closeOnConfirm: true},
-                    function(){
-                        AppFactory.deleteIt('joints', id);
-                        _.remove($scope.loan.joints, {id: id});
-                    });
-            };
+
+            //CORPORATION
             $scope.createNewCorp = function() {
                 var newb = getNewCorp();
                 AppFactory.postIt('corps', newb)
@@ -170,74 +161,9 @@
                         _.remove($scope.loan.corps, {id: id});
                     });
             }
+            //CORPORATION
 
-            $scope.createNewFarmer = function() {
-                if (!$scope.loan.farmer.ssn) {
-                    toastr.warning('A Social Security Number or Tax Identification Number is required.', 'Failure');
-                    return false;
-                } else if (!$scope.loan.farmer.email) {
-                    toastr.warning('An Email Address is required.', 'Failure');
-                    return false;
-                } else if (!$scope.loan.farmer.dob) {
-                    toastr.warning('A Date of Birth or Date of Incorporation is required.', 'Failure');
-                    return false;
-                } else {
-                    AppFactory.postIt('farmers', $scope.loan.farmer)
-                        .then(function(didit){
-                            $scope.loan.farmer_id = didit.data;
-                            $scope.loan.applicant.entity_id = 2;
-                            $scope.farmerSaved = true;
-                            $scope.newApplicantForm = true;
-                        });
-                }
-            }
-            $scope.createNewApplicant = function() {
-                $scope.loan.applicant.entity_id = 2;
-                $scope.newApplicantForm = true;
-            }
-            $scope.useApplicant = function(id) {
-                $scope.loan.applicant_id = id;
-                toastr.info('Creating new loan ...', 'Please wait');
-                AppFactory.postIt('loans', $scope.loan)
-                    .then(function(response){
-                        $timeout(($scope.loan.loan_type_id, response.data), 5000);
-                        $state.go('arm.edit.quests', {loantypeID: $scope.loan.loan_type_id, loanID: response.data});
-                    });
-            };
-
-            $scope.onFarmerSelect = function ($item, $model, $label) {
-                if ($item) {
-                    $scope.farmerID = $item.id;
-                    $scope.loan.farmer_id = $item.id;
-                    $scope.loan.farmer = $item;
-                    $scope.loan.farmer.dob = moment($item.dob).toDate();
-                    $scope.loan.farmer.new_client = false;
-                    $scope.loan.farmer.applicants = $item.applicants;
-                    $scope.loan.farmer.showApplicants = true;
-                    $scope.loan.farmer.newbie = false;
-
-                    $scope.farmerSaved = true;
-                }
-            };
             //////////
-            function getNewPartner() {
-                return {
-                    applicant_id: $scope.loan.applicant.id,
-                    partner: '',
-                    ssn: '',
-                    email: '',
-                    phone: ''
-                };
-            }
-            function getNewJoint() {
-                return {
-                    applicant_id: $scope.loan.applicant.id,
-                    partner: '',
-                    ssn: '',
-                    email: '',
-                    phone: ''
-                };
-            }
             function getNewCorp() {
                 return {
                     applicant_id: $scope.loan.applicant.id,

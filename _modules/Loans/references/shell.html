@@ -2,20 +2,20 @@
     <legend>
         &nbsp;
         <span class="pendicon glyphicon glyphicon-chevron-right"
-              ng-click="togShowDistributor()"
+              ng-click="tggl.showDistributor = !tggl.showDistributor"
               ng-if="!showDistributor"></span>
         <span class="pendicon glyphicon glyphicon-chevron-down"
-              ng-click="togShowDistributor()"
+              ng-click="tggl.showDistributor = !tggl.showDistributor"
               ng-if="showDistributor"></span>
         &nbsp;Distributor
     </legend>
-    <div class="container-fluid" ng-if="showDistributor">
+    <div class="container-fluid" ng-if="tggl.showDistributor">
         <div ng-if="loan.has_distributor && !loan.distributor">
             <h3>Please select a distributor</h3>
         </div>
         <div ng-include="'./_modules/Loans/references/_distributor.html'" ng-if="loan.has_distributor && loan.distributor"></div>
     </div>
-    <p style="margin-top: 3px;" ng-if="loan.has_distributor" ng-show="showDistributor">
+    <p style="margin-top: 3px;" ng-if="loan.has_distributor" ng-show="tggl.showDistributor">
     <span>
         <input type="checkbox" ng-model="loan.applicant.rup"/>
         &nbsp;<span class="small_txt">I use restricted use pesticides.</span>
@@ -33,14 +33,14 @@
     <legend>
         &nbsp;
         <span class="pendicon glyphicon glyphicon-chevron-right"
-              ng-click="togShowReference()"
-              ng-if="!showReference"></span>
+              ng-click="tggl.showReference = !tggl.showReference"
+              ng-if="!tggl.showReference"></span>
         <span class="pendicon glyphicon glyphicon-chevron-down"
-              ng-click="togShowReference()"
-              ng-if="showReference"></span>
+              ng-click="tggl.showReference = !tggl.showReference"
+              ng-if="tggl.showReference"></span>
         &nbsp;References
     </legend>
-    <div class="container-fluid" ng-if="showReference">
+    <div class="container-fluid" ng-if="tggl.showReference">
         <div ng-include="'./_modules/Loans/references/_references.html'"></div>
     </div>
 </fieldset>

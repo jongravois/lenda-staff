@@ -14,9 +14,7 @@
          ng-if="tggl.showFarmer">
     </div>
 </fieldset>
-
-<br><br>
-
+<br>
 <fieldset>
     <legend>
         &nbsp;
@@ -33,9 +31,7 @@
          ng-if="tggl.showApplicant">
     </div>
 </fieldset>
-
-<br><br>
-
+<br>
 <fieldset ng-show="loan.applicant.entity_id === '4'">
     <legend>
         &nbsp;
@@ -49,10 +45,10 @@
     </legend>
     <div class="container-fluid"
          ng-include="'./_modules/Loans/applicant/_partner.html'"
+         ng-controller="PartnersController"
          ng-if="tggl.showPartner">
     </div>
 </fieldset>
-
 <fieldset ng-show="loan.applicant.entity_id === '3'">
     <legend>
         &nbsp;
@@ -69,7 +65,6 @@
          ng-if="tggl.showJoints">
     </div>
 </fieldset>
-
 <fieldset ng-show="loan.applicant.entity_id === '1'">
     <legend>
         &nbsp;
@@ -86,9 +81,7 @@
          ng-if="tggl.showCorps"></span>
     </div>
 </fieldset>
-
 <br>
-
 <div class="row">
     <div class="col-md-12 text-right">
         <button style="margin-right:10px;" class="btn btn-arm" ng-click="updateApplicantScreen()"><span class="glyphicons glyphicons-log-book"></span>&nbsp;UPDATE</button>

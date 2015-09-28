@@ -2,55 +2,71 @@
     'use strict';
     angular
         .module('ARM')
-        .controller('InsuranceController', InsuranceController);
+        .controller('JointsController', JointsController);
 
-        InsuranceController.$inject = ['$rootScope', '$scope', '$state', 'AppFactory'];
+        JointsController.$inject = ['$rootScope', '$scope', 'AppFactory'];
 
-        function InsuranceController($rootScope, $scope, $state, AppFactory){
-            $scope.newapplications = $state.current.data.newapplications;
-
-            $scope.toggleStax = function(id) {
-                var rowid = Number(id) - 1;
-
-                $scope.loan.insurance.policies[rowid].showStax = !$scope.loan.insurance.policies[rowid].showStax;
-                return true;
-            }
-
-            //AGENT
-            $scope.createNewAgent = function() {
-                alert('Create new agent')
+        function JointsController($rootScope, $scope, AppFactory){
+            $scope.createNewJoint = function() {
+                var newb = getNewJoint();
+                AppFactory.postIt('joints', newb)
+                    .then(function (rsp) {
+                        var id = rsp.data;
+                        angular.extend(newb, {id: id});
+                        $scope.loan.applicant.joints.push(newb);
+                    });
+            };
+            $scope.saveJoint = function(data, id) {
+                AppFactory.putIt('joints', id, data)
+                    .then(function(rsp){
+                        toastr.success('Updated joint venture information', 'Success!');
+                    });
+            };
+            $scope.deleteJoint = function(index, id) {
+                SweetAlert.swal({
+                        title: "Are you sure?",
+                        text: "You will not be able to undo this operation.",
+                        type: "warning",
+                        showCancelButton: true,
+                        confirmButtonColor: "#006837",
+                        confirmButtonText: "Delete",
+                        closeOnConfirm: true},
+                    function(){
+                        AppFactory.deleteIt('joints', id);
+                        _.remove($scope.loan.applicant.joints, {id: id});
+                    });
             };
 
-            $scope.gridOptsAgents = {
+            $scope.gridOptsJoint = {
                 enableCellEditOnFocus: true,
                 rowTemplate: './_modules/Admin/_views/_row.tmpl.html',
                 columnDefs: [
                     {
-                        name: 'agency',
+                        name: 'partner',
                         enableCellEdit: true,
-                        displayName: 'Agency',
+                        displayName: 'Partner',
                         cellClass: 'text-left cBlue',
                         headerCellClass: 'text-center bGreen',
                         enableColumnMenu: false,
                         width: '200'
                     },
                     {
-                        name: 'agent',
+                        name: 'title',
                         enableCellEdit: true,
-                        displayName: 'Agent',
+                        displayName: 'Title',
                         cellClass: 'text-left cBlue',
                         headerCellClass: 'text-center bGreen',
                         enableColumnMenu: false,
                         width: '200'
                     },
                     {
-                        name: 'city_state',
+                        name: 'location',
                         enableCellEdit: true,
                         displayName: 'Location',
                         cellClass: 'text-left cBlue',
                         headerCellClass: 'text-center bGreen',
                         enableColumnMenu: false,
-                        width: '170'
+                        width: '200'
                     },
                     {
                         name: 'phone',
@@ -69,7 +85,7 @@
                         cellClass: 'text-left cBlue',
                         headerCellClass: 'text-center bGreen',
                         enableColumnMenu: false,
-                        width: '180'
+                        width: '120'
                     },
                     {
                         name: 'del',
@@ -83,12 +99,12 @@
                         headerCellTemplate: '<div class="text-center padd bGreen" style="width:30px;">&nbsp;</div>'
                     }
                 ],
-                data: $scope.loan.agents
+                data: $scope.loan.applicant.joints
             };
 
             $scope.msg = {};
             var records = [];
-            angular.forEach($scope.loan.agents, function (rawdata) {
+            angular.forEach($scope.loan.applicant.joints, function (rawdata) {
                 var record = {};
                 record.changedAttrs = {};
 
@@ -119,12 +135,12 @@
                 records.push(record);
             });
 
-            $scope.gridOptsAgents.onRegisterApi = function(gridApi) {
+            $scope.gridOptsJoint.onRegisterApi = function(gridApi) {
                 //set gridApi on scope
                 $scope.$scope = $scope;
                 $scope.gridApi = gridApi;
-                $scope.hgt = $scope.loan.agents.length * 58;
-                $scope.wdt = 900;
+                $scope.hgt = $scope.loan.applicant.joints.length * 50;
+                $scope.wdt = 870;
                 $scope.gridApi.gridHeight = $scope.hgt;
                 $scope.gridApi.gridWidth = $scope.wdt;
                 gridApi.edit.on.afterCellEdit($scope, function(rowEntity, colDef, newValue, oldValue) {
@@ -133,10 +149,8 @@
                     });
                 });
             };
-            //AGENT
-
             //////////
-            function getNewAgent() {
+            function getNewJoint() {
                 return {
                     applicant_id: $scope.loan.applicant.id,
                     partner: '',
@@ -145,7 +159,5 @@
                     phone: ''
                 };
             }
-
-            //console.log('pols',$scope.loan.inspols, 'loan', $scope.loan);
         } // end controller
 })();
