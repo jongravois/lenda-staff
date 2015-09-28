@@ -3,15 +3,15 @@
     <legend>
         &nbsp;
             <span class="pendicon glyphicon glyphicon-chevron-right"
-                  ng-click="togShowConditions()"
-                  ng-if="!showConditions"></span>
+                  ng-click="tggl.showConditions = !tggl.showConditions"
+                  ng-if="!tggl.showConditions"></span>
             <span class="pendicon glyphicon glyphicon-chevron-down"
-                  ng-click="togShowConditions()"
-                  ng-if="showConditions"></span>
+                  ng-click="tggl.showConditions = !tggl.showConditions"
+                  ng-if="tggl.showConditions"></span>
         &nbsp;
         Collateral Conditions
     </legend>
-    <div class="container-fluid row form-group" ng-if="showConditions">
+    <div class="container-fluid row form-group" ng-if="tggl.showConditions">
         <div class="col-md-12">
             <div ng-include="'./_modules/Loans/collateral/_collateral.conditions.html'"></div>
         </div>
@@ -23,15 +23,15 @@
     <legend>
         &nbsp;
             <span class="pendicon glyphicon glyphicon-chevron-right"
-                  ng-click="togShowCropCollateral()"
-                  ng-if="!showCropCollateral"></span>
+                  ng-click="tggl.showCropCollateral = !tggl.showCropCollateral"
+                  ng-if="!tggl.showCropCollateral"></span>
             <span class="pendicon glyphicon glyphicon-chevron-down"
-                  ng-click="togShowCropCollateral()"
-                  ng-if="showCropCollateral"></span>
+                  ng-click="tggl.showCropCollateral = !tggl.showCropCollateral"
+                  ng-if="tggl.showCropCollateral"></span>
         &nbsp;
         Crops
     </legend>
-    <div class="container-fluid row form-group" ng-if="showCropCollateral">
+    <div class="container-fluid row form-group" ng-if="tggl.showCropCollateral">
         <div class="col-md-12">
             <label>Crop Discount</label>
             <input type="number" class="form-control" name="percent_crop" ng-model="loan.fins.discounts.percent_crop" style="width:100px;">
@@ -62,7 +62,7 @@
             &nbsp;<label>No</label>
         </div>
     </div>
-    <div class="row form-group" ng-if="loan.quests.liens && showCropCollateral">
+    <div class="row form-group" ng-if="loan.quests.liens && tggl.showCropCollateral">
         <div ng-include="'./_modules/Loans/collateral/_crop.collateral.html'"></div>
     </div>
 </fieldset>
@@ -72,15 +72,15 @@
     <legend>
         &nbsp;
             <span class="pendicon glyphicon glyphicon-chevron-right"
-                  ng-click="togShowEquipmentCollateral()"
-                  ng-if="!showEquipmentCollateral"></span>
+                  ng-click="tggl.showEquipmentCollateral = !tggl.showEquipmentCollateral"
+                  ng-if="!tggl.showEquipmentCollateral"></span>
             <span class="pendicon glyphicon glyphicon-chevron-down"
-                  ng-click="togShowEquipmentCollateral()"
-                  ng-if="showEquipmentCollateral"></span>
+                  ng-click="tggl.showEquipmentCollateral = !tggl.showEquipmentCollateral"
+                  ng-if="tggl.showEquipmentCollateral"></span>
         &nbsp;
         Equipment
     </legend>
-    <div class="container-fluid row form-group" ng-if="showEquipmentCollateral">
+    <div class="container-fluid row form-group" ng-if="tggl.showEquipmentCollateral">
         <div class="col-md-12" style="display: none;">
             <div class="col-md-9">
                 <label>Equipment used as collateral?</label>
@@ -94,7 +94,7 @@
             </div>
         </div>
     </div>
-    <div class="row form-group" ng-if="loan.equipment_collateral && showEquipmentCollateral">
+    <div class="row form-group" ng-if="loan.equipment_collateral && tggl.showEquipmentCollateral">
         <div ng-include="'./_modules/Loans/collateral/_equipment.collateral.html'"></div>
     </div>
 </fieldset>
@@ -104,15 +104,15 @@
     <legend>
         &nbsp;
             <span class="pendicon glyphicon glyphicon-chevron-right"
-                  ng-click="togShowRealEstateCollateral()"
-                  ng-if="!showRealEstateCollateral"></span>
+                  ng-click="tggl.showRealEstateCollateral = !tggl.showRealEstateCollateral"
+                  ng-if="!tggl.showRealEstateCollateral"></span>
             <span class="pendicon glyphicon glyphicon-chevron-down"
-                  ng-click="togShowRealEstateCollateral()"
-                  ng-if="showRealEstateCollateral"></span>
+                  ng-click="tggl.showRealEstateCollateral = !tggl.showRealEstateCollateral"
+                  ng-if="tggl.showRealEstateCollateral"></span>
         &nbsp;
         Real Estate
     </legend>
-    <div class="container-fluid row form-group" ng-if="showRealEstateCollateral">
+    <div class="container-fluid row form-group" ng-if="tggl.showRealEstateCollateral">
         <div class="col-md-12" style="display: none;">
             <div class="col-md-9">
                 <label>Real Estate used as collateral?</label>
@@ -126,7 +126,7 @@
             </div>
         </div>
     </div>
-    <div class="row form-group" ng-if="loan.realestate_collateral && showRealEstateCollateral">
+    <div class="row form-group" ng-if="loan.realestate_collateral && tggl.showRealEstateCollateral">
         <div ng-include="'./_modules/Loans/collateral/_realestate.collateral.html'"></div>
     </div>
 </fieldset>
@@ -136,15 +136,15 @@
     <legend>
         &nbsp;
             <span class="pendicon glyphicon glyphicon-chevron-right"
-                  ng-click="togShowFSACollateral()"
-                  ng-if="!showFSACollateral"></span>
+                  ng-click="tggl.showFSACollateral = !tggl.showFSACollateral"
+                  ng-if="!tggl.showFSACollateral"></span>
             <span class="pendicon glyphicon glyphicon-chevron-down"
-                  ng-click="togShowFSACollateral()"
-                  ng-if="showFSACollateral"></span>
+                  ng-click="tggl.showFSACollateral = !tggl.showFSACollateral"
+                  ng-if="tggl.showFSACollateral"></span>
         &nbsp;
         FSA
     </legend>
-    <div class="row form-group" ng-if="showFSACollateral">
+    <div class="row form-group" ng-if="tggl.showFSACollateral">
         <div ng-include="'./_modules/Loans/collateral/_fsa.collateral.html'"></div>
     </div>
 </fieldset>
@@ -154,11 +154,11 @@
     <legend>
         &nbsp;
             <span class="pendicon glyphicon glyphicon-chevron-right"
-                  ng-click="togShowOtherCollateral()"
-                  ng-if="!showOtherCollateral"></span>
+                  ng-click="tggl.showOtherCollateral = !tggl.showOtherCollateral"
+                  ng-if="!tggl.showOtherCollateral"></span>
             <span class="pendicon glyphicon glyphicon-chevron-down"
-                  ng-click="togShowOtherCollateral()"
-                  ng-if="showOtherCollateral"></span>
+                  ng-click="tggl.showOtherCollateral = !tggl.showOtherCollateral"
+                  ng-if="tggl.showOtherCollateral"></span>
         &nbsp;
         Other Collateral
     </legend>
@@ -176,7 +176,7 @@
             </div>
         </div>
     </div>
-    <div class="row form-group" ng-if="loan.other_collateral && showOtherCollateral">
+    <div class="row form-group" ng-if="loan.other_collateral && tggl.showOtherCollateral">
         <div ng-include="'./_modules/Loans/collateral/_other.collateral.html'"></div>
     </div>
 </fieldset>
@@ -186,15 +186,15 @@
     <legend>
         &nbsp;
             <span class="pendicon glyphicon glyphicon-chevron-right"
-                  ng-click="togShowCrossCollateral()"
-                  ng-if="!showCrossCollateral"></span>
+                  ng-click="tggl.showCrossCollateral = !tggl.showCrossCollateral"
+                  ng-if="!tggl.showCrossCollateral"></span>
             <span class="pendicon glyphicon glyphicon-chevron-down"
-                  ng-click="togShowCrossCollateral()"
-                  ng-if="showCrossCollateral"></span>
+                  ng-click="tggl.showCrossCollateral = !tggl.showCrossCollateral"
+                  ng-if="tggl.showCrossCollateral"></span>
         &nbsp;
         Cross Collateral
     </legend>
-    <div class="container-fluid row form-group" ng-if="showCrossCollateral">
+    <div class="container-fluid row form-group" ng-if="tggl.showCrossCollateral">
             <div ng-include="'./_modules/Loans/collateral/_cross.collateral.html'"></div>
         </div>
     </div>

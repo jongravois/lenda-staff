@@ -1,71 +1,13 @@
-<table class="table table-striped rowed table-condensed disp-sm"
-       style="width: 96%; margin: 0 auto">
-    <tr>
-        <th style="width:25%;">Description</th>
-        <th style="width:12%;">Holder</th>
-        <th style="width:12%;">Mrkt Value</th>
-        <th style="width:12%;">Discount %</th>
-        <th style="width:12%;">Disc Value</th>
-        <th style="width:12%;">Prior Lien</th>
-        <th style="width:12%;">Net Value</th>
-        <th style="width: 80px;">&nbsp;</th>
-    </tr>
-    <tr ng-repeat="q in loan.collateral.other" ng-init="!rowform.$visible" ng-dblclick="rowform.$show()">
-        <td class="cBlue">
-            <span editable-text="q.description" e-name="description" e-form="rowform" e-style="width:100%;" e-required>
-                {{q.description || 'empty'}}
-            </span>
-        </td>
-        <td class="cBlue">
-            <span editable-text="q.source" e-name="source" e-form="rowform" e-style="width:100%;" e-required>
-                {{q.source || 'empty'}}
-            </span>
-        </td>
-        <td class="cBlue" ng-class="AppFactory.gtZero(q.mkt_value)">
-            <span editable-number="q.mkt_value" e-name="mkt_value" e-form="rowform" e-style="width:100%;" e-required>
-                {{q.mkt_value|flexCurrency:0}}
-            </span>
-        </td>
-        <td class="cBlue" ng-class="AppFactory.gtZero(q.discount)">
-            <span editable-number="q.discount" e-name="discount" e-form="rowform" e-style="width:100%;" e-required>
-                {{q.discount|flexPercent:0}}
-            </span>
-        </td>
-        <td ng-class="AppFactory.gtZero(q.discount)">
-            {{q.mkt_value * (1 - (q.discount/100))|flexCurrency:0}}
-        </td>
-        <td class="cBlue" ng-class="AppFactory.gtZero(q.prior_lien)">
-            <span editable-number="q.prior_lien" e-name="prior_lien" e-form="rowform" e-style="width:100%;" e-required>
-                {{q.prior_lien|flexCurrency:0}}
-            </span>
-        </td>
-        <td class="text-right" ng-class="AppFactory.gtZero(calcCollateralAmount(q))">
-            {{calcCollateralAmount(q)|flexCurrency:0}}
-        </td>
-        <td class="text-center">
-            <!-- form -->
-            <form editable-form name="rowform" onbeforesave="saveOtherCollateral($data, p.id)" ng-show="rowform.$visible" class="form-buttons form-inline">
-                <button type="submit" ng-disabled="rowform.$waiting"><span class="glyphicons glyphicons-circle-ok" style="color:#006837;"></span></button>
-
-                <button type="button" class="btnCancel" ng-disabled="rowform.$waiting" ng-click="rowform.$cancel()"><span class="glyphicons glyphicons-circle-remove" style="color: #990000;"></span></button>
-            </form>
-            <div class="buttons" ng-show="!rowform.$visible">
-                <span style="font-size: 16px; color: #990000;"
-                      ng-click="deleteOtherCollateral($index, p.id)">&cross;</span>
+<div class="container row">
+    <div class="form-group" style="margin-left: 30px;">
+        <div ui-grid="gridOptsOther" ui-grid-edit ui-grid-cellnav ng-style="{ 'height': other_hgt, 'width': other_wdt }">
+            <div class="watermark" ng-show="gridOptsOther.data.length === 0">
+                No data available
             </div>
-        </td>
-    </tr>
-    <tr class="success">
-        <td colspan="6">Total</td>
-        <td class="text-right" ng-class="AppFactory.gtZero(AppFactory.calcOtherCollateralByType('other', loan))">
-            {{AppFactory.calcOtherCollateralByType('other', loan)|flexCurrency:0}}
-        </td>
-        <td>&nbsp;</td>
-    </tr>
-    <tr>
-        <td colspan="8">
+        </div>
+        <p>
             <a ng-click="createOtherCollateral('other')" class="btn btn-xs btn-default">
                 <span class="glyphicons glyphicons-circle-plus" style="color:#006837;"></span> Add New</a>
-        </td>
-    </tr>
-</table>
+        </p>
+    </div>
+</div>
