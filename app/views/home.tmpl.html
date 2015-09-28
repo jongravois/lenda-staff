@@ -61,6 +61,13 @@
                     <th style="width:110px !important;">
                         &nbsp;
                     </th>
+                    <!--<th style="width:140px !important;">
+                        <a href="#" ng-click="sortType = 'farmer'; sortReverse = !sortReverse">
+                            Farmer
+                            <span ng-show="sortType == 'farmer' && !sortReverse" class="fa fa-caret-down"></span>
+                            <span ng-show="sortType == 'farmer' && sortReverse" class="fa fa-caret-up"></span>
+                        </a>
+                    </th>-->
                     <th style="width:140px !important;">
                         Farmer
                     </th>
@@ -160,7 +167,7 @@
                 <tr ng-if="sortedLoanList.length === 0">
                     <td colspan="31"><strong>No Loans Found!</strong></td>
                 </tr>
-                <tr ng-repeat="loan in sortedLoanList | filter:filterBox">
+                <tr ng-repeat="loan in sortedLoanList | orderBy:sortType:sortReverse | filter:filterBox">
                     <td ng-include="'./_modules/Loans/_views/_pendicons.html'"></td>
                     <td ng-include="'./_modules/Loans/_views/_indicons.html'"></td>
                     <td>

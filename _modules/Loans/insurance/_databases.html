@@ -1,0 +1,14 @@
+<div class="row">
+    <div class="form-group">
+        <div ui-grid="gridOptsDatabases" ui-grid-edit ui-grid-cellnav ng-style="{ 'height': db_hgt, 'width': db_wdt }">
+            <div class="watermark" ng-show="gridOptsDatabases.data.length === 0">
+                No data available
+            </div>
+        </div>
+        <p>
+            <!-- TODO: Able to add new aphdb but if no match, turn red-->
+            <a ng-click="createNewAphDatabase()" class="btn btn-xs btn-default">
+                <span class="glyphicons glyphicons-circle-plus" style="color:#006837;"></span> Add New</a>
+        </p>
+    </div>
+</div>

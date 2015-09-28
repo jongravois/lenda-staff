@@ -24,12 +24,12 @@
             if(!$scope.loans) {
                 if($rootScope.loans) {
                     $scope.loans = $rootScope.loans;
-                    console.log('XCOL', $scope.loan.xcols, $scope.loans);
+                    //console.log('XCOL', $scope.loan.xcols, $scope.loans);
                 } else {
                     LoansFactory.getLoans()
                         .then(function (rsp) {
                             $scope.loans = rsp;
-                            console.log('XCOL Reload', $scope.loan.xcols, $scope.loans);
+                            //console.log('XCOL Reload', $scope.loan.xcols, $scope.loans);
                         });
                 }
             }

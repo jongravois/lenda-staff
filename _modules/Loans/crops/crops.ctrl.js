@@ -169,7 +169,7 @@
             //set gridApi on scope
             $scope.$scope = $scope;
             $scope.gridApi = gridApi;
-            $scope.crops_hgt = $scope.loan.loancrops.length * 58;
+            $scope.crops_hgt = 32 + $scope.loan.loancrops.length * 30;
             $scope.crops_wdt = 770;
             $scope.gridApi.gridHeight = $scope.crops_hgt;
             $scope.gridApi.gridWidth = $scope.crops_wdt;
@@ -346,7 +346,7 @@
             //set gridApi on scope
             $scope.$scope = $scope;
             $scope.gridApi = gridApi;
-            $scope.yld_hgt = $scope.loan.loancrops.length * 58;
+            $scope.yld_hgt = 32 + $scope.loan.loancrops.length * 30;
             $scope.yld_wdt = 970;
             $scope.gridApi.gridHeight = $scope.yld_hgt;
             $scope.gridApi.gridWidth = $scope.yld_wdt;
@@ -461,7 +461,7 @@
             //set gridApi on scope
             $scope.$scope = $scope;
             $scope.gridApi = gridApi;
-            $scope.buy_hgt = $scope.loan.buyers.length * 58;
+            $scope.buy_hgt = 32 + $scope.loan.buyers.length * 30;
             $scope.buy_wdt = 870;
             $scope.gridApi.gridHeight = $scope.buy_hgt;
             $scope.gridApi.gridWidth = $scope.buy_wdt;
@@ -576,7 +576,7 @@
             //set gridApi on scope
             $scope.$scope = $scope;
             $scope.gridApi = gridApi;
-            $scope.rbt_hgt = $scope.loan.rebators.length * 56;
+            $scope.rbt_hgt = 32 + $scope.loan.rebators.length * 30;
             $scope.rbt_wdt = 870;
             $scope.gridApi.gridHeight = $scope.rbt_hgt;
             $scope.gridApi.gridWidth = $scope.rbt_wdt;
@@ -683,7 +683,7 @@
             //set gridApi on scope
             $scope.$scope = $scope;
             $scope.gridApi = gridApi;
-            $scope.indy_hgt = $scope.loan.indyinc.length * 56;
+            $scope.indy_hgt = 32 + $scope.loan.indyinc.length * 30;
             $scope.indy_wdt = 870;
             $scope.gridApi.gridHeight = $scope.indy_hgt;
             $scope.gridApi.gridWidth = $scope.indy_wdt;

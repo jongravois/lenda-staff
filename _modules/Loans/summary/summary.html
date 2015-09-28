@@ -68,21 +68,16 @@
 
   <span ng-switch-default>
   <!-- ALL LOANS BUT GRAIN STORAGE -->
-
       <!--Projected Income-->
       <fieldset>
           <legend>Projected Income</legend>
           <div id="ProjectedIncome" class="row">
-              <div class="row">
-                  <div class="col-md-11" style="margin-left:20px;">
-                      <div ng-include="'./_modules/Loans/summary/_income.tbl.html'"></div>
-                  </div>
+              <div class="col-md-11" style="margin-left:20px;">
+                  <div ng-include="'./_modules/Loans/summary/_income.tbl.html'"></div>
               </div>
           </div>
       </fieldset>
-
       <br/>
-
       <!--USE OF FUNDS ANALYSIS-->
       <fieldset>
           <legend>Use of Funds</legend>
@@ -95,23 +90,17 @@
               </div>
           </div>
       </fieldset>
-
       <br/>
-
       <!--INSURANCE ANALYSIS-->
       <fieldset>
           <legend>Insurance Coverage</legend>
-          <div id="InsuranceAnalysis" class="row" style="padding-top: 20px;">
-              <div class="row">
-                  <div class="col-md-11" style="margin-left:20px;">
-                      <div ng-include="'./_modules/Loans/summary/_insurance.analysis.html'"></div>
-                  </div>
+          <div id="InsuranceAnalysis" class="row">
+              <div class="col-md-11" style="margin-left:20px;">
+                  <div ng-include="'./_modules/Loans/summary/_insurance.analysis.html'"></div>
               </div>
           </div>
       </fieldset>
-
       <br/>
-
       <!--BREAK-EVEN ANALYSIS-->
       <fieldset>
           <legend>Break Even Analysis</legend>
@@ -123,61 +112,3 @@
       </fieldset>
   </span>
 </span>
-
-<!-- CROSS COLLATERAL VIEW -->
-<!-- PROJECTED INCOME SUMMARY-->
-<div class="row" ng-if="XColView"
-     style="padding-top: 20px;">
-    <div class="form-group col-md-12 text-left">
-        <b>Projected Income Summary</b>
-        <div class="row">
-            <div ng-include="'./_modules/Loans/xcollateral/_projected.income.html'"></div>
-        </div>
-    </div>
-</div>
-
-<!-- IF DISTRIBUTOR, DISTRIBUTOR EXPENSES-->
-<div class="row" ng-if="XColView && loan.has_distributor"
-     style="padding-top: 20px;">
-    <div class="form-group col-md-12 text-left">
-        <b>Distributor Use of Funds</b>
-        <div class="row">
-            <div ng-include="'./_modules/Loans/xcollateral/_expenses.distributor.html'"></div>
-        </div>
-    </div>
-</div>
-
-<!-- ARM EXPENSES-->
-<div class="row" ng-if="XColView"
-     style="padding-top: 20px;">
-    <div class="form-group col-md-12 text-left">
-        <b>ARM Use of Funds</b>
-        <div class="row">
-            <div ng-include="'./_modules/Loans/xcollateral/_expenses.arm.html'"></div>
-        </div>
-    </div>
-</div>
-
-<!-- OTHER EXPENSES-->
-<div class="row" ng-if="XColView"
-     style="padding-top: 20px;">
-    <div class="form-group col-md-12 text-left">
-        <b>Other Use of Funds</b>
-        <div class="row">
-            <div ng-include="'./_modules/Loans/xcollateral/_expenses.other.html'"></div>
-        </div>
-    </div>
-</div>
-
-<!-- INSURANCE COVERAGE-->
-<div class="row" ng-if="XColView"
-     style="padding-top: 20px;">
-    <div class="form-group col-md-12 text-left">
-        <b>Insurance Coverage</b>
-        <div class="row">
-            <div ng-include="'./_modules/Loans/xcollateral/_insurance.coverage.html'"></div>
-        </div>
-    </div>
-</div>
-<br><br><br><br>
-<!-- /CROSS COLLATERAL VIEW -->

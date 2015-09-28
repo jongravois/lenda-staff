@@ -43,14 +43,10 @@
                 <th>&nbsp</th>
                 <th>Mod Date</th>
                 <th>Due Date</th>
-                <th>Origination</th>
-                <th>Fee</th>
-                <th>Service</th>
-                <th>Fee</th>
-                <th>ARM Int</th>
-                <th>Estimate</th>
-                <th ng-if="showAGI">Dist Int</th>
-                <th ng-if="showAGI">Estimate</th>
+                <th colspan="2">Orig Fee</th>
+                <th colspan="2">Srvc Fee</th>
+                <th colspan="2">ARM Int</th>
+                <th colspan="2" ng-if="showAGI">Dist Int</th>
                 <th ng-if="showAGI">Fee On Total</th>
                 <th ng-if="showVST">Dist Buy Down</th>
                 <th ng-if="showVST">Fee Buy Down</th>
@@ -60,16 +56,16 @@
                 <td class="text-center">
                     <span class="glyphicons glyphicons-wrench" style="color:#009;"></span>
                 </td>
-                <td>03/19/2015</td>
-                <td class="cBlue">12/15/2015</td>
+                <td class="text-center">03/19/2015</td>
+                <td class="text-center cBlue">12/15/2015</td>
                 <td class="text-right cBlue">{{1|flexPercent:1}}</td>
-                <td class="text-right">&nbsp;</td>
+                <td class="text-right">{{(147651+260905)*.01|flexCurrency:0}}</td>
                 <td class="text-right cBlue">{{1|flexPercent:1}}</td>
-                <td class="text-right">&nbsp;</td>
+                <td class="text-right">{{(147651+260905)*.01|flexCurrency:0}}</td>
                 <td class="text-right cBlue">{{11|flexPercent:1}}</td>
-                <td class="text-right">&nbsp;</td>
+                <td class="text-right">{{147651*0.11|flexCurrency:0}}</td>
                 <td class="text-right cBlue" ng-if="showAGI">{{9|flexPercent:1}}</td>
-                <td class="text-right" ng-if="showAGI">&nbsp;</td>
+                <td class="text-right" ng-if="showAGI">{{260905*0.09|flexCurrency:0}}</td>
                 <td class="text-center cBlue" ng-if="showAGI">Y</td>
                 <td class="text-center cBlue" ng-if="showVST">N</td>
                 <td class="text-center cBlue" ng-if="showVST">0</td>
@@ -79,14 +75,14 @@
                 <td class="text-center">
                     <span class="glyphicons glyphicons-plus"></span>
                 </td>
-                <td>03/19/2015</td>
-                <td>12/15/2015</td>
+                <td class="text-center">03/19/2015</td>
+                <td class="text-center">12/15/2015</td>
                 <td class="text-right">{{1|flexPercent:1}}</td>
-                <td class="text-center">{{0|flexCurrency:0}}</td>
+                <td class="text-right">{{(147651+260905)*.01|flexCurrency:0}}</td>
                 <td class="text-right">{{1|flexPercent:1}}</td>
-                <td class="text-right cRed">{{-2042|flexCurrency:0}}</td>
+                <td class="text-right">{{(147651+260905)*.01|flexCurrency:0}}</td>
                 <td class="text-right">{{11|flexPercent:1}}</td>
-                <td class="text-right cGreen">{{147651*0.11|flexCurrency:0}}</td>
+                <td class="text-right">{{147651*0.11|flexCurrency:0}}</td>
                 <td class="text-right" ng-if="showAGI">{{9|flexPercent:1}}</td>
                 <td class="text-right" ng-if="showAGI">{{260905*0.09|flexCurrency:0}}</td>
                 <td class="text-center" ng-if="showAGI">Y</td>
@@ -98,47 +94,17 @@
                 <td class="text-center">
                     <span class="glyphicons glyphicons-record"></span>
                 </td>
-                <td>02/14/2015</td>
-                <td>12/15/2015</td>
+                <td class="text-center">02/14/2015</td>
+                <td class="text-center">12/15/2015</td>
                 <td class="text-right">{{1|flexPercent:1}}</td>
                 <td class="text-right">{{(147651+260905)*0.01|flexCurrency:0}}</td>
                 <td class="text-right">{{1.5|flexPercent:1}}</td>
                 <td class="text-right">{{(147651+260905)*0.015|flexCurrency:0}}</td>
                 <td class="text-right">{{9|flexPercent:1}}</td>
-                <td class="text-right">{{147651*0.9|flexCurrency:0}}</td>
+                <td class="text-right">{{147651*0.09|flexCurrency:0}}</td>
                 <td class="text-right" ng-if="showAGI">{{9|flexPercent:1}}</td>
                 <td class="text-right" ng-if="showAGI">{{260905*0.09|flexCurrency:0}}</td>
                 <td class="text-center" ng-if="showAGI">Y</td>
-                <td class="text-center" ng-if="showVST">-</td>
-                <td class="text-center" ng-if="showVST">-</td>
-                <td class="text-center" ng-if="showVST">-</td>
-            </tr>
-            <tr class="success">
-                <td colspan="3">Total</td>
-                <td class="text-right">{{1|flexPercent:1}}</td>
-                <td class="text-right">{{4086|flexCurrency:0}}</td>
-                <td class="text-right">{{1.5|flexPercent:1}}</td>
-                <td class="text-right">{{4086|flexCurrency:0}}</td>
-                <td class="text-right">{{11|flexPercent:1}}</td>
-                <td class="text-right">{{132866+16242|flexCurrency:0}}</td>
-                <td class="text-right" ng-if="showAGI">{{9.0|flexPercent:1}}</td>
-                <td class="text-right" ng-if="showAGI">{{23481|flexCurrency:0}}</td>
-                <td class="text-center" ng-if="showAGI">Y</td>
-                <td class="text-center" ng-if="showVST">N</td>
-                <td class="text-center" ng-if="showVST">0</td>
-                <td class="text-center" ng-if="showVST">0</td>
-            </tr>
-            <tr>
-                <td colspan="3">Change</td>
-                <td class="text-center">&nbsp</td>
-                <td class="text-center">0%</td>
-                <td class="text-center">&nbsp</td>
-                <td class="text-center">-33.3%</td>
-                <td class="text-center">&nbsp</td>
-                <td class="text-center">+12.2%</td>
-                <td class="text-center" ng-if="showAGI">&nbsp</td>
-                <td class="text-center" ng-if="showAGI">0%</td>
-                <td class="text-center" ng-if="showAGI">-</td>
                 <td class="text-center" ng-if="showVST">-</td>
                 <td class="text-center" ng-if="showVST">-</td>
                 <td class="text-center" ng-if="showVST">-</td>

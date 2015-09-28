@@ -201,7 +201,7 @@
                 //set gridApi on scope
                 $scope.$scope = $scope;
                 $scope.gridApi = gridApi;
-                $scope.hgt = $scope.distributors.length * 40;
+                $scope.hgt = 32 + $scope.distributors.length * 30;
                 $scope.wdt = 940; //TODO: calculate
                 $scope.gridApi.gridHeight = $scope.hgt;
                 $scope.gridApi.gridWidth = $scope.wdt;

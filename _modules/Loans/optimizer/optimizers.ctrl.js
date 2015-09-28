@@ -13,7 +13,8 @@
         //console.log('units', $scope.loan.farmunits);
 
         $scope.getTableWidth = function() {
-            var retro = 260;
+            //TODO: 250 and factor in crops
+            var retro = 3000;
             if($scope.tggl.showOvr) { retro += 50; }
             if($scope.tggl.showPerm) { retro += 40; }
             if($scope.tggl.showCRent) { retro += 80; }

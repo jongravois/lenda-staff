@@ -172,7 +172,7 @@
                 //set gridApi on scope
                 $scope.$scope = $scope;
                 $scope.gridApi = gridApi;
-                $scope.hgt = $scope.loan.farms.length * 50;
+                $scope.hgt = 32 + $scope.loan.farms.length * 30;
                 $scope.wdt = 990;
                 $scope.gridApi.gridHeight = $scope.hgt;
                 $scope.gridApi.gridWidth = $scope.wdt;

@@ -28,8 +28,9 @@
                 showCommitment: false,
                 showInsSummary: false,
                 showCollateral: false,
-                showExposure: false,
-                showTerms: true
+                showExposure: true,
+                showTerms: true,
+                showCashFlow: true
             };
             $scope.crops = AppFactory.makeXCropvals($scope.loan);
             $scope.ins = AppFactory.makeXInsVals($scope.loan);
