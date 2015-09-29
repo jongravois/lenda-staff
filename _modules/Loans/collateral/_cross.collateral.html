@@ -1,39 +1,13 @@
-<div class="form-group">
-    <table class="table table-striped rowed table-condensed disp-sm">
-        <tr>
-            <th style="width:50%;">Loan</th>
-            <th style="width:12%;">ARM Commit</th>
-            <th style="width:12%;">Dist Commit</th>
-            <th style="width:12%;">Cash Flow</th>
-            <th style="width:12%;">Exposure</th>
-            <th style="width:80px;">&nbsp</th>
-        </tr>
-        <tr ng-repeat="x in loan.xcols">
-            <td>
-                {{x.slug}}
-            </td>
-            <td ng-class="AppFactory.gtZero(AppFactory.xArmCommit(x, loans))">
-                {{AppFactory.xArmCommit(x, loans)|flexCurrency:0}}
-            </td>
-            <td ng-class="AppFactory.gtZero(AppFactory.xDistCommit(x, loans))">
-                {{AppFactory.xDistCommit(x, loans)|flexCurrency:0}}
-            </td>
-            <td ng-class="AppFactory.gtZero(AppFactory.xCashFlow(x, loans))">
-                {{AppFactory.xCashFlow(x, loans)|flexCurrency:0}}
-            </td>
-            <td ng-class="AppFactory.gtZero(AppFactory.xExposure(x, loans))">
-                {{AppFactory.xExposure(x, loans)|flexCurrency:0}}
-            </td>
-            <td class="text-center">
-                <span style="font-size: 16px; color: #990000;"
-                      ng-click="deleteCrossCollateral(x)">&cross;</span>
-            </td>
-        </tr>
-        <tr>
-            <td colspan="8">
-                <a ng-click="createCrossCollateral()" class="btn btn-xs btn-default">
-                    <span class="glyphicons glyphicons-circle-plus" style="color:#006837;"></span> Add New</a>
-            </td>
-        </tr>
-    </table>
+<div class="container row">
+    <div class="form-group" style="margin-left: 30px;">
+        <div ui-grid="gridOptsXCol" ui-grid-edit ui-grid-cellnav ng-style="{ 'height': xc_hgt, 'width': xc_wdt }">
+            <div class="watermark" ng-show="gridOptsXCol.data.length === 0">
+                No data available
+            </div>
+        </div>
+        <p>
+            <a ng-click="createNewCross()" class="btn btn-xs btn-default">
+                <span class="glyphicons glyphicons-circle-plus" style="color:#006837;"></span> Add New</a>
+        </p>
+    </div>
 </div>

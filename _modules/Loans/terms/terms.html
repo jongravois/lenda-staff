@@ -1,121 +1,193 @@
 <style>
-    .voteicon{ cursor: pointer; }
-    .btn-group button{
-        width: 100px !important;
-        min-width: 100px !important;
-        max-width: 100px !important;
+    .hdr {
+        height: 32px;
+        color: white;
+        background-color: #006837;
+        padding: 5px;
     }
-    table{
-        -moz-user-select: -moz-none;
-        -webkit-user-select: none;
-        user-select: none;
+    .hdr>td {
+        border-right: 1px solid white;
+        text-align: center;
+    }
+    .ftr {
+        height: 32px;
+        color: black;
+        background-color: #FFFE99;
+        padding: 5px;
+    }
+    .ftr>td {
+        border-right: 1px solid #888;
+        padding: 2px;
+    }
+    .cont {
+        height: 32px;
+        color: black;
+        padding: 5px;
+    }
+    .cont>td {
+        border-right: 1px solid #888;
+        padding: 2px;
     }
 </style>
-
 <fieldset>
     <legend>Terms</legend>
-    <div class="row" style="margin-right: 20px;">
-        <div class="btn-group btn-group-sm pull-right" role="group">
-            <button type="button"
-                    class="btn btn-arm" ng-click="useAll()">
-                <span class="glyphicons glyphicons-check" ng-if="showALL"></span>
-                <span class="glyphicons glyphicons-unchecked" ng-if="!showALL"></span>
-                ALL
-            </button>
-            <button type="button"
-                    class="btn btn-arm" ng-click="useAgi()">
-                <span class="glyphicons glyphicons-check" ng-if="showAGI"></span>
-                <span class="glyphicons glyphicons-unchecked" ng-if="!showAGI"></span>
-                AGI
-            </button>
-            <button type="button"
-                    class="btn btn-arm" ng-click="useVst()">
-                <span class="glyphicons glyphicons-check" ng-if="showVST"></span>
-                <span class="glyphicons glyphicons-unchecked" ng-if="!showVST"></span>
-                VST
-            </button>
+    <div class="container row">
+        <div class="form-group" style="margin-left: 30px;">
+            <table>
+                <tr class="hdr">
+                    <td style="width:30px;">&nbsp;</td>
+                    <td style="width:90px;">Mod Date</td>
+                    <td style="width:90px;">Due Date</td>
+                    <td colspan="2" style="width:140px;">Orig Fee</td>
+                    <td colspan="2" style="width:140px;">Srvc Fee</td>
+                    <td colspan="2" style="width:140px;">ARM Int %</td>
+                    <td colspan="2" style="width:140px;" ng-if="loan.loan_type_id === 2">Dist Int %</td>
+                    <td style="width:90px;" ng-if="loan.loan_type_id === 2">FeeOnTotal</td>
+                    <td style="width:90px;" ng-if="loan.loan_type_id === 6">Dist BuyDown</td>
+                    <td colspan="2" style="width:140px;" ng-if="loan.loan_type_id === 6">Fee BuyDown</td>
+                    <td colspan="2" style="width:140px;" ng-if="loan.loan_type_id === 6">Int Rate BuyDown</td>
+                </tr>
+                <tr class="cont" ng-repeat="t in loan.terms|filter:{mod_type: 'prog'}|orderBy:'mod_date':true">
+                    <td class="text-center">
+                        <span class="glyphicons glyphicons-wrench" style="color:#009;" ng-if="t.mod_type === 'prog'"></span>
+                        <span class="glyphicons glyphicons-record" ng-if="t.mod_type === 'orig'"></span>
+                        <span class="glyphicons glyphicons-plus" ng-if="t.mod_type === 'add'"></span>
+                    </td>
+                    <td class="text-center">
+                        {{t.mod_date|date:'MM/dd/yyyy'}}
+                    </td>
+                    <td class="text-center cBlue">
+                        {{t.due_date|date:'MM/dd/yyyy'}}
+                    </td>
+                    <td class="cBlue" ng-class="AppFactory.gtZero(t.fee_processing_arm)">
+                        {{t.fee_processing_arm|flexPercent:1}}
+                    </td>
+                    <td ng-class="AppFactory.gtZero(t.fee_processing_arm/100*loan.fins.commit_arm)">
+                        {{t.fee_processing_arm/100*loan.fins.commit_arm|flexCurrency:0}}
+                    </td>
+                    <td class="cBlue" ng-class="AppFactory.gtZero(t.fee_service_arm)">
+                        {{t.fee_service_arm|flexPercent:1}}
+                    </td>
+                    <td ng-class="AppFactory.gtZero(t.fee_service_arm/100*loan.fins.commit_arm)">
+                        {{t.fee_service_arm/100*loan.fins.commit_arm|flexCurrency:0}}
+                    </td>
+                    <td class="cBlue" ng-class="AppFactory.gtZero(t.int_percent_arm)">
+                        {{t.int_percent_arm|flexPercent:1}}
+                    </td>
+                    <td ng-class="AppFactory.gtZero(((t.int_percent_arm/100)*t.est_days/365)*loan.fins.commit_arm)">
+                        {{((t.int_percent_arm/100)*t.est_days/365)*loan.fins.commit_arm|flexCurrency:0}}
+                    </td>
+                    <td class="cBlue" ng-class="AppFactory.gtZero(t.int_percent_dist)" ng-if="loan.loan_type_id === 2">
+                        {{t.int_percent_dist|flexPercent:1}}
+                    </td>
+                    <td ng-class="AppFactory.gtZero(((t.int_percent_dist/100)*t.est_days/365)*loan.fins.commit_dist)" ng-if="loan.loan_type_id === 2">
+                        {{((t.int_percent_dist/100)*t.est_days/365)*loan.fins.commit_dist|flexCurrency:0}}
+                    </td>
+                    <td class="text-center cBlue" ng-if="loan.loan_type_id === 2">
+                        {{t.fee_onTotal|booleanYN}}
+                    </td>
+                    <td class="text-center cBlue" ng-if="loan.loan_type_id === 6">
+                        {{t.dist_buyDown|booleanYN}}
+                    </td>
+                    <td class="cBlue" ng-class="AppFactory.gtZero((t.fee_processing_borrower+t.fee_service_borrower))" ng-if="loan.loan_type_id === 6">
+                        {{(t.fee_processing_borrower+t.fee_service_borrower)|flexPercent:1}}
+                    </td>
+                    <td ng-class="AppFactory.gtZero((t.fee_processing_borrower+t.fee_service_borrower)/100*loan.fins.commit_arm)" ng-if="loan.loan_type_id === 6">
+                        {{(t.fee_processing_borrower+t.fee_service_borrower)/100*loan.fins.commit_arm|flexCurrency:0}}
+                    </td>
+                    <td ng-class="AppFactory.gtZero(t.int_percent_borrower)" ng-if="loan.loan_type_id === 6">
+                        {{t.int_percent_borrower|flexPercent:1}}
+                    </td>
+                    <td ng-class="AppFactory.gtZero(t.int_percent_borrower/100*loan.fins.commit_arm)" ng-if="loan.loan_type_id === 6">
+                        {{t.int_percent_borrower/100*loan.fins.commit_arm|flexCurrency:0}}
+                    </td>
+                </tr>
+                <tr class="cont" ng-repeat="t in loan.terms|filter:{mod_type: '!prog'}|orderBy:'mod_date':true">
+                    <td class="text-center">
+                        <span class="glyphicons glyphicons-wrench" style="color:#009;" ng-if="t.mod_type === 'prog'"></span>
+                        <span class="glyphicons glyphicons-record" ng-if="t.mod_type === 'orig'"></span>
+                        <span class="glyphicons glyphicons-plus" ng-if="t.mod_type === 'add'"></span>
+                    </td>
+                    <td class="text-center">
+                        {{t.mod_date|date:'MM/dd/yyyy'}}
+                    </td>
+                    <td class="text-center">
+                        {{t.due_date|date:'MM/dd/yyyy'}}
+                    </td>
+                    <td ng-class="AppFactory.gtZero(t.fee_processing_arm)">
+                        {{t.fee_processing_arm|flexPercent:1}}
+                    </td>
+                    <td ng-class="AppFactory.gtZero(t.fee_processing_arm/100*loan.fins.commit_arm)">
+                        {{t.fee_processing_arm/100*loan.fins.commit_arm|flexCurrency:0}}
+                    </td>
+                    <td ng-class="AppFactory.gtZero(t.fee_service_arm)">
+                        {{t.fee_service_arm|flexPercent:1}}
+                    </td>
+                    <td ng-class="AppFactory.gtZero(t.fee_service_arm/100*loan.fins.commit_arm)">
+                        {{t.fee_service_arm/100*loan.fins.commit_arm|flexCurrency:0}}
+                    </td>
+                    <td ng-class="AppFactory.gtZero(t.int_percent_arm)">
+                        {{t.int_percent_arm|flexPercent:1}}
+                    </td>
+                    <td ng-class="AppFactory.gtZero(((t.int_percent_arm/100)*t.est_days/365)*loan.fins.commit_arm)">
+                        {{((t.int_percent_arm/100)*t.est_days/365)*loan.fins.commit_arm|flexCurrency:0}}
+                    </td>
+                    <td class="cBlue" ng-class="AppFactory.gtZero(t.int_percent_dist)" ng-if="loan.loan_type_id === 2">
+                        {{t.int_percent_dist|flexPercent:1}}
+                    </td>
+                    <td ng-class="AppFactory.gtZero(((t.int_percent_dist/100)*t.est_days/365)*loan.fins.commit_dist)" ng-if="loan.loan_type_id === 2">
+                        {{((t.int_percent_dist/100)*t.est_days/365)*loan.fins.commit_dist|flexCurrency:0}}
+                    </td>
+                    <td class="text-center" ng-if="loan.loan_type_id === 2">
+                        {{t.fee_onTotal|booleanYN}}
+                    </td>
+                    <td class="text-center" ng-if="loan.loan_type_id === 6">
+                        {{t.dist_buyDown|booleanYN}}
+                    </td>
+                    <td class="cBlue" ng-class="AppFactory.gtZero((t.fee_processing_borrower+t.fee_service_borrower))" ng-if="loan.loan_type_id === 6">
+                        {{(t.fee_processing_borrower+t.fee_service_borrower)|flexPercent:1}}
+                    </td>
+                    <td ng-class="AppFactory.gtZero((t.fee_processing_borrower+t.fee_service_borrower)/100*loan.fins.commit_arm)" ng-if="loan.loan_type_id === 6">
+                        {{(t.fee_processing_borrower+t.fee_service_borrower)/100*loan.fins.commit_arm|flexCurrency:0}}
+                    </td>
+                    <td ng-class="AppFactory.gtZero(t.int_percent_borrower)" ng-if="loan.loan_type_id === 6">
+                        {{t.int_percent_borrower|flexPercent:1}}
+                    </td>
+                    <td ng-class="AppFactory.gtZero(t.int_percent_borrower/100*loan.fins.commit_arm)" ng-if="loan.loan_type_id === 6">
+                        {{t.int_percent_borrower/100*loan.fins.commit_arm|flexCurrency:0}}
+                    </td>
+                </tr>
+                <tr class="ftr">
+                    <td class="text-center">&nbsp;</td>
+                    <td colspan="2">Change</td>
+                    <td>&nbsp;</td>
+                    <td ng-class="AppFactory.gtZero(loan.fins.proc_fee_arm_only - (term_orig[0].fee_processing_arm/100*loan.fins.commit_arm))">
+                        {{loan.fins.proc_fee_arm_only - (term_orig[0].fee_processing_arm/100*loan.fins.commit_arm)|flexCurrency:0}}
+                    </td>
+                    <td>&nbsp;</td>
+                    <td ng-class="AppFactory.gtZero(loan.fins.srvc_fee_arm_only - (term_orig[0].fee_service_arm/100*loan.fins.commit_arm))">
+                        {{loan.fins.srvc_fee_arm_only - (term_orig[0].fee_service_arm/100*loan.fins.commit_arm)|flexCurrency:0}}
+                    </td>
+                    <td>&nbsp;</td>
+                    <td ng-class="AppFactory.gtZero(loan.fins.int_arm - (term_orig[0].int_percent_arm/100*term_orig[0].est_days/365*loan.fins.commit_arm))">
+                        {{loan.fins.int_arm - (term_orig[0].int_percent_arm/100*term_orig[0].est_days/365*loan.fins.commit_arm)|flexCurrency:0}}
+                    </td>
+                    <td ng-if="loan.loan_type_id === 2">&nbsp;</td>
+                    <td ng-class="AppFactory.gtZero(loan.fins.int_dist - (term_orig[0].int_percent_dist/100*term_orig[0].est_days/365*loan.fins.commit_dist))" ng-if="loan.loan_type_id === 2">
+                        {{loan.fins.int_dist - (term_orig[0].int_percent_dist/100*term_orig[0].est_days/365*loan.fins.commit_dist)|flexCurrency:0}}
+                    </td>
+                    <td ng-if="loan.loan_type_id === 2">&nbsp;</td>
+                    <td ng-if="loan.loan_type_id === 6">&nbsp;</td>
+                    <td ng-if="loan.loan_type_id === 6">&nbsp;</td>
+                    <td ng-if="loan.loan_type_id === 6" ng-class="AppFactory.gtZero(0)">
+                        {{0|flexCurrency:0}}
+                    </td>
+                    <td ng-if="loan.loan_type_id === 6">&nbsp;</td>
+                    <td ng-if="loan.loan_type_id === 6" ng-class="AppFactory.gtZero(0)">
+                        {{0|flexCurrency:0}}
+                    </td>
+                </tr>
+            </table>
         </div>
     </div>
-    <br>
-    <div>
-        <table class="table table-striped rowed table-condensed disp-sm">
-            <tr>
-                <th>&nbsp</th>
-                <th>Mod Date</th>
-                <th>Due Date</th>
-                <th colspan="2">Orig Fee</th>
-                <th colspan="2">Srvc Fee</th>
-                <th colspan="2">ARM Int</th>
-                <th colspan="2" ng-if="showAGI">Dist Int</th>
-                <th ng-if="showAGI">Fee On Total</th>
-                <th ng-if="showVST">Dist Buy Down</th>
-                <th ng-if="showVST">Fee Buy Down</th>
-                <th ng-if="showVST">Int Rate Buy Down</th>
-            </tr>
-            <tr>
-                <td class="text-center">
-                    <span class="glyphicons glyphicons-wrench" style="color:#009;"></span>
-                </td>
-                <td class="text-center">03/19/2015</td>
-                <td class="text-center cBlue">12/15/2015</td>
-                <td class="text-right cBlue">{{1|flexPercent:1}}</td>
-                <td class="text-right">{{(147651+260905)*.01|flexCurrency:0}}</td>
-                <td class="text-right cBlue">{{1|flexPercent:1}}</td>
-                <td class="text-right">{{(147651+260905)*.01|flexCurrency:0}}</td>
-                <td class="text-right cBlue">{{11|flexPercent:1}}</td>
-                <td class="text-right">{{147651*0.11|flexCurrency:0}}</td>
-                <td class="text-right cBlue" ng-if="showAGI">{{9|flexPercent:1}}</td>
-                <td class="text-right" ng-if="showAGI">{{260905*0.09|flexCurrency:0}}</td>
-                <td class="text-center cBlue" ng-if="showAGI">Y</td>
-                <td class="text-center cBlue" ng-if="showVST">N</td>
-                <td class="text-center cBlue" ng-if="showVST">0</td>
-                <td class="text-center cBlue" ng-if="showVST">0</td>
-            </tr>
-            <tr>
-                <td class="text-center">
-                    <span class="glyphicons glyphicons-plus"></span>
-                </td>
-                <td class="text-center">03/19/2015</td>
-                <td class="text-center">12/15/2015</td>
-                <td class="text-right">{{1|flexPercent:1}}</td>
-                <td class="text-right">{{(147651+260905)*.01|flexCurrency:0}}</td>
-                <td class="text-right">{{1|flexPercent:1}}</td>
-                <td class="text-right">{{(147651+260905)*.01|flexCurrency:0}}</td>
-                <td class="text-right">{{11|flexPercent:1}}</td>
-                <td class="text-right">{{147651*0.11|flexCurrency:0}}</td>
-                <td class="text-right" ng-if="showAGI">{{9|flexPercent:1}}</td>
-                <td class="text-right" ng-if="showAGI">{{260905*0.09|flexCurrency:0}}</td>
-                <td class="text-center" ng-if="showAGI">Y</td>
-                <td class="text-center" ng-if="showVST">N</td>
-                <td class="text-center" ng-if="showVST">0</td>
-                <td class="text-center" ng-if="showVST">0</td>
-            </tr>
-            <tr>
-                <td class="text-center">
-                    <span class="glyphicons glyphicons-record"></span>
-                </td>
-                <td class="text-center">02/14/2015</td>
-                <td class="text-center">12/15/2015</td>
-                <td class="text-right">{{1|flexPercent:1}}</td>
-                <td class="text-right">{{(147651+260905)*0.01|flexCurrency:0}}</td>
-                <td class="text-right">{{1.5|flexPercent:1}}</td>
-                <td class="text-right">{{(147651+260905)*0.015|flexCurrency:0}}</td>
-                <td class="text-right">{{9|flexPercent:1}}</td>
-                <td class="text-right">{{147651*0.09|flexCurrency:0}}</td>
-                <td class="text-right" ng-if="showAGI">{{9|flexPercent:1}}</td>
-                <td class="text-right" ng-if="showAGI">{{260905*0.09|flexCurrency:0}}</td>
-                <td class="text-center" ng-if="showAGI">Y</td>
-                <td class="text-center" ng-if="showVST">-</td>
-                <td class="text-center" ng-if="showVST">-</td>
-                <td class="text-center" ng-if="showVST">-</td>
-            </tr>
-        </table>
-    </div>
 </fieldset>
-<br>
-<div class="row">
-    <div class="col-md-12 text-right">
-        <button style="margin-right:10px;" class="btn btn-arm" ng-click="editTerms()"><span class="glyphicons glyphicons-pencil"></span>&nbsp;MODIFY</button>
-    </div>
-</div>
-<br><br><br><br>
