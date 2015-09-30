@@ -4,9 +4,9 @@
         .module('ARM')
         .controller('CropsController', CropsController);
 
-    CropsController.$inject = ['$rootScope', '$scope', '$state', 'AppFactory', 'DefaultsFactory'];
+    CropsController.$inject = ['$rootScope', '$scope', '$state', '$modal', 'toastr', 'SweetAlert', 'AppFactory', 'DefaultsFactory'];
 
-    function CropsController($rootScope, $scope, $state, AppFactory, DefaultsFactory){
+    function CropsController($rootScope, $scope, $state, $modal, toastr, SweetAlert, AppFactory, DefaultsFactory){
         $scope.newapplications = $state.current.data.newapplications;
         $scope.AppFactory = AppFactory;
 
@@ -19,14 +19,15 @@
         AppFactory.getAll('crops')
             .then(function(rsp){
                 $scope.crops = rsp.data.data;
-                //console.log('CROPS', $scope.crops);
+                $scope.items = $scope.crops.filter(function(i){
+                    return $scope.loan.fins.crops_in_loan.indexOf(i.crop) === -1;
+                });
             });
 
         DefaultsFactory.init();
         var globals = DefaultsFactory.getObject();
         $scope.globals = globals.globvars[0];
 
-        $scope.crops = $scope.loan.loancrops;
         $scope.tggl = {
             showCrops: false,
             showBuyers: false,
@@ -42,7 +43,7 @@
             rowTemplate: './_modules/Admin/_views/_row.tmpl.html',
             columnDefs: [
                 {
-                    name: 'crop.crop',
+                    name: 'crop.name',
                     enableCellEdit: false,
                     displayName: 'Crop',
                     cellClass: 'text-left',
@@ -125,7 +126,7 @@
                     enableColumnMenu: false,
                     width: '30',
                     maxWidth: '30',
-                    cellTemplate: '<span style="font-size:16px; color:#990000; cursor:pointer;" ng-click="grid.appScope.deleteOne(row.entity.id)">&cross;</span>',
+                    cellTemplate: '<span style="font-size:16px; color:#990000; cursor:pointer;" ng-click="grid.appScope.deleteCrop(row.entity.id)">&cross;</span>',
                     headerCellTemplate: '<div class="text-center padd bGreen" style="width:30px;">&nbsp;</div>'
                 }
             ],
@@ -302,7 +303,7 @@
                     enableColumnMenu: false,
                     width: '30',
                     maxWidth: '30',
-                    cellTemplate: '<span style="font-size:16px; color:#990000; cursor:pointer;" ng-click="grid.appScope.deleteOne(row.entity.id)">&cross;</span>',
+                    cellTemplate: '<span style="font-size:16px; color:#990000; cursor:pointer;" ng-click="grid.appScope.deleteCrop(row.entity.id)">&cross;</span>',
                     headerCellTemplate: '<div class="text-center padd bGreen" style="width:30px;">&nbsp;</div>'
                 }
             ],
@@ -417,7 +418,7 @@
                     enableColumnMenu: false,
                     width: '30',
                     maxWidth: '30',
-                    cellTemplate: '<span style="font-size:16px; color:#990000; cursor:pointer;" ng-click="grid.appScope.deleteOne(row.entity.id)">&cross;</span>',
+                    cellTemplate: '<span style="font-size:16px; color:#990000; cursor:pointer;" ng-click="grid.appScope.deleteBuyer(row.entity.id)">&cross;</span>',
                     headerCellTemplate: '<div class="text-center padd bGreen" style="width:30px;">&nbsp;</div>'
                 }
             ],
@@ -532,7 +533,7 @@
                     enableColumnMenu: false,
                     width: '30',
                     maxWidth: '30',
-                    cellTemplate: '<span style="font-size:16px; color:#990000; cursor:pointer;" ng-click="grid.appScope.deleteOne(row.entity.id)">&cross;</span>',
+                    cellTemplate: '<span style="font-size:16px; color:#990000; cursor:pointer;" ng-click="grid.appScope.deleteRebator(row.entity.id)">&cross;</span>',
                     headerCellTemplate: '<div class="text-center padd bGreen" style="width:30px;">&nbsp;</div>'
                 }
             ],
@@ -639,7 +640,7 @@
                     enableColumnMenu: false,
                     width: '30',
                     maxWidth: '30',
-                    cellTemplate: '<span style="font-size:16px; color:#990000; cursor:pointer;" ng-click="grid.appScope.deleteOne(row.entity.id)">&cross;</span>',
+                    cellTemplate: '<span style="font-size:16px; color:#990000; cursor:pointer;" ng-click="grid.appScope.deleteIndy(row.entity.id)">&cross;</span>',
                     headerCellTemplate: '<div class="text-center padd bGreen" style="width:30px;">&nbsp;</div>'
                 }
             ],
@@ -696,57 +697,235 @@
         //INDIRECT INCOME
 
         $scope.createNewCrop = function() {
-            alert('working');
+            var modalInstance = $modal.open({
+                templateUrl: './_modules/Loans/crops/_new.crop.modal.html',
+                controller: 'ModalInstanceCtrl',
+                size: 'sm',
+                resolve: {
+                    items: function () {
+                        return $scope.items;
+                    }
+                }
+            });
+
+            modalInstance.result.then(function (selectedItem) {
+                var newb = getNewCrop(selectedItem);
+                AppFactory.postIt('loancrops', newb)
+                    .then(function (rsp) {
+                        var id = rsp.data;
+                        angular.extend(newb, {id: id});
+                        $scope.crops_hgt += 30;
+                        $scope.loan.loancrops.push(newb);
+                        $scope.gridOptsCrops.refresh();
+                    });
+            }, function () {
+                //console.log('Modal dismissed at: ' + new Date());
+            });
         }
-        $scope.saveCrop = function(data, id) {
-            alert('working');
-        }
-        $scope.deleteCrop = function(index, id) {
-            alert('working');
+        $scope.deleteCrop = function(id) {
+            SweetAlert.swal({
+                    title: "Are you sure?",
+                    text: "You will not be able to undo this operation.",
+                    type: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#006837",
+                    confirmButtonText: "Delete",
+                    closeOnConfirm: true},
+                function(){
+                    AppFactory.deleteIt('loancrops', id);
+                    $scope.crops_hgt -= 30;
+                    _.remove($scope.loan.loancrops, {id: id});
+                });
         }
 
-        $scope.addNewBuyer = function(obj) {
-            alert('working');
+        $scope.createNewBuyer = function() {
+            var newb = getNewBuyer();
+            AppFactory.postIt('buyers', newb)
+                .then(function (rsp) {
+                    var id = rsp.data;
+                    angular.extend(newb, {id: id});
+                    $scope.buy_hgt += 30;
+                    $scope.loan.buyers.push(newb);
+                });
         };
-        $scope.saveBuyer = function(obj) {
-            alert('working');
-        };
-        $scope.deleteBuyer = function(obj) {
-            alert('working');
+        $scope.deleteBuyer = function(id) {
+            SweetAlert.swal({
+                    title: "Are you sure?",
+                    text: "You will not be able to undo this operation.",
+                    type: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#006837",
+                    confirmButtonText: "Delete",
+                    closeOnConfirm: true},
+                function(){
+                    AppFactory.deleteIt('buyers', id);
+                    $scope.buy_hgt -= 30;
+                    _.remove($scope.loan.buyers, {id: id});
+                });
         };
 
-        $scope.addNewRebator = function(obj) {
-            alert('working');
+        $scope.createNewRebator = function() {
+            var newb = getNewRebator();
+            AppFactory.postIt('rebators', newb)
+                .then(function (rsp) {
+                    var id = rsp.data;
+                    angular.extend(newb, {id: id});
+                    $scope.rbt_hgt += 30;
+                    $scope.loan.rebators.push(newb);
+                });
         };
-        $scope.saveRebator = function(obj) {
-            alert('working');
-        };
-        $scope.deleteRebator = function(obj) {
-            alert('working');
+        $scope.deleteRebator = function(id) {
+            SweetAlert.swal({
+                    title: "Are you sure?",
+                    text: "You will not be able to undo this operation.",
+                    type: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#006837",
+                    confirmButtonText: "Delete",
+                    closeOnConfirm: true},
+                function(){
+                    AppFactory.deleteIt('rebators', id);
+                    $scope.rbt_hgt -= 30;
+                    _.remove($scope.loan.rebators, {id: id});
+                });
         };
 
-        $scope.updateCrops = function() {
-            alert('working');
-        }
+        $scope.createNewIndIncome = function() {
+            var newb = getNewIndirect();
+            AppFactory.postIt('indirectcropincomes', newb)
+                .then(function (rsp) {
+                    var id = rsp.data;
+                    angular.extend(newb, {id: id});
+                    $scope.indy_hgt += 30;
+                    $scope.loan.indyinc.push(newb);
+                });
+        };
+        $scope.deleteIndy = function(id) {
+            SweetAlert.swal({
+                    title: "Are you sure?",
+                    text: "You will not be able to undo this operation.",
+                    type: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#006837",
+                    confirmButtonText: "Delete",
+                    closeOnConfirm: true},
+                function(){
+                    AppFactory.deleteIt('indirectcropincomes', id);
+                    $scope.indy_hgt -= 30;
+                    _.remove($scope.loan.indyinc, {id: id});
+                });
+        };
+
         $scope.updatePlannedCrops = function() {
             alert('working');
-        };
+        }
         $scope.updateStorage = function() {
             alert('working');
         };
+
+        $scope.updateCropsScreen = function() {
+            saveCrops();
+            saveYield();
+            saveBuyers();
+            saveRebators();
+            saveIndirects();
+            toastr.success('Database records updated.', 'Update Successful');
+
+        }
         //////////
-        function getNewCrop() {
+        function getNewCrop(obj) {
             return {
                 loan_id: $scope.loan.id,
-                crop_id: 0,
-                crop_measure: 'bu',
+                crop_id: obj.id,
+                crop_measure: obj.measurement,
                 bkqty: 0,
                 bkprice: 0,
                 var_harvest: 0,
-                harvest_measure: 'bu',
+                harvest_measure: obj.measurement,
                 rebates: 0,
-                rebate_measure: 'bu'
+                rebate_measure: obj.rebate_measurement
             };
         }
+        function getNewBuyer() {
+            return {
+                loan_id: $scope.loan.id,
+                buyer: '',
+                contact: '',
+                location: '',
+                email: '',
+                phone: ''
+            };
+        }
+        function getNewRebator() {
+            return {
+                loan_id: $scope.loan.id,
+                rebator: '',
+                contact: '',
+                location: '',
+                email: '',
+                phone: ''
+            };
+        }
+        function getNewIndirect() {
+            return {
+                loan_id: $scope.loan.id,
+                source: '',
+                description: '',
+                amount: '',
+                disc_percent: 100,
+                collateral: false
+            };
+        }
+
+        function saveCrops() {
+            _.each($scope.loan.loancrops, function(lc){
+                AppFactory.putIt('loancrops', lc.id, lc);
+            });
+        }
+        function saveYield() {
+            return true;
+            _.each($scope.loan.loancrops, function(lc){
+                AppFactory.putIt('loancropyields', lc.id, lc.yields);
+            });
+        }
+        function saveBuyers() {
+            _.each($scope.loan.buyers, function(b){
+                AppFactory.putIt('buyers', b.id, b);
+            });
+        }
+        function saveRebators() {
+            _.each($scope.loan.rebators, function(r){
+                AppFactory.putIt('rebators', r.id, r);
+            });
+        }
+        function saveIndirects() {
+            _.each($scope.loan.indyinc, function(i){
+                AppFactory.putIt('indirectcropincomes', r.id, i);
+            });
+        }
+        function savePlannedCrops() {
+            alert('Saving PlannedCrops');
+        }
+        function saveStorage() {
+            alert('Saving Storage');
+        }
     } // end controller
+
+    angular
+        .module('ARM')
+        .controller('ModalInstanceCtrl', function ($scope, $modalInstance, items) {
+
+        $scope.items = items;
+        $scope.selected = {
+            item: $scope.items[0]
+        };
+
+        $scope.ok = function () {
+            $modalInstance.close($scope.selected.item);
+        };
+
+        $scope.cancel = function () {
+            $modalInstance.dismiss('cancel');
+        };
+    });
 })();

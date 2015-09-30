@@ -4,9 +4,9 @@
         .module('ARM')
         .controller('PartnersController', PartnersController);
 
-        PartnersController.$inject = ['$rootScope', '$scope', 'AppFactory'];
+        PartnersController.$inject = ['$rootScope', '$scope', 'SweetAlert', 'AppFactory'];
 
-        function PartnersController($rootScope, $scope, AppFactory){
+        function PartnersController($rootScope, $scope, SweetAlert, AppFactory){
             $scope.createNewPartner = function() {
                 var newb = getNewPartner();
                 AppFactory.postIt('partners', newb)

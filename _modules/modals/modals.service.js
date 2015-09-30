@@ -14,6 +14,7 @@
             confirm: confirm,
             confirmDelete: confirmDelete,
             newAnalystComment: newAnalystComment,
+            newCrop: newCrop,
             newCommitteeComment: newCommitteeComment,
             newCommitteeReply: newCommitteeReply,
             newDisbursementComment: newDisbursementComment,
@@ -106,6 +107,25 @@
                     }
                 },
                 size: 'lg'
+            });
+
+            return modalInstance.result;
+        }
+        function newCrop(data) {
+            var modalInstance = $modal.open({
+                templateUrl: '_modules/modals/_new.crop.modal.html',
+                controller: 'ModalController',
+                resolve: {
+                    data: function(){
+                        return {
+                            loanID: data.loanID,
+                            title: data.title,
+                            available: data.available,
+                            buttons: data.buttons
+                        };
+                    }
+                },
+                size: 'sm'
             });
 
             return modalInstance.result;
