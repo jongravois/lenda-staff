@@ -43,25 +43,6 @@
 
             $scope.XColView = false; //true;
             $scope.showSidebar = user.full_sidebar;
-            $scope.tabs = {
-                xcol: true,
-                summary: true,
-                underwriting: true,
-                terms: true,
-                committee: false,
-                comments: true,
-                applicant: true,
-                quests: true,
-                references: true,
-                financials: true,
-                crops: true,
-                farms: true,
-                fsa: true,
-                insurance: true,
-                budget: true,
-                collateral: true,
-                prereqs: true
-            };
             //$scope.sortType = 'farmer'; // set the default sort type
             //$scope.sortReverse = false;  // set the default sort order
             console.log('EditloansCtrl', $scope.loan);

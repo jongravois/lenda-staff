@@ -11,6 +11,7 @@
             //console.log('Loan', $scope.loan);
             //console.log('LoanCrops', $scope.loan.loancrops);
             //console.log('InsPols', $scope.loan.inspols);
+            //console.log('Addendums', $scope.loan.addendums);
 
         } // end controller
 })();

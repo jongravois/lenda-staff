@@ -327,7 +327,9 @@
             decPlaces = decPlaces || 0;
 
             // Check for invalid inputs
-            if (!Number(input) || Math.abs(input) === 0) return '-';
+            if (isNaN(input) || !input || Math.abs(input) === 0 || (Math.abs(input) > 0 && Math.abs(input) < 1)) {
+                return '-';
+            }
             var out = input;
 
             //Deal with the minus (negative numbers)

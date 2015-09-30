@@ -11,29 +11,29 @@
             $scope.treedata =
             [
                 {
-                    id: 'role1',
+                    id: '1',
                     label: 'Stark, Tony',
                     children: [
                         {
-                            id: 'role11',
+                            id: '11',
                             label: 'All Glass Towers',
                             children : [
                                 {
-                                    id : 'role111',
+                                    id : '111',
                                     label: 'prereqs',
                                     children : [
                                         {
-                                            id: 'role1111',
+                                            id: '1111',
                                             label: 'CPA Financials',
                                             children: []
                                         },
                                         {
-                                            id: 'role1112',
+                                            id: '1112',
                                             label: 'Equipment Inventory',
                                             children: []
                                         },
                                         {
-                                            id: 'role1113',
+                                            id: '1113',
                                             label: 'Leases',
                                             children: [
                                                 {
@@ -61,46 +61,46 @@
                                     ]
                                 },
                                 {
-                                    id : 'role112',
+                                    id : '112',
                                     label: 'loan docs',
                                     children : [
                                         {
-                                            id: 'role1121',
+                                            id: '1121',
                                             label: 'Security Agreement',
                                             children: []
                                         },
                                         {
-                                            id: 'role1122',
+                                            id: '1122',
                                             label: 'AOI Assignment',
                                             children: []
                                         },
                                         {
-                                            id: 'role1123',
+                                            id: '1123',
                                             label: 'FSA Assignment',
                                             children: []
                                         },
                                         {
-                                            id: 'role1124',
+                                            id: '1124',
                                             label: 'Guarantors',
                                             children: [
                                                 {
-                                                    id: 'role11241',
+                                                    id: '11241',
                                                     label: 'Sharon Guin',
                                                     children: []
                                                 },
                                                 {
-                                                    id: 'role11242',
+                                                    id: '11242',
                                                     label: 'Bo Guin',
                                                     children: []
                                                 }
                                             ]
                                         },
                                         {
-                                            id: 'role1125',
+                                            id: '1125',
                                             label: 'Cross Collateral',
                                             children: [
                                                 {
-                                                    id: 'role11251',
+                                                    id: '11251',
                                                     label: 'Empty',
                                                     children: []
                                                 }
@@ -111,12 +111,12 @@
                             ]
                         },
                         {
-                            id: 'role12',
+                            id: '12',
                             label: 'Birth Certificate',
                             children: []
                         },
                         {
-                            id: 'role13',
+                            id: '13',
                             label: 'Pesticide Certificate',
                             children: []
                         }
