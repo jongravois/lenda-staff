@@ -237,7 +237,7 @@
                 },
                 {
                     name: 'threeyearavg',
-                    enableCellEdit: true,
+                    enableCellEdit: false,
                     displayName: '3yr Avg',
                     cellClass: 'text-right cBlue',
                     cellFilter: 'flexZeroNumber:1',
@@ -277,7 +277,7 @@
                 },
                 {
                     name: 'sixyearavg',
-                    enableCellEdit: true,
+                    enableCellEdit: false,
                     displayName: '6yr Avg',
                     cellClass: 'text-right cBlue',
                     cellFilter: 'flexZeroNumber:1',
@@ -287,7 +287,7 @@
                 },
                 {
                     name: 'aph',
-                    enableCellEdit: true,
+                    enableCellEdit: false,
                     displayName: 'APH',
                     cellClass: 'text-right cBlue',
                     cellFilter: 'flexZeroNumber:1',
@@ -713,15 +713,17 @@
             });
 
             modalInstance.result.then(function (selectedItem) {
+                //console.log('SELIT', selectedItem);
                 var newb = getNewCrop(selectedItem);
                 AppFactory.postIt('loancrops', newb)
                     .then(function (rsp) {
                         var id = rsp.data;
-                        angular.extend(newb, {id: id});
-                        $scope.crops_hgt += 30;
-                        $scope.loan.loancrops.push(newb);
+                        angular.extend(newb, {id: id, crop: selectedItem.crop});
+                        //console.log('Newb', newb);
                         $scope.loan.fins.crops_in_loan.push(newb.crop);
-                        $scope.gridOptsCrops.data.push(newb);
+                        $scope.loan.loancrops.push(newb);
+                        $scope.crops_hgt = 32 + ($scope.loan.fins.crops_in_loan * 30);
+                        $state.go($state.current, {loantypeID: $scope.loan.loan_type_id, loanID: $scope.loan.id}, {reload: true});
                     });
             }, function () {
                 //console.log('Modal dismissed at: ' + new Date());
@@ -905,7 +907,7 @@
         }
         function saveIndirects() {
             _.each($scope.loan.indyinc, function(i){
-                AppFactory.putIt('indirectcropincomes', r.id, i);
+                AppFactory.putIt('indirectcropincomes', i.id, i);
             });
         }
         function savePlannedCrops() {
