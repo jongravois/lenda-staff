@@ -2,11 +2,11 @@
     'use strict';
     angular
         .module('ARM')
-        .controller('BudgetsController', BudgetsController);
+        .controller('Budget', Budget);
 
-        BudgetsController.$inject = ['$rootScope', '$scope', '$state', 'AppFactory'];
+        Budget.$inject = ['$rootScope', '$scope', '$state', 'AppFactory'];
 
-        function BudgetsController($rootScope, $scope, $state, AppFactory){
+        function Budget($rootScope, $scope, $state, AppFactory){
             $scope.newapplications = $state.current.data.newapplications;
             $scope.AppFactory = AppFactory;
             //console.log('XPS', $scope.loan.expenses);
