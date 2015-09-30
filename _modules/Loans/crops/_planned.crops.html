@@ -14,44 +14,11 @@
     .red{ color: red; }
 </style>
 <div class="row">
-    <div class="col-md-12 text-right">
-        <button style="margin-right:10px;" class="btn btn-arm" ng-click="updatePlannedCrops()"><span class="glyphicons glyphicons-log-book"></span>&nbsp;UPDATE</button>
+    <div class="form-group">
+        <div ui-grid="gridOptsPlan" ui-grid-edit ui-grid-cellnav ng-style="{ 'height': plan_hgt, 'width': plan_wdt }">
+            <div class="watermark" ng-show="gridOptsPlan.data.length === 0">
+                No data available
+            </div>
+        </div>
     </div>
 </div>
-
-<br>
-
-<fieldset>
-    <legend>Financials</legend>
-    <div class="container-fluid">
-        <table class="table table-striped rowed table-condensed disp-sm" style="width:85%;">
-            <tr>
-                <th style="width:50%;">Planned Crop Constraints</th>
-                <th style="width:10%;">Acres</th>
-                <th style="width:10%;">Total Exp/Ac</th>
-                <th style="width:10%;">100% Ag-Pro F</th>
-                <th style="width:10%;">35% Cap-Bridge</th>
-                <th style="width:10%;">35% Ag-Vest</th>
-            </tr>
-            <tr ng-repeat="c in loan.planned_crops">
-                <td>{{c.name}}</td>
-                <td class="cBlue" ng-class="AppFactory.gtZero(c.acres)">
-                    <strong>{{c.acres|flexNumber:1}}</strong>
-                </td>
-                <td ng-class="AppFactory.gtZero(c.tea)">
-                    <strong>{{c.tea|flexCurrency:2}}</strong>
-                </td>
-                <td ng-class="AppFactory.gtZero(c.tea * c.acres)">
-                    <strong>{{c.tea * c.acres|flexCurrency:0}}</strong>
-                </td>
-                <td ng-class="AppFactory.gtZero((c.tea * c.acres) * .35)">
-                    <strong>{{(c.tea * c.acres) * .35|flexCurrency:0}}</strong>
-                </td>
-                <td ng-class="AppFactory.gtZero((c.tea * c.acres) * .35)">
-                    <strong>{{(c.tea * c.acres) * .35|flexCurrency:0}}</strong>
-                </td>
-            </tr>
-        </table>
-    </div>
-</fieldset>
-<br><br><br><br>

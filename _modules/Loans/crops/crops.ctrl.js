@@ -696,6 +696,103 @@
         };
         //INDIRECT INCOME
 
+        //PLANNED CROPS
+        $scope.gridOptsPlan = {
+            enableCellEditOnFocus: true,
+            rowTemplate: './_modules/Admin/_views/_row.tmpl.html',
+            columnDefs: [
+                {
+                    name: 'crop',
+                    enableCellEdit: false,
+                    displayName: 'Crop',
+                    cellClass: 'text-left',
+                    headerCellClass: 'text-center bGreen',
+                    enableColumnMenu: false,
+                    width: '120'
+                },
+                {
+                    name: 'acres',
+                    enableCellEdit: true,
+                    displayName: 'Acres',
+                    cellClass: 'text-center cBlue',
+                    cellFilter: 'flexZeroNumber:1',
+                    headerCellClass: 'text-center bGreen',
+                    enableColumnMenu: false,
+                    width: '120'
+                },
+                {
+                    name: 'tea',
+                    enableCellEdit: false,
+                    displayName: 'TEA',
+                    cellClass: 'text-right',
+                    cellFilter: 'flexZeroCurrency:2',
+                    headerCellClass: 'text-center bGreen',
+                    enableColumnMenu: false,
+                    width: '120'
+                },
+                {
+                    name: 'value',
+                    enableCellEdit: false,
+                    displayName: 'Value',
+                    cellClass: 'text-right',
+                    cellTemplate: '<div class="padd black">{{grid.appScope.calcPCVal(row.entity.acres, row.entity.tea)|flexCurrency:0}}</div>',
+                    headerCellClass: 'text-center bGreen',
+                    enableColumnMenu: false,
+                    width: '120'
+                }
+            ],
+            data: $scope.loan.planned_crops
+        };
+
+        $scope.msg = {};
+        var records = [];
+        angular.forEach($scope.loan.planned_crops, function (rawdata) {
+            var record = {};
+            record.changedAttrs = {};
+
+            Object.defineProperty(record, 'isDirty', {
+                get: function () {
+                    return Object.getOwnPropertyNames(record.changedAttrs).length > 0;
+                }
+            });
+
+            angular.forEach(rawdata, function (value, key) {
+                Object.defineProperty(record, key, {
+                    get: function () {
+                        return rawdata[key];
+                    },
+
+                    set: function (value) {
+                        var origValue = record.changedAttrs[key] ? record.changedAttrs[key][0] : rawdata[key];
+
+                        if(value !== origValue) {
+                            record.changedAttrs[key] = [origValue, value];
+                        } else {
+                            delete record.changedAttrs[key];
+                        }
+                        rawdata[key] = value;
+                    }
+                })
+            });
+            records.push(record);
+        });
+
+        $scope.gridOptsPlan.onRegisterApi = function(gridApi) {
+            //set gridApi on scope
+            $scope.$scope = $scope;
+            $scope.gridApi = gridApi;
+            $scope.plan_hgt = 32 + $scope.loan.planned_crops.length * 30;
+            $scope.plan_wdt = 480;
+            $scope.gridApi.gridHeight = $scope.plan_hgt;
+            $scope.gridApi.gridWidth = $scope.plan_wdt;
+            gridApi.edit.on.afterCellEdit($scope, function(rowEntity, colDef, newValue, oldValue) {
+                $scope.$apply(function(scope) {
+                    scope.dirty = true;
+                });
+            });
+        };
+        //PLANNED CROPS
+
         $scope.createNewCrop = function() {
             $scope.items = $scope.crops.filter(function(i){
                 return $scope.loan.fins.crops_in_loan.indexOf(i.crop) === -1;
@@ -823,8 +920,15 @@
                 });
         };
 
+        $scope.calcPCVal = function(acres, tea) {
+            return Number(acres) * Number(tea);
+        }
+
         $scope.updatePlannedCrops = function() {
-            alert('working');
+            _.each($scope.loan.planned_crops, function(pc){
+                AppFactory.putIt('plannedcrops', pc.id, pc);
+            });
+            toastr.success('Planned crops were updated successfully.', 'Success');
         }
         $scope.updateStorage = function() {
             alert('working');
