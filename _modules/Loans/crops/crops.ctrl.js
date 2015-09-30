@@ -716,7 +716,7 @@
                         angular.extend(newb, {id: id});
                         $scope.crops_hgt += 30;
                         $scope.loan.loancrops.push(newb);
-                        $scope.gridOptsCrops.refresh();
+                        //$scope.gridOptsCrops.refresh();
                     });
             }, function () {
                 //console.log('Modal dismissed at: ' + new Date());
