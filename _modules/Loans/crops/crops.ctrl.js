@@ -697,6 +697,10 @@
         //INDIRECT INCOME
 
         $scope.createNewCrop = function() {
+            $scope.items = $scope.crops.filter(function(i){
+                return $scope.loan.fins.crops_in_loan.indexOf(i.crop) === -1;
+            });
+
             var modalInstance = $modal.open({
                 templateUrl: './_modules/Loans/crops/_new.crop.modal.html',
                 controller: 'ModalInstanceCtrl',
@@ -716,7 +720,8 @@
                         angular.extend(newb, {id: id});
                         $scope.crops_hgt += 30;
                         $scope.loan.loancrops.push(newb);
-                        //$scope.gridOptsCrops.refresh();
+                        $scope.loan.fins.crops_in_loan.push(newb.crop);
+                        $scope.gridOptsCrops.data.push(newb);
                     });
             }, function () {
                 //console.log('Modal dismissed at: ' + new Date());
