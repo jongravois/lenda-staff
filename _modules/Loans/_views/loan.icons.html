@@ -62,7 +62,7 @@
         <span class="menuicon glyphicons glyphicons-bank" tooltip="Insurance" tooltip-append-to-body="true" tooltip-placement="right" ng-click="ngcLink('insurance')" ng-class="{not_valid: loan.tabstats.insurance == false}"></span>
     </li>
     <li class="list-group-item" ng-class="{active: path === 'budget'}" ng-if="loan.crop_loan">
-        <span class="menuicon glyphicons glyphicons-calculator" tooltip="Budget" tooltip-append-to-body="true" tooltip-placement="right" ng-click="ngcLink('budget')" ng-class="{not_valid: loan.tabstats.budget == false}"></span>
+        <span class="menuicon glyphicons glyphicons-calculator" tooltip="Budget" tooltip-append-to-body="true" tooltip-placement="right" ng-click="ngcLink('budget.farm')" ng-class="{not_valid: loan.tabstats.budget == false}"></span>
     </li>
 
     <li class="list-group-item" ng-class="{active: path === 'optimizer'}" ng-if="loan.crop_loan">

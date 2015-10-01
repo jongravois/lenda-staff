@@ -165,11 +165,11 @@
                     {
                         name: 'practice',
                         enableCellEdit: true,
-                        displayName: 'Practice',
+                        displayName: 'Prac',
                         cellClass: 'text-center cBlue',
                         headerCellClass: 'text-center bGreen',
                         enableColumnMenu: false,
-                        width: '80'
+                        width: '50'
                     },
                     {
                         name: 'type',
@@ -256,7 +256,7 @@
                         cellFilter: 'flexZeroNumber:0',
                         headerCellClass: 'text-center bGreen',
                         enableColumnMenu: false,
-                        width: '60'
+                        width: '52'
                     },
                     {
                         name: 'del',
@@ -311,7 +311,7 @@
                 $scope.$scope = $scope;
                 $scope.gridApi = gridApi;
                 $scope.pol_hgt = 32 + $scope.loan.insurance.policies.length * 30;
-                $scope.pol_wdt = 1010;
+                $scope.pol_wdt = 980;
                 $scope.gridApi.gridHeight = $scope.pol_hgt;
                 $scope.gridApi.gridWidth = $scope.pol_wdt;
                 gridApi.edit.on.afterCellEdit($scope, function(rowEntity, colDef, newValue, oldValue) {

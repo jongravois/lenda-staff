@@ -1214,7 +1214,8 @@
             }
         }
         function gtZero(value) {
-            if (value === 0) {
+            //covers Existence, NaN and Rounding Differences less that 0.10
+            if (isNaN(value) || !value || Math.abs(value) === 0 || (Math.abs(value) > 0 && Math.abs(value) < 0.1)) {
                 return 'text-center';
             }
             else {

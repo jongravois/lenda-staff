@@ -1,0 +1,6 @@
+<div clas="padd" style="padding-left:10px;">
+    <span ng-if="row.entity.vote_status == 'pending'" tooltip="Vote Needed" class="glyphicons glyphicons-group cBlue" style="font-size:18px;">&nbsp;</span>
+    <span ng-if="row.entity.vote_status != 'pending'" tooltip="Vote Needed" class="glyphicons glyphicons-group cGray" style="font-size:18px;">&nbsp;</span>
+    <span ng-if="row.entity.has_comment" tooltip="Comments" class="glyphicons glyphicons-comments cYellow" style="font-size:18px;"></span>
+    <span ng-if="!row.entity.has_comment" tooltip="Comments" class="glyphicons glyphicons-comments cGray" style="font-size:18px;"></span>
+</div>

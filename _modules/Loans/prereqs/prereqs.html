@@ -1,15 +1,113 @@
-<div class="col-md-3">
-    <div
-        data-angular-treeview="true"
-        data-tree-id="prereqs"
-        data-tree-model="treedata"
-        data-node-id="id"
-        data-node-label="label"
-        data-node-children="children" >
+
+<style>
+    tr{ height: 46px; min-height: 46px; }
+    .lg-font{ font-size: 16px; }
+    .tiny-txt{ font-size: 11px;}
+    .acticon{ cursor: pointer; }
+    .list-group-item {padding: 5px 10px 5px 5px !important;}
+    .list-group a{ min-height: 50px;}
+</style>
+<fieldset>
+    <legend>Prerequisite Documents</legend>
+    <div class="container-fluid">
+        <div class="row">
+            <table class="table table-striped rowed table-condensed disp-sm">
+                <tr>
+                    <th style="background-color: #006837 !important;color: white !important;">Document</th>
+                </tr>
+                <tr>
+                    <td>Driver's License</td>
+                </tr>
+                <tr>
+                    <td>Equipment Inventory</td>
+                </tr>
+                <tr>
+                    <td>CPA Financials</td>
+                </tr>
+                <tr>
+                    <td>Leases</td>
+                </tr>
+                <tr>
+                    <td class="cRed">Crop Insurance APH Database</td>
+                </tr>
+            </table>
+        </div>
     </div>
-</div>
-<div class="col-md-9 well" style="min-height:300px;">
-    <h3>{{prereqs.currentNode.label || loan.farmer.farmer}}</h3>
-    <br>
-    <h3>{{prereqs.currentNode.id}}</h3>
-</div>
+    <div class="container-fluid">
+        <table class="table table-striped rowed table-condensed disp-sm">
+            <tr>
+                <th style="width: 40px;"></th>
+                <th style="width: 62%;">Document</th>
+                <th style="width: 10%;">Requested</th>
+                <th style="width: 10%;">Received</th>
+                <th style="width: 10%;">Uploaded</th>
+                <th style="width: 200px; max-width: 200px;"></th>
+            </tr>
+            <tr ng-repeat="d in docs"
+                ng-init="!rowform.$visible"
+                ng-dblclick="rowform.$show()">
+                <td class="text-center">
+                    <span ng-if="d.status !== 'pending'">
+                        <a target="_blank" ng-href="{{FILE_URL+d.path}}">
+                            <img ng-src="./images/pdficon.png" style="height:32px;width:auto;"/>
+                        </a>
+                    </span>
+                </td>
+                <td class="cBlue">
+                    <span editable-text="d.title" e-name="title" e-form="rowform" e-style="width:100%;" e-required>
+                        {{d.title}}
+                    </span>
+                </td>
+                <td class="cBlue">
+                    <span editable-bsdate="d.date_requested" e-datepicker-popup="MM/dd/yyyy">
+                        {{ (d.date_requested | date:"MM/dd/yyyy") || ' ' }}
+                    </span>
+                </td>
+                <td class="cBlue">
+                    <span editable-bsdate="d.date_received" e-datepicker-popup="MM/dd/yyyy">
+                        {{ (d.date_received | date:"MM/dd/yyyy") || ' ' }}
+                    </span>
+                </td>
+                <td class="cBlue">
+                    <span editable-text="d.user.name" e-name="user.name" e-form="rowform" e-style="width:100%;" e-required>
+                        {{d.user.name}}
+                    </span>
+                </td>
+                <td>
+                    <!-- form -->
+                    <form editable-form
+                          name="rowform"
+                          onbeforesave="savePrereq($data, p.id)"
+                          ng-show="rowform.$visible"
+                          class="form-buttons form-inline">
+                        <button type="submit"
+                                ng-disabled="rowform.$waiting"
+                                style="border: none !important; padding: 0 !important; background-color: transparent;">
+                                    <span class="glyphicons glyphicons-circle-ok"
+                                          ng-click=""
+                                          style="color:#006837;"></span>
+                        </button>
+
+                        <span class="glyphicons glyphicons-unshare"
+                              style="color: #990000;"
+                              ng-disabled="rowform.$waiting"
+                              ng-click="rowform.$cancel()"></span>
+                    </form>
+                    <div class="buttons"
+                         ng-show="!rowform.$visible">
+                                <span class="glyphicons glyphicons-remove-2"
+                                      style="color: #990000;"
+                                      ng-click="deletePrereq($index, p.id)"></span>
+                        &nbsp;
+                                <span class="glyphicons glyphicons-refresh"
+                                      style="color: #000099;"
+                                      ng-click="changeDoc($index, p.id)"></span>
+                </td>
+            </tr>
+        </table>
+        <p>
+            <a ng-click="createNew()" class="btn btn-xs btn-default">
+                <span class="glyphicon glyphicon-plus-sign" style="color:#006837;"></span> Add New</a>
+        </p>
+    </div>
+</fieldset>

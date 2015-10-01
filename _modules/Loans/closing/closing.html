@@ -1,4 +1,5 @@
 <style>
+    .docicon {cursor: pointer;}
     .rqdoc li{
         line-height: 2.4em;
     }
@@ -9,115 +10,22 @@
     }*/
 </style>
 <fieldset>
-    <legend>
-        &nbsp;
-        <span class="pendicon glyphicon glyphicon-chevron-right"
-              ng-click="tggl.showConditions = !tggl.showConditions"
-              ng-if="!tggl.showConditions"></span>
-        <span class="pendicon glyphicon glyphicon-chevron-down"
-              ng-click="tggl.showConditions = !tggl.showConditions"
-              ng-if="tggl.showConditions"></span>
-        &nbsp;Collateral Conditions [2 of 7]
-    </legend>
+    <legend>Closing Documents</legend>
     <div class="container-fluid">
-        <div class="row" ng-if="tggl.showConditions">
+        <div class="row">
             <table class="table table-striped rowed table-condensed disp-sm">
-                <tr>
-                    <th style="background-color: #006837 !important;color: white !important;">Condition</th>
-                </tr>
-                <tr>
-                    <td>Agricultural Security Agreement on Crops and Equipment</td>
-                </tr>
-                <tr>
-                    <td class="cRed">Assignment of Crop Insurance</td>
-                </tr>
-                <tr>
-                    <td>Approval by Participating Distributor - JSI</td>
-                </tr>
-                <tr>
-                    <td>Personal Guarantee by Bo Guin</td>
-                </tr>
-                <tr>
-                    <td>Personal Guarantee by Sharon Guin</td>
-                </tr>
-                <tr>
-                    <td class="cRed">Assignment of FSA Direct and LDP Payment</td>
-                </tr>
-                <tr>
-                    <td>JSI Credit Limit of 82K</td>
+                <tr ng-repeat="d in loan.closingdocs">
+                    <td style="width:90%">
+                        <input type="checkbox" ng-model="d.is_required"/>
+                        &nbsp;{{d.name}}
+                    </td>
+                    <td class="text-center" style="width:10%">
+                        <span class="docicon glyphicons glyphicons-paperclip cGreen" ng-if="d.status === 'uploaded'" ng-click="viewDocument(d.id)"></span>
+                        <span class="docicon glyphicons glyphicons-paperclip cGray" ng-if="d.status === 'pending'" ng-click="uploadDocument(d.id)"></span>
+                    </td>
                 </tr>
             </table>
-        </div>
-    </div>
-</fieldset>
-<br>
-<fieldset>
-    <legend>
-        &nbsp;
-        <span class="pendicon glyphicon glyphicon-chevron-right"
-              ng-click="tggl.showPrereqs = !tggl.showPrereqs"
-              ng-if="!tggl.showPrereqs"></span>
-        <span class="pendicon glyphicon glyphicon-chevron-down"
-              ng-click="tggl.showPrereqs = !tggl.showPrereqs"
-              ng-if="tggl.showPrereqs"></span>
-        &nbsp;Prerequisite Documents [1 of 5]
-    </legend>
-    <div class="container-fluid">
-        <div class="row" ng-if="tggl.showPrereqs">
-            <table class="table table-striped rowed table-condensed disp-sm">
-                <tr>
-                    <th style="background-color: #006837 !important;color: white !important;">Document</th>
-                </tr>
-                <tr>
-                    <td>Driver's License</td>
-                </tr>
-                <tr>
-                    <td>Equipment Inventory</td>
-                </tr>
-                <tr>
-                    <td>CPA Financials</td>
-                </tr>
-                <tr>
-                    <td>Leases</td>
-                </tr>
-                <tr>
-                    <td class="cRed">Crop Insurance APH Database</td>
-                </tr>
-            </table>
-        </div>
-    </div>
-</fieldset>
-<br>
-<fieldset>
-    <legend>
-        &nbsp;
-        <span class="pendicon glyphicon glyphicon-chevron-right"
-              ng-click="tggl.showDocs = !tggl.showDocs"
-              ng-if="!tggl.showDocs"></span>
-        <span class="pendicon glyphicon glyphicon-chevron-down"
-              ng-click="tggl.showDocs = !tggl.showDocs"
-              ng-if="tggl.showDocs"></span>
-        &nbsp;Closing Documents
-    </legend>
-    <div class="container-fluid">
-        <div class="row" ng-if="tggl.showDocs">
-            <table class="table table-striped rowed table-condensed disp-sm">
-                <tr>
-                    <th style="background-color: #006837 !important;color: white !important;">Closing Documents</th>
-                </tr>
-                <tr><td><input type="checkbox" checked="checked"/>&nbsp;Promissory Note</td></tr>
-                <tr><td><input type="checkbox" checked="checked"/>&nbsp;Agriculture Security Agreement</td></tr>
-                <tr><td><input type="checkbox" checked="checked"/>&nbsp;UCC Security Agreement</td></tr>
-                <tr><td><input type="checkbox" checked="checked"/>&nbsp;Assignment of Indemnity of Crop Insurance</td></tr>
-                <tr><td><input type="checkbox" checked="checked"/>&nbsp;Assignment of FSA Payment</td></tr>
-                <tr><td><input type="checkbox" checked="checked"/>&nbsp;Bo Gwin Guarantor Agreement</td></tr>
-                <tr><td><input type="checkbox" checked="checked"/>&nbsp;Sharon Gwin Guarantor Agreement</td></tr>
-                <tr><td><input type="checkbox" checked="checked"/>&nbsp;Cross Collateral Documents</td></tr>
-                <tr><td><input type="checkbox" checked="checked"/>&nbsp;ARM Fees Invoice</td></tr>
-                <tr><td><input type="checkbox" ng-if="loan.has_distributor"/>&nbsp;Distributor Documents</td></tr>
-            </table>
-            <p>
-                ng-if="!loan.has_addendum">With my initials, I certify that only the above documents are required to process this loan.&nbsp;<input type="text" style="width:75px;"/>
+            <p ng-if="!loan.has_addendum">With my initials, I certify that only the above documents are required to process this loan.&nbsp;<input type="text" style="width:75px;"/>
             </p>
             <p ng-if="loan.has_addendum">With my initials, I certify that only the above documents are required to process this addendum.&nbsp;<input type="text" style="width:75px;"/></p>
         </div>

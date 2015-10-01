@@ -49,7 +49,36 @@
                 })
                 .state('arm.edit.budget', {
                     url: '/budget',
+                    abstract: true,
                     templateUrl: './_modules/Loans/budgets/shell.html',
+                    controller: 'BudgetsController',
+                    data: {newapplication: false},
+                    resolve: {}
+                })
+                .state('arm.edit.budget.farm', {
+                    url: '/farm',
+                    templateUrl: './_modules/Loans/budgets/_farm.html',
+                    controller: 'BudgetsController',
+                    data: {newapplication: false},
+                    resolve: {}
+                })
+                .state('arm.edit.budget.corn', {
+                    url: '/corn',
+                    templateUrl: './_modules/Loans/budgets/_corn.html',
+                    controller: 'BudgetsController',
+                    data: {newapplication: false},
+                    resolve: {}
+                })
+                .state('arm.edit.budget.soybeans', {
+                    url: '/soybeans',
+                    templateUrl: './_modules/Loans/budgets/_soybeans.html',
+                    controller: 'BudgetsController',
+                    data: {newapplication: false},
+                    resolve: {}
+                })
+                .state('arm.edit.budget.cotton', {
+                    url: '/cotton',
+                    templateUrl: './_modules/Loans/budgets/_cotton.html',
                     controller: 'BudgetsController',
                     data: {newapplication: false},
                     resolve: {}

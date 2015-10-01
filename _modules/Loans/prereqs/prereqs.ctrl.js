@@ -4,131 +4,64 @@
         .module('ARM')
         .controller('PrereqsController', PrereqsController);
 
-        PrereqsController.$inject = ['$rootScope', '$scope', '$state', 'FILE_URL', 'AppFactory'];
+    PrereqsController.$inject = ['$rootScope', '$scope', '$state', 'FILE_URL', 'AppFactory'];
 
-        function PrereqsController($rootScope, $scope, $state, FILE_URL, AppFactory){
-            $scope.newapplications = $state.current.data.newapplications;
-            $scope.treedata =
-            [
-                {
-                    id: '1',
-                    label: 'Stark, Tony',
-                    children: [
-                        {
-                            id: '11',
-                            label: 'All Glass Towers',
-                            children : [
-                                {
-                                    id : '111',
-                                    label: 'prereqs',
-                                    children : [
-                                        {
-                                            id: '1111',
-                                            label: 'CPA Financials',
-                                            children: []
-                                        },
-                                        {
-                                            id: '1112',
-                                            label: 'Equipment Inventory',
-                                            children: []
-                                        },
-                                        {
-                                            id: '1113',
-                                            label: 'Leases',
-                                            children: [
-                                                {
-                                                    id: 'role11131',
-                                                    label: 'Farm 123',
-                                                    children: []
-                                                },
-                                                {
-                                                    id: 'role11132',
-                                                    label: 'Farm 456',
-                                                    children: []
-                                                },
-                                                {
-                                                    id: 'role11133',
-                                                    label: 'Farm 567',
-                                                    children: []
-                                                },
-                                                {
-                                                    id: 'role11133',
-                                                    label: 'Farm 789',
-                                                    children: []
-                                                }
-                                            ]
-                                        }
-                                    ]
-                                },
-                                {
-                                    id : '112',
-                                    label: 'loan docs',
-                                    children : [
-                                        {
-                                            id: '1121',
-                                            label: 'Security Agreement',
-                                            children: []
-                                        },
-                                        {
-                                            id: '1122',
-                                            label: 'AOI Assignment',
-                                            children: []
-                                        },
-                                        {
-                                            id: '1123',
-                                            label: 'FSA Assignment',
-                                            children: []
-                                        },
-                                        {
-                                            id: '1124',
-                                            label: 'Guarantors',
-                                            children: [
-                                                {
-                                                    id: '11241',
-                                                    label: 'Sharon Guin',
-                                                    children: []
-                                                },
-                                                {
-                                                    id: '11242',
-                                                    label: 'Bo Guin',
-                                                    children: []
-                                                }
-                                            ]
-                                        },
-                                        {
-                                            id: '1125',
-                                            label: 'Cross Collateral',
-                                            children: [
-                                                {
-                                                    id: '11251',
-                                                    label: 'Empty',
-                                                    children: []
-                                                }
-                                            ]
-                                        }
-                                    ]
-                                }
-                            ]
-                        },
-                        {
-                            id: '12',
-                            label: 'Birth Certificate',
-                            children: []
-                        },
-                        {
-                            id: '13',
-                            label: 'Pesticide Certificate',
-                            children: []
-                        }
-                    ]
-                }
-            ];
-
-            $scope.$watch( 'prereqs.currentNode', function( newObj, oldObj ) {
-                if( $scope.prereqs && angular.isObject($scope.prereqs.currentNode) ) {
-                    console.log( 'Node Selected!!' );
-                    console.log( $scope.prereqs.currentNode );
-                }
-            }, false);
-        } // end controller
+    function PrereqsController($rootScope, $scope, $state, FILE_URL, AppFactory){
+        $scope.newapplications = $state.current.data.newapplications;
+        $scope.FILE_URL = FILE_URL;
+        $scope.docs = $scope.loan.attachments;
+        //console.log('DOCS', $scope.docs);
+        $scope.savePrereq = function(data, id) {
+            AppFactory.putIt('prerequisites', id, data);
+        };
+        $scope.updatePrereq = function() {
+            AppFactory.putIt('distributors', $scope.loan.distributor.id, $scope.loan.distributor);
+            _.each($scope.loan.references, function(i){
+                AppFactory.putIt('references', i.id, i);
+            });
+        }
+        $scope.createNew = function () {
+            var newb = getNewRecord();
+            AppFactory.postIt('attachments', newb)
+                .then(function(rsp){
+                    var id = rsp.data;
+                    angular.extend(newb, {id: id});
+                    $scope.loan.attachments.push(newb);
+                    $scope.docs = $scope.loan.attachments;
+                    //console.log($scope.attachments);
+                });
+        };
+        $scope.deletePrereq = function(index, id) {
+            SweetAlert.swal({
+                    title: "Are you sure?",
+                    text: "You will not be able to undo this operation.",
+                    type: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#006837",
+                    confirmButtonText: "Delete",
+                    closeOnConfirm: true},
+                function(){
+                    AppFactory.deleteIt('attachments', id);
+                    _.remove($scope.loan.attachments, {id: id});
+                });
+        }
+        $scope.changeDoc = function($index, id) {
+            alert('working');
+        };
+        $scope.doSort = function(propName) {
+            $scope.sortBy = propName;
+            $scope.reverse = !$scope.reverse;
+        };
+        //////////
+        function getNewRecord() {
+            return {
+                loan_id: $stateParams.loanID,
+                creditor: '',
+                contact: '',
+                city_state: '',
+                phone: '',
+                email: ''
+            };
+        }
+    } // end controller
 })();

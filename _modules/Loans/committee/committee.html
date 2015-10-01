@@ -5,6 +5,9 @@
         min-width: 100px !important;
         max-width: 100px !important;
     }
+    .ui-grid-header-viewport {
+        background-color: #006837;
+    }
 </style>
 <fieldset>
     <legend>Committee</legend>
@@ -42,80 +45,16 @@
             </div>
         </div>
         <br>
-        <div class="row">
-            <table class="table table-striped rowed table-condensed disp-sm" style="width:85%;">
-                <tr>
-                    <th style="width:160px;">&nbsp;</th>
-                    <th style="width:14%;">Role</th>
-                    <th style="width:28%;">User</th>
-                    <th style="width:15%;">Added</th>
-                    <th style="width:15%;">Voted</th>
-                    <th style="width:15%;">Vote</th>
-                    <th style="width:80px;">&nbsp;</th>
-                </tr>
-                <tr ng-repeat="c in loan.committee|orderBy:'role_id'" ng-init="!rowform.$visible" ng-dblclick="rowform.$show()">
-                    <td>
-                        <span ng-if="c.vote_status == 'pending'" tooltip="Vote Needed" class="glyphicons glyphicons-group cBlue" style="font-size:18px;">&nbsp;</span>
-                        <span ng-if="c.vote_status != 'pending'" tooltip="Vote Needed" class="glyphicons glyphicons-group cGray" style="font-size:18px;">&nbsp;</span>
-                        <span ng-if="c.has_comment" tooltip="Comments" class="glyphicons glyphicons-comments cYellow" style="font-size:18px;"></span>
-                        <span ng-if="!c.has_comment" tooltip="Comments" class="glyphicons glyphicons-comments cGray" style="font-size:18px;"></span>
-                    </td>
-                    <td>
-                        <span editable-text="c.committee_role" e-name="role" e-form="rowform" e-style="width:100%;" e-required>
-                            <span class="cBlack" ng-class="alertChosen(c.user_id)">
-                                <b>{{c.committee_role}}</b>
-                            </span>
-                        </span>
-                    </td>
-                    <td class="cBlue">
-                        <span editable-text="c.user.name" e-name="name" e-form="rowform" e-style="width:100%;" e-required>
-                            <!--<span editable-select="user.status" e-name="status" e-ng-options="s.value as s.text for s in statuses">-->
-                            {{c.user.name}}
-                            <!--</span>-->
-                        </span>
-                    </td>
-                    <td class="text-center">
-                        {{c.vote_request_date | date:'M/d/yy'}}
-                    </td>
-                    <td class="text-center">
-                        {{c.vote_received_date | date:'M/d/yy'}}
-                    </td>
-                    <td class="text-center">
-                        <span ng-if="c.vote">
-                            <span class="glyphicons glyphicons-thumbs-up cGray" style="font-size:16px;" tooltip="Voted to approve" tooltip-append-to-body="true" tooltip-placement="bottom" ng-if="c.vote == '1'"></span>
-                            <span class="glyphicons glyphicons-thumbs-down cGray" style="font-size:16px;" tooltip="Voted to reject" tooltip-append-to-body="true" tooltip-placement="bottom" ng-if="c.vote == '0'"></span>
-                        </span>
-                        <span ng-if="!c.vote && c.user_id !== user.id">
-                            &nbsp;
-                        </span>
-                        <span ng-if="!c.vote && c.user_id == user.id">
-                            <span class="voteicon glyphicons glyphicons-thumbs-up cGreen" style="font-size:16px;" tooltip="Approve" tooltip-append-to-body="true" tooltip-placement="bottom" ng-click="voteApprove(c)"></span>
-                            &nbsp;
-                            <span class="voteicon glyphicons glyphicons-thumbs-down cRed" style="font-size:16px;"tooltip="Reject" tooltip-append-to-body="true" tooltip-placement="bottom" ng-click="voteReject(c)"></span>
-                            &nbsp;
-                            <span class="voteicon glyphicons glyphicons-comments cBlue" style="font-size:16px;"tooltip="Comment" tooltip-append-to-body="true" tooltip-placement="bottom" ng-click="createComment(c)"></span>
-                        </span>
-                    </td>
-                   <td style="width:120px;" class="text-center">
-                        <!-- form -->
-                        <form editable-form name="rowform" onbeforesave="saveCommittee($data, p.id)" ng-show="rowform.$visible" class="form-buttons form-inline">
-                            <button type="submit" ng-disabled="rowform.$waiting"><span class="glyphicons glyphicons-circle-ok" style="color:#006837;border: none !important;"></span></button>
-
-                            <button type="button" class="btnCancel" ng-disabled="rowform.$waiting" ng-click="rowform.$cancel()"><span class="glyphicons glyphicons-unshare" style="color: #990000;"></span></button>
-                        </form>
-                        <div class="buttons" ng-show="!rowform.$visible">
-                            <span style="font-size: 16px; color: #990000;"
-                                  ng-click="deleteCommittee($index, p.id)">&cross;</span>
-                        </div>
-                    </td>
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan="8">
-                        <a ng-click="createCommittee()" class="btn btn-xs btn-default"><span class="glyphicons glyphicons-circle-plus" style="color:#006837;"></span> Add New</a>
-                    </td>
-                </tr>
-            </table>
+        <div class="row form-group">
+            <div ui-grid="gridOptsCommittee" ui-grid-edit ui-grid-cellnav ng-style="{ 'height': hgt, 'width': wdt }">
+                <div class="watermark" ng-show="gridOptsCommittee.data.length === 0">
+                    No data available
+                </div>
+            </div>
+            <p>
+                <a ng-click="createCommittee()" class="btn btn-xs btn-default">
+                    <span class="glyphicons glyphicons-circle-plus" style="color:#006837;"></span> Add New</a>
+            </p>
         </div>
     </div>
 </fieldset>

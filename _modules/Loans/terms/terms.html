@@ -1,8 +1,16 @@
 <style>
+    #terms {
+        font-size: 14px;
+        line-height: 1.42857143;
+        border: 1px solid #d4d4d4;
+    }
+    #terms tbody tr:nth-child(odd) {
+        background-color: #f3f3f3;
+    }
     .hdr {
         height: 32px;
-        color: white;
-        background-color: #006837;
+        color: white !important;
+        background-color: #006837 !important;
         padding: 5px;
     }
     .hdr>td {
@@ -12,11 +20,11 @@
     .ftr {
         height: 32px;
         color: black;
-        background-color: #FFFE99;
+        /*background-color: #FFFE99;*/
         padding: 5px;
     }
     .ftr>td {
-        border-right: 1px solid #888;
+        border-right: 1px solid #d4d4d4;
         padding: 2px;
     }
     .cont {
@@ -25,7 +33,7 @@
         padding: 5px;
     }
     .cont>td {
-        border-right: 1px solid #888;
+        border-right: 1px solid #d4d4d4;
         padding: 2px;
     }
 </style>
@@ -33,7 +41,7 @@
     <legend>Terms</legend>
     <div class="container row">
         <div class="form-group" style="margin-left: 30px;">
-            <table>
+            <table id="terms">
                 <tr class="hdr">
                     <td style="width:30px;">&nbsp;</td>
                     <td style="width:90px;">Mod Date</td>
@@ -46,6 +54,43 @@
                     <td style="width:90px;" ng-if="loan.loan_type_id === 6">Dist BuyDown</td>
                     <td colspan="2" style="width:140px;" ng-if="loan.loan_type_id === 6">Fee BuyDown</td>
                     <td colspan="2" style="width:140px;" ng-if="loan.loan_type_id === 6">Int Rate BuyDown</td>
+                </tr>
+                <tr class="ftr">
+                    <td class="text-center">&bigtriangleup;</td>
+                    <td>&nbsp;</td>
+                    <td>
+                        <!-- IF change from + to wrench, show-->
+                        &nbsp;
+                    </td>
+                    <td>&nbsp;</td>
+                    <td ng-class="AppFactory.gtZero(loan.fins.proc_fee_arm_only - (terms[terms.length-1].fee_processing_arm/100*loan.fins.commit_arm))">
+                        {{loan.fins.proc_fee_arm_only - (terms[terms.length-1].fee_processing_arm/100*loan.fins.commit_arm)|flexCurrency:0}}
+                    </td>
+                    <td>&nbsp;</td>
+                    <td ng-class="AppFactory.gtZero(loan.fins.srvc_fee_arm_only - (term_orig[term_orig.length-1].fee_service_arm/100*loan.fins.commit_arm))">
+                        {{loan.fins.srvc_fee_arm_only - (term_orig[term_orig.length-1].fee_service_arm/100*loan.fins.commit_arm)|flexCurrency:0}}
+                    </td>
+                    <td>&nbsp;</td>
+                    <td ng-class="AppFactory.gtZero(loan.fins.int_arm - (terms[terms.length-1].int_percent_arm/100*terms[terms.length-1].est_days/365*loan.fins.commit_arm))">
+                        {{loan.fins.int_arm - (terms[terms.length-1].int_percent_arm/100*terms[terms.length-1].est_days/365*loan.fins.commit_arm)|flexCurrency:0}}
+                    </td>
+                    <td ng-if="loan.loan_type_id === 2">&nbsp;</td>
+                    <td ng-class="AppFactory.gtZero(loan.fins.int_dist - (term_orig[term_orig.length-1].int_percent_dist/100*term_orig[term_orig.length-1].est_days/365*loan.fins.commit_dist))" ng-if="loan.loan_type_id === 2">
+                        {{loan.fins.int_dist - (term_orig[term_orig.length-1].int_percent_dist/100*term_orig[term_orig.length-1].est_days/365*loan.fins.commit_dist)|flexCurrency:0}}
+                    </td>
+                    <td ng-if="loan.loan_type_id === 2">
+                        <!-- IF change from + to wrench, show-->
+                        &nbsp;
+                    </td>
+                    <td ng-if="loan.loan_type_id === 6">&nbsp;</td>
+                    <td ng-if="loan.loan_type_id === 6">&nbsp;</td>
+                    <td ng-if="loan.loan_type_id === 6" ng-class="AppFactory.gtZero(0)">
+                        {{0|flexCurrency:0}}
+                    </td>
+                    <td ng-if="loan.loan_type_id === 6">&nbsp;</td>
+                    <td ng-if="loan.loan_type_id === 6" ng-class="AppFactory.gtZero(0)">
+                        {{0|flexCurrency:0}}
+                    </td>
                 </tr>
                 <tr class="cont" ng-repeat="t in loan.terms|filter:{mod_type: 'prog'}|orderBy:'mod_date':true">
                     <td class="text-center">
@@ -155,36 +200,6 @@
                     </td>
                     <td ng-class="AppFactory.gtZero(t.int_percent_borrower/100*loan.fins.commit_arm)" ng-if="loan.loan_type_id === 6">
                         {{t.int_percent_borrower/100*loan.fins.commit_arm|flexCurrency:0}}
-                    </td>
-                </tr>
-                <tr class="ftr">
-                    <td class="text-center">&nbsp;</td>
-                    <td colspan="2">Change</td>
-                    <td>&nbsp;</td>
-                    <td ng-class="AppFactory.gtZero(loan.fins.proc_fee_arm_only - (term_orig[0].fee_processing_arm/100*loan.fins.commit_arm))">
-                        {{loan.fins.proc_fee_arm_only - (term_orig[0].fee_processing_arm/100*loan.fins.commit_arm)|flexCurrency:0}}
-                    </td>
-                    <td>&nbsp;</td>
-                    <td ng-class="AppFactory.gtZero(loan.fins.srvc_fee_arm_only - (term_orig[0].fee_service_arm/100*loan.fins.commit_arm))">
-                        {{loan.fins.srvc_fee_arm_only - (term_orig[0].fee_service_arm/100*loan.fins.commit_arm)|flexCurrency:0}}
-                    </td>
-                    <td>&nbsp;</td>
-                    <td ng-class="AppFactory.gtZero(loan.fins.int_arm - (term_orig[0].int_percent_arm/100*term_orig[0].est_days/365*loan.fins.commit_arm))">
-                        {{loan.fins.int_arm - (term_orig[0].int_percent_arm/100*term_orig[0].est_days/365*loan.fins.commit_arm)|flexCurrency:0}}
-                    </td>
-                    <td ng-if="loan.loan_type_id === 2">&nbsp;</td>
-                    <td ng-class="AppFactory.gtZero(loan.fins.int_dist - (term_orig[0].int_percent_dist/100*term_orig[0].est_days/365*loan.fins.commit_dist))" ng-if="loan.loan_type_id === 2">
-                        {{loan.fins.int_dist - (term_orig[0].int_percent_dist/100*term_orig[0].est_days/365*loan.fins.commit_dist)|flexCurrency:0}}
-                    </td>
-                    <td ng-if="loan.loan_type_id === 2">&nbsp;</td>
-                    <td ng-if="loan.loan_type_id === 6">&nbsp;</td>
-                    <td ng-if="loan.loan_type_id === 6">&nbsp;</td>
-                    <td ng-if="loan.loan_type_id === 6" ng-class="AppFactory.gtZero(0)">
-                        {{0|flexCurrency:0}}
-                    </td>
-                    <td ng-if="loan.loan_type_id === 6">&nbsp;</td>
-                    <td ng-if="loan.loan_type_id === 6" ng-class="AppFactory.gtZero(0)">
-                        {{0|flexCurrency:0}}
                     </td>
                 </tr>
             </table>

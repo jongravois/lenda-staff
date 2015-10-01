@@ -1,0 +1,16 @@
+<div class="padd">
+    <span ng-if="row.entity.vote">
+        <span class="glyphicons glyphicons-thumbs-up cGray" style="font-size:16px;" tooltip="Voted to approve" tooltip-append-to-body="true" tooltip-placement="bottom" ng-if="row.entity.vote == '1'"></span>
+        <span class="glyphicons glyphicons-thumbs-down cGray" style="font-size:16px;" tooltip="Voted to reject" tooltip-append-to-body="true" tooltip-placement="bottom" ng-if="row.entity.vote == '0'"></span>
+    </span>
+    <span ng-if="!row.entity.vote && row.entity.user_id !== grid.appScope.user.id">
+        &nbsp;
+    </span>
+    <span ng-if="!row.entity.vote && row.entity.user_id == grid.appScope.user.id">
+        <span class="voteicon glyphicons glyphicons-thumbs-up cGreen" style="font-size:16px;" tooltip="Approve" tooltip-append-to-body="true" tooltip-placement="bottom" ng-click="voteApprove(row.entity)"></span>
+        &nbsp;
+        <span class="voteicon glyphicons glyphicons-thumbs-down cRed" style="font-size:16px;"tooltip="Reject" tooltip-append-to-body="true" tooltip-placement="bottom" ng-click="voteReject(row.entity)"></span>
+        &nbsp;
+        <span class="voteicon glyphicons glyphicons-comments cBlue" style="font-size:16px;"tooltip="Comment" tooltip-append-to-body="true" tooltip-placement="bottom" ng-click="createComment(row.entity)"></span>
+    </span>
+</div>
