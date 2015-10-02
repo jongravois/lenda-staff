@@ -1,11 +1,11 @@
 <!-- CREDIT POINTS-->
-<table class="table table-striped rowed table-condensed disp-sm" style="width:80%;">
-    <tr ng-if="tggl.showCreditPoints">
+<table id="points" style="width:80%;">
+    <tr class="hdr" ng-if="tggl.showCreditPoints">
         <th style="width:120px;">&nbsp;</th>
         <th style="width:80px;">Results</th>
         <th colspan="10">Scale</th>
     </tr>
-    <tr>
+    <tr class="cont">
         <td>Credit Score<br>Points</td>
         <td class="text-center bright cGreen">
             <strong>{{afins.credit_score|number:0}}</strong>
@@ -23,7 +23,7 @@
         <td class="text-center">&nbsp;</td>
         <td class="text-center">&nbsp;</td>
     </tr>
-    <tr>
+    <tr class="cont">
         <td>Debt / Assets<br>Points</td>
         <td class="text-center bright cGreen">
             <strong>{{getDebtToAssets()|flexPercent:0}}</strong>
@@ -41,7 +41,7 @@
         <td class="text-center" ng-class="{armer:creditPoints.debt_assets === 2}">65%<br>2</td>
         <td class="text-center" ng-class="{armer:creditPoints.debt_assets === 1}">70%<br>1</td>
     </tr>
-    <tr>
+    <tr class="cont">
         <td>Loan / Net Worth<br>Points</td>
         <td class="text-center bright cGreen">
             <strong>{{getLoanNetworth()|flexPercent:0}}</strong>
@@ -59,7 +59,7 @@
         <td class="text-center" ng-class="{armer:creditPoints.loan_networth === 2}">25%<br>2</td>
         <td class="text-center" ng-class="{armer:creditPoints.loan_networth === 1}">28%<br>1</td>
     </tr>
-    <tr>
+    <tr class="cont">
         <td>Years Farming<br>Points</td>
         <td class="text-center bright cGreen">
             <strong>{{loan.farmer.farm_exp|number:0}}</strong>
@@ -77,7 +77,7 @@
         <td>&nbsp;</td>
         <td>&nbsp;</td>
     </tr>
-    <tr class="success" ng-if="tggl.showCreditPoints">
+    <tr class="ftr" ng-if="tggl.showCreditPoints">
         <td>Total Credit Points</td>
         <td class="text-center">
             <strong>{{creditPoints.total|number:0}}</strong>

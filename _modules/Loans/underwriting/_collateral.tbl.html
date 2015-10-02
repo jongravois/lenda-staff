@@ -24,7 +24,7 @@
         <td class="text-right" ng-class="AppFactory.gtZero(AppFactory.calcProjectedDiscCrops(loan))">
             {{AppFactory.calcProjectedDiscCrops(loan)|flexCurrency:0}}
         </td>
-        <td class="text-right" ng-class="AppFactory.gtZero(loan.priorlien.totals.projected_crops)">
+        <td class="text-right" ng-class="AppFactory.gtZero(loan.fins.prior_lien_total)">
             {{loan.fins.prior_lien_total|flexCurrency:0}}
         </td>
         <td class="text-right" ng-class="AppFactory.gtZero(AppFactory.calcPlannedCropValue(loan))">
@@ -38,7 +38,7 @@
         <td class="text-right">
             {{AppFactory.calcTotalMPCI(loan)|flexCurrency:0}}
         </td>
-        <td class="text-right" ng-class="AppFactory.gtZero()">
+        <td class="text-right" ng-class="AppFactory.gtZero(AppFactory.calcTotalDiscMPCI(loan))">
             {{AppFactory.calcTotalDiscMPCI(loan)|flexCurrency:0}}
         </td>
         <td class="text-center">

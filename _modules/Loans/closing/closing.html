@@ -19,9 +19,17 @@
                         <input type="checkbox" ng-model="d.is_required"/>
                         &nbsp;{{d.name}}
                     </td>
-                    <td class="text-center" style="width:10%">
-                        <span class="docicon glyphicons glyphicons-paperclip cGreen" ng-if="d.status === 'uploaded'" ng-click="viewDocument(d.id)"></span>
-                        <span class="docicon glyphicons glyphicons-paperclip cGray" ng-if="d.status === 'pending'" ng-click="uploadDocument(d.id)"></span>
+                    <td style="min-width: 160px; width: 160px;">
+                        <span ng-if="!loan.loan_closed_date">
+                            Pending:
+                        </span>
+                        <span ng-if="loan.loan_closed_date">
+                            Closed: {{loan.loan_closed_date|date:'M/d/yyyy'}}
+                        </span>
+                    </td>
+                    <td class="text-center" style="width:60px;">
+                        <span class="docicon glyphicons glyphicons-paperclip cGreen" tooltip="View Document" tooltip-append-to-body="true" tooltip-placement="bottom" ng-if="d.status === 'uploaded'" ng-click="viewDocument(d.id)"></span>
+                        <span class="docicon glyphicons glyphicons-paperclip cGray" tooltip="Upload Document" tooltip-append-to-body="true" tooltip-placement="bottom" ng-if="d.status === 'pending'" ng-click="uploadDocument(d.id)"></span>
                     </td>
                 </tr>
             </table>
@@ -34,7 +42,7 @@
 <br>
 <div class="row">
     <div class="col-md-12 text-right">
-        <button style="margin-right:10px;" class="btn btn-arm" ng-click="closeLoan()" ng-disabled="!canClose">
+        <button style="margin:-16px 10px 0 0;" class="btn btn-arm" ng-click="closeLoan()" ng-disabled="!canClose">
             <span class="glyphicons glyphicons-print"></span>&nbsp;CLOSE
         </button>
     </div>

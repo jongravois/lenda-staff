@@ -1,3 +1,6 @@
+<style>
+    fieldset{ padding-bottom: 0;}
+</style>
 <!-- COLLATERAL CONDITIONS -->
 <fieldset>
     <legend>
@@ -181,28 +184,9 @@
     </div>
 </fieldset>
 <br/>
-<!-- CROSS COLLATERAL -->
-<fieldset>
-    <legend>
-        &nbsp;
-            <span class="pendicon glyphicon glyphicon-chevron-right"
-                  ng-click="tggl.showCrossCollateral = !tggl.showCrossCollateral"
-                  ng-if="!tggl.showCrossCollateral"></span>
-            <span class="pendicon glyphicon glyphicon-chevron-down"
-                  ng-click="tggl.showCrossCollateral = !tggl.showCrossCollateral"
-                  ng-if="tggl.showCrossCollateral"></span>
-        &nbsp;
-        Cross Collateral
-    </legend>
-    <div class="container-fluid row form-group" ng-if="tggl.showCrossCollateral">
-            <div ng-include="'./_modules/Loans/collateral/_cross.collateral.html'"></div>
-        </div>
-    </div>
-</fieldset>
-<br>
 <div class="row">
     <div class="col-md-12 text-right">
-        <button style="margin-right:10px;" class="btn btn-arm" ng-click="updateCollateral()"><span
+        <button style="margin-right:10px;margin-top:-16px;" class="btn btn-arm" ng-click="updateCollateral()"><span
             class="glyphicons glyphicons-log-book"></span>&nbsp;UPDATE
         </button>
     </div>

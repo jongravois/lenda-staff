@@ -76,9 +76,51 @@
                     data: {newapplication: false},
                     resolve: {}
                 })
+                .state('arm.edit.budget.sorghum', {
+                    url: '/sorghum',
+                    templateUrl: './_modules/Loans/budgets/_sorghum.html',
+                    controller: 'BudgetsController',
+                    data: {newapplication: false},
+                    resolve: {}
+                })
+                .state('arm.edit.budget.wheat', {
+                    url: '/wheat',
+                    templateUrl: './_modules/Loans/budgets/_wheat.html',
+                    controller: 'BudgetsController',
+                    data: {newapplication: false},
+                    resolve: {}
+                })
                 .state('arm.edit.budget.cotton', {
                     url: '/cotton',
                     templateUrl: './_modules/Loans/budgets/_cotton.html',
+                    controller: 'BudgetsController',
+                    data: {newapplication: false},
+                    resolve: {}
+                })
+                .state('arm.edit.budget.rice', {
+                    url: '/rice',
+                    templateUrl: './_modules/Loans/budgets/_rice.html',
+                    controller: 'BudgetsController',
+                    data: {newapplication: false},
+                    resolve: {}
+                })
+                .state('arm.edit.budget.peanuts', {
+                    url: '/peanuts',
+                    templateUrl: './_modules/Loans/budgets/_peanuts.html',
+                    controller: 'BudgetsController',
+                    data: {newapplication: false},
+                    resolve: {}
+                })
+                .state('arm.edit.budget.sugarcane', {
+                    url: '/sugarcane',
+                    templateUrl: './_modules/Loans/budgets/_sugarcane.html',
+                    controller: 'BudgetsController',
+                    data: {newapplication: false},
+                    resolve: {}
+                })
+                .state('arm.edit.budget.sunflowers', {
+                    url: '/sunflowers',
+                    templateUrl: './_modules/Loans/budgets/_sunflowers.html',
                     controller: 'BudgetsController',
                     data: {newapplication: false},
                     resolve: {}

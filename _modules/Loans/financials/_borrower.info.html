@@ -1,31 +1,47 @@
 <div class="row">
-    <div class="col-md-12">
-        <!-- CUSTOMER INFO-->
-        <table class="table table-striped rowed table-condensed disp-sm" style="width: 80%;">
-            <tr>
-                <th colspan="2" class="bright">Customer Info</th>
-                <th colspan="2">Financial Ratios</th>
-            </tr>
-            <tr>
-                <td style="width:25%;">Credit Score</td>
-                <td class="text-right cBlue bright" style="width:25%;">
-                    <strong>{{loan.applicant.fins.credit_score|number:0}}</strong>
-                </td>
-                <td>Debts / Assets</td>
-                <td class="text-right">
-                    <strong>{{getDebtToAssets()|flexPercent:0}}</strong>
-                </td>
-            </tr>
-            <tr>
-                <td>Requested Credit</td>
-                <td class="text-right cBlue bright">
-                    <strong>{{loan.applicant.fins.amount_requested|flexCurrency:0}}</strong>
-                </td>
-                <td>Loan / Net Worth</td>
-                <td class="text-right">
-                    <strong>{{getLoanNetworth()|flexPercent:0}}</strong>
-                </td>
-            </tr>
-        </table>
+    <div class="col-md-2">
+        <label>Requested Credit:</label>
+        <br/>
+        <input type="text" class="form-control text-right"
+               style="width:60%;"
+               autocomplete="false"
+               ng-model="loan.applicant.fins.amount_requested"
+            />
+    </div>
+    <div class="col-md-2">
+        <label>Credit Score:</label>
+        <br/>
+        <input type="text" class="form-control text-right"
+               style="width:60%;"
+               autocomplete="false"
+               ng-model="loan.applicant.fins.credit_score"
+            />
+    </div>
+    <div class="col-md-2">
+        <label>Debt / Assets:</label>
+        <p class="text-center">
+            <label>{{getDebtToAssets()|flexPercent:0}}</label>
+        </p>
+    </div>
+    <div class="col-md-2">
+        <label>Loan / Net Worth:</label>
+        <br/>
+        <p class="text-center">
+            <label>{{getLoanNetworth()|flexPercent:0}}</label>
+        </p>
+    </div>
+    <div class="col-md-2">
+        <label>Credit Points:</label>
+        <br/>
+        <p class="text-center">
+            <label>{{loan.applicant.fins.credit_score|number:0}}</label>
+        </p>
+    </div>
+    <div class="col-md-2">
+        <label>Borrower Rating:</label>
+        <br/>
+        <p class="text-center">
+        <label>{{loan.applicant.fins.grade}}</label>
+        </p>
     </div>
 </div>

@@ -8,11 +8,18 @@
     <!--  [ <span class="glyphicons glyphicons-adjust-alt" ng-class="{cBlack: !alpine, cRed: alpine}" ng-click="alpine = !alpine"></span> ] -->
     <legend>Optimizer</legend>
     <span ng-cloak>
-        <div class="container row" style="min-height: 400px;" ng-if="alpine">
+        <div class="container row" style="min-height: 200px;" ng-if="alpine">
             <div ng-include="'./_modules/Loans/optimizer/_alpine.html'"></div>
         </div>
-        <div class="container row" style="min-height: 400px; overflow-x:auto;">
+        <div class="container row" style="min-height: 200px; overflow-x:auto;">
             <div ng-include="'./_modules/Loans/optimizer/_optimizer.html'"></div>
         </div>
     </span>
 </fieldset>
+<br>
+<div class="row">
+    <div class="col-md-12 text-right">
+        <button style="margin:-16px 10px 0 0;" class="btn btn-arm" ng-click="updateOptimizer()"><span class="glyphicons glyphicons-log-book"></span>&nbsp;UPDATE</button>
+    </div>
+</div>
+<br><br><br><br>

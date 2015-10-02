@@ -17,7 +17,46 @@
                 $scope.grads = $rootScope.defaults.admingraders;
             }
             $scope.afins = $scope.loan.applicant.fins;
-            //console.log('AFINS', $scope.afins);
+            $scope.appfins = {
+                balance: [
+                    {
+                        type: 'Current',
+                        assets: Number($scope.afins.current_assets),
+                        disc: Number($scope.afins.current_assets_factor),
+                        liability: Number($scope.afins.current_assets_liability)
+                    },
+                    {
+                        type: 'Intermediate',
+                        assets: Number($scope.afins.intermediate_assets),
+                        disc: Number($scope.afins.intermediate_assets_factor),
+                        liability: Number($scope.afins.intermediate_assets_liability)
+                    },
+                    {
+                        type: 'Fixed',
+                        assets: Number($scope.afins.fixed_assets),
+                        disc: Number($scope.afins.fixed_assets_factor),
+                        liability: Number($scope.afins.fixed_assets_liability)
+                    }
+                ],
+                income: [
+                    {
+                        year: 'Year 1',
+                        rev: Number($scope.afins.year_1_revenue),
+                        exp: Number($scope.afins.year_1_expenses),
+                    },
+                    {
+                        year: 'Year 2',
+                        rev: Number($scope.afins.year_2_revenue),
+                        exp: Number($scope.afins.year_2_expenses),
+                    },
+                    {
+                        year: 'Year 3',
+                        rev: Number($scope.afins.year_3_revenue),
+                        exp: Number($scope.afins.year_3_expenses),
+                    }
+                ]
+            };
+            console.log('AFINS', $scope.afins, 'APPFINS', $scope.appfins);
 
             $scope.gradeA = false;
             $scope.gradeB = false;
@@ -44,6 +83,242 @@
                 showCreditPoints: false,
                 showBorrowerRating: true
             };
+
+            //BALANCE SHEET
+            $scope.gridOptsBalsh = {
+                enableCellEditOnFocus: true,
+                showColumnFooter: true,
+                rowTemplate: './_modules/Admin/_views/_row.tmpl.html',
+                columnDefs: [
+                    {
+                        name: 'type',
+                        enableCellEdit: false,
+                        displayName: 'Balance Sheet',
+                        cellClass: 'text-left',
+                        headerCellClass: 'text-center bGreen',
+                        enableColumnMenu: false,
+                        footerCellClass: 'cTotal padd',
+                        footerCellTemplate: '<span>Total:</span>',
+                        width: '100'
+                    },
+                    {
+                        name: 'assets',
+                        enableCellEdit: true,
+                        displayName: 'Assets',
+                        cellClass: 'text-right cBlue',
+                        cellFilter: 'flexZeroNumber:0',
+                        headerCellClass: 'text-center bGreen',
+                        enableColumnMenu: false,
+                        footerCellClass: 'text-right cTotal padd',
+                        footerCellTemplate: '<div class="black nBold">{{grid.appScope.getTotalAssets()|flexZeroCurrency:0}}</div>',
+                        width: '128'
+                    },
+                    {
+                        name: 'disc',
+                        enableCellEdit: true,
+                        displayName: 'Disc',
+                        cellClass: 'text-right cBlue',
+                        cellFilter: 'flexPercent:0',
+                        headerCellClass: 'text-center bGreen',
+                        enableColumnMenu: false,
+                        footerCellClass: 'text-right cTotal padd',
+                        footerCellTemplate: '<div class="text-center black nBold">-</div>',
+                        width: '88'
+                    },
+                    {
+                        name: 'a_val',
+                        enableCellEdit: false,
+                        displayName: 'Adj Value',
+                        cellClass: 'text-right',
+                        cellTemplate: '<div class="padd">{{row.entity.assets*(1-(row.entity.disc/100))|flexZeroCurrency:0}}</div>',
+                        headerCellClass: 'text-center bGreen',
+                        enableColumnMenu: false,
+                        footerCellClass: 'text-right cTotal padd',
+                        footerCellTemplate: '<div class="black nBold">{{grid.appScope.getTotalAssetAdj()|flexZeroCurrency:0}}</div>',
+                        width: '128'
+                    },
+                    {
+                        name: 'liability',
+                        enableCellEdit: true,
+                        displayName: 'Liability',
+                        cellClass: 'text-right cBlue',
+                        cellFilter: 'flexZeroCurrency:0',
+                        headerCellClass: 'text-center bGreen',
+                        enableColumnMenu: false,
+                        footerCellClass: 'text-right cTotal padd',
+                        footerCellTemplate: '<div class="black nBold">{{grid.appScope.getTotalLiabilities()|flexZeroCurrency:0}}</div>',
+                        width: '128'
+                    },
+                    {
+                        name: 'reserve',
+                        enableCellEdit: false,
+                        displayName: 'Reserve',
+                        cellClass: 'text-right',
+                        cellTemplate: '<div class="padd">{{(row.entity.assets*(1-(row.entity.disc/100)))-row.entity.liability|flexZeroCurrency:0}}</div>',
+                        headerCellClass: 'text-center bGreen',
+                        enableColumnMenu: false,
+                        footerCellClass: 'text-right cTotal padd',
+                        footerCellTemplate: '<div class="black nBold">{{grid.appScope.getTotalReserve()|flexZeroCurrency:0}}</div>',
+                        width: '128'
+                    }
+                ],
+                data: $scope.appfins.balance
+            };
+
+            $scope.msg = {};
+            var records = [];
+            angular.forEach($scope.appfins.balance, function (rawdata) {
+                var record = {};
+                record.changedAttrs = {};
+
+                Object.defineProperty(record, 'isDirty', {
+                    get: function () {
+                        return Object.getOwnPropertyNames(record.changedAttrs).length > 0;
+                    }
+                });
+
+                angular.forEach(rawdata, function (value, key) {
+                    Object.defineProperty(record, key, {
+                        get: function () {
+                            return rawdata[key];
+                        },
+
+                        set: function (value) {
+                            var origValue = record.changedAttrs[key] ? record.changedAttrs[key][0] : rawdata[key];
+
+                            if(value !== origValue) {
+                                record.changedAttrs[key] = [origValue, value];
+                            } else {
+                                delete record.changedAttrs[key];
+                            }
+                            rawdata[key] = value;
+                        }
+                    })
+                });
+                records.push(record);
+            });
+
+            $scope.gridOptsBalsh.onRegisterApi = function(gridApi) {
+                //set gridApi on scope
+                $scope.$scope = $scope;
+                $scope.gridApi = gridApi;
+                $scope.bs_hgt = 32 + ($scope.appfins.balance.length+1) * 30;
+                $scope.bs_wdt = 700;
+                $scope.gridApi.gridHeight = $scope.bs_hgt;
+                $scope.gridApi.gridWidth = $scope.bs_wdt;
+                gridApi.edit.on.afterCellEdit($scope, function(rowEntity, colDef, newValue, oldValue) {
+                    $scope.$apply(function(scope) {
+                        scope.dirty = true;
+                    });
+                });
+            };
+            //BALANCE SHEET
+
+            //INCOME HISTORY
+            $scope.gridOptsIH = {
+                enableCellEditOnFocus: true,
+                showColumnFooter: true,
+                rowTemplate: './_modules/Admin/_views/_row.tmpl.html',
+                columnDefs: [
+                    {
+                        name: 'year',
+                        enableCellEdit: false,
+                        displayName: 'Income History',
+                        cellClass: 'text-left',
+                        headerCellClass: 'text-center bGreen',
+                        enableColumnMenu: false,
+                        footerCellClass: 'cTotal padd',
+                        footerCellTemplate: '<span>Total:</span>',
+                        width: '100'
+                    },
+                    {
+                        name: 'rev',
+                        enableCellEdit: true,
+                        displayName: 'Revenue',
+                        cellClass: 'text-right cBlue',
+                        cellFilter: 'flexZeroNumber:0',
+                        headerCellClass: 'text-center bGreen',
+                        enableColumnMenu: false,
+                        footerCellClass: 'text-right cTotal padd',
+                        footerCellTemplate: '<div class="black nBold">{{grid.appScope.getTotalRevenue()|flexZeroCurrency:0}}</div>',
+                        width: '200'
+                    },
+                    {
+                        name: 'exp',
+                        enableCellEdit: true,
+                        displayName: 'Expenses',
+                        cellClass: 'text-right cBlue',
+                        cellFilter: 'flexZeroCurrency:0',
+                        headerCellClass: 'text-center bGreen',
+                        enableColumnMenu: false,
+                        footerCellClass: 'text-right cTotal padd',
+                        footerCellTemplate: '<div class="black nBold">{{grid.appScope.getTotalExpenses()|flexZeroCurrency:0}}</div>',
+                        width: '200'
+                    },
+                    {
+                        name: 'i_val',
+                        enableCellEdit: false,
+                        displayName: 'Income',
+                        cellClass: 'text-right',
+                        cellTemplate: '<div class="padd">{{row.entity.rev-row.entity.exp|flexZeroCurrency:0}}</div>',
+                        headerCellClass: 'text-center bGreen',
+                        enableColumnMenu: false,
+                        footerCellClass: 'text-right cTotal padd',
+                        footerCellTemplate: '<div class="black nBold">{{grid.appScope.getTotalIncome()|flexZeroCurrency:0}}</div>',
+                        width: '200'
+                    }
+                ],
+                data: $scope.appfins.income
+            };
+
+            $scope.msg = {};
+            var records = [];
+            angular.forEach($scope.appfins.income, function (rawdata) {
+                var record = {};
+                record.changedAttrs = {};
+
+                Object.defineProperty(record, 'isDirty', {
+                    get: function () {
+                        return Object.getOwnPropertyNames(record.changedAttrs).length > 0;
+                    }
+                });
+
+                angular.forEach(rawdata, function (value, key) {
+                    Object.defineProperty(record, key, {
+                        get: function () {
+                            return rawdata[key];
+                        },
+
+                        set: function (value) {
+                            var origValue = record.changedAttrs[key] ? record.changedAttrs[key][0] : rawdata[key];
+
+                            if(value !== origValue) {
+                                record.changedAttrs[key] = [origValue, value];
+                            } else {
+                                delete record.changedAttrs[key];
+                            }
+                            rawdata[key] = value;
+                        }
+                    })
+                });
+                records.push(record);
+            });
+
+            $scope.gridOptsIH.onRegisterApi = function(gridApi) {
+                //set gridApi on scope
+                $scope.$scope = $scope;
+                $scope.gridApi = gridApi;
+                $scope.inc_hgt = 32 + ($scope.appfins.income.length+1) * 30;
+                $scope.inc_wdt = 700;
+                $scope.gridApi.gridHeight = $scope.inc_hgt;
+                $scope.gridApi.gridWidth = $scope.inc_wdt;
+                gridApi.edit.on.afterCellEdit($scope, function(rowEntity, colDef, newValue, oldValue) {
+                    $scope.$apply(function(scope) {
+                        scope.dirty = true;
+                    });
+                });
+            };
+            //INCOME HISTORY
 
             $scope.getCurrentVal = function() { //1321817.15
                 var factor = Number($scope.afins.current_assets_factor);
@@ -78,6 +353,15 @@
             $scope.getTotalReserve = function() {
                 return Number($scope.getCurrentReserve()) + Number($scope.getIntermediateReserve()) + Number($scope.getFixedReserve());
             };
+            $scope.getTotalRevenue = function() {
+                return _.sumCollection($scope.appfins.income, 'rev');
+            }
+            $scope.getTotalExpenses = function() {
+                return _.sumCollection($scope.appfins.income, 'exp');
+            }
+            $scope.getTotalIncome = function() {
+                return Number($scope.getTotalRevenue()) - Number($scope.getTotalExpenses());
+            }
 
             $scope.getDebtToAssets = function() {
                 var adj = Number($scope.getTotalAssetAdj());
@@ -93,10 +377,9 @@
                 if(reserve == '0') { return 0; }
                 return (amt/reserve) * 100;
             };
-            //console.log('Loan', $scope.loan, 'Financials', $scope.afins, 'Globs', $scope.grads);
 
             $scope.creditPoints = calcCreditPoints();
-            console.log('POINTS', $scope.creditPoints);
+            //console.log('POINTS', $scope.creditPoints);
             
             $scope.updateFinancials = function() {
                 alert('working');

@@ -11,6 +11,8 @@
     .opticon {
         cursor: pointer;
     }
+    #optim {margin-bottom: 0 !important;}
+    #optim td{ white-space:nowrap; }
     /*#optim {
         table-layout: fixed;
         width: 3000px;
@@ -196,10 +198,10 @@
             <td class="cBlue" ng-class="AppFactory.gtZero(u.crops[0].corn.override)" style="width:30px;" ng-if="tggl.showCorn">
                 {{u.crops[0].corn.override|flexPercent:1}}
             </td>
-            <td ng-class="AppFactory.gtZero(u.crops[0].corn.CF)" style="width:60px;" ng-if="tggl.showCorn">
+            <td ng-class="AppFactory.gtZero(u.crops[0].corn.CF)" style="width:100px;" ng-if="tggl.showCorn">
                 {{u.crops[0].corn.CF|flexCurrency:2}}
             </td>
-            <td class="bright" ng-class="AppFactory.gtZero(u.crops[0].corn.EX)" style="width:80px;" ng-if="tggl.showCorn">
+            <td class="bright" ng-class="AppFactory.gtZero(u.crops[0].corn.EX)" style="width:100px;" ng-if="tggl.showCorn">
                 {{u.crops[0].corn.EX|flexCurrency:2}}
             </td>
 
@@ -212,10 +214,10 @@
             <td class="cBlue" ng-class="AppFactory.gtZero(u.crops[0].soybeans.override)" style="width:30px;" ng-if="tggl.showSoybeans">
                 {{u.crops[0].soybeans.override|flexPercent:1}}
             </td>
-            <td ng-class="AppFactory.gtZero(u.crops[0].soybeans.CF)" style="width:60px;" ng-if="tggl.showSoybeans">
+            <td ng-class="AppFactory.gtZero(u.crops[0].soybeans.CF)" style="width:100px;" ng-if="tggl.showSoybeans">
                 {{u.crops[0].soybeans.CF|flexCurrency:2}}
             </td>
-            <td class="bright" ng-class="AppFactory.gtZero(u.crops[0].soybeans.EX)" style="width:80px;" ng-if="tggl.showSoybeans">
+            <td class="bright" ng-class="AppFactory.gtZero(u.crops[0].soybeans.EX)" style="width:100px;" ng-if="tggl.showSoybeans">
                 {{u.crops[0].soybeans.EX|flexCurrency:2}}
             </td>
 
@@ -228,10 +230,10 @@
             <td class="cBlue" ng-class="AppFactory.gtZero(u.crops[0].sorghum.override)" style="width:30px;" ng-if="tggl.showSorghum">
                 {{u.crops[0].sorghum.override|flexPercent:1}}
             </td>
-            <td ng-class="AppFactory.gtZero(u.crops[0].sorghum.CF)" style="width:60px;" ng-if="tggl.showSorghum">
+            <td ng-class="AppFactory.gtZero(u.crops[0].sorghum.CF)" style="width:100px;" ng-if="tggl.showSorghum">
                 {{u.crops[0].sorghum.CF|flexCurrency:2}}
             </td>
-            <td class="bright" ng-class="AppFactory.gtZero(u.crops[0].sorghum.EX)" style="width:80px;" ng-if="tggl.showSorghum">
+            <td class="bright" ng-class="AppFactory.gtZero(u.crops[0].sorghum.EX)" style="width:100px;" ng-if="tggl.showSorghum">
                 {{u.crops[0].sorghum.EX|flexCurrency:2}}
             </td>
 
@@ -244,10 +246,10 @@
             <td class="cBlue" ng-class="AppFactory.gtZero(u.crops[0].wheat.override)" style="width:30px;" ng-if="tggl.showWheat">
                 {{u.crops[0].wheat.override|flexPercent:1}}
             </td>
-            <td ng-class="AppFactory.gtZero(u.crops[0].wheat.CF)" style="width:60px;" ng-if="tggl.showWheat">
+            <td ng-class="AppFactory.gtZero(u.crops[0].wheat.CF)" style="width:100px;" ng-if="tggl.showWheat">
                 {{u.crops[0].wheat.CF|flexCurrency:2}}
             </td>
-            <td class="bright" ng-class="AppFactory.gtZero(u.crops[0].wheat.EX)" style="width:80px;" ng-if="tggl.showWheat">
+            <td class="bright" ng-class="AppFactory.gtZero(u.crops[0].wheat.EX)" style="width:100px;" ng-if="tggl.showWheat">
                 {{u.crops[0].wheat.EX|flexCurrency:2}}
             </td>
 
@@ -260,10 +262,10 @@
             <td class="cBlue" ng-class="AppFactory.gtZero(u.crops[0].cotton.override)" style="width:30px;" ng-if="tggl.showCotton">
                 {{u.crops[0].cotton.override|flexPercent:1}}
             </td>
-            <td ng-class="AppFactory.gtZero(u.crops[0].cotton.CF)" style="width:60px;" ng-if="tggl.showCotton">
+            <td ng-class="AppFactory.gtZero(u.crops[0].cotton.CF)" style="width:100px;" ng-if="tggl.showCotton">
                 {{u.crops[0].cotton.CF|flexCurrency:2}}
             </td>
-            <td class="bright" ng-class="AppFactory.gtZero(u.crops[0].cotton.EX)" style="width:80px;" ng-if="tggl.showCotton">
+            <td class="bright" ng-class="AppFactory.gtZero(u.crops[0].cotton.EX)" style="width:100px;" ng-if="tggl.showCotton">
                 {{u.crops[0].cotton.EX|flexCurrency:2}}
             </td>
 
@@ -276,10 +278,10 @@
             <td class="cBlue" ng-class="AppFactory.gtZero(u.crops[0].rice.override)" style="width:30px;" ng-if="tggl.showRice">
                 {{u.crops[0].rice.override|flexPercent:1}}
             </td>
-            <td ng-class="AppFactory.gtZero(u.crops[0].rice.CF)" style="width:60px;" ng-if="tggl.showRice">
+            <td ng-class="AppFactory.gtZero(u.crops[0].rice.CF)" style="width:100px;" ng-if="tggl.showRice">
                 {{u.crops[0].rice.CF|flexCurrency:2}}
             </td>
-            <td class="bright" ng-class="AppFactory.gtZero(u.crops[0].rice.EX)" style="width:80px;" ng-if="tggl.showRice">
+            <td class="bright" ng-class="AppFactory.gtZero(u.crops[0].rice.EX)" style="width:100px;" ng-if="tggl.showRice">
                 {{u.crops[0].rice.EX|flexCurrency:2}}
             </td>
 
@@ -292,10 +294,10 @@
             <td class="cBlue" ng-class="AppFactory.gtZero(u.crops[0].peanuts.override)" style="width:30px;" ng-if="tggl.showPeanuts">
                 {{u.crops[0].peanuts.override|flexPercent:1}}
             </td>
-            <td ng-class="AppFactory.gtZero(u.crops[0].peanuts.CF)" style="width:60px;" ng-if="tggl.showPeanuts">
+            <td ng-class="AppFactory.gtZero(u.crops[0].peanuts.CF)" style="width:100px;" ng-if="tggl.showPeanuts">
                 {{u.crops[0].peanuts.CF|flexCurrency:2}}
             </td>
-            <td class="bright" ng-class="AppFactory.gtZero(u.crops[0].peanuts.EX)" style="width:80px;" ng-if="tggl.showPeanuts">
+            <td class="bright" ng-class="AppFactory.gtZero(u.crops[0].peanuts.EX)" style="width:100px;" ng-if="tggl.showPeanuts">
                 {{u.crops[0].peanuts.EX|flexCurrency:2}}
             </td>
 
@@ -308,10 +310,10 @@
             <td class="cBlue" ng-class="AppFactory.gtZero(u.crops[0].sugarcane.override)" style="width:30px;" ng-if="tggl.showCane">
                 {{u.crops[0].sugarcane.override|flexPercent:1}}
             </td>
-            <td ng-class="AppFactory.gtZero(u.crops[0].sugarcane.CF)" style="width:60px;" ng-if="tggl.showCane">
+            <td ng-class="AppFactory.gtZero(u.crops[0].sugarcane.CF)" style="width:100px;" ng-if="tggl.showCane">
                 {{u.crops[0].sugarcane.CF|flexCurrency:2}}
             </td>
-            <td class="bright" ng-class="AppFactory.gtZero(u.crops[0].sugarcane.EX)" style="width:80px;" ng-if="tggl.showCane">
+            <td class="bright" ng-class="AppFactory.gtZero(u.crops[0].sugarcane.EX)" style="width:100px;" ng-if="tggl.showCane">
                 {{u.crops[0].sugarcane.EX|flexCurrency:2}}
             </td>
 
@@ -324,10 +326,10 @@
             <td class="cBlue" ng-class="AppFactory.gtZero(u.crops[0].sunflowers.override)" style="width:30px;" ng-if="tggl.showSunflowers">
                 {{u.crops[0].sunflowers.override|flexPercent:1}}
             </td>
-            <td ng-class="AppFactory.gtZero(u.crops[0].sunflowers.CF)" style="width:60px;" ng-if="tggl.showSunflowers">
+            <td ng-class="AppFactory.gtZero(u.crops[0].sunflowers.CF)" style="width:100px;" ng-if="tggl.showSunflowers">
                 {{u.crops[0].sunflowers.CF|flexCurrency:2}}
             </td>
-            <td class="bright" ng-class="AppFactory.gtZero(u.crops[0].sunflowers.EX)" style="width:80px;" ng-if="tggl.showSunflowers">
+            <td class="bright" ng-class="AppFactory.gtZero(u.crops[0].sunflowers.EX)" style="width:100px;" ng-if="tggl.showSunflowers">
                 {{u.crops[0].sunflowers.EX|flexCurrency:2}}
             </td>
 
@@ -336,10 +338,8 @@
             </td>
         </tr>
     </table>
-</div>
-<div class="row" style="margin-left: 20px;">
-    <p>
+    <span style="margin: -16px 0 0 0">
         <a ng-click="createNewUnit()" class="btn btn-xs btn-default">
             <span class="glyphicons glyphicons-circle-plus" style="color:#006837;"></span> Add New</a>
-    </p>
+    </span>
 </div>

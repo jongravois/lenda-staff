@@ -70,7 +70,6 @@
                     .then(function (res) {
                         $scope.loan.applicant_id = res.data;
                         toastr.info('Creating new loan ...', 'Please wait');
-                        console.log('New Applicant', $scope.loan.applicant, 'New Loan', $scope.loan);
 
                         AppFactory.postIt('loans', $scope.loan)
                             .then(function(newloaned){

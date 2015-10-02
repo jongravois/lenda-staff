@@ -1,6 +1,7 @@
 <style>
     .uline{ border-botton: 1px solid #333 !Important; }
     .lg-text{ font-size: 16px;}
+    table.table{ margin-bottom: 0;}
 </style>
 <div class="container-fluid">
         <div class="row">
@@ -13,9 +14,9 @@
                     </div>
                 </div>
             </fieldset>
-            <br/><br/>
+            <br>
             <!--PROJECTED INCOME-->
-            <fieldset>
+            <fieldset ng-if="loan.loan_type_id != 4 && loan.loan_type_id != 5 && loan.loan_type_id != 6 && loan.loan_type_id != 7">
                 <legend>Projected Crop Income</legend>
                 <div class="row">
                     <div class="form-group col-md-12">
@@ -23,9 +24,9 @@
                     </div>
                 </div>
             </fieldset>
-            <br/><br/>
+            <br ng-if="loan.loan_type_id != 4 && loan.loan_type_id != 5 && loan.loan_type_id != 6 && loan.loan_type_id != 7">
             <!--INSURANCE COVERAGE-->
-            <fieldset>
+            <fieldset ng-if="loan.loan_type_id != 4 && loan.loan_type_id != 5 && loan.loan_type_id != 6 && loan.loan_type_id != 7">
                 <legend>Insurance and Discounted Crop</legend>
                 <div class="row">
                     <div class="form-group col-md-12">
@@ -33,9 +34,9 @@
                     </div>
                 </div>
             </fieldset>
-            <br/><br/>
+            <br ng-if="loan.loan_type_id != 4 && loan.loan_type_id != 5 && loan.loan_type_id != 6 && loan.loan_type_id != 7">
             <!--COLLATERAL SUMMARY-->
-            <fieldset ng-if="loan.loan_type_id != 7">
+            <fieldset>
                 <legend>Collateral Summary</legend>
                 <div class="row">
                     <div class="form-group col-md-12">
@@ -43,8 +44,7 @@
                     </div>
                 </div>
             </fieldset>
-            <br/><br/>
-
+            <br ng-if="loan.has_addendum">
             <fieldset ng-if="loan.has_addendum">
                 <legend>Loan History</legend>
                 <div class="row">
@@ -56,7 +56,7 @@
                     </div>
                 </div>
             </fieldset>
-            <br><br><br>
+            <br><br><br><br>
             <!--<pre>{{addendums|json}}</pre>-->
             <!--<pre>{{globals|json}}</pre>-->
         </div>

@@ -43,6 +43,37 @@
 <br/>
 <table class="table table-striped rowed disp-sm" style="width:90%; margin: 0 auto;">
     <tr>
+        <th>Cross Collateral Loan</th>
+        <th>ARM Commit</th>
+        <th>{{loan.distributor.distributor}} Commit</th>
+        <th>Cash Flow</th>
+        <th>Exposure</th>
+    </tr>
+    <tr ng-repeat="x in loan.xcols">
+        <td>{{x.slug}}</td>
+        <td ng-class="AppFactory.gtZero(getXARMCommit(x, loans))">
+            {{getXARMCommit(x, loans)|flexCurrency:0}}
+        </td>
+        <td ng-class="AppFactory.gtZero(getXDistCommit(x, loans))">
+            {{getXDistCommit(x, loans)|flexCurrency:0}}
+        </td>
+        <td ng-class="AppFactory.gtZero(getXCashFlow(x, loans))">
+            {{getXCashFlow(x, loans)|flexCurrency:0}}
+        </td>
+        <td ng-class="AppFactory.gtZero(getXExposure(x, loans))">
+            {{getXExposure(x, loans)|flexCurrency:0}}
+        </td>
+    </tr>
+    <tr>
+        <td colspan="5">
+            <a ng-click="createNewCross()" class="btn btn-xs btn-default">
+                <span class="glyphicons glyphicons-circle-plus" style="color:#006837;"></span> Add New</a>
+        </td>
+    </tr>
+</table>
+<br/>
+<table class="table table-striped rowed disp-sm" style="width:90%; margin: 0 auto;">
+    <tr>
         <th>Additional Conditions</th>
         <th style="width:100px;">Fulfilled</th>
         <th style="width:40px !important;">&nbsp;</th>

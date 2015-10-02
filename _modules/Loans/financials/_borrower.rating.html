@@ -1,6 +1,6 @@
 <!-- BORROWER RATING-->
-<table class="table table-striped rowed table-condensed disp-sm" style="width: 80%;">
-    <tr ng-if="tggl.showBorrowerRating">
+<table id="rating" style="width: 80%;">
+    <tr class="hdr" ng-if="tggl.showBorrowerRating">
         <th style="width:120px;">&nbsp;</th>
         <th class="bright" style="width:80px;">Results</th>
         <th style="width:15%;">A</th>
@@ -9,7 +9,7 @@
         <th style="width:15%;">D</th>
     </tr>
 
-    <tr ng-if="tggl.showBorrowerRating">
+    <tr class="cont" ng-if="tggl.showBorrowerRating">
         <td>CPA Financials</td>
         <td class="text-center bright">
             {{loan.applicant.fins.cpa_financials|booleanYesNo}}
@@ -20,7 +20,7 @@
         <td class="text-center" ng-class="{armer: gradeD}"></td>
     </tr>
 
-    <tr ng-if="tggl.showBorrowerRating">
+    <tr class="cont" ng-if="tggl.showBorrowerRating">
         <td>Bankruptcy</td>
         <td class="text-center bright">
             {{loan.bankruptcy_history|booleanYesNo}}
@@ -35,7 +35,7 @@
         <td class="text-center" ng-class="{armer: gradeD}"></td>
     </tr>
 
-    <tr ng-if="tggl.showBorrowerRating">
+    <tr class="cont" ng-if="tggl.showBorrowerRating">
         <td>Judgement</td>
         <td class="text-center bright">
             {{loan.quests.judgements|booleanYesNo}}
@@ -50,7 +50,7 @@
         <td class="text-center" ng-class="{armer: gradeD}"></td>
     </tr>
 
-    <tr ng-if="tggl.showBorrowerRating">
+    <tr class="cont" ng-if="tggl.showBorrowerRating">
         <td>Credit Points</td>
         <td class="text-center bright">
             {{creditPoints.total|number:0}}
@@ -69,7 +69,7 @@
         </td>
     </tr>
 
-    <tr ng-if="loan.loan_type_id === 3 || loan.loan_type_id === 4">
+    <tr class="cont" ng-if="loan.loan_type_id === 3 || loan.loan_type_id === 4">
         <td>Ag-Pro Max</td>
         <td></td>
         <td class="text-right" ng-class="{armer: gradeA}">
@@ -82,7 +82,7 @@
         <td class="text-center" ng-class="{armer: gradeD}">-</td>
     </tr>
 
-    <tr ng-if="loan.loan_type_id === 5">
+    <tr class="cont" ng-if="loan.loan_type_id === 5">
         <td>Capital Bridge Max</td>
         <td></td>
         <td class="text-right" ng-class="{armer: gradeA}">
@@ -97,7 +97,7 @@
         <td class="text-center" ng-class="{armer: gradeD}">-</td>
     </tr>
 
-    <tr ng-if="loan.loan_type_id === 6">
+    <tr class="cont" ng-if="loan.loan_type_id === 6">
         <td>Ag-Vest Max</td>
         <td></td>
         <td class="text-right" ng-class="{armer: gradeA}">

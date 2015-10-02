@@ -12,50 +12,50 @@
 <fieldset>
     <legend>Committee</legend>
     <div class="container-fluid">
-        <div class="row">
-            <div class="btn-group btn-group-sm pull-right" role="group">
-                <button type="button"
-                        class="btn btn-arm"
-                        ng-if="loan.has_distributor"
-                        ng-click="AppFactory.submitToDist(loan)">
-                    <span class="glyphicons glyphicons-share"></span>
-                    <span ng-if="loan_type_id !== 6">Distributor</span>
-                    <span ng-if="loan_type_id === 6">Dist 100%</span>
-                </button>
-                <button type="button"
-                        class="btn btn-arm"
-                        ng-disabled="!loan.analyst_can_submit"
-                        ng-click="AppFactory.submitLoan(loan)">
-                    <span class="glyphicons glyphicons-share"></span>
-                    Committee
-                </button>
-                <button type="button"
-                        class="btn btn-arm"
-                        ng-click="AppFactory.withdrawLoan(loan)">
-                    <span class="glyphicons glyphicons-person-walking"></span>
-                    Withdraw
-                </button>
-                <button type="button"
-                        class="btn btn-arm"
-                        ng-disabled="!loan.analyst_can_approve"
-                        ng-click="AppFactory.submitLoanSolo(loan)">
-                    <span class="glyphicons glyphicons-thumbs-up"></span>
-                    Approve
-                </button>
-            </div>
-        </div>
-        <br>
         <div class="row form-group">
             <div ui-grid="gridOptsCommittee" ui-grid-edit ui-grid-cellnav ng-style="{ 'height': hgt, 'width': wdt }">
                 <div class="watermark" ng-show="gridOptsCommittee.data.length === 0">
                     No data available
                 </div>
             </div>
-            <p>
+            <span>
                 <a ng-click="createCommittee()" class="btn btn-xs btn-default">
                     <span class="glyphicons glyphicons-circle-plus" style="color:#006837;"></span> Add New</a>
-            </p>
+            </span>
         </div>
     </div>
 </fieldset>
+<br>
+<div class="row" style="margin-top:-16px;margin-right: 10px;">
+    <div class="btn-group btn-group-sm pull-right" role="group">
+        <button type="button"
+                class="btn btn-arm"
+                ng-if="loan.has_distributor"
+                ng-click="AppFactory.submitToDist(loan)">
+            <span class="glyphicons glyphicons-share"></span>
+            <span ng-if="loan_type_id !== 6">Distributor</span>
+            <span ng-if="loan_type_id === 6">Dist 100%</span>
+        </button>
+        <button type="button"
+                class="btn btn-arm"
+                ng-disabled="!loan.analyst_can_submit"
+                ng-click="AppFactory.submitLoan(loan)">
+            <span class="glyphicons glyphicons-share"></span>
+            Committee
+        </button>
+        <button type="button"
+                class="btn btn-arm"
+                ng-click="AppFactory.withdrawLoan(loan)">
+            <span class="glyphicons glyphicons-person-walking"></span>
+            Withdraw
+        </button>
+        <button type="button"
+                class="btn btn-arm"
+                ng-disabled="!loan.analyst_can_approve"
+                ng-click="AppFactory.submitLoanSolo(loan)">
+            <span class="glyphicons glyphicons-thumbs-up"></span>
+            Approve
+        </button>
+    </div>
+</div>
 <br><br><br><br>

@@ -3,53 +3,19 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-12">
-                <table class="table table-striped rowed disp-sm">
-                    <tbody>
-                    <tr>
-                        <td style="width:28%;">Category</td>
-                        <td class="text-center" style="width:18%;">Budget</td>
-                        <td class="text-center" style="width:18%;">Spent</td>
-                        <td class="text-center" style="width:18%;">Remaining</td>
-                        <td class="text-center" style="width:18%;">Request</td>
-                    </tr>
-                    <tr ng-repeat="exp in loan.disbursements" ng-if="exp.arm_budget != 0">
-                        <td>
-                            {{exp.expense}}
-                        </td>
-                        <td class="text-right">
-                            {{exp.arm_budget|flexZeroCurrency:2}}
-                        </td>
-                        <td class="text-right">
-                            {{exp.spent|flexZeroCurrency:2}}
-                        </td>
-                        <td class="text-right">
-                            {{exp.remaining = exp.arm_budget - exp.spent|flexZeroCurrency:2}}
-                        </td>
-                        <td>
-                            <input type="text" class="form-control text-right" ng-model="exp.requested"/>
-                        </td>
-                    </tr>
-                    <tr class="success">
-                        <td>Total</td>
-                        <td class="text-right">
-                            {{disburse_arm_total()|flexZeroCurrency:2 }}
-                        </td>
-                        <td class="text-right">
-                            {{disburse_spent_total()|flexZeroCurrency:2 }}
-                        </td>
-                        <td class="text-right">
-                            {{disburse_rem_total()|flexZeroCurrency:2 }}
-                        </td>
-                        <td class="text-center" ng-if="!disbursed">
-                            <button class="btn btn-success btn-xs" ng-click="requestDisbursement()">Request</button>
-                        </td>
-                        <td class="text-right" ng-if="disbursed">
-                            <span>{{newDisb|flexZeroCurrency:2}}</span>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
+                <div ui-grid="gridOptsDisbursements" ui-grid-edit ui-grid-cellnav ng-style="{ 'height': hgt, 'width': wdt }">
+                    <div class="watermark" ng-show="gridOptsDisbursements.data.length === 0">
+                        No data available
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </fieldset>
+<br>
+<div class="row">
+    <div class="col-md-12 text-right">
+        <button style="margin:-16px 10px 0 0;" class="btn btn-arm" ng-click="createDisbursement()"><span class="glyphicons glyphicons-usd"></span>&nbsp;REQUEST</button>
+    </div>
+</div>
+<br><br><br><br>

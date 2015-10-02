@@ -14,9 +14,46 @@
     }
     .armer { background-color: #FFFF66 !important; color: black !important;}
     .dividerCol {width:2px !important; background-color: #006837 !important; border: none !important;}
+    #points, #rating {
+        font-size: 14px;
+        line-height: 1.42857143;
+        border: 1px solid #d4d4d4;
+    }
+    #points tbody tr:nth-child(odd), #rating tbody tr:nth-child(odd) {
+        background-color: #f3f3f3;
+    }
+    .hdr {
+        height: 32px;
+        color: white !important;
+        background-color: #006837 !important;
+        padding: 5px;
+    }
+    .hdr>td {
+        border-right: 1px solid white;
+        text-align: center;
+    }
+    .ftr {
+        height: 32px;
+        color: black;
+        /*background-color: #FFFE99;*/
+        padding: 5px;
+    }
+    .ftr>td {
+        border-right: 1px solid #d4d4d4;
+        padding: 2px;
+    }
+    .cont {
+        height: 32px;
+        color: black;
+        padding: 5px;
+    }
+    .cont>td {
+        border-right: 1px solid #d4d4d4;
+        padding: 2px;
+    }
 </style>
 <!-- Borrower Info -->
-<fieldset style="position: relative;">
+<fieldset style="padding-bottom:20px;">
     <legend>
         &nbsp;
         <span class="pendicon glyphicon glyphicon-chevron-right"
@@ -27,11 +64,6 @@
               ng-if="tggl.showBorrowerInfo"></span>
         &nbsp;Borrower Info
     </legend>
-    <span class="pull-right" style="margin-top: -20px;font-size:18px;">
-        <strong>
-            {{loan.applicant.fins.grade}}-{{loan.applicant.fins.credit_score|number:0}}
-        </strong>
-    </span>
     <div class="container-fluid"
          ng-include="'./_modules/Loans/financials/_borrower.info.html'"
          ng-if="tggl.showBorrowerInfo">
@@ -50,9 +82,17 @@
               ng-if="tggl.showBalanceSheet"></span>
         &nbsp;Balance Sheet
     </legend>
-    <div class="container-fluid"
+    <div class="container-fluid" ng-if="tggl.showBalanceSheet"
          ng-include="'./_modules/Loans/financials/_balance.sheet.html'">
     </div>
+    <p style="margin: -5px 0 0 16px;" ng-if="tggl.showBalanceSheet">
+       <span class="small_txt">
+           <span>
+               <input type="checkbox" ng-model="loan.applicant.fins.cpa_financials"/>
+           </span>
+           &nbsp;CPA Financials
+       </span>
+    </p>
 </fieldset>
 <br>
 <!-- Income History -->
@@ -67,7 +107,7 @@
               ng-if="tggl.showIncomeHistory"></span>
         &nbsp;Income History
     </legend>
-    <div class="container-fluid"
+    <div class="container-fluid" ng-if="tggl.showIncomeHistory"
          ng-include="'./_modules/Loans/financials/_income.history.html'">
     </div>
 </fieldset>
@@ -107,7 +147,7 @@
 <br>
 <div class="row">
     <div class="col-md-12 text-right">
-        <button style="margin-right:10px;" class="btn btn-arm" ng-click="updateFinancials()"><span class="glyphicons glyphicons-log-book"></span>&nbsp;UPDATE</button>
+        <button style="margin:-16px 10px 0 0;" class="btn btn-arm" ng-click="updateFinancials()"><span class="glyphicons glyphicons-log-book"></span>&nbsp;UPDATE</button>
     </div>
 </div>
 <br><br><br><br>

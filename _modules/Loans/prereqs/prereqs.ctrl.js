@@ -11,6 +11,12 @@
         $scope.FILE_URL = FILE_URL;
         $scope.docs = $scope.loan.attachments;
         //console.log('DOCS', $scope.docs);
+        $scope.viewDocument = function(id) {
+            alert('working');
+        };
+        $scope.uploadDocument = function(id) {
+            alert('working');
+        };
         $scope.savePrereq = function(data, id) {
             AppFactory.putIt('prerequisites', id, data);
         };
@@ -19,7 +25,7 @@
             _.each($scope.loan.references, function(i){
                 AppFactory.putIt('references', i.id, i);
             });
-        }
+        };
         $scope.createNew = function () {
             var newb = getNewRecord();
             AppFactory.postIt('attachments', newb)
@@ -44,7 +50,7 @@
                     AppFactory.deleteIt('attachments', id);
                     _.remove($scope.loan.attachments, {id: id});
                 });
-        }
+        };
         $scope.changeDoc = function($index, id) {
             alert('working');
         };

@@ -1,57 +1,6 @@
 <!-- INCOME HISTORY-->
-<table class="table table-striped rowed table-condensed disp-sm" style="width: 80%;">
-    <tr ng-if="tggl.showIncomeHistory">
-        <th style="width:25%;">Income History</th>
-        <th style="width:25%;">Revenue</th>
-        <th style="width:25%;">Expenses</th>
-        <th style="width:25%;">Income</th>
-    </tr>
-    <tr ng-if="tggl.showIncomeHistory">
-        <td>Year 1</td>
-        <td class="text-right cBlue">
-            <strong>{{loan.applicant.fins.year_1_revenue|flexCurrency:0}}</strong>
-        </td>
-        <td class="text-right cBlue">
-            <strong>{{loan.applicant.fins.year_1_expenses|flexCurrency:0}}</strong>
-        </td>
-        <td class="text-right">
-            <strong>{{loan.applicant.fins.year_1_revenue - loan.applicant.fins.year_1_expenses|flexCurrency:0}}</strong>
-        </td>
-    </tr>
-    <tr ng-if="tggl.showIncomeHistory">
-        <td>Year 2</td>
-        <td class="text-right cBlue">
-            <strong>{{loan.applicant.fins.year_2_revenue|flexCurrency:0}}</strong>
-        </td>
-        <td class="text-right cBlue">
-            <strong>{{loan.applicant.fins.year_2_expenses|flexCurrency:0}}</strong>
-        </td>
-        <td class="text-right">
-            <strong>{{loan.applicant.fins.year_2_revenue - loan.applicant.fins.year_2_expenses|flexCurrency:0}}</strong>
-        </td>
-    </tr>
-    <tr ng-if="tggl.showIncomeHistory">
-        <td>Year 3</td>
-        <td class="text-right cBlue">
-            <strong>{{loan.applicant.fins.year_3_revenue|flexCurrency:0}}</strong>
-        </td>
-        <td class="text-right cBlue">
-            <strong>{{loan.applicant.fins.year_3_expenses|flexCurrency:0}}</strong>
-        </td>
-        <td class="text-right">
-            <strong>{{loan.applicant.fins.year_3_revenue - loan.applicant.fins.year_3_expenses|flexCurrency:0}}</strong>
-        </td>
-    </tr>
-    <tr class="success"  ng-if="tggl.showIncomeHistory">
-        <td>Total</td>
-        <td class="text-right">
-            <strong>{{(1*loan.applicant.fins.year_1_revenue) + (1*loan.applicant.fins.year_2_revenue) + (1*loan.applicant.fins.year_3_revenue)|flexCurrency:0}}</strong>
-        </td>
-        <td class="text-right">
-            <strong>{{(1*loan.applicant.fins.year_1_expenses) + (1*loan.applicant.fins.year_2_expenses) + (1*loan.applicant.fins.year_3_expenses)|flexCurrency:0}}</strong>
-        </td>
-        <td class="text-right">
-            <strong>{{((1*loan.applicant.fins.year_1_revenue) + (1*loan.applicant.fins.year_2_revenue) + (1*loan.applicant.fins.year_3_revenue)) - ((1*loan.applicant.fins.year_1_expenses) + (1*loan.applicant.fins.year_2_expenses) + (1*loan.applicant.fins.year_3_expenses))|flexCurrency:0}}</strong>
-        </td>
-    </tr>
-</table>
+<div ui-grid="gridOptsIH" ui-grid-edit ui-grid-cellnav ng-style="{ 'height': inc_hgt, 'width': inc_wdt }">
+    <div class="watermark" ng-show="gridOptsIH.data.length === 0">
+        No data available
+    </div>
+</div>

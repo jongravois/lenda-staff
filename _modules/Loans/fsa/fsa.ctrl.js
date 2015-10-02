@@ -33,30 +33,30 @@
                 columnDefs: [
                     {
                         name: 'farms.county.locale',
-                        enableCellEdit: true,
-                        displayName: 'Locale',
-                        cellClass: 'text-left cBlue',
+                        enableCellEdit: false,
+                        displayName: 'ST | Cnty',
+                        cellClass: 'text-left',
                         headerCellClass: 'text-center bGreen',
                         enableColumnMenu: false,
                         width: '140'
                     },
                     {
                         name: 'fsn',
-                        enableCellEdit: true,
+                        enableCellEdit: false,
                         displayName: 'FSN',
-                        cellClass: 'text-left cBlue',
+                        cellClass: 'text-left',
                         headerCellClass: 'text-center bGreen',
                         enableColumnMenu: false,
-                        width: '80'
+                        width: '60'
                     },
                     {
                         name: 'pgm',
                         enableCellEdit: true,
-                        displayName: 'Gov\'t Pgm',
+                        displayName: 'FSA Pgm',
                         cellClass: 'text-center cBlue',
                         headerCellClass: 'text-center bGreen',
                         enableColumnMenu: false,
-                        width: '80'
+                        width: '100'
                     },
                     {
                         name: 'base_acres',
@@ -66,7 +66,7 @@
                         cellFilter: 'flexZeroNumber:1',
                         headerCellClass: 'text-center bGreen',
                         enableColumnMenu: false,
-                        width: '80'
+                        width: '100'
                     },
                     {
                         name: 'fsa_yield',
@@ -76,18 +76,7 @@
                         cellFilter: 'flexZeroNumber:1',
                         headerCellClass: 'text-center bGreen',
                         enableColumnMenu: false,
-                        width: '80'
-                    },
-                    {
-                        name: 'del',
-                        enableCellEdit: false,
-                        displayName: ' ',
-                        cellClass: 'text-center',
-                        enableColumnMenu: false,
-                        width: '30',
-                        maxWidth: '30',
-                        cellTemplate: '<span style="font-size:16px; color:#990000; cursor:pointer;" ng-click="grid.appScope.deleteOne(row.entity.id)">&cross;</span>',
-                        headerCellTemplate: '<div class="text-center padd bGreen" style="width:30px;">&nbsp;</div>'
+                        width: '100'
                     }
                 ],
                 data: $scope.loan.fsa_payments
@@ -131,7 +120,7 @@
                 $scope.$scope = $scope;
                 $scope.gridApi = gridApi;
                 $scope.hgt = 32 + $scope.loan.fsa_payments.length * 30;
-                $scope.wdt = 490;
+                $scope.wdt = 500;
                 $scope.gridApi.gridHeight = $scope.hgt;
                 $scope.gridApi.gridWidth = $scope.wdt;
                 gridApi.edit.on.afterCellEdit($scope, function(rowEntity, colDef, newValue, oldValue) {

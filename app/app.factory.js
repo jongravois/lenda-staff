@@ -14,6 +14,8 @@
             calcAcresCrop: calcAcresCrop,
             calcAddendumDiff: calcAddendumDiff,
             calcAddendumFee: calcAddendumFee,
+            calcAddendumOrigFee: calcAddendumOrigFee,
+            calcAddendumSrvcFee: calcAddendumSrvcFee,
             calcAddendumFeeDiff: calcAddendumFeeDiff,
             calcAddendumPCDiff: calcAddendumPCDiff,
             calcAdjExposure: calcAdjExposure,
@@ -217,7 +219,29 @@
                 var sorted = _.sortBy(adds, 'app_date').reverse();
                 var old_fees = Number(sorted[0]['fee_total']);
 
-                return Number(sorted[0]['fee_total']) - Number(sorted[1]['fee_total']);
+                return Math.abs(Number(sorted[0]['fee_total']) - Number(sorted[sorted.length-1]['fee_total']));
+            }
+        }
+        function calcAddendumOrigFee(al, loan) {
+            if(al.addendum_type === '1') {
+                return al.fee_total;
+            } else {
+                var adds = loan.addendums;
+                var sorted = _.sortBy(adds, 'app_date').reverse();
+                var old_fees = Number(sorted[0]['proc_fee']);
+
+                return Math.abs(Number(sorted[0]['proc_fee']) - Number(sorted[sorted.length-1]['proc_fee']));
+            }
+        }
+        function calcAddendumSrvcFee(al, loan) {
+            if(al.addendum_type === '1') {
+                return al.fee_total;
+            } else {
+                var adds = loan.addendums;
+                var sorted = _.sortBy(adds, 'app_date').reverse();
+                var old_fees = Number(sorted[0]['srvc_fee']);
+
+                return Math.abs(Number(sorted[0]['srvc_fee']) - Number(sorted[sorted.length-1]['srvc_fee']));
             }
         }
         function calcAddendumFeeDiff(al, loan) {
