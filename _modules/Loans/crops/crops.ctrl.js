@@ -839,11 +839,16 @@
                     showCancelButton: true,
                     confirmButtonColor: "#006837",
                     confirmButtonText: "Delete",
-                    closeOnConfirm: true},
-                function(){
-                    AppFactory.deleteIt('loancrops', id);
-                    $scope.crops_hgt -= 30;
-                    _.remove($scope.loan.loancrops, {id: id});
+                    closeOnConfirm: true
+                },
+                function(isConfirm){
+                    if(isConfirm) {
+                        AppFactory.deleteIt('loancrops', id);
+                        $scope.crops_hgt -= 30;
+                        _.remove($scope.loan.loancrops, {id: id});
+                    } else {
+                        alert('Whew, that was close!');
+                    }
                 });
         }
 
