@@ -818,6 +818,11 @@
                         angular.extend(newb, {id: id, crop: selectedItem.crop});
                         //console.log('Newb', newb);
                         $scope.loan.fins.crops_in_loan.push(newb.crop);
+                        _.each($scope.loans, function(l){
+                            if(l.id === newb.id) {
+                                l.fins.crops_in_loan = $scope.loan.fins.crops_in_loan;
+                            }
+                        });
                         $scope.loan.loancrops.push(newb);
                         $scope.crops_hgt = 32 + ($scope.loan.fins.crops_in_loan * 30);
                         $state.go($state.current, {loantypeID: $scope.loan.loan_type_id, loanID: $scope.loan.id}, {reload: true});
