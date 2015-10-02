@@ -16,9 +16,9 @@
             </tr>
             <tr ng-repeat="a in loan.farmer.applicants">
                 <td>
-                                <span class="cBlue" style="text-decoration: underline;cursor: pointer;" ng-click="useApplicant(a.id)">
-                                    {{a.applicant}}
-                                </span>
+                    <span class="cBlue" style="text-decoration: underline;cursor: pointer;" ng-click="useApplicant(a.id)">
+                        {{a.applicant}}
+                    </span>
                 </td>
                 <td>{{a.address}}, {{a.city}}, {{a.state.abr}} {{a.zip}}</td>
                 <td>{{a.entity.entitytype}}</td>

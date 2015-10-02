@@ -64,6 +64,23 @@
 
             $scope.createApplicantScreen = function() {
                 // check for partners and joints with loan_id of 0 and update loan_id
+                if(!$scope.loan.applicant.name) {
+                    toastr.warning('Applicant name is a required field.', 'Unable to Continue');
+                    return false;
+                }
+                if(!$scope.loan.applicant.email) {
+                    toastr.warning('Applicant email is a required field', 'Unable to Continue');
+                    return false;
+                }
+                if(!$scope.loan.applicant.ssn) {
+                    toastr.warning('Applicant SSN/TID is a required field', 'Unable to Continue');
+                    return false;
+                }
+                if(!$scope.loan.applicant.dob) {
+                    toastr.warning('Applicant DOB/Incorporation is a required field', 'Unable to Continue');
+                    return false;
+                }
+
                 $scope.loan.applicant.loc_id = $scope.loan.loc_id;
                 $scope.loan.applicant.farmer_id = $scope.loan.farmer_id;
                 AppFactory.postIt('applicants', $scope.loan.applicant)
