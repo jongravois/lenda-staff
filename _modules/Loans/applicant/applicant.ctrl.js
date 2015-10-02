@@ -64,7 +64,7 @@
 
             $scope.createApplicantScreen = function() {
                 // check for partners and joints with loan_id of 0 and update loan_id
-                if(!$scope.loan.applicant.name) {
+                if(!$scope.loan.applicant.applicant) {
                     toastr.warning('Applicant name is a required field.', 'Unable to Continue');
                     return false;
                 }
