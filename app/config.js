@@ -9,6 +9,12 @@
             });
         })
         .config(function() {
+            function findByValues(collection, property, values) {
+                return _.filter(collection, function(item) {
+                    return _.contains(values, item[property]);
+                });
+            }
+
             function groupByMulti(obj, values, context) {
                 if (!values.length) {
                     return obj;
@@ -51,6 +57,7 @@
             }
 
             _.mixin({
+                findByValues: findByValues,
                 groupByMulti: groupByMulti,
                 sumCollection: sumCollection,
                 pluckuniq: pluckuniq,

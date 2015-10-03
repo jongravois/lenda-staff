@@ -4,7 +4,7 @@
 <fieldset>
     <legend>Loan Information</legend>
     <div class="container-fluid">
-        <div id="LoanInfo" class="row" ng-if="!XColView">
+        <div id="LoanInfo" class="row">
             <!--<button class="btn btn-arm" ng-click="makepdf()">
                 Make a PDF
             </button>-->
@@ -59,17 +59,11 @@
     </div>
 </fieldset>
 
-<span ng-switch="loan.loan_type_id" ng-if="!XColView">
-  <br>
-  <span ng-switch-when="7">
-      <!-- GRAIN STORAGE LOANS ONLY -->
-    <div ng-include="'./_modules/Loans/summary/_storage.contract.html'"></div>
-  </span>
-
+<span ng-switch="loan.loan_type_id">
   <span ng-switch-default>
   <!-- ALL LOANS BUT GRAIN STORAGE -->
       <!--Projected Income-->
-      <fieldset>
+      <fieldset ng-if="loan.crop_loan">
           <legend>Projected Income</legend>
           <div id="ProjectedIncome" class="row">
               <div class="col-md-11" style="margin-left:20px;">
@@ -79,7 +73,7 @@
       </fieldset>
       <br/>
       <!--USE OF FUNDS ANALYSIS-->
-      <fieldset>
+      <fieldset ng-if="loan.crop_loan">
           <legend>Use of Funds</legend>
           <div id="ExpensesAnalysis" class="row">
               <div class="col-md-11" style="margin-left:20px;">
@@ -92,7 +86,7 @@
       </fieldset>
       <br/>
       <!--INSURANCE ANALYSIS-->
-      <fieldset>
+      <fieldset ng-if="loan.crop_loan">
           <legend>Insurance Coverage</legend>
           <div id="InsuranceAnalysis" class="row">
               <div class="col-md-11" style="margin-left:20px;">
@@ -102,7 +96,7 @@
       </fieldset>
       <br/>
       <!--BREAK-EVEN ANALYSIS-->
-      <fieldset>
+      <fieldset ng-if="loan.crop_loan">
           <legend>Break Even Analysis</legend>
           <div id="BreakevenAnalysis" class="row">
               <div class="col-md-8 col-md-offset-2">

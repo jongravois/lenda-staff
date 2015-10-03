@@ -20,28 +20,28 @@
     <div class="col-md-2">
         <label>Debt / Assets:</label>
         <p>
-            <label>{{getDebtToAssets()|flexPercent:0}}</label>
+            {{getDebtToAssets()|flexPercent:0}}
         </p>
     </div>
     <div class="col-md-2">
         <label>Loan / Net Worth:</label>
         <br/>
         <p>
-            <label>{{getLoanNetworth()|flexPercent:0}}</label>
+            {{getLoanNetworth()|flexPercent:0}}
         </p>
     </div>
     <div class="col-md-2">
         <label>Credit Points:</label>
         <br/>
         <p>
-            <label>{{creditPoints.total|number:0}}</label>
+            {{creditPoints.total|number:0}}
         </p>
     </div>
     <div class="col-md-2">
         <label>Borrower Rating:</label>
         <br/>
         <p>
-        <label>{{loan.applicant.fins.grade}}</label>
+        {{loan.applicant.fins.grade}}
         </p>
     </div>
 </div>

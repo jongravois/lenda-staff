@@ -70,6 +70,23 @@
     </div>
 </fieldset>
 <br>
+<!-- Income History -->
+<fieldset>
+    <legend>
+        &nbsp;
+        <span class="pendicon glyphicon glyphicon-chevron-right"
+              ng-click="tggl.showIncomeHistory = !tggl.showIncomeHistory"
+              ng-if="!tggl.showIncomeHistory"></span>
+        <span class="pendicon glyphicon glyphicon-chevron-down"
+              ng-click="tggl.showIncomeHistory = !tggl.showIncomeHistory"
+              ng-if="tggl.showIncomeHistory"></span>
+        &nbsp;Income History
+    </legend>
+    <div class="container-fluid" ng-if="tggl.showIncomeHistory"
+         ng-include="'./_modules/Loans/financials/_income.history.html'">
+    </div>
+</fieldset>
+<br>
 <!-- Balance Sheet -->
 <fieldset>
     <legend>
@@ -93,23 +110,6 @@
            &nbsp;CPA Financials
        </span>
     </p>
-</fieldset>
-<br>
-<!-- Income History -->
-<fieldset>
-    <legend>
-        &nbsp;
-        <span class="pendicon glyphicon glyphicon-chevron-right"
-              ng-click="tggl.showIncomeHistory = !tggl.showIncomeHistory"
-              ng-if="!tggl.showIncomeHistory"></span>
-        <span class="pendicon glyphicon glyphicon-chevron-down"
-              ng-click="tggl.showIncomeHistory = !tggl.showIncomeHistory"
-              ng-if="tggl.showIncomeHistory"></span>
-        &nbsp;Income History
-    </legend>
-    <div class="container-fluid" ng-if="tggl.showIncomeHistory"
-         ng-include="'./_modules/Loans/financials/_income.history.html'">
-    </div>
 </fieldset>
 <br>
 <!-- Credit Points -->

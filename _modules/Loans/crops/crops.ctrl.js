@@ -126,7 +126,7 @@
                     enableColumnMenu: false,
                     width: '30',
                     maxWidth: '30',
-                    cellTemplate: '<span style="font-size:16px; color:#990000; cursor:pointer;" ng-click="grid.appScope.deleteCrop(row.entity.id)">&cross;</span>',
+                    cellTemplate: '<span style="font-size:16px; color:#990000; cursor:pointer;" ng-click="grid.appScope.deleteCrop(row.entity)">&cross;</span>',
                     headerCellTemplate: '<div class="text-center padd bGreen" style="width:30px;">&nbsp;</div>'
                 }
             ],
@@ -794,8 +794,10 @@
         //PLANNED CROPS
 
         $scope.createNewCrop = function() {
-            $scope.items = $scope.crops.filter(function(i){
-                return $scope.loan.fins.crops_in_loan.indexOf(i.crop) === -1;
+            $scope.items = _.filter($scope.crops, function (x) {
+                return !_.find($scope.loan.loancrops, function (y) {
+                    return Number(y.crop_id) === Number(x.id);
+                });
             });
 
             var modalInstance = $modal.open({
@@ -817,12 +819,6 @@
                         var id = rsp.data;
                         angular.extend(newb, {id: id, crop: selectedItem.crop});
                         //console.log('Newb', newb);
-                        $scope.loan.fins.crops_in_loan.push(newb.crop);
-                        _.each($scope.loans, function(l){
-                            if(l.id === newb.id) {
-                                l.fins.crops_in_loan = $scope.loan.fins.crops_in_loan;
-                            }
-                        });
                         $scope.loan.loancrops.push(newb);
                         $scope.crops_hgt = 32 + ($scope.loan.fins.crops_in_loan * 30);
                         $state.go($state.current, {loantypeID: $scope.loan.loan_type_id, loanID: $scope.loan.id}, {reload: true});
@@ -831,7 +827,8 @@
                 //console.log('Modal dismissed at: ' + new Date());
             });
         }
-        $scope.deleteCrop = function(id) {
+        $scope.deleteCrop = function(obj) {
+            var id = obj.id;
             SweetAlert.swal({
                     title: "Are you sure?",
                     text: "You will not be able to undo this operation.",
@@ -847,7 +844,7 @@
                         $scope.crops_hgt -= 30;
                         _.remove($scope.loan.loancrops, {id: id});
                     } else {
-                        alert('Whew, that was close!');
+                        //alert('Whew, that was close!');
                     }
                 });
         }
