@@ -6,7 +6,7 @@
 <div class="container-fluid">
         <div class="row">
             <!--LOAN EXCEPTIONS-->
-            <fieldset ng-if="!XColView">
+            <fieldset>
                 <legend>Loan Exceptions</legend>
                 <div class="row" style="padding-left: 20px;">
                     <div class="form-group">
@@ -16,7 +16,7 @@
             </fieldset>
             <br>
             <!--PROJECTED INCOME-->
-            <fieldset ng-if="loan.loan_type_id != 4 && loan.loan_type_id != 5 && loan.loan_type_id != 6 && loan.loan_type_id != 7">
+            <fieldset ng-if="loan.crop_loan">
                 <legend>Projected Crop Income</legend>
                 <div class="row">
                     <div class="form-group col-md-12">
@@ -24,9 +24,9 @@
                     </div>
                 </div>
             </fieldset>
-            <br ng-if="loan.loan_type_id != 4 && loan.loan_type_id != 5 && loan.loan_type_id != 6 && loan.loan_type_id != 7">
+            <br ng-if="loan.crop_loan">
             <!--INSURANCE COVERAGE-->
-            <fieldset ng-if="loan.loan_type_id != 4 && loan.loan_type_id != 5 && loan.loan_type_id != 6 && loan.loan_type_id != 7">
+            <fieldset ng-if="loan.crop_loan">
                 <legend>Insurance and Discounted Crop</legend>
                 <div class="row">
                     <div class="form-group col-md-12">
@@ -34,9 +34,9 @@
                     </div>
                 </div>
             </fieldset>
-            <br ng-if="loan.loan_type_id != 4 && loan.loan_type_id != 5 && loan.loan_type_id != 6 && loan.loan_type_id != 7">
+            <br ng-if="loan.crop_loan">
             <!--COLLATERAL SUMMARY-->
-            <fieldset>
+            <fieldset ng-if="loan.crop_loan">
                 <legend>Collateral Summary</legend>
                 <div class="row">
                     <div class="form-group col-md-12">
@@ -44,19 +44,61 @@
                     </div>
                 </div>
             </fieldset>
-            <br ng-if="loan.has_addendum">
-            <fieldset ng-if="loan.has_addendum">
+            <br ng-if="loan.crop_loan">
+            <!-- BORROWER INFO -->
+            <fieldset ng-if="!loan.crop_loan && loan.loan_type_id != '7'">
+                <legend>Borrower Info</legend>
+                <div class="row">
+                    <div class="form-group col-md-12">
+                        <div ng-include="'_modules/Loans/underwriting/_borrower.info.html'"></div>
+                    </div>
+                </div>
+            </fieldset>
+            <br ng-if="!loan.crop_loan && loan.loan_type_id != '7'">
+            <!-- INCOME HISTORY -->
+            <fieldset ng-if="!loan.crop_loan && loan.loan_type_id != '7'">
+                <legend>Income History</legend>
+                <div class="row">
+                    <div class="form-group col-md-12">
+                        <div ng-include="'_modules/Loans/underwriting/_income.history.html'"></div>
+                    </div>
+                </div>
+            </fieldset>
+            <br ng-if="!loan.crop_loan && loan.loan_type_id != '7'">
+            <!-- BALANCE SHEET -->
+            <fieldset ng-if="!loan.crop_loan && loan.loan_type_id != '7'">
+                <legend>Balance Sheet</legend>
+                <div class="row">
+                    <div class="form-group col-md-12">
+                        <div ng-include="'_modules/Loans/underwriting/_balance.sheet.html'"></div>
+                    </div>
+                </div>
+            </fieldset>
+            <br ng-if="!loan.crop_loan && loan.loan_type_id != '7'">
+            <!-- GRAIN STORAGE -->
+            <fieldset ng-if="!loan.crop_loan && loan.loan_type_id == '7'">
+                <legend>Crop Inventory Analysis</legend>
+                <div class="row">
+                    <div class="form-group col-md-12">
+                        <div ng-include="'_modules/Loans/underwriting/_storage.tbl.html'"></div>
+                    </div>
+                </div>
+            </fieldset>
+            <br ng-if="!loan.crop_loan && loan.loan_type_id == '7'">
+            <!--LOAN HISTORY-->
+            <fieldset>
                 <legend>Loan History</legend>
                 <div class="row">
                     <div class="col-md-12">
-                        <div ng-if="loan.has_distributor"
-                             ng-include="'_modules/Loans/underwriting/_loan.history.tbl.html'"></div>
-                        <div ng-if="!loan.has_distributor"
-                             ng-include="'_modules/Loans/underwriting/_loan.history.nd.tbl.html'"></div>
+                        <div ng-if="loan.loan_type_id == '2'"
+                             ng-include="'_modules/Loans/underwriting/_agi.loan.history.tbl.html'"></div>
+                        <div ng-if="loan.loan_type_id == '1' || loan.loan_type_id == '3'"
+                             ng-include="'_modules/Loans/underwriting/_all.loan.history.tbl.html'"></div>
+                        <div ng-if="loan.loan_type_id != '1' && loan.loan_type_id != '2' && loan.loan_type_id != '3'"
+                             ng-include="'_modules/Loans/underwriting/_spec.loan.history.tbl.html'"></div>
                     </div>
                 </div>
             </fieldset>
             <br><br><br><br>
-            <!--<pre>{{addendums|json}}</pre>-->
-            <!--<pre>{{globals|json}}</pre>-->
         </div>
+    <br><br><br><br>

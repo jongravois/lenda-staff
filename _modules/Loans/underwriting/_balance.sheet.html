@@ -1,0 +1,84 @@
+<table class="table table-striped rowed disp-sm" style="width:700px;">
+    <tr>
+        <th style="width: 100px;">Balance Sheet</th>
+        <th style="width: 128px;">Assets</th>
+        <th style="width: 88px;">Disc</th>
+        <th style="width: 128px;">Adj Value</th>
+        <th style="width: 128px;">Liability</th>
+        <th style="width: 128px;">Reserve</th>
+    </tr>
+    <tr>
+        <td>Current</td>
+        <td ng-class="AppFactory.gtZero(loan.applicant.fins.current_assets)">
+            {{loan.applicant.fins.current_assets|flexCurrency:0}}
+        </td>
+        <td ng-class="AppFactory.gtZero(loan.applicant.fins.current_assets_factor)">
+            {{loan.applicant.fins.current_assets_factor|flexPercent:0}}
+        </td>
+        <td ng-class="AppFactory.gtZero(loan.applicant.fins.current_assets * (1 - loan.applicant.fins.current_assets_factor/100))">
+            {{loan.applicant.fins.current_assets * (1 - loan.applicant.fins.current_assets_factor/100)|flexCurrency:0}}
+        </td>
+        <td ng-class="AppFactory.gtZero(loan.applicant.fins.current_assets_liability)">
+            {{loan.applicant.fins.current_assets_liability|flexCurrency:0}}
+        </td>
+        <td ng-class="AppFactory.gtZero((loan.applicant.fins.current_assets * (1 - loan.applicant.fins.current_assets_factor/100)) - loan.applicant.fins.current_assets_liability)">
+            {{(loan.applicant.fins.current_assets * (1 - loan.applicant.fins.current_assets_factor/100)) - loan.applicant.fins.current_assets_liability|flexCurrency:0}}
+        </td>
+    </tr>
+    <tr>
+        <td>Intermediate</td>
+        <td ng-class="AppFactory.gtZero(loan.applicant.fins.intermediate_assets)">
+            {{loan.applicant.fins.intermediate_assets|flexCurrency:0}}
+        </td>
+        <td ng-class="AppFactory.gtZero(loan.applicant.fins.intermediate_assets_factor)">
+            {{loan.applicant.fins.intermediate_assets_factor|flexPercent:0}}
+        </td>
+        <td ng-class="AppFactory.gtZero(loan.applicant.fins.intermediate_assets * (1 - loan.applicant.fins.intermediate_assets_factor/100))">
+            {{loan.applicant.fins.intermediate_assets * (1 - loan.applicant.fins.intermediate_assets_factor/100)|flexCurrency:0}}
+        </td>
+        <td ng-class="AppFactory.gtZero(loan.applicant.fins.intermediate_assets_liability)">
+            {{loan.applicant.fins.intermediate_assets_liability|flexCurrency:0}}
+        </td>
+        <td ng-class="AppFactory.gtZero((loan.applicant.fins.intermediate_assets * (1 - loan.applicant.fins.intermediate_assets_factor/100)) - loan.applicant.fins.intermediate_assets_liability)">
+            {{(loan.applicant.fins.intermediate_assets * (1 - loan.applicant.fins.intermediate_assets_factor/100)) - loan.applicant.fins.intermediate_assets_liability|flexCurrency:0}}
+        </td>
+    </tr>
+    <tr>
+        <td>Fixed</td>
+        <td ng-class="AppFactory.gtZero(loan.applicant.fins.fixed_assets)">
+            {{loan.applicant.fins.fixed_assets|flexCurrency:0}}
+        </td>
+        <td ng-class="AppFactory.gtZero(loan.applicant.fins.fixed_assets_factor)">
+            {{loan.applicant.fins.fixed_assets_factor|flexPercent:0}}
+        </td>
+        <td ng-class="AppFactory.gtZero(loan.applicant.fins.fixed_assets * (1 - loan.applicant.fins.fixed_assets_factor/100))">
+            {{loan.applicant.fins.fixed_assets * (1 - loan.applicant.fins.fixed_assets_factor/100)|flexCurrency:0}}
+        </td>
+        <td ng-class="AppFactory.gtZero(loan.applicant.fins.fixed_assets_liability)">
+            {{loan.applicant.fins.fixed_assets_liability|flexCurrency:0}}
+        </td>
+        <td ng-class="AppFactory.gtZero((loan.applicant.fins.fixed_assets * (1 - loan.applicant.fins.fixed_assets_factor/100)) - loan.applicant.fins.fixed_assets_liability)">
+            {{(loan.applicant.fins.fixed_assets * (1 - loan.applicant.fins.fixed_assets_factor/100)) - loan.applicant.fins.fixed_assets_liability|flexCurrency:0}}
+        </td>
+    </tr>
+    <tr class="success">
+        <td>Total</td>
+        <td ng-class="AppFactory.gtZero(1*loan.applicant.fins.current_assets + 1*loan.applicant.fins.intermediate_assets + 1*loan.applicant.fins.fixed_assets)">
+            {{1*loan.applicant.fins.current_assets + 1*loan.applicant.fins.intermediate_assets + 1*loan.applicant.fins.fixed_assets|flexCurrency:0}}
+        </td>
+
+        <td class="center"></td>
+
+        <td ng-class="AppFactory.gtZero((loan.applicant.fins.current_assets * (1 - loan.applicant.fins.current_assets_factor/100)) + (loan.applicant.fins.intermediate_assets * (1 - loan.applicant.fins.intermediate_assets_factor/100)) + (loan.applicant.fins.fixed_assets * (1 - loan.applicant.fins.fixed_assets_factor/100)))">
+            {{(loan.applicant.fins.current_assets * (1 - loan.applicant.fins.current_assets_factor/100)) + (loan.applicant.fins.intermediate_assets * (1 - loan.applicant.fins.intermediate_assets_factor/100)) + (loan.applicant.fins.fixed_assets * (1 - loan.applicant.fins.fixed_assets_factor/100))|flexCurrency:0}}
+        </td>
+
+        <td ng-class="AppFactory.gtZero(1*loan.applicant.fins.current_assets_liability + 1*loan.applicant.fins.intermediate_assets_liability + 1*loan.applicant.fins.fixed_assets_liability)">
+            {{1*loan.applicant.fins.current_assets_liability + 1*loan.applicant.fins.intermediate_assets_liability + 1*loan.applicant.fins.fixed_assets_liability|flexCurrency:0}}
+        </td>
+
+        <td ng-class="AppFactory.gtZero(((loan.applicant.fins.current_assets * (1 - loan.applicant.fins.current_assets_factor/100)) + (loan.applicant.fins.intermediate_assets * (1 - loan.applicant.fins.intermediate_assets_factor/100)) + (loan.applicant.fins.fixed_assets * (1 - loan.applicant.fins.fixed_assets_factor/100))) - (1*loan.applicant.fins.current_assets_liability + 1*loan.applicant.fins.intermediate_assets_liability + 1*loan.applicant.fins.fixed_assets_liability))">
+            {{((loan.applicant.fins.current_assets * (1 - loan.applicant.fins.current_assets_factor/100)) + (loan.applicant.fins.intermediate_assets * (1 - loan.applicant.fins.intermediate_assets_factor/100)) + (loan.applicant.fins.fixed_assets * (1 - loan.applicant.fins.fixed_assets_factor/100))) - (1*loan.applicant.fins.current_assets_liability + 1*loan.applicant.fins.intermediate_assets_liability + 1*loan.applicant.fins.fixed_assets_liability)|flexCurrency:0}}
+        </td>
+    </tr>
+</table>

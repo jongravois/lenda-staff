@@ -56,7 +56,7 @@
                     }
                 ]
             };
-            console.log('AFINS', $scope.afins, 'APPFINS', $scope.appfins);
+            //console.log('AFINS', $scope.afins, 'APPFINS', $scope.appfins);
 
             $scope.gradeA = false;
             $scope.gradeB = false;

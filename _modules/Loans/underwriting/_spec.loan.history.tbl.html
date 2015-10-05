@@ -1,0 +1,71 @@
+<table class="table table-striped rowed disp-sm" style="margin-bottom:20px;">
+    <tr>
+        <th style="width:3%;">&nbsp;</th>
+        <th class="text-center" style="width:10%;">Date</th>
+        <th class="text-center" style="width:10%;">Credit Line</th>
+        <th class="text-center" style="width:10%;">Orig Fees</th>
+        <th class="text-center" style="width:10%;">Srvc Fees</th>
+        <th class="text-center" style="width:10%;">Commitment</th>
+    </tr>
+    <tr>
+        <td class="text-center">&bigtriangleup;</td>
+        <td>&nbsp;</td>
+        <td ng-class="AppFactory.gtZero(loan.fins.principal_arm - loan.addendums[loan.addendums.length-1].principal_arm)">
+            {{loan.fins.principal_arm - loan.addendums[loan.addendums.length-1].principal_arm|flexCurrency:0}}
+        </td>
+        <td ng-class="AppFactory.gtZero((((loan.fins.commit_arm+loan.fins.commit_dist)-loan.addendums[loan.addendums.length - 1].arm_and_dist)*(loan.fins.fee_processing/100))-(AppFactory.calcAddendumOrigFee(loan.addendums[loan.addendums.length-1], loan)))">
+            {{(((loan.fins.commit_arm+loan.fins.commit_dist)-loan.addendums[loan.addendums.length - 1].arm_and_dist)*(loan.fins.fee_processing/100))-(AppFactory.calcAddendumOrigFee(loan.addendums[loan.addendums.length-1], loan))|flexCurrency:0}}
+        </td>
+        <td ng-class="AppFactory.gtZero(AppFactory.calcAddendumSrvcFee(((loan.fins.commit_arm+loan.fins.commit_dist)-loan.addendums[loan.addendums.length - 1].arm_and_dist)*(loan.fins.fee_service/100) - loan.addendums[loan.addendums.length-1], loan))">
+            {{((loan.fins.commit_arm+loan.fins.commit_dist)-loan.addendums[loan.addendums.length - 1].arm_and_dist)*(loan.fins.fee_service/100) - AppFactory.calcAddendumSrvcFee(loan.addendums[loan.addendums.length-1], loan)|flexCurrency:0}}
+        </td>
+        <td ng-class="AppFactory.gtZero((loan.fins.commit_arm+loan.fins.commit_dist)-loan.addendums[loan.addendums.length-1].arm_and_dist)">
+            {{(loan.fins.commit_arm+loan.fins.commit_dist)-loan.addendums[loan.addendums.length-1].arm_and_dist|flexCurrency:0}}
+        </td>
+    </tr>
+    <tr>
+        <td class="text-center">
+            <span class="staticon glyphicons glyphicons-wrench" style="color: #009;"></span>
+        </td>
+        <td class="text-right">
+            {{loan.app_date|date:'MM/dd/yyyy'}}
+        </td>
+        <td class="text-right">
+            {{loan.fins.principal_arm|flexCurrency:0}}
+        </td>
+        <td class="text-right">
+            {{((loan.fins.commit_arm+loan.fins.commit_dist)-loan.addendums[loan.addendums.length - 1].arm_and_dist)*(loan.fins.fee_processing/100)|flexCurrency:0}}
+        </td>
+        <td class="text-right">
+            {{((loan.fins.commit_arm+loan.fins.commit_dist)-loan.addendums[loan.addendums.length - 1].arm_and_dist)*(loan.fins.fee_service/100)|flexCurrency:0}}
+        </td>
+        <td class="text-right">
+            {{loan.fins.commit_arm+loan.fins.commit_dist|flexCurrency:0}}
+        </td>
+    </tr>
+    <!--EARLIER ADDENDUMS AND ORIGINAL-->
+    <tr ng-repeat="a in loan.addendums | orderBy: 'app_date':true">
+        <td class="text-center">
+            <span class="glyphicons glyphicons-record" tooltip="Original Loan" style="color: #333;" ng-if="a.addendum_type == '1'"></span>
+            <span class="glyphicons glyphicons-plus" tooltip="Loan Addendum" style="color: #333;" ng-if="a.addendum_type == '2'"></span>
+            <span class="glyphicons glyphicons-usd" tooltip="Reconciliation Addendum" style="color: #333;" ng-if="a.addendum_type == '3'"></span>
+        </td>
+        <td class="text-right">
+            <a href="#/edit/{{a.loan_type_id}}/{{a.id}}/summary" style="text-decoration: underline;">
+                {{a.app_date|date:'MM/dd/yyyy'}}
+            </a>
+        </td>
+        <td ng-class="AppFactory.gtZero(a.principal_arm)">
+            {{a.principal_arm|flexCurrency:0}}
+        </td>
+        <td ng-class="AppFactory.gtZero(AppFactory.calcAddendumOrigFee(a, loan))">
+            {{AppFactory.calcAddendumOrigFee(a, loan)|flexCurrency:0}}
+        </td>
+        <td ng-class="AppFactory.gtZero(AppFactory.calcAddendumSrvcFee(a, loan))">
+            {{AppFactory.calcAddendumSrvcFee(a, loan)|flexCurrency:0}}
+        </td>
+        <td ng-class="AppFactory.gtZero(a.arm_and_dist)">
+            {{a.arm_and_dist|flexCurrency:0}}
+        </td>
+    </tr>
+</table>

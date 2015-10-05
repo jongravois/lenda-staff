@@ -1,0 +1,42 @@
+<table class="table table-striped rowed disp-sm" style="width:990px;">
+    <tr>
+        <th style="width:100px;">Contract</th>
+        <th style="width:120px;">Date</th>
+        <th style="width:120px;">Delivery</th>
+        <th style="width:100px;">Amount</th>
+        <th style="width:100px;">Price</th>
+        <th style="width:120px;">Owner Share</th>
+        <th style="width:120px;">Exp Rev</th>
+        <th style="width:80px;">Advance</th>
+        <th style="width:120px;">Eligible</th>
+    </tr>
+    <tr ng-repeat="s in loan.storage">
+        <td>
+            {{s.contract_number}}
+        </td>
+        <td>
+            {{s.contract_date|date:'MM/dd/yyyy'}}
+        </td>
+        <td>
+            {{s.delivery_date|date:'MM/dd/yyyy'}}
+        </td>
+        <td class="text-right">
+            {{s.contract_amount|flexZeroCurrency:0}}
+        </td>
+        <td class="text-right">
+            {{s.contract_price|flexZeroCurrency:4}}
+        </td>
+        <td class="text-right">
+            {{s.owner_share|flexZeroPercent:1}}
+        </td>
+        <td class="text-right">
+            {{s.revenue|flexZeroCurrency:0}}
+        </td>
+        <td class="text-right">
+            {{s.advance_percent|flexZeroPercent:1}}
+        </td>
+        <td class="text-right">
+            {{s.eligible_proceeds|flexZeroCurrency:0}}
+        </td>
+    </tr>
+</table>

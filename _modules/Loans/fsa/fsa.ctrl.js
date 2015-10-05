@@ -50,6 +50,15 @@
                         width: '60'
                     },
                     {
+                        name: 'crop.name',
+                        enableCellEdit: false,
+                        displayName: 'Crop',
+                        cellClass: 'text-left',
+                        headerCellClass: 'text-center bGreen',
+                        enableColumnMenu: false,
+                        width: '100'
+                    },
+                    {
                         name: 'pgm',
                         enableCellEdit: true,
                         displayName: 'FSA Pgm',
@@ -120,7 +129,7 @@
                 $scope.$scope = $scope;
                 $scope.gridApi = gridApi;
                 $scope.hgt = 32 + $scope.loan.fsa_payments.length * 30;
-                $scope.wdt = 500;
+                $scope.wdt = 600;
                 $scope.gridApi.gridHeight = $scope.hgt;
                 $scope.gridApi.gridWidth = $scope.wdt;
                 gridApi.edit.on.afterCellEdit($scope, function(rowEntity, colDef, newValue, oldValue) {

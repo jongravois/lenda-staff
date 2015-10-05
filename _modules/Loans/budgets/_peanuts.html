@@ -1,1 +1,13 @@
-<h3>Peanuts</h3>
+<div ng-controller="PeanutsController">
+    <fieldset>
+        <legend>Peanuts</legend>
+        <div class="form-group" style="margin-left: 5px;">
+            <div ui-grid="gridOptsBudget" ui-grid-edit ui-grid-cellnav ng-style="{ 'height': bud_hgt, 'width': bud_wdt }">
+                <div class="watermark" ng-show="gridOptsBudget.data.length === 0">
+                    No data available
+                </div>
+            </div>
+        </div>
+    </fieldset>
+</div>
+

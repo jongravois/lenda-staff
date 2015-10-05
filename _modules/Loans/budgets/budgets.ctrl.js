@@ -21,7 +21,7 @@
                 $scope.tabs.push({text: 'Soybeans', state: 'arm.edit.budget.soybeans'});
             }
             if(Number($scope.loan.fins.crop_acres[2].acres) > 0) {
-                $scope.tabs.push({text: 'Soybeans FAX', state: 'arm.edit.budget.beansFAC'});
+                $scope.tabs.push({text: 'Soybeans FAC', state: 'arm.edit.budget.beansFAC'});
             }
             if(Number($scope.loan.fins.crop_acres[3].acres) > 0) {
                 $scope.tabs.push({text: 'Sorghum', state: 'arm.edit.budget.sorghum'});

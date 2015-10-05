@@ -65,13 +65,6 @@
             }
 
             //////////
-            $scope.updateTerms = function() {
-                alert('Updating');
-                //TODO: Exception if due_date changed from default
-            }
-            $scope.updateFarmer = function() {
-                alert('updateFarmer');
-            }
             //////////
 
         } // end function

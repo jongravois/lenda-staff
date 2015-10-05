@@ -1,8 +1,17 @@
 <div>
-    <h2>Budget</h2>
-    <tabset>
+    <tabset style="margin-left: 15px;">
         <tab ng-repeat="tab in tabs" heading="{{tab.text}}" ui-sref="{{tab.state}}" active="tab.active"></tab>
     </tabset>
 
-    <div ui-view class="container"></div>
+    <div ui-view class="container" style="width: 100%;"></div>
+    <br/>
+    <div class="row">
+        <div class="col-md-12 text-right">
+            <button style="margin-right:22px;margin-top:-16px;" class="btn btn-arm" ng-click="updateBudgets()"><span
+                class="glyphicons glyphicons-log-book"></span>&nbsp;UPDATE
+            </button>
+        </div>
+    </div>
+    <br><br><br><br>
+
 </div>

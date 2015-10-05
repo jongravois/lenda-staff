@@ -44,37 +44,37 @@
         ];
         $scope.tggl = {
             showFarm: true,
-            showLocale: true,
+            showLocale: false, //true
             showFSN: true,
-            showPrac: true,
-            showOwner: true,
-            showShr: true,
-            showPerm: true,
-            showCRent: true,
-            showDue: true,
-            showWvd: true,
-            showRnta: true,
-            showWvda: true,
-            showOvr: false,
+            showPrac: false, //true,
+            showOwner: false, //true,
+            showShr: false, //true,
+            showPerm: false, //true,true,
+            showCRent: false, //true,true,
+            showDue: false, //true,true,
+            showWvd: false, //true,true,
+            showRnta: false, //true,true,
+            showWvda: false, //true,true,
+            showOvr: true,
             showAcres: true,
             showAPH: true,
-            showCF: false,
-            showEX: false,
+            showCF: true,
+            showEX: true,
+            showCorn: ($scope.loan.fins.crop_acres[0].acres > 0 ? true : false),
+            showSoybeans: ($scope.loan.fins.crop_acres[1].acres > 0 ? true : false),
+            showFAC: ($scope.loan.fins.crop_acres[2].acres > 0 ? true : false),
+            showSorghum: ($scope.loan.fins.crop_acres[3].acres > 0 ? true : false),
+            showWheat: ($scope.loan.fins.crop_acres[4].acres > 0 ? true : false),
+            showCotton: ($scope.loan.fins.crop_acres[5].acres > 0 ? true : false),
+            showRice: ($scope.loan.fins.crop_acres[6].acres > 0 ? true : false),
+            showPeanuts: ($scope.loan.fins.crop_acres[7].acres > 0 ? true : false),
+            showCane: ($scope.loan.fins.crop_acres[8].acres > 0 ? true : false),
+            showSunflowers: ($scope.loan.fins.crop_acres[9].acres > 0 ? true : false),
             showRentRows: false,
             showOverRentRows: false,
             showInsRows: false,
             showCFRows: false,
             showEXRows: false,
-            showCorn: true,
-            showSoybeans: true,
-            showFAC: false,
-            showSorghum: false,
-            showWheat: false,
-            showCotton: true,
-            showRice: false,
-            showPeanuts: false,
-            showCane: false,
-            showSunflowers: false,
             tcropCorn: $scope.loan.fins.crop_acres[0].acres > 0,
             tcropSoybeans: $scope.loan.fins.crop_acres[1].acres > 0,
             tcropBeansFAC: $scope.loan.fins.crop_acres[2].acres > 0,
@@ -156,21 +156,23 @@
             $scope.tggl.showOvr = false;
         };
 
-        $scope.calcUnitCropCF = function(cropname, obj, loan) {
+        $scope.calcUnitCropCF = function(cropname, obj) {
+            return 0;
             if(Number(obj.acres) === 0) { return 0; }
 
             var total_crop_acres = Number(obj.crops[0][cropname].acres);
             var prod_share = Number(obj.crops[0][cropname].prod_share)/100;
             var rent_acre = Number(obj.cash_rent_acre_ARM);
-            var crop_budget_arm = Number(loan.fins.arm_crop_commit[cropname]);
-            var crop_budget_dist = Number(loan.fins.dist_crop_commit[cropname]);
+            var crop_budget_arm = Number($scope.loan.fins.arm_crop_commit[cropname]);
+            var crop_budget_dist = Number($scope.loan.fins.dist_crop_commit[cropname]);
             var arm_budget_acre = crop_budget_arm/total_crop_acres;
-            var points = Number(calcPoints(cropname, obj, loan));
+            var points = Number(calcPoints(cropname, obj, $scope.loan));
 
             if(arm_budget_acre = 0) {return 0; }
             return (arm_budget_acre * prod_share) - ((total_crop_acres + rent_acre) * (1+points));
         }
-        $scope.calcUnitCropEX = function(cropname, obj, loan) {
+        $scope.calcUnitCropEX = function(cropname, obj) {
+            return 0;
             //console.log('CF', obj.crops[0][cropname]);
             var prod_yield = Number(obj.prod_yield);
             var prod_price = Number(obj.prod_price);
@@ -181,14 +183,14 @@
 
             var total_crop_acres = Number(obj.crops[0][cropname].acres);
             var crop_income = ((prod_yield*prod_price) + (((bkprice-prod_price)*bkqty)+(total_crop_acres*prod_yield*hvst*-1)+rebateadj))/total_crop_acres
-            var disc_crop = Number(loan.fins.discounts.percent_crop)/100;
+            var disc_crop = Number($scope.loan.fins.discounts.percent_crop)/100;
             var dMPCI = 47.76;
             var dStaxSCO = 9552;
             var rent_acre = Number(obj.cash_rent_acre_ARM);
             var waived_acre = Number(obj.waived_acre);
-            var crop_budget_arm = Number(loan.fins.arm_crop_commit[cropname]);
-            var crop_budget_dist = Number(loan.fins.dist_crop_commit[cropname]);
-            var points = Number(calcPoints(cropname, obj, loan));
+            var crop_budget_arm = Number($scope.loan.fins.arm_crop_commit[cropname]);
+            var crop_budget_dist = Number($scope.loan.fins.dist_crop_commit[cropname]);
+            var points = Number(calcPoints(cropname, obj, $scope.loan));
             return (((crop_income*(1-disc_crop))+dMPCI+dStaxSCO)-((crop_budget_arm+crop_budget_dist+rent_acre-waived_acre)*(1+points)));
         }
 
@@ -214,7 +216,7 @@
         };
 
         $scope.getTableWidth = function() {
-            var wdth = 400;
+            var wdth = 460;
             if($scope.tggl.showLocale) { wdth += 200; }
             if($scope.tggl.showFSN) { wdth += 40; }
             if($scope.tggl.showPrac) { wdth += 40; }
@@ -231,7 +233,7 @@
         $scope.showCrop = function() {
             alert('Showing another crop.');
         };
-        console.log('FARM UNITS', $scope.loan.farmunits);
+        //console.log('FARM UNITS', $scope.loan.farmunits);
         //////////
         function calcPoints(cropname, obj, loan) {
             var proc_fee_arm = Number(loan.fins.proc_fee);
@@ -259,9 +261,8 @@
             return cnt;
         }
         function getSpansCrop() {
-            var cnt = 0;
-            if($scope.tggl.showAcres) { cnt += 1; }
-            if($scope.tggl.showAph) { cnt += 1; }
+            var cnt = 1;
+            if($scope.tggl.showAPH) { cnt += 1; }
             if($scope.tggl.showCF) { cnt += 1; }
             if($scope.tggl.showEX) { cnt += 1; }
             if($scope.tggl.showOvr) { cnt += 1; }

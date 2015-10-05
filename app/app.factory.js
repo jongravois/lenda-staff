@@ -211,6 +211,7 @@
             return Number(loan.fins.principal_arm) - Number(al.principal_arm);
         }
         function calcAddendumFee(al, loan) {
+            return 1;
             if(al.addendum_type === '1') {
                 return al.fee_total;
             } else {
@@ -223,6 +224,7 @@
             }
         }
         function calcAddendumOrigFee(al, loan) {
+            if(loan.loan_type_id != 2) { return 2; }
             if(al.addendum_type === '1') {
                 return al.fee_total;
             } else {
@@ -234,6 +236,8 @@
             }
         }
         function calcAddendumSrvcFee(al, loan) {
+            if(loan.loan_type_id != 2) { return 3; }
+
             if(al.addendum_type === '1') {
                 return al.fee_total;
             } else {
@@ -241,14 +245,18 @@
                 var sorted = _.sortBy(adds, 'app_date').reverse();
                 var old_fees = Number(sorted[0]['srvc_fee']);
 
-                return Math.abs(Number(sorted[0]['srvc_fee']) - Number(sorted[sorted.length-1]['srvc_fee']));
+                return Math.abs( Number(sorted[0]['srvc_fee']) - Number(sorted[sorted.length-1]['srvc_fee']) );
             }
         }
         function calcAddendumFeeDiff(al, loan) {
+            if(loan.loan_type_id != 2) { return 4; }
+
             if(al.addendum_type === '1') { return 0; }
             return Number(loan.fins.fee_total) - Number(al.fee_total);
         }
         function calcAddendumPCDiff(al, loan) {
+            if(loan.loan_type_id != 2) { return 5; }
+
             if(al.addendum_type === '1') { return 0; }
             return 100 - (Number(al.principal_arm) * 100 / Number(loan.fins.principal_arm));
         }
@@ -1529,7 +1537,7 @@
             return !angular.isDefined(obj) || obj===null;
         }
         function parseComments(comms) {
-            if(comms.length < 2) { return []; }
+            if(comms.length < 1) { return []; }
             var Loan = _.filter(comms, function(i){
                 return i.type == 'Loan';
             });

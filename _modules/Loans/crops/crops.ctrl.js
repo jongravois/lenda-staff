@@ -239,8 +239,8 @@
                     name: 'threeyearavg',
                     enableCellEdit: false,
                     displayName: '3yr Avg',
-                    cellClass: 'text-right cBlue',
-                    cellFilter: 'flexZeroNumber:1',
+                    cellClass: 'padd text-right',
+                    cellTemplate: '<span>{{grid.appScope.averageArray([row.entity.yields[0].p1,row.entity.yields[0].p2,row.entity.yields[0].p3])|flexZeroNumber:1}}</span>',
                     headerCellClass: 'text-center bGreen',
                     enableColumnMenu: false,
                     width: '80'
@@ -279,8 +279,8 @@
                     name: 'sixyearavg',
                     enableCellEdit: false,
                     displayName: '6yr Avg',
-                    cellClass: 'text-right cBlue',
-                    cellFilter: 'flexZeroNumber:1',
+                    cellClass: 'padd text-right',
+                    cellTemplate: '<span>{{grid.appScope.averageArray([row.entity.yields[0].p1,row.entity.yields[0].p2,row.entity.yields[0].p3,row.entity.yields[0].p4,row.entity.yields[0].p5,row.entity.yields[0].p6])|flexZeroNumber:1}}</span>',
                     headerCellClass: 'text-center bGreen',
                     enableColumnMenu: false,
                     width: '80'
@@ -289,8 +289,8 @@
                     name: 'aph',
                     enableCellEdit: false,
                     displayName: 'APH',
-                    cellClass: 'text-right cBlue',
-                    cellFilter: 'flexZeroNumber:1',
+                    cellClass: 'text-right padd',
+                    cellTemplate: '<span>{{grid.appScope.getAPH(row.entity)|flexZeroNumber:1}}</span>',
                     headerCellClass: 'text-center bGreen',
                     enableColumnMenu: false,
                     width: '80'
@@ -793,6 +793,164 @@
         };
         //PLANNED CROPS
 
+        //STORAGE
+        $scope.gridOptsStorage = {
+            enableCellEditOnFocus: true,
+            rowTemplate: './_modules/Admin/_views/_row.tmpl.html',
+            columnDefs: [
+                {
+                    name: 'contract_number',
+                    enableCellEdit: true,
+                    displayName: 'Contract',
+                    cellClass: 'text-left cBlue',
+                    headerCellClass: 'text-center bGreen',
+                    enableColumnMenu: false,
+                    width: '100'
+                },
+                {
+                    name: 'contract_date',
+                    enableCellEdit: true,
+                    displayName: 'Date',
+                    cellClass: 'text-right cBlue',
+                    cellFilter: "date:'MM/dd/yyyy'",
+                    headerCellClass: 'text-center bGreen',
+                    enableColumnMenu: false,
+                    width: '120'
+                },
+                {
+                    name: 'delivery_date',
+                    enableCellEdit: false,
+                    displayName: 'Delivery',
+                    cellClass: 'text-right cBlue',
+                    cellFilter: "date:'MM/dd/yyyy'",
+                    headerCellClass: 'text-center bGreen',
+                    enableColumnMenu: false,
+                    width: '120'
+                },
+                {
+                    name: 'contract_amount',
+                    enableCellEdit: false,
+                    displayName: 'Amount',
+                    cellClass: 'text-right cBlue',
+                    cellFilter: 'flexZeroCurrency:0',
+                    headerCellClass: 'text-center bGreen',
+                    enableColumnMenu: false,
+                    width: '100'
+                },
+                {
+                    name: 'contract_price',
+                    enableCellEdit: false,
+                    displayName: 'Price',
+                    cellClass: 'text-right cBlue',
+                    cellFilter: 'flexZeroCurrency:4',
+                    headerCellClass: 'text-center bGreen',
+                    enableColumnMenu: false,
+                    width: '100'
+                },
+                {
+                    name: 'owner_share',
+                    enableCellEdit: false,
+                    displayName: 'Owner Share',
+                    cellClass: 'text-right cBlue',
+                    cellFilter: 'flexZeroPercent:1',
+                    headerCellClass: 'text-center bGreen',
+                    enableColumnMenu: false,
+                    width: '120'
+                },
+                {
+                    name: 'revenue',
+                    enableCellEdit: false,
+                    displayName: 'Exp Rev',
+                    cellClass: 'text-right cBlue',
+                    cellFilter: 'flexZeroCurrency:0',
+                    headerCellClass: 'text-center bGreen',
+                    enableColumnMenu: false,
+                    width: '120'
+                },
+                {
+                    name: 'advance_percent',
+                    enableCellEdit: false,
+                    displayName: 'Advance',
+                    cellClass: 'text-right cBlue',
+                    cellFilter: 'flexZeroPercent:1',
+                    headerCellClass: 'text-center bGreen',
+                    enableColumnMenu: false,
+                    width: '80'
+                },
+                {
+                    name: 'eligible_proceeds',
+                    enableCellEdit: false,
+                    displayName: 'Eligible',
+                    cellClass: 'text-right cBlue',
+                    cellFilter: 'flexZeroCurrency:0',
+                    headerCellClass: 'text-center bGreen',
+                    enableColumnMenu: false,
+                    width: '120'
+                },
+                {
+                    name: 'del',
+                    enableCellEdit: false,
+                    displayName: ' ',
+                    cellClass: 'text-center',
+                    enableColumnMenu: false,
+                    width: '30',
+                    maxWidth: '30',
+                    cellTemplate: '<span style="font-size:16px; color:#990000; cursor:pointer;" ng-click="grid.appScope.deleteContract(row.entity.id)">&cross;</span>',
+                    headerCellTemplate: '<div class="text-center padd bGreen" style="width:30px;">&nbsp;</div>'
+                }
+            ],
+            data: $scope.loan.storage
+        };
+
+        $scope.msg = {};
+        var records = [];
+        angular.forEach($scope.loan.storage, function (rawdata) {
+            var record = {};
+            record.changedAttrs = {};
+
+            Object.defineProperty(record, 'isDirty', {
+                get: function () {
+                    return Object.getOwnPropertyNames(record.changedAttrs).length > 0;
+                }
+            });
+
+            angular.forEach(rawdata, function (value, key) {
+                Object.defineProperty(record, key, {
+                    get: function () {
+                        return rawdata[key];
+                    },
+
+                    set: function (value) {
+                        var origValue = record.changedAttrs[key] ? record.changedAttrs[key][0] : rawdata[key];
+
+                        if(value !== origValue) {
+                            record.changedAttrs[key] = [origValue, value];
+                        } else {
+                            delete record.changedAttrs[key];
+                        }
+                        rawdata[key] = value;
+                    }
+                })
+            });
+            records.push(record);
+        });
+
+        $scope.gridOptsStorage.onRegisterApi = function(gridApi) {
+            //set gridApi on scope
+            $scope.$scope = $scope;
+            $scope.gridApi = gridApi;
+            $scope.sto_hgt = 32 + $scope.loan.storage.length * 30;
+            $scope.sto_wdt = 1010;
+            $scope.gridApi.gridHeight = $scope.sto_hgt;
+            $scope.gridApi.gridWidth = $scope.sto_wdt;
+            gridApi.edit.on.afterCellEdit($scope, function(rowEntity, colDef, newValue, oldValue) {
+                $scope.$apply(function(scope) {
+                    scope.dirty = true;
+                });
+            });
+        };
+        //STORAGE
+
         $scope.createNewCrop = function() {
             $scope.items = _.filter($scope.crops, function (x) {
                 return !_.find($scope.loan.loancrops, function (y) {
@@ -927,6 +1085,32 @@
                 });
         };
 
+        $scope.createNewContract = function() {
+            var newb = getNewContract();
+            AppFactory.postIt('storages', newb)
+                .then(function (rsp) {
+                    var id = rsp.data;
+                    angular.extend(newb, {id: id});
+                    $scope.sto_hgt += 30;
+                    $scope.loan.storage.push(newb);
+                });
+        };
+        $scope.deleteContract = function(id) {
+            SweetAlert.swal({
+                    title: "Are you sure?",
+                    text: "You will not be able to undo this operation.",
+                    type: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#006837",
+                    confirmButtonText: "Delete",
+                    closeOnConfirm: true},
+                function(){
+                    AppFactory.deleteIt('storages', id);
+                    $scope.sto_hgt -= 30;
+                    _.remove($scope.loan.storage, {id: id});
+                });
+        };
+
         $scope.calcPCVal = function(acres, tea) {
             return Number(acres) * Number(tea);
         }
@@ -949,6 +1133,22 @@
             saveIndirects();
             toastr.success('Database records updated.', 'Update Successful');
 
+        }
+
+        $scope.averageArray = function(arr) {
+            return Number(AppFactory.getAverage(arr));
+        }
+        $scope.getAPH = function(obj) {
+            var counties = $scope.loan.fins.counties_in_loan;
+            var IR = 0;
+            var NI = 0;
+            _.each(counties, function(c){
+                if($scope.loan.fins.default_aph[0][c.id]) {
+                    IR += $scope.loan.fins.default_aph[0][c.id].IR[obj.crop_crop];
+                    NI += $scope.loan.fins.default_aph[0][c.id].NI[obj.crop_crop];
+                }
+            });
+            return (IR + NI)/2;
         }
         //////////
         function getNewCrop(obj) {
@@ -994,6 +1194,23 @@
                 collateral: false
             };
         }
+        function getNewContract() {
+            return {
+                loan_id: $scope.loan.id,
+                contract_number: '',
+                grain_buyer: '',
+                lien_holder: '',
+                contract_date: '',
+                delivery_date: '',
+                contract_amout: 0,
+                contract_price: 0,
+                owner_share: 0,
+                revenue: 0,
+                eligible_proceeds: 0,
+                advance_percent: 75,
+                payment_terms: 15
+            };
+        }
 
         function saveCrops() {
             _.each($scope.loan.loancrops, function(lc){
@@ -1024,7 +1241,7 @@
         function savePlannedCrops() {
             alert('Saving PlannedCrops');
         }
-        function saveStorage() {
+        function updateStorage() {
             alert('Saving Storage');
         }
     } // end controller

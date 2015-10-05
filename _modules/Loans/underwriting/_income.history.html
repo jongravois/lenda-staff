@@ -1,0 +1,56 @@
+<table class="table table-striped rowed disp-sm" style="width:700px;">
+    <tr>
+        <th style="width:100px;">Income History</th>
+        <th style="width:200px;">Revenue</th>
+        <th style="width:200px;">Expenses</th>
+        <th style="width:200px;">Income</th>
+    </tr>
+    <tr>
+        <td>Year 1</td>
+        <td ng-class="AppFactory.gtZero(loan.applicant.fins.year_1_revenue)">
+            {{loan.applicant.fins.year_1_revenue|flexCurrency:0}}
+        </td>
+        <td ng-class="AppFactory.gtZero(loan.applicant.fins.year_1_expenses)">
+            {{loan.applicant.fins.year_1_expenses|flexCurrency:0}}
+        </td>
+        <td ng-class="AppFactory.gtZero(loan.applicant.fins.year_1_revenue - loan.applicant.fins.year_1_expenses)">
+            {{loan.applicant.fins.year_1_revenue - loan.applicant.fins.year_1_expenses|flexCurrency:0}}
+        </td>
+    </tr>
+    <tr>
+        <td>Year 2</td>
+        <td ng-class="AppFactory.gtZero(loan.applicant.fins.year_2_revenue)">
+            {{loan.applicant.fins.year_2_revenue|flexCurrency:0}}
+        </td>
+        <td ng-class="AppFactory.gtZero(loan.applicant.fins.year_2_expenses)">
+            {{loan.applicant.fins.year_2_expenses|flexCurrency:0}}
+        </td>
+        <td ng-class="AppFactory.gtZero(loan.applicant.fins.year_2_revenue - loan.applicant.fins.year_2_expenses)">
+            {{loan.applicant.fins.year_2_revenue - loan.applicant.fins.year_2_expenses|flexCurrency:0}}
+        </td>
+    </tr>
+    <tr>
+        <td>Year 3</td>
+        <td ng-class="AppFactory.gtZero(loan.applicant.fins.year_3_revenue)">
+            {{loan.applicant.fins.year_3_revenue|flexCurrency:0}}
+        </td>
+        <td ng-class="AppFactory.gtZero(loan.applicant.fins.year_3_expenses)">
+            {{loan.applicant.fins.year_3_expenses|flexCurrency:0}}
+        </td>
+        <td ng-class="AppFactory.gtZero(loan.applicant.fins.year_3_revenue - loan.applicant.fins.year_3_expenses)">
+            {{loan.applicant.fins.year_3_revenue - loan.applicant.fins.year_3_expenses|flexCurrency:0}}
+        </td>
+    </tr>
+    <tr class="success">
+        <td>Total</td>
+        <td ng-class="AppFactory.gtZero(1*loan.applicant.fins.year_1_revenue + 1*loan.applicant.fins.year_2_revenue + 1*loan.applicant.fins.year_3_revenue)">
+            {{1*loan.applicant.fins.year_1_revenue + 1*loan.applicant.fins.year_2_revenue + 1*loan.applicant.fins.year_3_revenue|flexCurrency:0}}
+        </td>
+        <td ng-class="AppFactory.gtZero(1*loan.applicant.fins.year_1_expenses + 1*loan.applicant.fins.year_2_expenses + 1*loan.applicant.fins.year_3_expenses)">
+            {{1*loan.applicant.fins.year_1_expenses + 1*loan.applicant.fins.year_2_expenses + 1*loan.applicant.fins.year_3_expenses|flexCurrency:0}}
+        </td>
+        <td ng-class="AppFactory.gtZero((1*loan.applicant.fins.year_1_revenue + 1*loan.applicant.fins.year_2_revenue + 1*loan.applicant.fins.year_3_revenue) - (1*loan.applicant.fins.year_1_expenses + 1*loan.applicant.fins.year_2_expenses + 1*loan.applicant.fins.year_3_expenses))">
+            {{(1*loan.applicant.fins.year_1_revenue + 1*loan.applicant.fins.year_2_revenue + 1*loan.applicant.fins.year_3_revenue) - (1*loan.applicant.fins.year_1_expenses + 1*loan.applicant.fins.year_2_expenses + 1*loan.applicant.fins.year_3_expenses)|flexCurrency:0}}
+        </td>
+    </tr>
+</table>

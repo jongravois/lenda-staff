@@ -130,7 +130,7 @@
         </span>
     </div>
     <div class="form-group col-md-3">
-        <span ng-if="loan.has_distributor">
+        <span ng-if="(loan.loan_type_id == 2 || loan.loan_type_id == 6) && loan.has_distributor">
             <label>Participating Distributor</label>
         <br/>
         <p class="display-field">
@@ -141,14 +141,21 @@
         </span>
     </div>
     <div class="form-group col-md-3">
-        <span ng-if="loan.quests.insInPlace">
+        <span ng-if="loan.crop_loan && loan.quests.insInPlace">
             <label>Crop Insurance Agency</label>
-        <br/>
-        <p class="display-field">
+            <br/>
+            <p class="display-field">
             {{loan.agencies}}
             &nbsp;
             <email-icon email="loan.agent.agent_email"></email-icon>
         </p>
+        </span>
+        <span ng-if="!loan.crop_loan">
+            <label>Amount Requested</label>
+            <br/>
+            <p class="display-field">
+                {{loan.fins.amount_requested|flexCurrency:0}}
+            </p>
         </span>
     </div>
 </div>

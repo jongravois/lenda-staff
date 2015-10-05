@@ -1,6 +1,49 @@
-<fieldset>
-    <legend>Storage Contract</legend>
-    <div class="container-fluid">
-        <div class="row"></div>
+<style>
+    label{ color: #999999 !important; }
+</style>
+<div class="row" style="margin-bottom: 0 !important;">
+    <div class="col-md-4">
+        <label>Grain Buyer</label>
+        <br/>
+        <input type="text" class="form-control text-left"
+               style="width:60%;"
+               autocomplete="false"
+               ng-model="loan.storage[0].grain_buyer"
+            />
     </div>
-</fieldset>
+    <div class="col-md-4">
+        <label>Lien Holder</label>
+        <br/>
+        <input type="text" class="form-control text-left"
+               style="width:60%;"
+               autocomplete="false"
+               ng-model="loan.storage[0].lien_holder"
+            />
+    </div>
+    <div class="col-md-4">
+        <label>Payment Terms</label>
+        <br/>
+        <input type="text" class="form-control text-left"
+               style="width:20%;"
+               autocomplete="false"
+               ng-model="loan.storage[0].payment_terms"
+            />
+        <p style="margin-top: -3px;">
+            <span class="small_txt" style="color:#999;">Days after required contractual delivery date</span>
+        </p>
+    </div>
+</div>
+<br>
+<div class="row" style="margin-bottom: 0 !important;">
+    <div class="form-group" style="margin-bottom: 0 !important;">
+        <div ui-grid="gridOptsStorage" ui-grid-edit ui-grid-cellnav ng-style="{ 'height': sto_hgt, 'width': sto_wdt }">
+            <div class="watermark" ng-show="gridOptsStorage.data.length === 0">
+                No data available
+            </div>
+        </div>
+    </div>
+</div>
+<span style="margin: -16px 0 0 -16px;">
+        <a ng-click="createNewContract()" class="btn btn-xs btn-default">
+            <span class="glyphicons glyphicons-circle-plus" style="color:#006837;"></span> Add New</a>
+    </span>

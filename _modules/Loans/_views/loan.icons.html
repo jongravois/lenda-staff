@@ -46,7 +46,7 @@
     <li class="list-group-item" ng-class="{active: path === 'references'}">
         <span class="menuicon glyphicons glyphicons-global" tooltip="References" tooltip-append-to-body="true" tooltip-placement="right" ng-click="ngcLink('references')" ng-class="{not_valid: loan.tabstats.references == false}"></span>
     </li>
-    <li class="list-group-item" ng-class="{active: path === 'financials'}" ng-if="loan.loan_type_id !== 7">
+    <li class="list-group-item" ng-class="{active: path === 'financials'}">
         <span class="menuicon glyphicons glyphicons-yen" tooltip="Financial" tooltip-append-to-body="true" tooltip-placement="right" ng-click="ngcLink('financials')" ng-class="{not_valid: loan.tabstats.financials == false}"></span>
     </li>
     <li class="list-group-item" ng-class="{active: path === 'crops'}">

@@ -13,19 +13,6 @@
     }
     #optim {margin-bottom: 0 !important;}
     #optim td{ white-space:nowrap; }
-    /*#optim {
-        table-layout: fixed;
-        width: 3000px;
-        white-space: nowrap;
-    }
-    #optim td {
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-    }
-    #optim .row-locale { width: 60px !important; }
-    #optim .row-fsn { width: 30px !important; }
-    #optim .row-prac { width: 30px !important; }*/
 </style>
 <div class="col-md-12" style="width:2700px;">
     <table id="optim" class="table rowed table-condensed disp-sm" style="width:{{getTableWidth()}}px;">
@@ -34,42 +21,72 @@
                 Farm&nbsp;<span class="colicon" ng-click="showFarmCols()">&blacktriangleright;</span>
             </th>
             <th colspan="{{spanner.farm}}" ng-if="tggl.showFarm">
-                Farm&nbsp;<span class="colicon" ng-click="hideFarmCols()">&triangleright;</span>
+                Farm&nbsp;<span class="colicon" ng-click="showFarmCols()">&triangleright;</span>
             </th>
 
-            <th ng-if="!tggl.showCorn">
+            <!--<th ng-if="!tggl.showCorn">
+                Corn&nbsp;<span class="colicon" ng-click="showCropCols()">&triangleright;</span>
+            </th>-->
+            <th colspan="{{spanner.crops}}" ng-if="tggl.showCorn">
                 Corn&nbsp;<span class="colicon" ng-click="showCropCols()">&blacktriangleright;</span>
             </th>
-            <th colspan="5" ng-if="tggl.showCorn">
-                Corn&nbsp;<span class="colicon" ng-click="hideCropCols()">&triangleright;</span>
+
+            <!--<th ng-if="!tggl.showSoybeans">
+                Soybeans&nbsp;<span class="colicon" ng-click="showCropCols()">&blacktriangleright;</span>
+            </th>-->
+            <th colspan="{{spanner.crops}}" ng-if="tggl.showSoybeans">
+                Soybeans&nbsp;<span class="colicon" ng-click="showCropCols()">&blacktriangleright;</span>
             </th>
 
-            <th colspan="5" ng-if="tggl.showSoybeans">
-                Soybeans&nbsp;<span class="colicon">&blacktriangleright;</span>
+            <!--<th ng-if="!tggl.showSorghum">
+                Sorghum&nbsp;<span class="colicon" ng-click="showCropCols()">&blacktriangleright;</span>
+            </th>-->
+            <th colspan="{{spanner.crops}}" ng-if="tggl.showSorghum">
+                Sorghum&nbsp;<span class="colicon" ng-click="showCropCols()">&blacktriangleright;</span>
             </th>
 
-            <th colspan="5" ng-if="tggl.showSorghum">
-                Sorghum&nbsp;<span class="colicon">&blacktriangleright;</span>
+            <!--<th ng-if="!tggl.showWheat">
+                Wheat&nbsp;<span class="colicon" ng-click="showCropCols()">&blacktriangleright;</span>
+            </th>-->
+            <th colspan="{{spanner.crops}}" ng-if="tggl.showWheat">
+                Wheat&nbsp;<span class="colicon" ng-click="showCropCols()">&blacktriangleright;</span>
             </th>
-            <th colspan="5" ng-if="tggl.showWheat">
-                Wheat&nbsp;<span class="colicon">&blacktriangleright;</span>
-            </th>
-            <th colspan="5" ng-if="tggl.showCotton">
+
+            <!--<th ng-if="!tggl.showCotton">
+                Cotton&nbsp;<span class="colicon" ng-click="showCropCols()">&blacktriangleright;</span>
+            </th>-->
+            <th colspan="{{spanner.crops}}" ng-if="tggl.showCotton">
                 Cotton&nbsp;<span class="colicon">&blacktriangleright;</span>
             </th>
-            <th colspan="5" ng-if="tggl.showRice">
-                Rice&nbsp;<span class="colicon">&blacktriangleright;</span>
+
+            <!--<th ng-if="!tggl.showRice">
+                Rice&nbsp;<span class="colicon" ng-click="showCropCols()">&blacktriangleright;</span>
+            </th>-->
+            <th colspan="{{spanner.crops}}" ng-if="tggl.showRice">
+                Rice&nbsp;<span class="colicon" ng-click="showCropCols()">&blacktriangleright;</span>
             </th>
-            <th colspan="5" ng-if="tggl.showPeanuts">
-                Peanuts&nbsp;<span class="colicon">&blacktriangleright;</span>
+
+            <!--<th ng-if="!tggl.showPeanuts">
+                Peanuts&nbsp;<span class="colicon" ng-click="showCropCols()">&blacktriangleright;</span>
+            </th>-->
+            <th colspan="{{spanner.crops}}" ng-if="tggl.showPeanuts">
+                Peanuts&nbsp;<span class="colicon" ng-click="showCropCols()">&blacktriangleright;</span>
             </th>
-            <th colspan="5" ng-if="tggl.showCane">
-                Sugar Cane&nbsp;<span class="colicon">&blacktriangleright;</span>
+
+            <!--<th ng-if="!tggl.showCane">
+                Sugar Cane&nbsp;<span class="colicon" ng-click="showCropCols()">&blacktriangleright;</span>
+            </th>-->
+            <th colspan="{{spanner.crops}}" ng-if="tggl.showCane">
+                Sugar Cane&nbsp;<span class="colicon" ng-click="showCropCols()">&blacktriangleright;</span>
             </th>
-            <th colspan="5" ng-if="tggl.showSunflowers">
-                Sunflowers&nbsp;<span class="colicon">&blacktriangleright;</span>
+
+            <!--<th ng-if="!tggl.showSunflowers">
+                Sunflowers&nbsp;<span class="colicon" ng-click="showCropCols()">&blacktriangleright;</span>
+            </th>-->
+            <th colspan="{{spanner.crops}}" ng-if="tggl.showSunflowers">
+                Sunflowers&nbsp;<span class="colicon" ng-click="showCropCols()">&blacktriangleright;</span>
             </th>
-            <th colspan="5" style="width: 20px !important">&nbsp;</th>
+            <th style="width: 20px !important">&nbsp;</th>
         </tr>
         <tr>
             <th ng-if="!tggl.showFarm">FSN</th>
@@ -101,54 +118,126 @@
             <th ng-if="tggl.showFarm" ng-show="tggl.showRnta">
                 Rent/Ac&nbsp;<span class="colicon" ng-click="tggl.showRnta = !tggl.showRnta;spanner.farm = spanner.farm - 1;">&blacktriangleleft;</span>
             </th>
-            <th class="bright" ng-if="tggl.showFarm" ng-show="tggl.showWvda">
+            <th ng-if="tggl.showFarm" ng-show="tggl.showWvda">
                 Waived/Ac&nbsp;<span class="colicon" ng-click="tggl.showWvda = !tggl.showWvda;spanner.farm = spanner.farm - 1;">&blacktriangleleft;</span>
             </th>
             <th class="bleft" ng-if="tggl.showCorn">Acres</th>
-            <th ng-if="tggl.showCorn">APH</th>
-            <th ng-if="tggl.showCorn">Ovr</th>
-            <th ng-if="tggl.showCorn">CF</th>
-            <th class="bright" ng-if="tggl.showCorn">EX</th>
+            <th ng-if="tggl.showCorn && tggl.showAPH">
+                APH&nbsp;<span class="colicon" ng-click="tggl.showAPH = !tggl.showAPH;spanner.crops = spanner.crops - 1;">&blacktriangleleft;</span>
+            </th>
+            <th ng-if="tggl.showCorn && tggl.showOvr">
+                Ovr&nbsp;<span class="colicon" ng-click="tggl.showOvr = !tggl.showOvr;spanner.crops = spanner.crops - 1;">&blacktriangleleft;</span>
+            </th>
+            <th ng-if="tggl.showCorn && tggl.showCF">
+                CF&nbsp;<span class="colicon" ng-click="tggl.showCF = !tggl.showCF;spanner.crops = spanner.crops - 1;">&blacktriangleleft;</span>
+            </th>
+            <th class="bright" ng-if="tggl.showCorn && tggl.showEX">
+                EX&nbsp;<span class="colicon" ng-click="tggl.showEX = !tggl.showEX;spanner.crops = spanner.crops - 1;">&blacktriangleleft;</span>
+            </th>
             <th ng-if="tggl.showSoybeans">Acres</th>
-            <th ng-if="tggl.showSoybeans">APH</th>
-            <th ng-if="tggl.showSoybeans">Ovr</th>
-            <th ng-if="tggl.showSoybeans">CF</th>
-            <th class="bright" ng-if="tggl.showSoybeans">EX</th>
+            <th ng-if="tggl.showSoybeans && tggl.showAPH">
+                APH&nbsp;<span class="colicon" ng-click="tggl.showAPH = !tggl.showAPH;spanner.crops = spanner.crops - 1;">&blacktriangleleft;</span>
+            </th>
+            <th ng-if="tggl.showSoybeans && tggl.showOvr">
+                Ovr&nbsp;<span class="colicon" ng-click="tggl.showOvr = !tggl.showOvr;spanner.crops = spanner.crops - 1;">&blacktriangleleft;</span>
+            </th>
+            <th ng-if="tggl.showSoybeans && tggl.showCF">
+                CF&nbsp;<span class="colicon" ng-click="tggl.showCF = !tggl.showCF;spanner.crops = spanner.crops - 1;">&blacktriangleleft;</span>
+            </th>
+            <th class="bright" ng-if="tggl.showSoybeans && tggl.showEX">
+                EX&nbsp;<span class="colicon" ng-click="tggl.showEX = !tggl.showEX;spanner.crops = spanner.crops - 1;">&blacktriangleleft;</span>
+            </th>
             <th ng-if="tggl.showSorghum">Acres</th>
-            <th ng-if="tggl.showSorghum">APH</th>
-            <th ng-if="tggl.showSorghum">Ovr</th>
-            <th ng-if="tggl.showSorghum">CF</th>
-            <th class="bright" ng-if="tggl.showSorghum">EX</th>
+            <th ng-if="tggl.showSorghum && tggl.showAPH">
+                APH&nbsp;<span class="colicon" ng-click="tggl.showAPH = !tggl.showAPH;spanner.crops = spanner.crops - 1;">&blacktriangleleft;</span>
+            </th>
+            <th ng-if="tggl.showSorghum && tggl.showOvr">
+                Ovr&nbsp;<span class="colicon" ng-click="tggl.showOvr = !tggl.showOvr;spanner.crops = spanner.crops - 1;">&blacktriangleleft;</span>
+            </th>
+            <th ng-if="tggl.showSorghum && tggl.showCF">
+                CF&nbsp;<span class="colicon" ng-click="tggl.showCF = !tggl.showCF;spanner.crops = spanner.crops - 1;">&blacktriangleleft;</span>
+            </th>
+            <th class="bright" ng-if="tggl.showSorghum && tggl.showEX">
+                EX&nbsp;<span class="colicon" ng-click="tggl.showEX = !tggl.showEX;spanner.crops = spanner.crops - 1;">&blacktriangleleft;</span>
+            </th>
             <th ng-if="tggl.showWheat">Acres</th>
-            <th ng-if="tggl.showWheat">APH</th>
-            <th ng-if="tggl.showWheat">Ovr</th>
-            <th ng-if="tggl.showWheat">CF</th>
-            <th class="bright" ng-if="tggl.showWheat">EX</th>
+            <th ng-if="tggl.showWheat && tggl.showAPH">
+                APH&nbsp;<span class="colicon" ng-click="tggl.showAPH = !tggl.showAPH;spanner.crops = spanner.crops - 1;">&blacktriangleleft;</span>
+            </th>
+            <th ng-if="tggl.showWheat && tggl.showOvr">
+                Ovr&nbsp;<span class="colicon" ng-click="tggl.showOvr = !tggl.showOvr;spanner.crops = spanner.crops - 1;">&blacktriangleleft;</span>
+            </th>
+            <th ng-if="tggl.showWheat">
+                CF&nbsp;<span class="colicon" ng-click="tggl.showCF = !tggl.showCF;spanner.crops = spanner.crops - 1;">&blacktriangleleft;</span>
+            </th>
+            <th class="bright" ng-if="tggl.showWheat">
+                EX&nbsp;<span class="colicon" ng-click="tggl.showEX = !tggl.showEX;spanner.crops = spanner.crops - 1;">&blacktriangleleft;</span>
+            </th>
             <th ng-if="tggl.showCotton">Acres</th>
-            <th ng-if="tggl.showCotton">APH</th>
-            <th ng-if="tggl.showCotton">Ovr</th>
-            <th ng-if="tggl.showCotton">CF</th>
-            <th class="bright" ng-if="tggl.showCotton">EX</th>
+            <th ng-if="tggl.showCotton && tggl.showAPH">
+                APH&nbsp;<span class="colicon" ng-click="tggl.showAPH = !tggl.showAPH;spanner.crops = spanner.crops - 1;">&blacktriangleleft;</span>
+            </th>
+            <th ng-if="tggl.showCotton && tggl.showOvr">
+                Ovr&nbsp;<span class="colicon" ng-click="tggl.showOvr = !tggl.showOvr;spanner.crops = spanner.crops - 1;">&blacktriangleleft;</span>
+            </th>
+            <th ng-if="tggl.showCotton && tggl.showCF">
+                CF&nbsp;<span class="colicon" ng-click="tggl.showCF = !tggl.showCF;spanner.crops = spanner.crops - 1;">&blacktriangleleft;</span>
+            </th>
+            <th class="bright" ng-if="tggl.showCotton && tggl.showEX">
+                EX&nbsp;<span class="colicon" ng-click="tggl.showEX = !tggl.showEX;spanner.crops = spanner.crops - 1;">&blacktriangleleft;</span>
+            </th>
             <th ng-if="tggl.showRice">Acres</th>
-            <th ng-if="tggl.showRice">APH</th>
-            <th ng-if="tggl.showRice">Ovr</th>
-            <th ng-if="tggl.showRice">CF</th>
-            <th class="bright" ng-if="tggl.showRice">EX</th>
+            <th ng-if="tggl.showRice && tggl.showAPH">
+                APH&nbsp;<span class="colicon" ng-click="tggl.showAPH = !tggl.showAPH;spanner.crops = spanner.crops - 1;">&blacktriangleleft;</span>
+            </th>
+            <th ng-if="tggl.showRice && tggl.showOvr">
+                Ovr&nbsp;<span class="colicon" ng-click="tggl.showOvr = !tggl.showOvr;spanner.crops = spanner.crops - 1;">&blacktriangleleft;</span>
+            </th>
+            <th ng-if="tggl.showRice && tggl.showCF">
+                CF&nbsp;<span class="colicon" ng-click="tggl.showCF = !tggl.showCF;spanner.crops = spanner.crops - 1;">&blacktriangleleft;</span>
+            </th>
+            <th class="bright" ng-if="tggl.showRice && tggl.showEX">
+                EX&nbsp;<span class="colicon" ng-click="tggl.showEX = !tggl.showEX;spanner.crops = spanner.crops - 1;">&blacktriangleleft;</span>
+            </th>
             <th ng-if="tggl.showPeanuts">Acres</th>
-            <th ng-if="tggl.showPeanuts">APH</th>
-            <th ng-if="tggl.showPeanuts">Ovr</th>
-            <th ng-if="tggl.showPeanuts">CF</th>
-            <th class="bright" ng-if="tggl.showPeanuts">EX</th>
+            <th ng-if="tggl.showPeanuts && tggl.showAPH">
+                APH&nbsp;<span class="colicon" ng-click="tggl.showAPH = !tggl.showAPH;spanner.crops = spanner.crops - 1;">&blacktriangleleft;</span>
+            </th>
+            <th ng-if="tggl.showPeanuts && tggl.showOvr">
+                Ovr&nbsp;<span class="colicon" ng-click="tggl.showOvr = !tggl.showOvr;spanner.crops = spanner.crops - 1;">&blacktriangleleft;</span>
+            </th>
+            <th ng-if="tggl.showPeanuts && tggl.showCF">
+                CF&nbsp;<span class="colicon" ng-click="tggl.showCF = !tggl.showCF;spanner.crops = spanner.crops - 1;">&blacktriangleleft;</span>
+            </th>
+            <th class="bright" ng-if="tggl.showPeanuts && tggl.showEX">
+                EX&nbsp;<span class="colicon" ng-click="tggl.showEX = !tggl.showEX;spanner.crops = spanner.crops - 1;">&blacktriangleleft;</span>
+            </th>
             <th ng-if="tggl.showCane">Acres</th>
-            <th ng-if="tggl.showCane">APH</th>
-            <th ng-if="tggl.showCane">Ovr</th>
-            <th ng-if="tggl.showCane">CF</th>
-            <th class="bright" ng-if="tggl.showCane">EX</th>
+            <th ng-if="tggl.showCane && tggl.showAPH">
+                APH&nbsp;<span class="colicon" ng-click="tggl.showAPH = !tggl.showAPH;spanner.crops = spanner.crops - 1;">&blacktriangleleft;</span>
+            </th>
+            <th ng-if="tggl.showCane && tggl.showOvr">
+                Ovr&nbsp;<span class="colicon" ng-click="tggl.showOvr = !tggl.showOvr;spanner.crops = spanner.crops - 1;">&blacktriangleleft;</span>
+            </th>
+            <th ng-if="tggl.showCane && tggl.showCF">
+                CF&nbsp;<span class="colicon" ng-click="tggl.showCF = !tggl.showCF;spanner.crops = spanner.crops - 1;">&blacktriangleleft;</span>
+            </th>
+            <th class="bright" ng-if="tggl.showCane && tggl.showEX">
+                EX&nbsp;<span class="colicon" ng-click="tggl.showEX = !tggl.showEX;spanner.crops = spanner.crops - 1;">&blacktriangleleft;</span>
+            </th>
             <th ng-if="tggl.showSunflowers">Acres</th>
-            <th ng-if="tggl.showSunflowers">APH</th>
-            <th ng-if="tggl.showSunflowers">Ovr</th>
-            <th ng-if="tggl.showSunflowers">CF</th>
-            <th class="bright" ng-if="tggl.showSunflowers">EX</th>
+            <th ng-if="tggl.showSunflowers && tggl.showAPH">
+                APH&nbsp;<span class="colicon" ng-click="tggl.showAPH = !tggl.showAPH;spanner.crops = spanner.crops - 1;">&blacktriangleleft;</span>
+            </th>
+            <th ng-if="tggl.showSunflowers && tggl.showOvr">
+                Ovr&nbsp;<span class="colicon" ng-click="tggl.showOvr = !tggl.showOvr;spanner.crops = spanner.crops - 1;">&blacktriangleleft;</span>
+            </th>
+            <th ng-if="tggl.showSunflowers && tggl.showCF">
+                CF&nbsp;<span class="colicon" ng-click="tggl.showCF = !tggl.showCF;spanner.crops = spanner.crops - 1;">&blacktriangleleft;</span>
+            </th>
+            <th class="bright" ng-if="tggl.showSunflowers && tggl.showEX">
+                EX&nbsp;<span class="colicon" ng-click="tggl.showEX = !tggl.showEX;spanner.crops = spanner.crops - 1;">&blacktriangleleft;</span>
+            </th>
             <th style="width: 20px !important">&nbsp;</th>
         </tr>
         <tr ng-repeat="u in loan.farmunits">
@@ -192,145 +281,145 @@
             <td class="bleft cBlue" ng-class="AppFactory.gtZero(u.crops[0].corn.acres)" style="width:60px;" ng-if="tggl.showCorn">
                 {{u.crops[0].corn.acres|flexNumber:1}}
             </td>
-            <td class="cBlue" ng-class="AppFactory.gtZero(u.crops[0].corn.aph)" style="width:60px;" ng-if="tggl.showCorn">
+            <td class="cBlue" ng-class="AppFactory.gtZero(u.crops[0].corn.aph)" style="width:60px;" ng-if="tggl.showCorn && tggl.showAPH">
                 {{u.crops[0].corn.aph|flexNumber:1}}
             </td>
-            <td class="cBlue" ng-class="AppFactory.gtZero(u.crops[0].corn.override)" style="width:30px;" ng-if="tggl.showCorn">
+            <td class="cBlue" ng-class="AppFactory.gtZero(u.crops[0].corn.override)" style="width:30px;" ng-if="tggl.showCorn && tggl.showOvr">
                 {{u.crops[0].corn.override|flexPercent:1}}
             </td>
-            <td ng-class="AppFactory.gtZero(u.crops[0].corn.CF)" style="width:100px;" ng-if="tggl.showCorn">
-                {{u.crops[0].corn.CF|flexCurrency:2}}
+            <td ng-class="AppFactory.gtZero(u.crops[0].corn.CF)" style="width:100px;" ng-if="tggl.showCorn && tggl.showCF">
+                {{calcUnitCropCF('corn', u)|flexCurrency:2}}
             </td>
-            <td class="bright" ng-class="AppFactory.gtZero(u.crops[0].corn.EX)" style="width:100px;" ng-if="tggl.showCorn">
-                {{u.crops[0].corn.EX|flexCurrency:2}}
+            <td class="bright" ng-class="AppFactory.gtZero(u.crops[0].corn.EX)" style="width:100px;" ng-if="tggl.showCorn && tggl.showEX">
+                {{calcUnitCropEX('corn', u)|flexCurrency:2}}
             </td>
 
             <td class="bleft cBlue" ng-class="AppFactory.gtZero(u.crops[0].soybeans.acres)" style="width:60px;" ng-if="tggl.showSoybeans">
                 {{u.crops[0].soybeans.acres|flexNumber:1}}
             </td>
-            <td class="cBlue" ng-class="AppFactory.gtZero(u.crops[0].soybeans.aph)" style="width:60px;" ng-if="tggl.showSoybeans">
+            <td class="cBlue" ng-class="AppFactory.gtZero(u.crops[0].soybeans.aph)" style="width:60px;" ng-if="tggl.showSoybeans && tggl.showAPH">
                 {{u.crops[0].soybeans.aph|flexNumber:1}}
             </td>
-            <td class="cBlue" ng-class="AppFactory.gtZero(u.crops[0].soybeans.override)" style="width:30px;" ng-if="tggl.showSoybeans">
+            <td class="cBlue" ng-class="AppFactory.gtZero(u.crops[0].soybeans.override)" style="width:30px;" ng-if="tggl.showSoybeans && tggl.showOvr">
                 {{u.crops[0].soybeans.override|flexPercent:1}}
             </td>
-            <td ng-class="AppFactory.gtZero(u.crops[0].soybeans.CF)" style="width:100px;" ng-if="tggl.showSoybeans">
-                {{u.crops[0].soybeans.CF|flexCurrency:2}}
+            <td ng-class="AppFactory.gtZero(u.crops[0].soybeans.CF)" style="width:100px;" ng-if="tggl.showSoybeans && tggl.showCF">
+                {{calcUnitCropCF('soybeans', u)|flexCurrency:2}}
             </td>
-            <td class="bright" ng-class="AppFactory.gtZero(u.crops[0].soybeans.EX)" style="width:100px;" ng-if="tggl.showSoybeans">
-                {{u.crops[0].soybeans.EX|flexCurrency:2}}
+            <td class="bright" ng-class="AppFactory.gtZero(u.crops[0].soybeans.EX)" style="width:100px;" ng-if="tggl.showSoybeans && tggl.showEX">
+                {{calcUnitCropEX('soybeans', u)|flexCurrency:2}}
             </td>
 
             <td class="bleft cBlue" ng-class="AppFactory.gtZero(u.crops[0].sorghum.acres)" style="width:60px;" ng-if="tggl.showSorghum">
                 {{u.crops[0].sorghum.acres|flexNumber:1}}
             </td>
-            <td class="cBlue" ng-class="AppFactory.gtZero(u.crops[0].sorghum.aph)" style="width:60px;" ng-if="tggl.showSorghum">
+            <td class="cBlue" ng-class="AppFactory.gtZero(u.crops[0].sorghum.aph)" style="width:60px;" ng-if="tggl.showSorghum && tggl.showAPH">
                 {{u.crops[0].sorghum.aph|flexNumber:1}}
             </td>
-            <td class="cBlue" ng-class="AppFactory.gtZero(u.crops[0].sorghum.override)" style="width:30px;" ng-if="tggl.showSorghum">
+            <td class="cBlue" ng-class="AppFactory.gtZero(u.crops[0].sorghum.override)" style="width:30px;" ng-if="tggl.showSorghum && tggl.showOvr">
                 {{u.crops[0].sorghum.override|flexPercent:1}}
             </td>
-            <td ng-class="AppFactory.gtZero(u.crops[0].sorghum.CF)" style="width:100px;" ng-if="tggl.showSorghum">
-                {{u.crops[0].sorghum.CF|flexCurrency:2}}
+            <td ng-class="AppFactory.gtZero(u.crops[0].sorghum.CF)" style="width:100px;" ng-if="tggl.showSorghum && tggl.showCF">
+                {{calcUnitCropCF('sorghum', u)|flexCurrency:2}}
             </td>
-            <td class="bright" ng-class="AppFactory.gtZero(u.crops[0].sorghum.EX)" style="width:100px;" ng-if="tggl.showSorghum">
-                {{u.crops[0].sorghum.EX|flexCurrency:2}}
+            <td class="bright" ng-class="AppFactory.gtZero(u.crops[0].sorghum.EX)" style="width:100px;" ng-if="tggl.showSorghum && tggl.showEX">
+                {{calcUnitCropEX('sorghum', u)|flexCurrency:2}}
             </td>
 
             <td class="bleft cBlue" ng-class="AppFactory.gtZero(u.crops[0].wheat.acres)" style="width:60px;" ng-if="tggl.showWheat">
                 {{u.crops[0].wheat.acres|flexNumber:1}}
             </td>
-            <td class="cBlue" ng-class="AppFactory.gtZero(u.crops[0].wheat.aph)" style="width:60px;" ng-if="tggl.showWheat">
+            <td class="cBlue" ng-class="AppFactory.gtZero(u.crops[0].wheat.aph)" style="width:60px;" ng-if="tggl.showWheat && tggl.showAPH">
                 {{u.crops[0].wheat.aph|flexNumber:1}}
             </td>
-            <td class="cBlue" ng-class="AppFactory.gtZero(u.crops[0].wheat.override)" style="width:30px;" ng-if="tggl.showWheat">
+            <td class="cBlue" ng-class="AppFactory.gtZero(u.crops[0].wheat.override)" style="width:30px;" ng-if="tggl.showWheat && tggl.showOvr">
                 {{u.crops[0].wheat.override|flexPercent:1}}
             </td>
-            <td ng-class="AppFactory.gtZero(u.crops[0].wheat.CF)" style="width:100px;" ng-if="tggl.showWheat">
-                {{u.crops[0].wheat.CF|flexCurrency:2}}
+            <td ng-class="AppFactory.gtZero(u.crops[0].wheat.CF)" style="width:100px;" ng-if="tggl.showWheat && tggl.showCF">
+                {{calcUnitCropCF('wheat', u)|flexCurrency:2}}
             </td>
-            <td class="bright" ng-class="AppFactory.gtZero(u.crops[0].wheat.EX)" style="width:100px;" ng-if="tggl.showWheat">
-                {{u.crops[0].wheat.EX|flexCurrency:2}}
+            <td class="bright" ng-class="AppFactory.gtZero(u.crops[0].wheat.EX)" style="width:100px;" ng-if="tggl.showWheat && tggl.showEX">
+                {{calcUnitCropEX('wheat', u)|flexCurrency:2}}
             </td>
 
             <td class="bleft cBlue" ng-class="AppFactory.gtZero(u.crops[0].cotton.acres)" style="width:60px;" ng-if="tggl.showCotton">
                 {{u.crops[0].cotton.acres|flexNumber:1}}
             </td>
-            <td class="cBlue" ng-class="AppFactory.gtZero(u.crops[0].cotton.aph)" style="width:60px;" ng-if="tggl.showCotton">
+            <td class="cBlue" ng-class="AppFactory.gtZero(u.crops[0].cotton.aph)" style="width:60px;" ng-if="tggl.showCotton && tggl.showAPH">
                 {{u.crops[0].cotton.aph|flexNumber:1}}
             </td>
-            <td class="cBlue" ng-class="AppFactory.gtZero(u.crops[0].cotton.override)" style="width:30px;" ng-if="tggl.showCotton">
+            <td class="cBlue" ng-class="AppFactory.gtZero(u.crops[0].cotton.override)" style="width:30px;" ng-if="tggl.showCotton && tggl.showOvr">
                 {{u.crops[0].cotton.override|flexPercent:1}}
             </td>
-            <td ng-class="AppFactory.gtZero(u.crops[0].cotton.CF)" style="width:100px;" ng-if="tggl.showCotton">
-                {{u.crops[0].cotton.CF|flexCurrency:2}}
+            <td ng-class="AppFactory.gtZero(u.crops[0].cotton.CF)" style="width:100px;" ng-if="tggl.showCotton && tggl.showCF">
+                {{calcUnitCropCF('cotton', u)|flexCurrency:2}}
             </td>
-            <td class="bright" ng-class="AppFactory.gtZero(u.crops[0].cotton.EX)" style="width:100px;" ng-if="tggl.showCotton">
-                {{u.crops[0].cotton.EX|flexCurrency:2}}
+            <td class="bright" ng-class="AppFactory.gtZero(u.crops[0].cotton.EX)" style="width:100px;" ng-if="tggl.showCotton && tggl.showEX">
+                {{calcUnitCropEX('cotton', u)|flexCurrency:2}}
             </td>
 
             <td class="bleft cBlue" ng-class="AppFactory.gtZero(u.crops[0].rice.acres)" style="width:60px;" ng-if="tggl.showRice">
                 {{u.crops[0].rice.acres|flexNumber:1}}
             </td>
-            <td class="cBlue" ng-class="AppFactory.gtZero(u.crops[0].rice.aph)" style="width:60px;" ng-if="tggl.showRice">
+            <td class="cBlue" ng-class="AppFactory.gtZero(u.crops[0].rice.aph)" style="width:60px;" ng-if="tggl.showRice && tggl.showAPH">
                 {{u.crops[0].rice.aph|flexNumber:1}}
             </td>
-            <td class="cBlue" ng-class="AppFactory.gtZero(u.crops[0].rice.override)" style="width:30px;" ng-if="tggl.showRice">
+            <td class="cBlue" ng-class="AppFactory.gtZero(u.crops[0].rice.override)" style="width:30px;" ng-if="tggl.showRice && tggl.showOvr">
                 {{u.crops[0].rice.override|flexPercent:1}}
             </td>
-            <td ng-class="AppFactory.gtZero(u.crops[0].rice.CF)" style="width:100px;" ng-if="tggl.showRice">
-                {{u.crops[0].rice.CF|flexCurrency:2}}
+            <td ng-class="AppFactory.gtZero(u.crops[0].rice.CF)" style="width:100px;" ng-if="tggl.showRice && tggl.showCF">
+                {{calcUnitCropCF('rice', u)|flexCurrency:2}}
             </td>
-            <td class="bright" ng-class="AppFactory.gtZero(u.crops[0].rice.EX)" style="width:100px;" ng-if="tggl.showRice">
-                {{u.crops[0].rice.EX|flexCurrency:2}}
+            <td class="bright" ng-class="AppFactory.gtZero(u.crops[0].rice.EX)" style="width:100px;" ng-if="tggl.showRice && tggl.showEX">
+                {{calcUnitCropEX('rice', u)|flexCurrency:2}}
             </td>
 
             <td class="bleft cBlue" ng-class="AppFactory.gtZero(u.crops[0].peanuts.acres)" style="width:60px;" ng-if="tggl.showPeanuts">
                 {{u.crops[0].peanuts.acres|flexNumber:1}}
             </td>
-            <td class="cBlue" ng-class="AppFactory.gtZero(u.crops[0].peanuts.aph)" style="width:60px;" ng-if="tggl.showPeanuts">
+            <td class="cBlue" ng-class="AppFactory.gtZero(u.crops[0].peanuts.aph)" style="width:60px;" ng-if="tggl.showPeanuts && tggl.showAPH">
                 {{u.crops[0].peanuts.aph|flexNumber:1}}
             </td>
-            <td class="cBlue" ng-class="AppFactory.gtZero(u.crops[0].peanuts.override)" style="width:30px;" ng-if="tggl.showPeanuts">
+            <td class="cBlue" ng-class="AppFactory.gtZero(u.crops[0].peanuts.override)" style="width:30px;" ng-if="tggl.showPeanuts && tggl.showOvr">
                 {{u.crops[0].peanuts.override|flexPercent:1}}
             </td>
-            <td ng-class="AppFactory.gtZero(u.crops[0].peanuts.CF)" style="width:100px;" ng-if="tggl.showPeanuts">
-                {{u.crops[0].peanuts.CF|flexCurrency:2}}
+            <td ng-class="AppFactory.gtZero(u.crops[0].peanuts.CF)" style="width:100px;" ng-if="tggl.showPeanuts && tggl.showCF">
+                {{calcUnitCropCF('peanuts', u)|flexCurrency:2}}
             </td>
-            <td class="bright" ng-class="AppFactory.gtZero(u.crops[0].peanuts.EX)" style="width:100px;" ng-if="tggl.showPeanuts">
-                {{u.crops[0].peanuts.EX|flexCurrency:2}}
+            <td class="bright" ng-class="AppFactory.gtZero(u.crops[0].peanuts.EX)" style="width:100px;" ng-if="tggl.showPeanuts && tggl.showEX">
+                {{calcUnitCropEX('peanuts', u)|flexCurrency:2}}
             </td>
 
             <td class="bleft cBlue" ng-class="AppFactory.gtZero(u.crops[0].sugarcane.acres)" style="width:60px;" ng-if="tggl.showCane">
                 {{u.crops[0].sugarcane.acres|flexNumber:1}}
             </td>
-            <td class="cBlue" ng-class="AppFactory.gtZero(u.crops[0].sugarcane.aph)" style="width:60px;" ng-if="tggl.showCane">
+            <td class="cBlue" ng-class="AppFactory.gtZero(u.crops[0].sugarcane.aph)" style="width:60px;" ng-if="tggl.showCane && tggl.showAPH">
                 {{u.crops[0].sugarcane.aph|flexNumber:1}}
             </td>
-            <td class="cBlue" ng-class="AppFactory.gtZero(u.crops[0].sugarcane.override)" style="width:30px;" ng-if="tggl.showCane">
+            <td class="cBlue" ng-class="AppFactory.gtZero(u.crops[0].sugarcane.override)" style="width:30px;" ng-if="tggl.showCane && tggl.showOvr">
                 {{u.crops[0].sugarcane.override|flexPercent:1}}
             </td>
-            <td ng-class="AppFactory.gtZero(u.crops[0].sugarcane.CF)" style="width:100px;" ng-if="tggl.showCane">
-                {{u.crops[0].sugarcane.CF|flexCurrency:2}}
+            <td ng-class="AppFactory.gtZero(u.crops[0].sugarcane.CF)" style="width:100px;" ng-if="tggl.showCane && tggl.showCF">
+                {{calcUnitCropCF('sugarcane', u)|flexCurrency:2}}
             </td>
-            <td class="bright" ng-class="AppFactory.gtZero(u.crops[0].sugarcane.EX)" style="width:100px;" ng-if="tggl.showCane">
-                {{u.crops[0].sugarcane.EX|flexCurrency:2}}
+            <td class="bright" ng-class="AppFactory.gtZero(u.crops[0].sugarcane.EX)" style="width:100px;" ng-if="tggl.showCane && tggl.showEX">
+                {{calcUnitCropEX('sugarcane', u)|flexCurrency:2}}
             </td>
 
             <td class="bleft cBlue" ng-class="AppFactory.gtZero(u.crops[0].sunflowers.acres)" style="width:60px;" ng-if="tggl.showSunflowers">
                 {{u.crops[0].sunflowers.acres|flexNumber:1}}
             </td>
-            <td class="cBlue" ng-class="AppFactory.gtZero(u.crops[0].sunflowers.aph)" style="width:60px;" ng-if="tggl.showSunflowers">
+            <td class="cBlue" ng-class="AppFactory.gtZero(u.crops[0].sunflowers.aph)" style="width:60px;" ng-if="tggl.showSunflowers && tggl.showAPH">
                 {{u.crops[0].sunflowers.aph|flexNumber:1}}
             </td>
-            <td class="cBlue" ng-class="AppFactory.gtZero(u.crops[0].sunflowers.override)" style="width:30px;" ng-if="tggl.showSunflowers">
+            <td class="cBlue" ng-class="AppFactory.gtZero(u.crops[0].sunflowers.override)" style="width:30px;" ng-if="tggl.showSunflowers && tggl.showOvr">
                 {{u.crops[0].sunflowers.override|flexPercent:1}}
             </td>
-            <td ng-class="AppFactory.gtZero(u.crops[0].sunflowers.CF)" style="width:100px;" ng-if="tggl.showSunflowers">
-                {{u.crops[0].sunflowers.CF|flexCurrency:2}}
+            <td ng-class="AppFactory.gtZero(u.crops[0].sunflowers.CF)" style="width:100px;" ng-if="tggl.showSunflowers && tggl.showCF">
+                {{calcUnitCropCF('sunflowers', u)|flexCurrency:2}}
             </td>
-            <td class="bright" ng-class="AppFactory.gtZero(u.crops[0].sunflowers.EX)" style="width:100px;" ng-if="tggl.showSunflowers">
-                {{u.crops[0].sunflowers.EX|flexCurrency:2}}
+            <td class="bright" ng-class="AppFactory.gtZero(u.crops[0].sunflowers.EX)" style="width:100px;" ng-if="tggl.showSunflowers && tggl.showEX">
+                {{calcUnitCropEX('sunflowers', u)|flexCurrency:2}}
             </td>
 
             <td class="text-center">
