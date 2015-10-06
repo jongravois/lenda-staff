@@ -49,7 +49,7 @@
     <li class="list-group-item" ng-class="{active: path === 'financials'}">
         <span class="menuicon glyphicons glyphicons-yen" tooltip="Financial" tooltip-append-to-body="true" tooltip-placement="right" ng-click="ngcLink('financials')" ng-class="{not_valid: loan.tabstats.financials == false}"></span>
     </li>
-    <li class="list-group-item" ng-class="{active: path === 'crops'}">
+    <li class="list-group-item" ng-class="{active: path === 'crops'}" ng-if="loan.loan_type_id != '7'">
         <span class="menuicon glyphicons glyphicons-flower" tooltip="Crop" tooltip-append-to-body="true" tooltip-placement="right" ng-click="ngcLink('crops')" ng-class="{not_valid: loan.tabstats.crops == false}"></span>
     </li>
     <li class="list-group-item" ng-class="{active: path === 'farms'}" ng-if="loan.crop_loan">
@@ -69,7 +69,7 @@
         <span class="menuicon glyphicons glyphicons-screenshot" tooltip="Optimizer" tooltip-append-to-body="true" tooltip-placement="right" ng-click="ngcLink('optimizer')"></span>
     </li>
 
-    <li class="list-group-item" ng-class="{active: path === 'collateral'}" ng-if="loan.crop_loan">
+    <li class="list-group-item" ng-class="{active: path === 'collateral'}" ng-if="loan.crop_loan || loan.loan_type_id == '7'">
         <span class="menuicon glyphicons glyphicons-umbrella" tooltip="Collateral" tooltip-append-to-body="true" tooltip-placement="right" ng-click="ngcLink('collateral')" ng-class="{not_valid: loan.tabstats.collateral == false}"></span>
     </li>
 

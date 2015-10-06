@@ -85,7 +85,8 @@
     </li>
     <li class="list-group-item lnk"
         ng-class="{active: path == 'crops'}"
-        ng-click="ngcLink('crops')">
+        ng-click="ngcLink('crops')"
+        ng-if="loan.loan_type_id != '7'">
         <span class="menuicon glyphicons glyphicons-flower" tooltip="Crop" tooltip-append-to-body="true" tooltip-placement="right" ng-class="{not_valid: loan.tabstats.crops == false}"></span>
         &nbsp;Crop
     </li>
@@ -127,7 +128,7 @@
     <li class="list-group-item lnk"
         ng-class="{active: path == 'collateral'}"
         ng-click="ngcLink('collateral')"
-        ng-if="loan.crop_loan">
+        ng-if="loan.crop_loan || loan.loan_type_id == '7'">
         <span class="menuicon glyphicons glyphicons-umbrella" tooltip="Collateral" tooltip-append-to-body="true" tooltip-placement="right" ng-class="{not_valid: loan.tabstats.collateral == false}"></span>
         &nbsp;Collateral
     </li>

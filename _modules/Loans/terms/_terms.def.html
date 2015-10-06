@@ -64,7 +64,10 @@
             </td>
         </tr>
     </table>
-    <p style="margin-top: -18px;">
+    <p style="margin-top: -18px;" ng-if="loan.loan_type_id !== 7">
         <span class="small_txt">* Interest amounts are best estimates for {{loan.est_days}} estimated days</span>
+    </p>
+    <p style="margin-top: -18px;" ng-if="loan.loan_type_id === 7">
+        <span class="small_txt" style="color:#999;">Due date is {{loan.storage[0].payment_terms}} days after required contractual delivery date</span>
     </p>
 </div>

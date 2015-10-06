@@ -1,5 +1,5 @@
 <style>
-    fieldset{ padding-bottom: 0;}
+    fieldset{ padding-bottom: 0; min-height: 60px;}
 </style>
 <!-- COLLATERAL CONDITIONS -->
 <fieldset>
@@ -22,8 +22,9 @@
 </fieldset>
 <br/>
 <!-- CROPS -->
-<fieldset>
-    <legend>
+<span ng-if="loan.loan_type_id !== 7">
+    <fieldset>
+        <legend>
         &nbsp;
             <span class="pendicon glyphicon glyphicon-chevron-right"
                   ng-click="tggl.showCropCollateral = !tggl.showCropCollateral"
@@ -34,7 +35,7 @@
         &nbsp;
         Crops
     </legend>
-    <div class="container-fluid row form-group" ng-if="tggl.showCropCollateral">
+        <div class="container-fluid row form-group" ng-if="tggl.showCropCollateral">
         <div class="col-md-12">
             <label>Crop Discount</label>
             <input type="number" class="form-control" name="percent_crop" ng-model="loan.fins.discounts.percent_crop" style="width:100px;">
@@ -65,10 +66,31 @@
             &nbsp;<label>No</label>
         </div>
     </div>
-    <div class="row form-group" ng-if="loan.quests.liens && tggl.showCropCollateral">
+        <div class="row form-group" ng-if="loan.quests.liens && tggl.showCropCollateral">
         <div ng-include="'./_modules/Loans/collateral/_crop.collateral.html'"></div>
-    </div>
-</fieldset>
+        </div>
+    </fieldset>
+</span>
+<!-- STORAGE CONTRACTS-->
+<span ng-if="loan.loan_type_id === 7">
+    <fieldset style="padding-bottom: 16px;">
+        <legend>
+            &nbsp;
+            <span class="pendicon glyphicon glyphicon-chevron-right"
+                  ng-click="tggl.showStorage = !tggl.showStorage"
+                  ng-if="!tggl.showStorage"></span>
+            <span class="pendicon glyphicon glyphicon-chevron-down"
+                  ng-click="tggl.showStorage = !tggl.showStorage"
+                  ng-if="tggl.showStorage"></span>
+            &nbsp;
+            Storage Contracts
+        </legend>
+        <div class="container-fluid"
+             ng-include="'./_modules/Loans/collateral/_storage.html'"
+             ng-if="tggl.showStorage">
+        </div>
+    </fieldset>
+</span>
 <br/>
 <!-- EQUIPMENT -->
 <fieldset>

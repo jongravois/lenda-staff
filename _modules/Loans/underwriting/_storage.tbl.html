@@ -1,16 +1,25 @@
-<table class="table table-striped rowed disp-sm" style="width:990px;">
+<table class="table table-striped rowed disp-sm" style="width:900px;">
     <tr>
-        <th style="width:100px;">Contract</th>
-        <th style="width:120px;">Date</th>
-        <th style="width:120px;">Delivery</th>
-        <th style="width:100px;">Amount</th>
-        <th style="width:100px;">Price</th>
-        <th style="width:120px;">Owner Share</th>
-        <th style="width:120px;">Exp Rev</th>
-        <th style="width:80px;">Advance</th>
-        <th style="width:120px;">Eligible</th>
+        <th style="width:95px;">Buyer</th>
+        <th style="width:75px;">Crop</th>
+        <th style="width:75px;">Cnt</th>
+        <th style="width:75px;">Cnt Dt</th>
+        <th style="width:75px;">Del Dt</th>
+        <th style="width:75px;">Qty</th>
+        <th style="width:75px;">Price</th>
+        <th style="width:65px;">Mkt Set</th>
+        <th style="width:75px;">Prod Share</th>
+        <th style="width:75px;">Exp Rev</th>
+        <th style="width:65px;">Disc</th>
+        <th style="width:75px;">Eligible</th>
     </tr>
     <tr ng-repeat="s in loan.storage">
+        <td>
+            {{s.grain_buyer}}
+        </td>
+        <td>
+            {{s.commodity}}
+        </td>
         <td>
             {{s.contract_number}}
         </td>
@@ -21,22 +30,40 @@
             {{s.delivery_date|date:'MM/dd/yyyy'}}
         </td>
         <td class="text-right">
-            {{s.contract_amount|flexZeroCurrency:0}}
+            {{s.contract_amount|flexZeroNumber:1}}
         </td>
         <td class="text-right">
             {{s.contract_price|flexZeroCurrency:4}}
         </td>
+        <td class="text-center">
+            {{s.mkt_set|booleanYN}}
+        </td>
         <td class="text-right">
-            {{s.owner_share|flexZeroPercent:1}}
+            {{100 - s.owner_share|flexZeroPercent:1}}
         </td>
         <td class="text-right">
             {{s.revenue|flexZeroCurrency:0}}
         </td>
         <td class="text-right">
-            {{s.advance_percent|flexZeroPercent:1}}
+            {{100 - s.advance_percent|flexZeroPercent:1}}
         </td>
         <td class="text-right">
             {{s.eligible_proceeds|flexZeroCurrency:0}}
+        </td>
+    </tr>
+    <tr class="success">
+        <td>Total</td>
+        <td colspan="4">&nbsp;</td>
+        <td class="text-right">
+            {{getTotalStoAmt()|flexZeroNumber:1}}
+        </td>
+        <td colspan="3">&nbsp;</td>
+        <td class="text-right">
+            {{getTotalStoRev()|flexZeroCurrency:0}}
+        </td>
+        <td>&nbsp;</td>
+        <td class="text-right">
+            {{getTotalStoEligible()|flexZeroCurrency:0}}
         </td>
     </tr>
 </table>
