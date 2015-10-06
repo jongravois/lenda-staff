@@ -1,6 +1,6 @@
 <table class="table table-striped rowed disp-sm" style="width:900px;">
     <tr>
-        <th style="width:95px;">Buyer</th>
+        <th style="width:90px;">Buyer</th>
         <th style="width:75px;">Crop</th>
         <th style="width:75px;">Cnt</th>
         <th style="width:75px;">Cnt Dt</th>
@@ -14,7 +14,7 @@
         <th style="width:75px;">Eligible</th>
     </tr>
     <tr ng-repeat="s in loan.storage">
-        <td>
+        <td class="truncate">
             {{s.grain_buyer}}
         </td>
         <td>
@@ -30,7 +30,7 @@
             {{s.delivery_date|date:'MM/dd/yyyy'}}
         </td>
         <td class="text-right">
-            {{s.contract_amount|flexZeroNumber:1}}
+            {{s.contract_amount|flexZeroNumber:0}}
         </td>
         <td class="text-right">
             {{s.contract_price|flexZeroCurrency:4}}
@@ -55,7 +55,7 @@
         <td>Total</td>
         <td colspan="4">&nbsp;</td>
         <td class="text-right">
-            {{getTotalStoAmt()|flexZeroNumber:1}}
+            {{getTotalStoAmt()|flexZeroNumber:0}}
         </td>
         <td colspan="3">&nbsp;</td>
         <td class="text-right">

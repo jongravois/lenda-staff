@@ -215,11 +215,11 @@
                         enableCellEdit: true,
                         displayName: 'Qty',
                         cellClass: 'text-right cBlue',
-                        cellFilter: 'flexZeroNumber:1',
+                        cellFilter: 'flexZeroNumber:0',
                         headerCellClass: 'text-center bGreen',
                         enableColumnMenu: false,
                         footerCellClass: 'text-right cTotal padd nBold',
-                        footerCellTemplate: '<span>{{grid.appScope.getAmtTotal()|flexZeroNumber:1}}</span>',
+                        footerCellTemplate: '<span>{{grid.appScope.getAmtTotal()|flexZeroNumber:0}}</span>',
                         width: '72'
                     },
                     {
@@ -272,9 +272,9 @@
                     },
                     {
                         name: 'advance_percent',
-                        enableCellEdit: false,
+                        enableCellEdit: true,
                         displayName: 'Disc',
-                        cellClass: 'text-right',
+                        cellClass: 'text-right cBlue',
                         cellTemplate: '<span>{{grid.appScope.getStoDisc(row.entity)|flexZeroPercent:1}}</span>',
                         headerCellClass: 'text-center bGreen',
                         enableColumnMenu: false,
