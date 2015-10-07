@@ -4,9 +4,9 @@
         .module('ARM')
         .controller('FarmsController', FarmsController);
 
-        FarmsController.$inject = ['$rootScope', '$scope', 'AppFactory'];
+        FarmsController.$inject = ['$rootScope', '$scope', 'SweetAlert', 'AppFactory'];
 
-        function FarmsController($rootScope, $scope, AppFactory){
+        function FarmsController($rootScope, $scope, SweetAlert, AppFactory){
             $scope.AppFactory = AppFactory;
             //console.log($scope.loan.farms);
 
@@ -18,16 +18,39 @@
             ];
 
             $scope.addNewFarm = function() {
-                alert('working');
+                var newb = getNewFarm();
+                AppFactory.postIt('farms', newb)
+                    .then(function (rsp) {
+                        var id = rsp.data;
+                        angular.extend(newb, {id: id});
+                        $scope.hgt += 30;
+                        $scope.loan.farms.push(newb);
+                    });
             }
             $scope.saveFarm = function(data, id) {
-                alert('working');
+                AppFactory.putIt('farms', id, data)
+                    .then(function(rsp){
+                        toastr.success('Updated farm information', 'Success!');
+                    });
             }
             $scope.deleteFarm = function(index, id) {
-                alert('working');
+                SweetAlert.swal({
+                        title: "Are you sure?",
+                        text: "You will not be able to undo this operation.",
+                        type: "warning",
+                        showCancelButton: true,
+                        confirmButtonColor: "#006837",
+                        confirmButtonText: "Delete",
+                        closeOnConfirm: true},
+                    function(){
+                        AppFactory.deleteIt('farms', id);
+                        _.remove($scope.loan.farms, {id: id});
+                    });
             }
             $scope.updateFarms = function() {
-                alert('working');
+                _.each($scope.loan.farms, function(f){
+                    AppFactory.putIt('farms', f.id, f);
+                });
             }
 
             $scope.gridOpts = {
@@ -128,7 +151,7 @@
                         enableColumnMenu: false,
                         width: '30',
                         maxWidth: '30',
-                        cellTemplate: '<span style="font-size:16px; color:#990000; cursor:pointer;" ng-click="grid.appScope.deleteOne(row.entity.id)">&cross;</span>',
+                        cellTemplate: '<span style="font-size:16px; color:#990000; cursor:pointer;" ng-click="grid.appScope.deleteFarm(row.entity.id)">&cross;</span>',
                         headerCellTemplate: '<div class="text-center padd bGreen" style="width:30px;">&nbsp;</div>'
                     }
                 ],
