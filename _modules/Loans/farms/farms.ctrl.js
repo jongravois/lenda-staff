@@ -33,7 +33,7 @@
                         toastr.success('Updated farm information', 'Success!');
                     });
             }
-            $scope.deleteFarm = function(index, id) {
+            $scope.deleteFarm = function(id) {
                 SweetAlert.swal({
                         title: "Are you sure?",
                         text: "You will not be able to undo this operation.",
@@ -44,6 +44,7 @@
                         closeOnConfirm: true},
                     function(){
                         AppFactory.deleteIt('farms', id);
+                        $scope.hgt -= 30;
                         _.remove($scope.loan.farms, {id: id});
                     });
             }
@@ -60,7 +61,7 @@
                     {
                         name: 'county.locale',
                         enableCellEdit: true,
-                        displayName: 'Locale',
+                        displayName: 'ST | Cnty',
                         cellClass: 'text-left cBlue',
                         headerCellClass: 'text-center bGreen',
                         enableColumnMenu: false,
