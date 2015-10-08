@@ -55,6 +55,7 @@
             }
 
             $scope.gridOpts = {
+                enableRowSelection: false,
                 enableCellEditOnFocus: true,
                 rowTemplate: './_modules/Admin/_views/_row.tmpl.html',
                 columnDefs: [
@@ -132,7 +133,7 @@
                         cellClass: 'text-left cBlue',
                         headerCellClass: 'text-center bGreen',
                         enableColumnMenu: false,
-                        width: '160'
+                        width: '140'
                     },
                     {
                         name: 'waived',
@@ -197,7 +198,7 @@
                 $scope.$scope = $scope;
                 $scope.gridApi = gridApi;
                 $scope.hgt = 32 + $scope.loan.farms.length * 30;
-                $scope.wdt = 990;
+                $scope.wdt = 970;
                 $scope.gridApi.gridHeight = $scope.hgt;
                 $scope.gridApi.gridWidth = $scope.wdt;
                 gridApi.edit.on.afterCellEdit($scope, function(rowEntity, colDef, newValue, oldValue) {

@@ -81,7 +81,7 @@
                 showBalanceSheet: false,
                 showIncomeHistory: false,
                 showCreditPoints: false,
-                showBorrowerRating: true
+                showBorrowerRating: false
             };
 
             //BALANCE SHEET

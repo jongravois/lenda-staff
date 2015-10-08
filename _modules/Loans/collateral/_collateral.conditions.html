@@ -50,7 +50,7 @@
         <th style="width:15%;">Exposure</th>
     </tr>
     <tr ng-repeat="x in loan.xcols">
-        <td>{{x.slug}}</td>
+        <td class="truncate">{{x.slug}}</td>
         <td ng-class="AppFactory.gtZero(getXARMCommit(x, loans))">
             {{getXARMCommit(x, loans)|flexCurrency:0}}
         </td>

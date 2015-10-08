@@ -72,7 +72,7 @@
                         cellClass: 'text-left cBlue',
                         headerCellClass: 'text-center bGreen',
                         enableColumnMenu: false,
-                        width: '200'
+                        width: '205'
                     },
                     {
                         name: 'lien_amount',
@@ -136,7 +136,7 @@
                 $scope.$scope = $scope;
                 $scope.gridApi = gridApi;
                 $scope.crp_hgt = 32 + $scope.loan.priorlien.length * 30;
-                $scope.crp_wdt = 930;
+                $scope.crp_wdt = 935;
                 $scope.gridApi.gridHeight = $scope.crp_hgt;
                 $scope.gridApi.gridWidth = $scope.crp_wdt;
                 gridApi.edit.on.afterCellEdit($scope, function(rowEntity, colDef, newValue, oldValue) {
@@ -162,7 +162,7 @@
                         enableColumnMenu: false,
                         footerCellClass: 'cTotal padd',
                         footerCellTemplate: '<span>Total:</span>',
-                        width: '130'
+                        width: '120'
                     },
                     {
                         name: 'commodity',
@@ -173,7 +173,7 @@
                         enableColumnMenu: false,
                         footerCellClass: 'cTotal padd',
                         footerCellTemplate: '<span></span>',
-                        width: '75'
+                        width: '71'
                     },
                     {
                         name: 'contract_number',
@@ -184,7 +184,7 @@
                         enableColumnMenu: false,
                         footerCellClass: 'cTotal padd',
                         footerCellTemplate: '<span></span>',
-                        width: '75'
+                        width: '70'
                     },
                     {
                         name: 'contract_date',
@@ -220,7 +220,7 @@
                         enableColumnMenu: false,
                         footerCellClass: 'text-right cTotal padd nBold',
                         footerCellTemplate: '<span>{{grid.appScope.getAmtTotal()|flexZeroNumber:0}}</span>',
-                        width: '72'
+                        width: '70'
                     },
                     {
                         name: 'contract_price',
@@ -232,7 +232,7 @@
                         enableColumnMenu: false,
                         footerCellClass: 'cTotal padd',
                         footerCellTemplate: '<span></span>',
-                        width: '72'
+                        width: '70'
                     },
                     {
                         name: 'mkt_set',
@@ -244,7 +244,7 @@
                         enableColumnMenu: false,
                         footerCellClass: 'cTotal padd',
                         footerCellTemplate: '<span></span>',
-                        width: '55'
+                        width: '54'
                     },
                     {
                         name: 'owner_share',
@@ -256,7 +256,7 @@
                         enableColumnMenu: false,
                         footerCellClass: 'cTotal padd',
                         footerCellTemplate: '<span></span>',
-                        width: '70'
+                        width: '65'
                     },
                     {
                         name: 'revenue',
@@ -268,7 +268,7 @@
                         enableColumnMenu: false,
                         footerCellClass: 'text-right cTotal padd nBold',
                         footerCellTemplate: '<span>{{grid.appScope.getRevenueTotal()|flexZeroCurrency:0}}</span>',
-                        width: '80'
+                        width: '75'
                     },
                     {
                         name: 'advance_percent',
@@ -280,7 +280,7 @@
                         enableColumnMenu: false,
                         footerCellClass: 'cTotal padd',
                         footerCellTemplate: '<span></span>',
-                        width: '60'
+                        width: '55'
                     },
                     {
                         name: 'eligible_proceeds',
@@ -292,7 +292,7 @@
                         enableColumnMenu: false,
                         footerCellClass: 'text-right cTotal padd nBold',
                         footerCellTemplate: '<span>{{grid.appScope.getEligibleTotal()|flexZeroCurrency:0}}</span>',
-                        width: '75'
+                        width: '70'
                     },
                     {
                         name: 'del',
@@ -349,7 +349,7 @@
                 $scope.$scope = $scope;
                 $scope.gridApi = gridApi;
                 $scope.sto_hgt = 32 + ($scope.loan.storage.length+1) * 30;
-                $scope.sto_wdt = 974;
+                $scope.sto_wdt = 935;
                 $scope.gridApi.gridHeight = $scope.sto_hgt;
                 $scope.gridApi.gridWidth = $scope.sto_wdt;
                 gridApi.edit.on.afterCellEdit($scope, function(rowEntity, colDef, newValue, oldValue) {
@@ -372,7 +372,7 @@
                         cellClass: 'text-left cBlue',
                         headerCellClass: 'text-center bGreen',
                         enableColumnMenu: false,
-                        width: '300'
+                        width: '200'
                     },
                     {
                         name: 'source',
@@ -381,7 +381,7 @@
                         cellClass: 'text-left cBlue',
                         headerCellClass: 'text-center bGreen',
                         enableColumnMenu: false,
-                        width: '120'
+                        width: '105'
                     },
                     {
                         name: 'mkt_value',
@@ -484,7 +484,7 @@
                 $scope.$scope = $scope;
                 $scope.gridApi = gridApi;
                 $scope.eqp_hgt = 32 + $scope.loan.collateral.equipment.length * 30;
-                $scope.eqp_wdt = 1050;
+                $scope.eqp_wdt = 935;
                 $scope.gridApi.gridHeight = $scope.eqp_hgt;
                 $scope.gridApi.gridWidth = $scope.eqp_wdt;
                 gridApi.edit.on.afterCellEdit($scope, function(rowEntity, colDef, newValue, oldValue) {
@@ -507,7 +507,7 @@
                         cellClass: 'text-left cBlue',
                         headerCellClass: 'text-center bGreen',
                         enableColumnMenu: false,
-                        width: '300'
+                        width: '200'
                     },
                     {
                         name: 'source',
@@ -516,7 +516,7 @@
                         cellClass: 'text-left cBlue',
                         headerCellClass: 'text-center bGreen',
                         enableColumnMenu: false,
-                        width: '120'
+                        width: '105'
                     },
                     {
                         name: 'mkt_value',
@@ -619,7 +619,7 @@
                 $scope.$scope = $scope;
                 $scope.gridApi = gridApi;
                 $scope.rest_hgt = 32 + $scope.loan.collateral.realestate.length * 30;
-                $scope.rest_wdt = 1050;
+                $scope.rest_wdt = 935;
                 $scope.gridApi.gridHeight = $scope.rest_hgt;
                 $scope.gridApi.gridWidth = $scope.rest_wdt;
                 gridApi.edit.on.afterCellEdit($scope, function(rowEntity, colDef, newValue, oldValue) {
@@ -642,7 +642,7 @@
                         cellClass: 'text-left cBlue',
                         headerCellClass: 'text-center bGreen',
                         enableColumnMenu: false,
-                        width: '300'
+                        width: '200'
                     },
                     {
                         name: 'source',
@@ -651,7 +651,7 @@
                         cellClass: 'text-left cBlue',
                         headerCellClass: 'text-center bGreen',
                         enableColumnMenu: false,
-                        width: '120'
+                        width: '105'
                     },
                     {
                         name: 'mkt_value',
@@ -754,7 +754,7 @@
                 $scope.$scope = $scope;
                 $scope.gridApi = gridApi;
                 $scope.fsa_hgt = 32 + $scope.loan.collateral.fsa.length * 30;
-                $scope.fsa_wdt = 1050;
+                $scope.fsa_wdt = 935;
                 $scope.gridApi.gridHeight = $scope.fsa_hgt;
                 $scope.gridApi.gridWidth = $scope.fsa_wdt;
                 gridApi.edit.on.afterCellEdit($scope, function(rowEntity, colDef, newValue, oldValue) {
@@ -777,7 +777,7 @@
                         cellClass: 'text-left cBlue',
                         headerCellClass: 'text-center bGreen',
                         enableColumnMenu: false,
-                        width: '300'
+                        width: '200'
                     },
                     {
                         name: 'source',
@@ -786,7 +786,7 @@
                         cellClass: 'text-left cBlue',
                         headerCellClass: 'text-center bGreen',
                         enableColumnMenu: false,
-                        width: '120'
+                        width: '105'
                     },
                     {
                         name: 'mkt_value',
@@ -889,7 +889,7 @@
                 $scope.$scope = $scope;
                 $scope.gridApi = gridApi;
                 $scope.other_hgt = 32 + $scope.loan.collateral.other.length * 30;
-                $scope.other_wdt = 1050;
+                $scope.other_wdt = 935;
                 $scope.gridApi.gridHeight = $scope.other_hgt;
                 $scope.gridApi.gridWidth = $scope.other_wdt;
                 gridApi.edit.on.afterCellEdit($scope, function(rowEntity, colDef, newValue, oldValue) {

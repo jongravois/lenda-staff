@@ -36,7 +36,7 @@
                         enableColumnMenu: false,
                         footerCellClass: 'cTotal padd',
                         footerCellTemplate: '<span>Total:</span>',
-                        width: '600'
+                        width: '535'
                     },
                     {
                         name: 'calc_arm',
@@ -128,7 +128,7 @@
                 $scope.$scope = $scope;
                 $scope.gridApi = gridApi;
                 $scope.bud_hgt = 30 + ($scope.buddy.length+1) * 30;
-                $scope.bud_wdt = 1000;
+                $scope.bud_wdt = 935;
                 $scope.gridApi.gridHeight = $scope.bud_hgt;
                 $scope.gridApi.gridWidth = $scope.bud_wdt;
                 gridApi.edit.on.afterCellEdit($scope, function(rowEntity, colDef, newValue, oldValue) {

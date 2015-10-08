@@ -1577,6 +1577,7 @@
                             commit_other: l.fins.commit_other,
                             crop_acres: l.fins.crop_acres,
                             crop_values: makeXCropvals(l),
+                            ins_value: makeXInsVals(l),
                             exposure: l.fins.exposure,
                             expenses: l.expenses,
                             interest_arm: Number(calcArmInterest(l)),
