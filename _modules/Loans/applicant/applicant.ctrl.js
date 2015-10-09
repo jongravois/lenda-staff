@@ -8,8 +8,10 @@
 
         function ApplicantsController($rootScope, $scope, $state, $stateParams, $timeout, SweetAlert, toastr, AppFactory){
             $scope.newapplications = $state.current.data.newapplications;
-            if($scope.loan.farmer && $scope.loan.farmer.dob) {
-                $scope.loan.farmer.dob = moment($scope.loan.farmer.dob).format('MM/DD/YYYY');
+            if($scope.loan) {
+                if ($scope.loan.farmer && $scope.loan.farmer.dob) {
+                    $scope.loan.farmer.dob = moment($scope.loan.farmer.dob).format('MM/DD/YYYY');
+                }
             }
 
             $scope.farmerSaved = false;
